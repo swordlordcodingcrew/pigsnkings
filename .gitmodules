@@ -1,0 +1,6 @@
+[submodule "libs/DANG"]
+	path = libs/DANG
+	url = https://github.com/swordlordcodingcrew/DANG.git
+[submodule "libs/32blit-beta"]
+	path = libs/32blit-beta
+	url = https://github.com/pimoroni/32blit-beta.git
