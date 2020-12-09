@@ -75,11 +75,11 @@ namespace pnk
 
         // extrude and add imagesheets & spritesheets
         spImagesheet is = tmx_ext.extrudeImagesheet(img_name_bg);
-        gear.addImagesheet(img_name_bg, is);
+        gear.addImagesheet(is);
         _pnk.loadSpriteSheet(is);
 
         is = tmx_ext.extrudeImagesheet(img_name_spr);
-        gear.addImagesheet(img_name_spr, is);
+        gear.addImagesheet(is);
         _pnk.loadSpriteSheet(is);
 
         // create background Tilelayer

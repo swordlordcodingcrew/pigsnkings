@@ -12,6 +12,8 @@
 
 #include "GameState.h"
 
+#include "World.h"
+
 
 namespace pnk
 {
@@ -34,12 +36,14 @@ namespace pnk
                                       "HOME ('1'): back to main\n"
                                       "MENU ('2'): pause";
 
-        dang::tmx_level _lvl;
+        dang::tmx_level _tmx;
 
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
         std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
         spImagesheet _obj_is{nullptr};
         dang::tmx_spriteobject _bubble_prototype;
+        // TODO
+        dang::tmx_spriteobject _enemy_prototype;
 
         // vp handling per room
         // assuming that 1 room is the size of the screen

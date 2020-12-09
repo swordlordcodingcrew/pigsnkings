@@ -67,20 +67,20 @@ namespace pnk
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
-        _lvl = init_pnk_32_lvl1();
-        dang::TmxExtruder tmx_ext(&_lvl);
+        _tmx = init_pnk_32_lvl1();
+        dang::TmxExtruder tmx_ext(&_tmx);
 
         dang::RectF vp = {0, 0, 320, 240};
-        gear.initLevel(_lvl, vp);
+        gear.initLevel(_tmx, vp);
         gear.setActiveWorldSize(vp.w, vp.h);
 
         // extrude and add the imagesheets
         spImagesheet is = tmx_ext.extrudeImagesheet(img_name_bg);
-        gear.addImagesheet(img_name_bg, is);
+        gear.addImagesheet(is);
         _pnk.loadSpriteSheet(is);
 
         _obj_is = tmx_ext.extrudeImagesheet(img_name_obj);
-        gear.addImagesheet(img_name_obj, _obj_is);
+        gear.addImagesheet(_obj_is);
         _pnk.loadSpriteSheet(_obj_is);
 
         // create background Tilelayer
@@ -95,7 +95,7 @@ namespace pnk
         const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(playfield_name);
         for (const dang::tmx_spriteobject& so : ola->so)
         {
-            spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
+            spImagesheet is = gear.getImagesheet(_tmx.tilesets[so.tileset].name);
             spCollisionSprite spr;
             if (so.type == "hotrect")
             {

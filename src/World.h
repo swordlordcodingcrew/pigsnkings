@@ -9,7 +9,7 @@
 
 namespace pnk
 {
-    class Level
+    class World
     {
     public:
         /**
@@ -40,6 +40,13 @@ namespace pnk
         std::vector<action> _screenplay;
 
     };
+
+    class World1 : public World
+    {
+    public:
+        World1();
+    };
+
 
 }
 

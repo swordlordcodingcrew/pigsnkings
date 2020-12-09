@@ -34,7 +34,7 @@ namespace pnk
 
         dang::SizeU size(104, 200);
         spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", sl_shield_32blit_png, size);
-        gear.addImagesheet("sl_shield", is);
+        gear.addImagesheet(is);
         _pnk.loadSpriteSheet(is);
 
         spSprite sp = std::make_shared<dang::Sprite>();
