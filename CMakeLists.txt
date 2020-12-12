@@ -38,8 +38,8 @@ set(SOURCES
         src/GSHome.h
         src/GSPlay.cpp
         src/GSPlay.h
-        src/World.cpp
-        src/World.h
+        src/LevelFlow.cpp
+        src/LevelFlow.h
         rsrc/tiles_bg_png.h
         rsrc/players_png.h
         rsrc/pnk_32_lvl1.tmx.hpp

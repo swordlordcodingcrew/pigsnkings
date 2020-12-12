@@ -69,7 +69,7 @@ namespace pnk
     {
         blit::set_screen_mode(blit::ScreenMode::hires);
 
-        // set the callback functions for drawing
+        // set the DANG callback functions for drawing
         _gear.blit_sprite_cb = PigsnKings::blit_sprite_cb;
         _gear.set_spritesheet_cb = PigsnKings::set_spritesheet_cb;
 

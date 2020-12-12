@@ -9,14 +9,9 @@
 
 namespace pnk
 {
-    class World
+    class LevelFlow
     {
     public:
-        /**
-         * center of the room in the tiled-level
-         * unit: float
-         */
-        dang::Vector2F      _room_center{0,0};
 
         /**
          * tmx ids
@@ -30,21 +25,27 @@ namespace pnk
         std::string         _l_bg_id;
         std::string         _l_obj_id;
 
+
         // TODO -> simple screenplay
-        struct action
+        struct roomflow
         {
-            float time{0};
-            u_int32_t spawn_spr_with_id{0};
+            /**
+             * center of the room in the tiled-level
+             * unit: float
+             */
+            dang::Vector2F  room_center{0,0};
+            u_int32_t       spawn_spr_with_id{0};
+            u_int32_t       number_of_spawns{1};
         };
 
-        std::vector<action> _screenplay;
+        std::vector<roomflow> _roomflows;
 
     };
 
-    class World1 : public World
+    class Level1Flow : public LevelFlow
     {
     public:
-        World1();
+        Level1Flow();
     };
 
 

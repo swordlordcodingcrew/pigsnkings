@@ -12,7 +12,7 @@
 
 #include "GameState.h"
 
-#include "World.h"
+#include "LevelFlow.h"
 
 
 namespace pnk
@@ -36,30 +36,32 @@ namespace pnk
                                       "HOME ('1'): back to main\n"
                                       "MENU ('2'): pause";
 
-        dang::tmx_level _tmx;
+        const uint32_t      _room_buffer = 4;  // "hotrect" when the room shall change
+        const uint32_t      _spawn_delay = 1000;    // in whatever unit, some kind of subseconds
+
+        dang::tmx_level             _tmx;
+        std::shared_ptr<LevelFlow>  _lvl_flow;
 
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
         std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
         spImagesheet _obj_is{nullptr};
-        dang::tmx_spriteobject _bubble_prototype;
-        // TODO
-        dang::tmx_spriteobject _enemy_prototype;
 
         // vp handling per room
         // assuming that 1 room is the size of the screen
-        dang::Vector2F      _room_center{0,0};
-        const uint32_t      _room_buffer = 4;  // "hotrect" when the room shall change
+        dang::Vector2F          _active_room_center{0, 0};
+        std::map<uint16_t, dang::tmx_spriteobject> _prototypes;
 
-        // define level to be loaded (according to the tmx-file)
-        const std::string bg_name = "lvl1_bg";
-        const std::string playfield_name = "lvl1_obj";
-        const std::string img_name_bg = "tiles_bg_32_png";
-        const std::string img_name_obj = "players_png";
+        // flow stuff
+        LevelFlow::roomflow*    _active_room_flow{nullptr};
+        uint32_t                _last_time{0};
+        bool                    _spawn_ready{true};
+        uint32_t                _spawned{0};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};
-
         void gameEventReceived(dang::Event &e);
+
+
 
     };
 
