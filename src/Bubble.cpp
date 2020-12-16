@@ -49,22 +49,7 @@ namespace pnk
         tw_seq_anim->addTween(twa);
         twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
         tw_seq_anim->addTween(twa);
-        tw_seq_anim->setFinishedCallback([=] () {
-
-            // remove bubble
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-            e->_spr = shared_from_this();
-            pnk::_pnk._dispatcher.queueEvent(std::move(e));
-
-            // remove enemy if catched
-            if (_enemy_catched)
-            {
-                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                e->_spr = _catched_en;
-                pnk::_pnk._dispatcher.queueEvent(std::move(e));
-            }
-
-        });
+        tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
 
         setAnimation(tw_seq_anim);
 
@@ -96,31 +81,61 @@ namespace pnk
         if (mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1)
         {
             _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == TN_ENEMY1 ? mf.other : mf.me);
-            _catched_en.lock()->setPos(_pos);
+            std::shared_ptr<Enemy> en = _catched_en.lock();
+            if (en)
+            {
+                _pos = (_pos + en->getPos()) / 2.0f;
+                en->setPos(_pos);
+            }
             _enemy_catched = true;
+
+            removeTweens(true);
+            removeAnimation(true);
+            _vel = {0, -0.5};
+            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 12);
+            twa->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
+            setAnimation(twa);
+        }
+        else if (mf.other->_type_num == TN_HERO || mf.me->_type_num == TN_HERO)
+        {
+            if (_enemy_catched)
+            {
+                // TODO: reward
+            }
+            removeSelf();
         }
         else
         {
-            // remove bubble
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-            e->_spr = shared_from_this();
-            pnk::_pnk._dispatcher.queueEvent(std::move(e));
-
-            // remove enemy if catched
-            if (_enemy_catched)
-            {
-                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                e->_spr = _catched_en;
-                pnk::_pnk._dispatcher.queueEvent(std::move(e));
-            }
+            removeTweens(true);
+            removeAnimation(true);
+            _vel = {0, 0};
+            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
+            twa->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
+            setAnimation(twa);
         }
     }
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(spSprite other)
     {
-        return _enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_TOUCH;
+        return dang::CollisionSpriteLayer::CR_TOUCH;
+//        return _enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_TOUCH;
     }
 
+    void Bubble::removeSelf()
+    {
+        // remove bubble
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+        e->_spr = shared_from_this();
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+        // remove enemy if catched
+        if (_enemy_catched)
+        {
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+            e->_spr = _catched_en;
+            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        }
+    }
 
 
 }

@@ -31,6 +31,9 @@ namespace pnk
 
         bool _enemy_catched{false};
         std::weak_ptr<Enemy> _catched_en;
+
+    protected:
+        void removeSelf();
     };
 }
 

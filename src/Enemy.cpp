@@ -50,11 +50,17 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Enemy::getCollisionResponse(spSprite other)
     {
+        if (_bubbled)
+        {
+            return dang::CollisionSpriteLayer::CR_NONE;
+        }
+
         if (other->_type_num == TN_HERO)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
-        return _bubbled ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_SLIDE;
+
+        return dang::CollisionSpriteLayer::CR_SLIDE;
     }
 
     void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
