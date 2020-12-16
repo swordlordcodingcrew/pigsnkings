@@ -41,6 +41,7 @@ namespace pnk
         friend class NormalState;
         friend class EnteringState;
         friend class ExitState;
+        friend class HitState;
         friend class PauseState;
         friend class WaitState;
         friend class WalkState;
@@ -51,6 +52,7 @@ namespace pnk
 
         bool    _on_ground{false};
         bool    _top_hit{false};
+        bool    _hit{false};
 
         // state stuff
         std::shared_ptr<SomaticState>   _somatic_state;

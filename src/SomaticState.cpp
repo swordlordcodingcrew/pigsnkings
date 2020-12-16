@@ -19,6 +19,7 @@ namespace pnk
     std::shared_ptr<EnteringState> SomaticState::_entering = std::make_shared<EnteringState>();
     std::shared_ptr<ExitState> SomaticState::_exit = std::make_shared<ExitState>();
     std::shared_ptr<NormalState> SomaticState::_normal = std::make_shared<NormalState>();
+    std::shared_ptr<HitState> SomaticState::_hit = std::make_shared<HitState>();
 
     /**************************************************
      * class EnteringState
@@ -65,7 +66,6 @@ namespace pnk
 
     void NormalState::enter(Hero &hero, uint32_t dt)
     {
-//        hero._last_update_time = time;
         hero._gravity = PigsnKings::_gravity;
 
         if (hero._action_state == ActionState::_bubble)
@@ -75,6 +75,7 @@ namespace pnk
             hero._anim_bubble->setFinishedCallback([&] ()
                {
                    ActionState::_bubble->_bubbling = false;
+                   hero._anim_bubble->reset();
                });
         }
         else
@@ -128,4 +129,22 @@ namespace pnk
         return SomaticState::_normal;
     }
 
+    void HitState::enter(Hero &hero, uint32_t dt)
+    {
+        hero.removeAnimation();
+        hero.setAnimation(hero._anim_s_enter);
+        _last_time = 0;
+        hero.setVel({0,0});
+    }
+
+    std::shared_ptr<SomaticState> HitState::update(Hero &hero, uint32_t dt)
+    {
+        _last_time += dt;
+        if (_last_time > 1200)
+        {
+            return SomaticState::_normal;
+        }
+
+        return SomaticState::_entering;
+    }
 }

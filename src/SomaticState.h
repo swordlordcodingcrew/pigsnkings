@@ -10,6 +10,7 @@ namespace pnk
     class Hero;
     class EnteringState;
     class ExitState;
+    class HitState;
     class NormalState;
     class PauseState;
 
@@ -19,6 +20,7 @@ namespace pnk
         static std::shared_ptr<EnteringState> _entering;
         static std::shared_ptr<ExitState> _exit;
         static std::shared_ptr<NormalState> _normal;
+        static std::shared_ptr<HitState> _hit;
 
         virtual std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) = 0;
         virtual void enter(Hero& hero, uint32_t dt) = 0;
@@ -47,5 +49,13 @@ namespace pnk
         std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) override;
     };
 
+    class HitState : public SomaticState
+    {
+    public:
+        void enter(Hero& hero, uint32_t dt) override;
+        std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) override;
+    protected:
+        uint32_t _last_time{0};
+    };
 }
 

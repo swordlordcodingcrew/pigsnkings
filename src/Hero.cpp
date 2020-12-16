@@ -40,7 +40,7 @@ namespace pnk
         // bubble animation
         _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{16, 17, 18}, 300, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 2));
         // entering game animation
-        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 6}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 6}, 200, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
 
     }
 
@@ -59,6 +59,14 @@ namespace pnk
 
     void Hero::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
+        if (_somatic_state == SomaticState::_normal)
+        {
+            if (mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1)
+            {
+                _hit = true;
+            }
+        }
+
         const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
         if (normal.y > 0)
@@ -76,12 +84,21 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(spSprite other)
     {
-        return dang::CollisionSpriteLayer::CR_SLIDE;
-//        return _coll_response;
+        if (_somatic_state == SomaticState::_normal)
+        {
+            return dang::CollisionSpriteLayer::CR_SLIDE;
+        }
+        return dang::CollisionSpriteLayer::CR_NONE;
     }
 
     void Hero::update(uint32_t dt)
     {
+        if (_hit)
+        {
+            _hit = false;
+            _somatic_state = SomaticState::_hit;
+            _somatic_state->enter(*this, dt);
+        }
 
         std::shared_ptr<SomaticState> sst = _somatic_state->update(*this, dt);
 
