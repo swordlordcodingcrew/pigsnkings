@@ -30,6 +30,10 @@ namespace pnk
 
         static const dang::Vector2F _gravity;
 
+        uint32_t _score = 0;
+        uint32_t _active_level = 1;
+        uint32_t _active_room = 0;
+
         // global event dispatcher
         dang::Dispatcher _dispatcher;
 

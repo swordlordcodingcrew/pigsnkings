@@ -27,6 +27,7 @@
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
+#include "LevelFlow.h"
 
 namespace pnk
 {
@@ -48,7 +49,15 @@ namespace pnk
             {
                 // end of room
                 // TODO: goto next room
-                return GameState::_gs_home;
+                _room_transition = true;
+                spLayer l = gear.getLayerByName(_lvl_flow->_l_obj_id);
+                if (l != nullptr)
+                {
+                    spCollisionSpriteLayer csl = std::static_pointer_cast<dang::CollisionSpriteLayer>(l);
+                    csl->removeSpriteById(24);
+                }
+
+//                return GameState::_gs_home;
             }
             else if (blit::now() - _last_time > _spawn_delay)
             {
@@ -63,40 +72,56 @@ namespace pnk
             }
         }
 
-        // viewport follows room center
-        dang::Vector2F heropos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
+        if (_room_transition)
+        {
+            // viewport follows room center
+            dang::Vector2F heropos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-        if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _active_room_center.x + gear.getViewport().w < gear.getWorld().w)
-        {
-            _active_room_center.x += gear.getViewport().w;
-        }
-        else if (heropos.x < gear.getViewport().x - _room_buffer && _active_room_center.x - gear.getViewport().x >= gear.getWorld().x)
-        {
-            _active_room_center.x -= gear.getViewport().w;
-        }
+            if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _active_room_center.x + gear.getViewport().w < gear.getWorld().w)
+            {
+                _active_room_center.x += gear.getViewport().w;
+            }
+            else if (heropos.x < gear.getViewport().x - _room_buffer && _active_room_center.x - gear.getViewport().x >= gear.getWorld().x)
+            {
+                _active_room_center.x -= gear.getViewport().w;
+            }
 
-        if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _active_room_center.y + gear.getViewport().h < gear.getWorld().h)
-        {
-            _active_room_center.y += gear.getViewport().h;
+            if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _active_room_center.y + gear.getViewport().h < gear.getWorld().h)
+            {
+                _active_room_center.y += gear.getViewport().h;
+            }
+            else if (heropos.y < gear.getViewport().y - _room_buffer && _active_room_center.y - gear.getViewport().h >= gear.getWorld().y)
+            {
+                _active_room_center.y -= gear.getViewport().h;
+            }
+            gear.follow(_active_room_center);
+
         }
-        else if (heropos.y < gear.getViewport().y - _room_buffer && _active_room_center.y - gear.getViewport().h >= gear.getWorld().y)
-        {
-            _active_room_center.y -= gear.getViewport().h;
-        }
-        gear.follow(_active_room_center);
 
         return GameState::_gs_play;
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
-        // level one
-        _lvl_flow = std::make_shared<Level1Flow>();
-        _tmx = init_pnk_32_lvl1();
+        // choose level acc. to pnk
+        switch(_pnk._active_level)
+        {
+            case 1:
+            default:
+                _lvl_flow = std::make_shared<Level1Flow>();
+                _tmx = init_pnk_32_lvl1();
+                break;
+            case 2:
+                // other levels?
+                //_lvl_flow = std::make_shared<Level2Flow>();
+                //_tmx = init_pnk_32_lvl2();
+                break;
+        }
+
         dang::TmxExtruder tmx_ext(&_tmx);
 
-        // room one
-        _active_room_flow = &_lvl_flow->_roomflows[0];
+        // choose room acc. to pmk
+        _active_room_flow = &_lvl_flow->_roomflows[_pnk._active_room];
 
         _last_time = blit::now();
         _spawn_ready = true;
@@ -158,36 +183,23 @@ namespace pnk
             else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
-//                std::shared_ptr<Enemy> en = std::make_shared<Enemy>(so, is);
-//                en->init();
-//                spr = en;
-//                _csl->addCollisionSprite(spr);
             }
             else if (so.type == "hero")
             {
                 _spr_hero = std::make_shared<Hero>(so, is);
                 _spr_hero->activateState();
-
-/*                // add eventreceived() as receiver of events
-                std::function<void (dang::Event&)> func = std::bind(&Hero::gameEventReceived, _spr_hero, std::placeholders::_1);
-                _subref_hero = pnk::_pnk._dispatcher.registerSubscriber(func, EF_APPL);
-*/
-
                 spr = _spr_hero;
                 _csl->addCollisionSprite(spr);
             }
             else if (so.type == "bubble")
             {
                 _prototypes[so.id] = so;
-                // create prototype bubble to be copied, when hero is bubbling
-//                _bubble_prototype = so;
             }
-/*            else
+            else
             {
-                spr->_visible = false;
-                spr->_imagesheet = nullptr;
+                std::cout << "sprite in tmx not initialized. id=" << so.id << ", type=" << so.type << std::endl;
             }
-*/
+
         }
 
         // set viewport to active room

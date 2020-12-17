@@ -56,6 +56,7 @@ namespace pnk
         uint32_t                _last_time{0};
         bool                    _spawn_ready{true};
         uint32_t                _spawned{0};
+        bool                    _room_transition{false};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};
