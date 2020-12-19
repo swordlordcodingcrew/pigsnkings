@@ -16,10 +16,10 @@ dang::tmx_level init_pnk_32_lvl1() {
 
 // Tilesets ------------------------------------------------
 
-    // Tileset: tiles_bg_32_png has ID: 0
-    lvl.tilesets[0] = {"tiles_bg_32_png",96,32,32,384,256,12,8};
-    // Tileset: players_png has ID: 1
-    lvl.tilesets[1] = {"players_png",24,16,16,128,48,8,3};
+    // Tileset: tiles_bg_png has ID: 0
+    lvl.tilesets[0] = {"tiles_bg_png",96,32,32,384,256,12,8};
+    // Tileset: pnk_sprites_png has ID: 1
+    lvl.tilesets[1] = {"pnk_sprites_png",52,32,32,832,64,26,2};
 
 // Layers ------------------------------------------------
 
@@ -1237,10 +1237,6 @@ dang::tmx_level init_pnk_32_lvl1() {
         {6,"6","hotrect",928,896,64,32,true,0,0},
         {7,"7","hotrect",704,704,544,32,true,0,0},
         {8,"8","hotrect",1248,800,32,128,true,0,0},
-        {10,"10","bubble",32,-32,16,16,true,1,19},
-        {11,"11","hero",8,872,16,16,true,1,0},
-        {12,"12","enemy",584,712,16,16,true,1,0},
-        {13,"13","enemy",136,712,16,16,true,1,0},
         {14,"14","hotrect",0,896,32,32,true,0,0},
         {15,"15","hotrect",160,704,416,32,true,0,0},
         {16,"16","hotrect",-30,864,32,32,true,0,0},
@@ -1249,19 +1245,23 @@ dang::tmx_level init_pnk_32_lvl1() {
         {19,"19","hotrect",608,704,64,192,true,0,0},
         {20,"20","hotrect",928,736,64,128,true,0,0},
         {21,"21","hotrect",1248,576,32,192,true,0,0},
-        {22,"22","enemy",680,712,16,16,true,1,0},
-        {23,"23","enemy",1256,776,16,16,true,1,0},
-        {24,"lvl12","hotrect",312,896,16,32,true,0,0}
+        {24,"lvl12","hotrect",312,896,16,32,true,0,0},
+        {25,"25","hero",0,864,32,32,true,1,0},
+        {26,"26","enemy",128,704,32,32,true,1,26},
+        {27,"27","enemy",576,704,32,32,true,1,26},
+        {28,"28","enemy",672,704,32,32,true,1,26},
+        {29,"29","enemy",1248,768,32,32,true,1,26},
+        {30,"30","bubble",0,0,32,32,true,1,41}
     };
     dang::tmx_objectlayer llvl1_obj = {"lvl1_obj",21,solvl1_obj};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl1_obj));
 
     // make sure to generate every file with the 32blit-tool and link them.
-    // tiles_bg_32_png.h
-    // players_png.h
+    // tiles_bg_png.h
+    // pnk_sprites_png.h
 
-    lvl.images["tiles_bg_32_png"] = tiles_bg_png;
-    lvl.images["players_png"] = players_png;
+    lvl.images["tiles_bg_png"] = tiles_bg_png;
+    lvl.images["pnk_sprites_png"] = pnk_sprites_png;
 
     return lvl;
 }

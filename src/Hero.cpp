@@ -29,25 +29,27 @@ namespace pnk
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         _type_num = TN_HERO;
 
+        _hotrect = {8, 8, 16, 24};
+
         // wait animation
-        _anim_m_wait = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1, false, 2000));
+        _anim_m_wait = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1, false, 2000));
         // walk animation
-        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11, 12, 13}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
         // jump 'animation'
-        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{16}, 1, std::unique_ptr<dang::Ease>(new dang::EaseLinear())));
+        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, std::unique_ptr<dang::Ease>(new dang::EaseLinear())));
         // on air (= not touching the ground) 'animation'
-        _anim_m_on_air = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{17}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear())));
+        _anim_m_on_air = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{7}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear())));
         // bubble animation
-        _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{16, 17, 18}, 300, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 2));
+        _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{18, 19, 20, 19, 18}, 300, std::unique_ptr<dang::Ease>(new dang::EaseOutQuad()), 1));
         // entering game animation
-        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 6}, 200, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
 
     }
 
     void Hero::activateState()
     {
         // look to the right
-        _transform = blit::SpriteTransform::HORIZONTAL;
+        _transform = blit::SpriteTransform::NONE;
 
         // these functions cannot be called in the constructor because it will call shared_from_this() and at the point of construction the shared ptr is not yet initialized
         _somatic_state = SomaticState::_entering;

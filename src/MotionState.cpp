@@ -47,23 +47,23 @@ namespace pnk
         {
             if (pressed(HERO_WALK_L))
             {
-                hero._transform = blit::SpriteTransform::NONE;
+                hero._transform = blit::SpriteTransform::HORIZONTAL;
             }
             else if (pressed(HERO_WALK_R))
             {
-                hero._transform = blit::SpriteTransform::HORIZONTAL;
+                hero._transform = blit::SpriteTransform::NONE;
             }
 
             return MotionState::_jumping;
         }
         else if (pressed(HERO_WALK_L))
         {
-            hero._transform = blit::SpriteTransform::NONE;
+            hero._transform = blit::SpriteTransform::HORIZONTAL;
             return MotionState::_walking;
         }
         else if (pressed(HERO_WALK_R))
         {
-            hero._transform = blit::SpriteTransform::HORIZONTAL;
+            hero._transform = blit::SpriteTransform::NONE;
             return MotionState::_walking;
         }
 
@@ -82,7 +82,7 @@ namespace pnk
     void WalkState::enter(Hero &hero)
     {
 
-        if (hero._transform == blit::SpriteTransform::NONE)
+        if (hero._transform == blit::SpriteTransform::HORIZONTAL)
         {
             hero.setVelX(-H_WALK_VEL);
         }
@@ -107,11 +107,11 @@ namespace pnk
         {
             if (pressed(HERO_WALK_L))
             {
-                hero._transform = blit::SpriteTransform::NONE;
+                hero._transform = blit::SpriteTransform::HORIZONTAL;
             }
             else if (pressed(HERO_WALK_R))
             {
-                hero._transform = blit::SpriteTransform::HORIZONTAL;
+                hero._transform = blit::SpriteTransform::NONE;
             }
             else
             {
@@ -122,18 +122,18 @@ namespace pnk
         }
         else if (pressed(HERO_WALK_L))
         {
-            if (!(hero._transform == blit::SpriteTransform::NONE))
+            if (!(hero._transform == blit::SpriteTransform::HORIZONTAL))
             {
-                hero._transform = blit::SpriteTransform::NONE;
+                hero._transform = blit::SpriteTransform::HORIZONTAL;
                 hero.setVelX(-H_WALK_VEL);
             }
             return MotionState::_walking;
         }
         else if (pressed(HERO_WALK_R))
         {
-            if (!(hero._transform == blit::SpriteTransform::HORIZONTAL))
+            if (!(hero._transform == blit::SpriteTransform::NONE))
             {
-                hero._transform = blit::SpriteTransform::HORIZONTAL;
+                hero._transform = blit::SpriteTransform::NONE;
                 hero.setVelX(H_WALK_VEL);
             }
             return MotionState::_walking;
@@ -167,12 +167,12 @@ namespace pnk
         {
             if (pressed(HERO_WALK_L))
             {
-                hero._transform = blit::SpriteTransform::NONE;
+                hero._transform = blit::SpriteTransform::HORIZONTAL;
                 return MotionState::_walking;
             }
             else if (pressed(HERO_WALK_R))
             {
-                hero._transform = blit::SpriteTransform::HORIZONTAL;
+                hero._transform = blit::SpriteTransform::NONE;
                 return MotionState::_walking;
             }
             else
@@ -197,12 +197,12 @@ namespace pnk
                 if (pressed(HERO_WALK_L))
                 {
                     hero.setVelX(-H_WALK_VEL);
-                    hero._transform = blit::SpriteTransform::NONE;
+                    hero._transform = blit::SpriteTransform::HORIZONTAL;
                 }
                 else if (pressed(HERO_WALK_R))
                 {
                     hero.setVelX(H_WALK_VEL);
-                    hero._transform = blit::SpriteTransform::HORIZONTAL;
+                    hero._transform = blit::SpriteTransform::NONE;
                 }
                 else
                 {
@@ -247,13 +247,13 @@ namespace pnk
             if (pressed(HERO_WALK_L))
             {
                 hero.setVelX(-H_WALK_VEL);
-                hero._transform = blit::SpriteTransform::NONE;
+                hero._transform = blit::SpriteTransform::HORIZONTAL;
                 return MotionState::_walking;
             }
             else if (pressed(HERO_WALK_R))
             {
                 hero.setVelX(H_WALK_VEL);
-                hero._transform = blit::SpriteTransform::HORIZONTAL;
+                hero._transform = blit::SpriteTransform::NONE;
                 return MotionState::_walking;
             }
             else
@@ -266,12 +266,12 @@ namespace pnk
         if (pressed(HERO_WALK_L))
         {
             hero.setVelX(-H_WALK_VEL);
-            hero._transform = blit::SpriteTransform::NONE;
+            hero._transform = blit::SpriteTransform::HORIZONTAL;
         }
         else if (pressed(HERO_WALK_R))
         {
             hero.setVelX(H_WALK_VEL);
-            hero._transform = blit::SpriteTransform::HORIZONTAL;
+            hero._transform = blit::SpriteTransform::NONE;
         }
         else
         {

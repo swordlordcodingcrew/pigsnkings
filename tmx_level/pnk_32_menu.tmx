@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="30" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="23">
- <tileset firstgid="1" name="tiles_bg_32_png" tilewidth="32" tileheight="32" tilecount="96" columns="12" objectalignment="topleft">
+ <tileset firstgid="1" name="tiles_bg_png" tilewidth="32" tileheight="32" tilecount="96" columns="12" objectalignment="topleft">
   <image source="../gfx/tiles_bg.png" width="384" height="256"/>
  </tileset>
  <tileset firstgid="97" name="menus_png" tilewidth="128" tileheight="32" tilecount="9" columns="3" objectalignment="topleft">

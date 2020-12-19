@@ -50,6 +50,7 @@ namespace pnk
         // callback functions for DANG
         static void blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t);
         static void set_spritesheet_cb(dang::spImagesheet is);
+        static void line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
         // the state
         std::shared_ptr<GameState>   _gs;

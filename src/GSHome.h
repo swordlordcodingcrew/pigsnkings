@@ -50,7 +50,7 @@ namespace pnk
         const std::string tmx_bg_layer_name = "menu_bg";
         const std::string tmx_obj_layer_name = "menu_obj";
         const std::string img_name_spr = "menus_png";
-        const std::string img_name_bg = "tiles_bg_32_png";
+        const std::string img_name_bg = "tiles_bg_png";
 
         /**
          * buttons & animations

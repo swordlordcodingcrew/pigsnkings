@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="25">
- <tileset firstgid="1" name="tiles_bg_32_png" tilewidth="32" tileheight="32" tilecount="96" columns="12" objectalignment="topleft">
+<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="31">
+ <tileset firstgid="1" name="tiles_bg_png" tilewidth="32" tileheight="32" tilecount="96" columns="12" objectalignment="topleft">
   <image source="../gfx/tiles_bg.png" width="384" height="256"/>
  </tileset>
- <tileset firstgid="97" name="players_png" tilewidth="16" tileheight="16" tilecount="24" columns="8" objectalignment="topleft">
-  <image source="../gfx/players.png" width="128" height="48"/>
+ <tileset firstgid="97" name="pnk_sprites_png" tilewidth="32" tileheight="32" tilecount="52" columns="26" objectalignment="topleft">
+  <image source="../gfx/pnk_sprites.png" width="832" height="64"/>
  </tileset>
  <layer id="1" name="lvl1_bg" width="40" height="30">
   <data encoding="csv">
@@ -47,10 +47,6 @@
   <object id="6" type="hotrect" x="928" y="896" width="64" height="32"/>
   <object id="7" type="hotrect" x="704" y="704" width="544" height="32"/>
   <object id="8" type="hotrect" x="1248" y="800" width="32" height="128"/>
-  <object id="10" type="bubble" gid="116" x="32" y="-32" width="16" height="16"/>
-  <object id="11" type="hero" gid="97" x="8" y="872" width="16" height="16"/>
-  <object id="12" type="enemy" gid="97" x="584" y="712" width="16" height="16"/>
-  <object id="13" type="enemy" gid="97" x="136" y="712" width="16" height="16"/>
   <object id="14" type="hotrect" x="0" y="896" width="32" height="32"/>
   <object id="15" type="hotrect" x="160" y="704" width="416" height="32"/>
   <object id="16" type="hotrect" x="-30" y="864" width="32" height="32"/>
@@ -59,8 +55,12 @@
   <object id="19" type="hotrect" x="608" y="704" width="64" height="192"/>
   <object id="20" type="hotrect" x="928" y="736" width="64" height="128"/>
   <object id="21" type="hotrect" x="1248" y="576" width="32" height="192"/>
-  <object id="22" type="enemy" gid="97" x="680" y="712" width="16" height="16"/>
-  <object id="23" type="enemy" gid="97" x="1256" y="776" width="16" height="16"/>
   <object id="24" name="lvl12" type="hotrect" x="312" y="896" width="16" height="32"/>
+  <object id="25" type="hero" gid="97" x="0" y="864" width="32" height="32"/>
+  <object id="26" type="enemy" gid="123" x="128" y="704" width="32" height="32"/>
+  <object id="27" type="enemy" gid="123" x="576" y="704" width="32" height="32"/>
+  <object id="28" type="enemy" gid="123" x="672" y="704" width="32" height="32"/>
+  <object id="29" type="enemy" gid="123" x="1248" y="768" width="32" height="32"/>
+  <object id="30" type="bubble" gid="138" x="0" y="0" width="32" height="32"/>
  </objectgroup>
 </map>

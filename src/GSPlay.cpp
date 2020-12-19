@@ -18,7 +18,7 @@
 #include "GSHome.h"
 
 #include "rsrc/tiles_bg_png.h"
-#include "rsrc/players_png.h"
+#include "rsrc/pnk_sprites_png.h"
 #include "rsrc/pnk_32_lvl1.tmx.hpp"
 
 #include "Hero.h"
@@ -235,7 +235,7 @@ namespace pnk
         PnkEvent& pe = static_cast<PnkEvent&>(e);
         if (pe._type == ETG_NEW_BUBBLE)
         {
-            dang::tmx_spriteobject so = _prototypes[10];
+            dang::tmx_spriteobject so = _prototypes[30];
             std::shared_ptr<Bubble> _new_bubble = std::make_shared<Bubble>(so, _obj_is);
             _new_bubble->setPos(pe._pos);
             _new_bubble->_to_the_left = pe._to_the_left;

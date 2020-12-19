@@ -44,8 +44,20 @@ namespace pnk
     void PigsnKings::blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t)
     {
         blit::screen.blit_sprite({int32_t(sr.x), int32_t(sr.y), int32_t(sr.w), int32_t(sr.h)}, {p.x, p.y}, t);
-    };
+    }
 
+    /**
+     * static callback function for DANG
+     */
+    void PigsnKings::line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+    {
+        blit::screen.pen = blit::Pen(r, g, b, a);
+        blit::screen.line({int32_t(sp.x), int32_t (sp.y)}, {int32_t(dp.x), int32_t (dp.y)});
+    }
+
+    /**
+     * static callback functions for DANG to set the spritesheet
+     */
     void PigsnKings::set_spritesheet_cb(spImagesheet is)
     {
         if (_pnk._active_imagesheet != is.get())
@@ -72,6 +84,7 @@ namespace pnk
         // set the DANG callback functions for drawing
         _gear.blit_sprite_cb = PigsnKings::blit_sprite_cb;
         _gear.set_spritesheet_cb = PigsnKings::set_spritesheet_cb;
+        _gear.line_cb = PigsnKings::line_cb;
 
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);

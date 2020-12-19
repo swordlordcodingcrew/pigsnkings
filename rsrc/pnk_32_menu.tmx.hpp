@@ -16,8 +16,8 @@ dang::tmx_level init_pnk_32_menu() {
 
 // Tilesets ------------------------------------------------
 
-    // Tileset: tiles_bg_32_png has ID: 0
-    lvl.tilesets[0] = {"tiles_bg_32_png",96,32,32,384,256,12,8};
+    // Tileset: tiles_bg_png has ID: 0
+    lvl.tilesets[0] = {"tiles_bg_png",96,32,32,384,256,12,8};
     // Tileset: menus_png has ID: 1
     lvl.tilesets[1] = {"menus_png",9,128,32,384,96,3,3};
 
@@ -279,10 +279,10 @@ dang::tmx_level init_pnk_32_menu() {
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(lmenu_obj));
 
     // make sure to generate every file with the 32blit-tool and link them.
-    // tiles_bg_32_png.h
+    // tiles_bg_png.h
     // menus_png.h
 
-    lvl.images["tiles_bg_32_png"] = tiles_bg_png;
+    lvl.images["tiles_bg_png"] = tiles_bg_png;
     lvl.images["menus_png"] = menus_png;
 
     return lvl;

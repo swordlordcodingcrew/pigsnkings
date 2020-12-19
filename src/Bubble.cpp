@@ -45,9 +45,9 @@ namespace pnk
         _hotrect = {4, 4, 8, 8};
 
         spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
-        spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{19, 20, 21, 22, 23}, 800, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 0);
+        spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 800, std::unique_ptr<dang::Ease>(new dang::EaseOutQuad()), 0);
         tw_seq_anim->addTween(twa);
-        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
+        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
         tw_seq_anim->addTween(twa);
         tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
 
@@ -92,7 +92,7 @@ namespace pnk
             removeTweens(true);
             removeAnimation(true);
             _vel = {0, -0.5};
-            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 12);
+            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 12);
             twa->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
             setAnimation(twa);
         }
@@ -109,7 +109,7 @@ namespace pnk
             removeTweens(true);
             removeAnimation(true);
             _vel = {0, 0};
-            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{22, 23}, 500, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
+            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), 4);
             twa->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
             setAnimation(twa);
         }

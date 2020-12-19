@@ -27,7 +27,7 @@ namespace pnk
 //        std::cout << "start bubbling" << std::endl;
         _bubbling = true;
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_BUBBLE));
-        e->_to_the_left = (hero._transform == blit::SpriteTransform::NONE);
+        e->_to_the_left = (hero._transform == blit::SpriteTransform::HORIZONTAL);
         e->_pos = hero.getPos();
         e->_pos.x = e->_pos.x + (e->_to_the_left ? -hero.getSize().x : hero.getSize().x);
         _pnk._dispatcher.queueEvent(std::move(e));
