@@ -159,6 +159,7 @@ namespace pnk
                 spr = std::make_shared<dang::CollisionSprite>(so, is);
                 spr->_visible = false;
                 spr->_imagesheet = nullptr;
+                spr->_type_num = TN_HOTRECT;
                 spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
                 _csl->addCollisionSprite(spr);
             }
@@ -171,7 +172,7 @@ namespace pnk
                 spr->_type_num = TN_HOTRECT;
                 _csl->addCollisionSprite(spr);
             }
-            else if (so.type == "wall")
+/*            else if (so.type == "wall")
             {
                 spr = std::make_shared<dang::CollisionSprite>(so, is);
                 spr->_visible = false;
@@ -180,7 +181,7 @@ namespace pnk
                 spr->_type_num = TN_HOTRECT;
                 _csl->addCollisionSprite(spr);
             }
-            else if (so.type == "enemy")
+*/            else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
             }

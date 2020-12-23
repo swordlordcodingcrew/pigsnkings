@@ -29,11 +29,23 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        bool _enemy_catched{false};
         std::weak_ptr<Enemy> _catched_en;
 
     protected:
+        const dang::Vector2F _delta_catch{-1, -10};
         void removeSelf();
+
+        enum bubble_state
+        {
+            bs_hatch,
+            bs_growing,
+            bs_wobbling,
+            bs_enemy_catched,
+            bs_bursting
+        };
+        bubble_state _state{bs_hatch};
     };
+
+
 }
 

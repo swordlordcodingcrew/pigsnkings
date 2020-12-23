@@ -32,7 +32,9 @@ namespace pnk
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         _type_num = TN_ENEMY1;
 
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11, 12, 13}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
+        _hotrect = {10, 16, 16, 16};
+
+        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
 
         setVel({-2.0f, -0.0f});
 
@@ -71,7 +73,7 @@ namespace pnk
             _gravity = {0,0};
             setVel({0,0});
             removeAnimation();
-            setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 3}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
+            setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{30, 31}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
         }
         else if (mf.other->_type_num == TN_HERO || mf.me->_type_num == TN_HERO)
         {
