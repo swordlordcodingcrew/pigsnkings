@@ -34,7 +34,7 @@ namespace pnk
         // wait animation
         _anim_m_wait = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1, false, 2000));
         // walk animation
-        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15, 16, 17}, 800, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
         // jump 'animation'
         _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, std::unique_ptr<dang::Ease>(new dang::EaseLinear())));
         // on air (= not touching the ground) 'animation'
@@ -63,23 +63,30 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal)
         {
+
+            if (mf.other->_type_num == TN_BUBBLE || mf.me->_type_num == TN_BUBBLE)
+            {
+                return;
+            }
+
             if (mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1)
             {
                 _hit = true;
             }
-        }
 
-        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
-        if (normal.y > 0)
-        {
-            _on_ground = true;
-            _vel.y = 0;
-        }
-        else if (normal.y < 0)
-        {
-            _top_hit = true;
-            _vel.y = 0;
+            if (normal.y > 0)
+            {
+                _on_ground = true;
+                _vel.y = 0;
+            }
+            else if (normal.y < 0)
+            {
+                _top_hit = true;
+                _vel.y = 0;
+            }
+
         }
 
     }

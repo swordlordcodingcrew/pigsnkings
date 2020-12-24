@@ -32,7 +32,7 @@ namespace pnk
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         _type_num = TN_ENEMY1;
 
-        _hotrect = {10, 16, 16, 16};
+        _hotrect = {10, 16, 12, 16};
 
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
 

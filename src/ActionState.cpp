@@ -24,12 +24,12 @@ namespace pnk
 
     void BubbleState::enter(Hero &hero, uint32_t dt)
     {
-//        std::cout << "start bubbling" << std::endl;
         _bubbling = true;
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_BUBBLE));
         e->_to_the_left = (hero._transform == blit::SpriteTransform::HORIZONTAL);
         e->_pos = hero.getPos();
-        e->_pos.x = e->_pos.x + (e->_to_the_left ? -hero.getSize().x : hero.getSize().x);
+        e->_pos.x = e->_pos.x + (e->_to_the_left ? -hero.getSize().x/2 : hero.getSize().x/2);
+        e->_pos.y += 6;
         _pnk._dispatcher.queueEvent(std::move(e));
     }
 

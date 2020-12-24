@@ -32,7 +32,7 @@ namespace pnk
         std::weak_ptr<Enemy> _catched_en;
 
     protected:
-        const dang::Vector2F _delta_catch{-1, -10};
+        const dang::Vector2F _delta_catch{-1, -8};
         void removeSelf();
 
         enum bubble_state
