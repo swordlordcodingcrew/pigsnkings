@@ -74,29 +74,39 @@ namespace pnk
 
         if (_room_transition)
         {
+            bool triggered{false};
+
             // viewport follows room center
             dang::Vector2F heropos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
             if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _active_room_center.x + gear.getViewport().w < gear.getWorld().w)
             {
                 _active_room_center.x += gear.getViewport().w;
+                triggered = true;
             }
             else if (heropos.x < gear.getViewport().x - _room_buffer && _active_room_center.x - gear.getViewport().x >= gear.getWorld().x)
             {
                 _active_room_center.x -= gear.getViewport().w;
+                triggered = true;
             }
 
             if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _active_room_center.y + gear.getViewport().h < gear.getWorld().h)
             {
                 _active_room_center.y += gear.getViewport().h;
+                triggered = true;
             }
             else if (heropos.y < gear.getViewport().y - _room_buffer && _active_room_center.y - gear.getViewport().h >= gear.getWorld().y)
             {
                 _active_room_center.y -= gear.getViewport().h;
+                triggered = true;
             }
-            gear.follow(_active_room_center);
 
+            if (triggered)
+            {
+                // TODO: make transition to new room
+            }
         }
+        gear.follow(_active_room_center);
 
         return GameState::_gs_play;
     }
@@ -172,16 +182,7 @@ namespace pnk
                 spr->_type_num = TN_HOTRECT;
                 _csl->addCollisionSprite(spr);
             }
-/*            else if (so.type == "wall")
-            {
-                spr = std::make_shared<dang::CollisionSprite>(so, is);
-                spr->_visible = false;
-                spr->_imagesheet = nullptr;
-                spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
-                spr->_type_num = TN_HOTRECT;
-                _csl->addCollisionSprite(spr);
-            }
-*/            else if (so.type == "enemy")
+            else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
             }
@@ -261,8 +262,6 @@ namespace pnk
             {
                 std::cout << "attempted to remove stale sprite" << std::endl;
             }
-
-
         }
     }
 }
