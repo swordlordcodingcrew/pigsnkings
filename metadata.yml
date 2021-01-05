@@ -1,0 +1,8 @@
+title: Pigs n Kings
+description: Hail to the king, piggies!
+author: SwordLord
+splash:
+  file: gfx/loader-splash.png
+icon:
+  file: gfx/loader-icon.png
+version: v0.1.0
