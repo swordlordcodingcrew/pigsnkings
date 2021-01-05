@@ -1,6 +1,6 @@
 # pigsnkings
 
-![pigs n kings](https://raw.githubusercontent.com/swordlordcodingcrew/pigsnkings/gfx/loader-splash.png)
+![pigs n kings](https://raw.githubusercontent.com/swordlordcodingcrew/pigsnkings/main/gfx/loader-splash.png)
 
 A game for the 32blit handheld console. This is still work in progress. No finished game yet.
 
