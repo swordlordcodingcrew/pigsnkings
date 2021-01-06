@@ -56,17 +56,17 @@ set(SOURCES
 
 # ---- Create binary ----
 blit_executable (pigsnkings ${SOURCES})
-
 target_link_libraries(pigsnkings DANG)
-#add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
-
-# ---- build assets - perhaps later on
+# build assets: perhaps later on
 #blit_assets_yaml (${PROJECT_NAME} assets.yml)
-
 blit_metadata (pigsnkings metadata.yml)
+
+#add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
 
 target_include_directories(pigsnkings
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${32BLIT_PATH}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/DANG/src
         )
+
+
