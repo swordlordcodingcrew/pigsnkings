@@ -3,7 +3,7 @@
 
 #include "dang.hpp"
 #include "Imagesheet.h"
-#include "TwAnim.h"
+#include "tween/TwAnim.h"
 #include "TileLayer.h"
 #include "SpriteLayer.h"
 #include "Sprite.h"

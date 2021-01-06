@@ -8,8 +8,8 @@
 #include "SpriteLayer.h"
 #include "TileLayer.h"
 #include "Layer.h"
-#include "Ease.h"
-#include "TwAnim.h"
+#include "tween/Ease.h"
+#include "tween/TwAnim.h"
 
 #include "GSHome.h"
 #include "GSPlay.h"

@@ -6,18 +6,18 @@ project(pigsnkings)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-#set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
-set(32BLIT_PATH "../32blit-beta" CACHE PATH "Path to 32blit.cmake")
+# ---- 32blit stuff ----
+#set(32BLIT_PATH "../32blit-beta" CACHE PATH "Path to 32blit.cmake")
+set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
-
 include (${32BLIT_PATH}/32blit.cmake)
+install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
 
-# ---- DANG ----
+# ---- DANG library ----
 add_subdirectory(libs/DANG)
 
 # ---- Sources ----
-
 set(SOURCES
         src/pnk_globals.h
         src/pigsnkings.cpp
@@ -57,14 +57,16 @@ set(SOURCES
 # ---- Create binary ----
 blit_executable (pigsnkings ${SOURCES})
 
+target_link_libraries(pigsnkings DANG)
+#add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
+
+# ---- build assets - perhaps later on
+#blit_assets_yaml (${PROJECT_NAME} assets.yml)
+
+blit_metadata (pigsnkings metadata.yml)
+
 target_include_directories(pigsnkings
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${32BLIT_PATH}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/DANG/src
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/DANG/src/tween
         )
-target_link_libraries(pigsnkings DANG)
-#add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
-blit_metadata (pigsnkings metadata.yml)
-#target_link_libraries(${PROJECT_NAME} stdc++)
-
