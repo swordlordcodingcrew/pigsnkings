@@ -4,12 +4,12 @@
 #include <iostream>
 #include <cassert>
 
-#include <tween/TwAnim.h>
-#include <Imagesheet.h>
-#include <tween/TwSequence.h>
-#include <tween/TwVel.h>
+#include <tween/TwAnim.hpp>
+#include <Imagesheet.hpp>
+#include <tween/TwSequence.hpp>
+#include <tween/TwVel.hpp>
 
-#include "TmxExtruder.h"
+#include "TmxExtruder.hpp"
 #include "pigsnkings.hpp"
 #include "Bubble.h"
 #include "Enemy.h"

@@ -1,10 +1,10 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <Gear.h>
-#include <Imagesheet.h>
-#include <Sprite.h>
-#include <SpriteLayer.h>
+#include <Gear.hpp>
+#include <Imagesheet.hpp>
+#include <Sprite.hpp>
+#include <SpriteLayer.hpp>
 #include <32blit.hpp>
 
 #include "GSIntro.h"

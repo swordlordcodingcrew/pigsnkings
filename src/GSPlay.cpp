@@ -1,16 +1,16 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <Gear.h>
-#include <Imagesheet.h>
-#include <Sprite.h>
-#include <SpriteLayer.h>
-#include <TileLayer.h>
-#include <Layer.h>
+#include <Gear.hpp>
+#include <Imagesheet.hpp>
+#include <Sprite.hpp>
+#include <SpriteLayer.hpp>
+#include <TileLayer.hpp>
+#include <Layer.hpp>
 #include <cassert>
-#include <tween/Ease.h>
-#include <tween/TwAnim.h>
-#include <CollisionSprite.h>
+#include <tween/Ease.hpp>
+#include <tween/TwAnim.hpp>
+#include <CollisionSprite.hpp>
 #include <iostream>
 #include <memory>
 

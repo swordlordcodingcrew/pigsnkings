@@ -5,10 +5,10 @@
 
 #include <memory>
 
-#include <Event.h>
-#include <Dispatcher.h>
-#include <TmxExtruder.h>
-#include <Vector2T.h>
+#include <Event.hpp>
+#include <Dispatcher.hpp>
+#include <TmxExtruder.hpp>
+#include <Vector2T.hpp>
 
 #include "GameState.h"
 

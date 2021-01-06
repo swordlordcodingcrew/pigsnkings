@@ -1,11 +1,11 @@
-#include <TmxExtruder.h>
+#include <TmxExtruder.hpp>
 #include "32blit.hpp"
 
 #pragma once
 
-#include "Gear.h"
-#include "Dispatcher.h"
-#include "Event.h"
+#include "Gear.hpp"
+#include "Dispatcher.hpp"
+#include "Event.hpp"
 
 
 // forward declarations

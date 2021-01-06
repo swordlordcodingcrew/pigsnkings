@@ -9,7 +9,7 @@
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
 #include "Hero.h"
-#include <Event.h>
+#include <Event.hpp>
 
 namespace pnk
 {

@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <Vector2T.h>
-#include <Event.h>
+#include <Vector2T.hpp>
+#include <Event.hpp>
 #include <memory>
 
 namespace dang

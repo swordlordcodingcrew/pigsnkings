@@ -2,14 +2,14 @@
 // This file is part of the pnk game
 
 // DANG includes
-#include "Gear.h"
-#include "Imagesheet.h"
-#include "Sprite.h"
-#include "SpriteLayer.h"
-#include "TileLayer.h"
-#include "Layer.h"
-#include "tween/Ease.h"
-#include "tween/TwAnim.h"
+#include "Gear.hpp"
+#include "Imagesheet.hpp"
+#include "Sprite.hpp"
+#include "SpriteLayer.hpp"
+#include "TileLayer.hpp"
+#include "Layer.hpp"
+#include "tween/Ease.hpp"
+#include "tween/TwAnim.hpp"
 
 #include "GSHome.h"
 #include "GSPlay.h"

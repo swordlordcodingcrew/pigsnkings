@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <CollisionSprite.h>
-#include <Event.h>
+#include <CollisionSprite.hpp>
+#include <Event.hpp>
 #include "ActionState.h"
 
 namespace pnk

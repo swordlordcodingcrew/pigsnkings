@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <CollisionSprite.h>
+#include <CollisionSprite.hpp>
 
 namespace pnk
 {

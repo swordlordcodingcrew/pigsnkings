@@ -5,9 +5,9 @@
 
 #include <memory>
 
-#include <Event.h>
-#include <Dispatcher.h>
-#include <TmxExtruder.h>
+#include <Event.hpp>
+#include <Dispatcher.hpp>
+#include <TmxExtruder.hpp>
 
 #include "GameState.h"
 

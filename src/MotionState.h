@@ -4,7 +4,7 @@
 #pragma once
 
 #include <memory>
-#include <tween/TwAnim.h>
+#include <tween/TwAnim.hpp>
 #include "pnk_globals.h"
 
 #define HERO_JUMP blit::Button::A

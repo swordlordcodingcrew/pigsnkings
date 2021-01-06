@@ -2,7 +2,7 @@
 // This file is part of the DANG game framework
 
 #include "PnkEvent.h"
-#include "Event.h"
+#include "Event.hpp"
 
 namespace pnk
 {
