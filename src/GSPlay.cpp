@@ -144,11 +144,11 @@ namespace pnk
         // extrude and add the imagesheets and load spritesheets
         spImagesheet is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_bg_id);
         gear.addImagesheet(is);
-        _pnk.loadSpriteSheet(is);
+        _pnk.loadSurface(is);
 
         _obj_is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_obj_id);
         gear.addImagesheet(_obj_is);
-        _pnk.loadSpriteSheet(_obj_is);
+        _pnk.loadSurface(_obj_is);
 
         // create background Tilelayer
         spTileLayer tl = tmx_ext.extrudeTileLayer(_lvl_flow->_l_bg_id, gear);
@@ -221,10 +221,10 @@ namespace pnk
 
         // remove spritesheets
         spImagesheet is = gear.getImagesheet(_lvl_flow->_is_bg_id);
-        _pnk.removeSpriteSheet(is);
+        _pnk.removeSurface(is);
 
         is = gear.getImagesheet(_lvl_flow->_is_obj_id);
-        _pnk.removeSpriteSheet(is);
+        _pnk.removeSurface(is);
 
         // clear gear
         gear.removeImagesheets();

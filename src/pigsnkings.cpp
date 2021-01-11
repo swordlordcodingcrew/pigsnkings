@@ -58,11 +58,11 @@ namespace pnk
     /**
      * static callback functions for DANG to set the spritesheet
      */
-    void PigsnKings::set_spritesheet_cb(spImagesheet is)
+    void PigsnKings::set_surface_cb(spImagesheet is)
     {
         if (_pnk._active_imagesheet != is.get())
         {
-            blit::SpriteSheet* sp = _pnk._spritesheets[is.get()];
+            blit::Surface* sp = _pnk._surfaces[is.get()];
             assert(sp != nullptr);
             blit::screen.sprites = sp;
         }
@@ -83,7 +83,7 @@ namespace pnk
 
         // set the DANG callback functions for drawing
         _gear.blit_sprite_cb = PigsnKings::blit_sprite_cb;
-        _gear.set_spritesheet_cb = PigsnKings::set_spritesheet_cb;
+        _gear.set_surface_cb = PigsnKings::set_surface_cb;
         _gear.line_cb = PigsnKings::line_cb;
 
         _gs = GameState::_gs_intro;
@@ -129,22 +129,22 @@ namespace pnk
         blit::screen.text(_gs->getInfotext(), blit::minimal_font, blit::Point(1, 1));
     }
 
-    void PigsnKings::loadSpriteSheet(spImagesheet is)
+    void PigsnKings::loadSurface(spImagesheet is)
     {
         const uint8_t* data = is->getData();
         assert(data != nullptr);
-        blit::SpriteSheet* ssh = blit::SpriteSheet::load(data);
-        assert(ssh != nullptr);
-        _spritesheets[is.get()] = ssh;
+        blit::Surface* sf = blit::Surface::load(data);
+        assert(sf != nullptr);
+        _surfaces[is.get()] = sf;
     }
 
-    void PigsnKings::removeSpriteSheet(spImagesheet is)
+    void PigsnKings::removeSurface(spImagesheet is)
     {
-        blit::SpriteSheet* ssh = _spritesheets[is.get()];
-        if (ssh != nullptr)
+        blit::Surface* sf = _surfaces[is.get()];
+        if (sf != nullptr)
         {
-            _spritesheets.erase(is.get());
-            delete ssh;
+            _surfaces.erase(is.get());
+            delete sf;
         }
     }
 

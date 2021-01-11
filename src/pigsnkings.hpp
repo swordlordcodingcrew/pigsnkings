@@ -41,15 +41,15 @@ namespace pnk
         void update(uint32_t time);
         void render(uint32_t time);
 
-        void loadSpriteSheet(dang::spImagesheet is);
-        void removeSpriteSheet(dang::spImagesheet is);
+        void loadSurface(dang::spImagesheet is);
+        void removeSurface(dang::spImagesheet is);
 
     protected:
         // the gear
         dang::Gear _gear;
         // callback functions for DANG
         static void blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t);
-        static void set_spritesheet_cb(dang::spImagesheet is);
+        static void set_surface_cb(dang::spImagesheet is);
         static void line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
         // the state
@@ -62,8 +62,8 @@ namespace pnk
         uint32_t _cycles{0};
         void renderText();
 
-        // spritesheet depot
-        std::map<const dang::Imagesheet*, blit::SpriteSheet*> _spritesheets;
+        // surface depot
+        std::map<const dang::Imagesheet*, blit::Surface*> _surfaces;
         const dang::Imagesheet* _active_imagesheet{nullptr};
 
     };
