@@ -64,8 +64,7 @@ namespace pnk
                 // still enemies to go
                 std::shared_ptr<Enemy> en = std::make_shared<Enemy>(_prototypes[_active_room_flow->spawn_spr_with_id], _obj_is);
                 en->init();
-                en->setVelX(-en->getVel().x);
-                en->_transform = blit::SpriteTransform::HORIZONTAL;
+                en->setWalk(E_WALK_VEL);
                 _csl->addCollisionSprite(en);
                 _spawned++;
                 _spawn_ready = false;

@@ -27,6 +27,12 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
         bool    _bubbled{false};
+        void    bubble();
+        void    deBubble();
+        void    setWalk(float w_vel);
+    protected:
+        bool _on_ground = false;
+        float _walk{-2.0};
     };
 
 }

@@ -36,7 +36,7 @@ namespace pnk
 
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
 
-        setVel({-2.0f, -0.0f});
+        setVel({0,0});
 
     }
 
@@ -47,7 +47,7 @@ namespace pnk
 
     void Enemy::update(uint32_t dt)
     {
-
+        _on_ground = false;
     }
 
     dang::CollisionSpriteLayer::eCollisionResponse Enemy::getCollisionResponse(spSprite other)
@@ -69,11 +69,7 @@ namespace pnk
     {
         if (mf.other->_type_num == TN_BUBBLE || mf.me->_type_num == TN_BUBBLE)
         {
-            _bubbled = true;
-            _gravity = {0,0};
-            setVel({0,0});
-            removeAnimation();
-            setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{30, 31}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
+            bubble();
         }
         else if (mf.other->_type_num == TN_HERO || mf.me->_type_num == TN_HERO)
         {
@@ -87,12 +83,19 @@ namespace pnk
 
             if (normal.x != 0)
             {
-                _vel.x = -_vel.x;
-                _transform = _vel.x > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+                _walk = -_walk;
+                _transform = _walk > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
             }
-            else if (normal.y > 0)
+
+            if (normal.y > 0)
             {
+                _on_ground = true;
                 _vel.y = 0;
+                _vel.x = _walk;
+            }
+            else
+            {
+                _vel.x = 0;
             }
 
 #ifdef PNK_DEBUG
@@ -102,6 +105,32 @@ namespace pnk
         }
 #endif
         }
+    }
+
+    void Enemy::bubble()
+    {
+        _bubbled = true;
+        _gravity = {0,0};
+        setVel({0,0});
+        removeAnimation();
+        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{30, 31}, 400, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
+    }
+
+    void Enemy::deBubble()
+    {
+        _bubbled = false;
+        _gravity = PigsnKings::_gravity;
+//        setVel({-2.0f, -0.0f});
+        removeAnimation();
+        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
+
+    }
+
+    void Enemy::setWalk(float w_vel)
+    {
+        _walk = w_vel;
+        _transform = _walk > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+
     }
 
 }

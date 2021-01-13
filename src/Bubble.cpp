@@ -105,7 +105,7 @@ namespace pnk
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
         if ((mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1) && _state != bs_enemy_catched)
-        {
+        {   // an enemy is catched
             _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == TN_ENEMY1 ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
@@ -126,12 +126,17 @@ namespace pnk
                  {
                      _state = bs_bursting;
 
-                     if (!_catched_en.expired())
-                     {
-                         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+                     std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
+                     if (en)
+                     { // enemy becomes free again
+                         en->deBubble();
+                         _catched_en.reset();
+
+/*                         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
                          e->_spr = _catched_en;
                          pnk::_pnk._dispatcher.queueEvent(std::move(e));
                          _catched_en.reset();
+*/
                      }
                  });
             tw_seq_anim->addTween(twa);
