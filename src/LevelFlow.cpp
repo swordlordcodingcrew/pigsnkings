@@ -13,8 +13,8 @@ namespace pnk
         _l_obj_id = "lvl1_obj";
 
         // viewport = 320 x 240 px
-        roomflow room1 = {dang::Vector2F{320.0 / 2, 960 - 120}, 26, 2};
-        roomflow room2 = {dang::Vector2F{320.0 + 320.0 / 2, 960 - 120}, 27, 2};
+        roomflow room1 = {dang::Vector2F{320.0 / 2, 960 - 130}, 26, 2};
+        roomflow room2 = {dang::Vector2F{320.0 + 320.0 / 2, 960 - 130}, 27, 2};
 
         _roomflows.push_back(room1);
         _roomflows.push_back(room2);
