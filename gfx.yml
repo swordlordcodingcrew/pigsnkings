@@ -1,0 +1,19 @@
+# All these assets will be created in gfx.cpp, which CMake will
+# link automagically.
+# References can be picked up by including gfx.hpp
+
+gfx.cpp:
+  gfx/characters/bubble.png:
+    name: gfx_bubble
+  gfx/characters/king.png:
+    name: gfx_king
+  gfx/characters/pig.png:
+    name: gfx_pig
+  gfx/common/menus.png:
+    name: gfx_menus
+  gfx/common/sl_shield.png:
+    name: gfx_sl_shield
+  gfx/levels/castle_tiles.png:
+    name: gfx_castle_tiles
+
+
