@@ -58,7 +58,7 @@ set(SOURCES
 blit_executable (pigsnkings ${SOURCES})
 target_link_libraries(pigsnkings DANG)
 # build assets: perhaps later on
-#blit_assets_yaml (${PROJECT_NAME} assets.yml)
+blit_assets_yaml (${PROJECT_NAME} gfx.yml)
 blit_metadata (pigsnkings metadata.yml)
 
 #add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
