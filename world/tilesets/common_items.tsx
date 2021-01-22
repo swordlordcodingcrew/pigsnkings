@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="items" tilewidth="32" tileheight="48" tilecount="53" columns="53" objectalignment="topleft">
+<tileset version="1.4" tiledversion="1.4.3" name="gfx_items" tilewidth="32" tileheight="48" tilecount="53" columns="53" objectalignment="topleft">
  <image source="../../gfx/common/items/items.png" trans="ff00ff" width="1696" height="48"/>
  <tile id="0" type="coin_silver">
   <properties>
