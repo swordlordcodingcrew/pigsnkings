@@ -23,6 +23,40 @@ namespace pnk
     class GSPlay : public GameState
     {
     public:
+        /**
+         * hero consts
+         */
+        static inline const float H_WALK_VEL = 7;
+        static inline const float H_JUMP_VEL = -16;
+        static inline const uint32_t H_JUMP_COUNT = 30;
+        static inline const float BUBBLE_VEL = 20;
+        static inline const float E_WALK_VEL = 2;
+
+        /**
+         * type names. These should correspond to the object-types in the tiled-files
+         */
+        static inline const std::string T_KING{"king"};
+        static inline const std::string T_BUBBLE{"bubble"};
+        static inline const std::string T_HOTRECT{"hotrect"};
+        static inline const std::string T_NORMAL_PIG{"normal_pig"};
+        static inline const std::string T_BETTER_PIG{"better_pig"};
+
+        /**
+         * definition of _type_num of sprites.
+         */
+        enum TN
+        {
+            TN_HERO = 10,
+            TN_BUBBLE = 50,
+
+            TN_ENEMY1 = 101,
+            TN_ENEMY2 = 102,
+
+            TN_HOTRECT = 201,
+            TN_DEADLY_HOTRECT = 202
+        };
+
+    public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;

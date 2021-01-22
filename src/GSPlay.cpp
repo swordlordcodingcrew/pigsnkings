@@ -163,7 +163,7 @@ namespace pnk
         {
             spImagesheet is = gear.getImagesheet(_tmx.tilesets[so.tileset].name);
             spCollisionSprite spr;
-            if (so.type == "hotrect")
+            if (so.type == T_HOTRECT)
             {
                 spr = std::make_shared<dang::CollisionSprite>(so, is);
                 spr->_visible = false;
@@ -172,7 +172,7 @@ namespace pnk
                 spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
                 _csl->addCollisionSprite(spr);
             }
-            else if (so.type == "floor")
+/*            else if (so.type == "floor")
             {
                 spr = std::make_shared<dang::CollisionSprite>(so, is);
                 spr->_visible = false;
@@ -181,7 +181,7 @@ namespace pnk
                 spr->_type_num = TN_HOTRECT;
                 _csl->addCollisionSprite(spr);
             }
-            else if (so.type == "enemy")
+*/            else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
             }

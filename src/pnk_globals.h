@@ -5,29 +5,6 @@
 
 //#define PNK_DEBUG
 
-/**
- * hero consts
- */
-const float H_WALK_VEL = 7;
-const float H_JUMP_VEL = -16;
-const uint32_t H_JUMP_COUNT = 30;
-const float BUBBLE_VEL = 20;
-const float E_WALK_VEL = 2;
-
-/**
- * definition of _type_num of sprites
- */
-enum TN
-{
-    TN_HERO = 10,
-    TN_BUBBLE = 50,
-
-    TN_ENEMY1 = 101,
-    TN_ENEMY2 = 102,
-
-    TN_HOTRECT = 201,
-    TN_DEADLY_HOTRECT = 202
-};
 
 /**
  * Definition of event filters

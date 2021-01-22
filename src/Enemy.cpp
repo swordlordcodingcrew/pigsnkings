@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "pnk_globals.h"
 #include "PnkEvent.h"
+#include "GSPlay.h"
 
 namespace pnk
 {
@@ -30,7 +31,7 @@ namespace pnk
     void Enemy::init()
     {
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = TN_ENEMY1;
+        _type_num = GSPlay::TN_ENEMY1;
 
         _hotrect = {10, 16, 12, 16};
 
@@ -57,7 +58,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == TN_HERO)
+        if (other->_type_num == GSPlay::TN_HERO)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -67,11 +68,11 @@ namespace pnk
 
     void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == TN_BUBBLE || mf.me->_type_num == TN_BUBBLE)
+        if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
         {
             bubble();
         }
-        else if (mf.other->_type_num == TN_HERO || mf.me->_type_num == TN_HERO)
+        else if (mf.other->_type_num == GSPlay::TN_HERO || mf.me->_type_num == GSPlay::TN_HERO)
         {
 //            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
 //            e->_spr = shared_from_this();

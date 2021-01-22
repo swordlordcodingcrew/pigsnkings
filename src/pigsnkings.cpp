@@ -18,6 +18,7 @@
 #include "GSIntro.h"
 #include "GSHome.h"
 #include "GSPlay.h"
+#include "gfx.hpp"
 
 using spLayer = std::shared_ptr<dang::Layer>;
 using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;

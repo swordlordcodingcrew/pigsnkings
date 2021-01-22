@@ -27,7 +27,7 @@ namespace pnk
     : dang::CollisionSprite(so, is)
     {
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = TN_HERO;
+        _type_num = GSPlay::TN_HERO;
 
         _hotrect = {8, 8, 16, 24};
 
@@ -64,12 +64,12 @@ namespace pnk
         if (_somatic_state == SomaticState::_normal)
         {
 
-            if (mf.other->_type_num == TN_BUBBLE || mf.me->_type_num == TN_BUBBLE)
+            if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
             {
                 return;
             }
 
-            if (mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1)
+            if (mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1)
             {
                 _hit = true;
             }

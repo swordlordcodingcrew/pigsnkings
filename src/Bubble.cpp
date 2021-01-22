@@ -15,13 +15,13 @@
 #include "Enemy.h"
 #include "PnkEvent.h"
 #include "pnk_globals.h"
+#include "GSPlay.h"
 
 namespace pnk
 {
     using spTwSeq = std::shared_ptr<dang::TwSequence>;
     using spTwVel = std::shared_ptr<dang::TwVel>;
     using upEase = std::unique_ptr<dang::Ease>;
-
 
     extern PigsnKings _pnk;
 
@@ -43,7 +43,7 @@ namespace pnk
     void Bubble::init()
     {
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = TN_BUBBLE;
+        _type_num = GSPlay::TN_BUBBLE;
 
         _hotrect = {10, 10, 12, 12};
 
@@ -79,7 +79,7 @@ namespace pnk
         _state = bs_growing;
 
         // movement sequence
-        float velx = _to_the_left ? -BUBBLE_VEL : BUBBLE_VEL;
+        float velx = _to_the_left ? -GSPlay::BUBBLE_VEL : GSPlay::BUBBLE_VEL;
         spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
         spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, upEase(new dang::EaseInQuad()));
         spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, -3), 100, upEase(new dang::EaseLinear()));
@@ -104,9 +104,9 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == TN_ENEMY1 || mf.me->_type_num == TN_ENEMY1) && _state != bs_enemy_catched)
+        if ((mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1) && _state != bs_enemy_catched)
         {   // an enemy is catched
-            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == TN_ENEMY1 ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == GSPlay::TN_ENEMY1 ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
@@ -146,7 +146,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == TN_HERO || mf.me->_type_num == TN_HERO)
+        else if (mf.other->_type_num == GSPlay::TN_HERO || mf.me->_type_num == GSPlay::TN_HERO)
         {
             removeTweens(true);
 
@@ -189,17 +189,17 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == TN_HERO)
+        if (other->_type_num == GSPlay::TN_HERO)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
 
-        if (other->_type_num == TN_ENEMY1)
+        if (other->_type_num == GSPlay::TN_ENEMY1)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }
 
-        if (other->_type_num == TN_HOTRECT)
+        if (other->_type_num == GSPlay::TN_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
