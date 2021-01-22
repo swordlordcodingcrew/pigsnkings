@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="bubbles" tilewidth="32" tileheight="32" tilecount="11" columns="11">
+<tileset version="1.4" tiledversion="1.4.3" name="bubbles" tilewidth="32" tileheight="32" tilecount="11" columns="11" objectalignment="topleft">
  <image source="../../gfx/characters/bubble.png" trans="ff00ff" width="352" height="32"/>
  <tile id="0" type="bubble_blow">
   <animation>
