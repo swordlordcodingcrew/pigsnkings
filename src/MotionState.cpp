@@ -23,6 +23,21 @@ namespace pnk
     std::shared_ptr<JumpState> MotionState::_jumping = std::make_shared<JumpState>();
     std::shared_ptr<OnAirState> MotionState::_on_air = std::make_shared<OnAirState>();
 
+    bool MotionState::checkLeft()
+    {
+        return pressed(blit::Button::DPAD_LEFT) || blit::joystick.x > 0;
+    }
+
+    bool MotionState::checkRight()
+    {
+        return pressed(blit::Button::DPAD_RIGHT) || blit::joystick.x < 0;
+    }
+
+    bool MotionState::checkJump()
+    {
+        return pressed(blit::Button::A) || blit::joystick.y > 0;
+    }
+
 
     /************************************************************************
      * class WaitState
@@ -43,25 +58,25 @@ namespace pnk
             return MotionState::_on_air;
         }
 
-        if (pressed(HERO_JUMP))
+        if (checkJump())
         {
-            if (pressed(HERO_WALK_L))
+            if (checkLeft())
             {
                 hero._transform = blit::SpriteTransform::HORIZONTAL;
             }
-            else if (pressed(HERO_WALK_R))
+            else if (checkRight())
             {
                 hero._transform = blit::SpriteTransform::NONE;
             }
 
             return MotionState::_jumping;
         }
-        else if (pressed(HERO_WALK_L))
+        else if (checkLeft())
         {
             hero._transform = blit::SpriteTransform::HORIZONTAL;
             return MotionState::_walking;
         }
-        else if (pressed(HERO_WALK_R))
+        else if (checkRight())
         {
             hero._transform = blit::SpriteTransform::NONE;
             return MotionState::_walking;
@@ -103,13 +118,13 @@ namespace pnk
             return MotionState::_on_air;
         }
 
-        if (pressed(HERO_JUMP))
+        if (checkJump())
         {
-            if (pressed(HERO_WALK_L))
+            if (checkLeft())
             {
                 hero._transform = blit::SpriteTransform::HORIZONTAL;
             }
-            else if (pressed(HERO_WALK_R))
+            else if (checkRight())
             {
                 hero._transform = blit::SpriteTransform::NONE;
             }
@@ -120,7 +135,7 @@ namespace pnk
 
             return MotionState::_jumping;
         }
-        else if (pressed(HERO_WALK_L))
+        else if (checkLeft())
         {
             if (!(hero._transform == blit::SpriteTransform::HORIZONTAL))
             {
@@ -129,7 +144,7 @@ namespace pnk
             }
             return MotionState::_walking;
         }
-        else if (pressed(HERO_WALK_R))
+        else if (checkRight())
         {
             if (!(hero._transform == blit::SpriteTransform::NONE))
             {
@@ -165,12 +180,12 @@ namespace pnk
     {
         if (hero.isOnGround())
         {
-            if (pressed(HERO_WALK_L))
+            if (checkLeft())
             {
                 hero._transform = blit::SpriteTransform::HORIZONTAL;
                 return MotionState::_walking;
             }
-            else if (pressed(HERO_WALK_R))
+            else if (checkRight())
             {
                 hero._transform = blit::SpriteTransform::NONE;
                 return MotionState::_walking;
@@ -189,17 +204,17 @@ namespace pnk
                 _count = 0;
                 return MotionState::_on_air;
             }
-            else if (pressed(HERO_JUMP))
+            else if (checkJump())
             {
                 _count--;
                 hero.setVelY(GSPlay::H_JUMP_VEL);
 
-                if (pressed(HERO_WALK_L))
+                if (checkLeft())
                 {
                     hero.setVelX(-GSPlay::H_WALK_VEL);
                     hero._transform = blit::SpriteTransform::HORIZONTAL;
                 }
-                else if (pressed(HERO_WALK_R))
+                else if (checkRight())
                 {
                     hero.setVelX(GSPlay::H_WALK_VEL);
                     hero._transform = blit::SpriteTransform::NONE;
@@ -210,7 +225,6 @@ namespace pnk
                 }
 
                 return MotionState::_jumping;
-
             }
             else
             {
@@ -244,13 +258,13 @@ namespace pnk
     {
         if (hero.isOnGround())
         {
-            if (pressed(HERO_WALK_L))
+            if (checkLeft())
             {
                 hero.setVelX(-GSPlay::H_WALK_VEL);
                 hero._transform = blit::SpriteTransform::HORIZONTAL;
                 return MotionState::_walking;
             }
-            else if (pressed(HERO_WALK_R))
+            else if (checkRight())
             {
                 hero.setVelX(GSPlay::H_WALK_VEL);
                 hero._transform = blit::SpriteTransform::NONE;
@@ -263,12 +277,12 @@ namespace pnk
             }
         }
 
-        if (pressed(HERO_WALK_L))
+        if (checkLeft())
         {
             hero.setVelX(-GSPlay::H_WALK_VEL);
             hero._transform = blit::SpriteTransform::HORIZONTAL;
         }
-        else if (pressed(HERO_WALK_R))
+        else if (checkRight())
         {
             hero.setVelX(GSPlay::H_WALK_VEL);
             hero._transform = blit::SpriteTransform::NONE;

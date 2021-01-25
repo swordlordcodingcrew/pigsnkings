@@ -15,8 +15,6 @@
 
 namespace pnk
 {
-//    enum E_HERO_MOTION {WAIT, WALK, JUMP, ON_AIR, BUBBLE};
-
     class Hero;
     class WaitState;
     class WalkState;
@@ -31,13 +29,17 @@ namespace pnk
         static std::shared_ptr<JumpState> _jumping;
         static std::shared_ptr<OnAirState> _on_air;
 
-//        const float WALK_VEL = 4;
-//        const float JUMP_VEL = -8;
-//        const uint32_t JUMP_COUNT = 30;
-
         virtual std::shared_ptr<MotionState> update(Hero& hero) = 0;
         virtual void enter(Hero& hero) = 0;
         virtual void setAnimation(Hero& hero) = 0;
+
+    protected:
+        /*
+         * functions to check the status of the buttons and joystick and whatnot
+         */
+        static bool checkLeft();
+        static bool checkRight();
+        static bool checkJump();
 
     };
 
