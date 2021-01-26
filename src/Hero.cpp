@@ -12,6 +12,7 @@
 #include "pigsnkings.hpp"
 #include "pnk_globals.h"
 #include "PnkEvent.h"
+#include "Bubble.h"
 
 namespace pnk
 {
@@ -78,8 +79,20 @@ namespace pnk
 
             if (normal.y > 0)
             {
-                _on_ground = true;
-                _vel.y = 0;
+                if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
+                {
+                    std::shared_ptr<Bubble> bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == GSPlay::TN_BUBBLE ? mf.me : mf.other);
+                    if (bubble->_state != Bubble::bs_enemy_catched)
+                    {
+                        _on_ground = true;
+                        _vel.y = 0;
+                    }
+                }
+                else
+                {
+                    _on_ground = true;
+                    _vel.y = 0;
+                }
             }
             else if (normal.y < 0 && mf.other->_type_num != GSPlay::TN_BUBBLE && mf.me->_type_num != GSPlay::TN_BUBBLE)
             {

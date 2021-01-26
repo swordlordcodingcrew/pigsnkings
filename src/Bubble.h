@@ -31,9 +31,6 @@ namespace pnk
 
         std::weak_ptr<Enemy> _catched_en;
 
-    protected:
-        const dang::Vector2F _delta_catch{-1, -8};
-        void removeSelf();
 
         enum bubble_state
         {
@@ -44,6 +41,11 @@ namespace pnk
             bs_bursting
         };
         bubble_state _state{bs_hatch};
+
+    protected:
+        const dang::Vector2F _delta_catch{-1, -8};
+        void removeSelf();
+
     };
 
 
