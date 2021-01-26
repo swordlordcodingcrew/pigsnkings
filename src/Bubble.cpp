@@ -104,7 +104,8 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1) && _state != bs_enemy_catched)
+        if ((mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1)
+            && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
             _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == GSPlay::TN_ENEMY1 ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
@@ -148,33 +149,39 @@ namespace pnk
         }
         else if (mf.other->_type_num == GSPlay::TN_HERO || mf.me->_type_num == GSPlay::TN_HERO)
         {
-            removeTweens(true);
+            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
-            if (_state == bs_enemy_catched)
+            if (normal.y >= 0 || _state == bs_enemy_catched)   // hero is not on top or bubble has an enemy catched
             {
-                // TODO: reward
-            }
-
-            if (!_catched_en.expired())
-            {
-                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                e->_spr = _catched_en;
-                pnk::_pnk._dispatcher.queueEvent(std::move(e));
-                _catched_en.reset();
-            }
-
-            _vel = {0,0};
-            removeTweens(true);
-            _state = bs_bursting;
-
-            // alter animation
-            removeAnimation(true);
-            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, upEase(new dang::EaseLinear()), 1);
-            twa->setFinishedCallback([=] ()
+                if (_state == bs_enemy_catched)
                 {
-                    removeSelf();
-                });
-            setAnimation(twa);
+                    // TODO: reward
+                }
+
+                removeTweens(true);
+
+                if (!_catched_en.expired())
+                {
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+                    e->_spr = _catched_en;
+                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                    _catched_en.reset();
+                }
+
+                _vel = {0,0};
+                removeTweens(true);
+                _state = bs_bursting;
+
+                // alter animation
+                removeAnimation(true);
+                spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, upEase(new dang::EaseLinear()), 1);
+                twa->setFinishedCallback([=] ()
+                     {
+                         removeSelf();
+                     });
+                setAnimation(twa);
+
+            }
 
         }
 /*        else if (mf.other->_type_num == TN_HOTRECT || mf.me->_type_num == TN_HOTRECT)
@@ -191,7 +198,13 @@ namespace pnk
 
         if (other->_type_num == GSPlay::TN_HERO)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            if (_state == bs_enemy_catched)
+            {
+                return dang::CollisionSpriteLayer::CR_CROSS;
+            }
+
+            return dang::CollisionSpriteLayer::CR_SLIDE;
+
         }
 
         if (other->_type_num == GSPlay::TN_ENEMY1)

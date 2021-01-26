@@ -64,11 +64,11 @@ namespace pnk
         if (_somatic_state == SomaticState::_normal)
         {
 
-            if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
+/*            if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
             {
                 return;
             }
-
+*/
             if (mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1)
             {
                 _hit = true;
@@ -81,7 +81,7 @@ namespace pnk
                 _on_ground = true;
                 _vel.y = 0;
             }
-            else if (normal.y < 0)
+            else if (normal.y < 0 && mf.other->_type_num != GSPlay::TN_BUBBLE && mf.me->_type_num != GSPlay::TN_BUBBLE)
             {
                 _top_hit = true;
                 _vel.y = 0;
