@@ -25,17 +25,17 @@ namespace pnk
 
     bool MotionState::checkLeft()
     {
-        return pressed(blit::Button::DPAD_LEFT) || blit::joystick.x > 0;
+        return pressed(blit::Button::DPAD_LEFT) || blit::joystick.x < 0;
     }
 
     bool MotionState::checkRight()
     {
-        return pressed(blit::Button::DPAD_RIGHT) || blit::joystick.x < 0;
+        return pressed(blit::Button::DPAD_RIGHT) || blit::joystick.x > 0;
     }
 
     bool MotionState::checkJump()
     {
-        return pressed(blit::Button::A) || blit::joystick.y > 0;
+        return pressed(blit::Button::A) || blit::joystick.y < 0;
     }
 
 
