@@ -172,16 +172,7 @@ namespace pnk
                 spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
                 _csl->addCollisionSprite(spr);
             }
-/*            else if (so.type == "floor")
-            {
-                spr = std::make_shared<dang::CollisionSprite>(so, is);
-                spr->_visible = false;
-                spr->_imagesheet = nullptr;
-                spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
-                spr->_type_num = TN_HOTRECT;
-                _csl->addCollisionSprite(spr);
-            }
-*/            else if (so.type == "enemy")
+            else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
             }
