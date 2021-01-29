@@ -9,11 +9,15 @@ gfx.cpp:
     name: gfx_king
   gfx/characters/pig.png:
     name: gfx_pig
+  gfx/common/items/items.png:
+    name: gfx_items
+  gfx/levels/castle_decoration_tiles.png:
+    name: gfx_castle_decorations
+  gfx/levels/castle_tiles.png:
+    name: gfx_levels_castle_tiles
   gfx/common/menus.png:
     name: gfx_menus
   gfx/common/sl_shield.png:
     name: gfx_sl_shield
-  gfx/levels/castle_tiles.png:
-    name: gfx_castle_tiles
 
 

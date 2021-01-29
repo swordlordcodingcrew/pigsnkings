@@ -30,6 +30,9 @@ namespace pnk
          */
         const std::string _infoText = "DOWN and UP to choose.\n X-Btn ('c') to select";
 
+        static void buff_callback(blit::AudioChannel &channel);
+
+
         enum e_selection
         {
             PLAY = 0,

@@ -57,6 +57,7 @@ set(SOURCES
         rsrc/menus_png.h
         rsrc/sl_shield_32blit_png.h
         rsrc/pnk_sprites_png.h
+        tracks/gocryogo.h
         )
 
 # ---- Create binary ----

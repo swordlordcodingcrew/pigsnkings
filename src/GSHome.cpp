@@ -10,6 +10,7 @@
 #include "Layer.hpp"
 #include "tween/Ease.hpp"
 #include "tween/TwAnim.hpp"
+#include "snd/SndGear.hpp"
 
 #include "GSHome.h"
 #include "GSPlay.h"
@@ -19,6 +20,7 @@
 #include "rsrc/tiles_bg_png.h"
 #include "rsrc/menus_png.h"
 #include "rsrc/pnk_32_menu.tmx.hpp"
+#include "tracks/gocryogo.h"
 
 #include <cassert>
 
@@ -65,6 +67,13 @@ namespace pnk
 
     void GSHome::enter(dang::Gear &gear, uint32_t time)
     {
+        // set up music
+        // Setup channel
+        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+        blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
+        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
+        blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
+
         // set up state
         _lvl = init_pnk_32_menu();
         dang::TmxExtruder tmx_ext(&_lvl);
@@ -142,5 +151,13 @@ namespace pnk
         gear.removeImagesheets();
         gear.removeLayers();
 
+    }
+
+    void GSHome::buff_callback(blit::AudioChannel &channel)
+    {
+        if (dang::SndGear::fillWaveBufferWithMod(channel.wave_buffer) > 0)
+        {
+            channel.off();        // Stop playback of this channel.
+        }
     }
 }
