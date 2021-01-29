@@ -6,12 +6,17 @@ project(pigsnkings)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# ---- 32blit stuff ----
-#set(32BLIT_PATH "../32blit-beta" CACHE PATH "Path to 32blit.cmake")
-set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
+
+# ---- 32blit stuff ----
+set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
 include (${32BLIT_PATH}/32blit.cmake)
+
+# ---- DANG stuff ----
+set(DANG_PATH "libs/DANG" CACHE PATH "Path to DANG.cmake")
+include (${DANG_PATH}/DANG.cmake)
+
 install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
 
 # ---- DANG library ----
@@ -55,15 +60,20 @@ set(SOURCES
         )
 
 # ---- Create binary ----
-blit_executable (pigsnkings ${SOURCES})
-target_link_libraries(pigsnkings DANG)
+blit_executable (${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} DANG)
 # build assets: perhaps later on
-blit_assets_yaml (${PROJECT_NAME} gfx.yml)
-blit_metadata (pigsnkings metadata.yml)
+
+dang_asset_magic(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
+
+#dang_generate_assetlist(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
+#blit_assets_yaml (${PROJECT_NAME} gfx.yml)
+
+blit_metadata (${PROJECT_NAME} metadata.yml)
 
 #add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
 
-target_include_directories(pigsnkings
+target_include_directories(${PROJECT_NAME}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${32BLIT_PATH}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/DANG/src
