@@ -1,6 +1,18 @@
 # Tiled Session Files
 *.tiled-session
 
+# Build Folder
+build.stm32
+cmake-build-debug
+
+# Executables
+*.exe
+*.out
+*.app
+*.blit
+*.elf
+*.bin
+
 # Prerequisites
 *.d
 
@@ -19,17 +31,8 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
-
-# Executables
-*.exe
-*.out
-*.app
