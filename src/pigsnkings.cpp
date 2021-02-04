@@ -2,6 +2,7 @@
 #include <cassert>
 
 #include "dang.hpp"
+#include "snd/SndGear.hpp"
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
 #include "TileLayer.hpp"
@@ -19,6 +20,10 @@
 #include "GSHome.h"
 #include "GSPlay.h"
 #include "gfx.hpp"
+#include "sfx/bubble_pop_22050.h"
+#include "sfx/bubble_pop.h"
+#include "sfx/bubble_pop_11025.h"
+#include "sfx/bubble_pop_22050_mono.h"
 
 using spLayer = std::shared_ptr<dang::Layer>;
 using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
@@ -148,6 +153,36 @@ namespace pnk
             delete sf;
         }
     }
+
+    uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len, float volume = 0.5)
+    {
+        if (volume > 1) volume = 1;
+        if (volume < 0) volume = 0;
+
+        uint8_t nr = dang::SndGear::setSfx(sfx, len);
+        blit::channels[nr].waveforms = blit::Waveform::WAVE; // Set type to WAVE
+        blit::channels[nr].wave_buffer_callback = &PigsnKings::sfx_buff_cb;  // Set callback address
+        blit::channels[nr].volume = volume * 0xffff;
+        blit::channels[nr].user_data = (void*)nr;
+        blit::channels[nr].trigger_attack();
+        return nr;
+    }
+
+    void PigsnKings::sfx_buff_cb(blit::AudioChannel &channel)
+    {
+        uint8_t nr = (uint64_t)channel.user_data;
+        if (dang::SndGear::fillWaveBufferWithSfx(channel.wave_buffer, nr) > 0)
+        {
+            channel.off();        // Stop playback of this channel.
+            channel.waveforms = 0;
+            channel.wave_buffer_callback = nullptr;
+            channel.volume = 0x7fff;
+            channel.user_data = nullptr;
+        }
+
+    }
+
+
 
 }
 

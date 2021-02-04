@@ -44,6 +44,8 @@ namespace pnk
         void loadSurface(dang::spImagesheet is);
         void removeSurface(dang::spImagesheet is);
 
+        static uint8_t playSfx(const uint8_t* sfx, const uint32_t len, float volume);
+
     protected:
         // the gear
         dang::Gear _gear;
@@ -51,6 +53,7 @@ namespace pnk
         static void blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t);
         static void set_surface_cb(dang::spImagesheet is);
         static void line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+        static void sfx_buff_cb(blit::AudioChannel &channel);
 
         // the state
         std::shared_ptr<GameState>   _gs;

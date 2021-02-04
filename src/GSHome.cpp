@@ -71,7 +71,7 @@ namespace pnk
     {
         // set up music
         // Setup channel
-        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+/*        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
         if (dang::SndGear::mod_set)
         {
             blit::debug("module loaded\n");
@@ -83,7 +83,7 @@ namespace pnk
         blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
         blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
-
+*/
         // set up state
         _lvl = init_pnk_32_menu();
         dang::TmxExtruder tmx_ext(&_lvl);
