@@ -20,7 +20,7 @@ jobs:
           - os: ubuntu-latest
             name: STM32
             release-suffix: STM32
-            apt-packages: gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib python3-setuptools
+            apt-packages: gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib python3-setuptools libxml2-utils
 
     runs-on: ${{matrix.os}}
 
