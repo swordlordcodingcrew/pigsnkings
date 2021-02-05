@@ -3,16 +3,14 @@
 # Based on the 32blit boilerplate build script
 # (c) 2021 by SwordLord - the coding crew
 
-name: "Build and Package Pigs n Kings for the 32blit hardware"
+name: "Build Pigs n Kings for the 32blit"
 on: [push]
 
 env:
   BUILD_TYPE: Release
 
 jobs:
-
   build:
-
     name: ${{matrix.name}}
     strategy:
       matrix:
@@ -75,8 +73,9 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          draft: true
+          draft: false
           prerelease: false
+          body: This is an early beta build for the Pigs n Kings game. Use at your own risk and see enclosed Readme.
 
       - name: Upload Release Asset
         #if: github.event_name == 'release' && matrix.release-suffix != ''
