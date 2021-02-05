@@ -1,0 +1,89 @@
+# Build Github Action, compiles binaries for the device as well as Linux
+#
+# Based on the 32blit boilerplate build script
+# (c) 2021 by SwordLord - the coding crew
+
+name: "Build and Package Pigs n Kings"
+on: [push]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+
+  build:
+
+    name: ${{matrix.name}}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            name: Linux
+            release-suffix: LIN64
+            apt-packages: libsdl2-dev libsdl2-image-dev libsdl2-net-dev python3-setuptools
+
+          - os: ubuntu-20.04
+            name: STM32
+            release-suffix: STM32
+            apt-packages: gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib python3-setuptools
+
+    runs-on: ${{matrix.os}}
+
+    env:
+      RELEASE_FILE: ${{github.event.repository.name}}-${{github.event.release.tag_name}}-${{matrix.release-suffix}}
+
+    steps:
+      # Check out the main repo
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      # Linux dependencies
+      - name: Install Linux dependencies
+        run: |
+          sudo apt update && sudo apt install ${{matrix.apt-packages}}
+          pip3 install 32blit
+
+      # create the folder to build the binary into
+      - name: Create build folder
+        run: cmake -E make_directory ${{runner.workspace}}/build
+
+      # Configure the build environment
+      - name: Configure cmake
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cmake .. -D32BLIT_PATH="../libs/32blit-beta/" -DCMAKE_TOOLCHAIN_FILE=../libs/32blit-beta/32blit.toolchain -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCPACK_PACKAGE_FILE_NAME=${{env.RELEASE_FILE}}
+
+      # Compile and build the game
+      - name: Build and pack
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: |
+          cmake --build . --config $BUILD_TYPE -j 2
+          zip -r pigsnkings pigsnkings ../README.md
+
+      - name: Create Release
+        #if: github.event_name == 'release' && matrix.release-suffix != ''
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
+
+      - name: Upload Release Asset
+        #if: github.event_name == 'release' && matrix.release-suffix != ''
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./pigsnkings.zip
+          asset_name: pigsnkings.zip
+          asset_content_type: application/zip
