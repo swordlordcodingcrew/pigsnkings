@@ -43,9 +43,12 @@ jobs:
           sudo apt update && sudo apt install ${{matrix.apt-packages}}
           pip3 install 32blit
 
-      # create the folder to build the binary into
-      - name: Create build folder
-        run: cmake -E make_directory ${{runner.workspace}}/pigsnkings/build
+      # create the folder to build the binary into and make sources ready
+      - name: Create build folder and init submodules
+        working-directory: ${{runner.workspace}}/pigsnkings
+        run: |
+          cmake -E make_directory ${{runner.workspace}}/pigsnkings/build
+          git submodule update --init --recursive
 
       # Configure the build environment
       - name: Configure cmake
