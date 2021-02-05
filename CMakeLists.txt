@@ -58,6 +58,10 @@ set(SOURCES
         rsrc/sl_shield_32blit_png.h
         rsrc/pnk_sprites_png.h
         tracks/gocryogo.h
+        sfx/bubble_pop_22050.h
+        sfx/bubble_pop.h
+        sfx/bubble_pop_11025.h
+        sfx/bubble_pop_22050_mono.h
         )
 
 # ---- Create binary ----
