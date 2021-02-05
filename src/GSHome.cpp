@@ -74,11 +74,11 @@ namespace pnk
         dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
         if (dang::SndGear::mod_set)
         {
-            blit::debug("module loaded\n");
+            //blit::debug("module loaded\n");
         }
         else
         {
-            blit::debug("the data is not recognised as a module.\n");
+            //blit::debug("the data is not recognised as a module.\n");
         }
         blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
@@ -182,8 +182,7 @@ namespace pnk
                 stream << std::hex << channel.wave_buffer[i] << " ";
             }
             stream << std::endl;
-            blit::debug(stream.str());
-
+            //blit::debug(stream.str());
         }
     }
 }
