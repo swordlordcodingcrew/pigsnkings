@@ -20,9 +20,6 @@
 #include "GSHome.h"
 #include "GSPlay.h"
 #include "gfx.hpp"
-#include "sfx/bubble_pop_22050.h"
-#include "sfx/bubble_pop.h"
-#include "sfx/bubble_pop_11025.h"
 #include "sfx/bubble_pop_22050_mono.h"
 
 using spLayer = std::shared_ptr<dang::Layer>;
