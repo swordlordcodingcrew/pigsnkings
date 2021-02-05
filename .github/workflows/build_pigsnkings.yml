@@ -3,7 +3,7 @@
 # Based on the 32blit boilerplate build script
 # (c) 2021 by SwordLord - the coding crew
 
-name: "Build and Package Pigs n Kings"
+name: "Build and Package Pigs n Kings for the 32blit hardware"
 on: [push]
 
 env:
@@ -17,11 +17,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            name: Linux
-            release-suffix: Linux
-            apt-packages: libsdl2-dev libsdl2-image-dev libsdl2-net-dev python3-setuptools
-
           - os: ubuntu-latest
             name: STM32
             release-suffix: STM32
