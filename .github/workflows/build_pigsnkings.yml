@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{runner.workspace}}/pigsnkings/build
         shell: bash
         run: |
-          zip -r pigsnkings pigsnkings.blit ../README.md
+          zip -j pigsnkings pigsnkings.blit ../README.md
 
       - name: Create Release
         #if: github.event_name == 'release' && matrix.release-suffix != ''
