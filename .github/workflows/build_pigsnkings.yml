@@ -53,12 +53,18 @@ jobs:
           cmake .. -D32BLIT_PATH="../libs/32blit-beta/" -DCMAKE_TOOLCHAIN_FILE=../libs/32blit-beta/32blit.toolchain -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCPACK_PACKAGE_FILE_NAME=${{env.RELEASE_FILE}}
 
       # Compile and build the game
-      - name: Build and pack
+      - name: Compile and build
         working-directory: ${{runner.workspace}}/pigsnkings/build
         shell: bash
         run: |
           cmake --build . --config $BUILD_TYPE -j 2
-          zip -r pigsnkings pigsnkings ../README.md
+
+      # Pack the game, add the readme
+      - name: Pack the game
+        working-directory: ${{runner.workspace}}/pigsnkings/build
+        shell: bash
+        run: |
+          zip -r pigsnkings pigsnkings.blit ../README.md
 
       - name: Create Release
         #if: github.event_name == 'release' && matrix.release-suffix != ''
@@ -80,6 +86,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ${{runner.workspace}}/pigsnkings/pigsnkings.zip
+          asset_path: ${{runner.workspace}}/pigsnkings/build/pigsnkings.zip
           asset_name: pigsnkings.zip
           asset_content_type: application/zip
