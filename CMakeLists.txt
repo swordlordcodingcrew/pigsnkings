@@ -42,6 +42,10 @@ set(SOURCES
         src/Bubble.h
         src/GameState.cpp
         src/GameState.h
+        src/ScrolltextLayer.cpp
+        src/ScrolltextLayer.h
+        src/GSAbout.cpp
+        src/GSAbout.h
         src/GSIntro.cpp
         src/GSIntro.h
         src/GSHome.cpp

@@ -14,6 +14,7 @@
 
 #include "GSHome.h"
 #include "GSPlay.h"
+#include "GSAbout.h"
 
 #include "32blit.hpp"
 
@@ -44,7 +45,7 @@ namespace pnk
             }
             else if (_sel == ABOUT)
             {
-                // return _gs_about;
+                return _gs_about;
             }
         }
 
@@ -141,7 +142,6 @@ namespace pnk
             }
             sl->addSprite(spr);
         }
-
 
         // first screen of tmx
         gear.setViewportPos({0, 0});
