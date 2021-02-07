@@ -14,6 +14,7 @@
 
 #include "GSHome.h"
 #include "GSPlay.h"
+#include "GSPrefs.h"
 #include "GSAbout.h"
 
 #include "32blit.hpp"
@@ -41,7 +42,7 @@ namespace pnk
             }
             else if (_sel == PREFS)
             {
-                // return _gs_prefs;
+                return _gs_prefs;
             }
             else if (_sel == ABOUT)
             {

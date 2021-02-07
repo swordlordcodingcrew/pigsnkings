@@ -36,7 +36,7 @@ namespace pnk
     class GSHome;
     class GSPlay;
     class GSAbout;
-    //class GSPrefs;
+    class GSPrefs;
 
     class GameState
     {
@@ -45,8 +45,8 @@ namespace pnk
         static std::shared_ptr<GSHome> _gs_home;
         static std::shared_ptr<GSPlay> _gs_play;
         static std::shared_ptr<GSAbout> _gs_about;
-/*        static std::shared_ptr<GSPrefs> _gs_prefs;
-*/
+        static std::shared_ptr<GSPrefs> _gs_prefs;
+
 
         virtual std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) = 0;
         virtual void enter(dang::Gear& gear, uint32_t time) = 0;

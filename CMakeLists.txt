@@ -46,6 +46,8 @@ set(SOURCES
         src/ScrolltextLayer.h
         src/GSAbout.cpp
         src/GSAbout.h
+        src/GSPrefs.cpp
+        src/GSPrefs.h
         src/GSIntro.cpp
         src/GSIntro.h
         src/GSHome.cpp
