@@ -23,6 +23,14 @@ class ScrolltextLayer : public dang::Layer
 
         void resetScrolling();
 
+        // static as well
+        uint16_t pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0, tpos1, tpos2, tpos3, tpos4;
+        int aSin[512];
+        int aCos[512];
+
+        uint8_t alpha = 50;
+        blit::Pen colors[256];
+
         blit::Pen backgroundColour;
         blit::Pen foregroundColour;
         blit::Pen highlightColour;
@@ -49,7 +57,7 @@ class ScrolltextLayer : public dang::Layer
                 "Then came a pig",
                 "and took the Hammer away.",
                 "",
-                "Darkness fell over the lands.",
+                "Darkness fell over the kingdom.",
                 "",
                 "When the kings mother",
                 "heard the King swear against",
