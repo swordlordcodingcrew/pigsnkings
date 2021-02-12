@@ -65,6 +65,7 @@ set(SOURCES
         rsrc/sl_shield_32blit_png.h
         rsrc/pnk_sprites_png.h
         tracks/gocryogo.h
+        fonts/barcadebrawl.h
         sfx/bubble_pop_22050_mono.h
         )
 

@@ -2,6 +2,7 @@
 // This file is part of the DANG game framework
 
 #include <iostream>
+#include <fonts/barcadebrawl.h>
 #include "Gear.hpp"
 #include "ScrolltextLayer.h"
 #include "Layer.hpp"
@@ -159,7 +160,7 @@ namespace pnk
             // render & make sure to clip to screen
             if (y >= 0 && y < blit::screen.bounds.h) {
 
-                blit::screen.text(sLine, blit::minimal_font, blit::Point(blit::screen.bounds.w / 2, y), true, blit::TextAlign::center_h);
+                blit::screen.text(sLine, barcadebrawl, blit::Point(blit::screen.bounds.w / 2, y), true, blit::TextAlign::center_h);
             }
             y += rowHeight;
         }
