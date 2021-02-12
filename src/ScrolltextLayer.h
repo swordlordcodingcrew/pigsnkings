@@ -62,7 +62,7 @@ class ScrolltextLayer : public dang::Layer
                 "When the kings mother",
                 "heard the King swear against",
                 "that **** pig,",
-                "she whashed the Kings mouth",
+                "she washed the Kings mouth",
                 "with soap.",
                 "",
                 "So now the King blows Bubbles.",
