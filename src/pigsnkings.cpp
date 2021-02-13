@@ -10,7 +10,6 @@
 #include "CollisionSpriteLayer.hpp"
 #include "Hero.h"
 #include "pigsnkings.hpp"
-#include "pnk_globals.h"
 #include "Bubble.h"
 #include "GameState.h"
 #include "GSIntro.h"
@@ -200,22 +199,24 @@ namespace pnk
             //blit::debug("the data is not recognised as a module.\n");
         }
         blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
-        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::buff_callback;  // Set callback address
-        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::buff_callback;  // Set callback address
+        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
+        blit::channels[dang::SndGear::getMusicChan()].volume = volume;
         blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
 
     }
 
-//    uint32_t PigsnKings::_last_mod_time = 0;
+#ifdef PNK_SND_DEBUG
+    uint32_t PigsnKings::_last_mod_time = 0;
+#endif
 
-    void PigsnKings::buff_callback(blit::AudioChannel &channel)
+    void PigsnKings::mod_buff_cb(blit::AudioChannel &channel)
     {
         if (dang::SndGear::fillWaveBufferWithMod(channel.wave_buffer) > 0)
         {
             channel.off();        // Stop playback of this channel.
         }
-
-/*        if (blit::now() - PigsnKings::_last_mod_time > 1000)
+#ifdef PNK_SND_DEBUG
+        if (blit::now() - PigsnKings::_last_mod_time > 1000)
         {
             PigsnKings::_last_mod_time = blit::now();
             std::stringstream stream;
@@ -227,7 +228,13 @@ namespace pnk
             stream << std::endl;
             //blit::debug(stream.str());
         }
-*/
+#endif
+    }
+
+    void PigsnKings::stopMod()
+    {
+        blit::channels[dang::SndGear::getMusicChan()].off();
+        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = nullptr;
     }
 }
 
