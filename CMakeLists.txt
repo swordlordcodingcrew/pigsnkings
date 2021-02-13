@@ -59,6 +59,7 @@ set(SOURCES
         rsrc/pnk_sprites_png.h
         tracks/gocryogo.h
         sfx/bubble_pop_22050_mono.h
+        sfx/coin_22050_mono.h
         )
 
 # ---- Create binary ----

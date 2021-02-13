@@ -17,6 +17,7 @@
 #include "pnk_globals.h"
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
+#include "sfx/coin_22050_mono.h"
 
 namespace pnk
 {
@@ -158,6 +159,7 @@ namespace pnk
             {
                 if (_state == bs_enemy_catched)
                 {
+                    _pnk.playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, 0.5);
                     // TODO: reward
                 }
 

@@ -29,6 +29,8 @@ namespace pnk
         PigsnKings();
 
         static const dang::Vector2F _gravity;
+        static float volume_snd;
+        static float volume_sfx;
 
         uint32_t _score = 0;
         uint32_t _active_level = 1;
@@ -44,7 +46,10 @@ namespace pnk
         void loadSurface(dang::spImagesheet is);
         void removeSurface(dang::spImagesheet is);
 
+        static uint8_t playSfx(const uint8_t *sfx, const uint32_t len);
         static uint8_t playSfx(const uint8_t* sfx, const uint32_t len, float volume);
+        static void playMod(const uint8_t *mod, const uint32_t len);
+        static void playMod(const uint8_t* mod, const uint32_t len, float volume);
 
     protected:
         // the gear

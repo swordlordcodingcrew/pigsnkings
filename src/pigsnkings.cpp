@@ -37,9 +37,11 @@ namespace pnk
     PigsnKings _pnk;
 
     /**
-     * static const variable for gravity
+     * static variable
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
+    float PigsnKings::volume_snd = 0.7;
+    float PigsnKings::volume_sfx = 1;
 
     /**
      * static callback functions for DANG
@@ -151,7 +153,12 @@ namespace pnk
         }
     }
 
-    uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len, float volume = 0.5)
+    uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len)
+    {
+        playSfx(sfx, len, PigsnKings::volume_sfx);
+    }
+
+    uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len, float volume)
     {
         if (volume > 1) volume = 1;
         if (volume < 0) volume = 0;
@@ -176,6 +183,29 @@ namespace pnk
             channel.volume = 0x7fff;
             channel.user_data = nullptr;
         }
+
+    }
+
+    void PigsnKings::playMod(const uint8_t *mod, const uint32_t len)
+    {
+        playMod(mod, len, PigsnKings::volume_snd);
+    }
+
+    void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)
+    {
+        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+        if (dang::SndGear::mod_set)
+        {
+            //blit::debug("module loaded\n");
+        }
+        else
+        {
+            //blit::debug("the data is not recognised as a module.\n");
+        }
+        blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
+        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
+        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
+        blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
 
     }
 
