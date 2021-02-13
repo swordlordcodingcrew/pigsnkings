@@ -151,27 +151,4 @@ namespace pnk
         gear.removeLayers();
 
     }
-
-    uint32_t GSHome::_last_time = 0;
-
-    void GSHome::buff_callback(blit::AudioChannel &channel)
-    {
-        if (dang::SndGear::fillWaveBufferWithMod(channel.wave_buffer) > 0)
-        {
-            channel.off();        // Stop playback of this channel.
-        }
-
-        if (blit::now() - GSHome::_last_time > 1000)
-        {
-            GSHome::_last_time = blit::now();
-            std::stringstream stream;
-            stream << "wave_buffer=";
-            for (int i = 0; i < 64; i++)
-            {
-                stream << std::hex << channel.wave_buffer[i] << " ";
-            }
-            stream << std::endl;
-            //blit::debug(stream.str());
-        }
-    }
 }

@@ -24,15 +24,11 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
         const std::string& getInfotext() override { return _infoText; }
 
-        static uint32_t _last_time;
     protected:
         /**
          * info text to show on the screen (development only - should be removed later on)
          */
         const std::string _infoText = "DOWN and UP to choose.\n X-Btn ('c') to select";
-
-        static void buff_callback(blit::AudioChannel &channel);
-
 
         enum e_selection
         {

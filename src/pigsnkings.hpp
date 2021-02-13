@@ -74,6 +74,9 @@ namespace pnk
         std::map<const dang::Imagesheet*, blit::Surface*> _surfaces;
         const dang::Imagesheet* _active_imagesheet{nullptr};
 
+//        static uint32_t _last_mod_time;
+        static void buff_callback(blit::AudioChannel &channel);
+
     };
 }
 
