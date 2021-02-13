@@ -1,19 +1,15 @@
 #include <iostream>
 #include <cassert>
 
-#include "dang.hpp"
 #include "snd/SndGear.hpp"
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
 #include "TileLayer.hpp"
-#include "SpriteLayer.hpp"
-#include "Sprite.hpp"
 #include "CollisionSprite.hpp"
 #include "CollisionSpriteLayer.hpp"
 #include "Hero.h"
 #include "pigsnkings.hpp"
 #include "pnk_globals.h"
-#include "PnkEvent.h"
 #include "Bubble.h"
 #include "GameState.h"
 #include "GSIntro.h"
@@ -27,7 +23,6 @@ using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
 using spSpriteLayer = std::shared_ptr<dang::SpriteLayer>;
 using spTileLayer = std::shared_ptr<dang::TileLayer>;
 using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
-
 
 namespace pnk
 {

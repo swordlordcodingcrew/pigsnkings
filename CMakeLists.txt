@@ -10,12 +10,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
 
 # ---- 32blit stuff ----
-set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
-include (${32BLIT_PATH}/32blit.cmake)
+#set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
+#include (${32BLIT_PATH}/32blit.cmake)
+find_package (32BLIT CONFIG REQUIRED PATHS libs/32blit-sdk)
 
 # ---- DANG stuff ----
-set(DANG_PATH "libs/DANG" CACHE PATH "Path to DANG.cmake")
-include (${DANG_PATH}/DANG.cmake)
+set(DANG_DIR "libs/DANG" CACHE PATH "Path to DANG.cmake")
+include (${DANG_DIR}/DANG.cmake)
 
 install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
 
@@ -42,6 +43,12 @@ set(SOURCES
         src/Bubble.h
         src/GameState.cpp
         src/GameState.h
+        src/ScrolltextLayer.cpp
+        src/ScrolltextLayer.h
+        src/GSAbout.cpp
+        src/GSAbout.h
+        src/GSPrefs.cpp
+        src/GSPrefs.h
         src/GSIntro.cpp
         src/GSIntro.h
         src/GSHome.cpp
@@ -58,6 +65,7 @@ set(SOURCES
         rsrc/sl_shield_32blit_png.h
         rsrc/pnk_sprites_png.h
         tracks/gocryogo.h
+        fonts/barcadebrawl.h
         sfx/bubble_pop_22050_mono.h
         sfx/coin_22050_mono.h
         )
@@ -73,12 +81,13 @@ dang_asset_magic(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
 #blit_assets_yaml (${PROJECT_NAME} gfx.yml)
 
 blit_metadata (${PROJECT_NAME} metadata.yml)
+set(PROJECT_DISTRIBS LICENSE README.md)
 
 #add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
 
 target_include_directories(${PROJECT_NAME}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${32BLIT_PATH}
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${32BLIT_DIR}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/DANG/src
         )
 
