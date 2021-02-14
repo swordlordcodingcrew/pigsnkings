@@ -17,6 +17,7 @@
 #include "pnk_globals.h"
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
+#include "sfx/coin_22050_mono.h"
 
 namespace pnk
 {
@@ -67,7 +68,7 @@ namespace pnk
                  if (_state == bs_wobbling)
                  {
                      _state = bs_bursting;
-                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, 0.5);
+                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
                      _vel = {0,0};
                      removeTweens(true);
                  }
@@ -128,7 +129,7 @@ namespace pnk
             twa->setFinishedCallback([=] ()
                  {
                      _state = bs_bursting;
-                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, 0.5);
+                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
 
                      std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
                      if (en)
@@ -158,6 +159,7 @@ namespace pnk
             {
                 if (_state == bs_enemy_catched)
                 {
+                    _pnk.playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
                     // TODO: reward
                 }
 
@@ -174,7 +176,7 @@ namespace pnk
                 _vel = {0,0};
                 removeTweens(true);
                 _state = bs_bursting;
-                _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, 0.5);
+                _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
 
                 // alter animation
                 removeAnimation(true);

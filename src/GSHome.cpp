@@ -73,19 +73,7 @@ namespace pnk
     {
         // set up music
         // Setup channel
-/*        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
-        if (dang::SndGear::mod_set)
-        {
-            //blit::debug("module loaded\n");
-        }
-        else
-        {
-            //blit::debug("the data is not recognised as a module.\n");
-        }
-        blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
-        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &GSHome::buff_callback;  // Set callback address
-        blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
-*/
+
         // set up state
         _lvl = init_pnk_32_menu();
         dang::TmxExtruder tmx_ext(&_lvl);
@@ -162,28 +150,5 @@ namespace pnk
         gear.removeImagesheets();
         gear.removeLayers();
 
-    }
-
-    uint32_t GSHome::_last_time = 0;
-
-    void GSHome::buff_callback(blit::AudioChannel &channel)
-    {
-        if (dang::SndGear::fillWaveBufferWithMod(channel.wave_buffer) > 0)
-        {
-            channel.off();        // Stop playback of this channel.
-        }
-
-        if (blit::now() - GSHome::_last_time > 1000)
-        {
-            GSHome::_last_time = blit::now();
-            std::stringstream stream;
-            stream << "wave_buffer=";
-            for (int i = 0; i < 64; i++)
-            {
-                stream << std::hex << channel.wave_buffer[i] << " ";
-            }
-            stream << std::endl;
-            //blit::debug(stream.str());
-        }
     }
 }

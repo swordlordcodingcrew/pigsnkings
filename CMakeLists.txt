@@ -67,6 +67,7 @@ set(SOURCES
         tracks/gocryogo.h
         fonts/barcadebrawl.h
         sfx/bubble_pop_22050_mono.h
+        sfx/coin_22050_mono.h
         )
 
 # ---- Create binary ----

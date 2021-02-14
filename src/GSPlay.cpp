@@ -21,6 +21,8 @@
 #include "rsrc/pnk_sprites_png.h"
 #include "rsrc/pnk_32_lvl1.tmx.hpp"
 
+#include "tracks/gocryogo.h"
+
 #include "Hero.h"
 #include "Bubble.h"
 #include "Enemy.h"
@@ -112,6 +114,8 @@ namespace pnk
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
+        PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
+
         // choose level acc. to pnk
         switch(_pnk._active_level)
         {
@@ -219,6 +223,8 @@ namespace pnk
         // clear gear
         gear.removeImagesheets();
         gear.removeLayers();
+
+        PigsnKings::stopMod();
 
     }
 

@@ -4,6 +4,7 @@
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="117" source="../tilesets/common_items.tsx"/>
  <tileset firstgid="170" source="../tilesets/character_bubbles.tsx"/>
+ <tileset firstgid="181" source="../tilesets/common_hud_ui.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
