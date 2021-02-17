@@ -192,17 +192,21 @@ namespace pnk
         dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
         if (dang::SndGear::mod_set)
         {
-            //blit::debug("module loaded\n");
+            uint8_t chan = dang::SndGear::getMusicChan();
+            blit::channels[chan].waveforms = blit::Waveform::WAVE; // Set type to WAVE
+            blit::channels[chan].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
+            blit::channels[chan].volume = volume * 0xffff;
+            blit::channels[chan].trigger_attack();
+#ifdef PNK_SND_DEBUG
+            blit::debug("module loaded\n");
+#endif
         }
+#ifdef PNK_SND_DEBUG
         else
         {
-            //blit::debug("the data is not recognised as a module.\n");
+            blit::debug("the data is not recognised as a module.\n");
         }
-        blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
-        blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
-        blit::channels[dang::SndGear::getMusicChan()].volume = volume;
-        blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
-
+#endif
     }
 
 #ifdef PNK_SND_DEBUG
