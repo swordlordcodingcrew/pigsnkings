@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="171">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="196">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
  <tileset firstgid="190" source="../tilesets/character_bubbles.tsx"/>
  <tileset firstgid="201" source="../tilesets/common_hud_ui.tsx"/>
+ <tileset firstgid="306" source="../tilesets/character_king.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -143,6 +144,23 @@
   <object id="168" gid="100" x="448" y="160" width="32" height="32"/>
   <object id="169" gid="98" x="416" y="160" width="32" height="32"/>
   <object id="170" gid="101" x="800" y="128" width="32" height="32"/>
+  <object id="179" type="hotrect" x="0" y="704" width="64" height="64"/>
+  <object id="180" type="hotrect" x="128" y="704" width="96" height="10"/>
+  <object id="181" type="hotrect" x="64" y="736" width="192" height="32"/>
+  <object id="182" type="hotrect" x="256" y="704" width="64" height="64"/>
+  <object id="183" type="hotrect" x="0" y="512" width="32" height="160"/>
+  <object id="184" type="hotrect" x="32" y="512" width="192" height="32"/>
+  <object id="185" type="hotrect" x="32" y="576" width="64" height="32"/>
+  <object id="186" type="hotrect" x="192" y="576" width="96" height="32"/>
+  <object id="187" type="hotrect" x="288" y="512" width="32" height="192"/>
+  <object id="188" type="hotrect" x="256" y="512" width="32" height="32"/>
+  <object id="189" type="hotrect_platform" x="128" y="576" width="32" height="6"/>
+  <object id="190" type="hotrect_platform" x="128" y="608" width="32" height="6"/>
+  <object id="191" type="hotrect_platform" x="128" y="640" width="32" height="6"/>
+  <object id="192" type="bubble_proto" gid="170" x="0" y="480" width="32" height="32"/>
+  <object id="193" gid="286" x="0" y="672" width="32" height="32"/>
+  <object id="194" x="-8" y="656"/>
+  <object id="195" type="hotrect" x="-8" y="656" width="8" height="64"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud"/>
 </map>
