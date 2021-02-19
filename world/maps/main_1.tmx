@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="31">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="39">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="202" source="../tilesets/main_pnk_logo.tsx"/>
  <tileset firstgid="203" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
+ <tileset firstgid="243" source="../tilesets/character_king.tsx"/>
+ <tileset firstgid="269" source="../tilesets/character_pig.tsx"/>
+ <tileset firstgid="285" source="../tilesets/common_menus.tsx"/>
  <layer id="1" name="main_bg" width="10" height="8">
   <data encoding="csv">
 5,26,26,26,26,26,26,26,26,6,
@@ -18,19 +21,20 @@
  </layer>
  <objectgroup id="2" name="main_decoration">
   <object id="15" gid="203" x="16" y="96" width="32" height="32"/>
-  <object id="16" gid="208" x="16" y="128" width="32" height="32"/>
-  <object id="17" gid="213" x="16" y="160" width="32" height="32"/>
+  <object id="16" gid="213" x="16" y="128" width="32" height="32"/>
+  <object id="17" gid="223" x="16" y="160" width="32" height="32"/>
   <object id="18" gid="203" x="272" y="96" width="32" height="32"/>
-  <object id="19" gid="208" x="272" y="128" width="32" height="32"/>
-  <object id="20" gid="218" x="272" y="160" width="32" height="32"/>
-  <object id="21" gid="209" x="64" y="160" width="32" height="32"/>
-  <object id="22" gid="210" x="96" y="160" width="32" height="32"/>
-  <object id="23" gid="210" x="128" y="160" width="32" height="32"/>
-  <object id="24" gid="210" x="160" y="160" width="32" height="32"/>
-  <object id="25" gid="210" x="192" y="160" width="32" height="32"/>
-  <object id="26" gid="211" x="224" y="160" width="32" height="32"/>
+  <object id="19" gid="213" x="272" y="128" width="32" height="32"/>
+  <object id="20" gid="233" x="272" y="160" width="32" height="32"/>
+  <object id="35" gid="202" x="51" y="83" width="218" height="36"/>
+  <object id="34" gid="208" x="192" y="128" width="32" height="32"/>
+  <object id="33" gid="208" x="96" y="128" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="main_obj">
-  <object id="14" gid="202" x="48" y="128" width="224" height="96"/>
+  <object id="31" gid="253" x="64" y="192" width="32" height="32"/>
+  <object id="32" gid="1073742093" x="256" y="224" width="32" height="32" rotation="180"/>
+  <object id="36" gid="285" x="131" y="128" width="58" height="32"/>
+  <object id="37" gid="286" x="131" y="160" width="58" height="32"/>
+  <object id="38" gid="287" x="131" y="192" width="58" height="32"/>
  </objectgroup>
 </map>
