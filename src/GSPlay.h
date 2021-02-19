@@ -36,24 +36,32 @@ namespace pnk
          * type names. These should correspond to the object-types in the tiled-files
          */
         static inline const std::string T_KING{"king"};
-        static inline const std::string T_BUBBLE{"bubble"};
+        static inline const std::string T_BUBBLE{"bubble_proto"};
         static inline const std::string T_HOTRECT{"hotrect"};
+        static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
         static inline const std::string T_NORMAL_PIG{"normal_pig"};
         static inline const std::string T_BETTER_PIG{"better_pig"};
+        static inline const std::string T_COIN_SILVER{"coin_silver"};
 
         /**
          * definition of _type_num of sprites.
          */
         enum TN
         {
-            TN_HERO = 10,
+            // 0 - 99 king and associated stuff to king
+            TN_KING = 10,
             TN_BUBBLE = 50,
 
-            TN_ENEMY1 = 101,
-            TN_ENEMY2 = 102,
+            // 100 - 199 enemies
+            TN_NORMAL_PIG = 101,
+            TN_BETTER_PIG = 102,
 
+            // 200 - 299 hotrects
             TN_HOTRECT = 201,
-            TN_DEADLY_HOTRECT = 202
+            TN_HOTRECT_PLATFORM = 202,
+
+            // 300 - 399 coins
+            TN_COIN_SILVER = 300
         };
 
     public:

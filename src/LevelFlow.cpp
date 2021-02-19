@@ -7,6 +7,9 @@ namespace pnk
 {
     Level1Flow::Level1Flow()
     {
+        _is_bg_ids.push_back("");
+
+
         _is_bg_id = "tiles_bg_png";
         _is_obj_id = "pnk_sprites_png";
         _l_bg_id = "lvl1_bg";

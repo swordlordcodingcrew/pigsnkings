@@ -117,7 +117,7 @@ namespace pnk
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
         // choose level acc. to pnk
-        switch(_pnk._active_level)
+        switch(_pnk._prefs.active_level)
         {
             case 1:
             default:
@@ -133,8 +133,8 @@ namespace pnk
 
         dang::TmxExtruder tmx_ext(&_tmx);
 
-        // choose room acc. to pmk
-        _active_room_flow = &_lvl_flow->_roomflows[_pnk._active_room];
+        // choose room acc. to prefs
+        _active_room_flow = &_lvl_flow->_roomflows[_pnk._prefs.active_room];
 
         _last_time = blit::now();
         _spawn_ready = true;

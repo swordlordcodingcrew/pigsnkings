@@ -36,8 +36,6 @@ namespace pnk
      * static variable
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
-    float PigsnKings::volume_snd = 0.7;
-    float PigsnKings::volume_sfx = 1;
 
     /**
      * static callback functions for DANG
@@ -139,6 +137,11 @@ namespace pnk
         _surfaces[is.get()] = sf;
     }
 
+/*    void PigsnKings::loadSurfaces()
+    {
+        for (_gear.)
+    }
+*/
     void PigsnKings::removeSurface(spImagesheet is)
     {
         blit::Surface* sf = _surfaces[is.get()];
@@ -151,7 +154,7 @@ namespace pnk
 
     uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len)
     {
-        playSfx(sfx, len, PigsnKings::volume_sfx);
+        playSfx(sfx, len, _pnk._prefs.volume_sfx);
     }
 
     uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len, float volume)
@@ -184,7 +187,7 @@ namespace pnk
 
     void PigsnKings::playMod(const uint8_t *mod, const uint32_t len)
     {
-        playMod(mod, len, PigsnKings::volume_snd);
+        playMod(mod, len, _pnk._prefs.volume_snd);
     }
 
     void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)

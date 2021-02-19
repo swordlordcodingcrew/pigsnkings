@@ -107,10 +107,10 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == GSPlay::TN_ENEMY1 || mf.me->_type_num == GSPlay::TN_ENEMY1)
+        if ((mf.other->_type_num == GSPlay::TN_NORMAL_PIG || mf.me->_type_num == GSPlay::TN_NORMAL_PIG)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
-            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == GSPlay::TN_ENEMY1 ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == GSPlay::TN_NORMAL_PIG ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
@@ -151,7 +151,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == GSPlay::TN_HERO || mf.me->_type_num == GSPlay::TN_HERO)
+        else if (mf.other->_type_num == GSPlay::TN_KING || mf.me->_type_num == GSPlay::TN_KING)
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -202,7 +202,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == GSPlay::TN_HERO)
+        if (other->_type_num == GSPlay::TN_KING)
         {
             if (_state == bs_enemy_catched)
             {
@@ -213,7 +213,7 @@ namespace pnk
 
         }
 
-        if (other->_type_num == GSPlay::TN_ENEMY1)
+        if (other->_type_num == GSPlay::TN_NORMAL_PIG)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }

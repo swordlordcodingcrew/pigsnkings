@@ -29,12 +29,6 @@ namespace pnk
         PigsnKings();
 
         static const dang::Vector2F _gravity;
-        static float volume_snd;
-        static float volume_sfx;
-
-        uint32_t _score = 0;
-        uint32_t _active_level = 1;
-        uint32_t _active_room = 0;
 
         // global event dispatcher
         dang::Dispatcher _dispatcher;
@@ -51,6 +45,19 @@ namespace pnk
         static void playMod(const uint8_t *mod, const uint32_t len);
         static void playMod(const uint8_t* mod, const uint32_t len, float volume);
         static void stopMod();
+
+        struct prefs
+        {
+            float volume_snd{0.7};
+            float volume_sfx{1};
+
+            uint8_t  lives{3};
+            uint32_t score{0};
+            uint32_t active_level{1};
+            uint32_t active_room{0};
+        };
+
+        prefs   _prefs;
 
     protected:
         // the gear

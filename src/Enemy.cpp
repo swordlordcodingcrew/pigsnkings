@@ -31,7 +31,7 @@ namespace pnk
     void Enemy::init()
     {
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = GSPlay::TN_ENEMY1;
+        _type_num = GSPlay::TN_NORMAL_PIG;
 
         _hotrect = {10, 16, 12, 16};
 
@@ -58,7 +58,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == GSPlay::TN_HERO)
+        if (other->_type_num == GSPlay::TN_KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -72,7 +72,7 @@ namespace pnk
         {
             bubble();
         }
-        else if (mf.other->_type_num == GSPlay::TN_HERO || mf.me->_type_num == GSPlay::TN_HERO)
+        else if (mf.other->_type_num == GSPlay::TN_KING || mf.me->_type_num == GSPlay::TN_KING)
         {
 //            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
 //            e->_spr = shared_from_this();

@@ -20,10 +20,13 @@ namespace pnk
          * bg: background (i.e. tile layer)
          * obj: object (i.e. sprites and whatnot)
          */
+        std::vector<std::string> _is_bg_ids;
         std::string         _is_bg_id;
         std::string         _is_obj_id;
+
         std::string         _l_bg_id;
         std::string         _l_obj_id;
+        std::string         _l_mood_id;
 
 
         // TODO -> simple screenplay
