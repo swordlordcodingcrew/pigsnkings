@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <memory>
 #include "pigsnkings.hpp"
+#include <memory>
 
 namespace dang
 {

@@ -14,9 +14,9 @@ namespace dang
     struct tmx_level;
     class Event;
     class Imagesheet;
-
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 }
+
+using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 
 namespace pnk
 {
@@ -37,8 +37,9 @@ namespace pnk
         void update(uint32_t time);
         void render(uint32_t time);
 
-        void loadSurface(dang::spImagesheet is);
-        void removeSurface(dang::spImagesheet is);
+        void initImageSheets(dang::TmxExtruder& tmex);
+        void initImageSheet(spImagesheet is);
+        void removeImagesheets();
 
         static uint8_t playSfx(const uint8_t *sfx, const uint32_t len);
         static uint8_t playSfx(const uint8_t* sfx, const uint32_t len, float volume);
@@ -62,6 +63,7 @@ namespace pnk
     protected:
         // the gear
         dang::Gear _gear;
+
         // callback functions for DANG
         static void blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t);
         static void set_surface_cb(dang::spImagesheet is);
@@ -80,7 +82,8 @@ namespace pnk
         void renderText();
 
         // surface depot
-        std::map<const dang::Imagesheet*, blit::Surface*> _surfaces;
+//        std::map<const dang::Imagesheet*, blit::Surface*> __surfaces;
+//        std::map<std::string, blit::Surface*> _surfaces;
         const dang::Imagesheet* _active_imagesheet{nullptr};
 
 #ifdef PNK_SND_DEBUG

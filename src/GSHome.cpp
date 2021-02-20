@@ -82,15 +82,16 @@ namespace pnk
         gear.initLevel(_lvl, vp);
         gear.setActiveWorldSize(vp.w, vp.h);
 
+        _pnk.initImageSheets(tmx_ext);
         // extrude and add imagesheets & spritesheets
-        spImagesheet is = tmx_ext.extrudeImagesheet(img_name_bg);
+/*        spImagesheet is = tmx_ext.extrudeImagesheet(img_name_bg);
         gear.addImagesheet(is);
         _pnk.loadSurface(is);
 
         is = tmx_ext.extrudeImagesheet(img_name_spr);
         gear.addImagesheet(is);
         _pnk.loadSurface(is);
-
+*/
         // create background Tilelayer
         spTileLayer tl = tmx_ext.extrudeTileLayer(tmx_bg_layer_name, gear);
         assert(tl != nullptr);
@@ -140,14 +141,15 @@ namespace pnk
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
         // remove spritesheets
-        spImagesheet is = gear.getImagesheet(img_name_bg);
-        _pnk.removeSurface(is);
+//        spImagesheet is = gear.getImagesheet(img_name_bg);
+//        _pnk.removeSurface(is);
 
-        is = gear.getImagesheet(img_name_spr);
-        _pnk.removeSurface(is);
+//        is = gear.getImagesheet(img_name_spr);
+//        _pnk.removeSurface(is);
+
+        _pnk.removeImagesheets();
 
         // clear gear
-        gear.removeImagesheets();
         gear.removeLayers();
 
     }

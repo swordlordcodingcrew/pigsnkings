@@ -144,15 +144,18 @@ namespace pnk
         gear.initLevel(_tmx, vp);
         gear.setActiveWorldSize(vp.w, vp.h);
 
+        // init imagesheets
+        _pnk.initImageSheets(tmx_ext);
+
         // extrude and add the imagesheets and load spritesheets
-        spImagesheet is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_bg_id);
+/*        spImagesheet is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_bg_id);
         gear.addImagesheet(is);
         _pnk.loadSurface(is);
 
         _obj_is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_obj_id);
         gear.addImagesheet(_obj_is);
         _pnk.loadSurface(_obj_is);
-
+*/
         // create background Tilelayer
         spTileLayer tl = tmx_ext.extrudeTileLayer(_lvl_flow->_l_bg_id, gear);
         gear.addLayer(tl);
@@ -214,14 +217,15 @@ namespace pnk
         _pnk._dispatcher.removeSubscriber(_sub_ref);
 
         // remove spritesheets
-        spImagesheet is = gear.getImagesheet(_lvl_flow->_is_bg_id);
-        _pnk.removeSurface(is);
+//        spImagesheet is = gear.getImagesheet(_lvl_flow->_is_bg_id);
+//        _pnk.removeSurface(is);
 
-        is = gear.getImagesheet(_lvl_flow->_is_obj_id);
-        _pnk.removeSurface(is);
+//        is = gear.getImagesheet(_lvl_flow->_is_obj_id);
+//        _pnk.removeSurface(is);
+
+        _pnk.removeImagesheets();
 
         // clear gear
-        gear.removeImagesheets();
         gear.removeLayers();
 
         PigsnKings::stopMod();

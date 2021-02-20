@@ -34,8 +34,9 @@ namespace pnk
 
         dang::SizeU size(104, 200);
         spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", sl_shield_32blit_png, size);
-        gear.addImagesheet(is);
-        _pnk.loadSurface(is);
+//        gear.addImagesheet(is);
+//        _pnk.loadSurface(is);
+        _pnk.initImageSheet(is);
 
         spSprite sp = std::make_shared<dang::Sprite>();
         sp->setImagesheet(is);
@@ -51,12 +52,12 @@ namespace pnk
 
     void GSIntro::exit(dang::Gear& gear, uint32_t time)
     {
-        // remove spritesheet
-        spImagesheet is = gear.getImagesheet("sl_shield");
-        _pnk.removeSurface(is);
+        // remove spritesheets
+//        spImagesheet is = gear.getImagesheet("sl_shield");
+        _pnk.removeImagesheets();
 
         // clear gear
-        gear.removeImagesheets();
+//        gear.removeImagesheets();
         gear.removeLayers();
 
     }
