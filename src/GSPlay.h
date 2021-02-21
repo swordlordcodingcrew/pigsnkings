@@ -92,6 +92,7 @@ namespace pnk
         // assuming that 1 room is the size of the screen
         dang::Vector2F          _active_room_center{0, 0};
         std::map<uint16_t, dang::tmx_spriteobject> _prototypes;
+        std::map<uint16_t, dang::spImagesheet> _iss_for_prototypes;
 
         // flow stuff
         LevelFlow::roomflow*    _active_room_flow{nullptr};

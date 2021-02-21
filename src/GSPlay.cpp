@@ -64,7 +64,7 @@ namespace pnk
             else if (blit::now() - _last_time > _spawn_delay)
             {
                 // still enemies to go
-                std::shared_ptr<Enemy> en = std::make_shared<Enemy>(_prototypes[_active_room_flow->spawn_spr_with_id], _obj_is);
+                std::shared_ptr<Enemy> en = std::make_shared<Enemy>(_prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
                 en->init();
                 en->setWalk(E_WALK_VEL);
                 _csl->addCollisionSprite(en);
@@ -147,15 +147,6 @@ namespace pnk
         // init imagesheets
         _pnk.initImageSheets(tmx_ext);
 
-        // extrude and add the imagesheets and load spritesheets
-/*        spImagesheet is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_bg_id);
-        gear.addImagesheet(is);
-        _pnk.loadSurface(is);
-
-        _obj_is = tmx_ext.extrudeImagesheet(_lvl_flow->_is_obj_id);
-        gear.addImagesheet(_obj_is);
-        _pnk.loadSurface(_obj_is);
-*/
         // create background Tilelayer
         spTileLayer tl = tmx_ext.extrudeTileLayer(_lvl_flow->_l_bg_id, gear);
         gear.addLayer(tl);
@@ -182,6 +173,7 @@ namespace pnk
             else if (so.type == "enemy")
             {
                 _prototypes[so.id] = so;
+                _iss_for_prototypes[so.id] = is;
             }
             else if (so.type == "hero")
             {
@@ -193,6 +185,7 @@ namespace pnk
             else if (so.type == "bubble")
             {
                 _prototypes[so.id] = so;
+                _iss_for_prototypes[so.id] = is;
             }
             else
             {
@@ -216,13 +209,6 @@ namespace pnk
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
 
-        // remove spritesheets
-//        spImagesheet is = gear.getImagesheet(_lvl_flow->_is_bg_id);
-//        _pnk.removeSurface(is);
-
-//        is = gear.getImagesheet(_lvl_flow->_is_obj_id);
-//        _pnk.removeSurface(is);
-
         _pnk.removeImagesheets();
 
         // clear gear
@@ -238,7 +224,8 @@ namespace pnk
         if (pe._type == ETG_NEW_BUBBLE)
         {
             dang::tmx_spriteobject so = _prototypes[30];
-            std::shared_ptr<Bubble> _new_bubble = std::make_shared<Bubble>(so, _obj_is);
+            dang::spImagesheet is = _iss_for_prototypes[so.id];
+            std::shared_ptr<Bubble> _new_bubble = std::make_shared<Bubble>(so, is);
             _new_bubble->setPos(pe._pos);
             _new_bubble->_to_the_left = pe._to_the_left;
             _new_bubble->init();
