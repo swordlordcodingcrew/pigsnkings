@@ -12,6 +12,7 @@
 #include "pnk_globals.h"
 #include "PnkEvent.h"
 #include "GSPlay.h"
+#include "SpriteFactory.hpp"
 
 namespace pnk
 {
@@ -30,9 +31,6 @@ namespace pnk
 
     void Enemy::init()
     {
-        setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = GSPlay::TN_NORMAL_PIG;
-
         _hotrect = {10, 16, 12, 16};
 
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1)));
@@ -58,7 +56,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == GSPlay::TN_KING)
+        if (other->_type_num == SpriteFactory::TN_KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -68,11 +66,11 @@ namespace pnk
 
     void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
+        if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
         {
             bubble();
         }
-        else if (mf.other->_type_num == GSPlay::TN_KING || mf.me->_type_num == GSPlay::TN_KING)
+        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
 //            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
 //            e->_spr = shared_from_this();

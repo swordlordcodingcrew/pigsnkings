@@ -13,6 +13,7 @@
 #include "pnk_globals.h"
 #include "PnkEvent.h"
 #include "Bubble.h"
+#include "SpriteFactory.hpp"
 
 namespace pnk
 {
@@ -27,8 +28,9 @@ namespace pnk
     Hero::Hero(const dang::tmx_spriteobject &so, const std::shared_ptr<dang::Imagesheet> is)
     : dang::CollisionSprite(so, is)
     {
+        // TODO should be set in the factory
         setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = GSPlay::TN_KING;
+        _type_num = SpriteFactory::TN_KING;
 
         _hotrect = {8, 8, 16, 24};
 
@@ -70,7 +72,7 @@ namespace pnk
                 return;
             }
 */
-            if (mf.other->_type_num == GSPlay::TN_NORMAL_PIG || mf.me->_type_num == GSPlay::TN_NORMAL_PIG)
+            if (mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG || mf.me->_type_num == SpriteFactory::TN_NORMAL_PIG)
             {
                 _hit = true;
             }
@@ -79,9 +81,9 @@ namespace pnk
 
             if (normal.y > 0)
             {
-                if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
+                if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
                 {
-                    std::shared_ptr<Bubble> bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == GSPlay::TN_BUBBLE ? mf.me : mf.other);
+                    std::shared_ptr<Bubble> bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == SpriteFactory::TN_BUBBLE ? mf.me : mf.other);
                     if (bubble->_state != Bubble::bs_enemy_catched)
                     {
                         _on_ground = true;
@@ -94,7 +96,7 @@ namespace pnk
                     _vel.y = 0;
                 }
             }
-            else if (normal.y < 0 && mf.other->_type_num != GSPlay::TN_BUBBLE && mf.me->_type_num != GSPlay::TN_BUBBLE)
+            else if (normal.y < 0 && mf.other->_type_num != SpriteFactory::TN_BUBBLE && mf.me->_type_num != SpriteFactory::TN_BUBBLE)
             {
                 _top_hit = true;
                 _vel.y = 0;

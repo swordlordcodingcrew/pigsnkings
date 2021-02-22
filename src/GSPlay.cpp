@@ -1,4 +1,4 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 #include <Gear.hpp>
@@ -30,6 +30,7 @@
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
 #include "LevelFlow.h"
+#include "SpriteFactory.hpp"
 
 namespace pnk
 {
@@ -64,8 +65,7 @@ namespace pnk
             else if (blit::now() - _last_time > _spawn_delay)
             {
                 // still enemies to go
-                std::shared_ptr<Enemy> en = std::make_shared<Enemy>(_prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
-                en->init();
+                spEnemy en = SpriteFactory::NormalPig(_prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
                 en->setWalk(E_WALK_VEL);
                 _csl->addCollisionSprite(en);
                 _spawned++;
@@ -159,38 +159,28 @@ namespace pnk
         const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(_lvl_flow->_l_obj_id);
         for (const dang::tmx_spriteobject& so : ola->so)
         {
+            bool orphaned = true;
             spImagesheet is = gear.getImagesheet(_tmx.tilesets[so.tileset].name);
             spCollisionSprite spr;
-            if (so.type == T_HOTRECT)
+            if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so);         orphaned = false; }
+            else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); orphaned = false; }
+            else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(so, is);   orphaned = false; }
+            else if (so.type == SpriteFactory::T_KING)
             {
-                spr = std::make_shared<dang::CollisionSprite>(so, is);
-                spr->_visible = false;
-                spr->_imagesheet = nullptr;
-                spr->_type_num = TN_HOTRECT;
-                spr->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
-                _csl->addCollisionSprite(spr);
-            }
-            else if (so.type == "enemy")
-            {
-                _prototypes[so.id] = so;
-                _iss_for_prototypes[so.id] = is;
-            }
-            else if (so.type == "hero")
-            {
-                _spr_hero = std::make_shared<Hero>(so, is);
-                _spr_hero->activateState();
+                _spr_hero = SpriteFactory::King(so, is);
                 spr = _spr_hero;
-                _csl->addCollisionSprite(spr);
+                orphaned = false;
             }
-            else if (so.type == "bubble")
+            _csl->addCollisionSprite(spr);
+
+            if (so.type == SpriteFactory::T_BUBBLE_PROTO)
             {
                 _prototypes[so.id] = so;
                 _iss_for_prototypes[so.id] = is;
+                orphaned = false;
             }
-            else
-            {
-                std::cout << "sprite in tmx not initialized. id=" << so.id << ", type=" << so.type << std::endl;
-            }
+
+            if (orphaned) std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
 
         }
 
@@ -225,10 +215,12 @@ namespace pnk
         {
             dang::tmx_spriteobject so = _prototypes[30];
             dang::spImagesheet is = _iss_for_prototypes[so.id];
-            std::shared_ptr<Bubble> _new_bubble = std::make_shared<Bubble>(so, is);
-            _new_bubble->setPos(pe._pos);
-            _new_bubble->_to_the_left = pe._to_the_left;
-            _new_bubble->init();
+            so.x = (int32_t)pe._pos.x;
+            so.y = (int32_t)pe._pos.y;
+            spBubble _new_bubble = SpriteFactory::Bubble(so, is, pe._to_the_left);
+//            _new_bubble->setPos(pe._pos);
+//            _new_bubble->_to_the_left = pe._to_the_left;
+//            _new_bubble->setMovement();
             _csl->addCollisionSprite(_new_bubble);
 //            std::cout << "new bubble event" << std::endl;
         }

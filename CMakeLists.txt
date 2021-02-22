@@ -57,6 +57,8 @@ set(SOURCES
         src/GSPlay.h
         src/LevelFlow.cpp
         src/LevelFlow.h
+        src/SpriteFactory.cpp
+        src/SpriteFactory.hpp
         rsrc/tiles_bg_png.h
         rsrc/players_png.h
         rsrc/pnk_32_lvl1.tmx.hpp

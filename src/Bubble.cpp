@@ -18,6 +18,7 @@
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
+#include "SpriteFactory.hpp"
 
 namespace pnk
 {
@@ -44,9 +45,6 @@ namespace pnk
 
     void Bubble::init()
     {
-        setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = GSPlay::TN_BUBBLE;
-
         _hotrect = {10, 10, 12, 12};
 
         // animation sequence
@@ -68,7 +66,7 @@ namespace pnk
                  if (_state == bs_wobbling)
                  {
                      _state = bs_bursting;
-                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                     PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
                      _vel = {0,0};
                      removeTweens(true);
                  }
@@ -91,6 +89,7 @@ namespace pnk
         tw_seq->addTween(twv2);
 
         addTween(tw_seq);
+
     }
 
     void Bubble::update(uint32_t dt)
@@ -107,10 +106,10 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == GSPlay::TN_NORMAL_PIG || mf.me->_type_num == GSPlay::TN_NORMAL_PIG)
+        if ((mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG || mf.me->_type_num == SpriteFactory::TN_NORMAL_PIG)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
-            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == GSPlay::TN_NORMAL_PIG ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
@@ -129,7 +128,7 @@ namespace pnk
             twa->setFinishedCallback([=] ()
                  {
                      _state = bs_bursting;
-                     _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                     PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
 
                      std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
                      if (en)
@@ -151,7 +150,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == GSPlay::TN_KING || mf.me->_type_num == GSPlay::TN_KING)
+        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -159,7 +158,7 @@ namespace pnk
             {
                 if (_state == bs_enemy_catched)
                 {
-                    _pnk.playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+                    PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
                     // TODO: reward
                 }
 
@@ -176,7 +175,7 @@ namespace pnk
                 _vel = {0,0};
                 removeTweens(true);
                 _state = bs_bursting;
-                _pnk.playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
 
                 // alter animation
                 removeAnimation(true);
@@ -195,6 +194,7 @@ namespace pnk
         }
 */    }
 
+
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(spSprite other)
     {
         if (_state == bs_bursting)
@@ -202,7 +202,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == GSPlay::TN_KING)
+        if (other->_type_num == SpriteFactory::TN_KING)
         {
             if (_state == bs_enemy_catched)
             {
@@ -213,12 +213,12 @@ namespace pnk
 
         }
 
-        if (other->_type_num == GSPlay::TN_NORMAL_PIG)
+        if (other->_type_num == SpriteFactory::TN_NORMAL_PIG)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }
 
-        if (other->_type_num == GSPlay::TN_HOTRECT)
+        if (other->_type_num == SpriteFactory::TN_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
@@ -242,5 +242,6 @@ namespace pnk
          pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
     }
+
 
 }

@@ -32,37 +32,6 @@ namespace pnk
         static inline const float BUBBLE_VEL = 20;
         static inline const float E_WALK_VEL = 2;
 
-        /**
-         * type names. These should correspond to the object-types in the tiled-files
-         */
-        static inline const std::string T_KING{"king"};
-        static inline const std::string T_BUBBLE{"bubble_proto"};
-        static inline const std::string T_HOTRECT{"hotrect"};
-        static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
-        static inline const std::string T_NORMAL_PIG{"normal_pig"};
-        static inline const std::string T_BETTER_PIG{"better_pig"};
-        static inline const std::string T_COIN_SILVER{"coin_silver"};
-
-        /**
-         * definition of _type_num of sprites.
-         */
-        enum TN
-        {
-            // 0 - 99 king and associated stuff to king
-            TN_KING = 10,
-            TN_BUBBLE = 50,
-
-            // 100 - 199 enemies
-            TN_NORMAL_PIG = 101,
-            TN_BETTER_PIG = 102,
-
-            // 200 - 299 hotrects
-            TN_HOTRECT = 201,
-            TN_HOTRECT_PLATFORM = 202,
-
-            // 300 - 399 coins
-            TN_COIN_SILVER = 300
-        };
 
     public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
@@ -78,21 +47,25 @@ namespace pnk
                                       "HOME ('1'): back to main\n"
                                       "MENU ('2'): pause";
 
-        const uint32_t      _room_buffer = 4;  // "hotrect" when the room shall change
-        const uint32_t      _spawn_delay = 1000;    // in whatever unit, some kind of subseconds
 
         dang::tmx_level             _tmx;
         std::shared_ptr<LevelFlow>  _lvl_flow;
 
+        // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
+
+        // the layer in which the game takes place
         std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
-        spImagesheet _obj_is{nullptr};
+
+        // container for prototype sprites ("hives" and bubble)
+        // TODO: improve hive
+        std::map<uint16_t, dang::tmx_spriteobject> _prototypes;
+        std::map<uint16_t, dang::spImagesheet> _iss_for_prototypes;
 
         // vp handling per room
         // assuming that 1 room is the size of the screen
         dang::Vector2F          _active_room_center{0, 0};
-        std::map<uint16_t, dang::tmx_spriteobject> _prototypes;
-        std::map<uint16_t, dang::spImagesheet> _iss_for_prototypes;
+        const uint32_t          _room_buffer = 4;  // "hotrect" when the room shall change
 
         // flow stuff
         LevelFlow::roomflow*    _active_room_flow{nullptr};
@@ -100,12 +73,11 @@ namespace pnk
         bool                    _spawn_ready{true};
         uint32_t                _spawned{0};
         bool                    _room_transition{false};
+        const uint32_t          _spawn_delay = 1000;    // in whatever unit, some kind of subseconds
 
         // reference to subscriber
         u_int32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
-
-
 
     };
 

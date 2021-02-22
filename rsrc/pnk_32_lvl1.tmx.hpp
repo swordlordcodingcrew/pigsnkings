@@ -1246,12 +1246,12 @@ dang::tmx_level init_pnk_32_lvl1() {
         {20,"20","hotrect",928,736,64,128,true,0,0},
         {21,"21","hotrect",1248,576,32,192,true,0,0},
         {24,"lvl12","hotrect",312,896,16,32,true,0,0},
-        {25,"25","hero",0,864,32,32,true,1,0},
-        {26,"26","enemy",128,704,32,32,true,1,26},
-        {27,"27","enemy",576,704,32,32,true,1,26},
-        {28,"28","enemy",672,704,32,32,true,1,26},
-        {29,"29","enemy",1248,768,32,32,true,1,26},
-        {30,"30","bubble",0,0,32,32,true,1,41}
+        {25,"25","king",0,864,32,32,true,1,0},
+        {26,"26","normal_pig",128,704,32,32,true,1,26},
+        {27,"27","normal_pig",576,704,32,32,true,1,26},
+        {28,"28","normal_pig",672,704,32,32,true,1,26},
+        {29,"29","normal_pig",1248,768,32,32,true,1,26},
+        {30,"30","bubble_proto",0,0,32,32,true,1,41}
     };
     dang::tmx_objectlayer llvl1_obj = {"lvl1_obj",21,solvl1_obj};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl1_obj));
