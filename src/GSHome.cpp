@@ -114,20 +114,20 @@ namespace pnk
             if (so.type == "play")
             {
                 _btns.at(PLAY).btn = spr;
-                _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, std::unique_ptr<dang::Ease>(new dang::EaseLinear), -1));
+                _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                 _btns.at(PLAY).img_index = 0;
                 spr->setAnimation(_btns.at(PLAY).anim);
             }
             else if (so.type == "prefs")
             {
                 _btns.at(PREFS).btn = spr;
-                _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 4, 3, 4}, 700, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+                _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 4, 3, 4}, 700, dang::Ease::Linear, -1));
                 _btns.at(PREFS).img_index = 3;
             }
             else if (so.type == "about")
             {
                 _btns.at(ABOUT).btn = spr;
-                _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 7, 6, 7}, 700, std::unique_ptr<dang::Ease>(new dang::EaseLinear()), -1));
+                _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 7, 6, 7}, 700, dang::Ease::Linear, -1));
                 _btns.at(ABOUT).img_index = 6;
             }
             sl->addSprite(spr);

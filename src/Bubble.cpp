@@ -24,7 +24,6 @@ namespace pnk
 {
     using spTwSeq = std::shared_ptr<dang::TwSequence>;
     using spTwVel = std::shared_ptr<dang::TwVel>;
-    using upEase = std::unique_ptr<dang::Ease>;
 
     extern PigsnKings _pnk;
 
@@ -50,7 +49,7 @@ namespace pnk
         // animation sequence
         spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
         // bobble grows
-        spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, upEase(new dang::EaseOutQuad()), 0);
+        spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, dang::Ease::OutQuad, 0);
         twa->setFinishedCallback([=] ()
              {
                 if (_state == bs_growing)
@@ -60,7 +59,7 @@ namespace pnk
              });
         tw_seq_anim->addTween(twa);
         // bubble wobbles
-        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{44, 46, 45, 44, 47}, 600, upEase(new dang::EaseLinear()), 3);
+        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{44, 46, 45, 44, 47}, 600, dang::Ease::Linear, 3);
         twa->setFinishedCallback([=] ()
              {
                  if (_state == bs_wobbling)
@@ -72,7 +71,7 @@ namespace pnk
                  }
              });
         tw_seq_anim->addTween(twa);
-        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, upEase(new dang::EaseLinear()), 1);
+        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, dang::Ease::Linear, 1);
         tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
         tw_seq_anim->addTween(twa);
 
@@ -82,8 +81,8 @@ namespace pnk
         // movement sequence
         float velx = _to_the_left ? -GSPlay::BUBBLE_VEL : GSPlay::BUBBLE_VEL;
         spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
-        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, upEase(new dang::EaseInQuad()));
-        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, -3), 100, upEase(new dang::EaseLinear()));
+        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, dang::Ease::InQuad);
+        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, -3), 100, dang::Ease::Linear);
 
         tw_seq->addTween(twv1);
         tw_seq->addTween(twv2);
@@ -124,7 +123,7 @@ namespace pnk
             // alter animation
             removeAnimation(true);
             spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
-            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, upEase(new dang::EaseLinear()), 12);
+            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, dang::Ease::Linear, 12);
             twa->setFinishedCallback([=] ()
                  {
                      _state = bs_bursting;
@@ -144,7 +143,7 @@ namespace pnk
                      }
                  });
             tw_seq_anim->addTween(twa);
-            twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, upEase(new dang::EaseLinear()), 1);
+            twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, dang::Ease::Linear, 1);
             tw_seq_anim->addTween(twa);
             tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
             setAnimation(tw_seq_anim);
@@ -179,7 +178,7 @@ namespace pnk
 
                 // alter animation
                 removeAnimation(true);
-                spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, upEase(new dang::EaseLinear()), 1);
+                spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, dang::Ease::Linear, 1);
                 twa->setFinishedCallback([=] ()
                      {
                          removeSelf();
