@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="3">
- <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="3">
+ <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" name="gfx_king" tilewidth="32" tileheight="32" tilecount="26" columns="26" objectalignment="topleft">
   <image source="../../gfx/characters/king.png" width="832" height="32"/>
  </tileset>
