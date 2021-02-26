@@ -4,20 +4,29 @@
 
 gfx.cpp:
   gfx/characters/bubble.png:
-    name: gfx_bubble
+    name: gfx_bubbles
+
   gfx/characters/king.png:
     name: gfx_king
+
   gfx/characters/pig.png:
     name: gfx_pig
+
+  gfx/common/hud_ui.png:
+    name: hud_ui
+
   gfx/common/items/items.png:
     name: gfx_items
+
+  gfx/common/menus.png:
+    name: common_menus
+
   gfx/levels/castle_decoration_tiles.png:
     name: gfx_castle_decorations
+
   gfx/levels/castle_tiles.png:
     name: gfx_levels_castle_tiles
-  gfx/common/menus.png:
-    name: gfx_menus
-  gfx/common/sl_shield.png:
-    name: gfx_sl_shield
 
+  gfx/main/pnk_logo.png:
+    name: main_pnk_logo
 
