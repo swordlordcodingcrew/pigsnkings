@@ -20,8 +20,15 @@
 #include "32blit.hpp"
 
 #include "rsrc/tiles_bg_png.h"
-#include "rsrc/menus_png.h"
-#include "rsrc/pnk_32_menu.tmx.hpp"
+#include "rsrc/castle_tiles.png.h"
+#include "rsrc/hud_ui.png.h"
+#include "rsrc/castle_decoration_tiles.png.h"
+#include "rsrc/king.png.h"
+#include "rsrc/pig.png.h"
+#include "rsrc/pnk_logo.png.h"
+#include "rsrc/menus.png.h"
+
+#include "rsrc/main_1.tmx.hpp"
 #include "tracks/gocryogo.h"
 
 #include <cassert>
@@ -62,7 +69,12 @@ namespace pnk
         {
             _btns.at(_sel).btn->removeAnimation(true);
             _btns.at(_sel).btn->_img_index = _btns.at(_sel).img_index;
-            _sel = --_sel % _ESIZE;
+            if(_sel == 0) {
+                _sel = _ESIZE - 1;
+            }
+            else {
+                _sel = --_sel % _ESIZE;
+            }
             _btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
         }
 
@@ -75,7 +87,7 @@ namespace pnk
         // Setup channel
 
         // set up state
-        _lvl = init_pnk_32_menu();
+        _lvl = init_main_1();
         dang::TmxExtruder tmx_ext(&_lvl);
 
         dang::RectF vp = {0, 0, 320, 240};
@@ -83,24 +95,30 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         _pnk.initImageSheets(tmx_ext);
-        // extrude and add imagesheets & spritesheets
-/*        spImagesheet is = tmx_ext.extrudeImagesheet(img_name_bg);
-        gear.addImagesheet(is);
-        _pnk.loadSurface(is);
 
-        is = tmx_ext.extrudeImagesheet(img_name_spr);
-        gear.addImagesheet(is);
-        _pnk.loadSurface(is);
-*/
         // create background Tilelayer
         spTileLayer tl = tmx_ext.extrudeTileLayer(tmx_bg_layer_name, gear);
         assert(tl != nullptr);
         gear.addLayer(tl);
 
+        spSpriteLayer dl = tmx_ext.extrudeSpriteLayer(tmx_deco_layer_name);
+        assert(dl != nullptr);
+        gear.addLayer(dl);
+
         // create spritelayer w/o collision detection/resolution
         spSpriteLayer sl = tmx_ext.extrudeSpriteLayer(tmx_obj_layer_name);
         assert(sl != nullptr);
         gear.addLayer(sl);
+
+        const dang::tmx_objectlayer* ol = tmx_ext.getTmxObjectLayer(tmx_deco_layer_name);
+        for (const dang::tmx_spriteobject& so : ol->so)
+        {
+            spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
+            spSprite spr = std::make_shared<dang::Sprite>(so, is);
+            spr->_visible = true;
+            spr->_imagesheet = is;
+            sl->addSprite(spr);
+        }
 
         // create sprites
         _btns.resize(_ESIZE, {nullptr, nullptr, 0});
@@ -111,24 +129,24 @@ namespace pnk
             spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
-            if (so.type == "play")
+            if (so.type == "button" && so.name == "play")
             {
                 _btns.at(PLAY).btn = spr;
                 _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                _btns.at(PLAY).img_index = 0;
+                _btns.at(PLAY).img_index = 1;
                 spr->setAnimation(_btns.at(PLAY).anim);
             }
-            else if (so.type == "prefs")
+            else if (so.type == "button" && so.name == "prefs")
             {
                 _btns.at(PREFS).btn = spr;
-                _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 4, 3, 4}, 700, dang::Ease::Linear, -1));
-                _btns.at(PREFS).img_index = 3;
+                _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                _btns.at(PREFS).img_index = 2;
             }
-            else if (so.type == "about")
+            else if (so.type == "button" && so.name == "about")
             {
                 _btns.at(ABOUT).btn = spr;
-                _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 7, 6, 7}, 700, dang::Ease::Linear, -1));
-                _btns.at(ABOUT).img_index = 6;
+                _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                _btns.at(ABOUT).img_index = 0;
             }
             sl->addSprite(spr);
         }
@@ -140,17 +158,9 @@ namespace pnk
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
-        // remove spritesheets
-//        spImagesheet is = gear.getImagesheet(img_name_bg);
-//        _pnk.removeSurface(is);
-
-//        is = gear.getImagesheet(img_name_spr);
-//        _pnk.removeSurface(is);
-
         _pnk.removeImagesheets();
 
         // clear gear
         gear.removeLayers();
-
     }
 }

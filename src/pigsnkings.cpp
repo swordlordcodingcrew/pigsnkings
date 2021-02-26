@@ -15,7 +15,6 @@
 #include "GSIntro.h"
 #include "GSHome.h"
 #include "GSPlay.h"
-#include "gfx.hpp"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "tracks/gocryogo.h"
 
@@ -229,14 +228,18 @@ namespace pnk
     void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)
     {
         dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+
+        #ifdef PNK_SND_DEBUG
         if (dang::SndGear::mod_set)
         {
-            //blit::debug("module loaded\n");
+            blit::debug("module loaded\n");
         }
         else
         {
-            //blit::debug("the data is not recognised as a module.\n");
+            blit::debug("the data is not recognised as a module.\n");
         }
+        #endif
+
         blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
         blit::channels[dang::SndGear::getMusicChan()].volume = volume;
@@ -275,9 +278,6 @@ namespace pnk
         blit::channels[dang::SndGear::getMusicChan()].off();
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = nullptr;
     }
-
-
-
 }
 
 /**
