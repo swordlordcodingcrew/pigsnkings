@@ -59,11 +59,19 @@ set(SOURCES
         src/LevelFlow.h
         src/SpriteFactory.cpp
         src/SpriteFactory.hpp
+        rsrc/bubble.png.h
+        rsrc/king.png.h
+        rsrc/pig.png.h
+        rsrc/hud_ui.png.h
+        rsrc/items.png.h
+        rsrc/menus.png.h
+        rsrc/castle_decoration_tiles.png.h
+        rsrc/castle_tiles.png.h
+        rsrc/pnk_logo.png.h
+        rsrc/main_1.tmx.hpp
         rsrc/tiles_bg_png.h
         rsrc/players_png.h
         rsrc/pnk_32_lvl1.tmx.hpp
-        rsrc/pnk_32_menu.tmx.hpp
-        rsrc/menus_png.h
         rsrc/sl_shield_32blit_png.h
         rsrc/pnk_sprites_png.h
         tracks/gocryogo.h
@@ -77,8 +85,8 @@ blit_executable (${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} DANG)
 # build assets: perhaps later on
 
-dang_asset_magic(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
-
+# this is not needed anymore when we pre-generate the assets (which we do)
+#dang_asset_magic(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
 #dang_generate_assetlist(gfx.yml ${CMAKE_CURRENT_SOURCE_DIR}/world/**/*.tsx)
 #blit_assets_yaml (${PROJECT_NAME} gfx.yml)
 
