@@ -11,6 +11,8 @@
 #include "tween/Ease.hpp"
 #include "tween/TwAnim.hpp"
 #include "snd/SndGear.hpp"
+#include "tween/TwPos.hpp"
+#include "tween/TwSequence.hpp"
 
 #include "GSHome.h"
 #include "GSPlay.h"
@@ -148,11 +150,20 @@ namespace pnk
                 _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                 _btns.at(ABOUT).img_index = 0;
             }
+            else if (so.name == "piggie")
+            {
+                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
+                spr->setAnimation(anim);
+
+//                std::shared_ptr<dang::TwSequence> seq = std::make_shared<dang::TwSequence
+//                std::shared_ptr<dang::TwPos> move
+
+            }
             sl->addSprite(spr);
         }
 
         // first screen of tmx
-        gear.setViewportPos({0, 0});
+        gear.setViewportPos({0, 16});
 
     }
 
