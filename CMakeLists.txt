@@ -34,6 +34,8 @@ set(SOURCES
         sfx/bubble_pop_22050_mono.h
         sfx/coin_22050_mono.h
         )
+# in case there is a file which should not be added:
+# list (REMOVE_ITEM SOURCES /path/to/folder/filetoberemoved.cpp /path/to/folder/anotherfiletoberemoved.txt)
 
 # ---- Create binary ----
 blit_executable (${PROJECT_NAME} ${SOURCES})
