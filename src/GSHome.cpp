@@ -65,7 +65,16 @@ namespace pnk
             _btns.at(_sel).btn->removeAnimation(true);
             _btns.at(_sel).btn->_img_index = _btns.at(_sel).img_index;
             _sel = ++_sel % _ESIZE;
-            _btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
+            //_btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
+
+            if(_sprLeftCandle != nullptr)
+            {
+                _sprLeftCandle->setPosY(_btns.at(_sel).btn->getPosY());
+            }
+            if(_sprRightCandle != nullptr)
+            {
+                _sprRightCandle->setPosY(_btns.at(_sel).btn->getPosY());
+            }
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
@@ -77,7 +86,15 @@ namespace pnk
             else {
                 _sel = --_sel % _ESIZE;
             }
-            _btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
+            //_btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
+            if(_sprLeftCandle != nullptr)
+            {
+                _sprLeftCandle->setPosY(_btns.at(_sel).btn->getPosY());
+            }
+            if(_sprRightCandle != nullptr)
+            {
+                _sprRightCandle->setPosY(_btns.at(_sel).btn->getPosY());
+            }
         }
 
         return _gs_home;
@@ -119,6 +136,19 @@ namespace pnk
             spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
+            if (so.type == "candle")
+            {
+                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 6, 7, 15, 16, 17}, 700, dang::Ease::Linear, -1)));
+
+                if(so.name == "leftcandle")
+                {
+                    _sprLeftCandle = spr;
+                }
+                else
+                {
+                    _sprRightCandle = spr;
+                }
+            }
             sl->addSprite(spr);
         }
 
@@ -136,7 +166,7 @@ namespace pnk
                 _btns.at(PLAY).btn = spr;
                 _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                 _btns.at(PLAY).img_index = 1;
-                spr->setAnimation(_btns.at(PLAY).anim);
+                //spr->setAnimation(_btns.at(PLAY).anim);
             }
             else if (so.type == "button" && so.name == "prefs")
             {
@@ -157,14 +187,12 @@ namespace pnk
 
 //                std::shared_ptr<dang::TwSequence> seq = std::make_shared<dang::TwSequence
 //                std::shared_ptr<dang::TwPos> move
-
             }
             sl->addSprite(spr);
         }
 
         // first screen of tmx
         gear.setViewportPos({0, 8});
-
     }
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)

@@ -62,6 +62,10 @@ namespace pnk
              int img_index;
          };
         std::vector<sel_struct> _btns;
+
+
+        spSprite _sprLeftCandle{nullptr};
+        spSprite _sprRightCandle{nullptr};
     };
 
 }

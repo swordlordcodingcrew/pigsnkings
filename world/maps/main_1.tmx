@@ -27,8 +27,8 @@
   <object id="19" gid="213" x="272" y="128" width="32" height="32"/>
   <object id="20" gid="233" x="272" y="160" width="32" height="32"/>
   <object id="35" gid="202" x="51" y="49" width="218" height="36"/>
-  <object id="34" gid="208" x="192" y="128" width="32" height="32"/>
-  <object id="33" gid="208" x="96" y="128" width="32" height="32"/>
+  <object id="34" name="rightcandle" type="candle" gid="208" x="192" y="128" width="32" height="32"/>
+  <object id="33" name="leftcandle" type="candle" gid="208" x="96" y="128" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="main_obj">
   <object id="31" name="hero" gid="253" x="64" y="192" width="32" height="32"/>
