@@ -24,56 +24,11 @@ install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
 add_subdirectory(libs/DANG)
 
 # ---- Sources ----
+aux_source_directory(src SRC)
+aux_source_directory(rsrc RSRC)
 set(SOURCES
-        src/pnk_globals.h
-        src/pigsnkings.cpp
-        src/Hero.cpp
-        src/Hero.h
-        src/MotionState.cpp
-        src/MotionState.h
-        src/SomaticState.cpp
-        src/SomaticState.h
-        src/ActionState.cpp
-        src/ActionState.h
-        src/Enemy.cpp
-        src/Enemy.h
-        src/PnkEvent.cpp
-        src/PnkEvent.h
-        src/Bubble.cpp
-        src/Bubble.h
-        src/GameState.cpp
-        src/GameState.h
-        src/ScrolltextLayer.cpp
-        src/ScrolltextLayer.h
-        src/GSAbout.cpp
-        src/GSAbout.h
-        src/GSPrefs.cpp
-        src/GSPrefs.h
-        src/GSIntro.cpp
-        src/GSIntro.h
-        src/GSHome.cpp
-        src/GSHome.h
-        src/GSPlay.cpp
-        src/GSPlay.h
-        src/LevelFlow.cpp
-        src/LevelFlow.h
-        src/SpriteFactory.cpp
-        src/SpriteFactory.hpp
-        rsrc/bubble.png.h
-        rsrc/king.png.h
-        rsrc/pig.png.h
-        rsrc/hud_ui.png.h
-        rsrc/items.png.h
-        rsrc/menus.png.h
-        rsrc/castle_decoration_tiles.png.h
-        rsrc/castle_tiles.png.h
-        rsrc/pnk_logo.png.h
-        rsrc/main_1.tmx.hpp
-        rsrc/tiles_bg_png.h
-        rsrc/players_png.h
-        rsrc/pnk_32_lvl1.tmx.hpp
-        rsrc/sl_shield_32blit_png.h
-        rsrc/pnk_sprites_png.h
+        ${SRC}
+        ${RSRC}
         tracks/gocryogo.h
         fonts/barcadebrawl.h
         sfx/bubble_pop_22050_mono.h
