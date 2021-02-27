@@ -163,7 +163,7 @@ namespace pnk
         }
 
         // first screen of tmx
-        gear.setViewportPos({0, 16});
+        gear.setViewportPos({0, 8});
 
     }
 
