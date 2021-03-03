@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.4" tiledversion="1.4.3" name="gfx_king" tilewidth="32" tileheight="32" tilecount="26" columns="26" objectalignment="topleft">
  <image source="../../gfx/characters/king.png" trans="ff00ff" width="832" height="32"/>
- <tile id="0">
+ <tile id="0" type="wait">
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>
@@ -10,20 +10,16 @@
    <frame tileid="4" duration="100"/>
    <frame tileid="5" duration="100"/>
    <frame tileid="6" duration="100"/>
+   <frame tileid="0" duration="800"/>
   </animation>
  </tile>
- <tile id="7">
+ <tile id="7" type="jump">
   <animation>
    <frame tileid="7" duration="100"/>
    <frame tileid="8" duration="100"/>
   </animation>
  </tile>
- <tile id="9">
-  <animation>
-   <frame tileid="9" duration="100"/>
-  </animation>
- </tile>
- <tile id="10">
+ <tile id="10" type="walk">
   <animation>
    <frame tileid="10" duration="100"/>
    <frame tileid="11" duration="100"/>
@@ -35,20 +31,20 @@
    <frame tileid="17" duration="100"/>
   </animation>
  </tile>
- <tile id="18">
+ <tile id="18" type="bubble">
   <animation>
    <frame tileid="18" duration="100"/>
    <frame tileid="19" duration="100"/>
    <frame tileid="20" duration="100"/>
-   <frame tileid="21" duration="100"/>
+   <frame tileid="19" duration="800"/>
+   <frame tileid="18" duration="800"/>
   </animation>
  </tile>
- <tile id="22">
+ <tile id="21" type="hit">
   <animation>
-   <frame tileid="22" duration="100"/>
-   <frame tileid="23" duration="100"/>
-   <frame tileid="24" duration="100"/>
-   <frame tileid="25" duration="100"/>
+   <frame tileid="21" duration="200"/>
+   <frame tileid="22" duration="200"/>
+   <frame tileid="23" duration="200"/>
   </animation>
  </tile>
 </tileset>
