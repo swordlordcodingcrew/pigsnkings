@@ -13,9 +13,20 @@
    <frame tileid="0" duration="800"/>
   </animation>
  </tile>
+ <tile id="1" type="blink">
+  <animation>
+   <frame tileid="0" duration="100"/>
+   <frame tileid="25" duration="100"/>
+  </animation>
+ </tile>
  <tile id="7" type="jump">
   <animation>
+   <frame tileid="9" duration="100"/>
    <frame tileid="7" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="8" type="on_air">
+  <animation>
    <frame tileid="8" duration="100"/>
   </animation>
  </tile>
