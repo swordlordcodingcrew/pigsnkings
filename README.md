@@ -52,7 +52,7 @@ git submodule foreach git pull origin master
 ```
 mkdir build.stm32
 cd build.stm32
-cmake .. -D32BLIT_PATH="../libs/32blit-beta/" -DCMAKE_TOOLCHAIN_FILE=../libs/32blit-beta/32blit.toolchain
+cmake .. -D32BLIT_PATH="../libs/32blit-sdk/" -DCMAKE_TOOLCHAIN_FILE=../libs/32blit-sdk/32blit.toolchain
 make
 ```
 
