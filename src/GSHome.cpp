@@ -32,7 +32,6 @@
 
 #include "rsrc/main_1.tmx.hpp"
 #include "tracks/gocryogo.h"
-#include "Puppet.h"
 
 #include <cassert>
 #include <iostream>
