@@ -32,6 +32,7 @@
 
 #include "rsrc/main_1.tmx.hpp"
 #include "tracks/gocryogo.h"
+#include "Puppet.h"
 
 #include <cassert>
 #include <iostream>
@@ -158,37 +159,74 @@ namespace pnk
         for (const dang::tmx_spriteobject& so : ola->so)
         {
             spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
-            spSprite spr = std::make_shared<dang::Sprite>(so, is);
-            spr->_visible = true;
-            spr->_imagesheet = is;
-            if (so.type == "button" && so.name == "play")
-            {
-                _btns.at(PLAY).btn = spr;
-                _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                _btns.at(PLAY).img_index = 1;
-                //spr->setAnimation(_btns.at(PLAY).anim);
-            }
-            else if (so.type == "button" && so.name == "prefs")
-            {
-                _btns.at(PREFS).btn = spr;
-                _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                _btns.at(PREFS).img_index = 2;
-            }
-            else if (so.type == "button" && so.name == "about")
-            {
-                _btns.at(ABOUT).btn = spr;
-                _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                _btns.at(ABOUT).img_index = 0;
+            spSprite spr{nullptr};
+            // buttons
+            if(so.type == "button"){
+                spr = std::make_shared<dang::Sprite>(so, is);
+                spr->_visible = true;
+                spr->_imagesheet = is;
+                if (so.type == "button" && so.name == "play")
+                {
+                    _btns.at(PLAY).btn = spr;
+                    _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(PLAY).img_index = 1;
+                    //spr->setAnimation(_btns.at(PLAY).anim);
+                }
+                else if (so.type == "button" && so.name == "prefs")
+                {
+                    _btns.at(PREFS).btn = spr;
+                    _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(PREFS).img_index = 2;
+                }
+                else if (so.type == "button" && so.name == "about")
+                {
+                    _btns.at(ABOUT).btn = spr;
+                    _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(ABOUT).img_index = 0;
+                }
             }
             else if (so.name == "piggie")
             {
+                spr = std::make_shared<dang::Sprite>(so, is);
+                spr->_visible = true;
+                spr->_imagesheet = is;
+                spr->_transform = blit::SpriteTransform::HORIZONTAL;
+
                 spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
+
+                spr->setPosX(-32);
+                dang::Vector2F  _move_to{0, 200};
+                dang::Vector2F  _move_to2{320, spr->getPosY()};
+                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to2, 3600, dang::Ease::Linear, -1, false, 50);
+                //spr->addTween(std::make_shared<dang::TwPos>(_move_to, 0, dang::Ease::Linear, 0, false, 0));
+                spr->addTween(twPos);
 
 //                std::shared_ptr<dang::TwSequence> seq = std::make_shared<dang::TwSequence
 //                std::shared_ptr<dang::TwPos> move
             }
-            sl->addSprite(spr);
+            else if (so.name == "hero")
+            {
+                spr = std::make_shared<dang::Sprite>(so, is);
+                spr->_visible = true;
+                spr->_imagesheet = is;
+                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
+                spr->setAnimation(anim);
+
+
+                // -------
+                spr->setPosX(-32);
+                dang::Vector2F  _move_to{0, 200};
+                dang::Vector2F  _move_to2{320, spr->getPosY()};
+                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to2, 2900, dang::Ease::Linear, -1, false, 750);
+                //spr->addTween(std::make_shared<dang::TwPos>(_move_to, 0, dang::Ease::Linear, 0, false, 0));
+                spr->addTween(twPos);
+            }
+
+            // and add it to the collection
+            if(spr != nullptr){
+                sl->addSprite(spr);
+            }
         }
 
         // first screen of tmx
