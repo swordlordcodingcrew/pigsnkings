@@ -1,6 +1,8 @@
 [submodule "libs/DANG"]
 	path = libs/DANG
 	url = https://github.com/swordlordcodingcrew/DANG.git
+	branch = master
 [submodule "libs/32blit-sdk"]
 	path = libs/32blit-sdk
 	url = https://github.com/32blit/32blit-sdk.git
+	branch = master
