@@ -47,8 +47,8 @@
    <frame tileid="18" duration="100"/>
    <frame tileid="19" duration="100"/>
    <frame tileid="20" duration="100"/>
-   <frame tileid="19" duration="800"/>
-   <frame tileid="18" duration="800"/>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="18" duration="100"/>
   </animation>
  </tile>
  <tile id="21" type="hit">

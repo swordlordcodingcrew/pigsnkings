@@ -70,7 +70,7 @@ dang::tmx_level init_level_1_inwork() {
     // Animation: walk
     lvl.tileanimation["gfx_king_walk"] = {"gfx_king",10,"walk",{{10, 100},{11, 100},{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}};
     // Animation: bubble
-    lvl.tileanimation["gfx_king_bubble"] = {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 800},{18, 800}}};
+    lvl.tileanimation["gfx_king_bubble"] = {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 100},{18, 100}}};
     // Animation: hit
     lvl.tileanimation["gfx_king_hit"] = {"gfx_king",21,"hit",{{21, 200},{22, 200},{23, 200}}};
 
@@ -139,19 +139,21 @@ dang::tmx_level init_level_1_inwork() {
         {136,"136","",64,392,32,32,true,1,20},
         {137,"137","",192,326,32,32,true,1,0},
         {138,"138","",192,358,32,32,true,1,10},
-        {139,"139","",192,390,32,32,true,1,20}
+        {139,"139","",192,390,32,32,true,1,20},
+        {43,"43","",192,704,32,32,true,1,13},
+        {106,"106","",160,704,32,32,true,1,12},
+        {107,"107","",128,704,32,32,true,1,11},
+        {52,"52","",160,672,32,32,true,1,1},
+        {53,"53","",192,672,32,32,true,1,3},
+        {47,"47","",128,576,32,32,true,1,4},
+        {50,"50","",128,640,32,32,true,1,4},
+        {51,"51","",128,608,32,32,true,1,4}
     };
-    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",32,solvl_1_mood};
+    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",40,solvl_1_mood};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_mood));
 
     // Objects for layer: lvl_1_obj
     dang::tmx_spriteobject solvl_1_obj[] = {
-        {43,"43","",192,704,32,32,true,1,13},
-        {47,"47","",128,576,32,32,true,1,4},
-        {50,"50","",128,640,32,32,true,1,4},
-        {51,"51","",128,608,32,32,true,1,4},
-        {52,"52","",160,672,32,32,true,1,1},
-        {53,"53","",192,672,32,32,true,1,3},
         {54,"54","",96,192,32,32,true,1,4},
         {55,"55","",64,160,32,32,true,1,4},
         {56,"56","",96,128,32,32,true,1,4},
@@ -179,8 +181,6 @@ dang::tmx_level init_level_1_inwork() {
         {103,"103","",448,640,32,32,true,1,1},
         {104,"104","",480,608,32,32,true,1,3},
         {105,"105","",480,640,32,32,true,1,3},
-        {106,"106","",160,704,32,32,true,1,12},
-        {107,"107","",128,704,32,32,true,1,11},
         {108,"108","",448,448,32,32,true,1,1},
         {109,"109","",448,384,32,32,true,1,1},
         {110,"110","",352,320,32,32,true,1,1},
@@ -231,14 +231,15 @@ dang::tmx_level init_level_1_inwork() {
         {186,"186","hotrect",192,576,96,32,true,0,0},
         {187,"187","hotrect",288,512,32,192,true,0,0},
         {188,"188","hotrect",256,512,32,32,true,0,0},
-        {189,"189","hotrect_platform",128,576,32,6,true,0,0},
-        {190,"190","hotrect_platform",128,608,32,6,true,0,0},
-        {191,"191","hotrect_platform",128,640,32,6,true,0,0},
+        {189,"189","hotrect_platform",128,576,32,4,true,0,0},
+        {190,"190","hotrect_platform",128,608,32,4,true,0,0},
+        {191,"191","hotrect_platform",128,640,32,4,true,0,0},
         {195,"195","hotrect",-8,656,8,64,true,0,0},
         {196,"196","king",0,672,32,32,true,5,0},
-        {197,"197","",0,480,32,32,true,3,0}
+        {197,"197","",0,480,32,32,true,3,0},
+        {198,"198","hotrect_platform",160,672,64,4,true,0,0}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",91,solvl_1_obj};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",84,solvl_1_obj};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
