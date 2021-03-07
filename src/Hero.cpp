@@ -28,12 +28,9 @@ namespace pnk
     Hero::Hero(const dang::tmx_spriteobject &so, const std::shared_ptr<dang::Imagesheet> is)
     : dang::CollisionSprite(so, is)
     {
-        // TODO should be set in the factory
-        setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        _type_num = SpriteFactory::TN_KING;
 
         _hotrect = {8, 8, 16, 24};
-
+/*
         // wait animation
         _anim_m_wait = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, dang::Ease::Linear , -1, false, 2000));
         // walk animation
@@ -46,7 +43,7 @@ namespace pnk
         _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{18, 19, 20, 19, 18}, 300, dang::Ease::OutQuad, 1));
         // entering game animation
         _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, dang::Ease::Linear, -1));
-
+*/
     }
 
     void Hero::activateState()

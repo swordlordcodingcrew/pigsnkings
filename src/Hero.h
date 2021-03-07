@@ -47,6 +47,7 @@ namespace pnk
         friend class WalkState;
         friend class JumpState;
         friend class OnAirState;
+        friend class SpriteFactory;
 
 //        void setLastUpdateTime(uint32_t time) { _last_update_time = time; }
 

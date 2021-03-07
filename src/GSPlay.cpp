@@ -21,6 +21,15 @@
 #include "rsrc/pnk_sprites_png.h"
 #include "rsrc/pnk_32_lvl1.tmx.hpp"
 
+#include "rsrc/bubble.png.h"
+#include "rsrc/items.png.h"
+#include "rsrc/king.png.h"
+#include "rsrc/castle_decoration_tiles.png.h"
+#include "rsrc/pig.png.h"
+#include "rsrc/castle_tiles.png.h"
+#include "rsrc/hud_ui.png.h"
+#include "rsrc/level_1_inwork.tmx.hpp"
+
 #include "tracks/gocryogo.h"
 
 #include "Hero.h"
@@ -53,7 +62,7 @@ namespace pnk
                 // end of room
                 // TODO: goto next room
                 _room_transition = true;
-                spLayer l = gear.getLayerByName(_lvl_flow->_l_obj_id);
+                spLayer l = gear.getLayerByName(_lvl_flow->_l_obj_name);
                 if (l != nullptr)
                 {
                     spCollisionSpriteLayer csl = std::static_pointer_cast<dang::CollisionSpriteLayer>(l);
@@ -65,7 +74,8 @@ namespace pnk
             else if (blit::now() - _last_time > _spawn_delay)
             {
                 // still enemies to go
-                spEnemy en = SpriteFactory::NormalPig(_prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
+                dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
+                spEnemy en = SpriteFactory::NormalPig(txtr, _prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
                 en->setWalk(E_WALK_VEL);
                 _csl->addCollisionSprite(en);
                 _spawned++;
@@ -121,17 +131,16 @@ namespace pnk
         {
             case 1:
             default:
-                _lvl_flow = std::make_shared<Level1Flow>();
+                _lvl_flow = std::make_shared<L1F>();
                 _tmx = init_pnk_32_lvl1();
                 break;
             case 2:
-                // other levels?
-                //_lvl_flow = std::make_shared<Level2Flow>();
-                //_tmx = init_pnk_32_lvl2();
+                _lvl_flow = std::make_shared<L2F>();
+                _tmx = init_level_1_inwork();
                 break;
         }
 
-        dang::TmxExtruder tmx_ext(&_tmx);
+        dang::TmxExtruder txtr(&_tmx);
 
         // choose room acc. to prefs
         _active_room_flow = &_lvl_flow->_roomflows[_pnk._prefs.active_room];
@@ -145,44 +154,51 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         // init imagesheets
-        _pnk.initImageSheets(tmx_ext);
+        _pnk.initImageSheets(txtr);
 
         // create background Tilelayer
-        spTileLayer tl = tmx_ext.extrudeTileLayer(_lvl_flow->_l_bg_id, gear);
-        gear.addLayer(tl);
+        txtr.getTileLayer(_lvl_flow->_l_bg_name, gear, true);
 
-        // create spritelayer with collision detection
-        _csl = tmx_ext.extrudeCollisionSpriteLayer(_lvl_flow->_l_obj_id);
-        gear.addLayer(_csl);
+        // create mood Tilelayer
+        if (!_lvl_flow->_l_mood_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_mood_name, gear, true, true);
+
+        // create Spritelayer with collision detection
+        _csl = txtr.getCollisionSpriteLayer(_lvl_flow->_l_obj_name, gear, false, true);
 
         // create sprites
-        const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(_lvl_flow->_l_obj_id);
-        for (const dang::tmx_spriteobject& so : ola->so)
+        for (const dang::tmx_spriteobject& so : txtr.getSOList(_csl))
         {
-            bool orphaned = true;
             spImagesheet is = gear.getImagesheet(_tmx.tilesets[so.tileset].name);
-            spCollisionSprite spr;
-            if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so);         orphaned = false; }
-            else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); orphaned = false; }
-            else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(so, is);   orphaned = false; }
+            spCollisionSprite spr = nullptr;
+            if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
+            else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
+            else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so.type == SpriteFactory::T_KING)
             {
-                _spr_hero = SpriteFactory::King(so, is);
+                _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
-                orphaned = false;
             }
-            _csl->addCollisionSprite(spr);
 
-            if (so.type == SpriteFactory::T_BUBBLE_PROTO)
+            if (spr != nullptr)
             {
-                _prototypes[so.id] = so;
-                _iss_for_prototypes[so.id] = is;
-                orphaned = false;
+                _csl->addCollisionSprite(spr);
             }
-
-            if (orphaned) std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
-
+            else
+            {
+                if (so.type == SpriteFactory::T_BUBBLE_PROTO)
+                {
+                    _prototypes[so.id] = so;
+                    _iss_for_prototypes[so.id] = is;
+                }
+                else
+                {
+                        std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
+                }
+            }
         }
+
+        // create HUD layer
+        if (!_lvl_flow->_l_hud_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_hud_name, gear, true, true);
 
         // set viewport to active room
         _active_room_center = _active_room_flow->room_center;
@@ -213,11 +229,12 @@ namespace pnk
         PnkEvent& pe = static_cast<PnkEvent&>(e);
         if (pe._type == ETG_NEW_BUBBLE)
         {
+            dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
             dang::tmx_spriteobject so = _prototypes[30];
             dang::spImagesheet is = _iss_for_prototypes[so.id];
             so.x = (int32_t)pe._pos.x;
             so.y = (int32_t)pe._pos.y;
-            spBubble _new_bubble = SpriteFactory::Bubble(so, is, pe._to_the_left);
+            spBubble _new_bubble = SpriteFactory::Bubble(txtr, so, is, pe._to_the_left);
 //            _new_bubble->setPos(pe._pos);
 //            _new_bubble->_to_the_left = pe._to_the_left;
 //            _new_bubble->setMovement();

@@ -16,17 +16,13 @@ namespace pnk
         /**
          * tmx ids
          * is = imagesheet
-         * l = layer
          * bg: background (i.e. tile layer)
          * obj: object (i.e. sprites and whatnot)
          */
-        std::vector<std::string> _is_bg_ids;
-        std::string         _is_bg_id;
-        std::string         _is_obj_id;
-
-        std::string         _l_bg_id;
-        std::string         _l_obj_id;
-        std::string         _l_mood_id;
+        std::string         _l_bg_name;
+        std::string         _l_obj_name;
+        std::string         _l_mood_name;
+        std::string         _l_hud_name;
 
 
         // TODO -> simple screenplay
@@ -45,12 +41,17 @@ namespace pnk
 
     };
 
-    class Level1Flow : public LevelFlow
+    class L1F : public LevelFlow
     {
     public:
-        Level1Flow();
+        L1F();
     };
 
+    class L2F : public LevelFlow
+    {
+    public:
+        L2F();
+    };
 
 }
 

@@ -116,21 +116,15 @@ namespace pnk
         _pnk.initImageSheets(tmx_ext);
 
         // create background Tilelayer
-        spTileLayer tl = tmx_ext.extrudeTileLayer(tmx_bg_layer_name, gear);
-        assert(tl != nullptr);
-        gear.addLayer(tl);
+        spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, gear, true);
 
-        spSpriteLayer dl = tmx_ext.extrudeSpriteLayer(tmx_deco_layer_name);
-        assert(dl != nullptr);
-        gear.addLayer(dl);
+        spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, gear, false, true);
 
         // create spritelayer w/o collision detection/resolution
-        spSpriteLayer sl = tmx_ext.extrudeSpriteLayer(tmx_obj_layer_name);
-        assert(sl != nullptr);
-        gear.addLayer(sl);
+        spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, gear, false, true);
 
-        const dang::tmx_objectlayer* ol = tmx_ext.getTmxObjectLayer(tmx_deco_layer_name);
-        for (const dang::tmx_spriteobject& so : ol->so)
+//        const dang::tmx_objectlayer* ol = tmx_ext.getTmxObjectLayer(tmx_deco_layer_name);
+        for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(dl))
         {
             spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
             spSprite spr = std::make_shared<dang::Sprite>(so, is);
@@ -154,8 +148,8 @@ namespace pnk
 
         // create sprites
         _btns.resize(_ESIZE, {nullptr, nullptr, 0});
-        const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(tmx_obj_layer_name);
-        for (const dang::tmx_spriteobject& so : ola->so)
+  //      const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(tmx_obj_layer_name);
+        for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(sl))
         {
             spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
             spSprite spr{nullptr};

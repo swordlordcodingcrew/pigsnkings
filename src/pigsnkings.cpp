@@ -141,7 +141,7 @@ namespace pnk
 */
     void PigsnKings::initImageSheets(dang::TmxExtruder& tmex)
     {
-        tmex.extrudeImagesheets(_gear);
+        tmex.getImagesheets(_gear);
 
         // link the surface to the imagesheets
         // assuming that each tileset has its own image

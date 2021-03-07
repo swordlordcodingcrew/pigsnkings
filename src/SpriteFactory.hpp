@@ -11,6 +11,7 @@ namespace dang
     // forward declarations of DANG framework
     class CollisionSprite;
     class Imagesheet;
+    class TmxExtruder;
 
     struct tmx_spriteobject;
 }
@@ -69,9 +70,9 @@ namespace pnk
         };
 
 
-        static spHero King(const dang::tmx_spriteobject& so, spImagesheet is);
-        static spEnemy NormalPig(const dang::tmx_spriteobject& so, spImagesheet is);
-        static spBubble Bubble(const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
+        static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spEnemy NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
     };

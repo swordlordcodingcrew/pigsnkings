@@ -1,7 +1,11 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
+#include <cassert>
 #include "CollisionSprite.hpp"
+#include "TmxExtruder.hpp"
+#include "Imagesheet.hpp"
+#include "tween/TwAnim.hpp"
 
 #include "SpriteFactory.hpp"
 #include "Hero.h"
@@ -12,9 +16,47 @@
 
 namespace pnk
 {
-    spHero SpriteFactory::King(const dang::tmx_spriteobject& so, spImagesheet is)
+    spHero SpriteFactory::King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is)
     {
         spHero ret = std::make_shared<pnk::Hero>(so, is);
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->_type_num = SpriteFactory::TN_KING;
+
+        // wait animation
+//      std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, dang::Ease::Linear , -1, false, 2000));
+        ret->_anim_m_wait = txtr.getAnimation(is->getName(), "wait");
+//        std::shared_ptr<dang::TwAnim> a = txtr.getAnimation(is->getName(), "wait");
+        assert(ret->_anim_m_wait != nullptr);
+        ret->_anim_m_wait->delay(2000);
+
+        // walk animation
+//        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15, 16, 17}, 600, dang::Ease::Linear, -1));
+        ret->_anim_m_walk = txtr.getAnimation(is->getName(), "walk");
+        assert(ret->_anim_m_walk != nullptr);
+
+
+        // jump animation
+//        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, dang::Ease::Linear));
+        ret->_anim_m_jump = txtr.getAnimation(is->getName(), "jump");
+        assert(ret->_anim_m_jump != nullptr);
+
+        // on air (= not touching the ground) 'animation'
+//      _anim_m_on_air = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{7}, 600, dang::Ease::Linear))
+        ret->_anim_m_on_air = txtr.getAnimation(is->getName(), "on_air");
+        assert(ret->_anim_m_on_air != nullptr);
+
+        // bubble animation
+//        _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{18, 19, 20, 19, 18}, 300, dang::Ease::OutQuad, 1));
+        ret->_anim_bubble = txtr.getAnimation(is->getName(), "bubble");
+        assert(ret->_anim_bubble != nullptr);
+        ret->_anim_bubble->loops(1);
+
+        // entering game animation
+//        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, dang::Ease::Linear, -1));
+        ret->_anim_s_enter = txtr.getAnimation(is->getName(), "blink");
+        assert(ret->_anim_bubble != nullptr);
+
+
         ret->activateState();
         return ret;
     }
@@ -39,7 +81,7 @@ namespace pnk
         return ret;
     }
 
-    spEnemy SpriteFactory::NormalPig(const dang::tmx_spriteobject &so, spImagesheet is)
+    spEnemy SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
         spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
         ret->_type_num = SpriteFactory::TN_NORMAL_PIG;
@@ -49,13 +91,15 @@ namespace pnk
         return ret;
     }
 
-    spBubble SpriteFactory::Bubble(const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    spBubble SpriteFactory::Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
     {
         spBubble ret = std::make_shared<pnk::Bubble>(so, is);
         ret->_type_num = SpriteFactory::TN_BUBBLE;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
         ret->init();
+
+
 
         return ret;
     }
