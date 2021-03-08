@@ -54,9 +54,9 @@ dang::tmx_level init_level_1_inwork() {
     // Animation: potion_poof
     lvl.tileanimation["gfx_items_potion_poof"] = {"gfx_items",49,"potion_poof",{{49, 100},{50, 100},{51, 100},{52, 100}}};
     // Animation: bubble_blow
-    lvl.tileanimation["gfx_bubbles_bubble_blow"] = {"gfx_bubbles",0,"bubble_blow",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}};
+    lvl.tileanimation["gfx_bubbles_bubble_blow"] = {"gfx_bubbles",0,"bubble_blow",{{0, 120},{1, 120},{2, 120},{3, 120},{4, 100}}};
     // Animation: bubble_bobble
-    lvl.tileanimation["gfx_bubbles_bubble_bobble"] = {"gfx_bubbles",4,"bubble_bobble",{{4, 100},{5, 100},{6, 100}}};
+    lvl.tileanimation["gfx_bubbles_bubble_bobble"] = {"gfx_bubbles",4,"bubble_bobble",{{3, 120},{5, 120},{4, 120},{3, 120},{6, 120}}};
     // Animation: bubble_poof
     lvl.tileanimation["gfx_bubbles_bubble_poof"] = {"gfx_bubbles",7,"bubble_poof",{{7, 100},{8, 100},{9, 100}}};
     // Animation: wait

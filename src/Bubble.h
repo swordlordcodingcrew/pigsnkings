@@ -46,6 +46,11 @@ namespace pnk
         const dang::Vector2F _delta_catch{-1, -8};
         void removeSelf();
 
+        // animations depot
+        spTwAnim _anim_blow; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
+        spTwAnim _anim_bobble; //       twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{44, 46, 45, 44, 47}, 600, &dang::Ease::Linear, 3);
+        spTwAnim _anim_poof; //        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, &dang::Ease::Linear, 1);
+
     };
 
 

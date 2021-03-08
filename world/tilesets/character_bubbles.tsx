@@ -3,18 +3,20 @@
  <image source="../../gfx/characters/bubble.png" trans="ff00ff" width="352" height="32"/>
  <tile id="0" type="bubble_blow">
   <animation>
-   <frame tileid="0" duration="100"/>
-   <frame tileid="1" duration="100"/>
-   <frame tileid="2" duration="100"/>
-   <frame tileid="3" duration="100"/>
+   <frame tileid="0" duration="120"/>
+   <frame tileid="1" duration="120"/>
+   <frame tileid="2" duration="120"/>
+   <frame tileid="3" duration="120"/>
    <frame tileid="4" duration="100"/>
   </animation>
  </tile>
  <tile id="4" type="bubble_bobble">
   <animation>
-   <frame tileid="4" duration="100"/>
-   <frame tileid="5" duration="100"/>
-   <frame tileid="6" duration="100"/>
+   <frame tileid="3" duration="120"/>
+   <frame tileid="5" duration="120"/>
+   <frame tileid="4" duration="120"/>
+   <frame tileid="3" duration="120"/>
+   <frame tileid="6" duration="120"/>
   </animation>
  </tile>
  <tile id="7" type="bubble_poof">
