@@ -6,6 +6,7 @@
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
+#include "tween/Ease.hpp"
 
 #include "SpriteFactory.hpp"
 #include "Hero.h"
@@ -50,6 +51,7 @@ namespace pnk
         ret->_anim_bubble = txtr.getAnimation(is->getName(), "bubble");
         assert(ret->_anim_bubble != nullptr);
         ret->_anim_bubble->loops(1);
+        ret->_anim_bubble->easeFunction(&dang::Ease::OutQuad);
 
         // entering game animation
 //        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, dang::Ease::Linear, -1));
