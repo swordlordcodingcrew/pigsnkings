@@ -17,6 +17,7 @@ namespace pnk
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
     class Hero : public dang::CollisionSprite
     {
@@ -62,14 +63,12 @@ namespace pnk
 
 
         // animations depot
-        std::shared_ptr<dang::TwAnim> _anim_m_wait;
-        std::shared_ptr<dang::TwAnim> _anim_m_walk;
-        std::shared_ptr<dang::TwAnim> _anim_m_jump;
-        std::shared_ptr<dang::TwAnim> _anim_m_on_air;
-        std::shared_ptr<dang::TwAnim> _anim_bubble;
-        std::shared_ptr<dang::TwAnim> _anim_s_enter;
-
-
+        spTwAnim _anim_m_wait;
+        spTwAnim _anim_m_walk;
+        spTwAnim _anim_m_jump;
+        spTwAnim _anim_m_on_air;
+        spTwAnim _anim_bubble;
+        spTwAnim _anim_s_enter;
 
     };
 

@@ -30,6 +30,7 @@ namespace pnk
         static inline const float H_JUMP_VEL = -16;
         static inline const uint32_t H_JUMP_COUNT = 30;
         static inline const float BUBBLE_VEL = 20;
+        static inline const float BUBBLE_VEL_UP = -1.5;
         static inline const float E_WALK_VEL = 2;
 
 
@@ -57,10 +58,7 @@ namespace pnk
         // the layer in which the game takes place
         std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
 
-        // container for prototype sprites ("hives" and bubble)
-        // TODO: improve hive
-        std::map<uint16_t, dang::tmx_spriteobject> _prototypes;
-        std::map<uint16_t, dang::spImagesheet> _iss_for_prototypes;
+        std::map<std::string, spCollisionSprite> _hives;
 
         // vp handling per room
         // assuming that 1 room is the size of the screen

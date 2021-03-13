@@ -159,7 +159,7 @@
   <object id="191" type="hotrect_platform" x="128" y="640" width="32" height="4"/>
   <object id="195" type="hotrect" x="-8" y="656" width="8" height="64"/>
   <object id="196" type="king" gid="306" x="0" y="672" width="32" height="32"/>
-  <object id="197" gid="190" x="0" y="480" width="32" height="32"/>
+  <object id="197" type="bubble_proto" gid="190" x="0" y="480" width="32" height="32"/>
   <object id="198" type="hotrect_platform" x="160" y="672" width="64" height="4"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud"/>

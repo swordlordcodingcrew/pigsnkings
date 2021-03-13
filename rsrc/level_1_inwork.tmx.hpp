@@ -236,7 +236,7 @@ dang::tmx_level init_level_1_inwork() {
         {191,"191","hotrect_platform",128,640,32,4,true,0,0},
         {195,"195","hotrect",-8,656,8,64,true,0,0},
         {196,"196","king",0,672,32,32,true,5,0},
-        {197,"197","",0,480,32,32,true,3,0},
+        {197,"197","bubble_proto",0,480,32,32,true,3,0},
         {198,"198","hotrect_platform",160,672,64,4,true,0,0}
     };
     dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",84,solvl_1_obj};

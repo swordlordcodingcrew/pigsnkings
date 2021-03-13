@@ -35,7 +35,6 @@ namespace pnk
         ret->_anim_m_walk = txtr.getAnimation(is->getName(), "walk");
         assert(ret->_anim_m_walk != nullptr);
 
-
         // jump animation
 //        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, dang::Ease::Linear));
         ret->_anim_m_jump = txtr.getAnimation(is->getName(), "jump");
@@ -99,9 +98,28 @@ namespace pnk
         ret->_type_num = SpriteFactory::TN_BUBBLE;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
+
+        // bubble grows
+        ret->_anim_blow = txtr.getAnimation(is->getName(), "bubble_blow");
+        assert(ret->_anim_blow != nullptr);
+        ret->_anim_blow->easeFunction(&dang::Ease::OutQuad);
+        ret->_anim_blow->loops(1);
+
+        // bubble bobbles
+        ret->_anim_bobble = txtr.getAnimation(is->getName(), "bubble_bobble");
+        assert(ret->_anim_bobble != nullptr);
+        ret->_anim_bobble->loops(3);
+
+        // bubble poofs
+        ret->_anim_poof = txtr.getAnimation(is->getName(), "bubble_poof");
+        assert(ret->_anim_poof != nullptr);
+        ret->_anim_poof->loops(1);
+
+        // bobbling with catched enemy
+        ret->_anim_catched = std::make_shared<dang::TwAnim>(*(ret->_anim_bobble));
+        ret->_anim_catched->loops(12);
+
         ret->init();
-
-
 
         return ret;
     }

@@ -37,6 +37,27 @@ namespace pnk
 
     }
 
+    Bubble::Bubble(const Bubble &bub) : CollisionSprite(bub)
+    {
+        std::cout << "bubble copy constructor" << std::endl;
+
+        _to_the_left = bub._to_the_left;
+        _state = bub._state;
+        _anim_blow = std::make_shared<dang::TwAnim>(*(bub._anim_blow));
+        _anim_bobble = std::make_shared<dang::TwAnim>(*(bub._anim_bobble));
+        _anim_poof = std::make_shared<dang::TwAnim>(*(bub._anim_poof));
+        _anim_catched = std::make_shared<dang::TwAnim>(*(bub._anim_catched));
+
+        _catched_en.reset();
+        _anim_blow->reset();
+        _anim_bobble->reset();
+        _anim_poof->reset();
+        _anim_catched->reset();
+
+        removeTweens(true);
+        removeAnimation(true);
+    }
+
     Bubble::~Bubble()
     {
         std::cout << "bubble destructor" << std::endl;
@@ -48,19 +69,18 @@ namespace pnk
 
         // animation sequence
         spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
-        // bobble grows
-        spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
-        twa->setFinishedCallback([=] ()
+        // add finished_callback to grow anim
+        _anim_blow->setFinishedCallback([=] ()
              {
                 if (_state == bs_growing)
                 {
                     _state = bs_wobbling;
                 }
              });
-        tw_seq_anim->addTween(twa);
-        // bubble wobbles
-        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{44, 46, 45, 44, 47}, 600, &dang::Ease::Linear, 3);
-        twa->setFinishedCallback([=] ()
+        tw_seq_anim->addTween(_anim_blow);
+
+        // bubble bobbles
+        _anim_bobble->setFinishedCallback([=] ()
              {
                  if (_state == bs_wobbling)
                  {
@@ -70,11 +90,11 @@ namespace pnk
                      removeTweens(true);
                  }
              });
-        tw_seq_anim->addTween(twa);
-        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, &dang::Ease::Linear, 1);
-        tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
-        tw_seq_anim->addTween(twa);
+        tw_seq_anim->addTween(_anim_bobble);
 
+        // bubble poofs
+        tw_seq_anim->addTween(_anim_poof);
+        tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
         setAnimation(tw_seq_anim);
         _state = bs_growing;
 
@@ -82,13 +102,10 @@ namespace pnk
         float velx = _to_the_left ? -GSPlay::BUBBLE_VEL : GSPlay::BUBBLE_VEL;
         spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
         spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, &dang::Ease::InQuad);
-        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, -3), 100, &dang::Ease::Linear);
-
+        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, GSPlay::BUBBLE_VEL_UP), 100, &dang::Ease::Linear);
         tw_seq->addTween(twv1);
         tw_seq->addTween(twv2);
-
         addTween(tw_seq);
-
     }
 
     void Bubble::update(uint32_t dt)
@@ -123,8 +140,8 @@ namespace pnk
             // alter animation
             removeAnimation(true);
             spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
-            spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, &dang::Ease::Linear, 12);
-            twa->setFinishedCallback([=] ()
+            _anim_catched->reset();
+            _anim_catched->setFinishedCallback([=] ()
                  {
                      _state = bs_bursting;
                      PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
@@ -134,17 +151,12 @@ namespace pnk
                      { // enemy becomes free again
                          en->deBubble();
                          _catched_en.reset();
-
-/*                         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                         e->_spr = _catched_en;
-                         pnk::_pnk._dispatcher.queueEvent(std::move(e));
-                         _catched_en.reset();
-*/
                      }
                  });
-            tw_seq_anim->addTween(twa);
-            twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, &dang::Ease::Linear, 1);
-            tw_seq_anim->addTween(twa);
+            tw_seq_anim->addTween(_anim_catched);
+            _anim_poof->reset();
+            _anim_poof->setFinishedCallback(nullptr);
+            tw_seq_anim->addTween(_anim_poof);
             tw_seq_anim->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
             setAnimation(tw_seq_anim);
 
@@ -178,20 +190,13 @@ namespace pnk
 
                 // alter animation
                 removeAnimation(true);
-                spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, &dang::Ease::Linear, 1);
-                twa->setFinishedCallback([=] ()
-                     {
-                         removeSelf();
-                     });
-                setAnimation(twa);
-
+                _anim_poof->reset();
+                _anim_poof->setFinishedCallback(std::bind(&Bubble::removeSelf, this));
+                setAnimation(_anim_poof);
             }
 
         }
-/*        else if (mf.other->_type_num == TN_HOTRECT || mf.me->_type_num == TN_HOTRECT)
-        {
-        }
-*/    }
+    }
 
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(spSprite other)
@@ -241,6 +246,7 @@ namespace pnk
          pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
     }
+
 
 
 }

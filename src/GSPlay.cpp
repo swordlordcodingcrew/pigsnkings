@@ -74,13 +74,13 @@ namespace pnk
             else if (blit::now() - _last_time > _spawn_delay)
             {
                 // still enemies to go
-                dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
+/*                dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
                 spEnemy en = SpriteFactory::NormalPig(txtr, _prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
                 en->setWalk(E_WALK_VEL);
                 _csl->addCollisionSprite(en);
                 _spawned++;
                 _spawn_ready = false;
-            }
+*/            }
         }
 
         if (_room_transition)
@@ -187,8 +187,9 @@ namespace pnk
             {
                 if (so.type == SpriteFactory::T_BUBBLE_PROTO)
                 {
-                    _prototypes[so.id] = so;
-                    _iss_for_prototypes[so.id] = is;
+                    spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
+                    assert(sprc != nullptr);
+                    _hives["bubble"] = sprc;
                 }
                 else
                 {
@@ -229,17 +230,13 @@ namespace pnk
         PnkEvent& pe = static_cast<PnkEvent&>(e);
         if (pe._type == ETG_NEW_BUBBLE)
         {
-            dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
-            dang::tmx_spriteobject so = _prototypes[30];
-            dang::spImagesheet is = _iss_for_prototypes[so.id];
-            so.x = (int32_t)pe._pos.x;
-            so.y = (int32_t)pe._pos.y;
-            spBubble _new_bubble = SpriteFactory::Bubble(txtr, so, is, pe._to_the_left);
-//            _new_bubble->setPos(pe._pos);
-//            _new_bubble->_to_the_left = pe._to_the_left;
-//            _new_bubble->setMovement();
-            _csl->addCollisionSprite(_new_bubble);
-//            std::cout << "new bubble event" << std::endl;
+            spBubble bub_proto = std::dynamic_pointer_cast<Bubble>(_hives["bubble"]);
+            assert(bub_proto != nullptr);
+            spBubble bub = std::make_shared<Bubble>(*bub_proto);
+            bub->setPos(pe._pos);
+            bub->_to_the_left = pe._to_the_left;
+            bub->init();
+            _csl->addCollisionSprite(bub);
         }
         else if (pe._type == ETG_REMOVE_SPRITE)
         {
