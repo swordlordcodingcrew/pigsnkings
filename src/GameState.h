@@ -5,6 +5,8 @@
 
 #include "pigsnkings.hpp"
 #include <memory>
+#include <tween/TwSequence.hpp>
+#include <tween/TwNull.hpp>
 
 namespace dang
 {
@@ -27,6 +29,9 @@ using spTileLayer = std::shared_ptr<dang::TileLayer>;
 using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 using spTwAnim = std::shared_ptr<dang::TwAnim>;
+
+using spTwSeq = std::shared_ptr<dang::TwSequence>;
+using spTwNull = std::shared_ptr<dang::TwNull>;
 
 namespace pnk
 {

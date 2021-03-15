@@ -39,7 +39,6 @@
 
 namespace pnk
 {
-
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
         // if button x is pressed load the selected state
@@ -185,35 +184,62 @@ namespace pnk
                 spr->_imagesheet = is;
                 spr->_transform = blit::SpriteTransform::HORIZONTAL;
 
+                // run piggie run
                 spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
 
-                spr->setPosX(-32);
-                dang::Vector2F  _move_to{0, 200};
-                dang::Vector2F  _move_to2{320, spr->getPosY()};
-                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to2, 3600, dang::Ease::Linear, -1, false, 50);
-                //spr->addTween(std::make_shared<dang::TwPos>(_move_to, 0, dang::Ease::Linear, 0, false, 0));
-                spr->addTween(twPos);
+                // get a sequence and make sure that it is looping forever
+                spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+                tw_seq_anim->loops(-1);
 
-//                std::shared_ptr<dang::TwSequence> seq = std::make_shared<dang::TwSequence
-//                std::shared_ptr<dang::TwPos> move
+                // piggie starting off screen to the left
+                spr->setPosX(-32);
+                // and moving off screen to the right (on Y set in Tiled)
+                dang::Vector2F  _move_to{320, spr->getPosY()};
+
+                // total duration of 4000
+                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, 0, false);
+                // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
+                twPos->init(spr.get());
+                tw_seq_anim->addTween(twPos);
+
+                spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+                tw_seq_anim->addTween(nullTw);
+
+                spr->addTween(tw_seq_anim);
             }
             else if (so.name == "hero")
             {
                 spr = std::make_shared<dang::Sprite>(so, is);
                 spr->_visible = true;
                 spr->_imagesheet = is;
+
+                // run hero, run
                 spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
 
-
-                // -------
+                // hero starting off screen to the left
                 spr->setPosX(-32);
-                dang::Vector2F  _move_to{0, 200};
-                dang::Vector2F  _move_to2{320, spr->getPosY()};
-                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to2, 2900, dang::Ease::Linear, -1, false, 750);
-                //spr->addTween(std::make_shared<dang::TwPos>(_move_to, 0, dang::Ease::Linear, 0, false, 0));
-                spr->addTween(twPos);
+                // and moving off screen to the right (on Y set in Tiled)
+                dang::Vector2F  _move_to{320, spr->getPosY()};
+
+                // get a sequence and make sure that it is looping forever
+                spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+                tw_seq_anim->loops(-1);
+
+                // total duration of 4000
+                spTwNull pauseBefore = std::make_shared<dang::TwNull>(dang::TwNull(600, dang::Ease::Linear, 0));
+                tw_seq_anim->addTween(pauseBefore);
+
+                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
+                // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
+                twPos->init(spr.get());
+                tw_seq_anim->addTween(twPos);
+
+                spTwNull pauseAfter = std::make_shared<dang::TwNull>(dang::TwNull(800, dang::Ease::Linear, 0));
+                tw_seq_anim->addTween(pauseAfter);
+
+                spr->addTween(tw_seq_anim);
             }
 
             // and add it to the collection
