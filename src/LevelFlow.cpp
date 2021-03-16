@@ -26,7 +26,7 @@ namespace pnk
         _l_bg_name = "lvl_1_bg";
         _l_obj_name = "lvl_1_obj";;
         _l_mood_name = "lvl_1_mood";
-        _l_hud_name = ""; // lvl_1_hud
+        _l_hud_name = "lvl_1_hud";
 
         // viewport = 320 x 240 px
         roomflow room1 = {dang::Vector2F{320.0 / 2, 960 - 130}, 26, 2};
