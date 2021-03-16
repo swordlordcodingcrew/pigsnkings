@@ -93,7 +93,7 @@ namespace pnk
         return ret;
     }
 
-    spReward SpriteFactory::GenericReward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spReward SpriteFactory::Reward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
         spReward ret = std::make_shared<pnk::Reward>(so, is);
 
@@ -104,11 +104,30 @@ namespace pnk
         else if(so.type == SpriteFactory::T_COIN_GOLD)
         {
             ret->_type_num = SpriteFactory::TN_COIN_GOLD;
-
         }
         else if(so.type == SpriteFactory::T_GEM_BLUE)
         {
             ret->_type_num = SpriteFactory::TN_GEM_BLUE;
+        }
+        else if(so.type == SpriteFactory::T_GEM_GREEN)
+        {
+            ret->_type_num = SpriteFactory::TN_GEM_GREEN;
+        }
+        else if(so.type == SpriteFactory::T_GEM_RED)
+        {
+            ret->_type_num = SpriteFactory::TN_GEM_RED;
+        }
+        else if(so.type == SpriteFactory::T_POTION_BLUE)
+        {
+            ret->_type_num = SpriteFactory::TN_POTION_BLUE;
+        }
+        else if(so.type == SpriteFactory::T_POTION_RED)
+        {
+            ret->_type_num = SpriteFactory::TN_POTION_RED;
+        }
+        else if(so.type == SpriteFactory::T_POTION_GREEN)
+        {
+            ret->_type_num = SpriteFactory::TN_POTION_GREEN;
         }
         else
         {

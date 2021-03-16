@@ -12,7 +12,7 @@ namespace pnk
 
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    //using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
     class Reward : public dang::CollisionSprite
     {
@@ -27,6 +27,7 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse  getCollisionResponse(spSprite other) override;
 
     protected:
-        // none for now
+        void removeSelf();
+        bool _collected{false}; // turns true when hit the first time
     };
 }

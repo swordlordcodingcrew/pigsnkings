@@ -5,6 +5,7 @@
 
 #include <string>
 #include <memory>
+#include "Reward.h"
 
 namespace dang
 {
@@ -22,7 +23,6 @@ namespace pnk
     class Hero;
     class Enemy;
     class Bubble;
-    class Reward;
 }
 
 // using assignments
@@ -51,6 +51,11 @@ namespace pnk
         static inline const std::string T_COIN_SILVER{"coin_silver"};
         static inline const std::string T_COIN_GOLD{"coin_gold"};
         static inline const std::string T_GEM_BLUE{"gem_blue"};
+        static inline const std::string T_GEM_GREEN{"gem_green"};
+        static inline const std::string T_GEM_RED{"gem_red"};
+        static inline const std::string T_POTION_BLUE{"potion_blue"};
+        static inline const std::string T_POTION_GREEN{"potion_green"};
+        static inline const std::string T_POTION_RED{"potion_red"};
 
         /**
          * definition of _type_num of sprites.
@@ -75,14 +80,16 @@ namespace pnk
             TN_COIN_GOLD = 301,
             TN_GEM_BLUE = 302,
             TN_GEM_GREEN = 303,
-            TN_GEM_RED = 304
+            TN_GEM_RED = 304,
+            TN_POTION_BLUE = 305,
+            TN_POTION_RED = 306,
+            TN_POTION_GREEN = 307
         };
-
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spEnemy NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
-        static spReward GenericReward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
     };
