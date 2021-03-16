@@ -107,21 +107,21 @@ namespace pnk
             {
                 case SpriteFactory::TN_COIN_SILVER:
                 case SpriteFactory::TN_COIN_GOLD:
-                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 600, &dang::Ease::Linear, 0));
+                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 400, &dang::Ease::Linear, 0));
                     break;
                 case SpriteFactory::TN_GEM_BLUE:
                 case SpriteFactory::TN_GEM_GREEN:
                 case SpriteFactory::TN_GEM_RED:
-                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{24, 25, 26, 27}, 600, &dang::Ease::Linear, 0));
+                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{24, 25, 26, 27}, 400, &dang::Ease::Linear, 0));
                     break;
                 case SpriteFactory::TN_POTION_BLUE:
                 case SpriteFactory::TN_POTION_RED:
                 case SpriteFactory::TN_POTION_GREEN:
-                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{49, 50, 51, 52}, 600, &dang::Ease::Linear, 0));
+                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{49, 50, 51, 52}, 400, &dang::Ease::Linear, 0));
                     break;
                     // Default gets silver coin
                 default:
-                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 600, &dang::Ease::Linear, 0));
+                    anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 400, &dang::Ease::Linear, 0));
                     break;
             }
 
