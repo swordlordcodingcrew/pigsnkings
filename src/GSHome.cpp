@@ -36,6 +36,7 @@
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <sfx/pig_squeal_22050_mono.h>
 
 namespace pnk
 {
@@ -234,6 +235,7 @@ namespace pnk
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
                 twPos->init(spr.get());
+                twPos->setFinishedCallback(std::bind(&GSHome::playOink, this));
                 tw_seq_anim->addTween(twPos);
 
                 spTwNull pauseAfter = std::make_shared<dang::TwNull>(dang::TwNull(800, dang::Ease::Linear, 0));
@@ -258,5 +260,11 @@ namespace pnk
 
         // clear gear
         gear.removeLayers();
+    }
+
+    void GSHome::playOink()
+    {
+        // TODO: only play it sometimes
+        PigsnKings::playSfx(pig_squeal_22050_mono, pig_squeal_22050_mono_length);
     }
 }
