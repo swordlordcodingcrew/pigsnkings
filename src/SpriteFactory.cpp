@@ -93,7 +93,7 @@ namespace pnk
         return ret;
     }
 
-    spReward SpriteFactory::Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spReward SpriteFactory::GenericReward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
         spReward ret = std::make_shared<pnk::Reward>(so, is);
 
