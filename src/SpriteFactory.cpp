@@ -2,6 +2,7 @@
 // This file is part of the pnk game
 
 #include <cassert>
+#include <iostream>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -86,6 +87,35 @@ namespace pnk
     {
         spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
         ret->_type_num = SpriteFactory::TN_NORMAL_PIG;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->init();
+
+        return ret;
+    }
+
+    spReward SpriteFactory::Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    {
+        spReward ret = std::make_shared<pnk::Reward>(so, is);
+
+        if(so.type == SpriteFactory::T_COIN_SILVER)
+        {
+            ret->_type_num = SpriteFactory::TN_COIN_SILVER;
+        }
+        else if(so.type == SpriteFactory::T_COIN_GOLD)
+        {
+            ret->_type_num = SpriteFactory::TN_COIN_GOLD;
+
+        }
+        else if(so.type == SpriteFactory::T_GEM_BLUE)
+        {
+            ret->_type_num = SpriteFactory::TN_GEM_BLUE;
+        }
+        else
+        {
+            std::cout << "current TN Type not implemented in SpriteFactory Reward: " << so.type << std::endl;
+            ret->_type_num = SpriteFactory::TN_COIN_SILVER;
+        }
+
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->init();
 

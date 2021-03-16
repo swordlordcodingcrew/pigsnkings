@@ -173,10 +173,17 @@ namespace pnk
             if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
             else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::GenericReward(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::GenericReward(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::GenericReward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_KING)
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
+            }
+            else
+            {
+                std::cout << "Sprite not yet implemented: " << so.type << std::endl;
             }
 
             if (spr != nullptr)

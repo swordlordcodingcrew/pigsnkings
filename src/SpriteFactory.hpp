@@ -15,19 +15,22 @@ namespace dang
 
     struct tmx_spriteobject;
 }
+
 namespace pnk
 {
     // forward declarations
     class Hero;
     class Enemy;
     class Bubble;
+    class Reward;
 }
 
-// using assignements
+// using assignments
 using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 using spHero = std::shared_ptr<pnk::Hero>;
 using spEnemy = std::shared_ptr<pnk::Enemy>;
+using spReward = std::shared_ptr<pnk::Reward>;
 using spBubble = std::shared_ptr<pnk::Bubble>;
 
 namespace pnk
@@ -46,6 +49,8 @@ namespace pnk
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
         static inline const std::string T_BETTER_PIG{"better_pig"};
         static inline const std::string T_COIN_SILVER{"coin_silver"};
+        static inline const std::string T_COIN_GOLD{"coin_gold"};
+        static inline const std::string T_GEM_BLUE{"gem_blue"};
 
         /**
          * definition of _type_num of sprites.
@@ -65,14 +70,19 @@ namespace pnk
             TN_HOTRECT = 201,
             TN_HOTRECT_PLATFORM = 202,
 
-            // 300 - 399 coins
-            TN_COIN_SILVER = 300
+            // 300 - 399 coins and rewards in general
+            TN_COIN_SILVER = 300,
+            TN_COIN_GOLD = 301,
+            TN_GEM_BLUE = 302,
+            TN_GEM_GREEN = 303,
+            TN_GEM_RED = 304
         };
 
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spEnemy NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
+        static spReward GenericReward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
     };
