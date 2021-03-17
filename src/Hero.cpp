@@ -28,22 +28,7 @@ namespace pnk
     Hero::Hero(const dang::tmx_spriteobject &so, const std::shared_ptr<dang::Imagesheet> is)
     : dang::CollisionSprite(so, is)
     {
-
         _hotrect = {8, 8, 16, 24};
-/*
-        // wait animation
-        _anim_m_wait = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, dang::Ease::Linear , -1, false, 2000));
-        // walk animation
-        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15, 16, 17}, 600, dang::Ease::Linear, -1));
-        // jump 'animation'
-        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, dang::Ease::Linear));
-        // on air (= not touching the ground) 'animation'
-        _anim_m_on_air = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{7}, 600, dang::Ease::Linear));
-        // bubble animation
-        _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{18, 19, 20, 19, 18}, 300, dang::Ease::OutQuad, 1));
-        // entering game animation
-        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, dang::Ease::Linear, -1));
-*/
     }
 
     void Hero::activateState()
@@ -63,15 +48,17 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal)
         {
-
-/*            if (mf.other->_type_num == GSPlay::TN_BUBBLE || mf.me->_type_num == GSPlay::TN_BUBBLE)
-            {
-                return;
-            }
-*/
+            /** collision with enemy */
             if (mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG || mf.me->_type_num == SpriteFactory::TN_NORMAL_PIG)
             {
                 _hit = true;
+            }
+            else if (mf.other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM || mf.me->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
+            {
+                if (_coll_response == dang::CollisionSpriteLayer::CR_CROSS)
+                {
+                    return;
+                }
             }
 
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
@@ -80,7 +67,7 @@ namespace pnk
             {
                 if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
                 {
-                    std::shared_ptr<Bubble> bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == SpriteFactory::TN_BUBBLE ? mf.me : mf.other);
+                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == SpriteFactory::TN_BUBBLE ? mf.me : mf.other);
                     if (bubble->_state != Bubble::bs_enemy_catched)
                     {
                         _on_ground = true;
@@ -107,9 +94,29 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal)
         {
-            return dang::CollisionSpriteLayer::CR_SLIDE;
+            if (other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
+            {
+                spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
+
+                if (cs->getHotrectAbs().top() <= this->getHotrectAbs().bottom())
+                {
+//                    float a = cs->getHotrectAbs().top();
+//                    float b = this->getHotrectAbs().bottom();
+                    _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                    return _coll_response;
+                }
+/*                else if (_vel.y < 0)
+                {
+                    _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                    return _coll_response;
+                }
+*/
+            }
+            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            return _coll_response;
         }
-        return dang::CollisionSpriteLayer::CR_NONE;
+        _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+        return _coll_response;
     }
 
     void Hero::update(uint32_t dt)
