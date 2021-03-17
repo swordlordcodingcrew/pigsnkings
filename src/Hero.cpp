@@ -48,17 +48,22 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal)
         {
+            spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
+
             /** collision with enemy */
-            if (mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG || mf.me->_type_num == SpriteFactory::TN_NORMAL_PIG)
+            if (other->_type_num == SpriteFactory::TN_NORMAL_PIG)
             {
                 _hit = true;
             }
-            else if (mf.other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM || mf.me->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
+
+            if (_coll_response == dang::CollisionSpriteLayer::CR_CROSS)
             {
-                if (_coll_response == dang::CollisionSpriteLayer::CR_CROSS)
-                {
-                    return;
-                }
+                return;
+            }
+
+            if (other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_CROSS)
+            {
+                return;
             }
 
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
@@ -98,19 +103,15 @@ namespace pnk
             {
                 spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
 
-                if (cs->getHotrectAbs().top() <= this->getHotrectAbs().bottom())
+                if (cs->getHotrectAbs().top() >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
                 {
-//                    float a = cs->getHotrectAbs().top();
-//                    float b = this->getHotrectAbs().bottom();
-                    _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                    _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
                     return _coll_response;
                 }
-/*                else if (_vel.y < 0)
-                {
-                    _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
-                    return _coll_response;
-                }
-*/
+
+                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                return _coll_response;
+
             }
             _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             return _coll_response;
