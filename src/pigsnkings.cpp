@@ -120,10 +120,12 @@ namespace pnk
 
         _gear.render(time);
 
-        renderText();
+#ifdef PNK_DEBUG
+        renderInfoText();
+#endif
     }
 
-    void PigsnKings::renderText()
+    void PigsnKings::renderInfoText()
     {
         // the text is only for development purpose
         blit::screen.pen = blit::Pen(255, 255, 255);

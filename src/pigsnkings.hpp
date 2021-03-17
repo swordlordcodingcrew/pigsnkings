@@ -79,7 +79,7 @@ namespace pnk
 
         // test stuff
         uint32_t _cycles{0};
-        void renderText();
+        void renderInfoText();
 
         // surface depot
 //        std::map<const dang::Imagesheet*, blit::Surface*> __surfaces;
