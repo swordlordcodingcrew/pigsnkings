@@ -28,6 +28,12 @@ dang::tmx_level init_level_1_inwork() {
     lvl.tilesets[4] = {"hud_ui",105,16,16,240,112,15,7};
     // Tileset: gfx_king has ID: 5
     lvl.tilesets[5] = {"gfx_king",27,32,32,864,32,27,1};
+    // Tileset: character_pigbox has ID: 6
+    lvl.tilesets[6] = {"character_pigbox",25,32,32,800,32,25,1};
+    // Tileset: gfx_pig has ID: 7
+    lvl.tilesets[7] = {"gfx_pig",16,32,32,512,32,16,1};
+    // Tileset: character_pigbomb has ID: 8
+    lvl.tilesets[8] = {"character_pigbomb",25,32,32,800,32,25,1};
 
 // Animations ------------------------------------------------
 
@@ -329,9 +335,13 @@ dang::tmx_level init_level_1_inwork() {
         {328,"328","",352,96,32,32,true,1,4},
         {329,"329","hotrect_platform",352,96,32,4,true,0,0},
         {330,"330","hotrect",384,64,32,32,true,0,0},
-        {331,"331","hotrect",320,32,64,32,true,0,0}
+        {331,"331","hotrect",320,32,64,32,true,0,0},
+        {333,"333","",320,640,32,32,true,6,5},
+        {334,"334","",768,704,32,32,true,8,4},
+        {335,"335","",576,704,32,32,true,7,0},
+        {336,"336","",800,576,32,32,true,7,0}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",164,solvl_1_obj};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",168,solvl_1_obj};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
@@ -352,6 +362,9 @@ dang::tmx_level init_level_1_inwork() {
     lvl.images["gfx_bubbles"] = gfx_bubbles;
     lvl.images["hud_ui"] = hud_ui;
     lvl.images["gfx_king"] = gfx_king;
+    lvl.images["character_pigbox"] = character_pigbox;
+    lvl.images["gfx_pig"] = gfx_pig;
+    lvl.images["character_pigbomb"] = character_pigbomb;
 
     return lvl;
 }
