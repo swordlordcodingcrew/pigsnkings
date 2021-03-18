@@ -9,7 +9,7 @@
 
 #include "GSIntro.h"
 #include "GSHome.h"
-#include "rsrc/sl_shield_32blit_png.h"
+#include "rsrc/gfx/sl_shield_32blit_png.h"
 
 
 namespace pnk

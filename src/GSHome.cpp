@@ -21,14 +21,14 @@
 
 #include "32blit.hpp"
 
-#include "rsrc/tiles_bg_png.h"
-#include "rsrc/castle_tiles.png.h"
-#include "rsrc/hud_ui.png.h"
-#include "rsrc/castle_decoration_tiles.png.h"
-#include "rsrc/king.png.h"
-#include "rsrc/pig.png.h"
-#include "rsrc/pnk_logo.png.h"
-#include "rsrc/menus.png.h"
+#include "rsrc/gfx/tiles_bg_png.h"
+#include "rsrc/gfx/castle_tiles.png.h"
+#include "rsrc/gfx/hud_ui.png.h"
+#include "rsrc/gfx/castle_decoration_tiles.png.h"
+#include "rsrc/gfx/king.png.h"
+#include "rsrc/gfx/pig.png.h"
+#include "rsrc/gfx/pnk_logo.png.h"
+#include "rsrc/gfx/menus.png.h"
 
 #include "rsrc/main_1.tmx.hpp"
 #include "tracks/gocryogo.h"
