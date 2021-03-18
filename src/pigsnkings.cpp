@@ -35,6 +35,45 @@ namespace pnk
      * static variable
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
+    uint16_t PigsnKings::_score = 0;
+    uint8_t PigsnKings::_health = 0;
+    uint8_t PigsnKings::_lives = 0;
+
+    void PigsnKings::addScore(uint16_t points)
+    {
+        PigsnKings::_score += points;
+    }
+
+    void PigsnKings::addHealth(uint8_t health)
+    {
+        PigsnKings::_health += health;
+    }
+
+    void PigsnKings::addLives(uint8_t lives)
+    {
+        PigsnKings::_lives += lives;
+    }
+
+    // TODO think about having some logic somewhere where health == 0 results in the hero to die
+    void PigsnKings::removeHealth(uint8_t health)
+    {
+        PigsnKings::_health -= health;
+        if(PigsnKings::_health <= 0)
+        {
+            PigsnKings::_health = 0;
+        }
+    }
+
+    // TODO think about having some logic somewhere where lives == 0 will end the game
+    void PigsnKings::removeLives(uint8_t lives)
+    {
+        PigsnKings::_lives -= lives;
+
+        if(PigsnKings::_lives <= 0)
+        {
+            PigsnKings::_lives = 0;
+        }
+    }
 
     /**
      * static callback functions for DANG
@@ -191,7 +230,7 @@ namespace pnk
 */
     uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len)
     {
-        playSfx(sfx, len, _pnk._prefs.volume_sfx);
+        return playSfx(sfx, len, _pnk._prefs.volume_sfx);
     }
 
     uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len, float volume)

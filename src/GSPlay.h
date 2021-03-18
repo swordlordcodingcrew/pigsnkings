@@ -77,6 +77,8 @@ namespace pnk
         u_int32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
 
+        void initGameVars();
+
     };
 
 }

@@ -127,6 +127,8 @@ namespace pnk
     {
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
+        initGameVars();
+
         // choose level acc. to pnk
         switch(_pnk._prefs.active_level)
         {
@@ -234,6 +236,13 @@ namespace pnk
 
         PigsnKings::stopMod();
 
+    }
+
+    void GSPlay::initGameVars()
+    {
+        PigsnKings::_health = 10;
+        PigsnKings::_score = 0;
+        PigsnKings::_lives = 3;
     }
 
     void GSPlay::gameEventReceived(dang::Event &e)

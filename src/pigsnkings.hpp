@@ -30,6 +30,16 @@ namespace pnk
 
         static const dang::Vector2F _gravity;
 
+        static uint16_t _score;
+        static uint8_t _health;
+        static uint8_t _lives;
+
+        static void addScore(uint16_t points);
+        static void addHealth(uint8_t health);
+        static void addLives(uint8_t lives);
+        static void removeHealth(uint8_t health);
+        static void removeLives(uint8_t lives);
+
         // global event dispatcher
         dang::Dispatcher _dispatcher;
 

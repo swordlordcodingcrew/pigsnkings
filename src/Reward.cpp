@@ -96,7 +96,6 @@ namespace pnk
             this->_collected = true;
 
             removeTweens(true);
-            PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
 
             // alter animation
             removeAnimation(true);
@@ -124,6 +123,38 @@ namespace pnk
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 400, &dang::Ease::Linear, 0));
                     break;
             }
+
+            switch (this->_type_num)
+            {
+                case SpriteFactory::TN_COIN_SILVER:
+                    PigsnKings::addScore(10);
+                    break;
+                case SpriteFactory::TN_COIN_GOLD:
+                    PigsnKings::addScore(50);
+                    break;
+                case SpriteFactory::TN_GEM_BLUE:
+                    PigsnKings::addScore(30);
+                    break;
+                case SpriteFactory::TN_GEM_GREEN:
+                    PigsnKings::addScore(60);
+                    break;
+                case SpriteFactory::TN_GEM_RED:
+                    PigsnKings::addScore(100);
+                    break;
+                case SpriteFactory::TN_POTION_BLUE:
+                    PigsnKings::addHealth(1);
+                    break;
+                case SpriteFactory::TN_POTION_RED:
+                    PigsnKings::addHealth(5);
+                    break;
+                case SpriteFactory::TN_POTION_GREEN:
+                    PigsnKings::addHealth(20);
+                    break;
+                    // Default gets nothing
+                default:
+                    break;
+            }
+            PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
 
             anim_poof->setFinishedCallback(std::bind(&Reward::removeSelf, this));
             setAnimation(anim_poof);

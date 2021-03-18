@@ -26,6 +26,9 @@ namespace pnk
         blit::Pen backgroundColour;
         blit::Pen foregroundColour;
         blit::Pen healthColour;
+
+        const uint8_t shadowOffset{1};
+
     };
 }
 
