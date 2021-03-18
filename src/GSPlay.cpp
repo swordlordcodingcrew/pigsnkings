@@ -40,6 +40,7 @@
 #include "PnkEvent.h"
 #include "LevelFlow.h"
 #include "SpriteFactory.hpp"
+#include "HUDLayer.hpp"
 
 namespace pnk
 {
@@ -207,7 +208,9 @@ namespace pnk
         }
 
         // create HUD layer
-        if (!_lvl_flow->_l_hud_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_hud_name, gear, true, true);
+        //if (!_lvl_flow->_l_hud_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_hud_name, gear, true, true);
+        spHUDLayer hudl = std::make_shared<HUDLayer>();
+        if (!_lvl_flow->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _lvl_flow->_l_hud_name, gear, true, true);
 
         // set viewport to active room
         _active_room_center = _active_room_flow->room_center;

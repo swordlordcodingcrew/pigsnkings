@@ -20,11 +20,16 @@ namespace dang
     class Imagesheet;
     class TwAnim;
 }
+namespace pnk
+{
+    class HUDLayer;
+}
 
 using spSprite = std::shared_ptr<dang::Sprite>;
 using spLayer = std::shared_ptr<dang::Layer>;
 using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
 using spSpriteLayer = std::shared_ptr<dang::SpriteLayer>;
+using spHUDLayer = std::shared_ptr<pnk::HUDLayer>;
 using spTileLayer = std::shared_ptr<dang::TileLayer>;
 using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
