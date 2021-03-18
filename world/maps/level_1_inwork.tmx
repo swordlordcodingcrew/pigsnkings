@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="255">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="328">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -24,14 +24,14 @@
 15,73,74,74,74,74,75,1,18,14,20,38,39,61,62,62,63,37,38,42,14,14,14,14,14,14,14,14,14,14,
 17,2,2,2,2,2,2,18,14,14,15,85,86,90,74,74,89,86,86,86,14,14,14,14,14,14,14,14,14,14,
 14,14,14,14,14,14,14,14,14,14,17,2,2,2,2,2,2,2,2,2,14,14,14,14,14,14,14,14,14,14,
-5,26,26,26,26,26,27,64,25,26,26,26,26,26,26,26,26,6,14,14,14,14,14,14,14,14,14,14,14,14,
-15,85,86,78,50,77,86,94,86,86,86,86,78,50,50,50,51,25,26,26,14,14,14,14,14,14,14,14,14,14,
-20,38,39,61,62,63,37,38,38,30,2,3,61,62,62,62,65,77,86,86,14,14,14,14,14,14,14,14,14,14,
-15,49,50,66,62,65,50,50,51,31,26,27,61,62,62,62,62,63,37,30,14,14,14,14,14,14,14,14,14,14,
-27,61,62,62,62,62,62,62,63,16,86,78,66,53,74,74,54,65,51,13,14,14,14,14,14,14,14,14,14,14,
-86,90,54,62,62,62,62,53,75,43,3,61,62,63,1,3,61,62,63,13,14,14,14,14,14,14,14,14,14,14,
-2,3,73,74,74,74,74,75,1,18,15,73,74,75,13,15,73,74,75,13,14,14,14,14,14,14,14,14,14,14,
-14,17,2,2,2,2,2,2,18,14,17,2,2,2,18,17,2,2,2,18,14,14,14,14,14,14,14,14,14,14
+5,26,26,26,26,26,27,64,25,26,26,26,26,26,26,26,26,6,14,14,5,26,26,6,14,5,26,26,26,26,
+15,85,86,78,50,77,86,94,86,86,86,86,78,50,50,50,51,25,26,26,27,49,51,25,26,27,49,50,77,86,
+20,38,39,61,62,63,37,38,38,30,2,3,61,62,62,62,65,77,86,86,86,90,89,86,86,86,55,62,63,1,
+15,49,50,66,62,65,50,50,51,31,26,27,61,62,62,62,62,63,37,30,29,38,38,38,38,39,61,62,63,13,
+27,61,62,62,62,62,62,62,63,16,86,78,66,53,74,74,54,65,51,13,15,49,50,50,50,50,66,62,63,13,
+86,90,54,62,62,62,62,53,75,43,3,61,62,63,1,3,61,62,63,13,15,61,62,62,62,62,62,62,63,13,
+2,3,73,74,74,74,74,75,1,18,15,73,74,75,13,15,73,74,75,13,15,73,74,74,74,74,74,74,75,13,
+14,17,2,2,2,2,2,2,18,14,17,2,2,2,18,17,2,2,2,18,17,2,2,2,2,2,2,2,2,18
 </data>
  </layer>
  <objectgroup id="2" name="lvl_1_mood">
@@ -75,6 +75,18 @@
   <object id="232" gid="98" x="128" y="704" width="32" height="32"/>
   <object id="233" gid="99" x="160" y="704" width="32" height="32"/>
   <object id="234" gid="100" x="192" y="704" width="32" height="32"/>
+  <object id="255" gid="97" x="864" y="576" width="32" height="32"/>
+  <object id="256" gid="107" x="864" y="608" width="32" height="32"/>
+  <object id="257" gid="107" x="864" y="640" width="32" height="32"/>
+  <object id="258" gid="117" x="864" y="672" width="32" height="32"/>
+  <object id="259" gid="101" x="832" y="608" width="32" height="32"/>
+  <object id="260" gid="101" x="832" y="640" width="32" height="32"/>
+  <object id="261" gid="101" x="896" y="608" width="32" height="32"/>
+  <object id="262" gid="101" x="896" y="640" width="32" height="32"/>
+  <object id="263" gid="101" x="896" y="672" width="32" height="32"/>
+  <object id="264" gid="101" x="896" y="704" width="32" height="32"/>
+  <object id="278" gid="102" x="704" y="672" width="32" height="32"/>
+  <object id="279" gid="102" x="768" y="672" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_1_obj">
   <object id="54" gid="101" x="96" y="192" width="32" height="32"/>
@@ -169,7 +181,7 @@
   <object id="237" type="hotrect" x="320" y="672" width="32" height="64"/>
   <object id="238" type="hotrect" x="320" y="576" width="64" height="64"/>
   <object id="239" type="hotrect" x="448" y="672" width="64" height="64"/>
-  <object id="240" type="hotrect" x="608" y="608" width="32" height="128"/>
+  <object id="240" type="hotrect" x="608" y="288" width="32" height="160"/>
   <object id="241" type="hotrect" x="544" y="512" width="96" height="64"/>
   <object id="242" type="hotrect" x="576" y="608" width="32" height="32"/>
   <object id="243" type="hotrect_platform" x="384" y="576" width="32" height="4"/>
@@ -178,6 +190,67 @@
   <object id="246" type="hotrect_platform" x="384" y="704" width="32" height="4"/>
   <object id="247" type="hotrect_platform" x="544" y="704" width="32" height="4"/>
   <object id="248" type="hotrect_platform" x="544" y="608" width="32" height="4"/>
+  <object id="280" type="hotrect" x="736" y="512" width="96" height="64"/>
+  <object id="281" type="hotrect" x="640" y="512" width="96" height="32"/>
+  <object id="282" type="hotrect" x="640" y="736" width="320" height="32"/>
+  <object id="283" type="hotrect" x="640" y="608" width="32" height="128"/>
+  <object id="284" type="hotrect" x="928" y="576" width="32" height="160"/>
+  <object id="285" type="hotrect" x="832" y="512" width="128" height="32"/>
+  <object id="286" type="hotrect" x="672" y="608" width="160" height="32"/>
+  <object id="287" type="hotrect" x="640" y="544" width="32" height="32"/>
+  <object id="288" type="hotrect_platform" x="832" y="608" width="32" height="4"/>
+  <object id="289" type="hotrect_platform" x="832" y="640" width="32" height="4"/>
+  <object id="290" type="hotrect_platform" x="896" y="608" width="32" height="4"/>
+  <object id="291" type="hotrect_platform" x="896" y="640" width="32" height="4"/>
+  <object id="292" type="hotrect_platform" x="896" y="672" width="32" height="4"/>
+  <object id="293" type="hotrect_platform" x="896" y="704" width="32" height="4"/>
+  <object id="265" gid="137" x="672" y="566" width="32" height="48"/>
+  <object id="266" gid="137" x="704" y="566" width="32" height="48"/>
+  <object id="267" gid="137" x="672" y="534" width="32" height="48"/>
+  <object id="268" gid="137" x="704" y="534" width="32" height="48"/>
+  <object id="269" gid="141" x="672" y="630" width="32" height="48"/>
+  <object id="270" gid="137" x="704" y="630" width="32" height="48"/>
+  <object id="271" gid="137" x="736" y="630" width="32" height="48"/>
+  <object id="272" gid="137" x="768" y="630" width="32" height="48"/>
+  <object id="273" gid="137" x="800" y="630" width="32" height="48"/>
+  <object id="274" gid="137" x="832" y="534" width="32" height="48"/>
+  <object id="275" gid="137" x="864" y="534" width="32" height="48"/>
+  <object id="276" gid="137" x="896" y="534" width="32" height="48"/>
+  <object id="277" gid="137" x="928" y="534" width="32" height="48"/>
+  <object id="294" type="hotrect_platform" x="416" y="416" width="32" height="4"/>
+  <object id="295" type="hotrect_platform" x="416" y="352" width="32" height="4"/>
+  <object id="296" type="hotrect_platform" x="512" y="352" width="32" height="4"/>
+  <object id="297" type="hotrect_platform" x="512" y="416" width="32" height="4"/>
+  <object id="298" type="hotrect_platform" x="448" y="384" width="64" height="4"/>
+  <object id="299" type="hotrect_platform" x="448" y="448" width="64" height="4"/>
+  <object id="300" type="hotrect_platform" x="352" y="320" width="64" height="4"/>
+  <object id="301" type="hotrect_platform" x="544" y="320" width="64" height="4"/>
+  <object id="302" type="hotrect" x="320" y="480" width="320" height="32"/>
+  <object id="303" type="hotrect" x="320" y="256" width="320" height="32"/>
+  <object id="304" type="hotrect" x="608" y="576" width="32" height="128"/>
+  <object id="305" type="hotrect" x="320" y="288" width="32" height="192"/>
+  <object id="306" type="hotrect" x="352" y="416" width="64" height="32"/>
+  <object id="307" type="hotrect" x="352" y="352" width="64" height="32"/>
+  <object id="308" type="hotrect" x="544" y="352" width="64" height="32"/>
+  <object id="309" type="hotrect" x="544" y="416" width="64" height="32"/>
+  <object id="310" type="hotrect" x="512" y="160" width="256" height="32"/>
+  <object id="311" type="hotrect" x="352" y="224" width="608" height="32"/>
+  <object id="312" type="hotrect" x="768" y="192" width="32" height="32"/>
+  <object id="313" type="hotrect_platform" x="480" y="192" width="32" height="4"/>
+  <object id="314" type="hotrect" x="352" y="0" width="608" height="32"/>
+  <object id="315" type="hotrect" x="608" y="32" width="64" height="32"/>
+  <object id="316" type="hotrect" x="864" y="96" width="96" height="32"/>
+  <object id="317" type="hotrect" x="928" y="32" width="32" height="32"/>
+  <object id="318" type="hotrect" x="928" y="128" width="32" height="96"/>
+  <object id="319" type="hotrect" x="352" y="128" width="32" height="96"/>
+  <object id="320" type="hotrect_platform" x="384" y="192" width="32" height="4"/>
+  <object id="321" type="hotrect_platform" x="416" y="160" width="64" height="4"/>
+  <object id="322" type="hotrect_platform" x="832" y="192" width="64" height="4"/>
+  <object id="323" type="hotrect_platform" x="800" y="128" width="32" height="4"/>
+  <object id="324" type="hotrect_platform" x="416" y="64" width="64" height="4"/>
+  <object id="325" type="hotrect" x="320" y="64" width="96" height="32"/>
+  <object id="326" type="hotrect" x="320" y="96" width="32" height="64"/>
+  <object id="327" type="hotrect" x="320" y="32" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
