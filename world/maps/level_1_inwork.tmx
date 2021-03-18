@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="251">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="255">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -181,5 +181,8 @@
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
+  <object id="251" gid="262" x="49" y="557" width="16" height="16"/>
+  <object id="252" gid="263" x="65" y="557" width="16" height="16"/>
+  <object id="254" gid="264" x="81" y="557" width="16" height="16"/>
  </objectgroup>
 </map>
