@@ -1,0 +1,2 @@
+python3 -m ttblit font --input_file 04B_30__.TTF  --input_type font --output_file hud_font_big.h --output_format c_header --height 16 --symbol_name hud_font_big --force
+python3 -m ttblit font --input_file 04B_30__.TTF  --input_type font --output_file hud_font_small.h --output_format c_header --height 8 --symbol_name hud_font_small --force
