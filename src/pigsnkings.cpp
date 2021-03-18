@@ -35,43 +35,25 @@ namespace pnk
      * static variable
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
-    uint16_t PigsnKings::_score = 0;
-    uint8_t PigsnKings::_health = 0;
-    uint8_t PigsnKings::_lives = 0;
-
-    void PigsnKings::addScore(uint16_t points)
-    {
-        PigsnKings::_score += points;
-    }
-
-    void PigsnKings::addHealth(uint8_t health)
-    {
-        PigsnKings::_health += health;
-    }
-
-    void PigsnKings::addLives(uint8_t lives)
-    {
-        PigsnKings::_lives += lives;
-    }
 
     // TODO think about having some logic somewhere where health == 0 results in the hero to die
     void PigsnKings::removeHealth(uint8_t health)
     {
-        PigsnKings::_health -= health;
-        if(PigsnKings::_health <= 0)
+        _prefs.health -= health;
+        if(_prefs.health <= 0)
         {
-            PigsnKings::_health = 0;
+            _prefs.health = 0;
         }
     }
 
     // TODO think about having some logic somewhere where lives == 0 will end the game
     void PigsnKings::removeLives(uint8_t lives)
     {
-        PigsnKings::_lives -= lives;
+        _prefs.lives -= lives;
 
-        if(PigsnKings::_lives <= 0)
+        if(_prefs.lives <= 0)
         {
-            PigsnKings::_lives = 0;
+            _prefs.lives = 0;
         }
     }
 
@@ -318,6 +300,28 @@ namespace pnk
     {
         blit::channels[dang::SndGear::getMusicChan()].off();
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = nullptr;
+    }
+
+    void PigsnKings::initGameVars()
+    {
+        _prefs.health = 10;
+        _prefs.score = 0;
+        _prefs.lives = 3;
+    }
+
+    void PigsnKings::addScore(uint16_t points)
+    {
+        _prefs.score += points;
+    }
+
+    void PigsnKings::addHealth(uint8_t health)
+    {
+        _prefs.health += health;
+    }
+
+    void PigsnKings::addLives(uint8_t lives)
+    {
+        _prefs.lives += lives;
     }
 }
 

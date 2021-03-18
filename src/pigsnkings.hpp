@@ -30,16 +30,6 @@ namespace pnk
 
         static const dang::Vector2F _gravity;
 
-        static uint16_t _score;
-        static uint8_t _health;
-        static uint8_t _lives;
-
-        static void addScore(uint16_t points);
-        static void addHealth(uint8_t health);
-        static void addLives(uint8_t lives);
-        static void removeHealth(uint8_t health);
-        static void removeLives(uint8_t lives);
-
         // global event dispatcher
         dang::Dispatcher _dispatcher;
 
@@ -57,12 +47,20 @@ namespace pnk
         static void playMod(const uint8_t* mod, const uint32_t len, float volume);
         static void stopMod();
 
+        void initGameVars();
+        void addScore(uint16_t points);
+        void addHealth(uint8_t health);
+        void addLives(uint8_t lives);
+        void removeHealth(uint8_t health);
+        void removeLives(uint8_t lives);
+
         struct prefs
         {
             float volume_snd{0.7};
             float volume_sfx{1};
 
             uint8_t  lives{3};
+            uint8_t  health{10};
             uint32_t score{0};
             uint32_t active_level{2};
             uint32_t active_room{0};

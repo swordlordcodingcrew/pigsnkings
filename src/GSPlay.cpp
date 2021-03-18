@@ -240,9 +240,7 @@ namespace pnk
 
     void GSPlay::initGameVars()
     {
-        PigsnKings::_health = 10;
-        PigsnKings::_score = 0;
-        PigsnKings::_lives = 3;
+        _pnk.initGameVars();
     }
 
     void GSPlay::gameEventReceived(dang::Event &e)

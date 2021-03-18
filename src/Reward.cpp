@@ -127,28 +127,28 @@ namespace pnk
             switch (this->_type_num)
             {
                 case SpriteFactory::TN_COIN_SILVER:
-                    PigsnKings::addScore(10);
+                    _pnk.addScore(10);
                     break;
                 case SpriteFactory::TN_COIN_GOLD:
-                    PigsnKings::addScore(50);
+                    _pnk.addScore(50);
                     break;
                 case SpriteFactory::TN_GEM_BLUE:
-                    PigsnKings::addScore(30);
+                    _pnk.addScore(30);
                     break;
                 case SpriteFactory::TN_GEM_GREEN:
-                    PigsnKings::addScore(60);
+                    _pnk.addScore(60);
                     break;
                 case SpriteFactory::TN_GEM_RED:
-                    PigsnKings::addScore(100);
+                    _pnk.addScore(100);
                     break;
                 case SpriteFactory::TN_POTION_BLUE:
-                    PigsnKings::addHealth(1);
+                    _pnk.addHealth(1);
                     break;
                 case SpriteFactory::TN_POTION_RED:
-                    PigsnKings::addHealth(5);
+                    _pnk.addHealth(5);
                     break;
                 case SpriteFactory::TN_POTION_GREEN:
-                    PigsnKings::addHealth(20);
+                    _pnk.addHealth(20);
                     break;
                     // Default gets nothing
                 default:
