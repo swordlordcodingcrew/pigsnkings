@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="332">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="338">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
  <tileset firstgid="190" source="../tilesets/character_bubbles.tsx"/>
  <tileset firstgid="201" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="306" source="../tilesets/character_king.tsx"/>
+ <tileset firstgid="333" source="../tilesets/character_pigbox.tsx"/>
+ <tileset firstgid="358" source="../tilesets/character_pig.tsx"/>
+ <tileset firstgid="374" source="../tilesets/character_pigbomb.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -253,6 +256,10 @@
   <object id="329" type="hotrect_platform" x="352" y="96" width="32" height="4"/>
   <object id="330" type="hotrect" x="384" y="64" width="32" height="32"/>
   <object id="331" type="hotrect" x="320" y="32" width="64" height="32"/>
+  <object id="333" gid="2147483986" x="320" y="640" width="32" height="32"/>
+  <object id="334" gid="2147484026" x="768" y="704" width="32" height="32"/>
+  <object id="335" gid="358" x="576" y="704" width="32" height="32"/>
+  <object id="336" gid="358" x="800" y="576" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
