@@ -31,6 +31,8 @@ set(SOURCES
         ${RSRC}
         tracks/gocryogo.h
         fonts/barcadebrawl.h
+        fonts/hud_font_big.h
+        fonts/hud_font_small.h
         sfx/bubble_pop_22050_mono.h
         sfx/coin_22050_mono.h
         sfx/pig_squeal_22050_mono.h
