@@ -13,7 +13,7 @@ class ScrolltextLayer : public dang::Layer
     {
     public:
         ScrolltextLayer();
-        ~ScrolltextLayer() override = default;
+        ~ScrolltextLayer() override;
 
         void    update(uint32_t dt, const dang::Gear& gear) override;
         void    render(const dang::Gear& gear) override;
