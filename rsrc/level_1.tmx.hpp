@@ -344,11 +344,8 @@ dang::tmx_level init_level_1() {
         {341,"fred","pig_bomb",256,672,32,32,true,8,4},
         {342,"sam","pig_normal",224,544,32,32,true,7,0}
     };
-<<<<<<< HEAD:rsrc/level_1_inwork.tmx.hpp
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",168,solvl_1_obj,2};
-=======
+
     dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",171,solvl_1_obj,2};
->>>>>>> 324b47d095c690bfb8808c9625122ff74ec7035d:rsrc/level_1.tmx.hpp
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
