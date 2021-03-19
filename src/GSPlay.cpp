@@ -27,7 +27,7 @@
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
-#include "rsrc/level_1_inwork.tmx.hpp"
+#include "rsrc/level_1.tmx.hpp"
 
 #include "tracks/gocryogo.h"
 
@@ -134,7 +134,7 @@ namespace pnk
             case 1:
             default:
                 _lvl_flow = std::make_shared<L1SP>();
-                _tmx = init_level_1_inwork();
+                _tmx = init_level_1();
                 break;
         }
 
