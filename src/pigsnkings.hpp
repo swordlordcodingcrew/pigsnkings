@@ -62,7 +62,7 @@ namespace pnk
             uint8_t  lives{3};
             uint8_t  health{10};
             uint32_t score{0};
-            uint32_t active_level{2};
+            uint32_t active_level{1};
             uint32_t active_room{0};
         };
 

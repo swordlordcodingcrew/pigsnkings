@@ -56,16 +56,19 @@ namespace pnk
                 _hit = true;
             }
 
+            /** hero hits a platform-hotrect */
             if (_coll_response == dang::CollisionSpriteLayer::CR_CROSS)
             {
                 return;
             }
 
-            if (other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_CROSS)
+            /** the other has cross as collision response (i.e. rewards) */
+            if (other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_CROSS || other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_NONE)
             {
                 return;
             }
 
+            /** hit with something solid */
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
             if (normal.y > 0)
@@ -103,7 +106,7 @@ namespace pnk
             {
                 spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
 
-                if (cs->getHotrectAbs().top() >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+                if (cs->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
                 {
                     _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
                     return _coll_response;
@@ -116,6 +119,13 @@ namespace pnk
             _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             return _coll_response;
         }
+
+/*        if (other->_type_num > SpriteFactory::TN_REWARDS && other->_type_num < SpriteFactory::TN_REWARDS_END)
+        {
+            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+            return _coll_response;
+        }
+*/
         _coll_response = dang::CollisionSpriteLayer::CR_NONE;
         return _coll_response;
     }

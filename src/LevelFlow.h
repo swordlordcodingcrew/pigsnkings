@@ -47,11 +47,5 @@ namespace pnk
         L1F();
     };
 
-    class L2F : public LevelFlow
-    {
-    public:
-        L2F();
-    };
-
 }
 

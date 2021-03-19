@@ -76,14 +76,16 @@ namespace pnk
             TN_HOTRECT_PLATFORM = 202,
 
             // 300 - 399 coins and rewards in general
-            TN_COIN_SILVER = 300,
-            TN_COIN_GOLD = 301,
-            TN_GEM_BLUE = 302,
-            TN_GEM_GREEN = 303,
-            TN_GEM_RED = 304,
-            TN_POTION_BLUE = 305,
-            TN_POTION_RED = 306,
-            TN_POTION_GREEN = 307
+            TN_REWARDS = 300,
+            TN_COIN_SILVER = 301,
+            TN_COIN_GOLD = 302,
+            TN_GEM_BLUE = 303,
+            TN_GEM_GREEN = 304,
+            TN_GEM_RED = 305,
+            TN_POTION_BLUE = 306,
+            TN_POTION_RED = 307,
+            TN_POTION_GREEN = 308,
+            TN_REWARDS_END = 399
         };
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);

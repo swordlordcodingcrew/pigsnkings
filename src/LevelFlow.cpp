@@ -7,22 +7,6 @@ namespace pnk
 {
     L1F::L1F()
     {
-
-        _l_bg_name = "tiles_bg_png";
-        _l_obj_name = "pnk_sprites_png";;
-        _l_mood_name = "";
-        _l_hud_name = "";
-
-        // viewport = 320 x 240 px
-        roomflow room1 = {dang::Vector2F{320.0 / 2, 960 - 130}, 26, 2};
-        roomflow room2 = {dang::Vector2F{320.0 + 320.0 / 2, 960 - 130}, 27, 2};
-
-        _roomflows.push_back(room1);
-        _roomflows.push_back(room2);
-    }
-
-    L2F::L2F()
-    {
         _l_bg_name = "lvl_1_bg";
         _l_obj_name = "lvl_1_obj";;
         _l_mood_name = "lvl_1_mood";

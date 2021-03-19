@@ -17,10 +17,9 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 
-#include "rsrc/gfx/tiles_bg_png.h"
-#include "rsrc/gfx/pnk_sprites_png.h"
-#include "rsrc/pnk_32_lvl1.tmx.hpp"
-
+#include "rsrc/gfx/pig_box.png.h"
+#include "rsrc/gfx/pig_bomb.png.h"
+#include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
@@ -135,10 +134,6 @@ namespace pnk
             case 1:
             default:
                 _lvl_flow = std::make_shared<L1F>();
-                _tmx = init_pnk_32_lvl1();
-                break;
-            case 2:
-                _lvl_flow = std::make_shared<L2F>();
                 _tmx = init_level_1_inwork();
                 break;
         }
