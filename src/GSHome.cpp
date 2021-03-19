@@ -1,4 +1,4 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 // DANG includes
@@ -45,15 +45,15 @@ namespace pnk
         // if button x is pressed load the selected state
         if (blit::buttons.pressed & blit::Button::X)
         {
-            if (_sel == PLAY)
+            if (_pnk._prefs.selectedModule == _pnk.PLAY)
             {
                 return _gs_play;
             }
-            else if (_sel == PREFS)
+            else if (_pnk._prefs.selectedModule == _pnk.PREFS)
             {
                 return _gs_prefs;
             }
-            else if (_sel == ABOUT)
+            else if (_pnk._prefs.selectedModule == _pnk.ABOUT)
             {
                 return _gs_about;
             }
@@ -62,42 +62,39 @@ namespace pnk
         // move selection
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
-            _btns.at(_sel).btn->removeAnimation(true);
-            _btns.at(_sel).btn->_img_index = _btns.at(_sel).img_index;
-            _sel = ++_sel % _ESIZE;
-            //_btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
+            _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
+            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            _pnk._prefs.selectedModule = ++_pnk._prefs.selectedModule % _pnk._ESIZE;
 
-            if(_sprLeftCandle != nullptr)
-            {
-                _sprLeftCandle->setPosY(_btns.at(_sel).btn->getPosY());
-            }
-            if(_sprRightCandle != nullptr)
-            {
-                _sprRightCandle->setPosY(_btns.at(_sel).btn->getPosY());
-            }
+            positionCandles();
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
-            _btns.at(_sel).btn->removeAnimation(true);
-            _btns.at(_sel).btn->_img_index = _btns.at(_sel).img_index;
-            if(_sel == 0) {
-                _sel = _ESIZE - 1;
+            _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
+            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            if(_pnk._prefs.selectedModule == 0) {
+                _pnk._prefs.selectedModule = _pnk._ESIZE - 1;
             }
             else {
-                _sel = --_sel % _ESIZE;
+                _pnk._prefs.selectedModule = --_pnk._prefs.selectedModule % _pnk._ESIZE;
             }
-            //_btns.at(_sel).btn->setAnimation(_btns.at(_sel).anim);
-            if(_sprLeftCandle != nullptr)
-            {
-                _sprLeftCandle->setPosY(_btns.at(_sel).btn->getPosY());
-            }
-            if(_sprRightCandle != nullptr)
-            {
-                _sprRightCandle->setPosY(_btns.at(_sel).btn->getPosY());
-            }
+
+            positionCandles();
         }
 
         return _gs_home;
+    }
+
+    void GSHome::positionCandles()
+    {
+        if(_sprLeftCandle != nullptr)
+        {
+            _sprLeftCandle->setPosY(_btns.at(_pnk._prefs.selectedModule).btn->getPosY());
+        }
+        if(_sprRightCandle != nullptr)
+        {
+            _sprRightCandle->setPosY(_btns.at(_pnk._prefs.selectedModule).btn->getPosY());
+        }
     }
 
     void GSHome::enter(dang::Gear &gear, uint32_t time)
@@ -146,9 +143,10 @@ namespace pnk
             sl->addSprite(spr);
         }
 
+        // make sure to resize the buttons array to the correct size
+        _btns.resize(_pnk._ESIZE, {nullptr, nullptr, 0});
+
         // create sprites
-        _btns.resize(_ESIZE, {nullptr, nullptr, 0});
-  //      const dang::tmx_objectlayer* ola = tmx_ext.getTmxObjectLayer(tmx_obj_layer_name);
         for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(sl))
         {
             spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
@@ -160,22 +158,21 @@ namespace pnk
                 spr->_imagesheet = is;
                 if (so.type == "button" && so.name == "play")
                 {
-                    _btns.at(PLAY).btn = spr;
-                    _btns.at(PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                    _btns.at(PLAY).img_index = 1;
-                    //spr->setAnimation(_btns.at(PLAY).anim);
+                    _btns.at(_pnk.PLAY).btn = spr;
+                    _btns.at(_pnk.PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(_pnk.PLAY).img_index = 1;
                 }
                 else if (so.type == "button" && so.name == "prefs")
                 {
-                    _btns.at(PREFS).btn = spr;
-                    _btns.at(PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                    _btns.at(PREFS).img_index = 2;
+                    _btns.at(_pnk.PREFS).btn = spr;
+                    _btns.at(_pnk.PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(_pnk.PREFS).img_index = 2;
                 }
                 else if (so.type == "button" && so.name == "about")
                 {
-                    _btns.at(ABOUT).btn = spr;
-                    _btns.at(ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
-                    _btns.at(ABOUT).img_index = 0;
+                    _btns.at(_pnk.ABOUT).btn = spr;
+                    _btns.at(_pnk.ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
+                    _btns.at(_pnk.ABOUT).img_index = 0;
                 }
             }
             else if (so.name == "piggie")
@@ -249,6 +246,8 @@ namespace pnk
                 sl->addSprite(spr);
             }
         }
+
+        positionCandles();
 
         // first screen of tmx
         gear.setViewportPos({0, 8});

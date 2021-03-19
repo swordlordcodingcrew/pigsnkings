@@ -27,7 +27,7 @@
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
-#include "rsrc/level_1_inwork.tmx.hpp"
+#include "rsrc/level_1.tmx.hpp"
 
 #include "tracks/gocryogo.h"
 
@@ -134,7 +134,7 @@ namespace pnk
             case 1:
             default:
                 _lvl_flow = std::make_shared<L1SP>();
-                _tmx = init_level_1_inwork();
+                _tmx = init_level_1();
                 break;
         }
 
@@ -170,7 +170,9 @@ namespace pnk
             spCollisionSprite spr = nullptr;
             if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
-            else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigBox(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -183,6 +185,10 @@ namespace pnk
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
+            }
+            else
+            {
+                std::cerr << "type unknown: " << so.type << std::endl;
             }
 
             if (spr != nullptr)

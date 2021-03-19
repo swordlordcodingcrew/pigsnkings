@@ -1,4 +1,4 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 #pragma once
@@ -11,9 +11,6 @@
 
 #include "GameState.h"
 
-
-
-
 namespace pnk
 {
 
@@ -25,22 +22,14 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
         const std::string& getInfotext() override { return _infoText; }
 
-        void playOink();
-
     protected:
         /**
          * info text to show on the screen (development only - should be removed later on)
          */
         const std::string _infoText = "DOWN and UP to choose.\n X-Btn ('c') to select";
 
-        enum e_selection
-        {
-            ABOUT = 0,
-            PLAY,
-            PREFS,
-            _ESIZE
-        };
-        uint8_t _sel{PLAY};
+        void positionCandles();
+        void playOink();
 
         /**
          * rsrc for the home state
@@ -65,9 +54,7 @@ namespace pnk
          };
         std::vector<sel_struct> _btns;
 
-
         spSprite _sprLeftCandle{nullptr};
         spSprite _sprRightCandle{nullptr};
     };
-
 }

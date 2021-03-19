@@ -122,10 +122,10 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG || mf.me->_type_num == SpriteFactory::TN_NORMAL_PIG)
+        if ((mf.other->_type_num == SpriteFactory::TN_PIG_NORMAL || mf.me->_type_num == SpriteFactory::TN_PIG_NORMAL)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
-            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == SpriteFactory::TN_NORMAL_PIG ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == SpriteFactory::TN_PIG_NORMAL ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
@@ -217,7 +217,7 @@ namespace pnk
 
         }
 
-        if (other->_type_num == SpriteFactory::TN_NORMAL_PIG)
+        if (other->_type_num == SpriteFactory::TN_PIG_NORMAL)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }

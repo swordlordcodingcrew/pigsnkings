@@ -1,3 +1,6 @@
+// (c) 2019-21 by SwordLord - the coding crew
+// This file is part of the Pigs and Kings game
+
 #include <iostream>
 #include <cassert>
 #include <sstream>
