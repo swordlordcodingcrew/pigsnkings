@@ -336,13 +336,13 @@ dang::tmx_level init_level_1() {
         {329,"329","hotrect_platform",352,96,32,4,true,0,0},
         {330,"330","hotrect",384,64,32,32,true,0,0},
         {331,"331","hotrect",320,32,64,32,true,0,0},
-        {333,"333","pig_box",320,640,32,32,true,6,5},
+        {333,"dan","pig_box",320,640,32,32,true,6,5},
         {334,"334","pig_bomb",768,704,32,32,true,8,4},
         {335,"335","pig_normal",576,704,32,32,true,7,0},
         {336,"336","pig_normal",800,576,32,32,true,7,0},
-        {340,"340","pig_box",192,640,32,32,true,6,5},
-        {341,"341","pig_bomb",256,672,32,32,true,8,4},
-        {342,"342","pig_normal",224,544,32,32,true,7,0}
+        {340,"elvira","pig_box",192,640,32,32,true,6,5},
+        {341,"fred","pig_bomb",256,672,32,32,true,8,4},
+        {342,"sam","pig_normal",224,544,32,32,true,7,0}
     };
     dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",171,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));

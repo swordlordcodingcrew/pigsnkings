@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="338">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="343">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -207,19 +207,19 @@
   <object id="291" type="hotrect_platform" x="896" y="640" width="32" height="4"/>
   <object id="292" type="hotrect_platform" x="896" y="672" width="32" height="4"/>
   <object id="293" type="hotrect_platform" x="896" y="704" width="32" height="4"/>
-  <object id="265" gid="137" x="672" y="566" width="32" height="48"/>
-  <object id="266" gid="137" x="704" y="566" width="32" height="48"/>
-  <object id="267" gid="137" x="672" y="534" width="32" height="48"/>
-  <object id="268" gid="137" x="704" y="534" width="32" height="48"/>
-  <object id="269" gid="141" x="672" y="630" width="32" height="48"/>
-  <object id="270" gid="137" x="704" y="630" width="32" height="48"/>
-  <object id="271" gid="137" x="736" y="630" width="32" height="48"/>
-  <object id="272" gid="137" x="768" y="630" width="32" height="48"/>
-  <object id="273" gid="137" x="800" y="630" width="32" height="48"/>
-  <object id="274" gid="137" x="832" y="534" width="32" height="48"/>
-  <object id="275" gid="137" x="864" y="534" width="32" height="48"/>
-  <object id="276" gid="137" x="896" y="534" width="32" height="48"/>
-  <object id="277" gid="137" x="928" y="534" width="32" height="48"/>
+  <object id="265" type="coin_silver" gid="137" x="672" y="566" width="32" height="48"/>
+  <object id="266" type="coin_silver" gid="137" x="704" y="566" width="32" height="48"/>
+  <object id="267" type="coin_silver" gid="137" x="672" y="534" width="32" height="48"/>
+  <object id="268" type="coin_silver" gid="137" x="704" y="534" width="32" height="48"/>
+  <object id="269" type="coin_gold" gid="141" x="672" y="630" width="32" height="48"/>
+  <object id="270" type="coin_silver" gid="137" x="704" y="630" width="32" height="48"/>
+  <object id="271" type="coin_silver" gid="137" x="736" y="630" width="32" height="48"/>
+  <object id="272" type="coin_silver" gid="137" x="768" y="630" width="32" height="48"/>
+  <object id="273" type="coin_silver" gid="137" x="800" y="630" width="32" height="48"/>
+  <object id="274" type="coin_silver" gid="137" x="832" y="534" width="32" height="48"/>
+  <object id="275" type="coin_silver" gid="137" x="864" y="534" width="32" height="48"/>
+  <object id="276" type="coin_silver" gid="137" x="896" y="534" width="32" height="48"/>
+  <object id="277" type="coin_silver" gid="137" x="928" y="534" width="32" height="48"/>
   <object id="294" type="hotrect_platform" x="416" y="416" width="32" height="4"/>
   <object id="295" type="hotrect_platform" x="416" y="352" width="32" height="4"/>
   <object id="296" type="hotrect_platform" x="512" y="352" width="32" height="4"/>
@@ -256,10 +256,13 @@
   <object id="329" type="hotrect_platform" x="352" y="96" width="32" height="4"/>
   <object id="330" type="hotrect" x="384" y="64" width="32" height="32"/>
   <object id="331" type="hotrect" x="320" y="32" width="64" height="32"/>
-  <object id="333" gid="2147483986" x="320" y="640" width="32" height="32"/>
-  <object id="334" gid="2147484026" x="768" y="704" width="32" height="32"/>
-  <object id="335" gid="358" x="576" y="704" width="32" height="32"/>
-  <object id="336" gid="358" x="800" y="576" width="32" height="32"/>
+  <object id="333" name="dan" type="pig_box" gid="2147483986" x="320" y="640" width="32" height="32"/>
+  <object id="334" type="pig_bomb" gid="2147484026" x="768" y="704" width="32" height="32"/>
+  <object id="335" type="pig_normal" gid="358" x="576" y="704" width="32" height="32"/>
+  <object id="336" type="pig_normal" gid="358" x="800" y="576" width="32" height="32"/>
+  <object id="340" name="elvira" type="pig_box" gid="338" x="192" y="640" width="32" height="32"/>
+  <object id="341" name="fred" type="pig_bomb" gid="378" x="256" y="672" width="32" height="32"/>
+  <object id="342" name="sam" type="pig_normal" gid="358" x="224" y="544" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
