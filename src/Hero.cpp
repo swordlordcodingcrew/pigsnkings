@@ -51,7 +51,7 @@ namespace pnk
             spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
 
             /** collision with enemy */
-            if (other->_type_num == SpriteFactory::TN_NORMAL_PIG)
+            if (other->_type_num == SpriteFactory::TN_PIG_NORMAL)
             {
                 _hit = true;
             }

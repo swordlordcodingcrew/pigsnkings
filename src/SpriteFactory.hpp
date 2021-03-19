@@ -45,9 +45,12 @@ namespace pnk
         static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
         static inline const std::string T_HOTRECT{"hotrect"};
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
-        static inline const std::string T_NORMAL_PIG{"normal_pig"};
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
-        static inline const std::string T_BETTER_PIG{"better_pig"};
+        static inline const std::string T_PIG_NORMAL{"pig_normal"};
+        static inline const std::string T_PIG_BETTER{"pig_better"};
+        static inline const std::string T_PIG_BOX{"pig_box"};
+        static inline const std::string T_PIG_BOMB{"pig_bomb"};
+        static inline const std::string T_PIG_CANNON{"pig_cannon"};
         static inline const std::string T_COIN_SILVER{"coin_silver"};
         static inline const std::string T_COIN_GOLD{"coin_gold"};
         static inline const std::string T_GEM_BLUE{"gem_blue"};
@@ -67,9 +70,12 @@ namespace pnk
             TN_BUBBLE = 50,
 
             // 100 - 199 enemies
-            TN_NORMAL_PIG = 101,
+            TN_PIG_NORMAL = 101,
             TN_NORMAL_PIG_HIVE = 102,
-            TN_BETTER_PIG = 102,
+            TN_PIG_BETTER = 103,
+            TN_PIG_BOX = 104,
+            TN_PIG_BOMB = 105,
+            TN_PIG_CANNON = 106,
 
             // 200 - 299 hotrects
             TN_HOTRECT = 201,
@@ -90,6 +96,8 @@ namespace pnk
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spEnemy NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spEnemy PigBox(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spEnemy PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);

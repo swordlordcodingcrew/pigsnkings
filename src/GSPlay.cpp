@@ -170,7 +170,9 @@ namespace pnk
             spCollisionSprite spr = nullptr;
             if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
-            else if (so.type == SpriteFactory::T_NORMAL_PIG)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigBox(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -183,6 +185,10 @@ namespace pnk
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
+            }
+            else
+            {
+                std::cerr << "type unknown: " << so.type << std::endl;
             }
 
             if (spr != nullptr)

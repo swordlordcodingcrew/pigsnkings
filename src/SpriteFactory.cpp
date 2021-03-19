@@ -86,7 +86,27 @@ namespace pnk
     spEnemy SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
         spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
-        ret->_type_num = SpriteFactory::TN_NORMAL_PIG;
+        ret->_type_num = SpriteFactory::TN_PIG_NORMAL;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->init();
+
+        return ret;
+    }
+
+    spEnemy SpriteFactory::PigBox(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    {
+        spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
+        ret->_type_num = SpriteFactory::TN_PIG_BOX;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->init();
+
+        return ret;
+    }
+
+    spEnemy SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    {
+        spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
+        ret->_type_num = SpriteFactory::TN_PIG_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->init();
 
