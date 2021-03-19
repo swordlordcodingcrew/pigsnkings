@@ -1,4 +1,4 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 #pragma once
 
@@ -22,8 +22,12 @@ class ScrolltextLayer : public dang::Layer
         explicit ScrolltextLayer(Layer::E_TYPE type) : Layer(type) {};
 
         void resetScrolling();
+        void paintFrame(const dang::Gear& gear);
 
-        // static as well
+        std::shared_ptr<dang::Imagesheet> is;
+
+
+    // static as well
         uint16_t pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0, tpos1, tpos2, tpos3, tpos4;
         int aSin[512];
         int aCos[512];
@@ -46,7 +50,8 @@ class ScrolltextLayer : public dang::Layer
         const std::vector<std::string> credits = {
                 "",
                 "*Pigs n Kings",
-                "(c) 2020-2021 by SwordLord - the coding crew",
+                "(c) 2020-2021 by",
+                "SwordLord - the coding crew",
                 "",
                 "",
                 "Once upon a time,",
@@ -69,8 +74,8 @@ class ScrolltextLayer : public dang::Layer
                 "",
                 "",
                 "",
-                "Pigs n Kings is made with the mighty",
-                "*DANG game framework",
+                "Pigs n Kings is made with the",
+                "*mighty DANG game framework",
                 "by",
                 "",
                 "*Head Loony",
@@ -81,7 +86,8 @@ class ScrolltextLayer : public dang::Layer
                 "",
                 "*Grafics",
                 "LordLensflare",
-                "(No lenses were harmed in the process)",
+                "(No lenses were harmed in ",
+                "the process)",
                 "",
                 "*Tracks",
                 "U4ia (we owe you)"

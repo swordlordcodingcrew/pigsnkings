@@ -1,8 +1,9 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
 #include <iostream>
 #include <fonts/barcadebrawl.h>
+#include <rsrc/gfx/castle_tiles.png.h>
 #include "Gear.hpp"
 #include "ScrolltextLayer.h"
 #include "Layer.hpp"
@@ -20,6 +21,14 @@ namespace pnk
         blit::screen.pen = backgroundColour;
         displayRect = blit::Rect(0, 0, blit::screen.bounds.w, blit::screen.bounds.h);
         blit::screen.rectangle(displayRect);
+
+        // get picture for the border
+        dang::SizeU imgsh_size(384, 256);
+        is = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", gfx_levels_castle_tiles, imgsh_size, 12, 8);
+
+        const uint8_t* data = is->getData();
+        blit::Surface* sf = blit::Surface::load(data);
+        is->setSurface(static_cast<void*> (sf));
 
         // TODO: start track!!
 
@@ -168,6 +177,67 @@ namespace pnk
         if (y < 0) {
             resetScrolling();
         }
+
+        paintFrame(gear);
+    }
+
+    // paints a frame around the scrolltext
+    void ScrolltextLayer::paintFrame(const dang::Gear& gear)
+    {
+        blit::screen.sprites = static_cast<blit::Surface*>(is->getSurface());
+
+        // top side
+        dang::RectU sr = is->getRect(25);
+        for(int i = 0; i < 10; i++)
+        {
+            dang::Vector2I dp = {i * 32, -8};
+            gear.blit_sprite_cb(sr, dp, 0);
+        }
+
+        // bottom side
+        sr = is->getRect(1);
+        for(int i = 0; i < 10; i++)
+        {
+            dang::Vector2I dp = {i * 32, 216};
+            gear.blit_sprite_cb(sr, dp, 0);
+        }
+
+        // left side
+        sr = is->getRect(14);
+        for(int j = 1; j < 8; j++)
+        {
+            dang::Vector2I dp = {0, (j * 32) - 8};
+            gear.blit_sprite_cb(sr, dp, 0);
+        }
+
+        // right side
+        sr = is->getRect(12);
+        for(int j = 1; j < 8; j++)
+        {
+            dang::Vector2I dp = {288, (j * 32) - 8};
+            gear.blit_sprite_cb(sr, dp, 0);
+        }
+
+        // once every corner
+        // top left
+        sr = is->getRect(4);
+        dang::Vector2I dp = {0, - 8};
+        gear.blit_sprite_cb(sr, dp, 0);
+
+        // top right
+        sr = is->getRect(5);
+        dp = {288, - 8};
+        gear.blit_sprite_cb(sr, dp, 0);
+
+        // bottom left
+        sr = is->getRect(16);
+        dp = {0, 216};
+        gear.blit_sprite_cb(sr, dp, 0);
+
+        // bottom right
+        sr = is->getRect(17);
+        dp = {288, 216};
+        gear.blit_sprite_cb(sr, dp, 0);
     }
 
     void ScrolltextLayer::resetScrolling()
