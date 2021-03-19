@@ -25,7 +25,7 @@ dang::tmx_level init_main_1() {
     // Tileset: gfx_castle_decorations has ID: 3
     lvl.tilesets[3] = {"gfx_castle_decorations",40,32,32,320,128,10,4};
     // Tileset: gfx_king has ID: 4
-    lvl.tilesets[4] = {"gfx_king",26,32,32,832,32,26,1};
+    lvl.tilesets[4] = {"gfx_king",27,32,32,864,32,27,1};
     // Tileset: gfx_pig has ID: 5
     lvl.tilesets[5] = {"gfx_pig",16,32,32,512,32,16,1};
     // Tileset: common_menus has ID: 6
@@ -33,47 +33,61 @@ dang::tmx_level init_main_1() {
 
 // Animations ------------------------------------------------
 
+    // Animation: wait
+    lvl.tileanimation["gfx_king_wait"] = {"gfx_king",0,"wait",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100},{6, 100},{0, 800}}};
+    // Animation: blink
+    lvl.tileanimation["gfx_king_blink"] = {"gfx_king",1,"blink",{{0, 100},{25, 100}}};
+    // Animation: jump
+    lvl.tileanimation["gfx_king_jump"] = {"gfx_king",7,"jump",{{9, 100},{7, 100}}};
+    // Animation: on_air
+    lvl.tileanimation["gfx_king_on_air"] = {"gfx_king",8,"on_air",{{8, 100}}};
+    // Animation: walk
+    lvl.tileanimation["gfx_king_walk"] = {"gfx_king",10,"walk",{{10, 100},{11, 100},{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}};
+    // Animation: bubble
+    lvl.tileanimation["gfx_king_bubble"] = {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 100},{18, 100}}};
+    // Animation: hit
+    lvl.tileanimation["gfx_king_hit"] = {"gfx_king",21,"hit",{{21, 200},{22, 200},{23, 200}}};
 
 // Layers ------------------------------------------------
 
     // layer tilelayer: main_bg
     dang::tmx_tile tmain_bg[] = {
-            {4,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {5,0,0},
-            {26,0,0}, {48,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {50,0,0}, {24,0,0},
-            {49,0,0}, {65,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {64,0,0}, {49,0,0},
-            {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
-            {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
-            {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
-            {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0},
-            {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}
-    };
-    dang::tmx_tilelayer tlmain_bg = {"main_bg",80,tmain_bg,10,8};
+ {4,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {25,0,0}, {5,0,0},
+ {26,0,0}, {48,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {49,0,0}, {50,0,0}, {24,0,0},
+ {49,0,0}, {65,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {64,0,0}, {49,0,0},
+ {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
+ {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
+ {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0}, {61,0,0},
+ {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0},
+ {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}
+ };
+    dang::tmx_tilelayer tlmain_bg = {"main_bg",80,tmain_bg,10,8,0};
     lvl.layers.push_back(std::make_shared<dang::tmx_tilelayer>(tlmain_bg));
 
     // Objects for layer: main_decoration
     dang::tmx_spriteobject somain_decoration[] = {
-            {15,"15","",16,96,32,32,true,3,0},
-            {16,"16","",16,128,32,32,true,3,10},
-            {17,"17","",16,160,32,32,true,3,20},
-            {18,"18","",272,96,32,32,true,3,0},
-            {19,"19","",272,128,32,32,true,3,10},
-            {20,"20","",272,160,32,32,true,3,30},
-            {35,"35","",51,49,218,36,true,2,0},
-            {34,"rightcandle","candle",192,128,32,32,true,3,5},
-            {33,"leftcandle","candle",96,128,32,32,true,3,5}
+        {15,"15","",16,96,32,32,true,3,0},
+        {16,"16","",16,128,32,32,true,3,10},
+        {17,"17","",16,160,32,32,true,3,20},
+        {18,"18","",272,96,32,32,true,3,0},
+        {19,"19","",272,128,32,32,true,3,10},
+        {20,"20","",272,160,32,32,true,3,30},
+        {35,"35","",51,49,218,36,true,2,0},
+        {34,"rightcandle","candle",192,128,32,32,true,3,5},
+        {33,"leftcandle","candle",96,128,32,32,true,3,5}
     };
-    dang::tmx_objectlayer lmain_decoration = {"main_decoration",9,somain_decoration};
+    dang::tmx_objectlayer lmain_decoration = {"main_decoration",9,somain_decoration,1};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(lmain_decoration));
 
     // Objects for layer: main_obj
     dang::tmx_spriteobject somain_obj[] = {
-            {31,"hero","",64,192,32,32,true,4,10},
-            {36,"about","button",131,91,58,32,true,6,0},
-            {37,"play","button",131,123,58,32,true,6,1},
-            {38,"prefs","button",131,155,58,32,true,6,2},
-            {39,"piggie","",216,192,32,32,true,5,0}
+        {31,"hero","",64,192,32,32,true,4,10},
+        {36,"about","button",131,91,58,32,true,6,0},
+        {37,"play","button",131,123,58,32,true,6,1},
+        {38,"prefs","button",131,155,58,32,true,6,2},
+        {39,"piggie","",216,192,32,32,true,5,0}
     };
-    dang::tmx_objectlayer lmain_obj = {"main_obj",5,somain_obj};
+    dang::tmx_objectlayer lmain_obj = {"main_obj",5,somain_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(lmain_obj));
 
 // Images ------------------------------------------------

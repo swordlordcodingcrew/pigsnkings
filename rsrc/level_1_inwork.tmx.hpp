@@ -109,7 +109,7 @@ dang::tmx_level init_level_1_inwork() {
  {1,0,0}, {2,0,0}, {72,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {74,0,0}, {0,0,0}, {17,0,0}, {14,0,0}, {72,0,0}, {73,0,0}, {74,0,0}, {12,0,0}, {14,0,0}, {72,0,0}, {73,0,0}, {74,0,0}, {12,0,0}, {14,0,0}, {72,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {73,0,0}, {74,0,0}, {12,0,0},
  {13,0,0}, {16,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {17,0,0}, {13,0,0}, {16,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {17,0,0}, {16,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {17,0,0}, {16,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {1,0,0}, {17,0,0}
  };
-    dang::tmx_tilelayer tllvl_1_bg = {"lvl_1_bg",720,tlvl_1_bg,30,24};
+    dang::tmx_tilelayer tllvl_1_bg = {"lvl_1_bg",720,tlvl_1_bg,30,24,0};
     lvl.layers.push_back(std::make_shared<dang::tmx_tilelayer>(tllvl_1_bg));
 
     // Objects for layer: lvl_1_mood
@@ -167,7 +167,7 @@ dang::tmx_level init_level_1_inwork() {
         {278,"278","",704,672,32,32,true,1,5},
         {279,"279","",768,672,32,32,true,1,5}
     };
-    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",52,solvl_1_mood};
+    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",52,solvl_1_mood,1};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_mood));
 
     // Objects for layer: lvl_1_obj
@@ -341,7 +341,7 @@ dang::tmx_level init_level_1_inwork() {
         {335,"335","",576,704,32,32,true,7,0},
         {336,"336","",800,576,32,32,true,7,0}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",168,solvl_1_obj};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",168,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
@@ -351,7 +351,7 @@ dang::tmx_level init_level_1_inwork() {
         {252,"252","",65,557,16,16,true,4,62},
         {254,"254","",81,557,16,16,true,4,63}
     };
-    dang::tmx_objectlayer llvl_1_hud = {"lvl_1_hud",4,solvl_1_hud};
+    dang::tmx_objectlayer llvl_1_hud = {"lvl_1_hud",4,solvl_1_hud,3};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_hud));
 
 // Images ------------------------------------------------
