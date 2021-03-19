@@ -37,7 +37,7 @@
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
-#include "LevelFlow.h"
+#include "ScreenPlay.h"
 #include "SpriteFactory.hpp"
 #include "HUDLayer.hpp"
 
@@ -133,7 +133,7 @@ namespace pnk
         {
             case 1:
             default:
-                _lvl_flow = std::make_shared<L1F>();
+                _lvl_flow = std::make_shared<L1SP>();
                 _tmx = init_level_1_inwork();
                 break;
         }
@@ -141,7 +141,7 @@ namespace pnk
         dang::TmxExtruder txtr(&_tmx);
 
         // choose room acc. to prefs
-        _active_room_flow = &_lvl_flow->_roomflows[_pnk._prefs.active_room];
+        _active_room_flow = &_lvl_flow->_acts[_pnk._prefs.active_room];
 
         _last_time = blit::now();
         _spawn_ready = true;

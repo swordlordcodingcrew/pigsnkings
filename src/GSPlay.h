@@ -12,7 +12,7 @@
 
 #include "GameState.h"
 
-#include "LevelFlow.h"
+#include "ScreenPlay.h"
 
 
 namespace pnk
@@ -50,7 +50,7 @@ namespace pnk
 
 
         dang::tmx_level             _tmx;
-        std::shared_ptr<LevelFlow>  _lvl_flow;
+        std::shared_ptr<ScreenPlay>  _lvl_flow;
 
         // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
@@ -66,7 +66,7 @@ namespace pnk
         const uint32_t          _room_buffer = 4;  // "hotrect" when the room shall change
 
         // flow stuff
-        LevelFlow::roomflow*    _active_room_flow{nullptr};
+        ScreenPlay::act*    _active_room_flow{nullptr};
         uint32_t                _last_time{0};
         bool                    _spawn_ready{true};
         uint32_t                _spawned{0};

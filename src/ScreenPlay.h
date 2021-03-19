@@ -9,7 +9,7 @@
 
 namespace pnk
 {
-    class LevelFlow
+    class ScreenPlay
     {
     public:
 
@@ -26,7 +26,7 @@ namespace pnk
 
 
         // TODO -> simple screenplay
-        struct roomflow
+        struct act
         {
             /**
              * center of the room in the tiled-level
@@ -37,14 +37,14 @@ namespace pnk
             u_int32_t       number_of_spawns{1};
         };
 
-        std::vector<roomflow> _roomflows;
+        std::vector<act> _acts;
 
     };
 
-    class L1F : public LevelFlow
+    class L1SP : public ScreenPlay
     {
     public:
-        L1F();
+        L1SP();
     };
 
 }
