@@ -7,7 +7,6 @@
 #include "Dispatcher.hpp"
 #include "Event.hpp"
 
-
 // forward declarations
 namespace dang
 {
@@ -54,10 +53,21 @@ namespace pnk
         void removeHealth(uint8_t health);
         void removeLives(uint8_t lives);
 
+        enum e_selection
+        {
+            ABOUT = 0,
+            PLAY,
+            PREFS,
+            _ESIZE
+        };
+
         struct prefs
         {
             float volume_snd{0.7};
             float volume_sfx{1};
+
+            // which module is set in the GSHome (where is the candle)
+            uint8_t selectedModule{PLAY};
 
             uint8_t  lives{3};
             uint8_t  health{10};
