@@ -38,6 +38,7 @@ set(SOURCES
         sfx/bubble_pop_22050_mono.h
         sfx/coin_22050_mono.h
         sfx/pig_squeal_22050_mono.h
+        sfx/king_damage_22050.h
         )
 # in case there is a file which should not be added:
 # list (REMOVE_ITEM SOURCES /path/to/folder/filetoberemoved.cpp /path/to/folder/anotherfiletoberemoved.txt)

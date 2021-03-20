@@ -2,7 +2,7 @@
 ffmpeg -i pig_squeal_44100_mono.wav
 
 # convert to 22050
-ffmpeg -i pig_squeal_44100_mono.wav -ar 22050 pig_squeal_22050_mono.wav
+ffmpeg -i pig_squeal_44100_mono.wav -ar 22050 -ac 1 pig_squeal_22050_mono.wav
 
 # generate .h file from it
 python3 -m ttblit raw --input_file pig_squeal_22050_mono.wav --input_type binary --output_file pig_squeal_22050_mono.h --output_format c_header --symbol_name pig_squeal_22050_mono
