@@ -57,12 +57,12 @@ namespace pnk
         // flow stuff
         if (_spawn_ready)
         {
-            if (_spawned >= _active_room_flow->number_of_spawns)
+            if (_spawned >= _active_act->number_of_spawns)
             {
                 // end of room
                 // TODO: goto next room
                 _room_transition = true;
-                spLayer l = gear.getLayerByName(_lvl_flow->_l_obj_name);
+                spLayer l = gear.getLayerByName(_screenplay->_l_obj_name);
                 if (l != nullptr)
                 {
                     spCollisionSpriteLayer csl = std::static_pointer_cast<dang::CollisionSpriteLayer>(l);
@@ -133,7 +133,7 @@ namespace pnk
         {
             case 1:
             default:
-                _lvl_flow = std::make_shared<L1SP>();
+                _screenplay = std::make_shared<L1SP>();
                 _tmx = init_level_1();
                 break;
         }
@@ -141,7 +141,7 @@ namespace pnk
         dang::TmxExtruder txtr(&_tmx);
 
         // choose room acc. to prefs
-        _active_room_flow = &_lvl_flow->_acts[_pnk._prefs.active_room];
+        _active_act = &_screenplay->_acts[_pnk._prefs.active_room];
 
         _last_time = blit::now();
         _spawn_ready = true;
@@ -155,13 +155,13 @@ namespace pnk
         _pnk.initImageSheets(txtr);
 
         // create background Tilelayer
-        txtr.getTileLayer(_lvl_flow->_l_bg_name, gear, true);
+        txtr.getTileLayer(_screenplay->_l_bg_name, gear, true);
 
         // create mood Tilelayer
-        if (!_lvl_flow->_l_mood_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_mood_name, gear, true, true);
+        if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, gear, true, true);
 
         // create Spritelayer with collision detection
-        _csl = txtr.getCollisionSpriteLayer(_lvl_flow->_l_obj_name, gear, false, true);
+        _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, gear, false, true);
 
         // create sprites
         for (const dang::tmx_spriteobject& so : txtr.getSOList(_csl))
@@ -213,10 +213,10 @@ namespace pnk
         // create HUD layer
         //if (!_lvl_flow->_l_hud_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_hud_name, gear, true, true);
         spHUDLayer hudl = std::make_shared<HUDLayer>();
-        if (!_lvl_flow->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _lvl_flow->_l_hud_name, gear, true, true);
+        if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
         // set viewport to active room
-        _active_room_center = _active_room_flow->room_center;
+        _active_room_center = _active_act->room_center;
         gear.setViewportPos(_active_room_center - dang::Vector2F(160, 120));
 
         // add event callback
@@ -264,7 +264,7 @@ namespace pnk
             {
                 _csl->removeSprite(pe._spr.lock());
                 std::cout << "remove sprite event" << std::endl;
-                if (spr->_id == _active_room_flow->spawn_spr_with_id)
+                if (spr->_id == _active_act->spawn_spr_with_id)
                 {
                     _last_time = blit::now();
                     _spawn_ready = true;

@@ -344,6 +344,7 @@ dang::tmx_level init_level_1() {
         {341,"fred","pig_bomb",256,672,32,32,true,8,4},
         {342,"sam","pig_normal",224,544,32,32,true,7,0}
     };
+
     dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",171,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
