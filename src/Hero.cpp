@@ -5,6 +5,7 @@
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 #include <iostream>
+#include <sfx/king_damage_22050.h>
 
 #include "Hero.h"
 #include "MotionState.h"
@@ -137,6 +138,9 @@ namespace pnk
             _hit = false;
             _somatic_state = SomaticState::_hit;
             _somatic_state->enter(*this, dt);
+
+            _pnk.removeHealth(1);
+            PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
 
         std::shared_ptr<SomaticState> sst = _somatic_state->update(*this, dt);
