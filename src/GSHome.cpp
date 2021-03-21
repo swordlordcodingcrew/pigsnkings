@@ -264,6 +264,6 @@ namespace pnk
     void GSHome::playOink()
     {
         // TODO: only play it sometimes
-        PigsnKings::playSfx(pig_squeal_22050_mono, pig_squeal_22050_mono_length);
+        PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
     }
 }
