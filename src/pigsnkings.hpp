@@ -63,7 +63,7 @@ namespace pnk
 
         struct prefs
         {
-            float volume_snd{0.7};
+            float volume_snd{1};
             float volume_sfx{1};
 
             // which module is set in the GSHome (where is the candle)

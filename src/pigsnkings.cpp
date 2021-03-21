@@ -268,7 +268,8 @@ namespace pnk
 
         blit::channels[dang::SndGear::getMusicChan()].waveforms = blit::Waveform::WAVE; // Set type to WAVE
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
-        blit::channels[dang::SndGear::getMusicChan()].volume = volume;
+
+        blit::channels[dang::SndGear::getMusicChan()].volume = volume * 0xffff;
         blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
 
     }
@@ -283,6 +284,7 @@ namespace pnk
         {
             channel.off();        // Stop playback of this channel.
         }
+
 #ifdef PNK_SND_DEBUG
         if (blit::now() - PigsnKings::_last_mod_time > 1000)
         {
