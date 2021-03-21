@@ -1,8 +1,14 @@
 # find out bitrate etc
 ffmpeg -i pig_squeal_44100_mono.wav
 
-# convert to 22050
-ffmpeg -i pig_squeal_44100_mono.wav -ar 22050 -ac 1 pig_squeal_22050_mono.wav
+# convert to 22050 (removing metadata on the way)
+ffmpeg -i pig_squeal_44100_mono.wav -map_metadata -1 -fflags +bitexact -flags:v +bitexact -flags:a +bitexact -ar 22050 -ac 1 pig_squeal_22050_mono.wav
 
 # generate .h file from it
 python3 -m ttblit raw --input_file pig_squeal_22050_mono.wav --input_type binary --output_file pig_squeal_22050_mono.h --output_format c_header --symbol_name pig_squeal_22050_mono
+
+# normalise sound, add this flag (a quarter louder)
+-filter:a "volume=1.25"
+
+
+
