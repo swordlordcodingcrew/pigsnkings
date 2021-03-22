@@ -262,7 +262,7 @@
   <object id="336" type="pig_normal" gid="358" x="800" y="576" width="32" height="32"/>
   <object id="340" name="elvira" type="pig_box" gid="338" x="192" y="640" width="32" height="32"/>
   <object id="341" name="fred" type="pig_bomb" gid="378" x="256" y="672" width="32" height="32"/>
-  <object id="342" name="sam" type="pig_normal" gid="358" x="224" y="544" width="32" height="32"/>
+  <object id="342" name="sam" type="pig_normal" gid="358" x="192" y="672" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
