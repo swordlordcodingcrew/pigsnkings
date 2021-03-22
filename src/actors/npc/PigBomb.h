@@ -1,10 +1,11 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
 #pragma once
 
 #include <CollisionSprite.hpp>
 #include <src/Enemy.h>
+#include "HenchPig.h"
 
 namespace pnk
 {
@@ -15,20 +16,17 @@ namespace pnk
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
 
-    class PigBox : public Enemy
+    class PigBomb : public HenchPig
     {
     public:
-        PigBox();
-        PigBox(const dang::tmx_spriteobject &so, spImagesheet is);
-        ~PigBox() override;
+        PigBomb();
+        PigBomb(const dang::tmx_spriteobject &so, spImagesheet is);
+        ~PigBomb() override;
         void init();
-        void init2();
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
-
-        void    setWalk(float w_vel);
     protected:
 
     };

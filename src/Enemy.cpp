@@ -75,6 +75,10 @@ namespace pnk
 //            e->_spr = shared_from_this();
 //            pnk::_pnk._dispatcher.queueEvent(std::move(e));
         }
+        else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES_START && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
+        {
+            // do nothing (for now)
+        }
         else
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
@@ -89,7 +93,9 @@ namespace pnk
             {
                 _on_ground = true;
                 _vel.y = 0;
-                _vel.x = _walk;
+                // TODO fix this
+                // this may be an interesting thought, but is simply wrong
+                //_vel.x = _walk;
             }
             else
             {
@@ -121,14 +127,5 @@ namespace pnk
 //        setVel({-2.0f, -0.0f});
         removeAnimation();
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, dang::Ease::Linear, -1)));
-
     }
-
-    void Enemy::setWalk(float w_vel)
-    {
-        _walk = w_vel;
-        _transform = _walk > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-    }
-
 }

@@ -70,12 +70,14 @@ namespace pnk
             TN_BUBBLE = 50,
 
             // 100 - 199 enemies
+            TN_ENEMIES_START = 100,
             TN_PIG_NORMAL = 101,
             TN_NORMAL_PIG_HIVE = 102,
             TN_PIG_BETTER = 103,
             TN_PIG_BOX = 104,
             TN_PIG_BOMB = 105,
             TN_PIG_CANNON = 106,
+            TN_ENEMIES_END = 199,
 
             // 200 - 299 hotrects
             TN_HOTRECT = 201,

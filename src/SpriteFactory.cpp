@@ -3,7 +3,8 @@
 
 #include <cassert>
 #include <iostream>
-#include <src/actors/npc/PigBox.h>
+#include <src/actors/npc/PigCrate.h>
+#include <src/actors/npc/PigBomb.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -96,7 +97,7 @@ namespace pnk
 
     spEnemy SpriteFactory::PigBox(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
-        spEnemy ret = std::make_shared<pnk::PigBox>(so, is);
+        spEnemy ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOX;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->init();
@@ -106,7 +107,7 @@ namespace pnk
 
     spEnemy SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
-        spEnemy ret = std::make_shared<pnk::PigBox>(so, is);
+        spEnemy ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->init();

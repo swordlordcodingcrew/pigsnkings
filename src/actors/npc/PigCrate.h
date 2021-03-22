@@ -4,6 +4,8 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
+#include <src/Enemy.h>
+#include "HenchPig.h"
 
 namespace pnk
 {
@@ -14,25 +16,20 @@ namespace pnk
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
 
-    class Enemy : public dang::CollisionSprite
+    class PigCrate : public HenchPig
     {
     public:
-        Enemy();
-        Enemy(const dang::tmx_spriteobject &so, spImagesheet is);
-        ~Enemy() override;
-
-        virtual void    init();
+        PigCrate();
+        PigCrate(const dang::tmx_spriteobject &so, spImagesheet is);
+        ~PigCrate() override;
+        void init() override;
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        bool    _bubbled{false};
-        void    bubble();
-        void    deBubble();
     protected:
-        bool _on_ground = false;
-        float _walk{-2.0};
+
     };
 
 }

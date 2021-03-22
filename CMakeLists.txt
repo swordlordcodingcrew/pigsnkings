@@ -29,8 +29,12 @@ aux_source_directory(rsrc RSRC)
 set(SOURCES
         ${SRC}
         ${RSRC}
-        src/actors/npc/PigBox.cpp
-        src/actors/npc/PigBox.h
+        src/actors/npc/HenchPig.cpp
+        src/actors/npc/HenchPig.h
+        src/actors/npc/PigCrate.cpp
+        src/actors/npc/PigCrate.h
+        src/actors/npc/PigBomb.cpp
+        src/actors/npc/PigBomb.h
         tracks/gocryogo.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h
