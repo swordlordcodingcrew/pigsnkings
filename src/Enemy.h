@@ -27,12 +27,12 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        bool    _bubbled{false};
-        void    bubble();
-        void    deBubble();
+        bool _bubbled{false};
+        virtual void bubble();
+        virtual void deBubble();
     protected:
         bool _on_ground = false;
-        float _walk{-2.0};
+        float _walkSpeed{-2.0};
     };
 
 }

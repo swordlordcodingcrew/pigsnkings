@@ -14,6 +14,7 @@ namespace pnk
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
     enum e_state
     {
@@ -21,7 +22,8 @@ namespace pnk
         HIDING,
         LOITERING,
         THROWING,
-        PICKING_UP
+        PICKING_UP,
+        BUBBLED // this one is tricky, since it it managed by the Enemy base class
     };
 
     class HenchPig : public Enemy
@@ -36,14 +38,31 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
+        void bubble() override;
+        void deBubble() override;
+
+        // animations depot
+        spTwAnim _anim_m_sleeping;
+        spTwAnim _anim_m_hiding;
+        spTwAnim _anim_m_loitering;
+        spTwAnim _anim_m_throwing;
+        spTwAnim _anim_m_picking_up;
+        spTwAnim _anim_m_bubbling;
     protected:
 
         // the state the pig is in
-        uint8_t selectedModule{SLEEPING};
+        uint8_t currentState{SLEEPING};
 
-        // change state
-        virtual void TryToChangeState(uint8_t wishedState);
+        // trying to change state, returns true if successful
+        virtual bool changeStateTo(e_state wishedState);
 
+        virtual bool onEnterSleeping();
+        virtual bool onEnterHiding();
+        virtual bool onEnterLoitering();
+        virtual bool onEnterThrowing();
+        virtual bool onEnterPickingUp();
+        virtual bool onEnterBubbled();
+
+        const uint8_t _loiter_speed{2};
     };
-
 }

@@ -34,6 +34,7 @@
 #include "Hero.h"
 #include "Bubble.h"
 #include "Enemy.h"
+#include "actors/npc/HenchPig.h"
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
@@ -172,7 +173,7 @@ namespace pnk
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
             else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigBox(txtr, so, is); }
+            else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so.type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }

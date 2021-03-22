@@ -22,6 +22,7 @@ namespace pnk
     // forward declarations
     class Hero;
     class Enemy;
+    class HenchPig;
     class Bubble;
 }
 
@@ -30,6 +31,7 @@ using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 using spHero = std::shared_ptr<pnk::Hero>;
 using spEnemy = std::shared_ptr<pnk::Enemy>;
+using spHenchPig = std::shared_ptr<pnk::HenchPig>;
 using spReward = std::shared_ptr<pnk::Reward>;
 using spBubble = std::shared_ptr<pnk::Bubble>;
 
@@ -97,9 +99,9 @@ namespace pnk
         };
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spEnemy NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spEnemy PigBox(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spEnemy PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);

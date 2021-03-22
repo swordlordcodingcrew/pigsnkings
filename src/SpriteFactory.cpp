@@ -85,31 +85,64 @@ namespace pnk
         return ret;
     }
 
-    spEnemy SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
-        spEnemy ret = std::make_shared<pnk::Enemy>(so, is);
+        spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_NORMAL;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
+        assert(ret->_anim_m_bubbling != nullptr);
+
         ret->init();
 
         return ret;
     }
 
-    spEnemy SpriteFactory::PigBox(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    // it is a wooden crate.. for making buses out of them
+    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
-        spEnemy ret = std::make_shared<pnk::PigCrate>(so, is);
+        spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOX;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
+        assert(ret->_anim_m_bubbling != nullptr);
+        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "picking_up");
+        assert(ret->_anim_m_picking_up != nullptr);
+        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
+        assert(ret->_anim_m_throwing != nullptr);
+
         ret->init();
 
         return ret;
     }
 
-    spEnemy SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
-        spEnemy ret = std::make_shared<pnk::PigBomb>(so, is);
+        spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
+        assert(ret->_anim_m_bubbling != nullptr);
+        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "picking_up");
+        assert(ret->_anim_m_picking_up != nullptr);
+        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
+        assert(ret->_anim_m_throwing != nullptr);
+
         ret->init();
 
         return ret;

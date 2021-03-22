@@ -85,8 +85,8 @@ namespace pnk
 
             if (normal.x != 0)
             {
-                _walk = -_walk;
-                _transform = _walk > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+                _walkSpeed = -_walkSpeed;
+                _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
             }
 
             if (normal.y > 0)
@@ -95,7 +95,7 @@ namespace pnk
                 _vel.y = 0;
                 // TODO fix this
                 // this may be an interesting thought, but is simply wrong
-                //_vel.x = _walk;
+                //_vel.x = _walkSpeed;
             }
             else
             {
@@ -117,7 +117,7 @@ namespace pnk
         _gravity = {0,0};
         setVel({0,0});
         removeAnimation();
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{30, 31}, 400, dang::Ease::Linear, -1)));
+        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{12, 13}, 400, dang::Ease::Linear, -1)));
     }
 
     void Enemy::deBubble()
@@ -126,6 +126,6 @@ namespace pnk
         _gravity = PigsnKings::_gravity;
 //        setVel({-2.0f, -0.0f});
         removeAnimation();
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{32, 33, 34, 35, 36, 37}, 600, dang::Ease::Linear, -1)));
+        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, dang::Ease::Linear, -1)));
     }
 }
