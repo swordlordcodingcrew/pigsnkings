@@ -286,6 +286,30 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
+   },
+   "pig_crate 36.aseprite": {
+    "frame": { "x": 1152, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_crate 37.aseprite": {
+    "frame": { "x": 1184, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_crate 38.aseprite": {
+    "frame": { "x": 1216, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
    }
  },
  "meta": {
@@ -293,7 +317,7 @@
   "version": "1.x-dev",
   "image": "pig_crate.png",
   "format": "RGBA8888",
-  "size": { "w": 1152, "h": 32 },
+  "size": { "w": 1248, "h": 32 },
   "scale": "1",
   "frameTags": [
    { "name": "Picking Box", "from": 0, "to": 4, "direction": "forward" },
@@ -307,7 +331,9 @@
    { "name": "Fall", "from": 32, "to": 32, "direction": "forward" },
    { "name": "Ground", "from": 33, "to": 33, "direction": "forward" },
    { "name": "Idle", "from": 34, "to": 34, "direction": "forward" },
-   { "name": "Hit", "from": 35, "to": 35, "direction": "forward" }
+   { "name": "Hit", "from": 35, "to": 35, "direction": "forward" },
+   { "name": "Idle", "from": 36, "to": 36, "direction": "forward" },
+   { "name": "Bubbled", "from": 37, "to": 38, "direction": "forward" }
   ],
   "layers": [
    { "name": "Pig", "opacity": 255, "blendMode": "normal" }
