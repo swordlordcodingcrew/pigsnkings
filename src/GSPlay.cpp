@@ -17,8 +17,8 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 
-#include "rsrc/gfx/pig_box.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
+#include "rsrc/gfx/pig_crate.png.h"
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
