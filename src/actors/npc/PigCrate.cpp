@@ -51,4 +51,60 @@ namespace pnk
     {
         this->HenchPig::collide(mf);
     }
+
+    bool PigCrate::onEnterLoitering()
+    {
+        // TODO handle the walking with tweens
+        //_walkSpeed = _loiter_speed;
+        setAnimation(_anim_m_loitering);
+        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+
+        currentState = LOITERING;
+
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        nullTw->setFinishedCallback(std::bind(&PigCrate::endLoitering, this));
+        addTween(nullTw);
+
+        return true;
+    }
+
+    bool PigCrate::onEnterThrowing()
+    {
+        // TODO handle the spawning of a new crate
+        //_walkSpeed = _loiter_speed;
+        setAnimation(_anim_m_throwing);
+        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+
+        currentState = THROWING;
+
+        spTwNull twPrepare = std::make_shared<dang::TwNull>(dang::TwNull(300, dang::Ease::Linear, 0));
+        twPrepare->setFinishedCallback(std::bind(&PigCrate::throwing, this));
+        addTween(twPrepare);
+
+        spTwNull twThrown = std::make_shared<dang::TwNull>(dang::TwNull(700, dang::Ease::Linear, 0));
+        twThrown->setFinishedCallback(std::bind(&PigCrate::endThrowing, this));
+        addTween(twThrown);
+
+        return true;
+    }
+
+    void PigCrate::endLoitering()
+    {
+        changeStateTo(THROWING);
+    }
+
+    void PigCrate::throwing()
+    {
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_THROWN_CRATE));
+        e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+        e->_pos = this->getPos();
+        e->_pos.y -= 10; // piggie holds the box on ground + 10 (yeah, small piggie)
+        _pnk._dispatcher.queueEvent(std::move(e));
+    }
+
+    void PigCrate::endThrowing()
+    {
+        _anim_m_throwing->reset();
+        changeStateTo(SLEEPING);
+    }
 }

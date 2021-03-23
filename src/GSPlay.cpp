@@ -20,7 +20,6 @@
 #include "rsrc/gfx/pig_bomb.png.h"
 #include "rsrc/gfx/pig_crate.png.h"
 #include "rsrc/gfx/bubble.png.h"
-#include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
@@ -35,6 +34,7 @@
 #include "Bubble.h"
 #include "Enemy.h"
 #include "actors/npc/HenchPig.h"
+#include "actors/npc/Throwies.h"
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
@@ -204,6 +204,12 @@ namespace pnk
                     assert(sprc != nullptr);
                     _hives["bubble"] = sprc;
                 }
+                else if (so.type == SpriteFactory::T_CRATE_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::Crate(txtr, so, is, false);
+                    assert(sprc != nullptr);
+                    _hives["crate"] = sprc;
+                }
                 else
                 {
                         std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
@@ -275,6 +281,16 @@ namespace pnk
             {
                 std::cout << "attempted to remove stale sprite" << std::endl;
             }
+        }
+        else if (pe._type == ETG_NEW_THROWN_CRATE)
+        {
+            spThrowies crate_proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
+            assert(crate_proto != nullptr);
+            spThrowies crate = std::make_shared<Throwies>(*crate_proto);
+            crate->setPos(pe._pos);
+            crate->_to_the_left = pe._to_the_left;
+            crate->init();
+            _csl->addCollisionSprite(crate);
         }
     }
 }

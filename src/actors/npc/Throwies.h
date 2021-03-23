@@ -4,39 +4,39 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
-#include <src/Enemy.h>
-#include "HenchPig.h"
 
 namespace pnk
 {
     struct tmx_spriteobject;
     class Imagesheet;
+    class Enemy;
 
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
-    class PigCrate : public HenchPig
+    class Throwies : public dang::CollisionSprite
     {
     public:
-        PigCrate();
-        PigCrate(const dang::tmx_spriteobject &so, spImagesheet is);
-        ~PigCrate() override;
-        void init() override;
-
+        Throwies();
+        Throwies(const Throwies& bub);
+        Throwies(const dang::tmx_spriteobject &so, spImagesheet is);
+        ~Throwies() override;
+        void    init();
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        bool onEnterLoitering() override;
-        bool onEnterThrowing() override;
-
-        void endLoitering() override;
-        virtual void throwing();
-        virtual void endThrowing();
+        bool    _to_the_left{true};
 
     protected:
+        void removeSelf();
 
+    protected:
+        friend class SpriteFactory;
+        // animations depot
+        spTwAnim _anim_flying; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
     };
-
 }
+

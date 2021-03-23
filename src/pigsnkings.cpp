@@ -13,7 +13,7 @@
 #include "CollisionSpriteLayer.hpp"
 #include "Hero.h"
 #include "pigsnkings.hpp"
-#include "Bubble.h"
+#include "Throwies.h"
 #include "GameState.h"
 #include "GSIntro.h"
 #include "GSHome.h"

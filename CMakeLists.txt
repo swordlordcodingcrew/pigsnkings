@@ -29,6 +29,8 @@ aux_source_directory(rsrc RSRC)
 set(SOURCES
         ${SRC}
         ${RSRC}
+        src/actors/npc/Throwies.cpp
+        src/actors/npc/Throwies.h
         src/actors/npc/HenchPig.cpp
         src/actors/npc/HenchPig.h
         src/actors/npc/PigCrate.cpp

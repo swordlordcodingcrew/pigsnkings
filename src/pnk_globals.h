@@ -25,6 +25,7 @@ enum ET
 {
     ETG_NEW_BUBBLE = 10,
     ETG_REMOVE_SPRITE = 11,
+    ETG_NEW_THROWN_CRATE = 12,
     ETA_PAUSE = 100
 
 };

@@ -155,6 +155,12 @@ namespace pnk
         }
         currentState = SLEEPING;
 
+        removeTweens(true);
+
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
+        addTween(nullTw);
+
         return true;
     }
 
@@ -172,6 +178,11 @@ namespace pnk
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
 
         currentState = LOITERING;
+
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
+        addTween(nullTw);
+
         return true;
     }
 
@@ -208,5 +219,15 @@ namespace pnk
         // TODO Pigs are aggressive when debubbled,
         // don't just loiter, piggie!
         changeStateTo(LOITERING);
+    }
+
+    void HenchPig::endSleep()
+    {
+        changeStateTo(LOITERING);
+    }
+
+    void HenchPig::endLoitering()
+    {
+        changeStateTo(SLEEPING);
     }
 }
