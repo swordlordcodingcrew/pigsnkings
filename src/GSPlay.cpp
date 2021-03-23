@@ -279,6 +279,7 @@ namespace pnk
             }
             else
             {
+                // TODO if it is stale, we should retry? or wait? or...
                 std::cout << "attempted to remove stale sprite" << std::endl;
             }
         }

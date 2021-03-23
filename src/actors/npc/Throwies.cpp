@@ -53,12 +53,12 @@ namespace pnk
 
     void Throwies::init()
     {
-        _hotrect = {10, 10, 12, 12};
+        _hotrect = {6, 9, 20, 20};
 
         // movement sequence
         float velx = _to_the_left ? -GSPlay::CRATE_VEL : GSPlay::CRATE_VEL;
         spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
-        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -5), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
         tw_seq->addTween(twv1);
         addTween(tw_seq);
     }
@@ -70,18 +70,25 @@ namespace pnk
 
     void Throwies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-// DANG!
-    }
+        if (mf.other->_type_num == SpriteFactory::TN_HOTRECT || mf.me->_type_num == SpriteFactory::TN_HOTRECT)
+        {
+            // me destroys
+            this->removeSelf();
+        }
+        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
+        {
+            // King hurts
+            _pnk.removeHealth(10);
 
+            // me destroys
+            // TODO probably an error in the remove, game crashes when hit here...
+            this->removeSelf();
+        }
+    }
 
     dang::CollisionSpriteLayer::eCollisionResponse Throwies::getCollisionResponse(spSprite other)
     {
-        if (other->_type_num == SpriteFactory::TN_KING)
-        {
-            return dang::CollisionSpriteLayer::CR_SLIDE;
-        }
-
-        if (other->_type_num == SpriteFactory::TN_HOTRECT)
+        if (other->_type_num == SpriteFactory::TN_KING || other->_type_num == SpriteFactory::TN_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
