@@ -97,6 +97,20 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["character_pigbomb_throwing"] = {"character_pigbomb",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}};
     // Animation: bubbling
     lvl.tileanimation["character_pigbomb_bubbling"] = {"character_pigbomb",23,"bubbling",{{23, 100},{24, 100}}};
+    // Animation: picking_up
+    lvl.tileanimation["character_pigcrate_picking_up"] = {"character_pigcrate",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}};
+    // Animation: sleeping
+    lvl.tileanimation["character_pigcrate_sleeping"] = {"character_pigcrate",5,"sleeping",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}};
+    // Animation: loitering
+    lvl.tileanimation["character_pigcrate_loitering"] = {"character_pigcrate",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}};
+    // Animation: throwing
+    lvl.tileanimation["character_pigcrate_throwing"] = {"character_pigcrate",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}};
+    // Animation: bubbling
+    lvl.tileanimation["character_pigcrate_bubbling"] = {"character_pigcrate",23,"bubbling",{{23, 100},{24, 100}}};
+    // Animation: looking_out
+    lvl.tileanimation["character_pigcrate_looking_out"] = {"character_pigcrate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}};
+    // Animation: jumping
+    lvl.tileanimation["character_pigcrate_jumping"] = {"character_pigcrate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}};
 
 // Layers ------------------------------------------------
 
