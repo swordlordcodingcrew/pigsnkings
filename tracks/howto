@@ -1,0 +1,2 @@
+# create h file for a mod track
+python3 -m ttblit raw --input_file gocryogo.mod --input_type binary --output_file gocryogo.h --output_format c_header --symbol_name gocryogo_mod --force
