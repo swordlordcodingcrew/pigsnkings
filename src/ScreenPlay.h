@@ -3,7 +3,9 @@
 
 #pragma once
 
+#include <RectT.hpp>
 #include <Vector2T.hpp>
+
 #include <string>
 #include <vector>
 
@@ -24,17 +26,15 @@ namespace pnk
         std::string         _l_mood_name;
         std::string         _l_hud_name;
 
-
         // TODO -> simple screenplay
         struct act
         {
-            /**
-             * center of the room in the tiled-level
-             * unit: float
-             */
-            dang::Vector2F  room_center{0,0};
-            u_int32_t       spawn_spr_with_id{0};
-            u_int32_t       number_of_spawns{1};
+            /** center of the room in the tiled-level; unit: float */
+            dang::Vector2F      _room_center{0,0};
+
+            /** size of room in tiles */
+            dang::RectU         _room_extent{0, 0, 0, 0};
+
         };
 
         std::vector<act> _acts;

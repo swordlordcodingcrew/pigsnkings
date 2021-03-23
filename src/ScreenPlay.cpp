@@ -13,11 +13,10 @@ namespace pnk
         _l_hud_name = "lvl_1_hud";
 
         // viewport = 320 x 240 px
-        act room1 = {dang::Vector2F{320.0 / 2, 960 - 130}, 26, 2};
-//        roomflow room2 = {dang::Vector2F{320.0 + 320.0 / 2, 960 - 130}, 27, 2};
+        act room1;
+        room1._room_extent = {0, 16, 9, 23};
 
         _acts.push_back(room1);
-//        _roomflows.push_back(room2);
 
     }
 }

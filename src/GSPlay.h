@@ -60,13 +60,13 @@ namespace pnk
 
         std::map<std::string, spCollisionSprite> _hives;
 
-        // vp handling per room
-        // assuming that 1 room is the size of the screen
-        dang::Vector2F          _active_room_center{0, 0};
+        // viewport pos (top left)
+        dang::Vector2F          _vp_pos{0, 0};
         const uint32_t          _room_buffer = 4;  // "hotrect" when the room shall change
+        dang::RectF             _room_extent{0,0,0,0};
 
         // flow stuff
-        ScreenPlay::act*    _active_act{nullptr};
+        ScreenPlay::act*        _active_act{nullptr};
         uint32_t                _last_time{0};
         bool                    _spawn_ready{true};
         uint32_t                _spawned{0};
@@ -78,6 +78,7 @@ namespace pnk
         void gameEventReceived(dang::Event &e);
 
         void initGameVars();
+        void updateVpPos();
 
     };
 

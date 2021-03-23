@@ -55,35 +55,6 @@ namespace pnk
 //            return GameState::_gs_prefs;
         }
 
-        // flow stuff
-        if (_spawn_ready)
-        {
-            if (_spawned >= _active_act->number_of_spawns)
-            {
-                // end of room
-                // TODO: goto next room
-                _room_transition = true;
-                spLayer l = gear.getLayerByName(_screenplay->_l_obj_name);
-                if (l != nullptr)
-                {
-                    spCollisionSpriteLayer csl = std::static_pointer_cast<dang::CollisionSpriteLayer>(l);
-                    csl->removeSpriteById(24);
-                }
-
-//                return GameState::_gs_home;
-            }
-            else if (blit::now() - _last_time > _spawn_delay)
-            {
-                // still enemies to go
-/*                dang::TmxExtruder txtr = dang::TmxExtruder(&_tmx);
-                spEnemy en = SpriteFactory::NormalPig(txtr, _prototypes[_active_room_flow->spawn_spr_with_id], _iss_for_prototypes[_active_room_flow->spawn_spr_with_id]);
-                en->setWalk(E_WALK_VEL);
-                _csl->addCollisionSprite(en);
-                _spawned++;
-                _spawn_ready = false;
-*/            }
-        }
-
         if (_room_transition)
         {
             bool triggered{false};
@@ -91,25 +62,25 @@ namespace pnk
             // viewport follows room center
             dang::Vector2F heropos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-            if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _active_room_center.x + gear.getViewport().w < gear.getWorld().w)
+            if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _vp_pos.x + gear.getViewport().w < gear.getWorld().w)
             {
-                _active_room_center.x += gear.getViewport().w;
+                _vp_pos.x += gear.getViewport().w;
                 triggered = true;
             }
-            else if (heropos.x < gear.getViewport().x - _room_buffer && _active_room_center.x - gear.getViewport().x >= gear.getWorld().x)
+            else if (heropos.x < gear.getViewport().x - _room_buffer && _vp_pos.x - gear.getViewport().x >= gear.getWorld().x)
             {
-                _active_room_center.x -= gear.getViewport().w;
+                _vp_pos.x -= gear.getViewport().w;
                 triggered = true;
             }
 
-            if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _active_room_center.y + gear.getViewport().h < gear.getWorld().h)
+            if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _vp_pos.y + gear.getViewport().h < gear.getWorld().h)
             {
-                _active_room_center.y += gear.getViewport().h;
+                _vp_pos.y += gear.getViewport().h;
                 triggered = true;
             }
-            else if (heropos.y < gear.getViewport().y - _room_buffer && _active_room_center.y - gear.getViewport().h >= gear.getWorld().y)
+            else if (heropos.y < gear.getViewport().y - _room_buffer && _vp_pos.y - gear.getViewport().h >= gear.getWorld().y)
             {
-                _active_room_center.y -= gear.getViewport().h;
+                _vp_pos.y -= gear.getViewport().h;
                 triggered = true;
             }
 
@@ -118,7 +89,9 @@ namespace pnk
                 // TODO: make transition to new room
             }
         }
-        gear.follow(_active_room_center);
+
+        updateVpPos();
+        gear.follow(_vp_pos);
 
         return GameState::_gs_play;
     }
@@ -150,7 +123,7 @@ namespace pnk
 
         dang::RectF vp = {0, 0, 320, 240};
         gear.initLevel(_tmx, vp);
-        gear.setActiveWorldSize(vp.w, vp.h);
+        gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
 
         // init imagesheets
         _pnk.initImageSheets(txtr);
@@ -212,13 +185,18 @@ namespace pnk
         }
 
         // create HUD layer
-        //if (!_lvl_flow->_l_hud_name.empty()) txtr.getSpriteLayer(_lvl_flow->_l_hud_name, gear, true, true);
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
+        // initialize room size
+        _room_extent.x = _active_act->_room_extent.x * _tmx.w.tileWidth;
+        _room_extent.y = _active_act->_room_extent.y * _tmx.w.tileHeight;
+        _room_extent.w = _active_act->_room_extent.w * _tmx.w.tileWidth;
+        _room_extent.h = _active_act->_room_extent.h * _tmx.w.tileHeight;
+
         // set viewport to active room
-        _active_room_center = _active_act->room_center;
-        gear.setViewportPos(_active_room_center - dang::Vector2F(160, 120));
+        updateVpPos();
+        gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
 
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
@@ -265,16 +243,43 @@ namespace pnk
             {
                 _csl->removeSprite(pe._spr.lock());
                 std::cout << "remove sprite event" << std::endl;
-                if (spr->_id == _active_act->spawn_spr_with_id)
-                {
-                    _last_time = blit::now();
-                    _spawn_ready = true;
-                }
             }
             else
             {
                 std::cout << "attempted to remove stale sprite" << std::endl;
             }
+        }
+    }
+
+    void GSPlay::updateVpPos()
+    {
+        // viewport follows room center
+        dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
+
+        if (pos.x < _room_extent.left() + 160)
+        {
+            _vp_pos.x = _room_extent.left() + 160;
+        }
+        else if (pos.x > _room_extent.right() - 160)
+        {
+            _vp_pos.x = _room_extent.right() - 160;
+        }
+        else
+        {
+            _vp_pos.x = pos.x;
+        }
+
+        if (pos.y < _room_extent.top() + 120)
+        {
+            _vp_pos.y = _room_extent.top() + 120;
+        }
+        else if (pos.y > _room_extent.bottom() - 120)
+        {
+            _vp_pos.y = _room_extent.bottom() - 120;
+        }
+        else
+        {
+            _vp_pos.y = pos.y;
         }
     }
 }
