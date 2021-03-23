@@ -28,12 +28,12 @@ dang::tmx_level init_level_1() {
     lvl.tilesets[4] = {"hud_ui",105,16,16,240,112,15,7};
     // Tileset: gfx_king has ID: 5
     lvl.tilesets[5] = {"gfx_king",27,32,32,864,32,27,1};
-    // Tileset: character_pigbox has ID: 6
-    lvl.tilesets[6] = {"character_pigbox",25,32,32,800,32,25,1};
-    // Tileset: gfx_pig has ID: 7
-    lvl.tilesets[7] = {"gfx_pig",16,32,32,512,32,16,1};
-    // Tileset: character_pigbomb has ID: 8
-    lvl.tilesets[8] = {"character_pigbomb",25,32,32,800,32,25,1};
+    // Tileset: gfx_pig has ID: 6
+    lvl.tilesets[6] = {"gfx_pig",16,32,32,512,32,16,1};
+    // Tileset: character_pigbomb has ID: 7
+    lvl.tilesets[7] = {"character_pigbomb",25,32,32,800,32,25,1};
+    // Tileset: character_pigcrate has ID: 8
+    lvl.tilesets[8] = {"character_pigcrate",39,32,32,1248,32,39,1};
 
 // Animations ------------------------------------------------
 
@@ -79,16 +79,6 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["gfx_king_bubble"] = {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 100},{18, 100}}};
     // Animation: hit
     lvl.tileanimation["gfx_king_hit"] = {"gfx_king",21,"hit",{{21, 200},{22, 200},{23, 200}}};
-    // Animation: picking_up
-    lvl.tileanimation["character_pigbox_picking_up"] = {"character_pigbox",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}};
-    // Animation: sleeping
-    lvl.tileanimation["character_pigbox_sleeping"] = {"character_pigbox",5,"sleeping",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}};
-    // Animation: loitering
-    lvl.tileanimation["character_pigbox_loitering"] = {"character_pigbox",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}};
-    // Animation: throwing
-    lvl.tileanimation["character_pigbox_throwing"] = {"character_pigbox",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}};
-    // Animation: bubbling
-    lvl.tileanimation["character_pigbox_bubbling"] = {"character_pigbox",23,"bubbling",{{23, 100},{24, 100}}};
     // Animation: sleeping
     lvl.tileanimation["gfx_pig_sleeping"] = {"gfx_pig",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100}}};
     // Animation: loitering
@@ -107,6 +97,20 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["character_pigbomb_throwing"] = {"character_pigbomb",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}};
     // Animation: bubbling
     lvl.tileanimation["character_pigbomb_bubbling"] = {"character_pigbomb",23,"bubbling",{{23, 100},{24, 100}}};
+    // Animation: picking_up
+    lvl.tileanimation["character_pigcrate_picking_up"] = {"character_pigcrate",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}};
+    // Animation: sleeping
+    lvl.tileanimation["character_pigcrate_sleeping"] = {"character_pigcrate",5,"sleeping",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}};
+    // Animation: loitering
+    lvl.tileanimation["character_pigcrate_loitering"] = {"character_pigcrate",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}};
+    // Animation: throwing
+    lvl.tileanimation["character_pigcrate_throwing"] = {"character_pigcrate",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100},{36, 100}}};
+    // Animation: looking_out
+    lvl.tileanimation["character_pigcrate_looking_out"] = {"character_pigcrate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}};
+    // Animation: jumping
+    lvl.tileanimation["character_pigcrate_jumping"] = {"character_pigcrate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}};
+    // Animation: bubbling
+    lvl.tileanimation["character_pigcrate_bubbling"] = {"character_pigcrate",37,"bubbling",{{37, 100},{38, 100}}};
 
 // Layers ------------------------------------------------
 
@@ -364,15 +368,16 @@ dang::tmx_level init_level_1() {
         {329,"329","hotrect_platform",352,96,32,4,true,0,0},
         {330,"330","hotrect",384,64,32,32,true,0,0},
         {331,"331","hotrect",320,32,64,32,true,0,0},
-        {333,"dan","pig_box",320,640,32,32,true,6,5},
-        {334,"334","pig_bomb",768,704,32,32,true,8,4},
-        {335,"335","pig_normal",576,704,32,32,true,7,0},
-        {336,"336","pig_normal",800,576,32,32,true,7,0},
-        {340,"elvira","pig_box",192,640,32,32,true,6,5},
-        {341,"fred","pig_bomb",256,672,32,32,true,8,4},
-        {342,"sam","pig_normal",192,672,32,32,true,7,0}
+        {333,"dan","pig_box",320,640,32,32,true,8,5},
+        {334,"334","pig_bomb",768,704,32,32,true,7,4},
+        {335,"335","pig_normal",576,704,32,32,true,6,0},
+        {336,"336","pig_normal",800,576,32,32,true,6,0},
+        {340,"boris","pig_box",192,640,32,32,true,8,5},
+        {341,"fred","pig_bomb",256,672,32,32,true,7,4},
+        {342,"sam","pig_normal",192,672,32,32,true,6,0},
+        {344,"344","crate_proto",32,480,32,32,true,8,34}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",171,solvl_1_obj,2};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",172,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
@@ -393,9 +398,9 @@ dang::tmx_level init_level_1() {
     lvl.images["gfx_bubbles"] = gfx_bubbles;
     lvl.images["hud_ui"] = hud_ui;
     lvl.images["gfx_king"] = gfx_king;
-    lvl.images["character_pigbox"] = character_pigbox;
     lvl.images["gfx_pig"] = gfx_pig;
     lvl.images["character_pigbomb"] = character_pigbomb;
+    lvl.images["character_pigcrate"] = character_pigcrate;
 
     return lvl;
 }

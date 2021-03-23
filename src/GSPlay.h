@@ -32,6 +32,7 @@ namespace pnk
         static inline const float BUBBLE_VEL = 20;
         static inline const float BUBBLE_VEL_UP = -1.5;
         static inline const float E_WALK_VEL = 2;
+        static inline const float CRATE_VEL = 20;
 
 
     public:

@@ -63,6 +63,9 @@ namespace pnk
         virtual bool onEnterPickingUp();
         virtual bool onEnterBubbled();
 
+        virtual void endSleep();
+        virtual void endLoitering();
+
         const uint8_t _loiter_speed{2};
     };
 }

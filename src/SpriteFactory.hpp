@@ -24,6 +24,8 @@ namespace pnk
     class Enemy;
     class HenchPig;
     class Bubble;
+    class Throwies;
+    //class Crate;
 }
 
 // using assignments
@@ -34,6 +36,10 @@ using spEnemy = std::shared_ptr<pnk::Enemy>;
 using spHenchPig = std::shared_ptr<pnk::HenchPig>;
 using spReward = std::shared_ptr<pnk::Reward>;
 using spBubble = std::shared_ptr<pnk::Bubble>;
+using spThrowies = std::shared_ptr<pnk::Throwies>;
+//using spCrate = std::shared_ptr<pnk::Crate>;
+//using spBomb = std::shared_ptr<pnk::Bomb>;
+//using spCannonball = std::shared_ptr<pnk::Cannonball>;
 
 namespace pnk
 {
@@ -45,6 +51,7 @@ namespace pnk
          */
         static inline const std::string T_KING{"king"};
         static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
+        static inline const std::string T_CRATE_PROTO{"crate_proto"};
         static inline const std::string T_HOTRECT{"hotrect"};
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
@@ -79,6 +86,9 @@ namespace pnk
             TN_PIG_BOX = 104,
             TN_PIG_BOMB = 105,
             TN_PIG_CANNON = 106,
+            TN_FLYING_CRATE = 180,
+            TN_FLYING_BOMB = 180,
+            TN_FLYING_CANNONBALL = 180,
             TN_ENEMIES_END = 199,
 
             // 200 - 299 hotrects
@@ -104,6 +114,7 @@ namespace pnk
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
+        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
     };

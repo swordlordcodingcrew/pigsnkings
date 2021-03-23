@@ -5,6 +5,7 @@
 #include <iostream>
 #include <src/actors/npc/PigCrate.h>
 #include <src/actors/npc/PigBomb.h>
+#include <src/actors/npc/Throwies.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -120,6 +121,7 @@ namespace pnk
         assert(ret->_anim_m_picking_up != nullptr);
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
         assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_throwing->loops(0);
 
         ret->init();
 
@@ -228,5 +230,20 @@ namespace pnk
         return ret;
     }
 
+    spThrowies SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    {
+        spThrowies ret = std::make_shared<pnk::Throwies>(so, is);
+        ret->_type_num = SpriteFactory::TN_FLYING_CRATE;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->_to_the_left = to_the_left;
 
+        // bobbling with catched enemy
+        ret->_anim_flying = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{34}, 600, dang::Ease::OutQuad , -1, false, 2000));
+        assert(ret->_anim_flying != nullptr);
+        ret->_anim_flying->loops(0);
+
+        ret->init();
+
+        return ret;
+    }
 }
