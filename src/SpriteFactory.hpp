@@ -54,6 +54,7 @@ namespace pnk
         static inline const std::string T_CRATE_PROTO{"crate_proto"};
         static inline const std::string T_HOTRECT{"hotrect"};
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
+        static inline const std::string T_ROOM_TRIGGER{"room_trigger"};
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
         static inline const std::string T_PIG_NORMAL{"pig_normal"};
         static inline const std::string T_PIG_BETTER{"pig_better"};
@@ -79,7 +80,7 @@ namespace pnk
             TN_BUBBLE = 50,
 
             // 100 - 199 enemies
-            TN_ENEMIES_START = 100,
+            TN_ENEMIES = 100,
             TN_PIG_NORMAL = 101,
             TN_NORMAL_PIG_HIVE = 102,
             TN_PIG_BETTER = 103,
@@ -105,7 +106,12 @@ namespace pnk
             TN_POTION_BLUE = 306,
             TN_POTION_RED = 307,
             TN_POTION_GREEN = 308,
-            TN_REWARDS_END = 399
+            TN_REWARDS_END = 399,
+
+            // 400 - 499 triggers
+            TN_TRIGGERS = 400,
+            TN_ROOM_TRIGGER = 401,
+
         };
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
@@ -117,6 +123,7 @@ namespace pnk
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
+        static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject& so);
     };
 
 }

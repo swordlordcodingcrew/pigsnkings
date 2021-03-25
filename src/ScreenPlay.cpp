@@ -14,9 +14,13 @@ namespace pnk
 
         // viewport = 320 x 240 px
         act room1;
-        room1._room_extent = {0, 16, 9, 23};
-
+        room1._extent = {0, 16, 10, 8};
         _acts.push_back(room1);
+
+        act room2;
+        room2._extent = {9, 16, 10, 8};
+        _acts.push_back(room2);
+
 
     }
 }

@@ -75,7 +75,7 @@ namespace pnk
 //            e->_spr = shared_from_this();
 //            pnk::_pnk._dispatcher.queueEvent(std::move(e));
         }
-        else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES_START && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
+        else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
         {
             // do nothing (for now)
         }

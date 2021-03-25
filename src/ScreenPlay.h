@@ -29,12 +29,11 @@ namespace pnk
         // TODO -> simple screenplay
         struct act
         {
-            /** center of the room in the tiled-level; unit: float */
-            dang::Vector2F      _room_center{0,0};
-
             /** size of room in tiles */
-            dang::RectU         _room_extent{0, 0, 0, 0};
+            dang::RectU         _extent{0, 0, 0, 0};
 
+            /** starting point of hero */
+            dang::Vector2F      _starting_point{0,0};
         };
 
         std::vector<act> _acts;

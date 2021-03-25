@@ -258,7 +258,7 @@
   <object id="344" type="crate_proto" gid="408" x="32" y="480" width="32" height="32"/>
   <object id="345" type="hotrect" x="-8" y="648" width="8" height="64"/>
   <object id="346" type="hotrect" x="960" y="528" width="8" height="64"/>
-  <object id="347" name="0-1" type="hotrect_trigger" x="301" y="544" width="8" height="32"/>
+  <object id="347" name="0-1" type="room_trigger" x="320" y="544" width="4" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="18" y="538" width="32" height="32"/>
