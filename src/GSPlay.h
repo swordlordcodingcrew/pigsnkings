@@ -68,8 +68,8 @@ namespace pnk
 
         // flow stuff
         ScreenPlay::act*        _active_act{nullptr};
+        int32_t                 _active_act_index{0};
         uint32_t                _last_time{0};
-        bool                    _room_transition{false};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};

@@ -19,23 +19,8 @@ namespace pnk
 
     RoomTrigger::RoomTrigger(const dang::tmx_spriteobject &so) : dang::CollisionSprite(so, nullptr)
     {
-
-        size_t pos{0};
-        _room1 = std::stoul(so.name, &pos);
-        _room2 = std::stoul(so.name.substr(pos+1, so.name.size()));
-
-        _pos12 = _pos;
-        _pos21 = _pos;
-        _pos21.x -= 36;
-
-/*        size_t pos = so.name.find('-');
-        if (pos != std::string::npos)
-        {
-            std::string r1 = so.name.substr(0, pos);
-            std::string r2 = so.name.substr(pos+1, so.name.size());
-
-        }
-*/    }
+        _room = std::stoul(so.name);
+    }
 
 
     void RoomTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
@@ -43,22 +28,8 @@ namespace pnk
         if (mf.me->_type_num == SpriteFactory::TN_KING || mf.other->_type_num == SpriteFactory::TN_KING)
         {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CHANGE_ROOM));
-            if (_is_pos12)
-            {
-                _is_pos12 = false;
-                _pos = _pos21;
-                e->_pos.x = _room2;
-            }
-            else
-            {
-                _is_pos12 = true;
-                _pos = _pos12;
-                e->_pos.x = _room1;
-
-            }
-
+            e->_pos.x = _room;
             _pnk._dispatcher.queueEvent(std::move(e));
-
         }
     }
 

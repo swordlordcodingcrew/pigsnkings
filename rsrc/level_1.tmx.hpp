@@ -370,9 +370,12 @@ dang::tmx_level init_level_1() {
         {344,"344","crate_proto",32,480,32,32,true,8,34},
         {345,"345","hotrect",-8,648,8,64,true,0,0},
         {346,"346","hotrect",960,528,8,64,true,0,0},
-        {347,"0-1","room_trigger",320,544,4,32,true,0,0}
+        {347,"1","room_trigger",317,544,2,32,true,0,0},
+        {348,"0","room_trigger",288,544,2,32,true,0,0},
+        {349,"2","room_trigger",640,576,2,32,true,0,0},
+        {350,"1","room_trigger",608,576,2,32,true,0,0}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",159,solvl_1_obj,2};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",162,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud

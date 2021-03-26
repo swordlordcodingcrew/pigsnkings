@@ -81,7 +81,8 @@ namespace pnk
         dang::TmxExtruder txtr(&_tmx);
 
         // choose room acc. to prefs
-        changeRoom(_pnk._prefs.active_room);
+        _active_act_index = _pnk._prefs.active_room;
+        changeRoom(_active_act_index);
 
         _last_time = blit::now();
 
@@ -186,6 +187,8 @@ namespace pnk
 
         PigsnKings::stopMod();
 
+//         _pnk._prefs.active_room = _active_act_index;
+
     }
 
     void GSPlay::initGameVars()
@@ -232,7 +235,11 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_ROOM)
         {
-            changeRoom(pe._pos.x);
+            if (pe._pos.x != _active_act_index)
+            {
+                _active_act_index = pe._pos.x;
+                changeRoom(_active_act_index);
+            }
         }
     }
 

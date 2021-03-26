@@ -18,9 +18,12 @@ namespace pnk
         _acts.push_back(room1);
 
         act room2;
-        room2._extent = {9, 16, 10, 8};
+        room2._extent = {9, 16, 11, 8};
         _acts.push_back(room2);
 
+        act room3;
+        room3._extent = {19, 16, 11, 8};
+        _acts.push_back(room3);
 
     }
 }
