@@ -13,6 +13,7 @@
 #include <CollisionSprite.hpp>
 #include <iostream>
 #include <memory>
+#include <sfx/coin_22050_mono.h>
 
 #include "GSPlay.h"
 #include "GSHome.h"
@@ -37,7 +38,6 @@
 #include "actors/npc/Throwies.h"
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
-#include "PnkEvent.h"
 #include "ScreenPlay.h"
 #include "SpriteFactory.hpp"
 #include "HUDLayer.hpp"
@@ -256,17 +256,144 @@ namespace pnk
                 std::cout << "attempted to remove stale sprite" << std::endl;
             }
         }
-        else if (pe._type == ETG_NEW_THROWN_CRATE)
+        else if (pe._type == ETG_NEW_THROWN_CRATE
+                || pe._type == ETG_NEW_THROWN_BOMB
+                || pe._type == ETG_NEW_FIRED_CANNON)
         {
-            spThrowies crate_proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
-            assert(crate_proto != nullptr);
-            spThrowies crate = std::make_shared<Throwies>(*crate_proto);
-            crate->setPos(pe._pos);
-            crate->_to_the_left = pe._to_the_left;
-            crate->init();
-            _csl->addCollisionSprite(crate);
+            handleNewThrowie(pe);
+        }
+        else if (pe._type == ETG_KING_HIT)
+        {
+            handleKingHealth(pe);
+        }
+        else if (pe._type == ETG_REWARD_HIT)
+        {
+            handleRewardCollected(pe);
         }
     }
+
+    void GSPlay::handleNewThrowie(PnkEvent& pe)
+    {
+        spThrowies crate_proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
+        assert(crate_proto != nullptr);
+        spThrowies crate = std::make_shared<Throwies>(*crate_proto);
+        crate->setPos(pe._pos);
+        crate->_to_the_left = pe._to_the_left;
+        crate->init();
+        _csl->addCollisionSprite(crate);
+    }
+
+    void GSPlay::handleKingHealth(PnkEvent& pe)
+    {
+        if(_pnk._invincible)
+        {
+            return;
+        }
+
+        // get current health (and yes, we want signed to go below 0!)
+        int8_t health = _pnk._prefs.health;
+
+        switch(pe._payload)
+        {
+            case SpriteFactory::TN_PIG_NORMAL:
+                health -= 30;
+                break;
+            case SpriteFactory::TN_PIG_BOMB:
+                health -= 35;
+                break;
+            case SpriteFactory::TN_PIG_BOX:
+                health -= 35;
+                break;
+            case SpriteFactory::TN_FLYING_BOMB:
+                health -= 10;
+                break;
+            case SpriteFactory::TN_FLYING_CRATE:
+                health -= 20;
+                break;
+            case SpriteFactory::TN_FLYING_CANNONBALL:
+                health -= 50;
+                break;
+        }
+
+        if(health <= 0)
+        {
+            handleKingLoosesLife();
+        }
+        else
+        {
+            _pnk._prefs.health = health;
+        }
+    }
+
+    void GSPlay::handleKingLoosesLife()
+    {
+        _pnk._prefs.lives -= 1;
+
+        if(_pnk._prefs.lives <= 0)
+        {
+            // TODO GAME OVER
+            _pnk._prefs.lives = 0;
+        }
+
+        // TODO define MAXHEALTH
+        _pnk._prefs.health = 100;
+    }
+
+    void GSPlay::handleRewardCollected(PnkEvent& pe)
+    {
+        switch (pe._payload)
+        {
+            case SpriteFactory::TN_COIN_SILVER:
+                addScore(10);
+                break;
+            case SpriteFactory::TN_COIN_GOLD:
+                addScore(50);
+                break;
+            case SpriteFactory::TN_GEM_BLUE:
+                addScore(30);
+                break;
+            case SpriteFactory::TN_GEM_GREEN:
+                addScore(60);
+                break;
+            case SpriteFactory::TN_GEM_RED:
+                addScore(100);
+                break;
+            case SpriteFactory::TN_POTION_BLUE:
+                addHealth(1);
+                break;
+            case SpriteFactory::TN_POTION_RED:
+                addHealth(5);
+                break;
+            case SpriteFactory::TN_POTION_GREEN:
+                addHealth(20);
+                break;
+                // Default gets nothing
+            default:
+                break;
+        }
+    }
+
+    void GSPlay::addScore(uint8_t score)
+    {
+        _pnk._prefs.score += score;
+        PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+    }
+
+    void GSPlay::addHealth(uint8_t healthGain)
+    {
+        uint8_t h = _pnk._prefs.health;
+
+        h += healthGain;
+
+        // TODO define MAXHEALTH
+        if(h > 100)
+        {
+            h = 100;
+        }
+
+        _pnk._prefs.health = h;
+    }
+
 
     void GSPlay::updateVpPos()
     {

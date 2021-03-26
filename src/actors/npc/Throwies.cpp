@@ -65,7 +65,10 @@ namespace pnk
 
     void Throwies::update(uint32_t dt)
     {
-        //
+        if(_remove_me)
+        {
+            removeSelf();
+        }
     }
 
     void Throwies::collide(const dang::CollisionSpriteLayer::manifold &mf)
@@ -77,12 +80,11 @@ namespace pnk
         }
         else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
-            // King hurts
-            _pnk.removeHealth(10);
+            // King hurt
+            tellTheKingWeHitHim();
 
             // me destroys
-            // TODO probably an error in the remove, game crashes when hit here...
-            this->removeSelf();
+            _remove_me = true;
         }
     }
 
@@ -94,6 +96,15 @@ namespace pnk
         }
 
         return dang::CollisionSpriteLayer::CR_NONE;
+    }
+
+    void Throwies::tellTheKingWeHitHim()
+    {
+        //
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
+        e->_spr = shared_from_this();
+        e->_payload = ~SpriteFactory::TN_FLYING_CRATE;
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void Throwies::removeSelf()

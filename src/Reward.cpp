@@ -124,41 +124,20 @@ namespace pnk
                     break;
             }
 
-            switch (this->_type_num)
-            {
-                case SpriteFactory::TN_COIN_SILVER:
-                    _pnk.addScore(10);
-                    break;
-                case SpriteFactory::TN_COIN_GOLD:
-                    _pnk.addScore(50);
-                    break;
-                case SpriteFactory::TN_GEM_BLUE:
-                    _pnk.addScore(30);
-                    break;
-                case SpriteFactory::TN_GEM_GREEN:
-                    _pnk.addScore(60);
-                    break;
-                case SpriteFactory::TN_GEM_RED:
-                    _pnk.addScore(100);
-                    break;
-                case SpriteFactory::TN_POTION_BLUE:
-                    _pnk.addHealth(1);
-                    break;
-                case SpriteFactory::TN_POTION_RED:
-                    _pnk.addHealth(5);
-                    break;
-                case SpriteFactory::TN_POTION_GREEN:
-                    _pnk.addHealth(20);
-                    break;
-                    // Default gets nothing
-                default:
-                    break;
-            }
-            PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+            createRewardEvent(this->_type_num);
 
             anim_poof->setFinishedCallback(std::bind(&Reward::removeSelf, this));
             setAnimation(anim_poof);
         }
+    }
+
+    void Reward::createRewardEvent(uint16_t rewardType)
+    {
+        // remove reward
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
+        e->_spr = shared_from_this();
+        e->_payload = rewardType;
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void Reward::removeSelf()

@@ -87,8 +87,8 @@ namespace pnk
             TN_PIG_BOMB = 105,
             TN_PIG_CANNON = 106,
             TN_FLYING_CRATE = 180,
-            TN_FLYING_BOMB = 180,
-            TN_FLYING_CANNONBALL = 180,
+            TN_FLYING_BOMB = 181,
+            TN_FLYING_CANNONBALL = 182,
             TN_ENEMIES_END = 199,
 
             // 200 - 299 hotrects

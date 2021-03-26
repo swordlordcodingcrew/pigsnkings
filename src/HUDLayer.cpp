@@ -42,6 +42,7 @@ namespace pnk
         // health bar
         // TODO: make sure it does not grow bigger than full size
         blit::screen.pen = healthColour;
-        blit::screen.rectangle(blit::Rect(58, 36, _pnk._prefs.health, 2));
+        float width = _pnk._prefs.health * 0.3;
+        blit::screen.rectangle(blit::Rect(58, 36, width, 2));
     }
 }

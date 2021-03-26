@@ -32,9 +32,12 @@ namespace pnk
 
     protected:
         void removeSelf();
+        void tellTheKingWeHitHim();
 
     protected:
         friend class SpriteFactory;
+
+        bool    _remove_me{false};
         // animations depot
         spTwAnim _anim_flying; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
     };

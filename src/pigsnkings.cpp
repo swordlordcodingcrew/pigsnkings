@@ -39,27 +39,6 @@ namespace pnk
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
 
-    // TODO think about having some logic somewhere where health == 0 results in the hero to die
-    void PigsnKings::removeHealth(uint8_t health)
-    {
-        _prefs.health -= health;
-        if(_prefs.health <= 0)
-        {
-            _prefs.health = 0;
-        }
-    }
-
-    // TODO think about having some logic somewhere where lives == 0 will end the game
-    void PigsnKings::removeLives(uint8_t lives)
-    {
-        _prefs.lives -= lives;
-
-        if(_prefs.lives <= 0)
-        {
-            _prefs.lives = 0;
-        }
-    }
-
     /**
      * static callback functions for DANG
      */
@@ -308,24 +287,9 @@ namespace pnk
 
     void PigsnKings::initGameVars()
     {
-        _prefs.health = 10;
+        _prefs.health = 100;
         _prefs.score = 0;
         _prefs.lives = 3;
-    }
-
-    void PigsnKings::addScore(uint16_t points)
-    {
-        _prefs.score += points;
-    }
-
-    void PigsnKings::addHealth(uint8_t health)
-    {
-        _prefs.health += health;
-    }
-
-    void PigsnKings::addLives(uint8_t lives)
-    {
-        _prefs.lives += lives;
     }
 }
 

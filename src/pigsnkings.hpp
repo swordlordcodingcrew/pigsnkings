@@ -47,11 +47,6 @@ namespace pnk
         static void stopMod();
 
         void initGameVars();
-        void addScore(uint16_t points);
-        void addHealth(uint8_t health);
-        void addLives(uint8_t lives);
-        void removeHealth(uint8_t health);
-        void removeLives(uint8_t lives);
 
         enum e_selection
         {
@@ -70,13 +65,15 @@ namespace pnk
             uint8_t selectedModule{PLAY};
 
             uint8_t  lives{3};
-            uint8_t  health{10};
+            uint8_t  health{100}; // percent
             uint32_t score{0};
             uint32_t active_level{1};
             uint32_t active_room{0};
         };
 
         prefs   _prefs;
+
+        bool _invincible{false};
 
     protected:
         // the gear

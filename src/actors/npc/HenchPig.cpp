@@ -45,11 +45,38 @@ namespace pnk
     void HenchPig::update(uint32_t dt)
     {
         _on_ground = false;
+
+        if(_currentState != _nextState)
+        {
+            // TODO actually we could do some logic here and enter a specific state instead?
+            // like pig wanted to enter picking up, could not because, let it enter sleep instead
+            switch (_nextState)
+            {
+                case SLEEPING:
+                    onEnterSleeping();
+                    break;
+                case HIDING:
+                    onEnterHiding();
+                    break;
+                case LOITERING:
+                    onEnterLoitering();
+                    break;
+                case THROWING:
+                    onEnterThrowing();
+                    break;
+                case PICKING_UP:
+                    onEnterPickingUp();
+                    break;
+                case BUBBLED:
+                    onEnterBubbled();
+                    break;
+            }
+        }
     }
 
     dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(spSprite other)
     {
-        if (currentState == BUBBLED)
+        if (_currentState == BUBBLED)
         {
             return dang::CollisionSpriteLayer::CR_NONE;
         }
@@ -111,35 +138,10 @@ namespace pnk
         }
     }
 
-    bool HenchPig::changeStateTo(e_state wishedState)
+    void HenchPig::prepareChangeState(e_state wishedState)
     {
-        bool b = false;
-
-        switch (wishedState)
-        {
-            case SLEEPING:
-                b = onEnterSleeping();
-                break;
-            case HIDING:
-                onEnterHiding();
-                break;
-            case LOITERING:
-                onEnterLoitering();
-                break;
-            case THROWING:
-                onEnterThrowing();
-                break;
-            case PICKING_UP:
-                onEnterPickingUp();
-                break;
-            case BUBBLED:
-                b = onEnterBubbled();
-                break;
-        }
-
-        // actually we could do some logic here and enter a specific state instead?
-        // like pig wanted to enter picking up, could not because, let it enter sleep instead
-        return b;
+        // TODO We could have some logic here as well, or in the update routine?
+        _nextState = wishedState;
     }
 
     bool HenchPig::onEnterSleeping()
@@ -153,7 +155,7 @@ namespace pnk
         {
             std::cerr << "_anim_m_sleeping is not set in HenchPig" << std::endl;
         }
-        currentState = SLEEPING;
+        _currentState = SLEEPING;
 
         removeTweens(true);
 
@@ -177,7 +179,7 @@ namespace pnk
         setAnimation(_anim_m_loitering);
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
 
-        currentState = LOITERING;
+        _currentState = LOITERING;
 
         spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
         nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
@@ -201,7 +203,7 @@ namespace pnk
     bool HenchPig::onEnterBubbled()
     {
         // TODO depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
-        currentState = BUBBLED;
+        _currentState = BUBBLED;
         return true;
     }
 
@@ -209,7 +211,7 @@ namespace pnk
     {
         this->Enemy::bubble();
 
-        changeStateTo(BUBBLED);
+        prepareChangeState(BUBBLED);
     }
 
     void HenchPig::deBubble()
@@ -218,16 +220,16 @@ namespace pnk
 
         // TODO Pigs are aggressive when debubbled,
         // don't just loiter, piggie!
-        changeStateTo(LOITERING);
+        prepareChangeState(LOITERING);
     }
 
     void HenchPig::endSleep()
     {
-        changeStateTo(LOITERING);
+        prepareChangeState(LOITERING);
     }
 
     void HenchPig::endLoitering()
     {
-        changeStateTo(SLEEPING);
+        prepareChangeState(SLEEPING);
     }
 }

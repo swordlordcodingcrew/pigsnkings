@@ -13,6 +13,7 @@
 #include "GameState.h"
 
 #include "ScreenPlay.h"
+#include "PnkEvent.h"
 
 
 namespace pnk
@@ -77,6 +78,15 @@ namespace pnk
         // reference to subscriber
         u_int32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
+
+        void handleKingHealth(PnkEvent& pe);
+        void handleNewThrowie(PnkEvent& pe);
+        void handleRewardCollected(PnkEvent& pe);
+
+        void addScore(uint8_t score);
+        void addHealth(uint8_t health);
+
+        void handleKingLoosesLife();
 
         void initGameVars();
         void updateVpPos();

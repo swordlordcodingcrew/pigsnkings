@@ -59,7 +59,7 @@ namespace pnk
         setAnimation(_anim_m_loitering);
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
 
-        currentState = LOITERING;
+        _currentState = LOITERING;
 
         spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
         nullTw->setFinishedCallback(std::bind(&PigCrate::endLoitering, this));
@@ -75,7 +75,7 @@ namespace pnk
         setAnimation(_anim_m_throwing);
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
 
-        currentState = THROWING;
+        _currentState = THROWING;
 
         spTwNull twPrepare = std::make_shared<dang::TwNull>(dang::TwNull(300, dang::Ease::Linear, 0));
         twPrepare->setFinishedCallback(std::bind(&PigCrate::throwing, this));
@@ -90,7 +90,7 @@ namespace pnk
 
     void PigCrate::endLoitering()
     {
-        changeStateTo(THROWING);
+        prepareChangeState(THROWING);
     }
 
     void PigCrate::throwing()
@@ -105,6 +105,6 @@ namespace pnk
     void PigCrate::endThrowing()
     {
         _anim_m_throwing->reset();
-        changeStateTo(SLEEPING);
+        prepareChangeState(SLEEPING);
     }
 }

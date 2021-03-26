@@ -6,6 +6,7 @@
 #include <Vector2T.hpp>
 #include <Event.hpp>
 #include <memory>
+#include "GameState.h"
 
 namespace dang
 {
@@ -20,6 +21,7 @@ namespace pnk
         PnkEvent(uint16_t filter, int32_t type);
         dang::Vector2F _pos{0,0};
         bool            _to_the_left{false};
+        uint16_t        _payload{0}; // contains event specific details, optional
         std::weak_ptr<dang::Sprite> _spr;
     };
 

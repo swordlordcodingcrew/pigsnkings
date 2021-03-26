@@ -139,7 +139,6 @@ namespace pnk
             _somatic_state = SomaticState::_hit;
             _somatic_state->enter(*this, dt);
 
-            _pnk.removeHealth(1);
             PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
 

@@ -51,10 +51,11 @@ namespace pnk
     protected:
 
         // the state the pig is in
-        uint8_t currentState{SLEEPING};
+        uint8_t _currentState{SLEEPING};
+        uint8_t _nextState{SLEEPING};
 
         // trying to change state, returns true if successful
-        virtual bool changeStateTo(e_state wishedState);
+        virtual void prepareChangeState(e_state wishedState);
 
         virtual bool onEnterSleeping();
         virtual bool onEnterHiding();
