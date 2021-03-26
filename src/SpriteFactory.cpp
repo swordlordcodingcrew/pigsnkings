@@ -5,7 +5,9 @@
 #include <iostream>
 #include <src/actors/npc/PigCrate.h>
 #include <src/actors/npc/PigBomb.h>
-#include <src/actors/npc/Throwies.h>
+#include <src/actors/throwies/Throwies.h>
+#include <src/actors/throwies/Craties.h>
+#include <src/actors/throwies/Bombies.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -244,13 +246,47 @@ namespace pnk
 
     spThrowies SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
     {
-        spThrowies ret = std::make_shared<pnk::Throwies>(so, is);
+        spThrowies ret = std::make_shared<pnk::Craties>(so, is);
         ret->_type_num = SpriteFactory::TN_FLYING_CRATE;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
         // bobbling with catched enemy
         ret->_anim_flying = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{34}, 600, dang::Ease::OutQuad , -1, false, 2000));
+        assert(ret->_anim_flying != nullptr);
+        ret->_anim_flying->loops(0);
+
+        ret->init();
+
+        return ret;
+    }
+
+    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    {
+        spThrowies ret = std::make_shared<pnk::Bombies>(so, is);
+        ret->_type_num = SpriteFactory::TN_FLYING_BOMB;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->_to_the_left = to_the_left;
+
+        // bobbling with catched enemy
+        ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_on");
+        assert(ret->_anim_flying != nullptr);
+        ret->_anim_flying->loops(-1);
+
+        ret->init();
+
+        return ret;
+    }
+
+    spThrowies SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    {
+        spThrowies ret = std::make_shared<pnk::Throwies>(so, is);
+        ret->_type_num = SpriteFactory::TN_FLYING_CANNONBALL;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->_to_the_left = to_the_left;
+
+        // bobbling with catched enemy
+        ret->_anim_flying = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{26, 27, 28, 29}, 600, dang::Ease::OutQuad , -1, false, 2000));
         assert(ret->_anim_flying != nullptr);
         ret->_anim_flying->loops(0);
 

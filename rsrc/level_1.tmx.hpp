@@ -31,7 +31,7 @@ dang::tmx_level init_level_1() {
     // Tileset: gfx_pig has ID: 6
     lvl.tilesets[6] = {"gfx_pig",16,32,32,512,32,16,1};
     // Tileset: character_pigbomb has ID: 7
-    lvl.tilesets[7] = {"character_pigbomb",25,32,32,800,32,25,1};
+    lvl.tilesets[7] = {"character_pigbomb",33,32,32,1056,32,33,1};
     // Tileset: character_pigcrate has ID: 8
     lvl.tilesets[8] = {"character_pigcrate",39,32,32,1248,32,39,1};
 
@@ -97,6 +97,12 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["character_pigbomb_throwing"] = {"character_pigbomb",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}};
     // Animation: bubbling
     lvl.tileanimation["character_pigbomb_bubbling"] = {"character_pigbomb",23,"bubbling",{{23, 100},{24, 100}}};
+    // Animation: bomb_off
+    lvl.tileanimation["character_pigbomb_bomb_off"] = {"character_pigbomb",25,"bomb_off",{{25, 100}}};
+    // Animation: bomb_on
+    lvl.tileanimation["character_pigbomb_bomb_on"] = {"character_pigbomb",26,"bomb_on",{{26, 100},{27, 100},{28, 100},{29, 100}}};
+    // Animation: bubbling
+    lvl.tileanimation["character_pigbomb_bubbling"] = {"character_pigbomb",31,"bubbling",{{31, 100},{32, 100}}};
     // Animation: picking_up
     lvl.tileanimation["character_pigcrate_picking_up"] = {"character_pigcrate",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}};
     // Animation: sleeping
@@ -373,9 +379,10 @@ dang::tmx_level init_level_1() {
         {347,"1","room_trigger",317,544,2,32,true,0,0},
         {348,"0","room_trigger",288,544,2,32,true,0,0},
         {349,"2","room_trigger",640,576,2,32,true,0,0},
-        {350,"1","room_trigger",608,576,2,32,true,0,0}
+        {350,"1","room_trigger",608,576,2,32,true,0,0},
+        {351,"351","bomb_proto",64,480,32,32,true,7,26}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",162,solvl_1_obj,2};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",163,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud

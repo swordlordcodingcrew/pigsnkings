@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="character_pigbomb" tilewidth="32" tileheight="32" tilecount="25" columns="25" objectalignment="topleft">
- <image source="../../gfx/characters/pig_bomb.png" trans="ff00ff" width="800" height="32"/>
+<tileset version="1.4" tiledversion="1.4.3" name="character_pigbomb" tilewidth="32" tileheight="32" tilecount="33" columns="33" objectalignment="topleft">
+ <image source="../../gfx/characters/pig_bomb.png" trans="ff00ff" width="1056" height="32"/>
  <tile id="0" type="picking_up">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -49,4 +49,23 @@
   </animation>
  </tile>
  <tile id="24" type="bubbling"/>
+ <tile id="25" type="bomb_off">
+  <animation>
+   <frame tileid="25" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="26" type="bomb_on">
+  <animation>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="27" duration="100"/>
+   <frame tileid="28" duration="100"/>
+   <frame tileid="29" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="31" type="bubbling">
+  <animation>
+   <frame tileid="31" duration="100"/>
+   <frame tileid="32" duration="100"/>
+  </animation>
+ </tile>
 </tileset>

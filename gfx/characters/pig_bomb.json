@@ -198,6 +198,70 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
+   },
+   "pig_bomb 25.aseprite": {
+    "frame": { "x": 800, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 26.aseprite": {
+    "frame": { "x": 832, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 27.aseprite": {
+    "frame": { "x": 864, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 28.aseprite": {
+    "frame": { "x": 896, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 29.aseprite": {
+    "frame": { "x": 928, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 30.aseprite": {
+    "frame": { "x": 960, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 31.aseprite": {
+    "frame": { "x": 992, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig_bomb 32.aseprite": {
+    "frame": { "x": 1024, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
    }
  },
  "meta": {
@@ -205,13 +269,17 @@
   "version": "1.x-dev",
   "image": "pig_bomb.png",
   "format": "RGBA8888",
-  "size": { "w": 800, "h": 32 },
+  "size": { "w": 1056, "h": 32 },
   "scale": "1",
   "frameTags": [
    { "name": "Picking Bomb", "from": 0, "to": 3, "direction": "forward" },
    { "name": "Idle", "from": 4, "to": 13, "direction": "forward" },
    { "name": "Run", "from": 14, "to": 19, "direction": "forward" },
-   { "name": "Throwing Boom", "from": 20, "to": 24, "direction": "forward" }
+   { "name": "Throwing Boom", "from": 20, "to": 24, "direction": "forward" },
+   { "name": "Bomb Off", "from": 25, "to": 25, "direction": "forward" },
+   { "name": "Bomb On", "from": 26, "to": 29, "direction": "forward" },
+   { "name": "Idle", "from": 30, "to": 30, "direction": "forward" },
+   { "name": "Bubbled", "from": 31, "to": 32, "direction": "forward" }
   ],
   "layers": [
    { "name": "Pig", "opacity": 255, "blendMode": "normal" }

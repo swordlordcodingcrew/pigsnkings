@@ -23,23 +23,24 @@ namespace pnk
         Throwies(const Throwies& bub);
         Throwies(const dang::tmx_spriteobject &so, spImagesheet is);
         ~Throwies() override;
-        void    init();
+        virtual void init();
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
         bool    _to_the_left{true};
 
+        // animations depot
+        spTwAnim _anim_flying; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
+
     protected:
         void removeSelf();
-        void tellTheKingWeHitHim();
+        virtual void tellTheKingWeHitHim();
 
     protected:
         friend class SpriteFactory;
 
         bool    _remove_me{false};
-        // animations depot
-        spTwAnim _anim_flying; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
     };
 }
 

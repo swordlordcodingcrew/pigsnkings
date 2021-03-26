@@ -4,39 +4,36 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
-#include <src/Enemy.h>
-#include "HenchPig.h"
+#include "Throwies.h"
 
 namespace pnk
 {
     struct tmx_spriteobject;
     class Imagesheet;
+    class Enemy;
 
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
-    class PigBomb : public HenchPig
+    class Bombies : public Throwies
     {
     public:
-        PigBomb();
-        PigBomb(const dang::tmx_spriteobject &so, spImagesheet is);
-        ~PigBomb() override;
-        void init();
-
+        Bombies();
+        Bombies(const Throwies& bub);
+        Bombies(const dang::tmx_spriteobject &so, spImagesheet is);
+        ~Bombies() override;
+        void init() override;
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        bool onEnterLoitering() override;
-        bool onEnterThrowing() override;
-
-        void endLoitering() override;
-        virtual void throwing();
-        virtual void endThrowing();
+    protected:
+        void tellTheKingWeHitHim() override;
 
     protected:
-
+        friend class SpriteFactory;
     };
-
 }
+

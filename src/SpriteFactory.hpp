@@ -25,6 +25,8 @@ namespace pnk
     class HenchPig;
     class Bubble;
     class Throwies;
+    class Craties;
+    class Bombies;
     //class Crate;
 }
 
@@ -37,8 +39,8 @@ using spHenchPig = std::shared_ptr<pnk::HenchPig>;
 using spReward = std::shared_ptr<pnk::Reward>;
 using spBubble = std::shared_ptr<pnk::Bubble>;
 using spThrowies = std::shared_ptr<pnk::Throwies>;
-//using spCrate = std::shared_ptr<pnk::Crate>;
-//using spBomb = std::shared_ptr<pnk::Bomb>;
+using spCraties = std::shared_ptr<pnk::Craties>;
+using spBombies = std::shared_ptr<pnk::Bombies>;
 //using spCannonball = std::shared_ptr<pnk::Cannonball>;
 
 namespace pnk
@@ -52,6 +54,7 @@ namespace pnk
         static inline const std::string T_KING{"king"};
         static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
         static inline const std::string T_CRATE_PROTO{"crate_proto"};
+        static inline const std::string T_BOMB_PROTO{"bomb_proto"};
         static inline const std::string T_HOTRECT{"hotrect"};
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
         static inline const std::string T_ROOM_TRIGGER{"room_trigger"};
@@ -121,6 +124,8 @@ namespace pnk
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
+        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
+        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
         static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject& so);

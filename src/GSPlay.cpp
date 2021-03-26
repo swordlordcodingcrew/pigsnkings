@@ -14,6 +14,7 @@
 #include <iostream>
 #include <memory>
 #include <sfx/coin_22050_mono.h>
+#include <src/actors/throwies/Bombies.h>
 
 #include "GSPlay.h"
 #include "GSHome.h"
@@ -35,7 +36,9 @@
 #include "Bubble.h"
 #include "Enemy.h"
 #include "actors/npc/HenchPig.h"
-#include "actors/npc/Throwies.h"
+#include "src/actors/throwies/Throwies.h"
+#include "src/actors/throwies/Bombies.h"
+#include "src/actors/throwies/Craties.h"
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
@@ -149,9 +152,15 @@ namespace pnk
                     assert(sprc != nullptr);
                     _hives["crate"] = sprc;
                 }
+                else if (so.type == SpriteFactory::T_BOMB_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is, false);
+                    assert(sprc != nullptr);
+                    _hives["bomb"] = sprc;
+                }
                 else
                 {
-                        std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
+                        //std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
                 }
             }
         }
@@ -245,13 +254,30 @@ namespace pnk
 
     void GSPlay::handleNewThrowie(PnkEvent& pe)
     {
-        spThrowies crate_proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
-        assert(crate_proto != nullptr);
-        spThrowies crate = std::make_shared<Throwies>(*crate_proto);
-        crate->setPos(pe._pos);
-        crate->_to_the_left = pe._to_the_left;
-        crate->init();
-        _csl->addCollisionSprite(crate);
+        if (pe._type == ETG_NEW_THROWN_CRATE)
+        {
+            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
+            assert(proto != nullptr);
+            spCraties crate = std::make_shared<Craties>(*proto);
+            crate->setPos(pe._pos);
+            crate->_to_the_left = pe._to_the_left;
+            crate->init();
+            _csl->addCollisionSprite(crate);
+        }
+        else if (pe._type == ETG_NEW_THROWN_BOMB)
+        {
+            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["bomb"]);
+            assert(proto != nullptr);
+            spBombies bomb = std::make_shared<Bombies>(*proto);
+            bomb->setPos(pe._pos);
+            bomb->_to_the_left = pe._to_the_left;
+            bomb->init();
+            _csl->addCollisionSprite(bomb);
+        }
+        else if (pe._type == ETG_NEW_FIRED_CANNON)
+        {}
+
+
     }
 
     void GSPlay::handleKingHealth(PnkEvent& pe)
@@ -410,8 +436,6 @@ namespace pnk
         _room_extent.h = _active_act->_extent.h * _tmx.w.tileHeight;
 
     }
-
-
 
 }
 
