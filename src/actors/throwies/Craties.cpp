@@ -99,7 +99,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = ~SpriteFactory::TN_FLYING_CRATE;
+        e->_payload = SpriteFactory::TN_FLYING_CRATE;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

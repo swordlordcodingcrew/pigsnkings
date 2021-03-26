@@ -52,9 +52,10 @@ namespace pnk
             spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
 
             /** collision with enemy */
-            if (other->_type_num == SpriteFactory::TN_PIG_NORMAL)
+            if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
             {
                 _hit = true;
+                _vel.y = 5;
             }
 
             /** hero hits a platform-hotrect */
@@ -138,12 +139,11 @@ namespace pnk
             _hit = false;
             _somatic_state = SomaticState::_hit;
             _somatic_state->enter(*this, dt);
-
-            PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
 
         std::shared_ptr<SomaticState> sst = _somatic_state->update(*this, dt);
 
+        // state changed
         if (sst != _somatic_state)
         {
             _somatic_state = sst;

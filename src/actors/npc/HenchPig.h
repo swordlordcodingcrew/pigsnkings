@@ -50,6 +50,8 @@ namespace pnk
         spTwAnim _anim_m_bubbling;
     protected:
 
+        virtual void tellTheKingWeHitHim();
+
         // the state the pig is in
         uint8_t _currentState{SLEEPING};
         uint8_t _nextState{SLEEPING};

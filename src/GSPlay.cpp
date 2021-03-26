@@ -15,6 +15,9 @@
 #include <memory>
 #include <sfx/coin_22050_mono.h>
 #include <src/actors/throwies/Bombies.h>
+#include <sfx/king_damage_22050.h>
+#include <sfx/health_22050_mono.h>
+#include <sfx/lifelost_22050_mono.h>
 
 #include "GSPlay.h"
 #include "GSHome.h"
@@ -319,6 +322,7 @@ namespace pnk
         else
         {
             _pnk._prefs.health = health;
+            PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
     }
 
@@ -334,6 +338,8 @@ namespace pnk
 
         // TODO define MAXHEALTH
         _pnk._prefs.health = 100;
+
+        PigsnKings::playSfx(lifelost_22050_mono, lifelost_22050_mono_length);
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -389,6 +395,7 @@ namespace pnk
         }
 
         _pnk._prefs.health = h;
+        PigsnKings::playSfx(health_22050_mono, health_22050_mono_length);
     }
 
 
