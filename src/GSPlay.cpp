@@ -38,6 +38,7 @@
 #include "actors/npc/Throwies.h"
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
+#include "PnkEvent.h"
 #include "ScreenPlay.h"
 #include "SpriteFactory.hpp"
 #include "HUDLayer.hpp"
@@ -53,41 +54,6 @@ namespace pnk
         else if (blit::buttons.pressed & blit::Button::MENU)
         {
 //            return GameState::_gs_prefs;
-        }
-
-        if (_room_transition)
-        {
-            bool triggered{false};
-
-            // viewport follows room center
-            dang::Vector2F heropos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
-
-            if (heropos.x > gear.getViewport().x + gear.getViewport().w + _room_buffer && _vp_pos.x + gear.getViewport().w < gear.getWorld().w)
-            {
-                _vp_pos.x += gear.getViewport().w;
-                triggered = true;
-            }
-            else if (heropos.x < gear.getViewport().x - _room_buffer && _vp_pos.x - gear.getViewport().x >= gear.getWorld().x)
-            {
-                _vp_pos.x -= gear.getViewport().w;
-                triggered = true;
-            }
-
-            if (heropos.y > gear.getViewport().y + gear.getViewport().h + _room_buffer && _vp_pos.y + gear.getViewport().h < gear.getWorld().h)
-            {
-                _vp_pos.y += gear.getViewport().h;
-                triggered = true;
-            }
-            else if (heropos.y < gear.getViewport().y - _room_buffer && _vp_pos.y - gear.getViewport().h >= gear.getWorld().y)
-            {
-                _vp_pos.y -= gear.getViewport().h;
-                triggered = true;
-            }
-
-            if (triggered)
-            {
-                // TODO: make transition to new room
-            }
         }
 
         updateVpPos();
@@ -115,11 +81,10 @@ namespace pnk
         dang::TmxExtruder txtr(&_tmx);
 
         // choose room acc. to prefs
-        _active_act = &_screenplay->_acts[_pnk._prefs.active_room];
+        _active_act_index = _pnk._prefs.active_room;
+        changeRoom(_active_act_index);
 
         _last_time = blit::now();
-        _spawn_ready = true;
-        _spawned = 0;
 
         dang::RectF vp = {0, 0, 320, 240};
         gear.initLevel(_tmx, vp);
@@ -144,6 +109,7 @@ namespace pnk
             spCollisionSprite spr = nullptr;
             if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
+            else if (so.type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
             else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
             else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
@@ -194,11 +160,6 @@ namespace pnk
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
-        // initialize room size
-        _room_extent.x = _active_act->_room_extent.x * _tmx.w.tileWidth;
-        _room_extent.y = _active_act->_room_extent.y * _tmx.w.tileHeight;
-        _room_extent.w = _active_act->_room_extent.w * _tmx.w.tileWidth;
-        _room_extent.h = _active_act->_room_extent.h * _tmx.w.tileHeight;
 
         // set viewport to active room
         updateVpPos();
@@ -221,6 +182,8 @@ namespace pnk
         gear.removeLayers();
 
         PigsnKings::stopMod();
+
+//         _pnk._prefs.active_room = _active_act_index;
 
     }
 
@@ -269,6 +232,14 @@ namespace pnk
         else if (pe._type == ETG_REWARD_HIT)
         {
             handleRewardCollected(pe);
+        }
+        else if (pe._type == ETG_CHANGE_ROOM)
+        {
+            if (pe._pos.x != _active_act_index)
+            {
+                _active_act_index = pe._pos.x;
+                changeRoom(_active_act_index);
+            }
         }
     }
 
@@ -397,7 +368,7 @@ namespace pnk
 
     void GSPlay::updateVpPos()
     {
-        // viewport follows room center
+        // viewport follows hero within room
         dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
         if (pos.x < _room_extent.left() + 160)
@@ -426,5 +397,21 @@ namespace pnk
             _vp_pos.y = pos.y;
         }
     }
+
+    void GSPlay::changeRoom(uint32_t room_nr)
+    {
+        assert(room_nr < _screenplay->_acts.size());
+
+        _active_act = &_screenplay->_acts[room_nr];
+        // initialize room size
+        _room_extent.x = _active_act->_extent.x * _tmx.w.tileWidth;
+        _room_extent.y = _active_act->_extent.y * _tmx.w.tileHeight;
+        _room_extent.w = _active_act->_extent.w * _tmx.w.tileWidth;
+        _room_extent.h = _active_act->_extent.h * _tmx.w.tileHeight;
+
+    }
+
+
+
 }
 

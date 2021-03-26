@@ -30,5 +30,7 @@ enum ET
     ETG_NEW_FIRED_CANNON = 22,
     ETG_REWARD_HIT = 30,
     ETG_KING_HIT = 60,
-    ETA_PAUSE = 100
+    ETG_CHANGE_ROOM = 101,
+    ETA_PAUSE = 201
 };
+
