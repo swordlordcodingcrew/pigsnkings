@@ -172,7 +172,6 @@ namespace pnk
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
-
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
