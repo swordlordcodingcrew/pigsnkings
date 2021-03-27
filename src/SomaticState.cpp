@@ -67,6 +67,8 @@ namespace pnk
     void NormalState::enter(Hero &hero, uint32_t dt)
     {
         hero._gravity = PigsnKings::_gravity;
+        hero.setVel({0,0});
+        hero.setAcc({0,0});
 
         if (hero._action_state == ActionState::_bubble)
         {
@@ -131,6 +133,7 @@ namespace pnk
 
     void HitState::enter(Hero &hero, uint32_t dt)
     {
+        hero._gravity = PigsnKings::_gravity;
         hero.removeAnimation();
         hero.setAnimation(hero._anim_s_enter);
         _last_time = 0;
@@ -140,11 +143,11 @@ namespace pnk
     std::shared_ptr<SomaticState> HitState::update(Hero &hero, uint32_t dt)
     {
         _last_time += dt;
-        if (_last_time > 1200)
+        if (_last_time > 1000)
         {
             return SomaticState::_normal;
         }
 
-        return SomaticState::_entering;
+        return SomaticState::_hit;
     }
 }

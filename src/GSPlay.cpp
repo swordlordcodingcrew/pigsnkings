@@ -333,7 +333,7 @@ namespace pnk
         if(_pnk._prefs.lives <= 0)
         {
             // TODO GAME OVER
-            _pnk._prefs.lives = 0;
+            _pnk._prefs.lives = 3;
         }
 
         // TODO define MAXHEALTH

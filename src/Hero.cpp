@@ -2,6 +2,8 @@
 // This file is part of the DANG game framework
 
 #include <tween/TwAnim.hpp>
+#include <tween/TwAcc.hpp>
+#include <tween/TwVel.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 #include <iostream>
@@ -55,7 +57,18 @@ namespace pnk
             if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
             {
                 _hit = true;
-                _vel.y = 5;
+                float ax{0};
+                if (mf.me.get() == this)
+                {
+                    ax = mf.normalMe.x > 0 ? -9 : 9;
+                }
+                else
+                {
+                    ax = mf.normalOther.x > 0 ? -9 : 9;
+                }
+                spTweenable twa = std::make_shared<dang::TwAcc>(dang::Vector2F{ax,-50.0}, dang::Vector2F{0,0}, 100, dang::Ease::Linear);
+                addTween(twa);
+
             }
 
             /** hero hits a platform-hotrect */
@@ -102,7 +115,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(spSprite other)
     {
-        if (_somatic_state == SomaticState::_normal)
+        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit)
         {
             if (other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
             {
@@ -122,12 +135,6 @@ namespace pnk
             return _coll_response;
         }
 
-/*        if (other->_type_num > SpriteFactory::TN_REWARDS && other->_type_num < SpriteFactory::TN_REWARDS_END)
-        {
-            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
-            return _coll_response;
-        }
-*/
         _coll_response = dang::CollisionSpriteLayer::CR_NONE;
         return _coll_response;
     }
