@@ -26,14 +26,16 @@ namespace pnk
         std::string         _l_mood_name;
         std::string         _l_hud_name;
 
-        // TODO -> simple screenplay
         struct act
         {
             /** size of room in tiles */
             dang::RectU         _extent{0, 0, 0, 0};
 
-            /** starting point of hero */
-            dang::Vector2F      _starting_point{0,0};
+            /**
+             * starting point of hero per room
+             * unit: relative tile coord. Meaning {0,0} is the top left corner of the room
+             * */
+            dang::Vector2U      _starting_position{0, 0};
         };
 
         std::vector<act> _acts;

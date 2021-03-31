@@ -77,8 +77,8 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["gfx_king_walk"] = {"gfx_king",10,"walk",{{10, 100},{11, 100},{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}};
     // Animation: bubble
     lvl.tileanimation["gfx_king_bubble"] = {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 100},{18, 100}}};
-    // Animation: hit
-    lvl.tileanimation["gfx_king_hit"] = {"gfx_king",21,"hit",{{21, 200},{22, 200},{23, 200}}};
+    // Animation: life_lost
+    lvl.tileanimation["gfx_king_life_lost"] = {"gfx_king",21,"life_lost",{{21, 600},{22, 600},{23, 600}}};
     // Animation: sleeping
     lvl.tileanimation["gfx_pig_sleeping"] = {"gfx_pig",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100}}};
     // Animation: loitering

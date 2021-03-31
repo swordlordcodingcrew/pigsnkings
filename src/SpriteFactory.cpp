@@ -31,39 +31,36 @@ namespace pnk
         ret->_type_num = SpriteFactory::TN_KING;
 
         // wait animation
-//      std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5, 6, 0}, 600, dang::Ease::Linear , -1, false, 2000));
         ret->_anim_m_wait = txtr.getAnimation(is->getName(), "wait");
-//        std::shared_ptr<dang::TwAnim> a = txtr.getAnimation(is->getName(), "wait");
         assert(ret->_anim_m_wait != nullptr);
         ret->_anim_m_wait->delay(2000);
 
         // walk animation
-//        _anim_m_walk = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{10, 11, 12, 13, 14, 15, 16, 17}, 600, dang::Ease::Linear, -1));
         ret->_anim_m_walk = txtr.getAnimation(is->getName(), "walk");
         assert(ret->_anim_m_walk != nullptr);
 
         // jump animation
-//        _anim_m_jump = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{9, 7, 8}, 100, dang::Ease::Linear));
         ret->_anim_m_jump = txtr.getAnimation(is->getName(), "jump");
         assert(ret->_anim_m_jump != nullptr);
 
         // on air (= not touching the ground) 'animation'
-//      _anim_m_on_air = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{7}, 600, dang::Ease::Linear))
         ret->_anim_m_on_air = txtr.getAnimation(is->getName(), "on_air");
         assert(ret->_anim_m_on_air != nullptr);
 
         // bubble animation
-//        _anim_bubble = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{18, 19, 20, 19, 18}, 300, dang::Ease::OutQuad, 1));
         ret->_anim_bubble = txtr.getAnimation(is->getName(), "bubble");
         assert(ret->_anim_bubble != nullptr);
         ret->_anim_bubble->loops(1);
         ret->_anim_bubble->easeFunction(&dang::Ease::OutQuad);
 
-        // entering game animation
-//        _anim_s_enter = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 25}, 200, dang::Ease::Linear, -1));
-        ret->_anim_s_enter = txtr.getAnimation(is->getName(), "blink");
-        assert(ret->_anim_bubble != nullptr);
+        // entering & hit game animation
+        ret->_anim_s_blink = txtr.getAnimation(is->getName(), "blink");
+        assert(ret->_anim_s_blink != nullptr);
 
+        // life lost animation
+        ret->_anim_s_life_lost = txtr.getAnimation(is->getName(), "life_lost");
+        assert(ret->_anim_s_life_lost != nullptr);
+        ret->_anim_s_life_lost->loops(1);
 
         ret->activateState();
         return ret;

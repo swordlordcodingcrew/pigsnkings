@@ -7,6 +7,8 @@
 #include <tween/TwAnim.hpp>
 //#include "pnk_globals.h"
 #include "GSPlay.h"
+#include "Hero.h"
+
 
 #define HERO_JUMP blit::Button::A
 

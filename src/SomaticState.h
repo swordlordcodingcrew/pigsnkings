@@ -4,6 +4,7 @@
 #pragma once
 
 #include <memory>
+#include <Vector2T.hpp>
 
 namespace pnk
 {
@@ -12,7 +13,7 @@ namespace pnk
     class ExitState;
     class HitState;
     class NormalState;
-    class PauseState;
+    class LifeLostState;
 
     class SomaticState
     {
@@ -21,6 +22,7 @@ namespace pnk
         static std::shared_ptr<ExitState> _exit;
         static std::shared_ptr<NormalState> _normal;
         static std::shared_ptr<HitState> _hit;
+        static std::shared_ptr<LifeLostState> _life_lost;
 
         virtual std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) = 0;
         virtual void enter(Hero& hero, uint32_t dt) = 0;
@@ -57,5 +59,17 @@ namespace pnk
     protected:
         uint32_t _last_time{0};
     };
+
+    class LifeLostState : public SomaticState
+    {
+    public:
+        void enter(Hero& hero, uint32_t dt) override;
+        std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) override;
+        dang::Vector2F  _restart_pos{0,0};
+    protected:
+        uint32_t _duration{0};
+
+    };
+
 }
 

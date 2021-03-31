@@ -64,7 +64,6 @@ namespace pnk
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
-        const uint32_t          _room_buffer = 2;  // "hotrect" when the room shall change
         dang::RectF             _room_extent{0,0,0,0};
 
         // flow stuff
