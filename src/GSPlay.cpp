@@ -335,6 +335,11 @@ namespace pnk
             _pnk._prefs.lives = 3;
         }
 
+        dang::Vector2F sp;
+        sp.x = (_active_act->_extent.x + _active_act->_starting_position.x) *_tmx.w.tileWidth;
+        sp.y = (_active_act->_extent.y + _active_act->_starting_position.y) * _tmx.w.tileHeight;
+        _spr_hero->lifeLost(sp);
+
         // TODO define MAXHEALTH
         _pnk._prefs.health = 100;
 

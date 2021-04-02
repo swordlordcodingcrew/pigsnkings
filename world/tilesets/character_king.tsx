@@ -51,11 +51,11 @@
    <frame tileid="18" duration="100"/>
   </animation>
  </tile>
- <tile id="21" type="hit">
+ <tile id="21" type="life_lost">
   <animation>
-   <frame tileid="21" duration="200"/>
-   <frame tileid="22" duration="200"/>
-   <frame tileid="23" duration="200"/>
+   <frame tileid="21" duration="600"/>
+   <frame tileid="22" duration="600"/>
+   <frame tileid="23" duration="600"/>
   </animation>
  </tile>
 </tileset>

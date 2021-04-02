@@ -2,6 +2,8 @@
 // This file is part of the DANG game framework
 
 #include <tween/TwAnim.hpp>
+#include <tween/TwAcc.hpp>
+#include <tween/TwVel.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 #include <iostream>
@@ -42,7 +44,7 @@ namespace pnk
         _somatic_state->enter(*this, 0);
         _motion_state = MotionState::_on_air;
         _action_state = ActionState::_no_action;
-        setAnimation(_anim_s_enter);
+        setAnimation(_anim_s_blink);
     }
 
     void Hero::collide(const dang::CollisionSpriteLayer::manifold &mf)
@@ -55,7 +57,36 @@ namespace pnk
             if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
             {
                 _hit = true;
-                _vel.y = 5;
+                float ax{0};
+                if (mf.me.get() == this)
+                {
+                    if (mf.normalMe.x == 0)
+                    {
+                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                    }
+                    else
+                    {
+                        ax = mf.normalMe.x > 0 ? -9 : 9;
+                    }
+                }
+                else
+                {
+                    if (mf.normalOther.x == 0)
+                    {
+                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                    }
+                    else
+                    {
+                        ax = mf.normalOther.x > 0 ? -9 : 9;
+                    }
+                }
+                spTweenable twa = std::make_shared<dang::TwAcc>(dang::Vector2F{ax,-50.0}, dang::Vector2F{0,0}, 100, dang::Ease::Linear);
+                twa->setFinishedCallback([=]{
+                    _vel.x = 0;
+                    _vel.y = 0;
+                });
+                addTween(twa);
+
             }
 
             /** hero hits a platform-hotrect */
@@ -102,7 +133,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(spSprite other)
     {
-        if (_somatic_state == SomaticState::_normal)
+        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit)
         {
             if (other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
             {
@@ -122,19 +153,20 @@ namespace pnk
             return _coll_response;
         }
 
-/*        if (other->_type_num > SpriteFactory::TN_REWARDS && other->_type_num < SpriteFactory::TN_REWARDS_END)
-        {
-            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
-            return _coll_response;
-        }
-*/
         _coll_response = dang::CollisionSpriteLayer::CR_NONE;
         return _coll_response;
     }
 
     void Hero::update(uint32_t dt)
     {
-        if (_hit)
+        if (_life_lost)
+        {
+            _hit = false;
+            _life_lost = false;
+            _somatic_state = SomaticState::_life_lost;
+            _somatic_state->enter(*this, dt);
+        }
+        else if (_hit)
         {
             _hit = false;
             _somatic_state = SomaticState::_hit;
@@ -154,13 +186,12 @@ namespace pnk
         _top_hit = false;
     }
 
-
-/*    void Hero::gameEventReceived(dang::Event &e)
+    void Hero::lifeLost(const dang::Vector2F& restart_pos)
     {
-        PnkEvent& pe = static_cast<PnkEvent&>(e);
-        if (pe._type == ETA_PAUSE)
-        {
+        _life_lost = true;
+        SomaticState::_life_lost->_restart_pos = restart_pos;
 
-        }
-*/
+    }
+
+
 }

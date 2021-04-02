@@ -29,8 +29,6 @@ namespace pnk
 
         void update(uint32_t dt) override;
 
-//        void gameEventReceived(dang::Event &e);
-
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
@@ -38,12 +36,14 @@ namespace pnk
         bool isOnGround() const { return _on_ground; }
         bool topHit() const { return _top_hit; }
 
+        void lifeLost(const dang::Vector2F& restart_pos);
+
     protected:
         friend class NormalState;
         friend class EnteringState;
         friend class ExitState;
         friend class HitState;
-        friend class PauseState;
+        friend class LifeLostState;
         friend class WaitState;
         friend class WalkState;
         friend class JumpState;
@@ -55,6 +55,7 @@ namespace pnk
         bool    _on_ground{false};
         bool    _top_hit{false};
         bool    _hit{false};
+        bool    _life_lost{false};
 
         // state stuff
         std::shared_ptr<SomaticState>   _somatic_state;
@@ -68,7 +69,8 @@ namespace pnk
         spTwAnim _anim_m_jump;
         spTwAnim _anim_m_on_air;
         spTwAnim _anim_bubble;
-        spTwAnim _anim_s_enter;
+        spTwAnim _anim_s_blink;
+        spTwAnim _anim_s_life_lost;
 
     };
 

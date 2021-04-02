@@ -20,6 +20,7 @@ namespace pnk
     std::shared_ptr<ExitState> SomaticState::_exit = std::make_shared<ExitState>();
     std::shared_ptr<NormalState> SomaticState::_normal = std::make_shared<NormalState>();
     std::shared_ptr<HitState> SomaticState::_hit = std::make_shared<HitState>();
+    std::shared_ptr<LifeLostState> SomaticState::_life_lost = std::make_shared<LifeLostState>();
 
     /**************************************************
      * class EnteringState
@@ -28,7 +29,7 @@ namespace pnk
     void EnteringState::enter(Hero &hero, uint32_t dt)
     {
         hero.removeAnimation();
-        hero.setAnimation(hero._anim_s_enter);
+        hero.setAnimation(hero._anim_s_blink);
         hero._gravity = {0,0};
         _last_time = 0;
     }
@@ -51,7 +52,7 @@ namespace pnk
     void ExitState::enter(Hero &hero, uint32_t dt)
     {
         hero.removeAnimation();
-        hero.setAnimation(hero._anim_s_enter);
+        hero.setAnimation(hero._anim_s_blink);
         hero._gravity = {0,0};
     }
 
@@ -129,10 +130,14 @@ namespace pnk
         return SomaticState::_normal;
     }
 
+    /**************************************************
+     * class HitState
+     */
+
     void HitState::enter(Hero &hero, uint32_t dt)
     {
         hero.removeAnimation();
-        hero.setAnimation(hero._anim_s_enter);
+        hero.setAnimation(hero._anim_s_blink);
         _last_time = 0;
         hero.setVel({0,0});
     }
@@ -146,5 +151,32 @@ namespace pnk
         }
 
         return SomaticState::_entering;
+    }
+
+
+    /**************************************************
+     * class LifeLostState
+     */
+
+    void LifeLostState::enter(Hero &hero, uint32_t dt)
+    {
+        hero._gravity = PigsnKings::_gravity;
+        hero.removeAnimation();
+        hero._anim_s_life_lost->reset();
+        hero.setAnimation(hero._anim_s_life_lost);
+        hero.setVel({0,0});
+        _duration = 0;
+    }
+
+    std::shared_ptr<SomaticState> LifeLostState::update(Hero &hero, uint32_t dt)
+    {
+        _duration += dt;
+        if (_duration > 4000)
+        {
+            hero.setPos(_restart_pos);
+            return SomaticState::_normal;
+        }
+
+        return SomaticState::_life_lost;
     }
 }
