@@ -263,7 +263,7 @@
   <object id="349" name="2" type="room_trigger" x="640" y="576" width="2" height="32"/>
   <object id="350" name="1" type="room_trigger" x="608" y="576" width="2" height="32"/>
   <object id="351" type="bomb_proto" gid="393" x="64" y="480" width="32" height="32"/>
-  <object id="352" gid="357" x="96" y="480" width="32" height="32"/>
+  <object id="352" type="pigboom_proto" gid="357" x="96" y="480" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
   <object id="250" gid="332" x="15" y="18" width="32" height="32"/>
