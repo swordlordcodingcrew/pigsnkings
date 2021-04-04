@@ -29,7 +29,7 @@ dang::tmx_level init_level_1() {
     // Tileset: gfx_king has ID: 5
     lvl.tilesets[5] = {"gfx_king",27,32,32,864,32,27,1};
     // Tileset: gfx_pig has ID: 6
-    lvl.tilesets[6] = {"gfx_pig",16,32,32,512,32,16,1};
+    lvl.tilesets[6] = {"gfx_pig",34,32,32,1088,32,34,1};
     // Tileset: character_pigbomb has ID: 7
     lvl.tilesets[7] = {"character_pigbomb",33,32,32,1056,32,33,1};
     // Tileset: character_pigcrate has ID: 8
@@ -87,6 +87,8 @@ dang::tmx_level init_level_1() {
     lvl.tileanimation["gfx_pig_bubbling"] = {"gfx_pig",13,"bubbling",{{12, 100},{13, 100}}};
     // Animation: hitting
     lvl.tileanimation["gfx_pig_hitting"] = {"gfx_pig",14,"hitting",{{14, 100},{15, 100}}};
+    // Animation: poof
+    lvl.tileanimation["gfx_pig_poof"] = {"gfx_pig",24,"poof",{{24, 100},{25, 100},{26, 100},{27, 100},{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}};
     // Animation: picking_up
     lvl.tileanimation["character_pigbomb_picking_up"] = {"character_pigbomb",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100}}};
     // Animation: sleeping
@@ -380,17 +382,18 @@ dang::tmx_level init_level_1() {
         {348,"0","room_trigger",288,544,2,32,true,0,0},
         {349,"2","room_trigger",640,576,2,32,true,0,0},
         {350,"1","room_trigger",608,576,2,32,true,0,0},
-        {351,"351","bomb_proto",64,480,32,32,true,7,26}
+        {351,"351","bomb_proto",64,480,32,32,true,7,26},
+        {352,"352","pigpoof_proto",96,480,32,32,true,6,24}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",163,solvl_1_obj,2};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",164,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud
     dang::tmx_spriteobject solvl_1_hud[] = {
-        {250,"250","",18,538,32,32,true,5,26},
-        {251,"251","",49,557,16,16,true,4,61},
-        {252,"252","",65,557,16,16,true,4,62},
-        {254,"254","",81,557,16,16,true,4,63}
+        {250,"250","",15,18,32,32,true,5,26},
+        {251,"251","",46,37,16,16,true,4,61},
+        {252,"252","",62,37,16,16,true,4,62},
+        {254,"254","",78,37,16,16,true,4,63}
     };
     dang::tmx_objectlayer llvl_1_hud = {"lvl_1_hud",4,solvl_1_hud,3};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_hud));

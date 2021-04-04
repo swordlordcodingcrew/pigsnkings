@@ -23,7 +23,8 @@ namespace pnk
         LOITERING,
         THROWING,
         PICKING_UP,
-        BUBBLED // this one is tricky, since it it managed by the Enemy base class
+        BUBBLED, // this one is tricky, since it it managed by the Enemy base class
+        REMOVE_SELF
     };
 
     class HenchPig : public Enemy
@@ -68,6 +69,10 @@ namespace pnk
 
         virtual void endSleep();
         virtual void endLoitering();
+
+        virtual void poofing();
+
+        virtual void removeSelf();
 
         const uint8_t _loiter_speed{2};
     };

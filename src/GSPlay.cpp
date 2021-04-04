@@ -15,6 +15,7 @@
 #include <memory>
 #include <sfx/coin_22050_mono.h>
 #include <src/actors/throwies/Bombies.h>
+#include <src/actors/others/Moodies.h>
 #include <sfx/king_damage_22050.h>
 #include <sfx/health_22050_mono.h>
 #include <sfx/lifelost_22050_mono.h>
@@ -161,6 +162,12 @@ namespace pnk
                     assert(sprc != nullptr);
                     _hives["bomb"] = sprc;
                 }
+                else if (so.type == SpriteFactory::T_PIG_POOF_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
+                    assert(sprc != nullptr);
+                    _hives["poof"] = sprc;
+                }
                 else
                 {
                         //std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
@@ -236,6 +243,10 @@ namespace pnk
         {
             handleNewThrowie(pe);
         }
+        else if (pe._type == ETG_NEW_POOF)
+        {
+            handleNewPoof(pe);
+        }
         else if (pe._type == ETG_KING_HIT)
         {
             handleKingHealth(pe);
@@ -280,6 +291,16 @@ namespace pnk
         {}
 
 
+    }
+
+    void GSPlay::handleNewPoof(PnkEvent& pe)
+    {
+        spMoodies proto = std::dynamic_pointer_cast<Moodies>(_hives["poof"]);
+        assert(proto != nullptr);
+        spMoodies poof = std::make_shared<Moodies>(*proto);
+        poof->setPos(pe._pos);
+        poof->init();
+        _csl->addCollisionSprite(poof);
     }
 
     void GSPlay::handleKingHealth(PnkEvent& pe)

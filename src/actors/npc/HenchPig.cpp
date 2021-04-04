@@ -70,6 +70,9 @@ namespace pnk
                 case BUBBLED:
                     onEnterBubbled();
                     break;
+                case REMOVE_SELF:
+                    removeSelf();
+                    break;
             }
         }
     }
@@ -98,6 +101,8 @@ namespace pnk
         else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
             tellTheKingWeHitHim();
+
+            poofing();
         }
         else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES &&
                  mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
@@ -237,6 +242,24 @@ namespace pnk
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = SpriteFactory::TN_PIG_NORMAL;
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+    }
+
+    void HenchPig::poofing()
+    {
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_POOF));
+        e->_pos = this->getPos();
+        e->_pos.y += 5;
+        _pnk._dispatcher.queueEvent(std::move(e));
+
+        _nextState = REMOVE_SELF;
+    }
+
+    void HenchPig::removeSelf()
+    {
+        // remove throwie
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+        e->_spr = shared_from_this();
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

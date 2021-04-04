@@ -77,6 +77,7 @@ namespace pnk
 
         void handleKingHealth(PnkEvent& pe);
         void handleNewThrowie(PnkEvent& pe);
+        void handleNewPoof(PnkEvent& pe);
         void handleRewardCollected(PnkEvent& pe);
 
         void addScore(uint8_t score);

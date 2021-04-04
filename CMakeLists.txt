@@ -41,6 +41,8 @@ set(SOURCES
         src/actors/npc/PigCrate.h
         src/actors/npc/PigBomb.cpp
         src/actors/npc/PigBomb.h
+        src/actors/others/Moodies.cpp
+        src/actors/others/Moodies.h
         tracks/gocryogo.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h

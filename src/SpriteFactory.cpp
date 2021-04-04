@@ -8,6 +8,7 @@
 #include <src/actors/throwies/Throwies.h>
 #include <src/actors/throwies/Craties.h>
 #include <src/actors/throwies/Bombies.h>
+#include <src/actors/others/Moodies.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -160,6 +161,22 @@ namespace pnk
 
         return ret;
     }
+
+    spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is)
+    {
+        spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
+        ret->_type_num = SpriteFactory::TN_PIG_POOF;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "poof");
+        assert(ret->_anim_m_standard != nullptr);
+        ret->_anim_m_standard->loops(-1);
+
+        ret->init();
+
+        return ret;
+    }
+
 
     spReward SpriteFactory::Reward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {

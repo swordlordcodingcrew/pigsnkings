@@ -50,7 +50,7 @@
    <frame tileid="33" duration="100"/>
   </animation>
  </tile>
- <tile id="24">
+ <tile id="24" type="poof">
   <animation>
    <frame tileid="24" duration="100"/>
    <frame tileid="25" duration="100"/>
