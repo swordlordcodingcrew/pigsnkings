@@ -80,11 +80,7 @@ namespace pnk
                         ax = mf.normalOther.x > 0 ? -9 : 9;
                     }
                 }
-                spTweenable twa = std::make_shared<dang::TwAcc>(dang::Vector2F{ax,-50.0}, dang::Vector2F{0,0}, 100, dang::Ease::Linear);
-                twa->setFinishedCallback([=]{
-                    _vel.x = 0;
-                    _vel.y = 0;
-                });
+                spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, _pnk._gravity, 1000, dang::Ease::InQuad);
                 addTween(twa);
 
             }
@@ -133,7 +129,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(spSprite other)
     {
-        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit)
+        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {
             if (other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
             {
