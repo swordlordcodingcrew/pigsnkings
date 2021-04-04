@@ -20,6 +20,7 @@
 #include "Enemy.h"
 #include "Bubble.h"
 #include "RoomTrigger.h"
+#include "PnkEvent.h"
 
 #include "GSPlay.h"
 
@@ -170,7 +171,7 @@ namespace pnk
 
         ret->_anim_m_standard = txtr.getAnimation(is->getName(), "poof");
         assert(ret->_anim_m_standard != nullptr);
-        ret->_anim_m_standard->loops(-1);
+        ret->_anim_m_standard->loops(1);
 
         ret->init();
 

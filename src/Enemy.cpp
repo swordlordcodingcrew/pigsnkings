@@ -71,9 +71,15 @@ namespace pnk
         }
         else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
-//            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-//            e->_spr = shared_from_this();
-//            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+            // remove self
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+            e->_spr = shared_from_this();
+            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+            // poof
+            std::unique_ptr<PnkEvent> ep(new PnkEvent(EF_GAME, ETG_NEW_POOF));
+            ep->_spr = shared_from_this();
+            pnk::_pnk._dispatcher.queueEvent(std::move(ep));
         }
         else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
         {
@@ -128,4 +134,5 @@ namespace pnk
         removeAnimation();
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, dang::Ease::Linear, -1)));
     }
+
 }

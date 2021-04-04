@@ -300,6 +300,13 @@ namespace pnk
         spMoodies poof = std::make_shared<Moodies>(*proto);
         poof->setPos(pe._pos);
         poof->init();
+        poof->_anim_m_standard->setFinishedCallback([=]
+           {
+               std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+               e->_spr = poof;
+               pnk::_pnk._dispatcher.queueEvent(std::move(e));
+           });
+
         _csl->addCollisionSprite(poof);
     }
 
