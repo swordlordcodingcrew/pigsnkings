@@ -111,6 +111,7 @@ namespace pnk
             TN_POTION_BLUE = 306,
             TN_POTION_RED = 307,
             TN_POTION_GREEN = 308,
+            TN_PIG_REWARD = 309,
             TN_REWARDS_END = 399,
 
             // 400 - 499 triggers

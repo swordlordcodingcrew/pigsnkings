@@ -42,7 +42,8 @@ namespace pnk
         std::cout << "bubble copy constructor" << std::endl;
 
         _to_the_left = bub._to_the_left;
-        _state = bub._state;
+        _state = bs_hatch;
+//        _state = bub._state;
         _anim_blow = std::make_shared<dang::TwAnim>(*(bub._anim_blow));
         _anim_bobble = std::make_shared<dang::TwAnim>(*(bub._anim_bobble));
         _anim_poof = std::make_shared<dang::TwAnim>(*(bub._anim_poof));
@@ -122,14 +123,16 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if ((mf.other->_type_num == SpriteFactory::TN_PIG_NORMAL || mf.me->_type_num == SpriteFactory::TN_PIG_NORMAL)
+        if (((mf.other->_type_num > SpriteFactory::TN_ENEMIES && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
+                || (mf.me->_type_num > SpriteFactory::TN_ENEMIES && mf.me->_type_num < SpriteFactory::TN_ENEMIES_END))
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
-            _catched_en = std::static_pointer_cast<Enemy>(mf.other->_type_num == SpriteFactory::TN_PIG_NORMAL ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.me == shared_from_this() ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
                 _pos = en->getPos() - _delta_catch;
+                en->bubble();
             }
             _state = bs_enemy_catched;
 
@@ -170,17 +173,32 @@ namespace pnk
                 if (_state == bs_enemy_catched)
                 {
                     PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
-                    // TODO: reward
-                }
 
-                removeTweens(true);
-
-                if (!_catched_en.expired())
-                {
-                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                    e->_spr = _catched_en;
+                    // reward
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
+                    e->_payload = SpriteFactory::TN_PIG_REWARD;
+                    e->_spr = shared_from_this();
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+                    // remove enemy with a poof
+                    std::shared_ptr<Enemy> en = _catched_en.lock();
+                    if (en)
+                    {
+                        // remove enemy
+                        std::unique_ptr<PnkEvent> er(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+                        er->_spr = _catched_en;
+                        pnk::_pnk._dispatcher.queueEvent(std::move(er));
+
+                        // poof
+                        std::unique_ptr<PnkEvent> ep(new PnkEvent(EF_GAME, ETG_NEW_POOF));
+                        ep->_pos = en->getPos();
+                        ep->_pos.y += 5;
+                        pnk::_pnk._dispatcher.queueEvent(std::move(ep));
+                    }
+
+                    // wash hands
                     _catched_en.reset();
+
                 }
 
                 _vel = {0,0};

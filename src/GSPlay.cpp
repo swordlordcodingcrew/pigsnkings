@@ -402,6 +402,9 @@ namespace pnk
             case SpriteFactory::TN_POTION_GREEN:
                 addHealth(20);
                 break;
+            case SpriteFactory::TN_PIG_REWARD:
+                addScore(100);
+                break;
                 // Default gets nothing
             default:
                 break;

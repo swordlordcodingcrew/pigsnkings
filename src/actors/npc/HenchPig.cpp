@@ -96,7 +96,8 @@ namespace pnk
     {
         if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
         {
-            bubble();
+            // the bubble will call bubble()
+//            bubble();
         }
         else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
         {
@@ -104,8 +105,10 @@ namespace pnk
 
             poofing();
         }
-        else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES &&
+        else if ((mf.other->_type_num > SpriteFactory::TN_ENEMIES &&
                  mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
+                 || (mf.me->_type_num > SpriteFactory::TN_ENEMIES &&
+                     mf.me->_type_num < SpriteFactory::TN_ENEMIES_END))
         {
             // do nothing (for now)
         }
@@ -162,7 +165,7 @@ namespace pnk
 
         removeTweens(true);
 
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 1));
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
         addTween(nullTw);
 
@@ -184,7 +187,7 @@ namespace pnk
 
         _currentState = LOITERING;
 
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 1));
         nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
         addTween(nullTw);
 
@@ -206,24 +209,37 @@ namespace pnk
     bool HenchPig::onEnterBubbled()
     {
         // TODO depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
+        removeTweens(true);
         _currentState = BUBBLED;
         return true;
     }
 
     void HenchPig::bubble()
     {
-        this->Enemy::bubble();
+        _gravity = {0,0};
+        setVel({0,0});
+        removeAnimation();
+        _anim_m_bubbling->reset();
+        setAnimation(_anim_m_bubbling);
 
         prepareChangeState(BUBBLED);
     }
 
     void HenchPig::deBubble()
     {
-        this->Enemy::deBubble();
-
         // TODO Pigs are aggressive when debubbled,
         // don't just loiter, piggie!
+        _gravity = PigsnKings::_gravity;
+        removeAnimation();
+        _anim_m_loitering->reset();
+        setAnimation(_anim_m_loitering);
+
         prepareChangeState(LOITERING);
+    }
+
+    bool HenchPig::isBubbled()
+    {
+        return _currentState == BUBBLED;
     }
 
     void HenchPig::endSleep()

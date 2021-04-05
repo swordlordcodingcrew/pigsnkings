@@ -41,6 +41,7 @@ namespace pnk
 
         void bubble() override;
         void deBubble() override;
+        bool isBubbled() override;
 
         // animations depot
         spTwAnim _anim_m_sleeping;

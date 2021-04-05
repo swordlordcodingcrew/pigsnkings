@@ -50,7 +50,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Enemy::getCollisionResponse(spSprite other)
     {
-        if (_bubbled)
+/*        if (_bubbled)
         {
             return dang::CollisionSpriteLayer::CR_NONE;
         }
@@ -59,13 +59,13 @@ namespace pnk
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
-
+*/
         return dang::CollisionSpriteLayer::CR_SLIDE;
     }
 
     void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
+/*        if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
         {
             bubble();
         }
@@ -115,9 +115,9 @@ namespace pnk
         }
 #endif
         }
-    }
+*/    }
 
-    void Enemy::bubble()
+/*    void Enemy::bubble()
     {
         _bubbled = true;
         _gravity = {0,0};
@@ -134,5 +134,5 @@ namespace pnk
         removeAnimation();
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, dang::Ease::Linear, -1)));
     }
-
+*/
 }
