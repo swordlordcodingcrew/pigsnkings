@@ -4,7 +4,7 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
-#include <src/Enemy.h>
+#include <src/actors/npc/Enemy.h>
 
 namespace pnk
 {

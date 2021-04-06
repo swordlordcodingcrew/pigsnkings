@@ -10,7 +10,7 @@
 
 #include "HenchPig.h"
 #include "src/pnk_globals.h"
-#include "src/Enemy.h"
+#include "Enemy.h"
 #include "src/PnkEvent.h"
 #include "src/GSPlay.h"
 #include "src/SpriteFactory.hpp"

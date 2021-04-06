@@ -7,12 +7,12 @@
 #include <sfx/coin_22050_mono.h>
 
 #include "TmxExtruder.hpp"
-#include "pigsnkings.hpp"
+#include "src/pigsnkings.hpp"
 
 #include "Reward.h"
-#include "GSPlay.h"
-#include "SpriteFactory.hpp"
-#include "PnkEvent.h"
+#include "src/GSPlay.h"
+#include "src/SpriteFactory.hpp"
+#include "src/PnkEvent.h"
 
 namespace pnk
 {

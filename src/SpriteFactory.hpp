@@ -5,7 +5,7 @@
 
 #include <string>
 #include <memory>
-#include "Reward.h"
+#include "src/actors/others/Reward.h"
 
 namespace dang
 {

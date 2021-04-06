@@ -36,9 +36,9 @@
 
 #include "tracks/gocryogo.h"
 
-#include "Hero.h"
-#include "Bubble.h"
-#include "Enemy.h"
+#include "src/actors/hero/Hero.h"
+#include "src/actors/throwies/Bubble.h"
+#include "src/actors/npc/Enemy.h"
 #include "actors/npc/HenchPig.h"
 #include "src/actors/throwies/Throwies.h"
 #include "src/actors/throwies/Bombies.h"

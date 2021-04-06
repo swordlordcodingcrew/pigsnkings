@@ -12,11 +12,11 @@
 #include "Hero.h"
 #include "MotionState.h"
 #include "SomaticState.h"
-#include "pigsnkings.hpp"
-#include "pnk_globals.h"
-#include "PnkEvent.h"
-#include "Bubble.h"
-#include "SpriteFactory.hpp"
+#include "src/pigsnkings.hpp"
+#include "src/pnk_globals.h"
+#include "src/PnkEvent.h"
+#include "src/actors/throwies/Bubble.h"
+#include "src/SpriteFactory.hpp"
 
 namespace pnk
 {

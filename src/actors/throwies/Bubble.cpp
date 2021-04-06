@@ -10,15 +10,15 @@
 #include <tween/TwVel.hpp>
 
 #include "TmxExtruder.hpp"
-#include "pigsnkings.hpp"
+#include "src/pigsnkings.hpp"
 #include "Bubble.h"
-#include "Enemy.h"
-#include "PnkEvent.h"
-#include "pnk_globals.h"
-#include "GSPlay.h"
+#include "src/actors/npc/Enemy.h"
+#include "src/PnkEvent.h"
+#include "src/pnk_globals.h"
+#include "src/GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
-#include "SpriteFactory.hpp"
+#include "src/SpriteFactory.hpp"
 
 namespace pnk
 {

@@ -13,7 +13,7 @@
 #include "src/pigsnkings.hpp"
 #include "Throwies.h"
 #include "Craties.h"
-#include "src/Enemy.h"
+#include "src/actors/npc/Enemy.h"
 #include "src/PnkEvent.h"
 #include "src/pnk_globals.h"
 #include "src/GSPlay.h"

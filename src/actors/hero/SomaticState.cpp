@@ -5,9 +5,9 @@
 #include <iostream>
 
 #include "SomaticState.h"
-#include "MotionState.h"
-#include "Hero.h"
-#include "pigsnkings.hpp"
+#include "src/actors/hero/MotionState.h"
+#include "src/actors/hero/Hero.h"
+#include "src/pigsnkings.hpp"
 
 namespace pnk
 {

@@ -4,11 +4,11 @@
 #include <engine/input.hpp>
 #include <iostream>
 
-#include "pnk_globals.h"
+#include "src/pnk_globals.h"
 #include "ActionState.h"
-#include "pigsnkings.hpp"
-#include "PnkEvent.h"
-#include "Hero.h"
+#include "src/pigsnkings.hpp"
+#include "src/PnkEvent.h"
+#include "src/actors/hero/Hero.h"
 #include <Event.hpp>
 
 namespace pnk

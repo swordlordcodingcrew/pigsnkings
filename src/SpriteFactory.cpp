@@ -16,10 +16,10 @@
 #include "tween/Ease.hpp"
 
 #include "SpriteFactory.hpp"
-#include "Hero.h"
-#include "Enemy.h"
-#include "Bubble.h"
-#include "RoomTrigger.h"
+#include "src/actors/hero/Hero.h"
+#include "src/actors/npc/Enemy.h"
+#include "src/actors/throwies/Bubble.h"
+#include "src/actors/others/RoomTrigger.h"
 #include "PnkEvent.h"
 
 #include "GSPlay.h"

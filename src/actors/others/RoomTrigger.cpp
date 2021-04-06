@@ -2,10 +2,10 @@
 // This file is part of the pnk game
 
 #include "RoomTrigger.h"
-#include "SpriteFactory.hpp"
-#include "PnkEvent.h"
-#include "pnk_globals.h"
-#include "pigsnkings.hpp"
+#include "src/SpriteFactory.hpp"
+#include "src/PnkEvent.h"
+#include "src/pnk_globals.h"
+#include "src/pigsnkings.hpp"
 
 #include <TmxExtruder.hpp>
 

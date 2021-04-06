@@ -5,7 +5,7 @@
 #include <graphics/sprite.hpp>
 
 #include "MotionState.h"
-#include "Hero.h"
+#include "src/actors/hero/Hero.h"
 
 #ifdef PNK_DEBUG
 #include <iostream>
