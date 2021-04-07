@@ -235,7 +235,7 @@ namespace pnk
 
         }
 
-        if (other->_type_num == SpriteFactory::TN_PIG_NORMAL)
+        if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }
