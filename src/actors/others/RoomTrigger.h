@@ -15,13 +15,13 @@ namespace pnk
     {
     public:
         RoomTrigger();
-        explicit RoomTrigger(const dang::tmx_spriteobject &so);
-//        ~RoomTrigger() override;
+        RoomTrigger(const dang::tmx_spriteobject &so, bool warp);
 
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
     protected:
         uint32_t _room{0};
+        bool    _warp;
     };
 
 }

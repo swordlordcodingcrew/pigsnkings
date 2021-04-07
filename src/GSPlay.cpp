@@ -93,9 +93,6 @@ namespace pnk
 
         dang::TmxExtruder txtr(&_tmx);
 
-        // choose room acc. to prefs
-        _active_act_index = _pnk._prefs.active_room;
-        changeRoom(_active_act_index);
 
         _last_time = blit::now();
 
@@ -123,6 +120,7 @@ namespace pnk
             if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
             else if (so.type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
+            else if (so.type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
             else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
@@ -138,10 +136,6 @@ namespace pnk
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
-            }
-            else
-            {
-                std::cerr << "type unknown: " << so.type << std::endl;
             }
 
             if (spr != nullptr)
@@ -176,7 +170,7 @@ namespace pnk
                 }
                 else
                 {
-                        //std::cout << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
+                        std::cerr << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
                 }
             }
         }
@@ -184,6 +178,9 @@ namespace pnk
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
+
+        // choose room acc. to prefs
+        changeRoom(_pnk._prefs.active_room, true);
 
         // set viewport to active room
         updateVpPos();
@@ -263,10 +260,16 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_ROOM)
         {
-            if (pe._pos.x != _active_act_index)
+            if (pe._payload != _active_act_index)
             {
-                _active_act_index = pe._pos.x;
-                changeRoom(_active_act_index);
+                changeRoom(pe._payload, false);
+            }
+        }
+        else if (pe._type == ETG_WARP_ROOM)
+        {
+            if (pe._payload != _active_act_index)
+            {
+                changeRoom(pe._payload, true);
             }
         }
     }
@@ -370,8 +373,8 @@ namespace pnk
         }
 
         dang::Vector2F sp;
-        sp.x = (_active_act->_extent.x + _active_act->_starting_position.x) *_tmx.w.tileWidth;
-        sp.y = (_active_act->_extent.y + _active_act->_starting_position.y) * _tmx.w.tileHeight;
+        sp.x = (_active_act->_extent.x + _active_act->_enter_position.x) * _tmx.w.tileWidth;
+        sp.y = (_active_act->_extent.y + _active_act->_enter_position.y) * _tmx.w.tileHeight;
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
@@ -472,7 +475,7 @@ namespace pnk
         }
     }
 
-    void GSPlay::changeRoom(uint32_t room_nr)
+    void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
         assert(room_nr < _screenplay->_acts.size());
 
@@ -483,6 +486,16 @@ namespace pnk
         _room_extent.w = _active_act->_extent.w * _tmx.w.tileWidth;
         _room_extent.h = _active_act->_extent.h * _tmx.w.tileHeight;
 
+        if (warp)
+        {
+            dang::Vector2F sp;
+
+            sp.x = (_active_act->_extent.x + (room_nr < _active_act_index ? _active_act->_exit_position.x : _active_act->_enter_position.x)) * _tmx.w.tileWidth;
+            sp.y = (_active_act->_extent.y + (room_nr < _active_act_index ? _active_act->_exit_position.y : _active_act->_enter_position.y)) * _tmx.w.tileHeight;
+            _spr_hero->setPos(sp);
+        }
+
+        _active_act_index = room_nr;
     }
 
 }

@@ -35,7 +35,8 @@ namespace pnk
              * starting point of hero per room
              * unit: relative tile coord. Meaning {0,0} is the top left corner of the room
              * */
-            dang::Vector2U      _starting_position{0, 0};
+            dang::Vector2U      _enter_position{0, 0};
+            dang::Vector2U      _exit_position{0, 0};
         };
 
         std::vector<act> _acts;

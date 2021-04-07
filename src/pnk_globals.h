@@ -32,6 +32,7 @@ enum ET
     ETG_REWARD_HIT = 30,
     ETG_KING_HIT = 60,
     ETG_CHANGE_ROOM = 101,
+    ETG_WARP_ROOM = 102,
     ETA_PAUSE = 201
 };
 

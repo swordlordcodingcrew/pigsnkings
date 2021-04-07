@@ -90,7 +90,7 @@ namespace pnk
 
     spCollisionSprite SpriteFactory::RoomTrigger(const dang::tmx_spriteobject &so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so);
+        spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, false);
         ret->_visible = false;
         ret->_type_num = SpriteFactory::TN_ROOM_TRIGGER;
         ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
@@ -98,6 +98,15 @@ namespace pnk
         return ret;
     }
 
+    spCollisionSprite SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject &so)
+    {
+        spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
+        ret->_visible = false;
+        ret->_type_num = SpriteFactory::TN_WARP_ROOM_TRIGGER;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+
+        return ret;
+    }
 
     spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
     {
