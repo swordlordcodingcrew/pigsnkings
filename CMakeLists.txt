@@ -25,24 +25,20 @@ add_subdirectory(libs/DANG)
 
 # ---- Sources ----
 aux_source_directory(src SRC)
+aux_source_directory(src/actors SRC_ACTORS)
+aux_source_directory(src/actors/throwies SRC_ACTORS_THROWIES)
+aux_source_directory(src/actors/npc SRC_ACTORS_NPC)
+aux_source_directory(src/actors/others SRC_ACTORS_OTHERS)
+aux_source_directory(src/actors/hero SRC_ACTORS_HERO)
 aux_source_directory(rsrc RSRC)
 set(SOURCES
         ${SRC}
+        ${SRC_ACTORS}
+        ${SRC_ACTORS_THROWIES}
+        ${SRC_ACTORS_NPC}
+        ${SRC_ACTORS_OTHERS}
+        ${SRC_ACTORS_HERO}
         ${RSRC}
-        src/actors/throwies/Throwies.cpp
-        src/actors/throwies/Throwies.h
-        src/actors/throwies/Craties.cpp
-        src/actors/throwies/Craties.h
-        src/actors/throwies/Bombies.cpp
-        src/actors/throwies/Bombies.h
-        src/actors/npc/HenchPig.cpp
-        src/actors/npc/HenchPig.h
-        src/actors/npc/PigCrate.cpp
-        src/actors/npc/PigCrate.h
-        src/actors/npc/PigBomb.cpp
-        src/actors/npc/PigBomb.h
-        src/actors/others/Moodies.cpp
-        src/actors/others/Moodies.h
         tracks/gocryogo.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h

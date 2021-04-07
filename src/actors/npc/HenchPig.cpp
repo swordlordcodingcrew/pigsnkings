@@ -1,19 +1,20 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <tween/TwAnim.hpp>
-#include <Imagesheet.hpp>
 #include <iostream>
 
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
+#include <tween/TwAnim.hpp>
+#include <Imagesheet.hpp>
+#include <TmxExtruder.hpp>
 
-#include "HenchPig.h"
 #include "src/pnk_globals.h"
-#include "Enemy.h"
 #include "src/PnkEvent.h"
 #include "src/GSPlay.h"
 #include "src/SpriteFactory.hpp"
+#include "src/pigsnkings.hpp"
+
+#include "HenchPig.h"
+#include "Enemy.h"
 
 namespace pnk
 {

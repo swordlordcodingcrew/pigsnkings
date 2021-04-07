@@ -1,27 +1,43 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
+#include <cassert>
+#include <iostream>
+#include <memory>
+
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
 #include <TileLayer.hpp>
 #include <Layer.hpp>
-#include <cassert>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <CollisionSprite.hpp>
-#include <iostream>
-#include <memory>
-#include <sfx/coin_22050_mono.h>
-#include <src/actors/throwies/Bombies.h>
-#include <src/actors/others/Moodies.h>
-#include <sfx/king_damage_22050.h>
-#include <sfx/health_22050_mono.h>
-#include <sfx/lifelost_22050_mono.h>
 
+#include "src/actors/hero/Hero.h"
+#include "src/actors/npc/Enemy.h"
+#include "src/actors/npc/HenchPig.h"
+#include "src/actors/throwies/Bombies.h"
+#include "src/actors/throwies/Bubble.h"
+#include "src/actors/throwies/Throwies.h"
+#include "src/actors/throwies/Craties.h"
+#include "src/actors/others/Moodies.h"
+
+#include "pnk_globals.h"
+#include "pigsnkings.hpp"
+#include "PnkEvent.h"
+#include "ScreenPlay.h"
+#include "SpriteFactory.hpp"
 #include "GSPlay.h"
 #include "GSHome.h"
+#include "HUDLayer.hpp"
+
+#include "tracks/gocryogo.h"
+#include "sfx/coin_22050_mono.h"
+#include "sfx/king_damage_22050.h"
+#include "sfx/health_22050_mono.h"
+#include "sfx/lifelost_22050_mono.h"
 
 #include "rsrc/gfx/pig_bomb.png.h"
 #include "rsrc/gfx/pig_crate.png.h"
@@ -32,23 +48,13 @@
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
+#include "rsrc/gfx/castle_tiles.png.h"
+#include "rsrc/gfx/castle_decoration_tiles.png.h"
+#include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 
-#include "tracks/gocryogo.h"
 
-#include "src/actors/hero/Hero.h"
-#include "src/actors/throwies/Bubble.h"
-#include "src/actors/npc/Enemy.h"
-#include "actors/npc/HenchPig.h"
-#include "src/actors/throwies/Throwies.h"
-#include "src/actors/throwies/Bombies.h"
-#include "src/actors/throwies/Craties.h"
-#include "pnk_globals.h"
-#include "pigsnkings.hpp"
-#include "PnkEvent.h"
-#include "ScreenPlay.h"
-#include "SpriteFactory.hpp"
-#include "HUDLayer.hpp"
+
 
 namespace pnk
 {

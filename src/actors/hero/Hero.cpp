@@ -7,7 +7,6 @@
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 #include <iostream>
-#include <sfx/king_damage_22050.h>
 
 #include "Hero.h"
 #include "MotionState.h"
@@ -17,6 +16,8 @@
 #include "src/PnkEvent.h"
 #include "src/actors/throwies/Bubble.h"
 #include "src/SpriteFactory.hpp"
+
+#include "sfx/king_damage_22050.h"
 
 namespace pnk
 {
