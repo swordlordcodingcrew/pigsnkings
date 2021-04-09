@@ -15,27 +15,35 @@ namespace pnk
         // viewport = 320 x 240 px
         act room0;
         room0._extent = {0, 16, 10, 8};
-        room0._enter_position = {0, 5};
-        room0._exit_position = {8, 1};
+        /** the starting point of the level */
+        room0._passage_to[-1] = {0, 5};
+        /** passage to room 1 */
+        room0._passage_to[1] = {8, 1};
         _acts.push_back(room0);
 
         act room1;
         room1._extent = {9, 16, 11, 8};
-        room1._enter_position = {0, 1};
-        room1._exit_position = {10, 2};
+        room1._passage_to[0] = {0, 1};
+        room1._passage_to[2] = {10, 2};
         _acts.push_back(room1);
 
         act room2;
         room2._extent = {19, 16, 11, 8};
-        room2._enter_position = {1, 2};
-        room2._exit_position = {10, 1};
+        room2._passage_to[1] = {1, 2};
+        room2._passage_to[3] = {10, 1};
         _acts.push_back(room2);
 
         act room3;
-        room3._extent = {9, 0, 21, 8};
-        room3._enter_position = {20, 2};
-        room3._exit_position = {0, 2};
+        room3._extent = {20, 8, 10, 8};
+        room3._passage_to[2] = {0, 6};
+        room3._passage_to[4] = {0, 4};
         _acts.push_back(room3);
+
+        act room4;
+        room4._extent = {9, 0, 21, 8};
+        room4._passage_to[3] = {20, 2};
+        room4._passage_to[5] = {0, 2};
+        _acts.push_back(room4);
 
 /*        act room4;
         room4._extent = {9, 0, 21, 8};

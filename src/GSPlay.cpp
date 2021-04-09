@@ -373,8 +373,9 @@ namespace pnk
         }
 
         dang::Vector2F sp;
-        sp.x = (_active_act->_extent.x + _active_act->_enter_position.x) * _tmx.w.tileWidth;
-        sp.y = (_active_act->_extent.y + _active_act->_enter_position.y) * _tmx.w.tileHeight;
+        dang::Vector2U restart_pos = _active_act->_passage_to[_active_act_index-1];
+        sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx.w.tileWidth;
+        sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx.w.tileHeight;
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
@@ -490,8 +491,9 @@ namespace pnk
         {
             dang::Vector2F sp;
 
-            sp.x = (_active_act->_extent.x + (room_nr < _active_act_index ? _active_act->_exit_position.x : _active_act->_enter_position.x)) * _tmx.w.tileWidth;
-            sp.y = (_active_act->_extent.y + (room_nr < _active_act_index ? _active_act->_exit_position.y : _active_act->_enter_position.y)) * _tmx.w.tileHeight;
+            dang::Vector2U passage = _active_act->_passage_to[_active_act_index];
+            sp.x = (_active_act->_extent.x + passage.x) * _tmx.w.tileWidth;
+            sp.y = (_active_act->_extent.y + passage.y) * _tmx.w.tileHeight;
             _spr_hero->setPos(sp);
         }
 

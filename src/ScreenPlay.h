@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace pnk
 {
@@ -32,11 +33,11 @@ namespace pnk
             dang::RectU         _extent{0, 0, 0, 0};
 
             /**
-             * starting point of hero per room
+             * passages to other rooms
+             * the hash key is the room number, the value is the position in the room
              * unit: relative tile coord. Meaning {0,0} is the top left corner of the room
              * */
-            dang::Vector2U      _enter_position{0, 0};
-            dang::Vector2U      _exit_position{0, 0};
+            std::unordered_map<int32_t,dang::Vector2U>  _passage_to;
         };
 
         std::vector<act> _acts;
