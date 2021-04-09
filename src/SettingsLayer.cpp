@@ -174,7 +174,7 @@ namespace pnk
         blit::screen.pen = {200, 20, 200, 255};
         blit::screen.pixel(blit::Point(10,10));
 
-        if(bRendered) return;
+//        if(bRendered) return;
 
         raytrace();
 

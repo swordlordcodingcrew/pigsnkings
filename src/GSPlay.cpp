@@ -70,7 +70,19 @@ namespace pnk
         }
 
         updateVpPos();
-        gear.follow(_vp_pos);
+        if (_warp)
+        {
+            dang::Vector2F pos;
+            pos.x = _vp_pos.x - 160;
+            pos.y = _vp_pos.y - 120;
+
+            gear.setViewportPos(pos);
+            _warp = false;
+        }
+        else
+        {
+            gear.follow(_vp_pos);
+        }
 
         return GameState::_gs_play;
     }
@@ -373,7 +385,7 @@ namespace pnk
         }
 
         dang::Vector2F sp;
-        dang::Vector2U restart_pos = _active_act->_passage_to[_active_act_index-1];
+        dang::Vector2U restart_pos = _active_act->_passage_from[_active_act_index - 1];
         sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx.w.tileWidth;
         sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx.w.tileHeight;
         _spr_hero->lifeLost(sp);
@@ -491,10 +503,11 @@ namespace pnk
         {
             dang::Vector2F sp;
 
-            dang::Vector2U passage = _active_act->_passage_to[_active_act_index];
+            dang::Vector2U passage = _active_act->_passage_from[_active_act_index];
             sp.x = (_active_act->_extent.x + passage.x) * _tmx.w.tileWidth;
             sp.y = (_active_act->_extent.y + passage.y) * _tmx.w.tileHeight;
             _spr_hero->setPos(sp);
+            _warp = true;
         }
 
         _active_act_index = room_nr;
