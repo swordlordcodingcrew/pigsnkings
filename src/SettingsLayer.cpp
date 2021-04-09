@@ -1,4 +1,4 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
 #include <iostream>
@@ -7,6 +7,42 @@
 #include "SettingsLayer.h"
 #include "Layer.hpp"
 #include "Imagesheet.hpp"
+
+#include "tinyraytracer.h" // see https://github.com/ssloy/tinyraytracer
+
+bool bRendered = false;
+
+void raytrace() {
+    Material      ivory(1.0, Vec4f(0.6,  0.3, 0.1, 0.0), Vec3f(0.4, 0.4, 0.3),   50.);
+    Material      glass(1.5, Vec4f(0.0,  0.5, 0.1, 0.8), Vec3f(0.6, 0.7, 0.8),  125.);
+    Material red_rubber(1.0, Vec4f(0.9,  0.1, 0.0, 0.0), Vec3f(0.4, 0.1, 0.1),   10.);
+    Material     mirror(1.0, Vec4f(0.0, 10.0, 0.8, 0.0), Vec3f(1.0, 1.0, 1.0), 1425.);
+
+    std::vector<Sphere> spheres;
+    spheres.push_back(Sphere(Vec3f(-3,    0,   -16), 2,      ivory));
+    spheres.push_back(Sphere(Vec3f(-1.0, -1.5, -12), 2,      glass));
+    spheres.push_back(Sphere(Vec3f( 1.5, -0.5, -18), 3, red_rubber));
+//    spheres.push_back(Sphere(Vec3f( 7,    5,   -18), 4,     mirror));
+
+    std::vector<Light>  lights;
+    lights.push_back(Light(Vec3f(-20, 20,  20), 1.5));
+    lights.push_back(Light(Vec3f( 30, 50, -25), 1.8));
+    lights.push_back(Light(Vec3f( 30, 20,  30), 1.7));
+
+    render(spheres, lights);
+}
+
+struct point {
+    float initialx;
+    float initialy;
+    float initialz;
+    float x;
+    float y;
+    float z;
+};
+
+uint32_t framenum = 0;
+point ivorySphereCoords = { 0, -1.5, -14 };
 
 namespace pnk
 {
@@ -20,8 +56,6 @@ namespace pnk
         blit::screen.pen = backgroundColour;
         displayRect = blit::Rect(0, 0, blit::screen.bounds.w, blit::screen.bounds.h);
         blit::screen.rectangle(displayRect);
-
-
 
         // Init tables
         for (int i = 0; i < SINE_VALUES; i++) {
@@ -79,7 +113,6 @@ namespace pnk
                 }
             }
         }
-
     }
 
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
@@ -112,11 +145,17 @@ namespace pnk
             Blobs[i].x += -2 + (5.0 * (rand() / (RAND_MAX + 2.0)));
             Blobs[i].y += -2 + (5.0 * (rand() / (RAND_MAX + 2.0)));
         }
+
+        framenum += dt;
+        ivorySphereCoords.x = ivorySphereCoords.initialx + (4*sin( ((float)framenum)*M_PI*2 ));
+        ivorySphereCoords.z = ivorySphereCoords.initialz + (2*cos( ((float)framenum)*M_PI*2 ));
+        ivorySphereCoords.y = ivorySphereCoords.initialy + fabs(2.75*cos( ((float)((framenum*2)))*M_PI*2 ));
     }
 
     void SettingsLayer::render(const dang::Gear& gear)
     {
 
+        /*
         // Draw balls
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -130,6 +169,17 @@ namespace pnk
                 blit::screen.pixel(blit::Point(x, y));
             }
         }
+         */
+
+        blit::screen.pen = {200, 20, 200, 255};
+        blit::screen.pixel(blit::Point(10,10));
+
+        if(bRendered) return;
+
+        raytrace();
+
+        bRendered = true;
+
 
         // blobs here
         // Draw blobs
@@ -138,6 +188,13 @@ namespace pnk
             if (Blobs[i].x > 0 && Blobs[i].x < WIDTH - BLOB_DRADIUS && Blobs[i].y > 0 && Blobs[i].y < HEIGHT - BLOB_DRADIUS) {
                 for (int y = 0; y < BLOB_DRADIUS; y++) {
                     for (int x = 0; x < BLOB_DRADIUS; x++) {
+
+                        // getpixel: Pointer to the pixel, so depends on the pixel format. p = screen.ptr(...); p[0] is either the palette index (if format == P) or the red channel (RGB/RGBA)
+                        // Though maybe there should be a method on Surface that returns a Pen...
+
+                        // Surface *backdrop = Surface::load(pic)
+                        // auto p = backdrop>ptr(Vec2(x,y));
+                        // Pen *pen = Pen( p[0], p[1], p[2] );
 
                         unsigned char color = CLAMP255(RETRO_GetPixel(Blobs[i].x + x, Blobs[i].y + y) + Blob[y * BLOB_DRADIUS + x]);
 
@@ -153,7 +210,6 @@ namespace pnk
         */
 
         /*
-
         // 3d here
         static double angle = 0;
         angle += 0.01;
