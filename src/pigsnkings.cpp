@@ -81,6 +81,11 @@ namespace pnk
 
     }
 
+    PigsnKings::~PigsnKings()
+    {
+        removeImagesheets();
+    }
+
     void PigsnKings::init()
     {
         blit::set_screen_mode(blit::ScreenMode::hires);
@@ -291,6 +296,7 @@ namespace pnk
         _prefs.score = 0;
         _prefs.lives = 3;
     }
+
 }
 
 /**

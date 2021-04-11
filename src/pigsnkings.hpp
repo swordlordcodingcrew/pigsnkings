@@ -26,6 +26,7 @@ namespace pnk
     {
     public:
         PigsnKings();
+        ~PigsnKings();
 
         static const dang::Vector2F _gravity;
 
