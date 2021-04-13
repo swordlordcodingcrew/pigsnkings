@@ -28,6 +28,7 @@ namespace pnk
 {
     spHero SpriteFactory::King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is)
     {
+        assert(is != nullptr);
         spHero ret = std::make_shared<pnk::Hero>(so, is);
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = SpriteFactory::TN_KING;
