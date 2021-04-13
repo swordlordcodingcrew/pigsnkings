@@ -255,6 +255,10 @@ namespace pnk
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
+        _btns.clear();
+        _sprLeftCandle.reset();
+        _sprRightCandle.reset();
+
         _pnk.removeImagesheets();
 
         // clear gear

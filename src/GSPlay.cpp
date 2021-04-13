@@ -192,6 +192,7 @@ namespace pnk
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
         // choose room acc. to prefs
+        _active_act_index = _pnk._prefs.active_room -1;
         changeRoom(_pnk._prefs.active_room, true);
 
         // set viewport to active room
@@ -209,9 +210,15 @@ namespace pnk
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
 
+        _spr_hero.reset();
+        _screenplay.reset();
+        _csl.reset();
+        _hives.clear();
+
+        // remove images
         _pnk.removeImagesheets();
 
-        // clear gear
+        // remove layers
         gear.removeLayers();
 
         PigsnKings::stopMod();
@@ -244,12 +251,14 @@ namespace pnk
             if (spr != nullptr)
             {
                 _csl->removeSprite(pe._spr.lock());
+#ifdef PNK_DEBUG
                 std::cout << "remove sprite event" << std::endl;
+#endif
             }
             else
             {
                 // TODO if it is stale, we should retry? or wait? or...
-                std::cout << "attempted to remove stale sprite" << std::endl;
+                std::cerr << "attempted to remove stale sprite" << std::endl;
             }
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
@@ -490,7 +499,7 @@ namespace pnk
 
     void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
-        assert(room_nr < _screenplay->_acts.size());
+//        assert(_screenplay->_acts);
 
         _active_act = &_screenplay->_acts[room_nr];
         // initialize room size
