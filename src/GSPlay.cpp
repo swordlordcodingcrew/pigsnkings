@@ -48,18 +48,18 @@
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
-#include "rsrc/gfx/castle_tiles.png.h"
-#include "rsrc/gfx/castle_decoration_tiles.png.h"
-#include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
-
-
-
 
 namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
+        if (_last_time + 1000 < time)
+        {
+            _last_time = time;
+            std::cout << "update check" << std::endl;
+        }
+
         if (blit::buttons.pressed & blit::Button::HOME)
         {
             return GameState::_gs_home;
@@ -89,6 +89,10 @@ namespace pnk
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
+        std::cout << "enter enter()" << std::endl;
+
+        _last_time = 0;
+
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
         initGameVars();
@@ -203,10 +207,13 @@ namespace pnk
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
+        std::cout << "exit enter()" << std::endl;
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
     {
+        std::cout << "enter exit()" << std::endl;
+
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
 
@@ -225,6 +232,7 @@ namespace pnk
 
 //         _pnk._prefs.active_room = _active_act_index;
 
+        std::cout << "exit exit()" << std::endl;
     }
 
     void GSPlay::initGameVars()
