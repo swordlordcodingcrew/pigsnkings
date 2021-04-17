@@ -54,12 +54,13 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
+#ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
         {
             _last_time = time;
             std::cout << "update check" << std::endl;
         }
-
+#endif
         if (blit::buttons.pressed & blit::Button::HOME)
         {
             return GameState::_gs_home;
@@ -95,10 +96,8 @@ namespace pnk
 
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
-        initGameVars();
-
         // choose level acc. to pnk
-        switch(_pnk._prefs.active_level)
+        switch(_pnk._gamevars.active_level)
         {
             case 1:
             default:
@@ -196,8 +195,8 @@ namespace pnk
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
         // choose room acc. to prefs
-        _active_act_index = _pnk._prefs.active_room -1;
-        changeRoom(_pnk._prefs.active_room, true);
+        _active_act_index = _pnk._gamevars.active_room -1;
+        changeRoom(_pnk._gamevars.active_room, true);
 
         // set viewport to active room
         updateVpPos();
@@ -235,11 +234,11 @@ namespace pnk
         std::cout << "exit exit()" << std::endl;
     }
 
-    void GSPlay::initGameVars()
+/*    void GSPlay::initGameVars()
     {
         _pnk.initGameVars();
     }
-
+*/
     void GSPlay::gameEventReceived(dang::Event &e)
     {
         PnkEvent& pe = static_cast<PnkEvent&>(e);
@@ -356,7 +355,7 @@ namespace pnk
         }
 
         // get current health (and yes, we want signed to go below 0!)
-        int8_t health = _pnk._prefs.health;
+        int8_t health = _pnk._gamevars.health;
 
         switch(pe._payload)
         {
@@ -386,19 +385,19 @@ namespace pnk
         }
         else
         {
-            _pnk._prefs.health = health;
+            _pnk._gamevars.health = health;
             PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
     }
 
     void GSPlay::handleKingLoosesLife()
     {
-        _pnk._prefs.lives -= 1;
+        _pnk._gamevars.lives -= 1;
 
-        if(_pnk._prefs.lives <= 0)
+        if(_pnk._gamevars.lives <= 0)
         {
             // TODO GAME OVER
-            _pnk._prefs.lives = 3;
+            _pnk._gamevars.lives = 3;
         }
 
         dang::Vector2F sp;
@@ -408,7 +407,7 @@ namespace pnk
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
-        _pnk._prefs.health = 100;
+        _pnk._gamevars.health = 100;
 
         PigsnKings::playSfx(lifelost_22050_mono, lifelost_22050_mono_length);
     }
@@ -452,13 +451,13 @@ namespace pnk
 
     void GSPlay::addScore(uint8_t score)
     {
-        _pnk._prefs.score += score;
+        _pnk._gamevars.score += score;
         PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
     }
 
     void GSPlay::addHealth(uint8_t healthGain)
     {
-        uint8_t h = _pnk._prefs.health;
+        uint8_t h = _pnk._gamevars.health;
 
         h += healthGain;
 
@@ -468,7 +467,7 @@ namespace pnk
             h = 100;
         }
 
-        _pnk._prefs.health = h;
+        _pnk._gamevars.health = h;
         PigsnKings::playSfx(health_22050_mono, health_22050_mono_length);
     }
 

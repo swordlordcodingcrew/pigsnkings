@@ -45,15 +45,15 @@ namespace pnk
         // if button x is pressed load the selected state
         if (blit::buttons.pressed & blit::Button::X)
         {
-            if (_pnk._prefs.selectedModule == _pnk.PLAY)
+            if (_pnk._gamevars.selectedModule == _pnk.PLAY)
             {
                 return _gs_play;
             }
-            else if (_pnk._prefs.selectedModule == _pnk.PREFS)
+            else if (_pnk._gamevars.selectedModule == _pnk.PREFS)
             {
                 return _gs_prefs;
             }
-            else if (_pnk._prefs.selectedModule == _pnk.ABOUT)
+            else if (_pnk._gamevars.selectedModule == _pnk.ABOUT)
             {
                 return _gs_about;
             }
@@ -62,21 +62,21 @@ namespace pnk
         // move selection
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
-            _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
-            _pnk._prefs.selectedModule = ++_pnk._prefs.selectedModule % _pnk._ESIZE;
+            _btns.at(_pnk._gamevars.selectedModule).btn->removeAnimation(true);
+            _btns.at(_pnk._gamevars.selectedModule).btn->_img_index = _btns.at(_pnk._gamevars.selectedModule).img_index;
+            _pnk._gamevars.selectedModule = ++_pnk._gamevars.selectedModule % _pnk._ESIZE;
 
             positionCandles();
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
-            _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
-            if(_pnk._prefs.selectedModule == 0) {
-                _pnk._prefs.selectedModule = _pnk._ESIZE - 1;
+            _btns.at(_pnk._gamevars.selectedModule).btn->removeAnimation(true);
+            _btns.at(_pnk._gamevars.selectedModule).btn->_img_index = _btns.at(_pnk._gamevars.selectedModule).img_index;
+            if(_pnk._gamevars.selectedModule == 0) {
+                _pnk._gamevars.selectedModule = _pnk._ESIZE - 1;
             }
             else {
-                _pnk._prefs.selectedModule = --_pnk._prefs.selectedModule % _pnk._ESIZE;
+                _pnk._gamevars.selectedModule = --_pnk._gamevars.selectedModule % _pnk._ESIZE;
             }
 
             positionCandles();
@@ -89,11 +89,11 @@ namespace pnk
     {
         if(_sprLeftCandle != nullptr)
         {
-            _sprLeftCandle->setPosY(_btns.at(_pnk._prefs.selectedModule).btn->getPosY());
+            _sprLeftCandle->setPosY(_btns.at(_pnk._gamevars.selectedModule).btn->getPosY());
         }
         if(_sprRightCandle != nullptr)
         {
-            _sprRightCandle->setPosY(_btns.at(_pnk._prefs.selectedModule).btn->getPosY());
+            _sprRightCandle->setPosY(_btns.at(_pnk._gamevars.selectedModule).btn->getPosY());
         }
     }
 
