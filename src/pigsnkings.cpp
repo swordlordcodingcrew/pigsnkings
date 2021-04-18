@@ -157,7 +157,6 @@ namespace pnk
             blit::Surface* sf = blit::Surface::load(data);
             assert(sf != nullptr);
             p.second->setSurface(static_cast<void*> (sf));
-
         }
     }
 

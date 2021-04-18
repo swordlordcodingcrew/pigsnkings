@@ -60,6 +60,8 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
+        blit::debugf("play updating\r\n");
+
         if (blit::buttons.pressed & blit::Button::HOME)
         {
             return GameState::_gs_home;
@@ -72,14 +74,20 @@ namespace pnk
         updateVpPos();
         gear.follow(_vp_pos);
 
+        blit::debugf("play updated\r\n");
+
         return GameState::_gs_play;
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
+        blit::debugf("entered\r\n");
+
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
         initGameVars();
+
+        blit::debugf("choose level\r\n");
 
         // choose level acc. to pnk
         switch(_pnk._prefs.active_level)
@@ -93,6 +101,7 @@ namespace pnk
 
         dang::TmxExtruder txtr(&_tmx);
 
+        blit::debugf("extruded\r\n");
 
         _last_time = blit::now();
 
@@ -100,17 +109,27 @@ namespace pnk
         gear.initLevel(_tmx, vp);
         gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
 
+        blit::debugf("imagesheet\r\n");
+
         // init imagesheets
         _pnk.initImageSheets(txtr);
+
+        blit::debugf("tile layer\r\n");
 
         // create background Tilelayer
         txtr.getTileLayer(_screenplay->_l_bg_name, gear, true);
 
+        blit::debugf("mood layer\r\n");
+
         // create mood Tilelayer
         if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, gear, true, true);
 
+        blit::debugf("collision sprite layer\r\n");
+
         // create Spritelayer with collision detection
         _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, gear, false, true);
+
+        blit::debugf("sprite objects\r\n");
 
         // create sprites
         for (const dang::tmx_spriteobject& so : txtr.getSOList(_csl))
@@ -175,21 +194,30 @@ namespace pnk
             }
         }
 
+        blit::debugf("hud layer\r\n");
+
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
 
+        blit::debugf("change room\r\n");
+
         // choose room acc. to prefs
         changeRoom(_pnk._prefs.active_room, true);
+
+        blit::debugf("viewport\r\n");
 
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
 
+        blit::debugf("callbacks\r\n");
+
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
+        blit::debugf("entered, let the games begin\r\n");
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
@@ -298,7 +326,6 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {}
-
 
     }
 

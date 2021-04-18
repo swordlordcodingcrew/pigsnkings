@@ -99,6 +99,8 @@ namespace pnk
 
     void GSHome::enter(dang::Gear &gear, uint32_t time)
     {
+        blit::debugf("entering\r\n");
+
         // set up music
         // Setup channel
 
@@ -106,19 +108,35 @@ namespace pnk
         _lvl = init_main_1();
         dang::TmxExtruder tmx_ext(&_lvl);
 
+        blit::debugf("extruded\r\n");
+
         dang::RectF vp = {0, 0, 320, 240};
+
+        blit::debugf("init level\r\n");
         gear.initLevel(_lvl, vp);
+
+        blit::debugf("set active world size\r\n");
         gear.setActiveWorldSize(vp.w, vp.h);
 
+        blit::debugf("init image sheets\r\n");
         _pnk.initImageSheets(tmx_ext);
+
+        blit::debugf("image sheets initialised\r\n");
 
         // create background Tilelayer
         spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, gear, true);
 
+        blit::debugf("tile layer\r\n");
+
         spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, gear, false, true);
+
+        blit::debugf("sprite layer\r\n");
 
         // create spritelayer w/o collision detection/resolution
         spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, gear, false, true);
+
+        blit::debugf("auto layers done\r\n");
+
 
 //        const dang::tmx_objectlayer* ol = tmx_ext.getTmxObjectLayer(tmx_deco_layer_name);
         for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(dl))
@@ -142,6 +160,8 @@ namespace pnk
             }
             sl->addSprite(spr);
         }
+
+        blit::debugf("buttons\r\n");
 
         // make sure to resize the buttons array to the correct size
         _btns.resize(_pnk._ESIZE, {nullptr, nullptr, 0});
@@ -251,6 +271,9 @@ namespace pnk
 
         // first screen of tmx
         gear.setViewportPos({0, 8});
+
+        blit::debugf("entered\r\n");
+
     }
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
@@ -264,6 +287,6 @@ namespace pnk
     void GSHome::playOink()
     {
         // TODO: only play it sometimes
-        PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+        //PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
     }
 }
