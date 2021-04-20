@@ -5,11 +5,11 @@
 
 namespace pnk
 {
-    blit::Surface *pnk::ImageFactory::createSurface(const pnk::ImageFactory::img_params &p)
+    blit::Surface *pnk::ImageFactory::createSurface(dang::image_import &ii)
     {
-        blit::Surface* s = new blit::Surface(p.data, blit::PixelFormat::P, p.bounds);
-        s->alpha = p.alpha;
-        s->palette = p.palette;
+        blit::Surface* s = new blit::Surface(ii.data.data(), blit::PixelFormat::P, ii.bounds);
+        s->alpha = ii.alpha;
+        s->palette = ii.palette.data();
         return s;
     }
 

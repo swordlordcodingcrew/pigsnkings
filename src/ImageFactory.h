@@ -3,24 +3,16 @@
 
 #pragma once
 
-#include <cstdint>
-#include <libs/32blit-sdk/32blit/types/size.hpp>
-#include <libs/32blit-sdk/32blit/graphics/surface.hpp>
+#include <32blit.hpp>
+#include <ImageImport.h>
 
 
 namespace pnk
 {
     class ImageFactory
     {
-        struct img_params
-        {
-            blit::Size bounds;
-            uint8_t alpha;
-            blit::Pen* palette;
-            uint8_t* data;
-        };
-
-        static blit::Surface* createSurface(const img_params &p);
+    public:
+        static blit::Surface* createSurface(dang::image_import &ii);
     };
 
 }
