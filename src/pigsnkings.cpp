@@ -20,6 +20,8 @@
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "tracks/gocryogo.h"
+#include "ImageFactory.h"
+#include "rsrc/gfx/sl_shield_32blit.png.h"
 
 using spLayer = std::shared_ptr<dang::Layer>;
 using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
@@ -166,10 +168,13 @@ namespace pnk
 
     void PigsnKings::initImageSheet(spImagesheet is)
     {
-        const uint8_t* data = is->getData();
+        blit::Surface* sf = ImageFactory::createSurface(img_sl_shield);
+
+/*        const uint8_t* data = is->getData();
         assert(data != nullptr);
         blit::Surface* sf = blit::Surface::load(data);
         assert(sf != nullptr);
+*/
         is->setSurface(static_cast<void*> (sf));
         _gear.addImagesheet(is);
     }

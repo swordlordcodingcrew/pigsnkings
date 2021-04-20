@@ -38,8 +38,6 @@
 #include <sstream>
 #include <sfx/pig_squeal_22050_mono.h>
 
-#include "rsrc/pig.png.test.h"
-
 namespace pnk
 {
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
@@ -102,20 +100,6 @@ namespace pnk
     void GSHome::enter(dang::Gear &gear, uint32_t time)
     {
         blit::debugf("entering\r\n");
-
-        dang_image_import ii = test();
-        //blit::Pen* palette = ii.palette.data();
-
-        blit::Pen* palette = &ii.palette[0];
-
-        std::cout << palette[0].r << std::endl;
-        std::cout << palette[1].g << std::endl;
-        std::cout << palette[2].b << std::endl;
-
-        uint8_t* data = ii.data.data();
-
-        std::cout << data[0] << std::endl;
-        std::cout << data[1] << std::endl;
 
         // set up music
         // Setup channel
