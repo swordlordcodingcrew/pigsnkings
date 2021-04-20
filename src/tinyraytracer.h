@@ -68,7 +68,7 @@ bool scene_intersect(const Vec3f &orig, const Vec3f &dir, const std::vector<Sphe
     }
 
     float checkerboard_dist = std::numeric_limits<float>::max();
-    if (fabs(dir.y)>1e-3)  {
+    if (fabs(dir.y)>(double)1e-3)  {
         float d = -(orig.y+4)/dir.y; // the checkerboard plane has equation y = -4
         Vec3f pt = orig + dir*d;
         if (d>0 && fabs(pt.x)<10 && pt.z<-10 && pt.z>-30 && d<spheres_dist) {
@@ -123,7 +123,7 @@ void render(const std::vector<Sphere> &spheres, const std::vector<Light> &lights
         for (size_t i = 0; i<width; i++) {
             float dir_x =  (i + 0.5) -  width/2.;
             float dir_y = -(j + 0.5) + height/2.;    // this flips the image at the same time
-            float dir_z = -height/(2.*tan(fov/2.));
+            float dir_z = -height/((double)2. * tan(fov/2.));
 
             Vec3f cr = cast_ray(Vec3f(0,0,0), Vec3f(dir_x, dir_y, dir_z).normalize(), spheres, lights);
 

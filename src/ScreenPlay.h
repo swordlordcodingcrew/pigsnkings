@@ -37,7 +37,7 @@ namespace pnk
              * the hash key is the room number, the value is the position in the room
              * unit: relative tile coord. Meaning {0,0} is the top left corner of the room
              * */
-            std::unordered_map<int32_t,dang::Vector2U>  _passage_to;
+            std::unordered_map<int32_t,dang::Vector2U>  _passage_from;
         };
 
         std::vector<act> _acts;

@@ -81,6 +81,15 @@ namespace pnk
 
     }
 
+    PigsnKings::~PigsnKings()
+    {
+        removeImagesheets();
+
+        // TODO save prefs
+        _prefs = _gamevars;
+
+    }
+
     void PigsnKings::init()
     {
         blit::set_screen_mode(blit::ScreenMode::hires);
@@ -89,6 +98,9 @@ namespace pnk
         _gear.blit_sprite_cb = PigsnKings::blit_sprite_cb;
         _gear.set_surface_cb = PigsnKings::set_surface_cb;
         _gear.line_cb = PigsnKings::line_cb;
+
+        // TODO: first load prefs
+        _gamevars = _prefs;
 
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);
@@ -128,22 +140,14 @@ namespace pnk
 #endif
     }
 
+#ifdef PNK_DEBUG
     void PigsnKings::renderInfoText()
     {
         // the text is only for development purpose
         blit::screen.pen = blit::Pen(255, 255, 255);
         blit::screen.text(_gs->getInfotext(), blit::minimal_font, blit::Point(1, 1));
     }
-
-/*    void PigsnKings::loadSurface(spImagesheet is)
-    {
-        const uint8_t* data = is->getData();
-        assert(data != nullptr);
-        blit::Surface* sf = blit::Surface::load(data);
-        assert(sf != nullptr);
-        __surfaces[is.get()] = sf;
-    }
-*/
+#endif
     void PigsnKings::initImageSheets(dang::TmxExtruder& tmex)
     {
         tmex.getImagesheets(_gear);
@@ -181,16 +185,6 @@ namespace pnk
         _gear.removeImagesheets();
     }
 
-/*    void PigsnKings::removeSurface(spImagesheet is)
-    {
-        blit::Surface* sf = __surfaces[is.get()];
-        if (sf != nullptr)
-        {
-            __surfaces.erase(is.get());
-            delete sf;
-        }
-    }
-*/
     uint8_t PigsnKings::playSfx(const uint8_t *sfx, const uint32_t len)
     {
         return playSfx(sfx, len, _pnk._prefs.volume_sfx);
@@ -284,12 +278,6 @@ namespace pnk
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = nullptr;
     }
 
-    void PigsnKings::initGameVars()
-    {
-        _prefs.health = 100;
-        _prefs.score = 0;
-        _prefs.lives = 3;
-    }
 }
 
 /**

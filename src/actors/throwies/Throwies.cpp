@@ -42,7 +42,9 @@ namespace pnk
 
     Throwies::~Throwies()
     {
+#ifdef PNK_DEBUG
         std::cout << "Throwies destructor" << std::endl;
+#endif
     }
 
     void Throwies::init()

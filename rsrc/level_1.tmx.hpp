@@ -250,9 +250,10 @@ dang::tmx_level init_level_1() {
         {169,"169","",416,160,32,32,true,1,1},
         {164,"164","",448,64,32,32,true,1,4},
         {328,"328","",352,96,32,32,true,1,4},
-        {373,"373","",864,440,32,32,true,1,4}
+        {373,"373","",864,440,32,32,true,1,4},
+        {378,"378","",416,64,32,32,true,1,4}
     };
-    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",97,solvl_1_mood,1};
+    dang::tmx_objectlayer llvl_1_mood = {"lvl_1_mood",98,solvl_1_mood,1};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_mood));
 
     // Objects for layer: lvl_1_obj
@@ -350,7 +351,7 @@ dang::tmx_level init_level_1() {
         {309,"309","hotrect",544,416,320,32,true,0,0},
         {310,"310","hotrect",512,160,256,32,true,0,0},
         {311,"311","hotrect",320,224,640,64,true,0,0},
-        {312,"312","hotrect",480,192,320,32,true,0,0},
+        {312,"312","hotrect",544,192,256,32,true,0,0},
         {314,"314","hotrect",0,0,960,32,true,0,0},
         {315,"315","hotrect",608,32,64,32,true,0,0},
         {316,"316","hotrect",864,96,96,32,true,0,0},
@@ -361,10 +362,10 @@ dang::tmx_level init_level_1() {
         {321,"321","hotrect_platform",416,160,64,4,true,0,0},
         {322,"322","hotrect_platform",832,192,64,4,true,0,0},
         {323,"323","hotrect_platform",800,128,32,4,true,0,0},
-        {324,"324","hotrect_platform",448,64,32,4,true,0,0},
+        {324,"324","hotrect_platform",416,64,64,4,true,0,0},
         {326,"326","hotrect",256,96,96,64,true,0,0},
         {330,"330","hotrect",384,64,32,32,true,0,0},
-        {331,"331","hotrect",224,32,224,32,true,0,0},
+        {331,"331","hotrect",224,32,128,32,true,0,0},
         {333,"dan","pig_box",320,640,32,32,true,8,5},
         {334,"334","pig_bomb",768,704,32,32,true,7,4},
         {335,"335","pig_normal",576,704,32,32,true,6,0},
@@ -403,9 +404,15 @@ dang::tmx_level init_level_1() {
         {374,"374","hotrect",928,352,32,128,true,0,0},
         {375,"375","hotrect_platform",864,440,32,4,true,0,0},
         {376,"2","warp_room_trigger",640,448,2,32,true,0,0},
-        {377,"4","warp_room_trigger",640,384,2,32,true,0,0}
+        {377,"4","warp_room_trigger",640,384,2,32,true,0,0},
+        {379,"7","warp_room_trigger",542,192,2,32,true,0,0},
+        {380,"4","warp_room_trigger",606,448,2,32,true,0,0},
+        {381,"5","room_trigger",288,64,2,32,true,0,0},
+        {382,"4","room_trigger",320,64,2,32,true,0,0},
+        {383,"5","warp_room_trigger",128,312,32,2,true,0,0},
+        {384,"6","room_trigger",128,280,32,2,true,0,0}
     };
-    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",147,solvl_1_obj,2};
+    dang::tmx_objectlayer llvl_1_obj = {"lvl_1_obj",153,solvl_1_obj,2};
     lvl.layers.push_back(std::make_shared<dang::tmx_objectlayer>(llvl_1_obj));
 
     // Objects for layer: lvl_1_hud

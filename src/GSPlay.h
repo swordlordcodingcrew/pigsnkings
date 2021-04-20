@@ -70,6 +70,7 @@ namespace pnk
         ScreenPlay::act*        _active_act{nullptr};
         int32_t                 _active_act_index{-1};
         uint32_t                _last_time{0};
+        bool                    _warp{false};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};

@@ -26,6 +26,7 @@ namespace pnk
     {
     public:
         PigsnKings();
+        ~PigsnKings();
 
         static const dang::Vector2F _gravity;
 
@@ -46,8 +47,6 @@ namespace pnk
         static void playMod(const uint8_t* mod, const uint32_t len, float volume);
         static void stopMod();
 
-        void initGameVars();
-
         enum e_selection
         {
             ABOUT = 0,
@@ -56,7 +55,7 @@ namespace pnk
             _ESIZE
         };
 
-        struct prefs
+        struct gamevars
         {
             float volume_snd{1};
             float volume_sfx{1};
@@ -71,11 +70,14 @@ namespace pnk
             uint32_t active_room{0};
         };
 
-        prefs   _prefs;
+        const gamevars  _default_gamevars;
+        gamevars        _gamevars;
 
         bool _invincible{false};
 
     protected:
+        gamevars        _prefs;
+
         // the gear
         dang::Gear _gear;
 
@@ -92,13 +94,11 @@ namespace pnk
         // for calculating diffs
         uint32_t _last_time{0};
 
+#ifdef PNK_DEBUG
         // test stuff
         uint32_t _cycles{0};
         void renderInfoText();
-
-        // surface depot
-//        std::map<const dang::Imagesheet*, blit::Surface*> __surfaces;
-//        std::map<std::string, blit::Surface*> _surfaces;
+#endif
         const dang::Imagesheet* _active_imagesheet{nullptr};
 
 #ifdef PNK_SND_DEBUG

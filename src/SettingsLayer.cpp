@@ -416,16 +416,16 @@ namespace pnk
             Blobs[i].y += -2 + (5.0 * (rand() / (RAND_MAX + 2.0)));
         }
 
+        /*
         framenum += dt;
         ivorySphereCoords.x = ivorySphereCoords.initialx + (4*sin( ((float)framenum)*M_PI*2 ));
         ivorySphereCoords.z = ivorySphereCoords.initialz + (2*cos( ((float)framenum)*M_PI*2 ));
         ivorySphereCoords.y = ivorySphereCoords.initialy + fabs(2.75*cos( ((float)((framenum*2)))*M_PI*2 ));
+         */
     }
 
     void SettingsLayer::render(const dang::Gear& gear)
     {
-
-        /*
         // Draw balls
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -439,15 +439,15 @@ namespace pnk
                 blit::screen.pixel(blit::Point(x, y));
             }
         }
-         */
 
-        blit::screen.pen = {200, 20, 200, 255};
-        blit::screen.pixel(blit::Point(10,10));
+
+        //blit::screen.pen = {200, 20, 200, 255};
+        //blit::screen.pixel(blit::Point(10,10));
 
 //        if(bRendered) return;
 
         //raytrace();
-        do_render();
+        //do_render();
 
         bRendered = true;
 
