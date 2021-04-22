@@ -427,15 +427,15 @@ dang::tmx_level init_level_1() {
 
 // Images ------------------------------------------------
 
-    lvl.images["gfx_levels_castle_tiles"] = gfx_levels_castle_tiles;
-    lvl.images["gfx_castle_decorations"] = gfx_castle_decorations;
-    lvl.images["gfx_items"] = gfx_items;
-    lvl.images["gfx_bubbles"] = gfx_bubbles;
-    lvl.images["hud_ui"] = hud_ui;
-    lvl.images["gfx_king"] = gfx_king;
-    lvl.images["gfx_pig"] = gfx_pig;
-    lvl.images["character_pigbomb"] = character_pigbomb;
-    lvl.images["character_pigcrate"] = character_pigcrate;
+    lvl.images["gfx_levels_castle_tiles"] = &gfx_levels_castle_tiles;
+    lvl.images["gfx_castle_decorations"] = &gfx_castle_decorations;
+    lvl.images["gfx_items"] = &gfx_items;
+    lvl.images["gfx_bubbles"] = &gfx_bubbles;
+    lvl.images["hud_ui"] = &hud_ui;
+    lvl.images["gfx_king"] = &gfx_king;
+    lvl.images["gfx_pig"] = &gfx_pig;
+    lvl.images["character_pigbomb"] = &character_pigbomb;
+    lvl.images["character_pigcrate"] = &character_pigcrate;
 
     return lvl;
 }

@@ -41,38 +41,6 @@ namespace pnk
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
 
-    /**
-     * static callback functions for DANG
-     */
-    void PigsnKings::blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t)
-    {
-        blit::screen.blit_sprite({int32_t(sr.x), int32_t(sr.y), int32_t(sr.w), int32_t(sr.h)}, {p.x, p.y}, t);
-    }
-
-    /**
-     * static callback function for DANG
-     */
-    void PigsnKings::line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-    {
-        blit::screen.pen = blit::Pen(r, g, b, a);
-        blit::screen.line({int32_t(sp.x), int32_t (sp.y)}, {int32_t(dp.x), int32_t (dp.y)});
-    }
-
-    /**
-     * static callback functions for DANG to set the spritesheet
-     */
-    void PigsnKings::set_surface_cb(spImagesheet is)
-    {
-        assert(is->getSurface() != nullptr);
-        blit::screen.sprites = static_cast<blit::Surface*>(is->getSurface());
-
-/*        if (_pnk._active_imagesheet != is.get())
-        {
-            blit::Surface* sp = _pnk.__surfaces[is.get()];
-            assert(sp != nullptr);
-            blit::screen.sprites = sp;
-        }
-*/    }
 
 
     /**
@@ -95,11 +63,6 @@ namespace pnk
     void PigsnKings::init()
     {
         blit::set_screen_mode(blit::ScreenMode::hires);
-
-        // set the DANG callback functions for drawing
-        _gear.blit_sprite_cb = PigsnKings::blit_sprite_cb;
-        _gear.set_surface_cb = PigsnKings::set_surface_cb;
-        _gear.line_cb = PigsnKings::line_cb;
 
         // TODO: first load prefs
         _gamevars = _prefs;
@@ -150,43 +113,8 @@ namespace pnk
         blit::screen.text(_gs->getInfotext(), blit::minimal_font, blit::Point(1, 1));
     }
 #endif
-    void PigsnKings::initImageSheets(dang::TmxExtruder& tmex)
-    {
-        tmex.getImagesheets(_gear);
-
-        // link the surface to the imagesheets
-        // assuming that each tileset has its own image
-        for (const std::pair<const std::string, spImagesheet>& p : _gear.getImagesheets())
-        {
-            const uint8_t* data = p.second->getData();
-            assert(data != nullptr);
-            blit::Surface* sf = blit::Surface::load(data);
-            assert(sf != nullptr);
-            p.second->setSurface(static_cast<void*> (sf));
-        }
-    }
-
-    void PigsnKings::initImageSheet(spImagesheet is)
-    {
-        blit::Surface* sf = ImageFactory::createSurface(img_sl_shield);
-
-/*        const uint8_t* data = is->getData();
-        assert(data != nullptr);
-        blit::Surface* sf = blit::Surface::load(data);
-        assert(sf != nullptr);
-*/
-        is->setSurface(static_cast<void*> (sf));
-        _gear.addImagesheet(is);
-    }
-
     void PigsnKings::removeImagesheets()
     {
-        for (const std::pair<const std::string, spImagesheet>& p : _gear.getImagesheets())
-        {
-            blit::Surface* sf = static_cast<blit::Surface*>(p.second->getSurface());
-            delete sf;
-            p.second->setSurface(nullptr);
-        }
         _gear.removeImagesheets();
     }
 

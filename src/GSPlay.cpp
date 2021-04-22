@@ -39,22 +39,22 @@
 #include "sfx/health_22050_mono.h"
 #include "sfx/lifelost_22050_mono.h"
 
-#include "rsrc/gfx/pig_bomb.png.h"
-#include "rsrc/gfx/pig_crate.png.h"
-#include "rsrc/gfx/bubble.png.h"
-#include "rsrc/gfx/items.png.h"
-#include "rsrc/gfx/king.png.h"
-#include "rsrc/gfx/castle_decoration_tiles.png.h"
-#include "rsrc/gfx/pig.png.h"
-#include "rsrc/gfx/castle_tiles.png.h"
-#include "rsrc/gfx/hud_ui.png.h"
+#include "rsrc/gfx/dump.pig_bomb.png.h"
+#include "rsrc/gfx/dump.pig_crate.png.h"
+#include "rsrc/gfx/dump.bubble.png.h"
+#include "rsrc/gfx/dump.items.png.h"
+#include "rsrc/gfx/dump.king.png.h"
+#include "rsrc/gfx/dump.castle_decoration_tiles.png.h"
+#include "rsrc/gfx/dump.pig.png.h"
+#include "rsrc/gfx/dump.castle_tiles.png.h"
+#include "rsrc/gfx/dump.hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 
 namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
-        blit::debugf("play updating\r\n");
+//        blit::debugf("play updating\r\n");
 
 #ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
@@ -87,7 +87,7 @@ namespace pnk
             gear.follow(_vp_pos);
         }
 
-        blit::debugf("play updated\r\n");
+//        blit::debugf("play updated\r\n");
 
         return GameState::_gs_play;
     }
@@ -127,7 +127,7 @@ namespace pnk
         blit::debugf("imagesheet\r\n");
 
         // init imagesheets
-        _pnk.initImageSheets(txtr);
+        txtr.getImagesheets(gear);
 
         blit::debugf("tile layer\r\n");
 

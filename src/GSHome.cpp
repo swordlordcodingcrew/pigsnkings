@@ -21,14 +21,14 @@
 
 #include "32blit.hpp"
 
-#include "rsrc/gfx/tiles_bg_png.h"
-#include "rsrc/gfx/castle_tiles.png.h"
-#include "rsrc/gfx/hud_ui.png.h"
-#include "rsrc/gfx/castle_decoration_tiles.png.h"
-#include "rsrc/gfx/king.png.h"
-#include "rsrc/gfx/pig.png.h"
-#include "rsrc/gfx/pnk_logo.png.h"
-#include "rsrc/gfx/menus.png.h"
+//#include "rsrc/gfx/tiles_bg_png.h"
+#include "rsrc/gfx/dump.castle_tiles.png.h"
+#include "rsrc/gfx/dump.hud_ui.png.h"
+#include "rsrc/gfx/dump.castle_decoration_tiles.png.h"
+#include "rsrc/gfx/dump.king.png.h"
+#include "rsrc/gfx/dump.pig.png.h"
+#include "rsrc/gfx/dump.pnk_logo.png.h"
+#include "rsrc/gfx/dump.menus.png.h"
 
 #include "rsrc/main_1.tmx.hpp"
 #include "tracks/gocryogo.h"
@@ -119,7 +119,7 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         blit::debugf("init image sheets\r\n");
-        _pnk.initImageSheets(tmx_ext);
+        tmx_ext.getImagesheets(gear);
 
         blit::debugf("image sheets initialised\r\n");
 
