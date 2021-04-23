@@ -21,7 +21,7 @@
 
 #include "32blit.hpp"
 
-#include "rsrc/gfx/tiles_bg_png.h"
+//#include "rsrc/gfx/tiles_bg_png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
@@ -119,7 +119,7 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         blit::debugf("init image sheets\r\n");
-        _pnk.initImageSheets(tmx_ext);
+        tmx_ext.getImagesheets(gear);
 
         blit::debugf("image sheets initialised\r\n");
 

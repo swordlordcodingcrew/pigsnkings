@@ -54,7 +54,7 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
-        blit::debugf("play updating\r\n");
+//        blit::debugf("play updating\r\n");
 
 #ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
@@ -87,7 +87,7 @@ namespace pnk
             gear.follow(_vp_pos);
         }
 
-        blit::debugf("play updated\r\n");
+//        blit::debugf("play updated\r\n");
 
         return GameState::_gs_play;
     }
@@ -127,7 +127,7 @@ namespace pnk
         blit::debugf("imagesheet\r\n");
 
         // init imagesheets
-        _pnk.initImageSheets(txtr);
+        txtr.getImagesheets(gear);
 
         blit::debugf("tile layer\r\n");
 

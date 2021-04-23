@@ -9,7 +9,7 @@
 
 #include "GSIntro.h"
 #include "GSHome.h"
-#include "rsrc/gfx/sl_shield_32blit_png.h"
+#include "rsrc/gfx/sl_shield_32blit.png.h"
 
 
 namespace pnk
@@ -32,11 +32,9 @@ namespace pnk
         gear.setActiveWorldSize(320, 240);
         gear.setViewport({0,0,320, 240});
 
-        dang::SizeU size(104, 200);
-        spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", sl_shield_32blit_png, size);
-//        gear.addImagesheet(is);
-//        _pnk.loadSurface(is);
-        _pnk.initImageSheet(is);
+//        dang::SizeU size(104, 200);
+        spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", &img_sl_shield);
+        gear.addImagesheet(is);
 
         spSprite sp = std::make_shared<dang::Sprite>();
         sp->setImagesheet(is);
