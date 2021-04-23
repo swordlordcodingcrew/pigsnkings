@@ -84,8 +84,6 @@ namespace pnk
 
     ScrolltextLayer::~ScrolltextLayer()
     {
-        blit::Surface* sf = static_cast<blit::Surface*>(is->getSurface());
-        delete sf;
     }
 
     void ScrolltextLayer::update(uint32_t dt, const dang::Gear &gear)
@@ -186,7 +184,7 @@ namespace pnk
     // paints a frame around the scrolltext
     void ScrolltextLayer::paintFrame(const dang::Gear& gear)
     {
-        blit::screen.sprites = static_cast<blit::Surface*>(is->getSurface());
+        blit::screen.sprites = is->getSurface();
 
         // top side
         blit::Rect sr = is->getBlitRect(25);
