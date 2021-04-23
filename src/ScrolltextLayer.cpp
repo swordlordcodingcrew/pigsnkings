@@ -84,8 +84,6 @@ namespace pnk
 
     ScrolltextLayer::~ScrolltextLayer()
     {
-        blit::Surface* sf = static_cast<blit::Surface*>(is->getSurface());
-        delete sf;
     }
 
     void ScrolltextLayer::update(uint32_t dt, const dang::Gear &gear)
