@@ -20,7 +20,6 @@
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "tracks/gocryogo.h"
-#include "ImageFactory.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
 
 using spLayer = std::shared_ptr<dang::Layer>;
@@ -62,13 +61,20 @@ namespace pnk
 
     void PigsnKings::init()
     {
+        blit::debug("init PNK\n");
+
         blit::set_screen_mode(blit::ScreenMode::hires);
 
+        blit::debug("screen mode set\n");
         // TODO: first load prefs
         _gamevars = _prefs;
 
+        blit::debug("game vars set\n");
+
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);
+
+        blit::debug("initial module loaded\n");
 
         _last_time = blit::now();
     }

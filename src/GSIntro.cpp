@@ -28,23 +28,33 @@ namespace pnk
 
     void GSIntro::enter(dang::Gear& gear, uint32_t time)
     {
+        blit::debug("entering intro");
+
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
         gear.setViewport({0,0,320, 240});
 
+        blit::debug("vieport set");
+
 //        dang::SizeU size(104, 200);
         spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", &img_sl_shield);
         gear.addImagesheet(is);
+
+        blit::debug("imagesheet loaded");
 
         spSprite sp = std::make_shared<dang::Sprite>();
         sp->setImagesheet(is);
         sp->setSize(is->getImagesheetSizeW(), is->getImagesheetSizeH());
         sp->setPos((gear.getViewport().br() - sp->getSize()) / 2.0f);
 
+        blit::debug("sprite set up");
+
         spSpriteLayer sl = std::make_shared<dang::SpriteLayer>();
         sl->addSprite(sp);
         gear.addLayer(sl);
         _last_time = blit::now();
+
+        blit::debug("layer set up");
 
     }
 
