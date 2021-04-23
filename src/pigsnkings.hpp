@@ -45,6 +45,7 @@ namespace pnk
         static void playMod(const uint8_t* mod, const uint32_t len, float volume);
         static void stopMod();
 
+
         enum e_selection
         {
             ABOUT = 0,
@@ -97,7 +98,7 @@ namespace pnk
         uint32_t _cycles{0};
         void renderInfoText();
 #endif
-        const dang::Imagesheet* _active_imagesheet{nullptr};
+//        const dang::Imagesheet* _active_imagesheet{nullptr};
 
 #ifdef PNK_SND_DEBUG
         static uint32_t _last_mod_time;

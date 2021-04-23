@@ -20,7 +20,6 @@
 #include "GSPlay.h"
 #include "sfx/bubble_pop_22050_mono.h"
 #include "tracks/gocryogo.h"
-#include "ImageFactory.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
 
 using spLayer = std::shared_ptr<dang::Layer>;
