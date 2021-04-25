@@ -5,11 +5,7 @@
 #include <32blit.hpp>
 #include <ImageImport.h>
 
-static dang::image_import common_menus
-{
-	uint8_t{255},
-	blit::Size{58, 96},
-	std::vector<uint8_t>
+static const uint8_t common_menus_data[] = 
 	{
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -151,12 +147,21 @@ static dang::image_import common_menus
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0
-	},
-	std::vector<blit::Pen>
+	};
+static const blit::Pen common_menus_palette[] = 
 	{
-		blit::Pen(0, 0, 0, 0),
-		blit::Pen(63, 56, 81, 255)
-	}
+		{0, 0, 0, 0},
+		{63, 56, 81, 255}
+
+	};
+
+
+static dang::image_import common_menus
+{
+	.alpha = 255,
+	.bounds = {58, 96},
+	.palette = common_menus_palette,
+	.data = common_menus_data
 };
 
 // EOF

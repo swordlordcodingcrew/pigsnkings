@@ -5,11 +5,7 @@
 #include <32blit.hpp>
 #include <ImageImport.h>
 
-static dang::image_import common_items_box
-{
-	uint8_t{255},
-	blit::Size{64, 32},
-	std::vector<uint8_t>
+static const uint8_t common_items_box_data[] = 
 	{
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -63,19 +59,28 @@ static dang::image_import common_items_box
 		2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,
 		1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 		2,2,0,0,0,0,0,0
-	},
-	std::vector<blit::Pen>
+	};
+static const blit::Pen common_items_box_palette[] = 
 	{
-		blit::Pen(0, 0, 0, 0),
-		blit::Pen(63, 56, 81, 255),
-		blit::Pen(238, 245, 246, 255),
-		blit::Pen(239, 220, 190, 255),
-		blit::Pen(230, 182, 152, 255),
-		blit::Pen(209, 134, 121, 255),
-		blit::Pen(220, 157, 136, 255),
-		blit::Pen(187, 98, 107, 255),
-		blit::Pen(163, 79, 104, 255)
-	}
+		{0, 0, 0, 0},
+		{63, 56, 81, 255},
+		{238, 245, 246, 255},
+		{239, 220, 190, 255},
+		{230, 182, 152, 255},
+		{209, 134, 121, 255},
+		{220, 157, 136, 255},
+		{187, 98, 107, 255},
+		{163, 79, 104, 255}
+
+	};
+
+
+static dang::image_import common_items_box
+{
+	.alpha = 255,
+	.bounds = {64, 32},
+	.palette = common_items_box_palette,
+	.data = common_items_box_data
 };
 
 // EOF

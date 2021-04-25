@@ -5,11 +5,7 @@
 #include <32blit.hpp>
 #include <ImageImport.h>
 
-static dang::image_import main_pnk_logo
-{
-	uint8_t{255},
-	blit::Size{218, 36},
-	std::vector<uint8_t>
+static const uint8_t main_pnk_logo_data[] = 
 	{
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -208,12 +204,21 @@ static dang::image_import main_pnk_logo
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0
-	},
-	std::vector<blit::Pen>
+	};
+static const blit::Pen main_pnk_logo_palette[] = 
 	{
-		blit::Pen(0, 0, 0, 0),
-		blit::Pen(63, 56, 81, 255)
-	}
+		{0, 0, 0, 0},
+		{63, 56, 81, 255}
+
+	};
+
+
+static dang::image_import main_pnk_logo
+{
+	.alpha = 255,
+	.bounds = {218, 36},
+	.palette = main_pnk_logo_palette,
+	.data = main_pnk_logo_data
 };
 
 // EOF

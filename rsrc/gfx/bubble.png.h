@@ -5,11 +5,7 @@
 #include <32blit.hpp>
 #include <ImageImport.h>
 
-static dang::image_import gfx_bubbles
-{
-	uint8_t{255},
-	blit::Size{352, 32},
-	std::vector<uint8_t>
+static const uint8_t gfx_bubbles_data[] = 
 	{
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -293,12 +289,21 @@ static dang::image_import gfx_bubbles
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-	},
-	std::vector<blit::Pen>
+	};
+static const blit::Pen gfx_bubbles_palette[] = 
 	{
-		blit::Pen(0, 0, 0, 0),
-		blit::Pen(255, 255, 255, 255)
-	}
+		{0, 0, 0, 0},
+		{255, 255, 255, 255}
+
+	};
+
+
+static dang::image_import gfx_bubbles
+{
+	.alpha = 255,
+	.bounds = {352, 32},
+	.palette = gfx_bubbles_palette,
+	.data = gfx_bubbles_data
 };
 
 // EOF
