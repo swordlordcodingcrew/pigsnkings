@@ -63,11 +63,11 @@ namespace pnk
             std::cout << "update check" << std::endl;
         }
 #endif
-        if (blit::buttons.pressed & blit::Button::HOME)
+        if (blit::buttons.pressed & blit::Button::MENU)
         {
             return GameState::_gs_home;
         }
-        else if (blit::buttons.pressed & blit::Button::MENU)
+        else if (blit::buttons.pressed & blit::Button::HOME)
         {
 //            return GameState::_gs_prefs;
         }
