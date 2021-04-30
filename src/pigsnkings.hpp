@@ -51,7 +51,15 @@ namespace pnk
             ABOUT = 0,
             PLAY,
             PREFS,
-            _ESIZE
+            ENDOF_SELECTION
+        };
+
+        enum e_prefs
+        {
+            TRACKS = 0,
+            SFX,
+            VOLUME,
+            ENDOF_PREFS
         };
 
         struct gamevars

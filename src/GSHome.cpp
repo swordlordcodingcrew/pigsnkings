@@ -64,7 +64,7 @@ namespace pnk
         {
             _btns.at(_pnk._gamevars.selectedModule).btn->removeAnimation(true);
             _btns.at(_pnk._gamevars.selectedModule).btn->_img_index = _btns.at(_pnk._gamevars.selectedModule).img_index;
-            _pnk._gamevars.selectedModule = ++_pnk._gamevars.selectedModule % _pnk._ESIZE;
+            _pnk._gamevars.selectedModule = ++_pnk._gamevars.selectedModule % _pnk.ENDOF_SELECTION;
 
             positionCandles();
         }
@@ -73,10 +73,10 @@ namespace pnk
             _btns.at(_pnk._gamevars.selectedModule).btn->removeAnimation(true);
             _btns.at(_pnk._gamevars.selectedModule).btn->_img_index = _btns.at(_pnk._gamevars.selectedModule).img_index;
             if(_pnk._gamevars.selectedModule == 0) {
-                _pnk._gamevars.selectedModule = _pnk._ESIZE - 1;
+                _pnk._gamevars.selectedModule = _pnk.ENDOF_SELECTION - 1;
             }
             else {
-                _pnk._gamevars.selectedModule = --_pnk._gamevars.selectedModule % _pnk._ESIZE;
+                _pnk._gamevars.selectedModule = --_pnk._gamevars.selectedModule % _pnk.ENDOF_SELECTION;
             }
 
             positionCandles();
@@ -164,7 +164,7 @@ namespace pnk
         blit::debugf("buttons\r\n");
 
         // make sure to resize the buttons array to the correct size
-        _btns.resize(_pnk._ESIZE, {nullptr, nullptr, 0});
+        _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
 
         // create sprites
         for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(sl))
