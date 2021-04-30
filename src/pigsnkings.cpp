@@ -2,8 +2,6 @@
 // This file is part of the Pigs and Kings game
 
 #include <iostream>
-#include <cassert>
-#include <sstream>
 
 #include "snd/SndGear.hpp"
 #include "Imagesheet.hpp"
