@@ -32,17 +32,17 @@ namespace pnk
         std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;
 
         blit::screen.pen = backgroundColour;
-        blit::screen.text(prefixedScore, hud_font_small, blit::Point(54 + shadowOffset, 10 + shadowOffset), true, blit::TextAlign::left);
-        blit::screen.text(prefixedLives, hud_font_small, blit::Point(36 + shadowOffset, 44 + shadowOffset), true, blit::TextAlign::center_h);
+        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::left);
+        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34 + shadowOffset, 49 + shadowOffset), true, blit::TextAlign::center_h);
 
         blit::screen.pen = foregroundColour;
-        blit::screen.text(prefixedScore, hud_font_small, blit::Point(54, 10), true, blit::TextAlign::left);
-        blit::screen.text(prefixedLives, hud_font_small, blit::Point(36, 44), true, blit::TextAlign::center_h);
+        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49, 18), true, blit::TextAlign::left);
+        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34, 49), true, blit::TextAlign::center_h);
 
         // health bar
         // TODO: make sure it does not grow bigger than full size
         blit::screen.pen = healthColour;
         float width = _pnk._gamevars.health * 0.3;
-        blit::screen.rectangle(blit::Rect(58, 36, width, 2));
+        blit::screen.rectangle(blit::Rect(55, 44, width, 2));
     }
 }
