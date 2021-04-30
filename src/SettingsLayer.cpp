@@ -122,7 +122,6 @@ namespace pnk
             if(pref.type == SLIDER)
             {
                 paintSlider(gear, 140, 50 + (i * 20), pref.curVal);
-                //blit::screen.text(pref.caption, hud_font_small, blit::Point(180, 50 + (i * 20)), true, blit::TextAlign::right);
             }
 
             i++;
@@ -153,7 +152,7 @@ namespace pnk
 
         // the slider
         sr = _is_hud->getBlitRect(60);
-        dp = {x + (val * 100), y};
+        dp = {static_cast<int32_t>(x + (val * 100)), y};
         blit::screen.blit_sprite(sr, dp, 0);
     }
 
