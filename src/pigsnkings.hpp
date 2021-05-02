@@ -59,17 +59,31 @@ namespace pnk
             TRACKS = 0,
             SFX,
             VOLUME,
+            DIFFICULTY,
             ENDOF_PREFS
         };
 
-        struct gamevars
+        enum e_saveslots
         {
-            float volume_snd{1};
-            float volume_sfx{1};
+            PREFERENCES = 0,
+            GAMESTATE_1,
+            GAMESTATE_2,
+            GAMESTATE_3,
+            GAMESTATE_4,
+            ENDOF_SAVESLOTS
+        };
 
-            // which module is set in the GSHome (where is the candle)
+        struct prefs
+        {
+            float volume_track{.5f};
+            float volume_sfx{.5f};
+            bool invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
             uint8_t selectedModule{PLAY};
+        };
 
+        struct gamestate
+        {
+            // which module is set in the GSHome (where is the candle)
             uint8_t  lives{3};
             uint8_t  health{100}; // percent
             uint32_t score{0};
@@ -77,13 +91,10 @@ namespace pnk
             uint32_t active_room{0};
         };
 
-        const gamevars  _default_gamevars;
-        gamevars        _gamevars;
-
-        bool _invincible{false};
+        gamestate       _gamestate; // state of current game
+        prefs           _prefs; // world preferences
 
     protected:
-        gamevars        _prefs;
 
         // the gear
         dang::Gear _gear;

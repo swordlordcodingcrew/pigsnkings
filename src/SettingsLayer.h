@@ -16,8 +16,7 @@ namespace pnk
     {
     public:
         SettingsLayer();
-
-        ~SettingsLayer() override = default;
+        ~SettingsLayer() override;
 
         void update(uint32_t dt, const dang::Gear &gear) override;
 
@@ -40,7 +39,8 @@ namespace pnk
          */
         enum e_prefsType
         {
-            SLIDER,
+            STEP_10,
+            STEP_3,
             YESNO
         };
 
@@ -50,7 +50,6 @@ namespace pnk
             float curVal;
             e_prefsType type;
         };
-
 
         std::vector<prefs_struct> _prefs;
 

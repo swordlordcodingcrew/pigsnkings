@@ -52,9 +52,9 @@ namespace pnk
     {
         removeImagesheets();
 
-        // TODO save prefs
-        _prefs = _gamevars;
-
+        // TODO save gamestates
+        // the question is if this makes sense here or
+        // if we place savepoints througout the level
     }
 
     void PigsnKings::init()
@@ -64,10 +64,20 @@ namespace pnk
         blit::set_screen_mode(blit::ScreenMode::hires);
 
         blit::debug("screen mode set\n");
-        // TODO: first load prefs
-        _gamevars = _prefs;
 
-        blit::debug("game vars set\n");
+        // loading preferences, if there are none, write defaults
+        if(!blit::read_save(_prefs, PREFERENCES)) {
+            blit::write_save(_prefs, PREFERENCES);
+        }
+
+        blit::debug("prefs loaded\n");
+
+        // TODO loading gamestates (there are four.. not sure which one to read, probably first until user chooses differently)
+        if(!blit::read_save(_gamestate, GAMESTATE_1)) {
+            blit::write_save(_gamestate, GAMESTATE_1);
+        }
+
+        blit::debug("game states loaded\n");
 
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);
@@ -157,7 +167,7 @@ namespace pnk
 
     void PigsnKings::playMod(const uint8_t *mod, const uint32_t len)
     {
-        playMod(mod, len, _pnk._prefs.volume_snd);
+        playMod(mod, len, _pnk._prefs.volume_track);
     }
 
     void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)

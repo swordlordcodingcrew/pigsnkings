@@ -25,10 +25,10 @@ namespace pnk
 
     void HUDLayer::renderInternal(const dang::Gear &gear)
     {
-        std::string score =  std::to_string(_pnk._gamevars.score);
+        std::string score =  std::to_string(_pnk._gamestate.score);
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;
 
-        std::string lives =  std::to_string(_pnk._gamevars.lives);
+        std::string lives =  std::to_string(_pnk._gamestate.lives);
         std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;
 
         blit::screen.pen = backgroundColour;
@@ -42,7 +42,7 @@ namespace pnk
         // health bar
         // TODO: make sure it does not grow bigger than full size
         blit::screen.pen = healthColour;
-        float width = _pnk._gamevars.health * 0.3;
+        float width = _pnk._gamestate.health * 0.3;
         blit::screen.rectangle(blit::Rect(55, 44, width, 2));
     }
 }

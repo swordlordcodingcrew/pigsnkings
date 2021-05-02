@@ -14,7 +14,6 @@
 #include "Layer.hpp"
 #include "Imagesheet.hpp"
 
-#include "tinyraytracer.h" // see https://github.com/ssloy/tinyraytracer
 #include "type.h"
 #include "mesh_monkey.h"
 
@@ -31,24 +30,34 @@ namespace pnk
         displayRect = blit::Rect(0, 0, blit::screen.bounds.w, blit::screen.bounds.h);
         blit::screen.rectangle(displayRect);
 
-        _prefs.resize(_pnk.ENDOF_PREFS, {"unset", 1, SLIDER});
+        _prefs.resize(_pnk.ENDOF_PREFS, {"unset", 1, STEP_10});
 
         _prefs.at(_pnk.TRACKS).caption = "Music";
-        _prefs.at(_pnk.TRACKS).curVal = _pnk._gamevars.volume_snd;
+        _prefs.at(_pnk.TRACKS).curVal = _pnk._prefs.volume_track;
 
         _prefs.at(_pnk.SFX).caption = "Sound FX";
-        _prefs.at(_pnk.SFX).curVal = _pnk._gamevars.volume_sfx;
+        _prefs.at(_pnk.SFX).curVal = _pnk._prefs.volume_sfx;
 
         _prefs.at(_pnk.VOLUME).caption = "Volume";
         _prefs.at(_pnk.VOLUME).curVal = 1; // blit persist.volume
+
+        _prefs.at(_pnk.DIFFICULTY).caption = "Difficulty";
+        _prefs.at(_pnk.DIFFICULTY).curVal = 1;
+        _prefs.at(_pnk.DIFFICULTY).type = STEP_3; // OINK, MEDIUM, HARD
 
         _is_castle = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 12, 8);
         _is_hud = std::make_shared<dang::Imagesheet>("hud_ui", &hud_ui, 15, 7);
     }
 
+    SettingsLayer::~SettingsLayer()
+    {
+        blit::write_save(_pnk._prefs, _pnk.PREFERENCES);
+    }
+
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
     {
-        // move selection
+        // ----------------------
+        // up and down
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
             _selectedPref = ++_selectedPref % _pnk.ENDOF_PREFS;
@@ -67,36 +76,28 @@ namespace pnk
             //positionCandles();
         }
 
+        // ----------------------
+        // left and right
+
+        // TODO make sure to check for 10 step vs 3 step vs bool
         if (blit::buttons.pressed & blit::Button::DPAD_LEFT)
         {
             //positionCandles();
             auto& pref = _prefs.at(_selectedPref);
-            if(pref.curVal > 0.1)
-            {
-                _prefs.at(_selectedPref).curVal -= .1;
-            }
-            else
-            {
-                _prefs.at(_selectedPref).curVal = 0;
-            }
+            pref.curVal > 0.1f ? (_prefs.at(_selectedPref).curVal -= .1f) : (_prefs.at(_selectedPref).curVal = 0);
 
-            _pnk._gamevars.volume_sfx = pref.curVal;
+            // TODO check sfx vs tracks
+            _pnk._prefs.volume_sfx = pref.curVal;
             PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_RIGHT)
         {
             //positionCandles();
             auto& pref = _prefs.at(_selectedPref);
-            if(pref.curVal < 0.9)
-            {
-                _prefs.at(_selectedPref).curVal += .1;
-            }
-            else
-            {
-                _prefs.at(_selectedPref).curVal = 1;
-            }
+            pref.curVal < 0.9f ? (_prefs.at(_selectedPref).curVal += .1f) : (_prefs.at(_selectedPref).curVal = 1);
 
-            _pnk._gamevars.volume_sfx = pref.curVal;
+            // TODO check sfx vs tracks
+            _pnk._prefs.volume_sfx = pref.curVal;
             PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
         }
     }
@@ -109,17 +110,11 @@ namespace pnk
 
         for(auto& pref : _prefs)
         {
-            if(i == _selectedPref)
-            {
-                blit::screen.pen = foregroundColour;
-            }
-            else
-            {
-                blit::screen.pen = backgroundColour;
-            }
+            i == _selectedPref ? blit::screen.pen = foregroundColour : blit::screen.pen = backgroundColour;
+
             blit::screen.text(pref.caption, hud_font_small, blit::Point(49, 50 + (i * 20)), true, blit::TextAlign::left);
 
-            if(pref.type == SLIDER)
+            if(pref.type == STEP_10)
             {
                 paintSlider(gear, 140, 50 + (i * 20), pref.curVal);
             }
@@ -130,8 +125,6 @@ namespace pnk
 
     void SettingsLayer::paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val)
     {
-//        61-63
-
         blit::screen.sprites = _is_hud->getSurface();
 
         blit::Rect sr = _is_hud->getBlitRect(61);

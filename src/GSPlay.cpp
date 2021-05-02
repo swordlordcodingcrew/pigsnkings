@@ -105,7 +105,7 @@ namespace pnk
         blit::debugf("choose level\r\n");
 
         // choose level acc. to pnk
-        switch(_pnk._gamevars.active_level)
+        switch(_pnk._gamestate.active_level)
         {
             case 1:
             default:
@@ -218,8 +218,8 @@ namespace pnk
         blit::debugf("change room\r\n");
 
         // choose room acc. to prefs
-        _active_act_index = _pnk._gamevars.active_room -1;
-        changeRoom(_pnk._gamevars.active_room, true);
+        _active_act_index = _pnk._gamestate.active_room - 1;
+        changeRoom(_pnk._gamestate.active_room, true);
 
         blit::debugf("viewport\r\n");
 
@@ -376,13 +376,13 @@ namespace pnk
 
     void GSPlay::handleKingHealth(PnkEvent& pe)
     {
-        if(_pnk._invincible)
+        if(_pnk._prefs.invincible)
         {
             return;
         }
 
         // get current health (and yes, we want signed to go below 0!)
-        int8_t health = _pnk._gamevars.health;
+        int8_t health = _pnk._gamestate.health;
 
         switch(pe._payload)
         {
@@ -412,19 +412,19 @@ namespace pnk
         }
         else
         {
-            _pnk._gamevars.health = health;
+            _pnk._gamestate.health = health;
             PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
         }
     }
 
     void GSPlay::handleKingLoosesLife()
     {
-        _pnk._gamevars.lives -= 1;
+        _pnk._gamestate.lives -= 1;
 
-        if(_pnk._gamevars.lives <= 0)
+        if(_pnk._gamestate.lives <= 0)
         {
             // TODO GAME OVER
-            _pnk._gamevars.lives = 3;
+            _pnk._gamestate.lives = 3;
         }
 
         dang::Vector2F sp;
@@ -434,7 +434,7 @@ namespace pnk
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
-        _pnk._gamevars.health = 100;
+        _pnk._gamestate.health = 100;
 
         PigsnKings::playSfx(lifelost_22050_mono, lifelost_22050_mono_length);
     }
@@ -478,13 +478,13 @@ namespace pnk
 
     void GSPlay::addScore(uint8_t score)
     {
-        _pnk._gamevars.score += score;
+        _pnk._gamestate.score += score;
         PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
     }
 
     void GSPlay::addHealth(uint8_t healthGain)
     {
-        uint8_t h = _pnk._gamevars.health;
+        uint8_t h = _pnk._gamestate.health;
 
         h += healthGain;
 
@@ -494,7 +494,7 @@ namespace pnk
             h = 100;
         }
 
-        _pnk._gamevars.health = h;
+        _pnk._gamestate.health = h;
         PigsnKings::playSfx(health_22050_mono, health_22050_mono_length);
     }
 
