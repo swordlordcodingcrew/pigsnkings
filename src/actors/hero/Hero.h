@@ -23,7 +23,7 @@ namespace pnk
     {
     public:
         Hero();
-        Hero(const dang::tmx_spriteobject &so, std::shared_ptr<dang::Imagesheet> is);
+        Hero(const dang::tmx_spriteobject* so, std::shared_ptr<dang::Imagesheet> is);
         ~Hero() override;
         void activateState();
 

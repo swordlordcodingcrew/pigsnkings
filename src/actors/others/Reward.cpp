@@ -22,7 +22,7 @@ namespace pnk
     {
     }
 
-    Reward::Reward(const dang::tmx_spriteobject &so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Reward::Reward(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
     {
     }
 

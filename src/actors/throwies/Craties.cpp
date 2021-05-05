@@ -31,7 +31,7 @@ namespace pnk
 
     }
 
-    Craties::Craties(const dang::tmx_spriteobject &so, spImagesheet is) : Throwies(so, is)
+    Craties::Craties(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
     {
 
     }

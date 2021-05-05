@@ -31,7 +31,7 @@ namespace pnk
     {
     public:
         HenchPig();
-        HenchPig(const dang::tmx_spriteobject &so, spImagesheet is);
+        HenchPig(const dang::tmx_spriteobject* so, spImagesheet is);
         ~HenchPig() override;
         void init() override;
 

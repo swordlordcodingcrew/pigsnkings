@@ -21,7 +21,7 @@ namespace pnk
     public:
         Craties();
         Craties(const Throwies& bub);
-        Craties(const dang::tmx_spriteobject &so, spImagesheet is);
+        Craties(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Craties() override;
         void init() override;
         void update(uint32_t dt) override;

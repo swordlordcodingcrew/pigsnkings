@@ -31,7 +31,7 @@ namespace pnk
 
     }
 
-    Bombies::Bombies(const dang::tmx_spriteobject &so, spImagesheet is) : Throwies(so, is)
+    Bombies::Bombies(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
     {
 
     }

@@ -29,7 +29,7 @@ namespace pnk
 
     }
 
-    Moodies::Moodies(const dang::tmx_spriteobject &so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Moodies::Moodies(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
     {
 
     }

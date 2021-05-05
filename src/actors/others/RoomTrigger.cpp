@@ -19,9 +19,9 @@ namespace pnk
         _warp = true;
     }
 
-    RoomTrigger::RoomTrigger(const dang::tmx_spriteobject &so, bool warp) : dang::CollisionSprite(so, nullptr), _warp(warp)
+    RoomTrigger::RoomTrigger(const dang::tmx_spriteobject* so, bool warp) : dang::CollisionSprite(so, nullptr), _warp(warp)
     {
-        _room = std::stoul(so.name);
+        _room = std::stoul(so->name);
     }
 
 

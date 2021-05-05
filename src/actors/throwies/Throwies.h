@@ -21,7 +21,7 @@ namespace pnk
     public:
         Throwies();
         Throwies(const Throwies& bub);
-        Throwies(const dang::tmx_spriteobject &so, spImagesheet is);
+        Throwies(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Throwies() override;
         virtual void init();
         void update(uint32_t dt) override;

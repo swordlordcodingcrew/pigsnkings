@@ -20,7 +20,7 @@ namespace pnk
     {
     public:
         PigCrate();
-        PigCrate(const dang::tmx_spriteobject &so, spImagesheet is);
+        PigCrate(const dang::tmx_spriteobject* so, spImagesheet is);
         ~PigCrate() override;
         void init() override;
 

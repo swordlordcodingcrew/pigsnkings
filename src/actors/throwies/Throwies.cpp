@@ -30,7 +30,7 @@ namespace pnk
 
     }
 
-    Throwies::Throwies(const dang::tmx_spriteobject &so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Throwies::Throwies(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
     {
 
     }

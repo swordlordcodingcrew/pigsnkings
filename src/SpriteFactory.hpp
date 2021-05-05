@@ -125,20 +125,20 @@ namespace pnk
             TN_PIG_POOF = 501,
         };
 
-        static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
-        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
-        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
-        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is, bool to_the_left);
-        static spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is);
-        static spCollisionSprite Hotrect(const dang::tmx_spriteobject& so);
-        static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject& so);
-        static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject& so);
-        static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject &so);
+        static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spCollisionSprite Hotrect(const dang::tmx_spriteobject* so);
+        static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
+        static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
+        static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
 
     };
 

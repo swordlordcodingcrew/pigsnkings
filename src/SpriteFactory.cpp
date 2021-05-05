@@ -26,7 +26,7 @@
 
 namespace pnk
 {
-    spHero SpriteFactory::King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is)
+    spHero SpriteFactory::King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         assert(is != nullptr);
         spHero ret = std::make_shared<pnk::Hero>(so, is);
@@ -69,7 +69,7 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::Hotrect(const dang::tmx_spriteobject& so)
+    spCollisionSprite SpriteFactory::Hotrect(const dang::tmx_spriteobject* so)
     {
         spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
         ret->_visible = false;
@@ -79,7 +79,7 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::HotrectPlatform(const dang::tmx_spriteobject& so)
+    spCollisionSprite SpriteFactory::HotrectPlatform(const dang::tmx_spriteobject* so)
     {
         spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
         ret->_visible = false;
@@ -89,7 +89,7 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::RoomTrigger(const dang::tmx_spriteobject &so)
+    spCollisionSprite SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so)
     {
         spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, false);
         ret->_visible = false;
@@ -99,7 +99,7 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject &so)
+    spCollisionSprite SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject* so)
     {
         spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
         ret->_visible = false;
@@ -109,7 +109,7 @@ namespace pnk
         return ret;
     }
 
-    spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_NORMAL;
@@ -128,7 +128,7 @@ namespace pnk
     }
 
     // it is a wooden crate.. for making buses out of them
-    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOX;
@@ -151,7 +151,7 @@ namespace pnk
         return ret;
     }
 
-    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOMB;
@@ -173,7 +173,7 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject& so, spImagesheet is)
+    spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_POOF;
@@ -189,45 +189,45 @@ namespace pnk
     }
 
 
-    spReward SpriteFactory::Reward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is)
+    spReward SpriteFactory::Reward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spReward ret = std::make_shared<pnk::Reward>(so, is);
 
-        if(so.type == SpriteFactory::T_COIN_SILVER)
+        if(so->type == SpriteFactory::T_COIN_SILVER)
         {
             ret->_type_num = SpriteFactory::TN_COIN_SILVER;
         }
-        else if(so.type == SpriteFactory::T_COIN_GOLD)
+        else if(so->type == SpriteFactory::T_COIN_GOLD)
         {
             ret->_type_num = SpriteFactory::TN_COIN_GOLD;
         }
-        else if(so.type == SpriteFactory::T_GEM_BLUE)
+        else if(so->type == SpriteFactory::T_GEM_BLUE)
         {
             ret->_type_num = SpriteFactory::TN_GEM_BLUE;
         }
-        else if(so.type == SpriteFactory::T_GEM_GREEN)
+        else if(so->type == SpriteFactory::T_GEM_GREEN)
         {
             ret->_type_num = SpriteFactory::TN_GEM_GREEN;
         }
-        else if(so.type == SpriteFactory::T_GEM_RED)
+        else if(so->type == SpriteFactory::T_GEM_RED)
         {
             ret->_type_num = SpriteFactory::TN_GEM_RED;
         }
-        else if(so.type == SpriteFactory::T_POTION_BLUE)
+        else if(so->type == SpriteFactory::T_POTION_BLUE)
         {
             ret->_type_num = SpriteFactory::TN_POTION_BLUE;
         }
-        else if(so.type == SpriteFactory::T_POTION_RED)
+        else if(so->type == SpriteFactory::T_POTION_RED)
         {
             ret->_type_num = SpriteFactory::TN_POTION_RED;
         }
-        else if(so.type == SpriteFactory::T_POTION_GREEN)
+        else if(so->type == SpriteFactory::T_POTION_GREEN)
         {
             ret->_type_num = SpriteFactory::TN_POTION_GREEN;
         }
         else
         {
-            std::cout << "current TN Type not implemented in SpriteFactory Reward: " << so.type << std::endl;
+            std::cout << "current TN Type not implemented in SpriteFactory Reward: " << so->type << std::endl;
             ret->_type_num = SpriteFactory::TN_COIN_SILVER;
         }
 
@@ -237,7 +237,7 @@ namespace pnk
         return ret;
     }
 
-    spBubble SpriteFactory::Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    spBubble SpriteFactory::Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
     {
         spBubble ret = std::make_shared<pnk::Bubble>(so, is);
         ret->_type_num = SpriteFactory::TN_BUBBLE;
@@ -269,7 +269,7 @@ namespace pnk
         return ret;
     }
 
-    spThrowies SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    spThrowies SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
     {
         spThrowies ret = std::make_shared<pnk::Craties>(so, is);
         ret->_type_num = SpriteFactory::TN_FLYING_CRATE;
@@ -286,7 +286,7 @@ namespace pnk
         return ret;
     }
 
-    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
     {
         spThrowies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->_type_num = SpriteFactory::TN_FLYING_BOMB;
@@ -303,7 +303,7 @@ namespace pnk
         return ret;
     }
 
-    spThrowies SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject &so, spImagesheet is, bool to_the_left)
+    spThrowies SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
     {
         spThrowies ret = std::make_shared<pnk::Throwies>(so, is);
         ret->_type_num = SpriteFactory::TN_FLYING_CANNONBALL;

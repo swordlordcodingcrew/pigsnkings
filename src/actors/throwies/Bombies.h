@@ -22,7 +22,7 @@ namespace pnk
     public:
         Bombies();
         Bombies(const Throwies& bub);
-        Bombies(const dang::tmx_spriteobject &so, spImagesheet is);
+        Bombies(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Bombies() override;
         void init() override;
         void update(uint32_t dt) override;

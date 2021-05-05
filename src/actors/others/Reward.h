@@ -18,7 +18,7 @@ namespace pnk
     {
     public:
         Reward();
-        Reward(const dang::tmx_spriteobject &so, spImagesheet is);
+        Reward(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Reward() override;
         void    init();
 

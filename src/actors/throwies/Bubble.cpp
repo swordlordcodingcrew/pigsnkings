@@ -32,7 +32,7 @@ namespace pnk
 
     }
 
-    Bubble::Bubble(const dang::tmx_spriteobject &so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Bubble::Bubble(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
     {
 
     }

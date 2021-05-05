@@ -15,7 +15,7 @@ namespace pnk
     {
     public:
         RoomTrigger();
-        RoomTrigger(const dang::tmx_spriteobject &so, bool warp);
+        RoomTrigger(const dang::tmx_spriteobject* so, bool warp);
 
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;

@@ -29,7 +29,7 @@ namespace pnk
     {
     }
 
-    Hero::Hero(const dang::tmx_spriteobject &so, const std::shared_ptr<dang::Imagesheet> is)
+    Hero::Hero(const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Imagesheet> is)
     : dang::CollisionSprite(so, is)
     {
         _hotrect = {8, 8, 16, 24};

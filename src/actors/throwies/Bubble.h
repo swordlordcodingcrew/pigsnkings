@@ -21,7 +21,7 @@ namespace pnk
     public:
         Bubble();
         Bubble(const Bubble& bub);
-        Bubble(const dang::tmx_spriteobject &so, spImagesheet is);
+        Bubble(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Bubble() override;
         void    init();
         void update(uint32_t dt) override;

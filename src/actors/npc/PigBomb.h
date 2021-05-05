@@ -20,7 +20,7 @@ namespace pnk
     {
     public:
         PigBomb();
-        PigBomb(const dang::tmx_spriteobject &so, spImagesheet is);
+        PigBomb(const dang::tmx_spriteobject* so, spImagesheet is);
         ~PigBomb() override;
         void init();
 

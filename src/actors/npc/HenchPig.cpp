@@ -25,7 +25,7 @@ namespace pnk
     {
     }
 
-    HenchPig::HenchPig(const dang::tmx_spriteobject &so, spImagesheet is) : pnk::Enemy(so, is)
+    HenchPig::HenchPig(const dang::tmx_spriteobject* so, spImagesheet is) : pnk::Enemy(so, is)
     {
     }
 

@@ -21,7 +21,7 @@ namespace pnk
     public:
         Moodies();
         Moodies(const Moodies& bub);
-        Moodies(const dang::tmx_spriteobject &so, spImagesheet is);
+        Moodies(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Moodies() override;
         virtual void init();
         void update(uint32_t dt) override;

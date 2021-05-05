@@ -110,11 +110,11 @@ namespace pnk
             case 1:
             default:
                 _screenplay = std::make_shared<L1SP>();
-                _tmx = init_level_1();
+                _tmx = &level_1_level;
                 break;
         }
 
-        dang::TmxExtruder txtr(&_tmx);
+        dang::TmxExtruder txtr(_tmx);
 
         blit::debugf("extruded\r\n");
 
@@ -147,26 +147,28 @@ namespace pnk
         blit::debugf("sprite objects\r\n");
 
         // create sprites
-        for (const dang::tmx_spriteobject& so : txtr.getSOList(_csl))
+        for (size_t j = 0; j < _csl->_tmx_layer->spriteobejcts_len; j++)
         {
-            spImagesheet is = gear.getImagesheet(_tmx.tilesets[so.tileset].name);
+            const dang::tmx_spriteobject* so = _csl->_tmx_layer->spriteobjects + j;
+
+            spImagesheet is = gear.getImagesheet(so->tileset);
             spCollisionSprite spr = nullptr;
-            if      (so.type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
-            else if (so.type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
-            else if (so.type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
-            else if (so.type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
-            else if (so.type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_GEM_GREEN)         { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_GEM_RED)           { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_POTION_BLUE)       { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_POTION_RED)        { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_POTION_GREEN)      { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so.type == SpriteFactory::T_KING)
+            if      (so->type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
+            else if (so->type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
+            else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
+            else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
+            else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_GEM_GREEN)         { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_GEM_RED)           { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_POTION_BLUE)       { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_POTION_RED)        { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_POTION_GREEN)      { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_KING)
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
@@ -178,25 +180,25 @@ namespace pnk
             }
             else
             {
-                if (so.type == SpriteFactory::T_BUBBLE_PROTO)
+                if (so->type == SpriteFactory::T_BUBBLE_PROTO)
                 {
                     spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["bubble"] = sprc;
                 }
-                else if (so.type == SpriteFactory::T_CRATE_PROTO)
+                else if (so->type == SpriteFactory::T_CRATE_PROTO)
                 {
                     spCollisionSprite sprc = SpriteFactory::Crate(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["crate"] = sprc;
                 }
-                else if (so.type == SpriteFactory::T_BOMB_PROTO)
+                else if (so->type == SpriteFactory::T_BOMB_PROTO)
                 {
                     spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["bomb"] = sprc;
                 }
-                else if (so.type == SpriteFactory::T_PIG_POOF_PROTO)
+                else if (so->type == SpriteFactory::T_PIG_POOF_PROTO)
                 {
                     spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
                     assert(sprc != nullptr);
@@ -204,7 +206,7 @@ namespace pnk
                 }
                 else
                 {
-                        std::cerr << "sprite type unknown. Id=" << so.id << ", type=" << so.type << std::endl;
+                        std::cerr << "sprite type unknown. Id=" << so->id << ", type=" << so->type << std::endl;
                 }
             }
         }
@@ -429,8 +431,8 @@ namespace pnk
 
         dang::Vector2F sp;
         dang::Vector2U restart_pos = _active_act->_passage_from[_active_act_index - 1];
-        sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx.w.tileWidth;
-        sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx.w.tileHeight;
+        sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
+        sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
@@ -537,18 +539,18 @@ namespace pnk
 
         _active_act = &_screenplay->_acts[room_nr];
         // initialize room size
-        _room_extent.x = _active_act->_extent.x * _tmx.w.tileWidth;
-        _room_extent.y = _active_act->_extent.y * _tmx.w.tileHeight;
-        _room_extent.w = _active_act->_extent.w * _tmx.w.tileWidth;
-        _room_extent.h = _active_act->_extent.h * _tmx.w.tileHeight;
+        _room_extent.x = _active_act->_extent.x * _tmx->w->tileWidth;
+        _room_extent.y = _active_act->_extent.y * _tmx->w->tileHeight;
+        _room_extent.w = _active_act->_extent.w * _tmx->w->tileWidth;
+        _room_extent.h = _active_act->_extent.h * _tmx->w->tileHeight;
 
         if (warp)
         {
             dang::Vector2F sp;
 
             dang::Vector2U passage = _active_act->_passage_from[_active_act_index];
-            sp.x = (_active_act->_extent.x + passage.x) * _tmx.w.tileWidth;
-            sp.y = (_active_act->_extent.y + passage.y) * _tmx.w.tileHeight;
+            sp.x = (_active_act->_extent.x + passage.x) * _tmx->w->tileWidth;
+            sp.y = (_active_act->_extent.y + passage.y) * _tmx->w->tileHeight;
             _spr_hero->setPos(sp);
             _warp = true;
         }

@@ -105,15 +105,15 @@ namespace pnk
         // Setup channel
 
         // set up state
-        _lvl = init_main_1();
-        dang::TmxExtruder tmx_ext(&_lvl);
+        _tmx = &main_1_level;
+        dang::TmxExtruder tmx_ext(_tmx);
 
         blit::debugf("extruded\r\n");
 
         dang::RectF vp = {0, 0, 320, 240};
 
         blit::debugf("init level\r\n");
-        gear.initLevel(_lvl, vp);
+        gear.initLevel(_tmx, vp);
 
         blit::debugf("set active world size\r\n");
         gear.setActiveWorldSize(vp.w, vp.h);
@@ -137,19 +137,19 @@ namespace pnk
 
         blit::debugf("auto layers done\r\n");
 
-
-//        const dang::tmx_objectlayer* ol = tmx_ext.getTmxObjectLayer(tmx_deco_layer_name);
-        for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(dl))
+        for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
         {
-            spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
+            const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
+
+            spImagesheet is = gear.getImagesheet(so->tileset);
             spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
-            if (so.type == "candle")
+            if (so->type == "candle")
             {
                 spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 6, 7, 15, 16, 17}, 700, dang::Ease::Linear, -1)));
 
-                if(so.name == "leftcandle")
+                if(so->name == "leftcandle")
                 {
                     _sprLeftCandle = spr;
                 }
@@ -167,35 +167,38 @@ namespace pnk
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
 
         // create sprites
-        for (const dang::tmx_spriteobject& so : tmx_ext.getSOList(sl))
+        for (size_t j = 0; j < sl->_tmx_layer->spriteobejcts_len; j++)
         {
-            spImagesheet is = gear.getImagesheet(_lvl.tilesets[so.tileset].name);
+            const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
+
+            spImagesheet is = gear.getImagesheet(so->tileset);
             spSprite spr{nullptr};
             // buttons
-            if(so.type == "button"){
+            if(so->type == "button")
+            {
                 spr = std::make_shared<dang::Sprite>(so, is);
                 spr->_visible = true;
                 spr->_imagesheet = is;
-                if (so.type == "button" && so.name == "play")
+                if (so->type == "button" && so->name == "play")
                 {
                     _btns.at(_pnk.PLAY).btn = spr;
                     _btns.at(_pnk.PLAY).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                     _btns.at(_pnk.PLAY).img_index = 1;
                 }
-                else if (so.type == "button" && so.name == "prefs")
+                else if (so->type == "button" && so->name == "prefs")
                 {
                     _btns.at(_pnk.PREFS).btn = spr;
                     _btns.at(_pnk.PREFS).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                     _btns.at(_pnk.PREFS).img_index = 2;
                 }
-                else if (so.type == "button" && so.name == "about")
+                else if (so->type == "button" && so->name == "about")
                 {
                     _btns.at(_pnk.ABOUT).btn = spr;
                     _btns.at(_pnk.ABOUT).anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{2, 1, 0, 1}, 700, dang::Ease::Linear, -1));
                     _btns.at(_pnk.ABOUT).img_index = 0;
                 }
             }
-            else if (so.name == "piggie")
+            else if (so->name == "piggie")
             {
                 spr = std::make_shared<dang::Sprite>(so, is);
                 spr->_visible = true;
@@ -226,7 +229,7 @@ namespace pnk
 
                 spr->addTween(tw_seq_anim);
             }
-            else if (so.name == "hero")
+            else if (so->name == "hero")
             {
                 spr = std::make_shared<dang::Sprite>(so, is);
                 spr->_visible = true;
