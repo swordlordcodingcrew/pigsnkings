@@ -43,22 +43,23 @@ namespace pnk
         room4._extent = {9, 0, 21, 8};
         room4._passage_from[3] = {20, 2};
         room4._passage_from[5] = {0, 2};
+        room4._passage_from[7] = {6, 6};
         _acts.push_back(room4);
 
         act room5;
-        room5._extent = {0, 0, 10, 11};
+        room5._extent = {0, 0, 10, 9};
         room5._passage_from[4] = {9, 2};
         room5._passage_from[6] = {5, 6};
         _acts.push_back(room5);
 
         act room6;
         room6._extent = {0, 8, 10, 8};
-        room6._passage_from[5] = {4, 0};
+        room6._passage_from[5] = {4, 1};
         _acts.push_back(room6);
 
         act room7;
         room7._extent = {10, 8, 10, 8};
-        room7._passage_from[4] = {9, 7};
+        room7._passage_from[4] = {1, 7};
         _acts.push_back(room7);
     }
 }
