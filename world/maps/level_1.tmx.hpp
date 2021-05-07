@@ -224,11 +224,15 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {164,"164","",448,64,32,32,true,"gfx_castle_decorations",4},
     {328,"328","",352,96,32,32,true,"gfx_castle_decorations",4},
     {373,"373","",864,440,32,32,true,"gfx_castle_decorations",4},
-    {378,"378","",416,64,32,32,true,"gfx_castle_decorations",4}
+    {378,"378","",416,64,32,32,true,"gfx_castle_decorations",4},
+    {115,"115","",384,320,32,32,true,"gfx_castle_decorations",3},
+    {110,"110","",352,320,32,32,true,"gfx_castle_decorations",1},
+    {111,"111","",544,320,32,32,true,"gfx_castle_decorations",1},
+    {114,"114","",576,320,32,32,true,"gfx_castle_decorations",3}
 
 };
 
-static const size_t level_1_lvl_1_mood_objects_len = 98;
+static const size_t level_1_lvl_1_mood_objects_len = 102;
 
 static const dang::tmx_layer level_1_lvl_1_mood = {
     .name = "lvl_1_mood",
@@ -248,10 +252,6 @@ static const dang::tmx_layer level_1_lvl_1_mood = {
 // Objects for layer: lvl_1_obj
 static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
-    {110,"110","coin_silver",352,320,32,32,true,"gfx_castle_decorations",1},
-    {111,"111","coin_silver",544,320,32,32,true,"gfx_castle_decorations",1},
-    {114,"114","coin_silver",576,320,32,32,true,"gfx_castle_decorations",3},
-    {115,"115","coin_silver",384,320,32,32,true,"gfx_castle_decorations",3},
     {143,"143","coin_silver",384,534,32,48,true,"gfx_items",0},
     {144,"144","coin_silver",448,598,32,48,true,"gfx_items",0},
     {145,"145","coin_silver",480,598,32,48,true,"gfx_items",0},
@@ -352,9 +352,9 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {321,"321","hotrect_platform",416,160,64,4,true,"",0},
     {322,"322","hotrect_platform",832,192,64,4,true,"",0},
     {323,"323","hotrect_platform",800,128,32,4,true,"",0},
-    {324,"324","hotrect_platform",416,64,64,4,true,"",0},
-    {326,"326","hotrect",256,96,96,64,true,"",0},
-    {330,"330","hotrect",384,64,32,32,true,"",0},
+    {324,"324","hotrect_platform",384,64,96,4,true,"",0},
+    {326,"326","hotrect",256,100,96,60,true,"",0},
+    {330,"330","hotrect",384,68,32,28,true,"",0},
     {331,"331","hotrect",224,32,128,32,true,"",0},
     {333,"dan","pig_box",320,640,32,32,true,"character_pigcrate",5},
     {334,"334","pig_bomb",768,704,32,32,true,"character_pigbomb",4},
@@ -383,7 +383,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {362,"362","hotrect_platform",96,128,32,4,true,"",0},
     {363,"363","hotrect_platform",64,160,32,4,true,"",0},
     {364,"364","hotrect_platform",96,192,32,4,true,"",0},
-    {365,"365","hotrect",192,96,64,12,true,"",0},
+    {365,"365","hotrect",192,96,160,12,true,"",0},
     {366,"366","hotrect_platform",96,352,96,4,true,"",0},
     {367,"367","hotrect_platform",96,384,96,4,true,"",0},
     {368,"368","hotrect_platform",96,416,96,4,true,"",0},
@@ -405,7 +405,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 154;
+static const size_t level_1_lvl_1_obj_objects_len = 150;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
@@ -420,6 +420,38 @@ static const dang::tmx_layer level_1_lvl_1_obj = {
     .tl_tiles_len = 0,
     .spriteobjects = level_1_lvl_1_obj_objects,
     .spriteobejcts_len = level_1_lvl_1_obj_objects_len
+};
+
+// Objects for layer: lvl_1_fg
+static const dang::tmx_spriteobject level_1_lvl_1_fg_objects[] = {
+
+    {386,"386","",352,32,32,32,true,"gfx_levels_castle_tiles",25},
+    {387,"387","",384,32,32,32,true,"gfx_levels_castle_tiles",18},
+    {389,"389","",416,32,32,32,true,"gfx_levels_castle_tiles",26},
+    {390,"390","",480,192,32,32,true,"gfx_levels_castle_tiles",0},
+    {391,"391","",512,192,32,32,true,"gfx_levels_castle_tiles",17},
+    {395,"395","",416,0,32,32,true,"gfx_levels_castle_tiles",13},
+    {396,"396","",384,0,32,32,true,"gfx_levels_castle_tiles",13},
+    {397,"397","",352,0,32,32,true,"gfx_levels_castle_tiles",13},
+    {398,"398","",416,0,32,32,true,"gfx_levels_castle_tiles",4}
+
+};
+
+static const size_t level_1_lvl_1_fg_objects_len = 9;
+
+static const dang::tmx_layer level_1_lvl_1_fg = {
+    .name = "lvl_1_fg",
+    .type = dang::tmx_layerType::ltObjects,
+    .opacity = 1,
+    .visible = true,
+    .z_order = 3,
+    .tl_width = 0,
+    .tl_height = 0,
+    .tl_tileset = "",
+    .tl_tiles = nullptr,
+    .tl_tiles_len = 0,
+    .spriteobjects = level_1_lvl_1_fg_objects,
+    .spriteobejcts_len = level_1_lvl_1_fg_objects_len
 };
 
 // Objects for layer: lvl_1_hud
@@ -439,7 +471,7 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
     .type = dang::tmx_layerType::ltObjects,
     .opacity = 1,
     .visible = true,
-    .z_order = 3,
+    .z_order = 4,
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -453,10 +485,11 @@ const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
     level_1_lvl_1_mood,
     level_1_lvl_1_obj,
+    level_1_lvl_1_fg,
     level_1_lvl_1_hud
 };
 
-const static size_t level_1_layers_len = 4;
+const static size_t level_1_layers_len = 5;
 
 // Level ---------------------------------------------------
 

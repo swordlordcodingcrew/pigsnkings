@@ -26,6 +26,7 @@ namespace pnk
         std::string         _l_obj_name;
         std::string         _l_mood_name;
         std::string         _l_hud_name;
+        std::string         _l_fg_name;
 
         struct act
         {

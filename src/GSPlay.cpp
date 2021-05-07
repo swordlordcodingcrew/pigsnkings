@@ -211,6 +211,11 @@ namespace pnk
             }
         }
 
+        blit::debugf("fg layer\r\n");
+
+        // create foreground layer
+        txtr.getSpriteLayer(_screenplay->_l_fg_name, gear, true, true);
+
         blit::debugf("hud layer\r\n");
 
         // create HUD layer

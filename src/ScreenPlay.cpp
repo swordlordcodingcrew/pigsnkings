@@ -11,6 +11,7 @@ namespace pnk
         _l_obj_name = "lvl_1_obj";;
         _l_mood_name = "lvl_1_mood";
         _l_hud_name = "lvl_1_hud";
+        _l_fg_name = "lvl_1_fg";
 
         // viewport = 320 x 240 px
         act room0;

@@ -77,6 +77,9 @@ namespace pnk
             blit::write_save(_gamestate, GAMESTATE_1);
         }
 
+        // TODO: remove. This is only for testing purpose
+        _gamestate.active_room = 0;
+
         blit::debug("game states loaded\n");
 
         _gs = GameState::_gs_intro;

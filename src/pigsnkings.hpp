@@ -99,11 +99,7 @@ namespace pnk
         // the gear
         dang::Gear _gear;
 
-        // callback functions for DANG
-/*        static void blit_sprite_cb(dang::RectU sr, dang::Vector2I p, uint8_t t);
-        static void set_surface_cb(dang::spImagesheet is);
-        static void line_cb(dang::Vector2I sp, dang::Vector2I dp, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-*/        static void sfx_buff_cb(blit::AudioChannel &channel);
+        static void sfx_buff_cb(blit::AudioChannel &channel);
         static void mod_buff_cb(blit::AudioChannel &channel);
 
         // the state
@@ -117,7 +113,6 @@ namespace pnk
         uint32_t _cycles{0};
         void renderInfoText();
 #endif
-//        const dang::Imagesheet* _active_imagesheet{nullptr};
 
 #ifdef PNK_SND_DEBUG
         static uint32_t _last_mod_time;
