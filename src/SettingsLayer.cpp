@@ -51,7 +51,10 @@ namespace pnk
 
     SettingsLayer::~SettingsLayer()
     {
+        // TODO: fix: this is a hack to set Play as the selected module in the save file...
+        _pnk._prefs.selectedModule = _pnk.PLAY;
         blit::write_save(_pnk._prefs, _pnk.PREFERENCES);
+        _pnk._prefs.selectedModule = _pnk.PREFS;
     }
 
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
