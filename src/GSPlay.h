@@ -15,6 +15,7 @@
 #include "ScreenPlay.h"
 #include "PnkEvent.h"
 
+#include <bt/bt.hpp>
 
 namespace pnk
 {
@@ -47,7 +48,7 @@ namespace pnk
         // forward declarations
         //friend class dang::Tree<dang::SpriteState>;
 
-        //dang::Tree<dang::SpriteState> tree; // std::allocator<Node<ContextType>>
+        std::shared_ptr<dang::Tree<dang::SpriteState>> _tree; // std::allocator<Node<ContextType>>
         //dang::TreeState ts;
         //dang::SpriteState ss;
 
@@ -62,6 +63,8 @@ namespace pnk
 
         const dang::tmx_level*          _tmx;
         std::shared_ptr<ScreenPlay>     _screenplay;
+
+
 
         // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};

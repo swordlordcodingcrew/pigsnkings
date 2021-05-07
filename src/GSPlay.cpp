@@ -14,7 +14,7 @@
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <CollisionSprite.hpp>
-#include <bt/bt_old.hpp>
+#include <bt/bt.hpp>
 
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
@@ -98,7 +98,7 @@ namespace pnk
 
     void GSPlay::createBehaviourTrees()
     {
-        auto tree = dang::Builder<dang::SpriteState>{}
+        auto tr = dang::Builder<dang::SpriteState>{}
                 .sequence()
                 .leaf([](dang::SpriteState &zombie) -> dang::Status { // Passing a lambda
                     return zombie.is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
@@ -112,9 +112,10 @@ namespace pnk
                 .end()
                 .build();
 
-        auto ts = tree.make_state();
+        _tree = std::make_shared<dang::Tree<dang::SpriteState>>(tr);
+        auto ts = _tree->make_state();
         auto ss = dang::SpriteState{};
-        auto s = tree.process(ts, ss);
+        auto s = _tree->process(ts, ss);
 
     }
 
@@ -593,6 +594,7 @@ namespace pnk
         }
 
         _active_act_index = room_nr;
+        _pnk._gamestate.active_room = room_nr;
     }
 
 }
