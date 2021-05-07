@@ -14,6 +14,7 @@
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <CollisionSprite.hpp>
+#include <bt/bt_old.hpp>
 
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
@@ -89,8 +90,35 @@ namespace pnk
 
 //        blit::debugf("play updated\r\n");
 
+        //auto s = tree.process(ts, ss);
+        //blit::debugf("%s\r\n", s);
+
         return GameState::_gs_play;
     }
+
+    void GSPlay::createBehaviourTrees()
+    {
+        auto tree = dang::Builder<dang::SpriteState>{}
+                .sequence()
+                .leaf([](dang::SpriteState &zombie) -> dang::Status { // Passing a lambda
+                    return zombie.is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
+                })
+                .leaf(&dang::SpriteState::has_food) // Passed a member function pointer
+                .leaf([](dang::SpriteState &x) { return dang::Status::RUNNING; })
+                .inverter()
+                .leaf(dang::EnemiesAroundChecker{}) // Passing functor
+                .end()
+                .void_leaf(&dang::SpriteState::eat_food) // Void member function
+                .end()
+                .build();
+
+        auto ts = tree.make_state();
+        auto ss = dang::SpriteState{};
+        auto s = tree.process(ts, ss);
+
+    }
+
+
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
@@ -239,6 +267,10 @@ namespace pnk
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
+
+        // create behaviour trees
+        // TODO should probably move into the level setup
+        createBehaviourTrees();
 
         blit::debugf("entered, let the games begin\r\n");
         std::cout << "exit enter()" << std::endl;

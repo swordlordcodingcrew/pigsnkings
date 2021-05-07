@@ -42,6 +42,15 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
         const std::string& getInfotext() override { return _infoText; }
 
+        void createBehaviourTrees();
+
+        // forward declarations
+        //friend class dang::Tree<dang::SpriteState>;
+
+        //dang::Tree<dang::SpriteState> tree; // std::allocator<Node<ContextType>>
+        //dang::TreeState ts;
+        //dang::SpriteState ss;
+
     protected:
         const std::string _infoText = "RIGHT: move right\n"
                                       "LEFT: move left\n"
