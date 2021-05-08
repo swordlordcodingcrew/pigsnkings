@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="399">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="416">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -309,5 +309,60 @@
   <object id="251" gid="262" x="46" y="37" width="16" height="16"/>
   <object id="252" gid="263" x="62" y="37" width="16" height="16"/>
   <object id="254" gid="264" x="78" y="37" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="6" name="lvl_1_paths">
+  <object id="408" x="16" y="696">
+   <properties>
+    <property name="walk" type="object" value="409"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="409" x="48" y="696">
+   <properties>
+    <property name="walk_1" type="object" value="408"/>
+    <property name="walk_2" type="object" value="410"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="410" x="80" y="728">
+   <properties>
+    <property name="jump" type="object" value="409"/>
+    <property name="walk" type="object" value="411"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="411" x="112" y="728">
+   <properties>
+    <property name="jump" type="object" value="414"/>
+    <property name="walk_1" type="object" value="410"/>
+    <property name="walk_2" type="object" value="412"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="412" x="240" y="728">
+   <properties>
+    <property name="jump_1" type="object" value="413"/>
+    <property name="jump_2" type="object" value="415"/>
+    <property name="walk" type="object" value="411"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="413" x="208" y="696">
+   <properties>
+    <property name="walk_1" type="object" value="414"/>
+    <property name="walk_2" type="object" value="412"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="414" x="144" y="696">
+   <properties>
+    <property name="walk_1" type="object" value="411"/>
+    <property name="walk_2" type="object" value="413"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="415" x="272" y="696">
+   <point/>
+  </object>
  </objectgroup>
 </map>

@@ -481,15 +481,48 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
     .spriteobejcts_len = level_1_lvl_1_hud_objects_len
 };
 
+// layer with points
+// Objects for layer: lvl_1_polyline
+static const dang::tmx_spriteobject level_1_lvl_1_polyline_objects[] = {
+
+    {408,"408","",16,696,0,0,true,"",0},
+    {409,"409","",48,696,0,0,true,"",0},
+    {410,"410","",80,728,0,0,true,"",0},
+    {411,"411","",112,728,0,0,true,"",0},
+    {412,"412","",240,728,0,0,true,"",0},
+    {413,"413","",208,696,0,0,true,"",0},
+    {414,"414","",144,696,0,0,true,"",0},
+    {415,"415","",272,696,0,0,true,"",0}
+
+};
+
+static const size_t level_1_lvl_1_polyline_objects_len = 8;
+
+static const dang::tmx_layer level_1_lvl_1_polyline = {
+    .name = "lvl_1_polyline",
+    .type = dang::tmx_layerType::ltObjects,
+    .opacity = 1,
+    .visible = true,
+    .z_order = 5,
+    .tl_width = 0,
+    .tl_height = 0,
+    .tl_tileset = "",
+    .tl_tiles = nullptr,
+    .tl_tiles_len = 0,
+    .spriteobjects = level_1_lvl_1_polyline_objects,
+    .spriteobejcts_len = level_1_lvl_1_polyline_objects_len
+};
+
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
     level_1_lvl_1_mood,
     level_1_lvl_1_obj,
     level_1_lvl_1_fg,
-    level_1_lvl_1_hud
+    level_1_lvl_1_hud,
+    level_1_lvl_1_polyline
 };
 
-const static size_t level_1_layers_len = 5;
+const static size_t level_1_layers_len = 6;
 
 // Level ---------------------------------------------------
 
