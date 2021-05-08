@@ -150,7 +150,7 @@ namespace pnk
             return SomaticState::_normal;
         }
 
-        return SomaticState::_entering;
+        return SomaticState::_hit;
     }
 
 

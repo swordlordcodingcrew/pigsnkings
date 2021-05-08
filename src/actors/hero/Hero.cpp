@@ -146,6 +146,7 @@ namespace pnk
                 return _coll_response;
 
             }
+
             _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             return _coll_response;
         }
