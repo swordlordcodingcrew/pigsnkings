@@ -17,10 +17,12 @@ namespace pnk
     public:
 
         /**
-         * tmx ids
-         * is = imagesheet
+         * tmx layer ids
          * bg: background (i.e. tile layer)
+         * mood: deco sprites
          * obj: object (i.e. sprites and whatnot)
+         * hud: human user interface stuff
+         * fg: foreground deco sprites
          */
         std::string         _l_bg_name;
         std::string         _l_obj_name;
@@ -35,8 +37,8 @@ namespace pnk
 
             /**
              * passages to other rooms
-             * the hash key is the room number, the value is the position in the room
-             * unit: relative tile coord. Meaning {0,0} is the top left corner of the room
+             * the hash key is the room number to go, the value is the position in the room
+             * unit: relative tile coord to the room. Meaning {0,0} is the top left corner of the room
              * */
             std::unordered_map<int32_t,dang::Vector2U>  _passage_from;
         };
