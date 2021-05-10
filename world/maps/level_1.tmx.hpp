@@ -481,36 +481,36 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
     .spriteobejcts_len = level_1_lvl_1_hud_objects_len
 };
 
-// layer with points
-// Objects for layer: lvl_1_polyline
-static const dang::tmx_spriteobject level_1_lvl_1_polyline_objects[] = {
-
-    {408,"408","",16,696,0,0,true,"",0},
-    {409,"409","",48,696,0,0,true,"",0},
-    {410,"410","",80,728,0,0,true,"",0},
-    {411,"411","",112,728,0,0,true,"",0},
-    {412,"412","",240,728,0,0,true,"",0},
-    {413,"413","",208,696,0,0,true,"",0},
-    {414,"414","",144,696,0,0,true,"",0},
-    {415,"415","",272,696,0,0,true,"",0}
-
+// layer with points - path layer
+static const dang::tmx_waypoint level_1_waypoints[] = {
+    {408, 16,696, 0},
+    {409, 48,696, 0},
+    {410, 80,728, 0},
+    {411, 112,728, 0},
+    {412, 240,728, 0},
+    {413, 208,696, 0},
+    {414, 144,696, 0},
+    {415, 272,696, 0},
 };
 
-static const size_t level_1_lvl_1_polyline_objects_len = 8;
-
-static const dang::tmx_layer level_1_lvl_1_polyline = {
-    .name = "lvl_1_polyline",
-    .type = dang::tmx_layerType::ltObjects,
-    .opacity = 1,
-    .visible = true,
-    .z_order = 5,
-    .tl_width = 0,
-    .tl_height = 0,
-    .tl_tileset = "",
-    .tl_tiles = nullptr,
-    .tl_tiles_len = 0,
-    .spriteobjects = level_1_lvl_1_polyline_objects,
-    .spriteobejcts_len = level_1_lvl_1_polyline_objects_len
+static const dang::tmx_waypoint_connection level_1_connections[] = {
+    {408, 409, 0x1},
+    {409, 408, 0x1},
+    {409, 410, 0x1},
+    {410, 411, 0x1},
+    {410, 409, 0x2},
+    {411, 410, 0x1},
+    {411, 412, 0x1},
+    {411, 414, 0x2},
+    {412, 411, 0x1},
+    {412, 413, 0x2},
+    {412, 415, 0x2},
+    {413, 414, 0x1},
+    {413, 412, 0x1},
+    {414, 411, 0x1},
+    {414, 413, 0x1},
+    {415, 412, 0x1},
+    {415, 413, 0x2},
 };
 
 const static dang::tmx_layer level_1_layers[] = {
@@ -519,7 +519,6 @@ const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_obj,
     level_1_lvl_1_fg,
     level_1_lvl_1_hud,
-    level_1_lvl_1_polyline
 };
 
 const static size_t level_1_layers_len = 6;
