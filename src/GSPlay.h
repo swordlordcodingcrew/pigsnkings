@@ -15,11 +15,15 @@
 #include "ScreenPlay.h"
 #include "PnkEvent.h"
 
-#include <bt/bt.hpp>
+namespace dang
+{
+    class Tree;
+    class TreeState;
+    class SpriteContext;
+}
 
 namespace pnk
 {
-
     class Hero;
 
     class GSPlay : public GameState
@@ -48,9 +52,9 @@ namespace pnk
         // forward declarations
         //friend class dang::Tree<dang::SpriteState>;
 
-        std::shared_ptr<dang::Tree<dang::SpriteState>> _tree; // std::allocator<Node<ContextType>>
-        //dang::TreeState ts;
-        //dang::SpriteState ss;
+        std::shared_ptr<dang::Tree> _tree;
+        std::shared_ptr<dang::TreeState> _ts;
+        std::shared_ptr<dang::SpriteContext> _ss;
 
     protected:
         const std::string _infoText = "RIGHT: move right\n"

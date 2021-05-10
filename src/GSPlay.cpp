@@ -14,7 +14,6 @@
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <CollisionSprite.hpp>
-#include <bt/bt.hpp>
 
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
@@ -50,6 +49,9 @@
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
+
+#include <bt/bt.hpp>
+
 
 namespace pnk
 {
@@ -90,33 +92,38 @@ namespace pnk
 
 //        blit::debugf("play updated\r\n");
 
-        //auto s = tree.process(ts, ss);
-        //blit::debugf("%s\r\n", s);
+        dang::Status s = _tree->process(_ts, _ss);
+        //blit::debugf("%d\r", s);
+        //std::cout << "tree processed with result: " << s << std::endl;
 
         return GameState::_gs_play;
     }
 
     void GSPlay::createBehaviourTrees()
     {
-        auto tr = dang::Builder<dang::SpriteState>{}
+        auto ss = dang::SpriteContext{};
+        _ss = std::make_shared<dang::SpriteContext>(ss);
+
+        auto tr = dang::Builder{}
                 .sequence()
-                .leaf([](dang::SpriteState &zombie) -> dang::Status { // Passing a lambda
-                    return zombie.is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
+                .leaf([](std::shared_ptr<dang::SpriteContext> _ss) -> dang::Status { // Passing a lambda
+                    return _ss->is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
                 })
-                .leaf(&dang::SpriteState::has_food) // Passed a member function pointer
-                .leaf([](dang::SpriteState &x) { return dang::Status::RUNNING; })
+                //.bool_leaf(&dang::SpriteContext::has_food) // Passed a member function pointer
+                //.leaf((std::shared_ptr<dang::SpriteContext> &x) { return dang::Status::RUNNING; })
                 .inverter()
                 .leaf(dang::EnemiesAroundChecker{}) // Passing functor
                 .end()
-                .void_leaf(&dang::SpriteState::eat_food) // Void member function
+                .void_leaf(&dang::SpriteContext::eat_food) // Void member function
                 .end()
                 .build();
 
-        _tree = std::make_shared<dang::Tree<dang::SpriteState>>(tr);
+        _tree = std::make_shared<dang::Tree>(tr);
         auto ts = _tree->make_state();
-        auto ss = dang::SpriteState{};
-        auto s = _tree->process(ts, ss);
-
+        _ts = std::make_shared<dang::TreeState>(ts);
+        //auto ss = dang::SpriteState{};
+        //auto s = _tree->process(ts, ss);
+        //blit::debugf("%s\r\n", s);
     }
 
 
