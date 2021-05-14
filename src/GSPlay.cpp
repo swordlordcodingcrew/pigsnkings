@@ -95,6 +95,7 @@ namespace pnk
         dang::Status s = _tree->process(_ts, _ss);
         //blit::debugf("%d\r", s);
         //std::cout << "tree processed with result: " << s << std::endl;
+        std::cout << "tree processed with result: " << _ts->resume_index() << std::endl;
 
         return GameState::_gs_play;
     }
@@ -109,8 +110,8 @@ namespace pnk
                 .leaf([](std::shared_ptr<dang::SpriteContext> _ss) -> dang::Status { // Passing a lambda
                     return _ss->is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
                 })
-                //.bool_leaf(&dang::SpriteContext::has_food) // Passed a member function pointer
-                //.leaf((std::shared_ptr<dang::SpriteContext> &x) { return dang::Status::RUNNING; })
+                .leaf(&dang::SpriteContext::has_food) // Passed a member function pointer
+                .leaf([](std::shared_ptr<dang::SpriteContext> _ss) { return dang::Status::RUNNING; })
                 .inverter()
                 .leaf(dang::EnemiesAroundChecker{}) // Passing functor
                 .end()
