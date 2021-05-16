@@ -92,41 +92,30 @@ namespace pnk
 
 //        blit::debugf("play updated\r\n");
 
-        dang::Status s = _tree->process(_ts, _ss);
-        //blit::debugf("%d\r", s);
-        //std::cout << "tree processed with result: " << s << std::endl;
-        std::cout << "tree processed with result: " << _ts->resume_index() << std::endl;
-
         return GameState::_gs_play;
     }
 
-    void GSPlay::createBehaviourTrees()
+    void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
-        auto ss = dang::SpriteContext{};
-        _ss = std::make_shared<dang::SpriteContext>(ss);
-
         auto tr = dang::Builder{}
                 .sequence()
-                .leaf([](std::shared_ptr<dang::SpriteContext> _ss) -> dang::Status { // Passing a lambda
-                    return _ss->is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
+                .leaf([](std::shared_ptr<dang::Sprite> s) -> dang::Status { // Passing a lambda
+                    return s->is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
                 })
-                .leaf(&dang::SpriteContext::has_food) // Passed a member function pointer
-                .leaf([](std::shared_ptr<dang::SpriteContext> _ss) { return dang::Status::RUNNING; })
+                .leaf(&dang::Sprite::has_food) // Passed a member function pointer
+                .leaf([](std::shared_ptr<dang::Sprite> s) { return dang::Status::RUNNING; })
                 .inverter()
                 .leaf(dang::EnemiesAroundChecker{}) // Passing functor
                 .end()
-                .void_leaf(&dang::SpriteContext::eat_food) // Void member function
+                .void_leaf(&dang::Sprite::eat_food) // Void member function
                 .end()
                 .build();
 
-        _tree = std::make_shared<dang::Tree>(tr);
-        auto ts = _tree->make_state();
-        _ts = std::make_shared<dang::TreeState>(ts);
-        //auto ss = dang::SpriteState{};
-        //auto s = _tree->process(ts, ss);
-        //blit::debugf("%s\r\n", s);
-    }
+        gear._tree = std::make_shared<dang::Tree>(tr);
 
+        auto ts = gear._tree->make_state();
+        _spr_hero->_btTreeState = std::make_shared<dang::TreeState>(ts);
+    }
 
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
@@ -150,6 +139,10 @@ namespace pnk
                 _tmx = &level_1_level;
                 break;
         }
+
+        // create behaviour trees
+        // TODO should probably move up into the level specific setup
+        createBehaviourTrees(gear);
 
         dang::TmxExtruder txtr(_tmx);
 
@@ -276,10 +269,6 @@ namespace pnk
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
-
-        // create behaviour trees
-        // TODO should probably move into the level setup
-        createBehaviourTrees();
 
         blit::debugf("entered, let the games begin\r\n");
         std::cout << "exit enter()" << std::endl;
