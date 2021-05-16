@@ -493,6 +493,8 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {415, 272,696, 0},
 };
 
+static const size_t level_1_waypoints_len = 8;
+
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {408, 409, 0x1},
     {409, 408, 0x1},
@@ -513,6 +515,8 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {415, 413, 0x2},
 };
 
+static const size_t level_1_connections_len = 17;
+
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
     level_1_lvl_1_mood,
@@ -532,7 +536,11 @@ static const dang::tmx_level level_1_level {
     .tileanimations = level_1_tileanimations,
     .tileanimations_len = level_1_tileanimations_len,
     .layers = level_1_layers,
-    .layers_len = level_1_layers_len
+    .layers_len = level_1_layers_len,
+    .waypoints = level_1_waypoints,
+    .waypoints_len = level_1_waypoints_len,
+    .waypoint_connections = level_1_connections,
+    .waypoint_connections_len = level_1_connections_len
 };
 
 
