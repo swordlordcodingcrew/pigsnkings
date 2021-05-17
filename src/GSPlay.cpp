@@ -111,12 +111,14 @@ namespace pnk
                 .end()
                 .build();
 
-        gear._tree = std::make_shared<dang::Tree>(tr);
+        std::shared_ptr<dang::Tree> tree = std::make_shared<dang::Tree>(tr);
 
-        auto ts = gear._tree->make_state();
-        _spr_hero->_btTreeState = std::make_shared<dang::TreeState>(ts);
+        gear._tree = tree;
+
+        //auto ts = gear._tree->make_state();
+        //dang::TreeState ts {tree};
+        //_spr_hero->_btTreeState = std::make_shared<dang::TreeState>(ts);
     }
-
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
@@ -189,7 +191,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(gear, txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
