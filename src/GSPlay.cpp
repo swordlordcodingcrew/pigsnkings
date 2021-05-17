@@ -14,6 +14,8 @@
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <CollisionSprite.hpp>
+#include <path/SceneGraph.hpp>
+#include <path/Waypoint.hpp>
 
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
@@ -265,6 +267,12 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
+
+        // add scenegraph
+        dang::spSceneGraph sg = txtr.createPaths(_room_extent);
+        dang::Vector2F p = _spr_hero->getPos();
+        dang::spWaypoint spwp = sg->getNearestWaypoint(p);
+        std::cout << "Nearest waypoint to hero (" << p.x << "," << p.y << ") is wp (" << spwp->_pos.x << "," << spwp->_pos.y << ")" << std::endl;
 
         blit::debugf("callbacks\r\n");
 
