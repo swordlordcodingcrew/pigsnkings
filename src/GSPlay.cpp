@@ -113,7 +113,8 @@ namespace pnk
 
         std::shared_ptr<dang::Tree> tree = std::make_shared<dang::Tree>(tr);
 
-        gear._tree = tree;
+        // TODO: change tree to move(tree) within addbehaviourtree...? rename to assign or moveto?
+        gear.addBehaviourTree("insanity", tree);
 
         //auto ts = gear._tree->make_state();
         //dang::TreeState ts {tree};
@@ -146,7 +147,7 @@ namespace pnk
         // TODO should probably move up into the level specific setup
         createBehaviourTrees(gear);
 
-        dang::TmxExtruder txtr(_tmx);
+        dang::TmxExtruder txtr(_tmx, &gear);
 
         blit::debugf("extruded\r\n");
 
@@ -159,22 +160,22 @@ namespace pnk
         blit::debugf("imagesheet\r\n");
 
         // init imagesheets
-        txtr.getImagesheets(gear);
+        txtr.getImagesheets();
 
         blit::debugf("tile layer\r\n");
 
         // create background Tilelayer
-        txtr.getTileLayer(_screenplay->_l_bg_name, gear, true);
+        txtr.getTileLayer(_screenplay->_l_bg_name, true);
 
         blit::debugf("mood layer\r\n");
 
         // create mood Tilelayer
-        if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, gear, true, true);
+        if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true);
 
         blit::debugf("collision sprite layer\r\n");
 
         // create Spritelayer with collision detection
-        _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, gear, false, true);
+        _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, false, true);
 
         blit::debugf("sprite objects\r\n");
 
@@ -191,7 +192,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(gear, txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -246,13 +247,13 @@ namespace pnk
         blit::debugf("fg layer\r\n");
 
         // create foreground layer
-        txtr.getSpriteLayer(_screenplay->_l_fg_name, gear, true, true);
+        txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true);
 
         blit::debugf("hud layer\r\n");
 
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
-        if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, gear, true, true);
+        if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, true, true);
 
         blit::debugf("change room\r\n");
 

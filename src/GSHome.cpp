@@ -97,7 +97,7 @@ namespace pnk
         }
     }
 
-    void GSHome::enter(dang::Gear &gear, uint32_t time)
+    void GSHome::enter(dang::Gear& gear, uint32_t time)
     {
         blit::debugf("entering\r\n");
 
@@ -106,7 +106,7 @@ namespace pnk
 
         // set up state
         _tmx = &main_1_level;
-        dang::TmxExtruder tmx_ext(_tmx);
+        dang::TmxExtruder tmx_ext(_tmx, &gear);
 
         blit::debugf("extruded\r\n");
 
@@ -119,21 +119,21 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         blit::debugf("init image sheets\r\n");
-        tmx_ext.getImagesheets(gear);
+        tmx_ext.getImagesheets();
 
         blit::debugf("image sheets initialised\r\n");
 
         // create background Tilelayer
-        spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, gear, true);
+        spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, true);
 
         blit::debugf("tile layer\r\n");
 
-        spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, gear, false, true);
+        spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, false, true);
 
         blit::debugf("sprite layer\r\n");
 
         // create spritelayer w/o collision detection/resolution
-        spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, gear, false, true);
+        spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, false, true);
 
         blit::debugf("auto layers done\r\n");
 

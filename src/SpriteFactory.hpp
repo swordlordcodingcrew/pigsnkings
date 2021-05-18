@@ -128,7 +128,7 @@ namespace pnk
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spHenchPig PigCrate(dang::Gear& gear, dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);

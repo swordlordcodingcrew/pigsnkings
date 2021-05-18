@@ -128,7 +128,7 @@ namespace pnk
     }
 
     // it is a wooden crate.. for making buses out of them
-    spHenchPig SpriteFactory::PigCrate(dang::Gear& gear, dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOX;
@@ -152,7 +152,7 @@ namespace pnk
         // function checks if there is a so.behaviourtree property
         // if set, checks in gear whats the pointer to said tree
         // generates treestate object, sets pointer to tree and sets that to the new sprite
-        const dang::TreeState ts = {gear._tree}; //->make_state();
+        const dang::TreeState ts = {txtr._gear->getBehaviourTree("insanity")};
 
         ret->_btTreeState = std::make_shared<dang::TreeState>(ts);
 
