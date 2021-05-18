@@ -109,6 +109,20 @@ namespace pnk
         return ret;
     }
 
+    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite)
+    {
+        if(so->bt.length() > 0)
+        {
+            std::shared_ptr<dang::BehaviourTree> tree = txtr._gear->getBehaviourTree(so->bt);
+            if(tree != nullptr)
+            {
+                const dang::TreeState ts = {tree};
+
+                sprite->_btTreeState = std::make_shared<dang::TreeState>(ts);
+            }
+        }
+    }
+
     spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
@@ -123,6 +137,8 @@ namespace pnk
         assert(ret->_anim_m_bubbling != nullptr);
 
         ret->init();
+
+        attachBehaviourTree(txtr, so, ret);
 
         return ret;
     }
@@ -152,9 +168,7 @@ namespace pnk
         // function checks if there is a so.behaviourtree property
         // if set, checks in gear whats the pointer to said tree
         // generates treestate object, sets pointer to tree and sets that to the new sprite
-        const dang::TreeState ts = {txtr._gear->getBehaviourTree("insanity")};
-
-        ret->_btTreeState = std::make_shared<dang::TreeState>(ts);
+        attachBehaviourTree(txtr, so, ret);
 
         return ret;
     }
@@ -177,6 +191,8 @@ namespace pnk
         assert(ret->_anim_m_throwing != nullptr);
 
         ret->init();
+
+        attachBehaviourTree(txtr, so, ret);
 
         return ret;
     }

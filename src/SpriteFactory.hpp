@@ -13,6 +13,7 @@ namespace dang
     class CollisionSprite;
     class Imagesheet;
     class TmxExtruder;
+    class Sprite;
 
     struct tmx_spriteobject;
 }
@@ -126,6 +127,8 @@ namespace pnk
             TN_PIG_POOF = 501,
         };
 
+        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite);
+
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
@@ -140,7 +143,6 @@ namespace pnk
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
         static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
         static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
-
     };
 
 }

@@ -17,7 +17,7 @@
 
 namespace dang
 {
-    class Tree;
+    class BehaviourTree;
     class TreeState;
     class SpriteContext;
 }

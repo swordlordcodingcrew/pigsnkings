@@ -251,8 +251,16 @@
   <object id="335" type="pig_normal" gid="333" x="576" y="704" width="32" height="32"/>
   <object id="336" type="pig_normal" gid="333" x="800" y="576" width="32" height="32"/>
   <object id="340" name="boris" type="pig_box" gid="405" x="480" y="640" width="32" height="32"/>
-  <object id="341" name="fred" type="pig_bomb" gid="371" x="256" y="672" width="32" height="32"/>
-  <object id="342" name="sam" type="pig_normal" gid="333" x="192" y="672" width="32" height="32"/>
+  <object id="341" name="fred" type="pig_bomb" gid="371" x="256" y="672" width="32" height="32">
+   <properties>
+    <property name="bt" value="insanity"/>
+   </properties>
+  </object>
+  <object id="342" name="sam" type="pig_normal" gid="333" x="192" y="672" width="32" height="32">
+   <properties>
+    <property name="bt" value="berserk"/>
+   </properties>
+  </object>
   <object id="344" type="crate_proto" gid="434" x="32" y="480" width="32" height="32"/>
   <object id="345" type="hotrect" x="-8" y="648" width="8" height="64"/>
   <object id="346" type="hotrect" x="960" y="32" width="8" height="560"/>

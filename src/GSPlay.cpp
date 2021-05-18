@@ -113,7 +113,7 @@ namespace pnk
                 .end()
                 .build();
 
-        std::shared_ptr<dang::Tree> tree = std::make_shared<dang::Tree>(tr);
+        std::shared_ptr<dang::BehaviourTree> tree = std::make_shared<dang::BehaviourTree>(tr);
 
         // TODO: change tree to move(tree) within addbehaviourtree...? rename to assign or moveto?
         gear.addBehaviourTree("insanity", tree);
