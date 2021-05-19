@@ -12,7 +12,6 @@
 #include "src/pnk_globals.h"
 #include "src/PnkEvent.h"
 #include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
 
 namespace pnk
 {

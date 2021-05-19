@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include "src/actors/others/Reward.h"
+#include "ScreenPlay.h"
 
 namespace dang
 {
@@ -14,6 +15,7 @@ namespace dang
     class Imagesheet;
     class TmxExtruder;
     class Sprite;
+    class ScreenPlay;
 
     struct tmx_spriteobject;
 }
@@ -44,6 +46,7 @@ using spCraties = std::shared_ptr<pnk::Craties>;
 using spBombies = std::shared_ptr<pnk::Bombies>;
 //using spCannonball = std::shared_ptr<pnk::Cannonball>;
 using spMoodies = std::shared_ptr<pnk::Moodies>;
+using spScreenPlay = std::shared_ptr<pnk::ScreenPlay>;
 
 namespace pnk
 {
@@ -128,9 +131,10 @@ namespace pnk
         };
 
         static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite);
+        static void setSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);

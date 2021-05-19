@@ -5,14 +5,19 @@
 
 #include <CollisionSprite.hpp>
 
-namespace pnk
+namespace dang
 {
     struct tmx_spriteobject;
     class Imagesheet;
+    class SceneGraph;
+}
 
+namespace pnk
+{
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spSceneGraph = std::shared_ptr<dang::SceneGraph>;
 
     class Enemy : public dang::CollisionSprite
     {
@@ -27,13 +32,16 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-//        bool _bubbled{false};
         virtual bool isBubbled() = 0;
         virtual void bubble() = 0;
         virtual void deBubble() = 0;
+
+        spSceneGraph _scene_graph{nullptr};
+
     protected:
         bool _on_ground = false;
         float _walkSpeed{-2.0};
+
     };
 
 }

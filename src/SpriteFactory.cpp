@@ -14,6 +14,7 @@
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
 #include "tween/Ease.hpp"
+#include "path/SceneGraph.hpp"
 
 #include "SpriteFactory.hpp"
 #include "src/actors/hero/Hero.h"
@@ -123,7 +124,7 @@ namespace pnk
         }
     }
 
-    spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_NORMAL;
@@ -139,6 +140,8 @@ namespace pnk
         ret->init();
 
         attachBehaviourTree(txtr, so, ret);
+
+        setSceneGraph(sp, ret);
 
         return ret;
     }
@@ -342,6 +345,19 @@ namespace pnk
         ret->init();
 
         return ret;
+    }
+
+    void SpriteFactory::setSceneGraph(const spScreenPlay &sp, const spEnemy &spr)
+    {
+        for (auto room : sp->_acts)
+        {
+            if (room._extent_pixels.contains(spr->getPos()))
+            {
+                spr->_scene_graph = room._scene_graph;
+                break;
+            }
+        }
+
     }
 
 }
