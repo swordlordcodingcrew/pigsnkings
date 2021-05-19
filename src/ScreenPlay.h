@@ -9,6 +9,13 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <memory>
+
+namespace dang
+{
+    class SceneGraph;
+    using spSceneGraph = std::shared_ptr<SceneGraph>;
+}
 
 namespace pnk
 {
@@ -34,6 +41,12 @@ namespace pnk
         {
             /** size of room in tiles */
             dang::RectU         _extent{0, 0, 0, 0};
+
+            /** size of room in pixels */
+            dang::RectF         _extent_pixels{0, 0, 0, 0};
+
+            /** scenegraph */
+            dang::spSceneGraph        _scene_graph{nullptr};
 
             /**
              * passages to other rooms

@@ -69,7 +69,6 @@ namespace pnk
         std::shared_ptr<ScreenPlay>     _screenplay;
 
 
-
         // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
 
@@ -80,7 +79,6 @@ namespace pnk
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
-        dang::RectF             _room_extent{0,0,0,0};
 
         // flow stuff
         ScreenPlay::act*        _active_act{nullptr};
@@ -91,6 +89,7 @@ namespace pnk
         // reference to subscriber
         u_int32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
+
 
         void handleKingHealth(PnkEvent& pe);
         void handleNewThrowie(PnkEvent& pe);

@@ -159,6 +159,19 @@ namespace pnk
         gear.initLevel(_tmx, vp);
         gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
 
+        // fill up screenplay
+        for (ScreenPlay::act& room : _screenplay->_acts)
+        {
+            room._extent_pixels.x = room._extent.x * _tmx->w->tileWidth;
+            room._extent_pixels.y = room._extent.y * _tmx->w->tileHeight;
+            room._extent_pixels.w = room._extent.w * _tmx->w->tileWidth;
+            room._extent_pixels.h = room._extent.h * _tmx->w->tileHeight;
+
+            // add scenegraph
+            room._scene_graph = txtr.createPaths(room._extent_pixels);
+        }
+
+        std::cout << "test: " << _screenplay->_acts[0]._extent_pixels.w << std::endl;
         blit::debugf("imagesheet\r\n");
 
         // init imagesheets
@@ -269,11 +282,6 @@ namespace pnk
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
 
-        // add scenegraph
-        dang::spSceneGraph sg = txtr.createPaths(_room_extent);
-        dang::Vector2F p = _spr_hero->getPos();
-        dang::spWaypoint spwp = sg->getNearestWaypoint(p);
-        std::cout << "Nearest waypoint to hero (" << p.x << "," << p.y << ") is wp (" << spwp->_pos.x << "," << spwp->_pos.y << ")" << std::endl;
 
         blit::debugf("callbacks\r\n");
 
@@ -552,26 +560,26 @@ namespace pnk
         // viewport follows hero within room
         dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-        if (pos.x < _room_extent.left() + 160)
+        if (pos.x < _active_act->_extent_pixels.left() + 160)
         {
-            _vp_pos.x = _room_extent.left() + 160;
+            _vp_pos.x = _active_act->_extent_pixels.left() + 160;
         }
-        else if (pos.x > _room_extent.right() - 160)
+        else if (pos.x > _active_act->_extent_pixels.right() - 160)
         {
-            _vp_pos.x = _room_extent.right() - 160;
+            _vp_pos.x = _active_act->_extent_pixels.right() - 160;
         }
         else
         {
             _vp_pos.x = pos.x;
         }
 
-        if (pos.y < _room_extent.top() + 120)
+        if (pos.y < _active_act->_extent_pixels.top() + 120)
         {
-            _vp_pos.y = _room_extent.top() + 120;
+            _vp_pos.y = _active_act->_extent_pixels.top() + 120;
         }
-        else if (pos.y > _room_extent.bottom() - 120)
+        else if (pos.y > _active_act->_extent_pixels.bottom() - 120)
         {
-            _vp_pos.y = _room_extent.bottom() - 120;
+            _vp_pos.y = _active_act->_extent_pixels.bottom() - 120;
         }
         else
         {
@@ -581,14 +589,7 @@ namespace pnk
 
     void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
-//        assert(_screenplay->_acts);
-
         _active_act = &_screenplay->_acts[room_nr];
-        // initialize room size
-        _room_extent.x = _active_act->_extent.x * _tmx->w->tileWidth;
-        _room_extent.y = _active_act->_extent.y * _tmx->w->tileHeight;
-        _room_extent.w = _active_act->_extent.w * _tmx->w->tileWidth;
-        _room_extent.h = _active_act->_extent.h * _tmx->w->tileHeight;
 
         if (warp)
         {
