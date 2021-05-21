@@ -4,8 +4,10 @@
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
 #include <iostream>
+#include <path/SceneGraph.hpp>
+#include <tween/TwVel.hpp>
 
-#include "TmxExtruder.hpp"
+//#include "TmxExtruder.hpp"
 #include "src/pigsnkings.hpp"
 
 #include "Enemy.h"
@@ -15,6 +17,7 @@
 
 namespace pnk
 {
+    using spTwVel = std::shared_ptr<dang::TwVel>;
 
     extern PigsnKings _pnk;
 
@@ -64,74 +67,119 @@ namespace pnk
 
     void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-/*        if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
-        {
-            bubble();
-        }
-        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
-        {
-            // remove self
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-            e->_spr = shared_from_this();
-            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+    }
 
-            // poof
-            std::unique_ptr<PnkEvent> ep(new PnkEvent(EF_GAME, ETG_NEW_POOF));
-            ep->_spr = shared_from_this();
-            pnk::_pnk._dispatcher.queueEvent(std::move(ep));
-        }
-        else if (mf.other->_type_num > SpriteFactory::TN_ENEMIES && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
+    void Enemy::handlePath()
+    {
+
+/*        if (_path.empty())  // no goal
         {
-            // do nothing (for now)
+            if (_scene_graph->waypointReached(getHotrectAbs(), _current_wp))    // sprite is at current waypoint
+            {
+                // TODO: ask Behaviour tree what to do
+                randomNextWaypoint();
+            }
+            else if (!_current_wp.expired())    // sprite goes back to current waypoint
+            {
+                checkPathProgress();
+            }
+            else    // no goal, no current waypoint - in limbo
+            {
+                // try to get back
+                spWaypoint wp = _scene_graph->getNearestWaypoint(_pos);
+
+                if (wp)
+                {
+                    _current_wp = wp;
+                    // hopefully no jump required
+                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                }
+            }
+
+        }
+*/
+        if (!_path.empty())
+        {
+            if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
+            {
+                if (_path_index + 1 == _path.size())
+                {
+                    // ultimate goal reached. Reset stuff
+                    std::cout << "path: reached goal " << _type_num << std::endl;
+                    _current_wp = _path[_path_index];
+
+                    _path.clear();
+                    _path_index = 0;
+                    _vel.x = 0;
+                }
+                else
+                {
+                    _current_wp = _path[_path_index];
+                    _path_index++;
+                    startOutToWaypoint();
+                }
+
+            }
         }
         else
         {
-            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
-
-            if (normal.x != 0)
+            randomNextWaypoint();
+            if (!_path.empty())
             {
-                _walkSpeed = -_walkSpeed;
-                _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+                startOutToWaypoint();
             }
+        }
+    }
 
-            if (normal.y > 0)
-            {
-                _on_ground = true;
-                _vel.y = 0;
-                // TODO fix this
-                // this may be an interesting thought, but is simply wrong
-                //_vel.x = _walkSpeed;
-            }
-            else
-            {
-                _vel.x = 0;
-            }
-
-#ifdef PNK_DEBUG
-            if (mf.overlaps)
+    void Enemy::randomNextWaypoint()
+    {
+        _scene_graph->getRandomNextWaypoint(_current_wp, _path);
+        _path_index = 0;
+        if (_path.empty())
         {
-            std::cout << "overlap, pos(" << _pos.x << ", " << _pos.y << ")" << std::endl;
+            // something went wrong. Waiting..
+            _vel.x = 0;
         }
-#endif
-        }
-*/    }
-
-/*    void Enemy::bubble()
-    {
-        _bubbled = true;
-        _gravity = {0,0};
-        setVel({0,0});
-        removeAnimation();
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{12, 13}, 400, dang::Ease::Linear, -1)));
     }
 
-    void Enemy::deBubble()
+    void Enemy::checkPathProgress()
     {
-        _bubbled = false;
-        _gravity = PigsnKings::_gravity;
-//        setVel({-2.0f, -0.0f});
-        removeAnimation();
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, dang::Ease::Linear, -1)));
+
     }
-*/
+
+    void Enemy::startOutToWaypoint()
+    {
+        wpWaypoint wp = _path[_path_index];
+        spWaypoint spwp = wp.lock();
+        if (spwp)
+        {
+            uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
+            switch (conn_type)
+            {
+                case dang::e_tmx_waypoint_connection::wp_walk:
+                {
+                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                    _current_wp = wp;
+                    break;
+
+                }
+                case dang::e_tmx_waypoint_connection::wp_jump:
+                {
+                    float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                    spTwVel twv = std::make_shared<dang::TwVel>(dang::Vector2F(vx*2, -12), dang::Vector2F(vx, -6), 600, &dang::Ease::InQuad, 1, false );
+                    addTween(twv);
+                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                    _current_wp = wp;
+                    break;
+                }
+                case dang::e_tmx_waypoint_connection::wp_warp:
+                    // TODO
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
 }

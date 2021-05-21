@@ -371,7 +371,6 @@
   </object>
   <object id="415" type="0" x="272" y="696">
    <properties>
-    <property name="jump_0" type="object" value="413"/>
     <property name="walk_0" type="object" value="412"/>
    </properties>
    <point/>

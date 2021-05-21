@@ -141,13 +141,13 @@ namespace pnk
 
         attachBehaviourTree(txtr, so, ret);
 
-        setSceneGraph(sp, ret);
+        initSceneGraph(sp, ret);
 
         return ret;
     }
 
     // it is a wooden crate.. for making buses out of them
-    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
     {
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOX;
@@ -173,10 +173,12 @@ namespace pnk
         // generates treestate object, sets pointer to tree and sets that to the new sprite
         attachBehaviourTree(txtr, so, ret);
 
+        initSceneGraph(sp, ret);
+
         return ret;
     }
 
-    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
     {
         spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = SpriteFactory::TN_PIG_BOMB;
@@ -196,6 +198,8 @@ namespace pnk
         ret->init();
 
         attachBehaviourTree(txtr, so, ret);
+
+        initSceneGraph(sp, ret);
 
         return ret;
     }
@@ -347,13 +351,22 @@ namespace pnk
         return ret;
     }
 
-    void SpriteFactory::setSceneGraph(const spScreenPlay &sp, const spEnemy &spr)
+    void SpriteFactory::initSceneGraph(const spScreenPlay &sp, const spEnemy &spr)
     {
         for (auto room : sp->_acts)
         {
             if (room._extent_pixels.contains(spr->getPos()))
             {
                 spr->_scene_graph = room._scene_graph;
+                spWaypoint wp = spr->_scene_graph->getNearestWaypoint(spr->getPos());
+                if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
+                {
+                    spr->_current_wp = wp;
+                }
+                else
+                {
+                    spr->_path.push_back(wp);
+                }
                 break;
             }
         }
