@@ -108,4 +108,16 @@ namespace pnk
         _anim_m_throwing->reset();
         prepareChangeState(SLEEPING);
     }
+
+    dang::BTNodeStatus PigBomb::BTPickUpBomb(std::shared_ptr<Sprite> s)
+    {
+        std::cout << "picking up bomb: " << s->getPos().x << std::endl;
+        return dang::BTNodeStatus::FAILURE;
+    }
+
+    dang::BTNodeStatus PigBomb::BTThrowBomb(std::shared_ptr<Sprite> s)
+    {
+        std::cout << "throwing bomb: " << s->getPos().x << std::endl;
+        return dang::BTNodeStatus::FAILURE;
+    }
 }

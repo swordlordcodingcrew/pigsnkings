@@ -45,6 +45,8 @@ namespace pnk
 
     void HenchPig::update(uint32_t dt)
     {
+        handlePath();
+
         _on_ground = false;
 
         if(_currentState != _nextState)
@@ -95,21 +97,19 @@ namespace pnk
 
     void HenchPig::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
+        spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
+        if (sprOther->_type_num == SpriteFactory::TN_BUBBLE)
         {
             // the bubble will call bubble()
 //            bubble();
         }
-        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
+        else if (sprOther->_type_num == SpriteFactory::TN_KING)
         {
             tellTheKingWeHitHim();
 
             poofing();
         }
-        else if ((mf.other->_type_num > SpriteFactory::TN_ENEMIES &&
-                 mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
-                 || (mf.me->_type_num > SpriteFactory::TN_ENEMIES &&
-                     mf.me->_type_num < SpriteFactory::TN_ENEMIES_END))
+        else if ((sprOther->_type_num > SpriteFactory::TN_ENEMIES && sprOther->_type_num < SpriteFactory::TN_ENEMIES_END))
         {
             // do nothing (for now)
         }
@@ -127,9 +127,6 @@ namespace pnk
             {
                 _on_ground = true;
                 _vel.y = 0;
-                // TODO fix this
-                // this may be an interesting thought, but is simply wrong
-                //_vel.x = _walkSpeed;
             }
             else
             {

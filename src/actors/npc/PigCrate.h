@@ -35,6 +35,11 @@ namespace pnk
         virtual void throwing();
         virtual void endThrowing();
 
+        // Behaviour Tree functions
+        static dang::BTNodeStatus BTPickUpCrate(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTThrowCrate(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTHideInCrate(std::shared_ptr<Sprite> s);
+
     protected:
 
     };

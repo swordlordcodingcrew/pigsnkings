@@ -20,6 +20,7 @@
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
 #include "src/actors/npc/HenchPig.h"
+#include "src/actors/npc/PigCrate.h"
 #include "src/actors/throwies/Bombies.h"
 #include "src/actors/throwies/Bubble.h"
 #include "src/actors/throwies/Throwies.h"
@@ -101,11 +102,9 @@ namespace pnk
     {
         auto tr = dang::Builder{}
                 .sequence()
-                .leaf([](std::shared_ptr<dang::Sprite> s) -> dang::Status { // Passing a lambda
-                    return s->is_hungry ? dang::Status::SUCCESS : dang::Status::FAILURE;
-                })
-                .leaf(&dang::Sprite::has_food) // Passed a member function pointer
-                .leaf([](std::shared_ptr<dang::Sprite> s) { return dang::Status::RUNNING; })
+                .leaf(dang::Sprite::BTLoiter)
+                .leaf(dang::Sprite::BTIsHeroAround)
+                .leaf(PigCrate::BTHideInCrate)
                 .inverter()
                 .leaf(dang::EnemiesAroundChecker{}) // Passing functor
                 .end()
@@ -113,6 +112,22 @@ namespace pnk
                 .end()
                 .build();
 
+        /*
+                auto tr = dang::Builder{}
+                .sequence()
+                .leaf([](std::shared_ptr<dang::Sprite> s) -> dang::BTNodeStatus { // Passing a lambda
+                    return s->is_hungry ? dang::BTNodeStatus::SUCCESS : dang::BTNodeStatus::FAILURE;
+                })
+                .leaf(dang::Sprite::BTLoiter) // Passed a member function pointer
+                .leaf([](std::shared_ptr<dang::Sprite> s) { return dang::BTNodeStatus::RUNNING; })
+                .inverter()
+                .leaf(dang::EnemiesAroundChecker{}) // Passing functor
+                .end()
+                .void_leaf(&dang::Sprite::eat_food) // Void member function
+                .end()
+                .build();
+
+         */
         std::shared_ptr<dang::BehaviourTree> tree = std::make_shared<dang::BehaviourTree>(tr);
 
         // TODO: change tree to move(tree) within addbehaviourtree...? rename to assign or moveto?
@@ -206,8 +221,8 @@ namespace pnk
             else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
+            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
