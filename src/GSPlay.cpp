@@ -100,42 +100,27 @@ namespace pnk
 
     void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
-        auto tr = dang::Builder{}
+        auto trInsan = dang::Builder{}
                 .sequence()
-                .leaf(dang::Sprite::BTLoiter)
-                .leaf(dang::Sprite::BTIsHeroAround)
-                .leaf(PigCrate::BTHideInCrate)
-                .inverter()
-                .leaf(dang::EnemiesAroundChecker{}) // Passing functor
-                .end()
-                .void_leaf(&dang::Sprite::eat_food) // Void member function
+                    .leaf(dang::Sprite::BTIsHeroAround)
+                    .leaf(dang::Sprite::BTLoiter)
+                    .leaf(PigCrate::BTThrowCrate)
                 .end()
                 .build();
 
-        /*
-                auto tr = dang::Builder{}
+        gear.addBehaviourTree("insanity", std::make_shared<dang::BehaviourTree>(trInsan));
+
+        auto treeCratePig = dang::Builder{}
                 .sequence()
-                .leaf([](std::shared_ptr<dang::Sprite> s) -> dang::BTNodeStatus { // Passing a lambda
-                    return s->is_hungry ? dang::BTNodeStatus::SUCCESS : dang::BTNodeStatus::FAILURE;
-                })
-                .leaf(dang::Sprite::BTLoiter) // Passed a member function pointer
-                .leaf([](std::shared_ptr<dang::Sprite> s) { return dang::BTNodeStatus::RUNNING; })
-                .inverter()
-                .leaf(dang::EnemiesAroundChecker{}) // Passing functor
-                .end()
-                .void_leaf(&dang::Sprite::eat_food) // Void member function
+                    .leaf(dang::Sprite::BTLoiter)
+                    .leaf(dang::Sprite::BTIsHeroAround)
+                    .leaf(PigCrate::BTHideInCrate)
+                    .void_leaf(&dang::Sprite::eat_food) // Void member function
                 .end()
                 .build();
 
-         */
-        std::shared_ptr<dang::BehaviourTree> tree = std::make_shared<dang::BehaviourTree>(tr);
+        gear.addBehaviourTree("cratepig", std::make_shared<dang::BehaviourTree>(treeCratePig));
 
-        // TODO: change tree to move(tree) within addbehaviourtree...? rename to assign or moveto?
-        gear.addBehaviourTree("insanity", tree);
-
-        //auto ts = gear._tree->make_state();
-        //dang::TreeState ts {tree};
-        //_spr_hero->_btTreeState = std::make_shared<dang::TreeState>(ts);
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
