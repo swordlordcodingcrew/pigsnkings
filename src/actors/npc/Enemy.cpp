@@ -6,6 +6,7 @@
 #include <iostream>
 #include <path/SceneGraph.hpp>
 #include <tween/TwVel.hpp>
+#include <tween/TwAccY.hpp>
 
 //#include "TmxExtruder.hpp"
 #include "src/pigsnkings.hpp"
@@ -18,6 +19,7 @@
 namespace pnk
 {
     using spTwVel = std::shared_ptr<dang::TwVel>;
+    using spTwAccY = std::shared_ptr<dang::TwAccY>;
 
     extern PigsnKings _pnk;
 
@@ -52,16 +54,6 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Enemy::getCollisionResponse(spSprite other)
     {
-/*        if (_bubbled)
-        {
-            return dang::CollisionSpriteLayer::CR_NONE;
-        }
-
-        if (other->_type_num == SpriteFactory::TN_KING)
-        {
-            return dang::CollisionSpriteLayer::CR_CROSS;
-        }
-*/
         return dang::CollisionSpriteLayer::CR_SLIDE;
     }
 
@@ -69,81 +61,104 @@ namespace pnk
     {
     }
 
-    void Enemy::handlePath()
+    dang::BTNodeStatus Enemy::handlePath()
     {
+        dang::BTNodeStatus ret{dang::BTNodeStatus::FAILURE};
 
-/*        if (_path.empty())  // no goal
-        {
-            if (_scene_graph->waypointReached(getHotrectAbs(), _current_wp))    // sprite is at current waypoint
-            {
-                // TODO: ask Behaviour tree what to do
-                randomNextWaypoint();
-            }
-            else if (!_current_wp.expired())    // sprite goes back to current waypoint
-            {
-                checkPathProgress();
-            }
-            else    // no goal, no current waypoint - in limbo
-            {
-                // try to get back
-                spWaypoint wp = _scene_graph->getNearestWaypoint(_pos);
-
-                if (wp)
-                {
-                    _current_wp = wp;
-                    // hopefully no jump required
-                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                }
-            }
-
-        }
-*/
         if (!_path.empty())
         {
-            if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
+            switch (checkPathProgress())
             {
-                if (_path_index + 1 == _path.size())
+                case dang::BTNodeStatus::SUCCESS:
                 {
-                    // ultimate goal reached. Reset stuff
-                    std::cout << "path: reached goal " << _type_num << std::endl;
-                    _current_wp = _path[_path_index];
+                    if (_path_index + 1 == _path.size())
+                    {
+                        _current_wp = _path[_path_index];
+//                        std::cout << "path: enemy "<< _type_num << " reached goal " << _current_wp.lock()->_id << std::endl;
 
-                    _path.clear();
-                    _path_index = 0;
-                    _vel.x = 0;
+                        // ultimate goal reached. Reset stuff
+                        _path.clear();
+                        _path_index = 0;
+                        _vel.x = 0;
+                        ret = dang::BTNodeStatus::SUCCESS;
+                    }
+                    else
+                    {
+                        // next waypoint
+                        _current_wp = _path[_path_index];
+                        _path_index++;
+                        startOutToWaypoint();
+                        ret = dang::BTNodeStatus::RUNNING;
+                    }
+                    break;
                 }
-                else
+                case dang::BTNodeStatus::RUNNING:
                 {
-                    _current_wp = _path[_path_index];
-                    _path_index++;
-                    startOutToWaypoint();
+                    ret = dang::BTNodeStatus::RUNNING;
+                    break;
                 }
-
+                case dang::BTNodeStatus::FAILURE:
+                default:
+                {
+                    ret = dang::BTNodeStatus::FAILURE;
+                    break;
+                }
             }
+
         }
-        else
+        else    // TODO: remove later
         {
             randomNextWaypoint();
             if (!_path.empty())
             {
                 startOutToWaypoint();
+                ret = dang::BTNodeStatus::RUNNING;
             }
         }
+
+        return ret;
     }
 
-    void Enemy::randomNextWaypoint()
+    dang::BTNodeStatus Enemy::randomNextWaypoint()
     {
         _scene_graph->getRandomNextWaypoint(_current_wp, _path);
         _path_index = 0;
         if (_path.empty())
         {
-            // something went wrong. Waiting..
-            _vel.x = 0;
+            // no other waypoint (?). Would be a design error, returning failure
+            return dang::BTNodeStatus::FAILURE;
         }
+        return dang::BTNodeStatus::SUCCESS;
     }
 
-    void Enemy::checkPathProgress()
+    dang::BTNodeStatus Enemy::checkPathProgress()
     {
+        if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
+        {
+            _vel.x = 0;
+            if (_on_ground)
+            {
+                return dang::BTNodeStatus::SUCCESS;
+            }
+            else
+            {
+                return dang::BTNodeStatus::RUNNING;
+            }
+        }
+        else
+        {
+            spWaypoint w = _path[_path_index].lock();
+            if (w)
+            {
+                // if we missed somehow the waypoint..
+                if ((_vel.x < 0 && getHotrectAbs().center().x < w->_pos.x) || (_vel.x > 0 && getHotrectAbs().center().x > w->_pos.x))
+                {
+                    _vel.x = -_vel.x;
+                    _vel.x /= 2;
+                }
+            }
+            return dang::BTNodeStatus::RUNNING;
+        }
 
     }
 
@@ -158,16 +173,17 @@ namespace pnk
             {
                 case dang::e_tmx_waypoint_connection::wp_walk:
                 {
+                    removeTweens(true);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;
                     break;
-
                 }
                 case dang::e_tmx_waypoint_connection::wp_jump:
                 {
+                    removeTweens(true);
                     float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVel twv = std::make_shared<dang::TwVel>(dang::Vector2F(vx*2, -12), dang::Vector2F(vx, -6), 600, &dang::Ease::InQuad, 1, false );
-                    addTween(twv);
+                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(tw);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;
                     break;

@@ -361,7 +361,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {335,"335","pig_normal",576,704,32,32,true,"gfx_pig",0,""},
     {336,"336","pig_normal",800,576,32,32,true,"gfx_pig",0,""},
     {340,"boris","pig_box",480,640,32,32,true,"character_pigcrate",5,""},
-    {341,"fred","pig_bomb",256,672,32,32,true,"character_pigbomb",4,"insanity"},
+    {341,"fred","pig_bomb",192,544,32,32,true,"character_pigbomb",4,"insanity"},
     {342,"sam","pig_normal",192,672,32,32,true,"gfx_pig",0,"berserk"},
     {344,"344","crate_proto",32,480,32,32,true,"character_pigcrate",34,""},
     {345,"345","hotrect",-8,648,8,64,true,"",0,""},
@@ -483,17 +483,19 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
 
 // layer with points - path layer
 static const dang::tmx_waypoint level_1_waypoints[] = {
-    {408, 16,696, 0},
-    {409, 48,696, 0},
-    {410, 80,728, 0},
-    {411, 112,728, 0},
-    {412, 240,728, 0},
-    {413, 208,696, 0},
-    {414, 144,696, 0},
-    {415, 272,696, 0},
+    {408, 16,703, 0},
+    {409, 48,703, 0},
+    {410, 80,735, 0},
+    {411, 112,735, 0},
+    {412, 240,735, 0},
+    {413, 208,703, 0},
+    {414, 144,703, 0},
+    {415, 272,703, 0},
+    {416, 208,575, },
+    {417, 272,575, },
 };
 
-static const size_t level_1_waypoints_len = 8;
+static const size_t level_1_waypoints_len = 10;
 
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {408, 409, 0x1},
@@ -512,9 +514,11 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {414, 411, 0x1},
     {414, 413, 0x1},
     {415, 412, 0x1},
+    {416, 417, 0x1},
+    {417, 416, 0x1},
 };
 
-static const size_t level_1_connections_len = 16;
+static const size_t level_1_connections_len = 18;
 
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,

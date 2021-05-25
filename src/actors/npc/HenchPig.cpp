@@ -101,7 +101,6 @@ namespace pnk
         if (sprOther->_type_num == SpriteFactory::TN_BUBBLE)
         {
             // the bubble will call bubble()
-//            bubble();
         }
         else if (sprOther->_type_num == SpriteFactory::TN_KING)
         {
@@ -119,8 +118,9 @@ namespace pnk
 
             if (normal.x != 0)
             {
-                _walkSpeed = -_walkSpeed;
-                _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+                _vel.x = 0;
+//                _walkSpeed = -_walkSpeed;
+//                _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
             }
 
             if (normal.y > 0)
@@ -130,7 +130,7 @@ namespace pnk
             }
             else
             {
-                _vel.x = 0;
+//                _vel.x = 0;
             }
 
 #ifdef PNK_DEBUG
