@@ -43,7 +43,7 @@ namespace pnk
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
         // if button x is pressed load the selected state
-        if (blit::buttons.pressed & blit::Button::X)
+        if (blit::buttons.pressed & blit::Button::A)
         {
             if (_pnk._prefs.selectedModule == _pnk.PLAY)
             {
