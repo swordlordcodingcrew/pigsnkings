@@ -110,19 +110,19 @@ namespace pnk
 
     dang::BTNodeStatus PigCrate::BTPickUpCrate(std::shared_ptr<Sprite> s)
     {
-        std::cout << "picking up crate: " << s->getPos().x << std::endl;
+//        std::cout << "picking up crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
 
     dang::BTNodeStatus PigCrate::BTThrowCrate(std::shared_ptr<Sprite> s)
     {
-        std::cout << "throwing crate: " << s->getPos().x << std::endl;
+//        std::cout << "throwing crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
 
     dang::BTNodeStatus PigCrate::BTHideInCrate(std::shared_ptr<Sprite> s)
     {
-        std::cout << "hiding in crate: " << s->getPos().x << std::endl;
+//        std::cout << "hiding in crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
 }

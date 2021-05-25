@@ -40,10 +40,10 @@ namespace pnk
         virtual void bubble() = 0;
         virtual void deBubble() = 0;
 
-        virtual void handlePath();
-        virtual void randomNextWaypoint();
-        virtual void checkPathProgress();
-        virtual void startOutToWaypoint();
+        dang::BTNodeStatus handlePath();
+        dang::BTNodeStatus randomNextWaypoint();
+        dang::BTNodeStatus checkPathProgress();
+        void startOutToWaypoint();
 
         spSceneGraph            _scene_graph{nullptr};
         std::vector<wpWaypoint> _path;
