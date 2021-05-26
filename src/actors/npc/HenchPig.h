@@ -43,6 +43,9 @@ namespace pnk
         void deBubble() override;
         bool isBubbled() override;
 
+        // path
+        void startOutToWaypoint() override;
+
         // animations depot
         spTwAnim _anim_m_sleeping;
         spTwAnim _anim_m_hiding;

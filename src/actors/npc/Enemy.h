@@ -43,7 +43,8 @@ namespace pnk
         dang::BTNodeStatus handlePath();
         dang::BTNodeStatus randomNextWaypoint();
         dang::BTNodeStatus checkPathProgress();
-        void startOutToWaypoint();
+        virtual void startOutToWaypoint();
+
 
         spSceneGraph            _scene_graph{nullptr};
         std::vector<wpWaypoint> _path;

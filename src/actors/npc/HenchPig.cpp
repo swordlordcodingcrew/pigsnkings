@@ -276,4 +276,20 @@ namespace pnk
         e->_spr = shared_from_this();
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
+
+    void HenchPig::startOutToWaypoint()
+    {
+        Enemy::startOutToWaypoint();
+        removeAnimation();
+        setAnimation(_anim_m_loitering);
+        if (_vel.x > 0)
+        {
+            _transform = blit::HORIZONTAL;
+        }
+        else
+        {
+            _transform = blit::NONE;
+
+        }
+    }
 }

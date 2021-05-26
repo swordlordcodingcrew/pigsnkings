@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.4" tiledversion="1.4.3" name="gfx_pig" tilewidth="32" tileheight="32" tilecount="34" columns="34" objectalignment="topleft">
  <image source="../../gfx/characters/pig.png" trans="ff00ff" width="1088" height="32"/>
- <tile id="0" type="sleeping">
+ <tile id="0" type="not_set">
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>
@@ -11,7 +11,7 @@
    <frame tileid="5" duration="100"/>
   </animation>
  </tile>
- <tile id="6" type="loitering">
+ <tile id="6" type="sleeping">
   <animation>
    <frame tileid="6" duration="100"/>
    <frame tileid="7" duration="100"/>
@@ -27,10 +27,13 @@
    <frame tileid="13" duration="100"/>
   </animation>
  </tile>
- <tile id="14" type="hitting">
+ <tile id="14" type="loitering">
   <animation>
    <frame tileid="14" duration="100"/>
    <frame tileid="15" duration="100"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="17" duration="100"/>
+   <frame tileid="18" duration="100"/>
   </animation>
  </tile>
  <tile id="21">
