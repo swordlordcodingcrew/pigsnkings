@@ -77,9 +77,6 @@ namespace pnk
             blit::write_save(_gamestate, GAMESTATE_1);
         }
 
-        // TODO: remove. This is only for testing purpose
-        _gamestate.active_room = 0;
-
         blit::debug("game states loaded\n");
 
         _gs = GameState::_gs_intro;
@@ -111,10 +108,8 @@ namespace pnk
 
     void PigsnKings::render(uint32_t time)
     {
-        // TODO: do we need to clear the screen?
-        blit::screen.pen = blit::Pen(255, 255, 255, 255);
-        blit::screen.clear();
-
+        // no need to clear the screen
+        // have the engine render the game
         _gear.render(time);
 
 #ifdef PNK_DEBUG
