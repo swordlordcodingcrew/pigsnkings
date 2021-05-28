@@ -294,7 +294,7 @@ namespace pnk
                 }
             }
 
-            blit::debugf("sprite %d of %d (%d)\r\n", j, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
+            blit::debugf("sprite %d of %d (%d)\r\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
 
 #ifdef TARGET_32BLIT_HW
 

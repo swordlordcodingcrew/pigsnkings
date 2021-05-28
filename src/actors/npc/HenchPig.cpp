@@ -51,8 +51,7 @@ namespace pnk
 
         if(_currentState != _nextState)
         {
-            // TODO actually we could do some logic here and enter a specific state instead?
-            // like pig wanted to enter picking up, could not because, let it enter sleep instead
+            // If you need some logic here, have it decided by a BehaviourTree
             switch (_nextState)
             {
                 case SLEEPING:
