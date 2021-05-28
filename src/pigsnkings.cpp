@@ -170,7 +170,7 @@ namespace pnk
 
     void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)
     {
-        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+        dang::SndGear::setMod(mod, len);
 
         #ifdef PNK_SND_DEBUG
         if (dang::SndGear::mod_set)
@@ -187,7 +187,6 @@ namespace pnk
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
         blit::channels[dang::SndGear::getMusicChan()].volume = volume * 0xffff;
         blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
-
     }
 
 #ifdef PNK_SND_DEBUG
