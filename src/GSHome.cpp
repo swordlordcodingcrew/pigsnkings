@@ -293,7 +293,11 @@ namespace pnk
 
     void GSHome::playOink()
     {
-        // TODO: only play it sometimes
-        //PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+        // yes, I know this is not truly random. nobody cares...
+        auto val = std::rand() % 100;
+        if(val == 1)
+        {
+            PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+        }
     }
 }
