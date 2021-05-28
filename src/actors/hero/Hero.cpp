@@ -55,7 +55,7 @@ namespace pnk
             spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
 
             /** collision with enemy */
-            if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
+            if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
             {
                 _hit = true;
                 float ax{0};
@@ -103,9 +103,9 @@ namespace pnk
 
             if (normal.y > 0)
             {
-                if (mf.other->_type_num == SpriteFactory::TN_BUBBLE || mf.me->_type_num == SpriteFactory::TN_BUBBLE)
+                if (mf.other->_type_num == dang::SpriteType::BUBBLE || mf.me->_type_num == dang::SpriteType::BUBBLE)
                 {
-                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == SpriteFactory::TN_BUBBLE ? mf.me : mf.other);
+                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == dang::SpriteType::BUBBLE ? mf.me : mf.other);
                     if (bubble->_state != Bubble::bs_enemy_catched)
                     {
                         _on_ground = true;
@@ -118,7 +118,7 @@ namespace pnk
                     _vel.y = 0;
                 }
             }
-            else if (normal.y < 0 && mf.other->_type_num != SpriteFactory::TN_BUBBLE && mf.me->_type_num != SpriteFactory::TN_BUBBLE)
+            else if (normal.y < 0 && mf.other->_type_num != dang::SpriteType::BUBBLE && mf.me->_type_num != dang::SpriteType::BUBBLE)
             {
                 _top_hit = true;
                 _vel.y = 0;
@@ -132,7 +132,7 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {
-            if (other->_type_num == SpriteFactory::TN_HOTRECT_PLATFORM)
+            if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
             {
                 spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
 

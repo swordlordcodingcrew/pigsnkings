@@ -485,24 +485,24 @@ namespace pnk
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
-        switch(pe._payload)
+        switch(static_cast<dang::SpriteType>(pe._payload))
         {
-            case SpriteFactory::TN_PIG_NORMAL:
+            case dang::SpriteType::PIG_NORMAL:
                 health -= 30;
                 break;
-            case SpriteFactory::TN_PIG_BOMB:
+            case dang::SpriteType::PIG_BOMB:
                 health -= 35;
                 break;
-            case SpriteFactory::TN_PIG_BOX:
+            case dang::SpriteType::PIG_BOX:
                 health -= 35;
                 break;
-            case SpriteFactory::TN_FLYING_BOMB:
+            case dang::SpriteType::FLYING_BOMB:
                 health -= 10;
                 break;
-            case SpriteFactory::TN_FLYING_CRATE:
+            case dang::SpriteType::FLYING_CRATE:
                 health -= 20;
                 break;
-            case SpriteFactory::TN_FLYING_CANNONBALL:
+            case dang::SpriteType::FLYING_CANNONBALL:
                 health -= 50;
                 break;
         }
@@ -542,33 +542,33 @@ namespace pnk
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
     {
-        switch (pe._payload)
+        switch (static_cast<dang::SpriteType>(pe._payload))
         {
-            case SpriteFactory::TN_COIN_SILVER:
+            case dang::SpriteType::COIN_SILVER:
                 addScore(10);
                 break;
-            case SpriteFactory::TN_COIN_GOLD:
+            case dang::SpriteType::COIN_GOLD:
                 addScore(50);
                 break;
-            case SpriteFactory::TN_GEM_BLUE:
+            case dang::SpriteType::GEM_BLUE:
                 addScore(30);
                 break;
-            case SpriteFactory::TN_GEM_GREEN:
+            case dang::SpriteType::GEM_GREEN:
                 addScore(60);
                 break;
-            case SpriteFactory::TN_GEM_RED:
+            case dang::SpriteType::GEM_RED:
                 addScore(100);
                 break;
-            case SpriteFactory::TN_POTION_BLUE:
+            case dang::SpriteType::POTION_BLUE:
                 addHealth(1);
                 break;
-            case SpriteFactory::TN_POTION_RED:
+            case dang::SpriteType::POTION_RED:
                 addHealth(5);
                 break;
-            case SpriteFactory::TN_POTION_GREEN:
+            case dang::SpriteType::POTION_GREEN:
                 addHealth(20);
                 break;
-            case SpriteFactory::TN_PIG_REWARD:
+            case dang::SpriteType::PIG_REWARD:
                 addScore(100);
                 break;
                 // Default gets nothing
