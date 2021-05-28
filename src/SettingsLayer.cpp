@@ -51,7 +51,9 @@ namespace pnk
 
     SettingsLayer::~SettingsLayer()
     {
-        // TODO: fix: this is a hack to set Play as the selected module in the save file...
+        // this is a hack. we set play as the default option in the stored settings
+        // otherwise the default would always be prefs
+        // which is annoying as hell. I know, I tried this :)
         _pnk._prefs.selectedModule = _pnk.PLAY;
         blit::write_save(_pnk._prefs, _pnk.PREFERENCES);
         _pnk._prefs.selectedModule = _pnk.PREFS;
@@ -89,8 +91,17 @@ namespace pnk
             auto& pref = _prefs.at(_selectedPref);
             pref.curVal > 0.1f ? (_prefs.at(_selectedPref).curVal -= .1f) : (_prefs.at(_selectedPref).curVal = 0);
 
-            // TODO check sfx vs tracks
-            _pnk._prefs.volume_sfx = pref.curVal;
+            // check sfx vs tracks
+            if(pref.caption == "Music")
+            {
+                _pnk._prefs.volume_track = pref.curVal;
+            }
+            else
+            {
+                _pnk._prefs.volume_sfx = pref.curVal;
+            }
+
+            // make some noise to show user how this sounds
             PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_RIGHT)
@@ -99,8 +110,17 @@ namespace pnk
             auto& pref = _prefs.at(_selectedPref);
             pref.curVal < 0.9f ? (_prefs.at(_selectedPref).curVal += .1f) : (_prefs.at(_selectedPref).curVal = 1);
 
-            // TODO check sfx vs tracks
-            _pnk._prefs.volume_sfx = pref.curVal;
+            // check sfx vs tracks
+            if(pref.caption == "Music")
+            {
+                _pnk._prefs.volume_track = pref.curVal;
+            }
+            else
+            {
+                _pnk._prefs.volume_sfx = pref.curVal;
+            }
+
+            // make some noise to show user how this sounds
             PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
         }
     }
