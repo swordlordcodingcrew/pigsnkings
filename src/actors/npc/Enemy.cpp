@@ -182,7 +182,7 @@ namespace pnk
                 {
                     removeTweens(true);
                     float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
+                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5f, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
                     addTween(tw);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;

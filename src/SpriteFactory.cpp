@@ -118,8 +118,7 @@ namespace pnk
             if(tree != nullptr)
             {
                 const dang::TreeState ts = {tree};
-
-                sprite->_btTreeState = std::make_shared<dang::TreeState>(ts);
+                sprite->setTreeState(std::make_shared<dang::TreeState>(ts));
             }
         }
     }
