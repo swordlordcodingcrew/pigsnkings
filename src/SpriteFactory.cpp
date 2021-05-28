@@ -166,7 +166,6 @@ namespace pnk
 
         ret->init();
 
-        // TODO: call attachBehaviourTree(gear, so, newsprite)
         // function checks if there is a so.behaviourtree property
         // if set, checks in gear whats the pointer to said tree
         // generates treestate object, sets pointer to tree and sets that to the new sprite
