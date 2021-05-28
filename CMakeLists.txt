@@ -43,6 +43,8 @@ set(SOURCES
         ${SRC_ACTORS_HERO}
         ${RSRC}
         tracks/gocryogo.h
+        tracks/groovy.h
+        tracks/u4iasmok.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h
         fonts/hud_font_small.h
