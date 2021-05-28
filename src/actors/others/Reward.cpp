@@ -28,11 +28,10 @@ namespace pnk
 
     void Reward::init()
     {
-        // todo: fix hotrect
-        _hotrect = {10, 16, 12, 16};
+        _hotrect = {10, 24, 12, 16};
 
         // todo: get it from the definition in the tmx file
-        // the probem is, that if we set it in the sprite factory, we have an instance of an animation in every
+        // the problem is, that if we set it in the sprite factory, we have an instance of an animation in every
         // single reward eating memory. if we set it if we need it, we only have a few...
         // lets discuss the problem
         switch (this->_type_num)
