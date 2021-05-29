@@ -29,11 +29,11 @@
  </tile>
  <tile id="14" type="loitering">
   <animation>
-   <frame tileid="14" duration="100"/>
-   <frame tileid="15" duration="100"/>
-   <frame tileid="16" duration="100"/>
-   <frame tileid="17" duration="100"/>
-   <frame tileid="18" duration="100"/>
+   <frame tileid="14" duration="150"/>
+   <frame tileid="15" duration="150"/>
+   <frame tileid="16" duration="150"/>
+   <frame tileid="17" duration="150"/>
+   <frame tileid="18" duration="150"/>
   </animation>
  </tile>
  <tile id="21">
