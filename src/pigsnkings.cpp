@@ -77,9 +77,6 @@ namespace pnk
             blit::write_save(_gamestate, GAMESTATE_1);
         }
 
-        // TODO: remove. This is only for testing purpose
-        _gamestate.active_room = 0;
-
         blit::debug("game states loaded\n");
 
         _gs = GameState::_gs_intro;
@@ -111,10 +108,8 @@ namespace pnk
 
     void PigsnKings::render(uint32_t time)
     {
-        // TODO: do we need to clear the screen?
-        blit::screen.pen = blit::Pen(255, 255, 255, 255);
-        blit::screen.clear();
-
+        // no need to clear the screen
+        // have the engine render the game
         _gear.render(time);
 
 #ifdef PNK_DEBUG
@@ -175,7 +170,7 @@ namespace pnk
 
     void PigsnKings::playMod(const uint8_t* mod, const uint32_t len, float volume)
     {
-        dang::SndGear::setMod(gocryogo_mod, gocryogo_mod_length);
+        dang::SndGear::setMod(mod, len);
 
         #ifdef PNK_SND_DEBUG
         if (dang::SndGear::mod_set)
@@ -192,7 +187,6 @@ namespace pnk
         blit::channels[dang::SndGear::getMusicChan()].wave_buffer_callback = &PigsnKings::mod_buff_cb;  // Set callback address
         blit::channels[dang::SndGear::getMusicChan()].volume = volume * 0xffff;
         blit::channels[dang::SndGear::getMusicChan()].trigger_attack();
-
     }
 
 #ifdef PNK_SND_DEBUG

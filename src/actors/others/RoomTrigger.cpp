@@ -27,7 +27,7 @@ namespace pnk
 
     void RoomTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.me->_type_num == SpriteFactory::TN_KING || mf.other->_type_num == SpriteFactory::TN_KING)
+        if (mf.me->_type_num == dang::SpriteType::KING || mf.other->_type_num == dang::SpriteType::KING)
         {
             if (_warp)
             {
@@ -47,7 +47,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse RoomTrigger::getCollisionResponse(spSprite other)
     {
-        if (other->_type_num == SpriteFactory::TN_KING)
+        if (other->_type_num == dang::SpriteType::KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }

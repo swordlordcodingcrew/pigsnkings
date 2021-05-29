@@ -23,10 +23,7 @@ namespace pnk
         blit::screen.rectangle(displayRect);
 
         // get picture for the border
-//        dang::SizeU imgsh_size(384, 256);
         is = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 12, 8);
-
-        // TODO: start track!!
 
         int i;
         float rad;
@@ -35,7 +32,7 @@ namespace pnk
         for (i = 0; i < 512; i++)
         {
             // 360 / 512 * degree to rad, 360 degrees spread over 512 values to be able to use AND 512-1 instead of using modulo 360
-            rad =  ((float)i * 0.703125) * 0.0174532;
+            rad =  ((float)i * 0.703125f) * 0.0174532f;
 
             // fixed point math using 1024 as base
             aSin[i] = sin(rad) * 1024;
@@ -88,13 +85,11 @@ namespace pnk
 
     void ScrolltextLayer::update(uint32_t dt, const dang::Gear &gear)
     {
-        // Todo dont rely on blit::now but use the delta time instead
-        if (lastStartTime == 0) {
-            lastStartTime = blit::now();
-        }
+        // add the delta time to the last time
+        lastStartTime += dt;
 
         // calculate starting_y using the speed constant and elapsed time since start time
-        startY = blit::screen.bounds.h - upperBorder - ((blit::now() - lastStartTime) / 40); // where 40 is speed in ms
+        startY = blit::screen.bounds.h - upperBorder - (lastStartTime / 50); // where 50 is speed in ms
     }
 
     void ScrolltextLayer::render(const dang::Gear& gear)

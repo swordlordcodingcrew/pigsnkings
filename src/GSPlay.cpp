@@ -54,7 +54,22 @@
 #include "rsrc/level_1.tmx.hpp"
 
 #include <bt/bt.hpp>
+#include <malloc.h>
 
+#ifdef TARGET_32BLIT_HW
+/*
+#include "32blit.hpp"
+#include <malloc.h>
+extern "C"
+{
+    extern char _sbss, _end, __ltdc_start;
+}
+ */
+#include "32blit.hpp"
+#include <malloc.h>
+#include "../../../fonts/hud_font_small.h"
+extern char _sbss, _end, __ltdc_start;
+#endif
 
 namespace pnk
 {
@@ -129,11 +144,25 @@ namespace pnk
 
         _last_time = 0;
 
-        blit::debugf("entered\r\n");
+        blit::debugf("entered (%d)\r\n", mallinfo().uordblks);
+
+#ifdef TARGET_32BLIT_HW
+
+        // memory stats
+
+        auto static_used = &_end - &_sbss;
+        auto heap_total = &__ltdc_start - &_end;
+        auto total_ram = static_used + heap_total;
+        auto heap_used = mallinfo().uordblks;
+
+
+        blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, heap_used, heap_total, total_ram);
+
+#endif
 
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
-        blit::debugf("choose level\r\n");
+        blit::debugf("choose level (%d)\r\n", mallinfo().uordblks);
 
         // choose level acc. to pnk
         switch(_pnk._gamestate.active_level)
@@ -151,7 +180,7 @@ namespace pnk
 
         dang::TmxExtruder txtr(_tmx, &gear);
 
-        blit::debugf("extruded\r\n");
+        blit::debugf("extruded (%d)\r\n", mallinfo().uordblks);
 
         _last_time = blit::now();
 
@@ -172,27 +201,34 @@ namespace pnk
         }
 
         std::cout << "test: " << _screenplay->_acts[0]._extent_pixels.w << std::endl;
-        blit::debugf("imagesheet\r\n");
+        blit::debugf("imagesheet (%d)\r\n", mallinfo().uordblks);
 
         // init imagesheets
         txtr.getImagesheets();
 
-        blit::debugf("tile layer\r\n");
+        blit::debugf("tile layer (%d)\r\n", mallinfo().uordblks);
 
         // create background Tilelayer
         txtr.getTileLayer(_screenplay->_l_bg_name, true);
 
-        blit::debugf("mood layer\r\n");
+        blit::debugf("mood layer (%d)\r\n", mallinfo().uordblks);
 
         // create mood Tilelayer
         if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true);
 
-        blit::debugf("collision sprite layer\r\n");
+        blit::debugf("collision sprite layer (%d)\r\n", mallinfo().uordblks);
 
         // create Spritelayer with collision detection
         _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, false, true);
 
-        blit::debugf("sprite objects\r\n");
+        blit::debugf("sprite objects (%d)\r\n", mallinfo().uordblks);
+
+#ifdef TARGET_32BLIT_HW
+
+        // memory stats
+        blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+
+#endif
 
         // create sprites
         for (size_t j = 0; j < _csl->_tmx_layer->spriteobejcts_len; j++)
@@ -257,6 +293,15 @@ namespace pnk
                         std::cerr << "sprite type unknown. Id=" << so->id << ", type=" << so->type << std::endl;
                 }
             }
+
+            blit::debugf("sprite %d of %d (%d)\r\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
+
+#ifdef TARGET_32BLIT_HW
+
+            // memory stats
+        blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+
+#endif
         }
 
         blit::debugf("fg layer\r\n");
@@ -440,24 +485,24 @@ namespace pnk
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
-        switch(pe._payload)
+        switch(static_cast<dang::SpriteType>(pe._payload))
         {
-            case SpriteFactory::TN_PIG_NORMAL:
+            case dang::SpriteType::PIG_NORMAL:
                 health -= 30;
                 break;
-            case SpriteFactory::TN_PIG_BOMB:
+            case dang::SpriteType::PIG_BOMB:
                 health -= 35;
                 break;
-            case SpriteFactory::TN_PIG_BOX:
+            case dang::SpriteType::PIG_BOX:
                 health -= 35;
                 break;
-            case SpriteFactory::TN_FLYING_BOMB:
+            case dang::SpriteType::FLYING_BOMB:
                 health -= 10;
                 break;
-            case SpriteFactory::TN_FLYING_CRATE:
+            case dang::SpriteType::FLYING_CRATE:
                 health -= 20;
                 break;
-            case SpriteFactory::TN_FLYING_CANNONBALL:
+            case dang::SpriteType::FLYING_CANNONBALL:
                 health -= 50;
                 break;
         }
@@ -497,33 +542,33 @@ namespace pnk
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
     {
-        switch (pe._payload)
+        switch (static_cast<dang::SpriteType>(pe._payload))
         {
-            case SpriteFactory::TN_COIN_SILVER:
+            case dang::SpriteType::COIN_SILVER:
                 addScore(10);
                 break;
-            case SpriteFactory::TN_COIN_GOLD:
+            case dang::SpriteType::COIN_GOLD:
                 addScore(50);
                 break;
-            case SpriteFactory::TN_GEM_BLUE:
+            case dang::SpriteType::GEM_BLUE:
                 addScore(30);
                 break;
-            case SpriteFactory::TN_GEM_GREEN:
+            case dang::SpriteType::GEM_GREEN:
                 addScore(60);
                 break;
-            case SpriteFactory::TN_GEM_RED:
+            case dang::SpriteType::GEM_RED:
                 addScore(100);
                 break;
-            case SpriteFactory::TN_POTION_BLUE:
+            case dang::SpriteType::POTION_BLUE:
                 addHealth(1);
                 break;
-            case SpriteFactory::TN_POTION_RED:
+            case dang::SpriteType::POTION_RED:
                 addHealth(5);
                 break;
-            case SpriteFactory::TN_POTION_GREEN:
+            case dang::SpriteType::POTION_GREEN:
                 addHealth(20);
                 break;
-            case SpriteFactory::TN_PIG_REWARD:
+            case dang::SpriteType::PIG_REWARD:
                 addScore(100);
                 break;
                 // Default gets nothing

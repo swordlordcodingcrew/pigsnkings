@@ -28,37 +28,36 @@ namespace pnk
 
     void Reward::init()
     {
-        // todo: fix hotrect
-        _hotrect = {10, 16, 12, 16};
+        _hotrect = {10, 24, 12, 16};
 
         // todo: get it from the definition in the tmx file
-        // the probem is, that if we set it in the sprite factory, we have an instance of an animation in every
+        // the problem is, that if we set it in the sprite factory, we have an instance of an animation in every
         // single reward eating memory. if we set it if we need it, we only have a few...
         // lets discuss the problem
         switch (this->_type_num)
         {
-            case SpriteFactory::TN_COIN_SILVER:
+            case dang::SpriteType::COIN_SILVER:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_COIN_GOLD:
+            case dang::SpriteType::COIN_GOLD:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{4, 5, 6, 7}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_GEM_BLUE:
+            case dang::SpriteType::GEM_BLUE:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{12, 13, 14, 15}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_GEM_GREEN:
+            case dang::SpriteType::GEM_GREEN:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{16, 17, 18, 19}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_GEM_RED:
+            case dang::SpriteType::GEM_RED:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{20, 21, 22, 23}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_POTION_BLUE:
+            case dang::SpriteType::POTION_BLUE:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{28, 29, 30, 31, 32, 33, 34}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_POTION_RED:
+            case dang::SpriteType::POTION_RED:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{35, 36, 37, 38, 39, 40, 41}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case SpriteFactory::TN_POTION_GREEN:
+            case dang::SpriteType::POTION_GREEN:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{42, 43, 44, 45, 46, 47, 48}, 500, &dang::Ease::Linear, -1)));
                 break;
                 // Default gets silver coin
@@ -81,7 +80,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Reward::getCollisionResponse(spSprite other)
     {
-        if (other->_type_num == SpriteFactory::TN_KING && !_collected)
+        if (other->_type_num == dang::SpriteType::KING && !_collected)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -91,7 +90,7 @@ namespace pnk
 
     void Reward::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
+        if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {
             this->_collected = true;
 
@@ -104,18 +103,18 @@ namespace pnk
 
             switch (this->_type_num)
             {
-                case SpriteFactory::TN_COIN_SILVER:
-                case SpriteFactory::TN_COIN_GOLD:
+                case dang::SpriteType::COIN_SILVER:
+                case dang::SpriteType::COIN_GOLD:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 400, &dang::Ease::Linear, 0));
                     break;
-                case SpriteFactory::TN_GEM_BLUE:
-                case SpriteFactory::TN_GEM_GREEN:
-                case SpriteFactory::TN_GEM_RED:
+                case dang::SpriteType::GEM_BLUE:
+                case dang::SpriteType::GEM_GREEN:
+                case dang::SpriteType::GEM_RED:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{24, 25, 26, 27}, 400, &dang::Ease::Linear, 0));
                     break;
-                case SpriteFactory::TN_POTION_BLUE:
-                case SpriteFactory::TN_POTION_RED:
-                case SpriteFactory::TN_POTION_GREEN:
+                case dang::SpriteType::POTION_BLUE:
+                case dang::SpriteType::POTION_RED:
+                case dang::SpriteType::POTION_GREEN:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{49, 50, 51, 52}, 400, &dang::Ease::Linear, 0));
                     break;
                     // Default gets silver coin
@@ -131,12 +130,12 @@ namespace pnk
         }
     }
 
-    void Reward::createRewardEvent(uint16_t rewardType)
+    void Reward::createRewardEvent(dang::SpriteType rewardType)
     {
         // remove reward
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
         e->_spr = shared_from_this();
-        e->_payload = rewardType;
+        e->_payload = static_cast<uint16_t>(rewardType);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 

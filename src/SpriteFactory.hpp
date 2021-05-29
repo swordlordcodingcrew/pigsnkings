@@ -80,56 +80,6 @@ namespace pnk
         static inline const std::string T_POTION_GREEN{"potion_green"};
         static inline const std::string T_POTION_RED{"potion_red"};
 
-        /**
-         * definition of _type_num of sprites.
-         */
-         // TODO: Change to enum class, remove TN_ from names
-        enum TN
-        {
-            // 0 - 99 king and associated stuff to king
-            TN_KING = 10,
-            TN_BUBBLE = 50,
-
-            // 100 - 199 enemies
-            TN_ENEMIES = 100,
-            TN_PIG_NORMAL = 101,
-            TN_NORMAL_PIG_HIVE = 102,
-            TN_PIG_BETTER = 103,
-            TN_PIG_BOX = 104,
-            TN_PIG_BOMB = 105,
-            TN_PIG_CANNON = 106,
-            TN_FLYING_CRATE = 180,
-            TN_FLYING_BOMB = 181,
-            TN_FLYING_CANNONBALL = 182,
-            TN_ENEMIES_END = 199,
-
-            // 200 - 299 hotrects
-            TN_HOTRECT = 201,
-            TN_HOTRECT_PLATFORM = 202,
-
-            // 300 - 399 coins and rewards in general
-            TN_REWARDS = 300,
-            TN_COIN_SILVER = 301,
-            TN_COIN_GOLD = 302,
-            TN_GEM_BLUE = 303,
-            TN_GEM_GREEN = 304,
-            TN_GEM_RED = 305,
-            TN_POTION_BLUE = 306,
-            TN_POTION_RED = 307,
-            TN_POTION_GREEN = 308,
-            TN_PIG_REWARD = 309,
-            TN_REWARDS_END = 399,
-
-            // 400 - 499 triggers
-            TN_TRIGGERS = 400,
-            TN_ROOM_TRIGGER = 401,
-            TN_WARP_ROOM_TRIGGER = 402,
-            TN_TRIGGERS_END = 499,
-
-            // 500 - 599 Mood stuff
-            TN_PIG_POOF = 501,
-        };
-
         static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite);
         static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 

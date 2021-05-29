@@ -74,12 +74,12 @@ namespace pnk
 
     void Bombies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == SpriteFactory::TN_HOTRECT || mf.me->_type_num == SpriteFactory::TN_HOTRECT)
+        if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
         {
             // me destroys
             this->removeSelf();
         }
-        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
+        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -91,7 +91,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bombies::getCollisionResponse(spSprite other)
     {
-        if (other->_type_num == SpriteFactory::TN_KING || other->_type_num == SpriteFactory::TN_HOTRECT)
+        if (other->_type_num == dang::SpriteType::KING || other->_type_num == dang::SpriteType::HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
@@ -104,7 +104,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = SpriteFactory::TN_FLYING_BOMB;
+        e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_BOMB);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

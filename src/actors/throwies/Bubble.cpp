@@ -123,8 +123,8 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (((mf.other->_type_num > SpriteFactory::TN_ENEMIES && mf.other->_type_num < SpriteFactory::TN_ENEMIES_END)
-                || (mf.me->_type_num > SpriteFactory::TN_ENEMIES && mf.me->_type_num < SpriteFactory::TN_ENEMIES_END))
+        if (((mf.other->_type_num > dang::SpriteType::ENEMIES && mf.other->_type_num < dang::SpriteType::ENEMIES_END)
+                || (mf.me->_type_num > dang::SpriteType::ENEMIES && mf.me->_type_num < dang::SpriteType::ENEMIES_END))
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
             _catched_en = std::static_pointer_cast<Enemy>(mf.me == shared_from_this() ? mf.other : mf.me);
@@ -164,7 +164,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == SpriteFactory::TN_KING || mf.me->_type_num == SpriteFactory::TN_KING)
+        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -176,7 +176,7 @@ namespace pnk
 
                     // reward
                     std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
-                    e->_payload = SpriteFactory::TN_PIG_REWARD;
+                    e->_payload = static_cast<uint16_t>(dang::SpriteType::PIG_REWARD);
                     e->_spr = shared_from_this();
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
@@ -224,7 +224,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == SpriteFactory::TN_KING)
+        if (other->_type_num == dang::SpriteType::KING)
         {
             if (_state == bs_enemy_catched)
             {
@@ -235,12 +235,12 @@ namespace pnk
 
         }
 
-        if (other->_type_num > SpriteFactory::TN_ENEMIES && other->_type_num < SpriteFactory::TN_ENEMIES_END)
+        if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }
 
-        if (other->_type_num == SpriteFactory::TN_HOTRECT)
+        if (other->_type_num == dang::SpriteType::HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }

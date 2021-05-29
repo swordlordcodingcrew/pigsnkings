@@ -43,7 +43,7 @@ namespace pnk
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
         // if button x is pressed load the selected state
-        if (blit::buttons.pressed & blit::Button::X)
+        if (blit::buttons.pressed & blit::Button::A)
         {
             if (_pnk._prefs.selectedModule == _pnk.PLAY)
             {
@@ -293,7 +293,11 @@ namespace pnk
 
     void GSHome::playOink()
     {
-        // TODO: only play it sometimes
-        //PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+        // yes, I know this is not truly random. nobody cares...
+        auto val = std::rand() % 100;
+        if(val == 1)
+        {
+            PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+        }
     }
 }

@@ -50,8 +50,7 @@ namespace pnk
 
         if(_currentState != _nextState)
         {
-            // TODO actually we could do some logic here and enter a specific state instead?
-            // like pig wanted to enter picking up, could not because, let it enter sleep instead
+            // If you need some logic here, have it decided by a BehaviourTree
             switch (_nextState)
             {
                 case SLEEPING:
@@ -86,7 +85,7 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num == SpriteFactory::TN_KING)
+        if (other->_type_num == dang::SpriteType::KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -97,17 +96,17 @@ namespace pnk
     void HenchPig::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
         spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
-        if (sprOther->_type_num == SpriteFactory::TN_BUBBLE)
+        if (sprOther->_type_num == dang::SpriteType::BUBBLE)
         {
             // the bubble will call bubble()
         }
-        else if (sprOther->_type_num == SpriteFactory::TN_KING)
+        else if (sprOther->_type_num == dang::SpriteType::KING)
         {
             tellTheKingWeHitHim();
 
             poofing();
         }
-        else if ((sprOther->_type_num > SpriteFactory::TN_ENEMIES && sprOther->_type_num < SpriteFactory::TN_ENEMIES_END))
+        else if ((sprOther->_type_num > dang::SpriteType::ENEMIES && sprOther->_type_num < dang::SpriteType::ENEMIES_END))
         {
             // do nothing (for now)
         }
@@ -254,7 +253,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = SpriteFactory::TN_PIG_NORMAL;
+        e->_payload = static_cast<uint16_t>(dang::SpriteType::PIG_NORMAL);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
