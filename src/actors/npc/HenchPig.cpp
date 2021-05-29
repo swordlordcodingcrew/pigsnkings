@@ -45,7 +45,6 @@ namespace pnk
 
     void HenchPig::update(uint32_t dt)
     {
-        handlePath();
 
         _on_ground = false;
 
