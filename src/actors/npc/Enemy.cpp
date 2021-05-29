@@ -61,20 +61,20 @@ namespace pnk
     {
     }
 
-    dang::BTNodeStatus Enemy::handlePath()
+    dang::BTNodeStatus Enemy::checkPathCompleted()
     {
         dang::BTNodeStatus ret{dang::BTNodeStatus::FAILURE};
 
         if (!_path.empty())
         {
-            switch (checkPathProgress())
+            switch (checkWaypointReached())
             {
                 case dang::BTNodeStatus::SUCCESS:
                 {
                     if (_path_index + 1 == _path.size())
                     {
                         _current_wp = _path[_path_index];
-//                        std::cout << "path: enemy "<< _type_num << " reached goal " << _current_wp.lock()->_id << std::endl;
+                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
 
                         // ultimate goal reached. Reset stuff
                         _path.clear();
@@ -106,16 +106,6 @@ namespace pnk
             }
 
         }
-        else    // TODO: remove later
-        {
-            randomNextWaypoint();
-            if (!_path.empty())
-            {
-                startOutToWaypoint();
-                ret = dang::BTNodeStatus::RUNNING;
-            }
-        }
-
         return ret;
     }
 
@@ -131,7 +121,7 @@ namespace pnk
         return dang::BTNodeStatus::SUCCESS;
     }
 
-    dang::BTNodeStatus Enemy::checkPathProgress()
+    dang::BTNodeStatus Enemy::checkWaypointReached()
     {
         if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
         {
@@ -150,7 +140,7 @@ namespace pnk
             spWaypoint w = _path[_path_index].lock();
             if (w)
             {
-                // if we missed somehow the waypoint..
+                // if the sprite went too far, turn around and go slower
                 if ((_vel.x < 0 && getHotrectAbs().center().x < w->_pos.x) || (_vel.x > 0 && getHotrectAbs().center().x > w->_pos.x))
                 {
                     _vel.x = -_vel.x;
@@ -197,5 +187,71 @@ namespace pnk
         }
 
     }
+
+    dang::BTNodeStatus Enemy::setDestinationWaypoint()
+    {
+        std::cout << "setDestinationWaypoint" << std::endl;
+        // TODO: this is only a test with two fixed destination wapoints
+        spWaypoint start = _current_wp.lock();
+        spWaypoint dest = _scene_graph->getWaypoints()[408];
+
+        if (dest == start)
+        {
+            dest = _scene_graph->getWaypoints()[415];
+        }
+
+        _scene_graph->resetAStar();
+        if (_scene_graph->getPath(start, dest, _path))
+        {
+            _path_index = 0;
+            if (!_path.empty())
+            {
+                startOutToWaypoint();
+                return dang::BTNodeStatus::SUCCESS;
+            }
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
+
+    dang::BTNodeStatus Enemy::BTcheckPathCompleted(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        if (spr)
+        {
+            return spr->checkPathCompleted();
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
+
+    dang::BTNodeStatus Enemy::BTrandomNextWaypoint(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        if (spr)
+        {
+            return spr->randomNextWaypoint();
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
+
+    dang::BTNodeStatus Enemy::BTcheckWaypointReached(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        if (spr)
+        {
+            return spr->checkWaypointReached();
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
+
+    dang::BTNodeStatus Enemy::BTsetDestinationWaypoint(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        if (spr)
+        {
+            return spr->setDestinationWaypoint();
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
+
 
 }

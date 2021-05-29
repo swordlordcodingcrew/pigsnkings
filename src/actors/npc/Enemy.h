@@ -40,9 +40,14 @@ namespace pnk
         virtual void bubble() = 0;
         virtual void deBubble() = 0;
 
-        dang::BTNodeStatus handlePath();
+        static dang::BTNodeStatus BTcheckPathCompleted(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTrandomNextWaypoint(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTcheckWaypointReached(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTsetDestinationWaypoint(std::shared_ptr<Sprite> s);
+        dang::BTNodeStatus checkPathCompleted();
         dang::BTNodeStatus randomNextWaypoint();
-        dang::BTNodeStatus checkPathProgress();
+        dang::BTNodeStatus setDestinationWaypoint();
+        dang::BTNodeStatus checkWaypointReached();
         virtual void startOutToWaypoint();
 
 
