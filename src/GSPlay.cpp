@@ -136,15 +136,23 @@ namespace pnk
 
         gear.addBehaviourTree("cratepig", std::make_shared<dang::BehaviourTree>(treeCratePig));
 
-        auto treeLoiter = dang::Builder{}
+        auto treeTestPath = dang::Builder{}
                 .sequence()
-                    .leaf(Enemy::BTsetDestinationWaypoint)
+                    .leaf(Enemy::BTsetDestinationWaypointTestFunc)
                     .leaf(Enemy::BTcheckPathCompleted)
                 .end()
                 .build();
 
-        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeLoiter));
+        gear.addBehaviourTree("test_path", std::make_shared<dang::BehaviourTree>(treeTestPath));
 
+        auto treeRandomLoiter = dang::Builder{}
+                .sequence()
+                .leaf(Enemy::BTrandomNextWaypoint)
+                .leaf(Enemy::BTcheckPathCompleted)
+                .end()
+                .build();
+
+        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeRandomLoiter));
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)

@@ -80,6 +80,7 @@ namespace pnk
                         _path.clear();
                         _path_index = 0;
                         _vel.x = 0;
+                        _scene_graph->resetAStar();
                         ret = dang::BTNodeStatus::SUCCESS;
                     }
                     else
@@ -118,6 +119,8 @@ namespace pnk
             // no other waypoint (?). Would be a design error, returning failure
             return dang::BTNodeStatus::FAILURE;
         }
+
+        startOutToWaypoint();
         return dang::BTNodeStatus::SUCCESS;
     }
 
@@ -161,14 +164,15 @@ namespace pnk
             uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
             switch (conn_type)
             {
-                case dang::e_tmx_waypoint_connection::wp_walk:
+                case dang::e_tmx_waypoint_connection::wpc_invalid:
+                case dang::e_tmx_waypoint_connection::wpc_walk:
                 {
                     removeTweens(true);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;
                     break;
                 }
-                case dang::e_tmx_waypoint_connection::wp_jump:
+                case dang::e_tmx_waypoint_connection::wpc_jump:
                 {
                     removeTweens(true);
                     float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
@@ -178,7 +182,7 @@ namespace pnk
                     _current_wp = wp;
                     break;
                 }
-                case dang::e_tmx_waypoint_connection::wp_warp:
+                case dang::e_tmx_waypoint_connection::wpc_warp:
                     // TODO
                     break;
                 default:
@@ -188,9 +192,9 @@ namespace pnk
 
     }
 
-    dang::BTNodeStatus Enemy::setDestinationWaypoint()
+    dang::BTNodeStatus Enemy::setDestinationWaypointTestFunc()
     {
-        std::cout << "setDestinationWaypoint" << std::endl;
+        std::cout << "setDestinationWaypointTextFunc" << std::endl;
         // TODO: this is only a test with two fixed destination wapoints
         spWaypoint start = _current_wp.lock();
         spWaypoint dest = _scene_graph->getWaypoints()[408];
@@ -200,7 +204,6 @@ namespace pnk
             dest = _scene_graph->getWaypoints()[415];
         }
 
-        _scene_graph->resetAStar();
         if (_scene_graph->getPath(start, dest, _path))
         {
             _path_index = 0;
@@ -243,15 +246,16 @@ namespace pnk
         return dang::BTNodeStatus::FAILURE;
     }
 
-    dang::BTNodeStatus Enemy::BTsetDestinationWaypoint(std::shared_ptr<Sprite> s)
+    dang::BTNodeStatus Enemy::BTsetDestinationWaypointTestFunc(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
         if (spr)
         {
-            return spr->setDestinationWaypoint();
+            return spr->setDestinationWaypointTestFunc();
         }
         return dang::BTNodeStatus::FAILURE;
     }
+
 
 
 }

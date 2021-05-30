@@ -357,7 +357,7 @@ namespace pnk
             if (room._extent_pixels.contains(spr->getPos()))
             {
                 spr->_scene_graph = room._scene_graph;
-                spWaypoint wp = spr->_scene_graph->getNearestWaypoint(spr->getPos());
+                spWaypoint wp = spr->_scene_graph->getNearestWaypoint(spr->getHotrectAbs().center());
                 if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
                 {
                     spr->_current_wp = wp;
@@ -365,6 +365,8 @@ namespace pnk
                 else
                 {
                     spr->_path.push_back(wp);
+                    spr->_path_index = 0;
+                    spr->startOutToWaypoint();
                 }
                 break;
             }
