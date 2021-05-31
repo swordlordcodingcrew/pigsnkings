@@ -494,11 +494,12 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {416, 208,568, },
     {417, 272,568, },
     {418, 176,664, 0},
-    {419, 208,664, },
-    {420, 144,640, },
+    {419, 208,664, 0},
+    {420, 144,632, 0},
+    {421, 144,600, 1},
 };
 
-static const size_t level_1_waypoints_len = 13;
+static const size_t level_1_waypoints_len = 14;
 
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {408, 409, 0x1},
@@ -522,11 +523,17 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {417, 416, 0x1},
     {418, 419, 0x1},
     {418, 414, 0x1},
+    {418, 420, 0x2},
     {419, 418, 0x1},
     {419, 412, 0x1},
+    {420, 418, 0x1},
+    {420, 411, 0x1},
+    {420, 421, 0x2},
+    {421, 418, 0x1},
+    {421, 411, 0x1},
 };
 
-static const size_t level_1_connections_len = 23;
+static const size_t level_1_connections_len = 29;
 
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
