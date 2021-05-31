@@ -32,9 +32,10 @@ namespace pnk
 
         virtual void    init();
 
-        void update(uint32_t dt) override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        // pure virtual enemy class
+        void update(uint32_t dt) override = 0;
+        void collide(const dang::CollisionSpriteLayer::manifold &mf) override = 0;
+        dang::CollisionSpriteLayer::eCollisionResponse getCollisionResponse(spSprite other) override = 0;
 
         virtual bool isBubbled() = 0;
         virtual void bubble() = 0;
@@ -47,6 +48,7 @@ namespace pnk
         dang::BTNodeStatus checkPathCompleted();
         dang::BTNodeStatus randomNextWaypoint();
         dang::BTNodeStatus setDestinationWaypointTestFunc();
+        dang::BTNodeStatus setDestinationBombDepot();
         dang::BTNodeStatus checkWaypointReached();
         virtual void startOutToWaypoint();
 

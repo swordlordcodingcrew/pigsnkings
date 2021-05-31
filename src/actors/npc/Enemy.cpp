@@ -47,20 +47,6 @@ namespace pnk
         std::cout << "enemy destructor" << std::endl;
     }
 
-    void Enemy::update(uint32_t dt)
-    {
-        _on_ground = false;
-    }
-
-    dang::CollisionSpriteLayer::eCollisionResponse Enemy::getCollisionResponse(spSprite other)
-    {
-        return dang::CollisionSpriteLayer::CR_SLIDE;
-    }
-
-    void Enemy::collide(const dang::CollisionSpriteLayer::manifold &mf)
-    {
-    }
-
     dang::BTNodeStatus Enemy::checkPathCompleted()
     {
         dang::BTNodeStatus ret{dang::BTNodeStatus::FAILURE};
@@ -122,6 +108,30 @@ namespace pnk
 
         startOutToWaypoint();
         return dang::BTNodeStatus::SUCCESS;
+    }
+
+    dang::BTNodeStatus Enemy::setDestinationBombDepot()
+    {
+        // TODO: finish
+        spWaypoint start = _current_wp.lock();
+        spWaypoint dest = _scene_graph->getWaypointWithType(dang::wp_bombdepot);
+
+        if (dest == start)
+        {
+            dest = _scene_graph->getWaypoints()[415];
+        }
+
+        if (_scene_graph->getPath(start, dest, _path))
+        {
+            _path_index = 0;
+            if (!_path.empty())
+            {
+                startOutToWaypoint();
+                return dang::BTNodeStatus::SUCCESS;
+            }
+        }
+        return dang::BTNodeStatus::FAILURE;
+
     }
 
     dang::BTNodeStatus Enemy::checkWaypointReached()

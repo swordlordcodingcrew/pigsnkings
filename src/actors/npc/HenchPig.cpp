@@ -80,45 +80,56 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(spSprite other)
     {
+        /** enemy is bubbled */
         if (_currentState == BUBBLED)
         {
-            return dang::CollisionSpriteLayer::CR_NONE;
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
         }
-
-        if (other->_type_num == dang::SpriteType::KING)
+        /** run into the king */
+        else if (other->_type_num == dang::SpriteType::KING)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+        }
+        /** hit a platform hotrect */
+        else if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
+        {
+            spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
+
+            if (cs->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            }
+            else
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+            }
+        }
+        else
+        {
+            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
         }
 
-        return dang::CollisionSpriteLayer::CR_SLIDE;
+        return _coll_response;
+
     }
 
     void HenchPig::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
         spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
-        if (sprOther->_type_num == dang::SpriteType::BUBBLE)
-        {
-            // the bubble will call bubble()
-        }
-        else if (sprOther->_type_num == dang::SpriteType::KING)
+
+        if (sprOther->_type_num == dang::SpriteType::KING)
         {
             tellTheKingWeHitHim();
 
             poofing();
         }
-        else if ((sprOther->_type_num > dang::SpriteType::ENEMIES && sprOther->_type_num < dang::SpriteType::ENEMIES_END))
-        {
-            // do nothing (for now)
-        }
-        else
+        else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
         {
             const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
             if (normal.x != 0)
             {
                 _vel.x = 0;
-//                _walkSpeed = -_walkSpeed;
-//                _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
             }
 
             if (normal.y > 0)
@@ -126,18 +137,9 @@ namespace pnk
                 _on_ground = true;
                 _vel.y = 0;
             }
-            else
-            {
-//                _vel.x = 0;
-            }
+        }
 
-#ifdef PNK_DEBUG
-            if (mf.overlaps)
-        {
-            std::cout << "overlap, pos(" << _pos.x << ", " << _pos.y << ")" << std::endl;
-        }
-#endif
-        }
+        /** collision with bubble is handled in the bubble sprite */
     }
 
     void HenchPig::prepareChangeState(e_state wishedState)
