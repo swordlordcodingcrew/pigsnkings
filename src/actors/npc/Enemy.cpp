@@ -7,6 +7,7 @@
 #include <path/SceneGraph.hpp>
 #include <tween/TwVel.hpp>
 #include <tween/TwAccY.hpp>
+#include <tween/TwVelY.hpp>
 
 //#include "TmxExtruder.hpp"
 #include "src/pigsnkings.hpp"
@@ -19,7 +20,7 @@
 namespace pnk
 {
     using spTwVel = std::shared_ptr<dang::TwVel>;
-    using spTwAccY = std::shared_ptr<dang::TwAccY>;
+    using spTwVelY = std::shared_ptr<dang::TwVelY>;
 
     extern PigsnKings _pnk;
 
@@ -183,8 +184,10 @@ namespace pnk
                 case dang::e_tmx_waypoint_connection::wpc_jump:
                 {
                     removeTweens(true);
-                    float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5f, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
+//                    float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+//                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5f, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
+                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                    spTwVelY tw = std::make_shared<dang::TwVelY>(-16.0f, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
                     addTween(tw);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;

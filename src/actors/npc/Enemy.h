@@ -51,6 +51,7 @@ namespace pnk
         dang::BTNodeStatus setDestinationWaypointTestFunc();
         dang::BTNodeStatus setDestinationBombDepot();
         dang::BTNodeStatus checkWaypointReached();
+
         virtual void startOutToWaypoint();
 
 
