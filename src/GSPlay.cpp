@@ -147,6 +147,14 @@ namespace pnk
 
         auto treeRandomLoiter = dang::Builder{}
                 .sequence()
+                .leaf(Enemy::BTsetDestinationBombDepot)
+                .leaf(Enemy::BTcheckPathCompleted)
+                .leaf(Enemy::BTrandomNextWaypoint)
+                .leaf(Enemy::BTcheckPathCompleted)
+                .leaf(Enemy::BTrandomNextWaypoint)
+                .leaf(Enemy::BTcheckPathCompleted)
+                .leaf(Enemy::BTrandomNextWaypoint)
+                .leaf(Enemy::BTcheckPathCompleted)
                 .leaf(Enemy::BTrandomNextWaypoint)
                 .leaf(Enemy::BTcheckPathCompleted)
                 .end()

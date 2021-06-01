@@ -45,6 +45,7 @@ namespace pnk
         static dang::BTNodeStatus BTrandomNextWaypoint(std::shared_ptr<Sprite> s);
         static dang::BTNodeStatus BTcheckWaypointReached(std::shared_ptr<Sprite> s);
         static dang::BTNodeStatus BTsetDestinationWaypointTestFunc(std::shared_ptr<Sprite> s);
+        static dang::BTNodeStatus BTsetDestinationBombDepot(std::shared_ptr<Sprite> s);
         dang::BTNodeStatus checkPathCompleted();
         dang::BTNodeStatus randomNextWaypoint();
         dang::BTNodeStatus setDestinationWaypointTestFunc();

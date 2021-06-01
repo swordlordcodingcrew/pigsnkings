@@ -116,22 +116,19 @@ namespace pnk
         spWaypoint start = _current_wp.lock();
         spWaypoint dest = _scene_graph->getWaypointWithType(dang::wp_bombdepot);
 
-        if (dest == start)
+        if (dest != start)
         {
-            dest = _scene_graph->getWaypoints()[415];
-        }
-
-        if (_scene_graph->getPath(start, dest, _path))
-        {
-            _path_index = 0;
-            if (!_path.empty())
+            if (_scene_graph->getPath(start, dest, _path))
             {
-                startOutToWaypoint();
-                return dang::BTNodeStatus::SUCCESS;
+                _path_index = 0;
+                if (!_path.empty())
+                {
+                    startOutToWaypoint();
+                    return dang::BTNodeStatus::SUCCESS;
+                }
             }
         }
         return dang::BTNodeStatus::FAILURE;
-
     }
 
     dang::BTNodeStatus Enemy::checkWaypointReached()
@@ -157,6 +154,7 @@ namespace pnk
                 if ((_vel.x < 0 && getHotrectAbs().center().x < w->_pos.x) || (_vel.x > 0 && getHotrectAbs().center().x > w->_pos.x))
                 {
                     _vel.x = -_vel.x;
+                    _transform = _vel.x > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
                     _vel.x /= 2;
                 }
             }
@@ -266,6 +264,15 @@ namespace pnk
         return dang::BTNodeStatus::FAILURE;
     }
 
+    dang::BTNodeStatus Enemy::BTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        if (spr)
+        {
+            return spr->setDestinationBombDepot();
+        }
+        return dang::BTNodeStatus::FAILURE;
+    }
 
 
 }
