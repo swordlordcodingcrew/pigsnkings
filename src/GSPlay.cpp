@@ -2,7 +2,6 @@
 // This file is part of the pnk game
 
 #include <cassert>
-#include <iostream>
 #include <memory>
 
 #include <Gear.hpp>
@@ -75,13 +74,13 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
-//        blit::debugf("play updating\r\n");
+//        DEBUG_PRINT("GSPlay: play updating\n");
 
 #ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
         {
             _last_time = time;
-            std::cout << "update check" << std::endl;
+            DEBUG_PRINT("GSPlay: update check\n");
         }
 #endif
         if (blit::buttons.pressed & blit::Button::MENU)
@@ -108,7 +107,7 @@ namespace pnk
             gear.follow(_vp_pos);
         }
 
-//        blit::debugf("play updated\r\n");
+//        DEBUG_PRINT("GSPlay: play updated\n");
 
         return GameState::_gs_play;
     }
@@ -165,11 +164,7 @@ namespace pnk
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
-        std::cout << "enter enter()" << std::endl;
-
-        _last_time = 0;
-
-        blit::debugf("entered (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: entered (%d)\n", mallinfo().uordblks);
 
 #ifdef TARGET_32BLIT_HW
 
@@ -185,9 +180,11 @@ namespace pnk
 
 #endif
 
+        _last_time = 0;
+
         PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
 
-        blit::debugf("choose level (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: choose level (%d)\n", mallinfo().uordblks);
 
         // choose level acc. to pnk
         switch(_pnk._gamestate.active_level)
@@ -205,7 +202,7 @@ namespace pnk
 
         dang::TmxExtruder txtr(_tmx, &gear);
 
-        blit::debugf("extruded (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: extruded (%d)\n", mallinfo().uordblks);
 
         _last_time = blit::now();
 
@@ -225,33 +222,32 @@ namespace pnk
             room._scene_graph = txtr.createPaths(room._extent_pixels);
         }
 
-        std::cout << "test: " << _screenplay->_acts[0]._extent_pixels.w << std::endl;
-        blit::debugf("imagesheet (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);
 
         // init imagesheets
         txtr.getImagesheets();
 
-        blit::debugf("tile layer (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: tile layer (%d)\n", mallinfo().uordblks);
 
         // create background Tilelayer
         txtr.getTileLayer(_screenplay->_l_bg_name, true);
 
-        blit::debugf("mood layer (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: mood layer (%d)\n", mallinfo().uordblks);
 
         // create mood Tilelayer
         if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true);
 
-        blit::debugf("collision sprite layer (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: collision sprite layer (%d)\n", mallinfo().uordblks);
 
         // create Spritelayer with collision detection
         _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, false, true);
 
-        blit::debugf("sprite objects (%d)\r\n", mallinfo().uordblks);
+        DEBUG_PRINT("GSPlay: sprite objects (%d)\n", mallinfo().uordblks);
 
 #ifdef TARGET_32BLIT_HW
 
         // memory stats
-        blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+        blit::debugf("Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
 
 #endif
 
@@ -315,57 +311,56 @@ namespace pnk
                 }
                 else
                 {
-                        std::cerr << "sprite type unknown. Id=" << so->id << ", type=" << so->type << std::endl;
+                    DEBUG_PRINT("GSPlay: sprite type unknown. Id=%i, type=%s\n", so->id, so->type.c_str());
                 }
             }
 
-            blit::debugf("sprite %d of %d (%d)\r\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
+            DEBUG_PRINT("GSPlay: sprite %d of %d (%d)\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
 
 #ifdef TARGET_32BLIT_HW
 
             // memory stats
-        blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+        DEBUG_PRINT("GSPlay: Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
 
 #endif
         }
 
-        blit::debugf("fg layer\r\n");
+        DEBUG_PRINT("GSPlay: fg layer\n");
 
         // create foreground layer
         txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true);
 
-        blit::debugf("hud layer\r\n");
+        DEBUG_PRINT("GSPlay: hud layer\n");
 
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, true, true);
 
-        blit::debugf("change room\r\n");
+        DEBUG_PRINT("GSPlay: change room\n");
 
         // choose room acc. to prefs
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
-        blit::debugf("viewport\r\n");
+        DEBUG_PRINT("GSPlay: viewport\n");
 
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
 
-
-        blit::debugf("callbacks\r\n");
+        DEBUG_PRINT("GSPlay: callbacks\n");
 
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
-        blit::debugf("entered, let the games begin\r\n");
-        std::cout << "exit enter()" << std::endl;
+        blit::debugf("entered, let the games begin\n");
+        DEBUG_PRINT("GSPlay: exit enter()\n");
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
     {
-        std::cout << "enter exit()" << std::endl;
+        DEBUG_PRINT("GSPlay: enter exit()\n");
 
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
@@ -381,11 +376,14 @@ namespace pnk
         // remove layers
         gear.removeLayers();
 
+        // remove behaviour trees
+        gear.removeBehaviourTrees();
+
         PigsnKings::stopMod();
 
 //         _pnk._prefs.active_room = _active_act_index;
 
-        std::cout << "exit exit()" << std::endl;
+        DEBUG_PRINT("GSPlay: exit exit()");
     }
 
 /*    void GSPlay::initGameVars()
@@ -413,13 +411,13 @@ namespace pnk
             {
                 _csl->removeSprite(pe._spr.lock());
 #ifdef PNK_DEBUG
-                std::cout << "remove sprite event" << std::endl;
+                DEBUG_PRINT("GSPlay: remove sprite from layer\n");
 #endif
             }
             else
             {
                 // TODO if it is stale, we should retry? or wait? or...
-                std::cerr << "attempted to remove stale sprite" << std::endl;
+                DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
             }
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE

@@ -1,8 +1,6 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the Pigs and Kings game
 
-#include <iostream>
-
 #include "snd/SndGear.hpp"
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
@@ -59,30 +57,30 @@ namespace pnk
 
     void PigsnKings::init()
     {
-        blit::debug("init PNK\n");
+        DEBUG_PRINT("pigsnkings: init PNK\n");
 
         blit::set_screen_mode(blit::ScreenMode::hires);
 
-        blit::debug("screen mode set\n");
+        DEBUG_PRINT("pigsnkings: screen mode set\n");
 
         // loading preferences, if there are none, write defaults
         if(!blit::read_save(_prefs, PREFERENCES)) {
             blit::write_save(_prefs, PREFERENCES);
         }
 
-        blit::debug("prefs loaded\n");
+        DEBUG_PRINT("pigsnkings: prefs loaded\n");
 
         // TODO loading gamestates (there are four.. not sure which one to read, probably first until user chooses differently)
         if(!blit::read_save(_gamestate, GAMESTATE_1)) {
             blit::write_save(_gamestate, GAMESTATE_1);
         }
 
-        blit::debug("game states loaded\n");
+        DEBUG_PRINT("pigsnkings: game states loaded\n");
 
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);
 
-        blit::debug("initial module loaded\n");
+        DEBUG_PRINT("pigsnkings: initial module loaded\n");
 
         _last_time = blit::now();
     }
@@ -175,11 +173,11 @@ namespace pnk
         #ifdef PNK_SND_DEBUG
         if (dang::SndGear::mod_set)
         {
-            blit::debug("module loaded\n");
+            DEBUG_PRINT("module loaded\n");
         }
         else
         {
-            blit::debug("the data is not recognised as a module.\n");
+            DEBUG_PRINT("the data is not recognised as a module.\n");
         }
         #endif
 
@@ -211,7 +209,7 @@ namespace pnk
                 stream << std::hex << channel.wave_buffer[i] << " ";
             }
             stream << std::endl;
-            //blit::debug(stream.str());
+            //DEBUG_PRINT(stream.str());
         }
 #endif
     }

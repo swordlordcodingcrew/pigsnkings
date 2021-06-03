@@ -99,7 +99,7 @@ namespace pnk
 
     void GSHome::enter(dang::Gear& gear, uint32_t time)
     {
-        blit::debugf("entering\r\n");
+        DEBUG_PRINT("GSHome: entering\n");
 
         // set up music
         // Setup channel
@@ -108,34 +108,34 @@ namespace pnk
         _tmx = &main_1_level;
         dang::TmxExtruder tmx_ext(_tmx, &gear);
 
-        blit::debugf("extruded\r\n");
+        DEBUG_PRINT("GSHome: extruded\n");
 
         dang::RectF vp = {0, 0, 320, 240};
 
-        blit::debugf("init level\r\n");
+        DEBUG_PRINT("GSHome: init level\n");
         gear.initLevel(_tmx, vp);
 
-        blit::debugf("set active world size\r\n");
+        DEBUG_PRINT("GSHome: set active world size\n");
         gear.setActiveWorldSize(vp.w, vp.h);
 
-        blit::debugf("init image sheets\r\n");
+        DEBUG_PRINT("GSHome: init image sheets\n");
         tmx_ext.getImagesheets();
 
-        blit::debugf("image sheets initialised\r\n");
+        DEBUG_PRINT("GSHome: image sheets initialised\n");
 
         // create background Tilelayer
         spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, true);
 
-        blit::debugf("tile layer\r\n");
+        DEBUG_PRINT("GSHome: tile layer\n");
 
         spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, false, true);
 
-        blit::debugf("sprite layer\r\n");
+        DEBUG_PRINT("GSHome: sprite layer\n");
 
         // create spritelayer w/o collision detection/resolution
         spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, false, true);
 
-        blit::debugf("auto layers done\r\n");
+        DEBUG_PRINT("GSHome: auto layers done\n");
 
         for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
         {
@@ -161,7 +161,7 @@ namespace pnk
             sl->addSprite(spr);
         }
 
-        blit::debugf("buttons\r\n");
+        DEBUG_PRINT("GSHome: buttons\n");
 
         // make sure to resize the buttons array to the correct size
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
@@ -275,7 +275,7 @@ namespace pnk
         // first screen of tmx
         gear.setViewportPos({0, 8});
 
-        blit::debugf("entered\r\n");
+        DEBUG_PRINT("GSHome: entered\n");
 
     }
 
