@@ -4,7 +4,6 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
-#include "Throwies.h"
 
 namespace pnk
 {
@@ -18,13 +17,13 @@ namespace pnk
     using spTweenable = std::shared_ptr<dang::Tweenable>;
     using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
-    class Craties : public Throwies
+    class Cannonball : public Throwies
     {
     public:
-        Craties();
-        Craties(const Throwies& bub);
-        Craties(const dang::tmx_spriteobject* so, spImagesheet is);
-        ~Craties() override;
+        Cannonball();
+        Cannonball(const Throwies& can);
+        Cannonball(const dang::tmx_spriteobject* so, spImagesheet is);
+        ~Cannonball() override;
         void init() override;
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;

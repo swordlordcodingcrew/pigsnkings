@@ -4,37 +4,45 @@
 #pragma once
 
 #include <CollisionSprite.hpp>
-#include "Throwies.h"
+#include <src/actors/npc/Enemy.h>
+#include "HenchPig.h"
 
 namespace pnk
 {
     struct tmx_spriteobject;
     class Imagesheet;
-    class Enemy;
-    class Throwies;
 
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
-    class Craties : public Throwies
+    class PigCannon : public HenchPig
     {
     public:
-        Craties();
-        Craties(const Throwies& bub);
-        Craties(const dang::tmx_spriteobject* so, spImagesheet is);
-        ~Craties() override;
-        void init() override;
+        PigCannon();
+        PigCannon(const dang::tmx_spriteobject* so, spImagesheet is);
+        ~PigCannon() override;
+        void init();
+
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-    protected:
-        void tellTheKingWeHitHim() override;
+        bool onEnterSleeping() override;
+        bool onEnterThrowing() override;
+
+        void endSleeping();
+        virtual void matchLit();
+        virtual void lightingCannon();
+        virtual void cannonIsLit();
+
+        spTwAnim _anim_m_match_lit;
+
+        // Behaviour Tree functions
+        static dang::BTNodeStatus BTFireCannon(std::shared_ptr<Sprite> s);
 
     protected:
-        friend class SpriteFactory;
+
     };
-}
 
+}
