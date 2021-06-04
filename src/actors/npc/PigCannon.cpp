@@ -40,7 +40,7 @@ namespace pnk
 
     PigCannon::~PigCannon()
     {
-        std::cout << "PigCannon destructor" << std::endl;
+        std::cout << "PigCannoneer destructor" << std::endl;
     }
 
     void PigCannon::update(uint32_t dt)
@@ -141,12 +141,7 @@ namespace pnk
 
     void PigCannon::cannonIsLit()
     {
-        // Tell cannon to fire cannonball
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_FIRED_CANNON));
-        e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
-        e->_pos = this->getPos();
-        e->_pos.y -= 10; // correction re cannonball vs gun
-        _pnk._dispatcher.queueEvent(std::move(e));
+        _myCannon->fire();
 
         prepareChangeState(SLEEPING);
     }

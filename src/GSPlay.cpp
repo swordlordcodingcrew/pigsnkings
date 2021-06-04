@@ -268,8 +268,6 @@ namespace pnk
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_CANNON)        { spr = SpriteFactory::PigCannon(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_CANNON)            { spr = SpriteFactory::Cannon(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -278,6 +276,15 @@ namespace pnk
             else if (so->type == SpriteFactory::T_POTION_BLUE)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_POTION_RED)        { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_POTION_GREEN)      { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_CANNON)
+            {
+                // TODO refactor, ugly hack
+                // implicitly add the cannon and tell the cannoneer about
+                auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
+                _csl->addCollisionSprite(cannoneer->_myCannon);
+
+                spr = cannoneer;
+            }
             else if (so->type == SpriteFactory::T_KING)
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
@@ -498,9 +505,10 @@ namespace pnk
             spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["cannonball"]);
             assert(proto != nullptr);
             spCannonball ball = std::make_shared<Cannonball>(*proto);
-            ball->setPos(pe._pos);
+            ball->setPosX(pe._pos.x);
+            ball->setPosY(pe._pos.y + 6);
             ball->_to_the_left = pe._to_the_left;
-            ball->setVelX(10);
+            ball->setVelX(20);
             ball->init();
             _csl->addCollisionSprite(ball);
 
@@ -508,7 +516,8 @@ namespace pnk
             assert(protoMood != nullptr);
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPos(pe._pos);
-            mood->setPosX(pe._pos.x + 32);
+            mood->setPosX(pe._pos.x + 10);
+            mood->_z_order = 100; // TODO make sure that zorder works
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
             mood->_anim_m_standard->setFinishedCallback([=]

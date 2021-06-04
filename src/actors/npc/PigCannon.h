@@ -5,6 +5,7 @@
 
 #include <CollisionSprite.hpp>
 #include <src/actors/npc/Enemy.h>
+#include <src/actors/others/Cannon.h>
 #include "HenchPig.h"
 
 namespace pnk
@@ -15,6 +16,7 @@ namespace pnk
     using spSprite = std::shared_ptr<dang::Sprite>;
     using spImagesheet = std::shared_ptr<dang::Imagesheet>;
     using spTweenable = std::shared_ptr<dang::Tweenable>;
+    using spCannon = std::shared_ptr<pnk::Cannon>;
 
     class PigCannon : public HenchPig
     {
@@ -37,6 +39,8 @@ namespace pnk
         virtual void cannonIsLit();
 
         spTwAnim _anim_m_match_lit;
+
+        spCannon _myCannon{nullptr};
 
         // Behaviour Tree functions
         static dang::BTNodeStatus BTFireCannon(std::shared_ptr<Sprite> s);

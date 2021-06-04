@@ -59,7 +59,7 @@ namespace pnk
 
     void Cannonball::init()
     {
-        _hotrect = {6, 9, 20, 20};
+        _hotrect = {10, 10, 8, 8};
     }
 
     void Cannonball::update(uint32_t dt)
@@ -75,7 +75,7 @@ namespace pnk
         if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
         {
             // me destroys
-            this->removeSelf();
+            //this->removeSelf();
         }
         else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {

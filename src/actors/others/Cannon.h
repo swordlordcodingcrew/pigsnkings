@@ -29,6 +29,9 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
+        void fire();
+        void cannonHasFired();
+
         // animations depot
         spTwAnim _anim_m_sleeping;
         spTwAnim _anim_m_shooting;
@@ -45,9 +48,6 @@ namespace pnk
 
         virtual bool onEnterSleeping();
         virtual bool onEnterShooting();
-
-        virtual void endSleep();
-        virtual void endFiring();
 
         virtual void removeSelf();
     };

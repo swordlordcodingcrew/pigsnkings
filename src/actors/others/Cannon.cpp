@@ -112,6 +112,11 @@ namespace pnk
         }
     }
 
+    void Cannon::fire()
+    {
+        prepareChangeState(FIRING);
+    }
+
     void Cannon::prepareChangeState(e_state wishedState)
     {
         // TODO We could have some logic here as well, or in the update routine?
@@ -120,9 +125,9 @@ namespace pnk
 
     bool Cannon::onEnterSleeping()
     {
-        // TODO check if we are on the air or on the ground. pigs don't sleep mid-air
         if(_anim_m_sleeping != nullptr)
         {
+            _anim_m_sleeping->reset();
             setAnimation(_anim_m_sleeping);
         }
         else
@@ -131,23 +136,27 @@ namespace pnk
         }
         _currentState = SLEEPING;
 
-        removeTweens(true);
-
         return true;
     }
 
     bool Cannon::onEnterShooting()
     {
+        _anim_m_shooting->reset();
+        setAnimation(_anim_m_shooting);
+
+        _currentState = FIRING;
+
+        // Tell cannon to fire cannonball
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_FIRED_CANNON));
+        e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+        e->_pos = this->getPos();
+        _pnk._dispatcher.queueEvent(std::move(e));
+
         // handled by subclasses
-        return false;
+        return true;
     }
 
-    void Cannon::endSleep()
-    {
-
-    }
-
-    void Cannon::endFiring()
+    void Cannon::cannonHasFired()
     {
         prepareChangeState(SLEEPING);
     }

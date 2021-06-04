@@ -95,7 +95,8 @@ namespace pnk
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
-        static spHenchPig PigCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
+        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
+        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
@@ -103,6 +104,7 @@ namespace pnk
         static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spCollisionSprite Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spCollisionSprite Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spCollisionSprite Hotrect(const dang::tmx_spriteobject* so);
         static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
