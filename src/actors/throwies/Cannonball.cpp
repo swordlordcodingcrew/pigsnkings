@@ -75,7 +75,7 @@ namespace pnk
         if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
         {
             // me destroys
-            //this->removeSelf();
+            this->removeSelf();
         }
         else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {
