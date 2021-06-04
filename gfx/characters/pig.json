@@ -270,6 +270,78 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
+   },
+   "pig 34.aseprite": {
+    "frame": { "x": 1088, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 35.aseprite": {
+    "frame": { "x": 1120, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 36.aseprite": {
+    "frame": { "x": 1152, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 37.aseprite": {
+    "frame": { "x": 1184, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 38.aseprite": {
+    "frame": { "x": 1216, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 39.aseprite": {
+    "frame": { "x": 1248, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 40.aseprite": {
+    "frame": { "x": 1280, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 41.aseprite": {
+    "frame": { "x": 1312, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "pig 42.aseprite": {
+    "frame": { "x": 1344, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
    }
  },
  "meta": {
@@ -277,7 +349,7 @@
   "version": "1.x-dev",
   "image": "pig.png",
   "format": "RGBA8888",
-  "size": { "w": 1088, "h": 32 },
+  "size": { "w": 1376, "h": 32 },
   "scale": "1",
   "frameTags": [
    { "name": "Idle", "from": 0, "to": 10, "direction": "forward" },
@@ -286,7 +358,10 @@
    { "name": "Jump", "from": 17, "to": 17, "direction": "forward" },
    { "name": "Fall", "from": 18, "to": 18, "direction": "forward" },
    { "name": "Ground", "from": 19, "to": 20, "direction": "forward" },
-   { "name": "Exploding Pig", "from": 21, "to": 33, "direction": "forward" }
+   { "name": "Exploding Pig", "from": 21, "to": 33, "direction": "forward" },
+   { "name": "Lightning_Match", "from": 34, "to": 36, "direction": "forward" },
+   { "name": "Match_Burning", "from": 37, "to": 39, "direction": "forward" },
+   { "name": "Lighting_Cannon", "from": 40, "to": 42, "direction": "forward" }
   ],
   "layers": [
    { "name": "Dibujo", "opacity": 255, "blendMode": "normal" }
