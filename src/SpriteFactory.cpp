@@ -8,7 +8,11 @@
 #include <src/actors/throwies/Throwies.h>
 #include <src/actors/throwies/Craties.h>
 #include <src/actors/throwies/Bombies.h>
+#include <src/actors/throwies/Cannonball.h>
+#include "src/actors/throwies/Bubble.h"
 #include <src/actors/others/Moodies.h>
+#include <src/actors/others/Cannon.h>
+#include <src/actors/npc/PigCannon.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
 #include "Imagesheet.hpp"
@@ -20,7 +24,6 @@
 #include "SpriteFactory.hpp"
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
-#include "src/actors/throwies/Bubble.h"
 #include "src/actors/others/RoomTrigger.h"
 #include "PnkEvent.h"
 
@@ -203,6 +206,145 @@ namespace pnk
         return ret;
     }
 
+    spHenchPig SpriteFactory::PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
+    {
+        spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
+        ret->_type_num = dang::SpriteType::PIG_CANNON;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
+        assert(ret->_anim_m_picking_up != nullptr);
+        ret->_anim_m_picking_up->loops(1);
+        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret));
+
+        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
+        assert(ret->_anim_m_match_lit != nullptr);
+        ret->_anim_m_match_lit->loops(5);
+        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret));
+
+        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
+        assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_throwing->loops(2);
+        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret));
+
+        ret->_transform = blit::SpriteTransform::HORIZONTAL;
+
+        ret->init();
+
+        attachBehaviourTree(txtr, so, ret);
+
+        // removed scene graph since there is no walking involved
+        // initSceneGraph(sp, ret);
+
+        return ret;
+    }
+
+    // HACK, REFACTOR
+    spPigCannon SpriteFactory::PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
+    {
+        spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
+        ret->_type_num = dang::SpriteType::PIG_CANNON;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
+        assert(ret->_anim_m_picking_up != nullptr);
+        ret->_anim_m_picking_up->loops(1);
+        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret));
+
+        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
+        assert(ret->_anim_m_match_lit != nullptr);
+        ret->_anim_m_match_lit->loops(5);
+        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret));
+
+        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
+        assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_throwing->loops(2);
+        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret));
+
+        ret->_transform = blit::SpriteTransform::HORIZONTAL;
+
+        ret->init();
+
+        attachBehaviourTree(txtr, so, ret);
+
+        // removed scene graph since there is no walking involved
+        // initSceneGraph(sp, ret);
+        std::shared_ptr<dang::Imagesheet> imgs = txtr.getImagesheet("character_cannonsnpigs");
+        ret->_myCannon = CannonForCannoneer(txtr, so, imgs);
+
+        return ret;
+    }
+
+    spCannon SpriteFactory::CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    {
+        spCannon ret = std::make_shared<pnk::Cannon>();
+
+        ret->_type_num = dang::SpriteType::CANNON;
+        ret->_type_name = "cannon";
+        ret->setPosX(so->x + 25); // TODO respect _transform
+        ret->setPosY(so->y);
+        ret->setSize(32, 32);
+        ret->_visible = true;
+        ret->_img_index = 0;
+        ret->_imagesheet = is;
+
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
+        assert(ret->_anim_m_shooting != nullptr);
+        ret->_anim_m_shooting->loops(1);
+        ret->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, ret));
+
+        ret->init();
+
+        ret->_transform = blit::SpriteTransform::HORIZONTAL;
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    {
+        spCannon ret = std::make_shared<pnk::Cannon>(so, is);
+        ret->_type_num = dang::SpriteType::CANNON;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
+        assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
+        assert(ret->_anim_m_shooting != nullptr);
+
+        ret->init();
+
+        ret->_transform = blit::SpriteTransform::HORIZONTAL;
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    {
+        spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
+        ret->_type_num = dang::SpriteType::CANNON_MUZZLE;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+
+        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "muzzle_flash");
+        assert(ret->_anim_m_standard != nullptr);
+        ret->_anim_m_standard->loops(1);
+
+        ret->init();
+
+        return ret;
+    }
+
     spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
@@ -323,7 +465,6 @@ namespace pnk
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
-        // bobbling with catched enemy
         ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_on");
         assert(ret->_anim_flying != nullptr);
         ret->_anim_flying->loops(-1);
@@ -335,15 +476,14 @@ namespace pnk
 
     spThrowies SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
     {
-        spThrowies ret = std::make_shared<pnk::Throwies>(so, is);
+        spThrowies ret = std::make_shared<pnk::Cannonball>(so, is);
         ret->_type_num = dang::SpriteType::FLYING_CANNONBALL;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
-        // bobbling with catched enemy
-        ret->_anim_flying = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{26, 27, 28, 29}, 600, dang::Ease::OutQuad , -1, false, 2000));
+        ret->_anim_flying = txtr.getAnimation(is->getName(), "cannonball");
         assert(ret->_anim_flying != nullptr);
-        ret->_anim_flying->loops(0);
+        ret->_anim_flying->loops(-1);
 
         ret->init();
 

@@ -20,8 +20,10 @@
 #include "src/actors/npc/Enemy.h"
 #include "src/actors/npc/HenchPig.h"
 #include "src/actors/npc/PigCrate.h"
+#include "src/actors/npc/PigCannon.h"
 #include "src/actors/throwies/Bombies.h"
 #include "src/actors/throwies/Bubble.h"
+#include "src/actors/throwies/Cannonball.h"
 #include "src/actors/throwies/Throwies.h"
 #include "src/actors/throwies/Craties.h"
 #include "src/actors/others/Moodies.h"
@@ -43,6 +45,7 @@
 
 #include "rsrc/gfx/pig_bomb.png.h"
 #include "rsrc/gfx/pig_crate.png.h"
+#include "rsrc/gfx/cannons_n_pigs.png.h"
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
@@ -273,6 +276,15 @@ namespace pnk
             else if (so->type == SpriteFactory::T_POTION_BLUE)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_POTION_RED)        { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_POTION_GREEN)      { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (so->type == SpriteFactory::T_PIG_CANNON)
+            {
+                // TODO refactor, ugly hack
+                // implicitly add the cannon and tell the cannoneer about
+                auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
+                _csl->addCollisionSprite(cannoneer->_myCannon);
+
+                spr = cannoneer;
+            }
             else if (so->type == SpriteFactory::T_KING)
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
@@ -308,6 +320,18 @@ namespace pnk
                     spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["poof"] = sprc;
+                }
+                else if (so->type == SpriteFactory::T_CANNONBALL_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::Cannonball(txtr, so, is, false);
+                    assert(sprc != nullptr);
+                    _hives["cannonball"] = sprc;
+                }
+                else if (so->type == SpriteFactory::T_CANNONMUZZLE_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::Cannonmuzzle(txtr, so, is);
+                    assert(sprc != nullptr);
+                    _hives["cannonmuzzle"] = sprc;
                 }
                 else
                 {
@@ -476,7 +500,34 @@ namespace pnk
             _csl->addCollisionSprite(bomb);
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
-        {}
+        {
+            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["cannonball"]);
+            assert(proto != nullptr);
+            spCannonball ball = std::make_shared<Cannonball>(*proto);
+            ball->setPosX(pe._pos.x);
+            ball->setPosY(pe._pos.y + 6);
+            ball->_to_the_left = pe._to_the_left;
+            ball->setVelX(20);
+            ball->init();
+            _csl->addCollisionSprite(ball);
+
+            spMoodies protoMood = std::dynamic_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
+            assert(protoMood != nullptr);
+            spMoodies mood = std::make_shared<Moodies>(*protoMood);
+            mood->setPos(pe._pos);
+            mood->setPosX(pe._pos.x + 10);
+            mood->_z_order = 100; // TODO make sure that zorder works
+            mood->_transform = blit::SpriteTransform::HORIZONTAL;
+            mood->init();
+            mood->_anim_m_standard->setFinishedCallback([=]
+                {
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+                    e->_spr = mood;
+                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                });
+
+            _csl->addCollisionSprite(mood);
+        }
 
     }
 

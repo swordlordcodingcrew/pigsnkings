@@ -5,6 +5,7 @@
 
 #include <CollisionSprite.hpp>
 #include <src/actors/npc/Enemy.h>
+#include <src/actors/npc/HenchPig.h>
 
 namespace pnk
 {
@@ -16,44 +17,24 @@ namespace pnk
     using spTweenable = std::shared_ptr<dang::Tweenable>;
     using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
-    enum e_state
-    {
-        SLEEPING = 0,
-        HIDING,
-        LOITERING,
-        THROWING,
-        FIRING,
-        PICKING_UP,
-        BUBBLED, // this one is tricky, since it it managed by the Enemy base class
-        REMOVE_SELF
-    };
-
-    class HenchPig : public Enemy
+    class Cannon : public dang::CollisionSprite
     {
     public:
-        HenchPig();
-        HenchPig(const dang::tmx_spriteobject* so, spImagesheet is);
-        ~HenchPig() override;
-        void init() override;
+        Cannon();
+        Cannon(const dang::tmx_spriteobject* so, spImagesheet is);
+        ~Cannon() override;
+        virtual void init();
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
-        void bubble() override;
-        void deBubble() override;
-        bool isBubbled() override;
-
-        // path
-        void startOutToWaypoint() override;
+        void fire();
+        void cannonHasFired();
 
         // animations depot
         spTwAnim _anim_m_sleeping;
-        spTwAnim _anim_m_hiding;
-        spTwAnim _anim_m_loitering;
-        spTwAnim _anim_m_throwing;
-        spTwAnim _anim_m_picking_up;
-        spTwAnim _anim_m_bubbling;
+        spTwAnim _anim_m_shooting;
     protected:
 
         virtual void tellTheKingWeHitHim();
@@ -66,19 +47,8 @@ namespace pnk
         virtual void prepareChangeState(e_state wishedState);
 
         virtual bool onEnterSleeping();
-        virtual bool onEnterHiding();
-        virtual bool onEnterLoitering();
-        virtual bool onEnterThrowing();
-        virtual bool onEnterPickingUp();
-        virtual bool onEnterBubbled();
-
-        virtual void endSleep();
-        virtual void endLoitering();
-
-        virtual void poofing();
+        virtual bool onEnterShooting();
 
         virtual void removeSelf();
-
-        const uint8_t _loiter_speed{2};
     };
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="422">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="429">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -7,8 +7,9 @@
  <tileset firstgid="201" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="306" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="333" source="../tilesets/character_pig.tsx"/>
- <tileset firstgid="367" source="../tilesets/character_pigbomb.tsx"/>
- <tileset firstgid="400" source="../tilesets/character_pigcrate.tsx"/>
+ <tileset firstgid="376" source="../tilesets/character_pigbomb.tsx"/>
+ <tileset firstgid="409" source="../tilesets/character_pigcrate.tsx"/>
+ <tileset firstgid="448" source="../tilesets/character_cannonsnpigs.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -246,12 +247,12 @@
   <object id="326" type="hotrect" x="256" y="100" width="96" height="60"/>
   <object id="330" type="hotrect" x="384" y="68" width="32" height="28"/>
   <object id="331" type="hotrect" x="224" y="32" width="128" height="32"/>
-  <object id="333" name="dan" type="pig_box" gid="2147484053" x="320" y="640" width="32" height="32"/>
-  <object id="334" type="pig_bomb" gid="2147484019" x="768" y="704" width="32" height="32"/>
+  <object id="333" name="dan" type="pig_box" gid="2147484062" x="320" y="640" width="32" height="32"/>
+  <object id="334" type="pig_bomb" gid="2147484028" x="768" y="704" width="32" height="32"/>
   <object id="335" type="pig_normal" gid="333" x="576" y="704" width="32" height="32"/>
   <object id="336" type="pig_normal" gid="333" x="800" y="576" width="32" height="32"/>
-  <object id="340" name="boris" type="pig_box" gid="405" x="480" y="640" width="32" height="32"/>
-  <object id="341" name="fred" type="pig_bomb" gid="371" x="192" y="544" width="32" height="32">
+  <object id="340" name="boris" type="pig_box" gid="414" x="256" y="672" width="32" height="32"/>
+  <object id="341" name="fred" type="pig_bomb" gid="380" x="192" y="544" width="32" height="32">
    <properties>
     <property name="bt" value="insanity"/>
    </properties>
@@ -261,14 +262,14 @@
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="344" type="crate_proto" gid="434" x="32" y="480" width="32" height="32"/>
+  <object id="344" type="crate_proto" gid="443" x="32" y="480" width="32" height="32"/>
   <object id="345" type="hotrect" x="-8" y="648" width="8" height="64"/>
   <object id="346" type="hotrect" x="960" y="32" width="8" height="560"/>
   <object id="347" name="1" type="room_trigger" x="317" y="544" width="2" height="32"/>
   <object id="348" name="0" type="room_trigger" x="288" y="544" width="2" height="32"/>
   <object id="349" name="2" type="room_trigger" x="640" y="576" width="2" height="32"/>
   <object id="350" name="1" type="room_trigger" x="608" y="576" width="2" height="32"/>
-  <object id="351" type="bomb_proto" gid="393" x="64" y="480" width="32" height="32"/>
+  <object id="351" type="bomb_proto" gid="402" x="64" y="480" width="32" height="32"/>
   <object id="352" type="pigpoof_proto" gid="357" x="96" y="480" width="32" height="32"/>
   <object id="353" name="3" type="warp_room_trigger" x="958" y="544" width="2" height="32"/>
   <object id="354" type="hotrect" x="32" y="224" width="96" height="96"/>
@@ -300,6 +301,10 @@
   <object id="383" name="5" type="warp_room_trigger" x="128" y="288" width="32" height="2"/>
   <object id="384" name="6" type="warp_room_trigger" x="128" y="247" width="32" height="2"/>
   <object id="385" type="hotrect" x="480" y="192" width="40" height="4"/>
+  <object id="425" name="Bertha" type="cannon" gid="2147484096" x="160" y="704" width="32" height="32"/>
+  <object id="426" type="cannonmuzzle_proto" gid="453" x="160" y="480" width="32" height="32"/>
+  <object id="427" type="cannonball_proto" gid="456" x="192" y="480" width="32" height="32"/>
+  <object id="428" name="Mr Cannonier" type="pig_cannon" gid="2147483981" x="128" y="704" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
