@@ -354,8 +354,7 @@ namespace pnk
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
-        blit::debugf("entered, let the games begin\n");
-        DEBUG_PRINT("GSPlay: exit enter()\n");
+        DEBUG_PRINT("GSPlay: entered, let the games begin\n");
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
