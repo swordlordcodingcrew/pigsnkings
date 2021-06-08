@@ -116,6 +116,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOMB_EXPLODES));
         e->_spr = shared_from_this();
+        e->_pos = this->getPos();
         e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_BOMB);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }

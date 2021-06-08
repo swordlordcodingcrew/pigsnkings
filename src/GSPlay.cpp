@@ -555,7 +555,8 @@ namespace pnk
         spMoodies proto = std::dynamic_pointer_cast<Moodies>(_hives["explosion"]);
         assert(proto != nullptr);
         spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
-        boom->setPos(pe._pos);
+        boom->setPosX(pe._pos.x - 16);
+        boom->setPosY(pe._pos.y - 16);
         boom->init();
         boom->_anim_m_standard->setFinishedCallback([=]
             {
