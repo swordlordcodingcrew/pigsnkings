@@ -11,6 +11,7 @@
 #include <src/actors/throwies/Cannonball.h>
 #include "src/actors/throwies/Bubble.h"
 #include <src/actors/others/Moodies.h>
+#include <src/actors/others/MoodiesThatHurt.h>
 #include <src/actors/others/Cannon.h>
 #include <src/actors/npc/PigCannon.h>
 #include "CollisionSprite.hpp"
@@ -458,16 +459,30 @@ namespace pnk
         return ret;
     }
 
-    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
+    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spThrowies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->_type_num = dang::SpriteType::FLYING_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-        ret->_to_the_left = to_the_left;
 
         ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_on");
         assert(ret->_anim_flying != nullptr);
         ret->_anim_flying->loops(-1);
+
+        ret->init();
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    {
+        spMoodiesThatHurt ret = std::make_shared<pnk::MoodiesThatHurt>(so, is);
+        ret->_type_num = dang::SpriteType::EXPLOSION;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+
+        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "boom");
+        assert(ret->_anim_m_standard != nullptr);
+        ret->_anim_m_standard->loops(1);
 
         ret->init();
 

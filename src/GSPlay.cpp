@@ -27,6 +27,7 @@
 #include "src/actors/throwies/Throwies.h"
 #include "src/actors/throwies/Craties.h"
 #include "src/actors/others/Moodies.h"
+#include "src/actors/others/MoodiesThatHurt.h"
 
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
@@ -38,11 +39,13 @@
 #include "HUDLayer.hpp"
 
 #include "tracks/gocryogo.h"
+#include "sfx/cannon_fire_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
 #include "sfx/king_damage_22050.h"
 #include "sfx/health_22050_mono.h"
 #include "sfx/lifelost_22050_mono.h"
 
+#include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
 #include "rsrc/gfx/pig_crate.png.h"
 #include "rsrc/gfx/cannons_n_pigs.png.h"
@@ -311,9 +314,15 @@ namespace pnk
                 }
                 else if (so->type == SpriteFactory::T_BOMB_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is, false);
+                    spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["bomb"] = sprc;
+                }
+                else if (so->type == SpriteFactory::T_EXPLOSION_PROTO)
+                {
+                    spCollisionSprite sprc = SpriteFactory::Explosion(txtr, so, is);
+                    assert(sprc != nullptr);
+                    _hives["explosion"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_PIG_POOF_PROTO)
                 {
@@ -450,6 +459,12 @@ namespace pnk
         {
             handleNewThrowie(pe);
         }
+        else if (pe._type == ETG_CRATE_EXPLODES
+                 || pe._type == ETG_BOMB_EXPLODES
+                 || pe._type == ETG_CANNONBALL_EXPLODES)
+        {
+            handleExplodingThrowie(pe);
+        }
         else if (pe._type == ETG_NEW_POOF)
         {
             handleNewPoof(pe);
@@ -528,8 +543,41 @@ namespace pnk
                 });
 
             _csl->addCollisionSprite(mood);
+
+            PigsnKings::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length);
         }
 
+    }
+
+    void GSPlay::handleExplodingThrowie(PnkEvent& pe)
+    {
+        // TODO have different animations for crates and the rest
+        spMoodies proto = std::dynamic_pointer_cast<Moodies>(_hives["explosion"]);
+        assert(proto != nullptr);
+        spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
+        boom->setPos(pe._pos);
+        boom->init();
+        boom->_anim_m_standard->setFinishedCallback([=]
+            {
+                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+                e->_spr = boom;
+                pnk::_pnk._dispatcher.queueEvent(std::move(e));
+            });
+
+        if (pe._type == ETG_CRATE_EXPLODES)
+        {
+
+        }
+        else if (pe._type == ETG_BOMB_EXPLODES)
+        {
+
+        }
+        else if (pe._type == ETG_CANNONBALL_EXPLODES)
+        {
+
+        }
+
+        _csl->addCollisionSprite(boom);
     }
 
     void GSPlay::handleNewPoof(PnkEvent& pe)

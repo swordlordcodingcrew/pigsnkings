@@ -21,4 +21,9 @@
    <frame tileid="7" duration="100"/>
   </animation>
  </tile>
+ <tile id="8" type="cannonball">
+  <animation>
+   <frame tileid="8" duration="100"/>
+  </animation>
+ </tile>
 </tileset>

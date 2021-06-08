@@ -127,6 +127,15 @@ namespace pnk
                 || (mf.me->_type_num > dang::SpriteType::ENEMIES && mf.me->_type_num < dang::SpriteType::ENEMIES_END))
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
+
+            // yeah, could be added to the check above, but if we add a few more exceptions, would it still be readable?
+            // or do some whitelist instead of ranges...
+            if((mf.me->_type_num == dang::SpriteType::CANNON || mf.other->_type_num == dang::SpriteType::CANNON)
+                || (mf.me->_type_num == dang::SpriteType::PIG_CANNON || mf.other->_type_num == dang::SpriteType::PIG_CANNON))
+            {
+                return; // cannoneers and cannons dont get bubbled
+            }
+
             _catched_en = std::static_pointer_cast<Enemy>(mf.me == shared_from_this() ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)

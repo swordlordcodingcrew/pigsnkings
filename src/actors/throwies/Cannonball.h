@@ -31,6 +31,7 @@ namespace pnk
 
     protected:
         void tellTheKingWeHitHim() override;
+        void triggerExplosion();
 
     protected:
         friend class SpriteFactory;
