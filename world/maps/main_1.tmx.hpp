@@ -19,7 +19,7 @@ static const dang::tmx_tileset main_1_tilesets[] = {
     {"main_pnk_logo", &main_pnk_logo, 1,218,36,218,36,1,1},
     {"gfx_castle_decorations", &gfx_castle_decorations, 40,32,32,320,128,10,4},
     {"gfx_king", &gfx_king, 27,32,32,864,32,27,1},
-    {"gfx_pig", &gfx_pig, 34,32,32,1088,32,34,1},
+    {"gfx_pig", &gfx_pig, 43,32,32,1376,32,43,1},
     {"common_menus", &common_menus, 3,58,32,58,96,1,3},
 };
 
@@ -35,14 +35,16 @@ static const dang::tmx_tileanimation main_1_tileanimations[] = {
     {"gfx_king",10,"walk",{{10, 100},{11, 100},{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}},
     {"gfx_king",18,"bubble",{{18, 100},{19, 100},{20, 100},{19, 100},{18, 100}}},
     {"gfx_king",21,"life_lost",{{21, 600},{22, 600},{23, 600}}},
-    {"gfx_pig",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100}}},
-    {"gfx_pig",6,"loitering",{{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100}}},
+    {"gfx_pig",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
+    {"gfx_pig",11,"loitering",{{11, 100},{12, 100},{13, 100},{14, 100},{15, 100},{16, 100}}},
     {"gfx_pig",13,"bubbling",{{12, 100},{13, 100}}},
-    {"gfx_pig",14,"hitting",{{14, 100},{15, 100}}},
     {"gfx_pig",24,"poof",{{24, 100},{25, 100},{26, 100},{27, 100},{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}},
+    {"gfx_pig",34,"lighting_match",{{34, 100},{35, 100},{36, 100}}},
+    {"gfx_pig",37,"match_lit",{{37, 100},{38, 100},{39, 100}}},
+    {"gfx_pig",40,"lighting_cannon",{{40, 100},{41, 100},{42, 100}}},
 };
 
-static const size_t main_1_tileanimations_len = 12;
+static const size_t main_1_tileanimations_len = 14;
 
 // Layers ------------------------------------------------
 
