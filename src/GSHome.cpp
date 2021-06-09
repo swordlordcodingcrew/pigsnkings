@@ -207,7 +207,7 @@ namespace pnk
                 spr->_transform = blit::SpriteTransform::HORIZONTAL;
 
                 // run piggie run
-                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
+                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
 
                 // get a sequence and make sure that it is looping forever
