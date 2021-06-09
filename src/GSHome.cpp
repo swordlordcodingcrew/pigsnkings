@@ -31,7 +31,8 @@
 #include "rsrc/gfx/menus.png.h"
 
 #include "rsrc/main_1.tmx.hpp"
-#include "tracks/gocryogo.h"
+//#include "tracks/gocryogo.h"
+#include "tracks/etheric_xm.h"
 
 #include <cassert>
 #include <iostream>
@@ -102,7 +103,7 @@ namespace pnk
         DEBUG_PRINT("GSHome: entering\n");
 
         // set up music
-        // Setup channel
+        dang::SndGear::playXM(etheric_xm, etheric_xm_length, _pnk._prefs.volume_track);
 
         // set up state
         _tmx = &main_1_level;
@@ -281,6 +282,8 @@ namespace pnk
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
+        dang::SndGear::stopXM();
+
         _btns.clear();
         _sprLeftCandle.reset();
         _sprRightCandle.reset();
@@ -297,7 +300,7 @@ namespace pnk
         auto val = std::rand() % 100;
         if(val == 1)
         {
-            PigsnKings::playSfx(pig_squeal_22050, pig_squeal_22050_length);
+            dang::SndGear::playSfx(pig_squeal_22050, pig_squeal_22050_length, _pnk._prefs.volume_sfx);
         }
     }
 }

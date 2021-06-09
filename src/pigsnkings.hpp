@@ -39,11 +39,6 @@ namespace pnk
 
         void removeImagesheets();
 
-        static uint8_t playSfx(const uint8_t *sfx, const uint32_t len);
-        static uint8_t playSfx(const uint8_t* sfx, const uint32_t len, float volume);
-        static void playMod(const uint8_t *mod, const uint32_t len);
-        static void playMod(const uint8_t* mod, const uint32_t len, float volume);
-        static void stopMod();
 
 
         enum e_selection
@@ -98,9 +93,6 @@ namespace pnk
 
         // the gear
         dang::Gear _gear;
-
-        static void sfx_buff_cb(blit::AudioChannel &channel);
-        static void mod_buff_cb(blit::AudioChannel &channel);
 
         // the state
         std::shared_ptr<GameState>   _gs;

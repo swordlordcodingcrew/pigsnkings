@@ -8,6 +8,7 @@
 #include <Imagesheet.hpp>
 #include <tween/TwSequence.hpp>
 #include <tween/TwVel.hpp>
+#include <libs/DANG/src/snd/SndGear.hpp>
 
 #include "TmxExtruder.hpp"
 #include "src/pigsnkings.hpp"
@@ -86,7 +87,7 @@ namespace pnk
                  if (_state == bs_wobbling)
                  {
                      _state = bs_bursting;
-                     PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                     dang::SndGear::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, _pnk._prefs.volume_sfx);
                      _vel = {0,0};
                      removeTweens(true);
                  }
@@ -147,7 +148,7 @@ namespace pnk
             _anim_catched->setFinishedCallback([=] ()
                  {
                      _state = bs_bursting;
-                     PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                     dang::SndGear::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, _pnk._prefs.volume_sfx);
 
                      std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
                      if (en)
@@ -172,7 +173,7 @@ namespace pnk
             {
                 if (_state == bs_enemy_catched)
                 {
-                    PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+                    dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
 
                     // reward
                     std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
@@ -204,7 +205,7 @@ namespace pnk
                 _vel = {0,0};
                 removeTweens(true);
                 _state = bs_bursting;
-                PigsnKings::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length);
+                dang::SndGear::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, _pnk._prefs.volume_sfx);
 
                 // alter animation
                 removeAnimation(true);

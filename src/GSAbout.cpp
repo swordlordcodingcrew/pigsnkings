@@ -11,6 +11,7 @@
 #include "tracks/u4iasmok.h"
 
 #include <cassert>
+#include <libs/DANG/src/snd/SndGear.hpp>
 
 namespace pnk
 {
@@ -28,7 +29,7 @@ namespace pnk
     {
         blit::debugf("entering\r\n");
 
-        PigsnKings::playMod(u4iasmok_mod, u4iasmok_mod_length);
+        dang::SndGear::playMod(u4iasmok_mod, u4iasmok_mod_length, _pnk._prefs.volume_track);
 
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
@@ -46,7 +47,7 @@ namespace pnk
         blit::debugf("leaving\r\n");
 
         gear.removeLayers();
-        PigsnKings::stopMod();
+        dang::SndGear::stopMod();
 
         blit::debugf("left\r\n");
     }

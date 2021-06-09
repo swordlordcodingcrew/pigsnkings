@@ -57,6 +57,7 @@
 
 #include <bt/bt.hpp>
 #include <malloc.h>
+#include <libs/DANG/src/snd/SndGear.hpp>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -77,7 +78,7 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
-//        DEBUG_PRINT("GSPlay: play updating\n");
+//        DEBUG_PRINT("GSPlay: play updatisng\n");
 
 #ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
@@ -185,7 +186,7 @@ namespace pnk
 
         _last_time = 0;
 
-        PigsnKings::playMod(gocryogo_mod, gocryogo_mod_length);
+        dang::SndGear::playMod(gocryogo_mod, gocryogo_mod_length, _pnk._prefs.volume_track);
 
         DEBUG_PRINT("GSPlay: choose level (%d)\n", mallinfo().uordblks);
 
@@ -402,7 +403,7 @@ namespace pnk
         // remove behaviour trees
         gear.removeBehaviourTrees();
 
-        PigsnKings::stopMod();
+        dang::SndGear::stopMod();
 
 //         _pnk._prefs.active_room = _active_act_index;
 
@@ -587,7 +588,7 @@ namespace pnk
         else
         {
             _pnk._gamestate.health = health;
-            PigsnKings::playSfx(king_damage_22050, king_damage_22050_length);
+            dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
         }
     }
 
@@ -610,7 +611,7 @@ namespace pnk
         // TODO define MAXHEALTH
         _pnk._gamestate.health = 100;
 
-        PigsnKings::playSfx(lifelost_22050_mono, lifelost_22050_mono_length);
+        dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -653,7 +654,7 @@ namespace pnk
     void GSPlay::addScore(uint8_t score)
     {
         _pnk._gamestate.score += score;
-        PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+        dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
     }
 
     void GSPlay::addHealth(uint8_t healthGain)
@@ -669,7 +670,7 @@ namespace pnk
         }
 
         _pnk._gamestate.health = h;
-        PigsnKings::playSfx(health_22050_mono, health_22050_mono_length);
+        dang::SndGear::playSfx(health_22050_mono, health_22050_mono_length, _pnk._prefs.volume_sfx);
     }
 
 

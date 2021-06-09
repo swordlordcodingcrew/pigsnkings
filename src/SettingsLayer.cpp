@@ -8,6 +8,7 @@
 #include <rsrc/gfx/castle_tiles.png.h>
 #include <rsrc/gfx/hud_ui.png.h>
 #include <sfx/coin_22050_mono.h>
+#include <libs/DANG/src/snd/SndGear.hpp>
 
 #include "Gear.hpp"
 #include "SettingsLayer.h"
@@ -102,7 +103,7 @@ namespace pnk
             }
 
             // make some noise to show user how this sounds
-            PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+            dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_RIGHT)
         {
@@ -121,7 +122,7 @@ namespace pnk
             }
 
             // make some noise to show user how this sounds
-            PigsnKings::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length);
+            dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
         }
     }
 
