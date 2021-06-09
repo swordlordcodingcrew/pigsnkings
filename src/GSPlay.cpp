@@ -544,7 +544,7 @@ namespace pnk
 
             _csl->addCollisionSprite(mood);
 
-            PigsnKings::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length);
+            dang::SndGear::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length, _pnk._prefs.volume_sfx);
         }
 
     }

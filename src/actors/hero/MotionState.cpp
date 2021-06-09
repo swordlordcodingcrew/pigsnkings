@@ -3,6 +3,7 @@
 
 #include <engine/input.hpp>
 #include <graphics/sprite.hpp>
+#include <libs/DANG/src/snd/SndGear.hpp>
 
 #include "MotionState.h"
 #include "src/actors/hero/Hero.h"
@@ -173,7 +174,7 @@ namespace pnk
         _count = GSPlay::H_JUMP_COUNT;
         hero.setVelY(GSPlay::H_JUMP_VEL);
 
-        PigsnKings::playSfx(jump_22050_mono, jump_22050_mono_length);
+        dang::SndGear::playSfx(jump_22050_mono, jump_22050_mono_length, _pnk._prefs.volume_sfx);
 #ifdef PNK_DEBUG
         std::cout << "enter JumpState" << std::endl;
 #endif
