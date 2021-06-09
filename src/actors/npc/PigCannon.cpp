@@ -85,7 +85,7 @@ namespace pnk
 
         // TODO have a behaviour tree exit sleeping
         removeTweens(true);
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(2000, dang::Ease::Linear, 0));
+        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(2000, dang::Ease::Linear, 1));
         nullTw->setFinishedCallback(std::bind(&PigCannon::endSleeping, this));
         addTween(nullTw);
 
@@ -97,6 +97,7 @@ namespace pnk
     bool PigCannon::onEnterThrowing()
     {
         _anim_m_picking_up->reset();
+        _anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, this));
         setAnimation(_anim_m_picking_up);
         _currentState = THROWING;
 
@@ -128,6 +129,7 @@ namespace pnk
     {
         // make sure to reset the animation
         _anim_m_match_lit->reset();
+        _anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, this));
         setAnimation(_anim_m_match_lit);
     }
 
@@ -135,6 +137,7 @@ namespace pnk
     {
         // make sure to reset the animation
         _anim_m_throwing->reset();
+        _anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, this));
         setAnimation(_anim_m_throwing);
         std::cout << "lighting cannon " << std::endl;
     }
