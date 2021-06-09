@@ -74,15 +74,18 @@ namespace pnk
     {
         if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
         {
-            // me destroys
-            this->removeSelf();
+            // have the animation sequence triggered
+            triggerExplosion();
+
+            // me destroys in the next cycle, we need the pointer in this cycle for the event
+            _remove_me = true;
         }
         else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
         {
             // King hurt
             tellTheKingWeHitHim();
 
-            // me destroys
+            // me destroys in the next cycle, we need the pointer in this cycle for the event
             _remove_me = true;
         }
     }
@@ -102,6 +105,16 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
+        e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_CANNONBALL);
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+    }
+
+    void Cannonball::triggerExplosion()
+    {
+        //
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CANNONBALL_EXPLODES));
+        e->_spr = shared_from_this();
+        e->_pos = this->getPos();
         e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_CANNONBALL);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }

@@ -34,6 +34,7 @@ namespace pnk
     class Cannon;
     class Cannonball;
     class Moodies;
+    class MoodiesThatHurt;
 }
 
 // using assignments
@@ -51,6 +52,7 @@ using spPigCannon = std::shared_ptr<pnk::PigCannon>;
 using spCannon = std::shared_ptr<pnk::Cannon>;
 using spCannonball = std::shared_ptr<pnk::Cannonball>;
 using spMoodies = std::shared_ptr<pnk::Moodies>;
+using spMoodiesThatHurt = std::shared_ptr<pnk::MoodiesThatHurt>;
 using spScreenPlay = std::shared_ptr<pnk::ScreenPlay>;
 
 namespace pnk
@@ -65,6 +67,7 @@ namespace pnk
         static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
         static inline const std::string T_CRATE_PROTO{"crate_proto"};
         static inline const std::string T_BOMB_PROTO{"bomb_proto"};
+        static inline const std::string T_EXPLOSION_PROTO{"boom_proto"};
         static inline const std::string T_PIG_POOF_PROTO{"pigpoof_proto"};
         static inline const std::string T_CANNONMUZZLE_PROTO{"cannonmuzzle_proto"};
         static inline const std::string T_CANNONBALL_PROTO{"cannonball_proto"};
@@ -100,7 +103,8 @@ namespace pnk
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
-        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spCollisionSprite Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spCollisionSprite Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);

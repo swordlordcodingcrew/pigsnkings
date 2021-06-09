@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="429">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="430">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -10,6 +10,7 @@
  <tileset firstgid="376" source="../tilesets/character_pigbomb.tsx"/>
  <tileset firstgid="409" source="../tilesets/character_pigcrate.tsx"/>
  <tileset firstgid="448" source="../tilesets/character_cannonsnpigs.tsx"/>
+ <tileset firstgid="457" source="../tilesets/common_items_bomb.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -304,7 +305,8 @@
   <object id="425" name="Bertha" type="cannon" gid="2147484096" x="160" y="704" width="32" height="32"/>
   <object id="426" type="cannonmuzzle_proto" gid="453" x="160" y="480" width="32" height="32"/>
   <object id="427" type="cannonball_proto" gid="456" x="192" y="480" width="32" height="32"/>
-  <object id="428" name="Mr Cannonier" type="pig_cannon" gid="2147483981" x="128" y="704" width="32" height="32"/>
+  <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483981" x="128" y="704" width="32" height="32"/>
+  <object id="429" type="boom_proto" gid="462" x="256" y="512" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>

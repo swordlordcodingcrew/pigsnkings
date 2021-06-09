@@ -24,9 +24,10 @@ static const dang::tmx_tileset level_1_tilesets[] = {
     {"character_pigbomb", &character_pigbomb, 33,32,32,1056,32,33,1},
     {"character_pigcrate", &character_pigcrate, 39,32,32,1248,32,39,1},
     {"character_cannonsnpigs", &character_cannonsnpigs, 9,32,32,288,32,9,1},
+    {"common_items_bomb", &common_items_bomb, 11,64,64,704,64,11,1},
 };
 
-static const size_t level_1_tilesets_len = 10;
+static const size_t level_1_tilesets_len = 11;
 
 // Animations ------------------------------------------------
 
@@ -77,9 +78,13 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"character_cannonsnpigs",0,"idling",{{0, 100}}},
     {"character_cannonsnpigs",1,"shooting",{{1, 100},{2, 100},{3, 100},{4, 100}}},
     {"character_cannonsnpigs",5,"muzzle_flash",{{5, 100},{6, 100},{7, 100}}},
+    {"character_cannonsnpigs",8,"cannonball",{{8, 100}}},
+    {"common_items_bomb",0,"bomb_idle",{{0, 100}}},
+    {"common_items_bomb",1,"bomb_lit",{{1, 100},{2, 100},{3, 100},{4, 100}}},
+    {"common_items_bomb",5,"boom",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
 };
 
-static const size_t level_1_tileanimations_len = 46;
+static const size_t level_1_tileanimations_len = 50;
 
 // Layers ------------------------------------------------
 
@@ -411,11 +416,12 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {425,"Bertha","cannon",160,704,32,32,true,"character_cannonsnpigs",0,""},
     {426,"426","cannonmuzzle_proto",160,480,32,32,true,"character_cannonsnpigs",5,""},
     {427,"427","cannonball_proto",192,480,32,32,true,"character_cannonsnpigs",8,""},
-    {428,"Mr Cannonier","pig_cannon",128,704,32,32,true,"gfx_pig",0,""}
+    {428,"Mr Cannonier","pig_cannon",128,704,32,32,true,"gfx_pig",0,""},
+    {429,"429","boom_proto",256,512,64,64,true,"common_items_bomb",5,""}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 154;
+static const size_t level_1_lvl_1_obj_objects_len = 155;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",

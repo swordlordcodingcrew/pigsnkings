@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # if you want to see dang debug info drawn, enable this
-#add_definitions(-DDANG_DEBUG_DRAW)
+add_definitions(-DDANG_DEBUG_DRAW)
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
@@ -49,12 +49,17 @@ set(SOURCES
         fonts/barcadebrawl.h
         fonts/hud_font_big.h
         fonts/hud_font_small.h
+        sfx/bomb_explode_22050_mono.h
         sfx/bubble_pop_22050_mono.h
+        sfx/cannon_fire_22050_mono.h
         sfx/coin_22050_mono.h
-        sfx/pig_squeal_22050_mono.h
-        sfx/king_damage_22050.h
+        sfx/crate_explode_22050_mono.h
+        sfx/defeat_22050_mono.h
+        sfx/jump_22050_mono.h
         sfx/health_22050_mono.h
+        sfx/king_damage_22050.h
         sfx/lifelost_22050_mono.h
+        sfx/pig_squeal_22050_mono.h
         sfx/victory_22050_mono.h
         )
 # in case there is a file which should not be added:

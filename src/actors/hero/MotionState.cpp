@@ -6,6 +6,7 @@
 
 #include "MotionState.h"
 #include "src/actors/hero/Hero.h"
+#include "sfx/jump_22050_mono.h"
 
 #ifdef PNK_DEBUG
 #include <iostream>
@@ -171,6 +172,8 @@ namespace pnk
     {
         _count = GSPlay::H_JUMP_COUNT;
         hero.setVelY(GSPlay::H_JUMP_VEL);
+
+        PigsnKings::playSfx(jump_22050_mono, jump_22050_mono_length);
 #ifdef PNK_DEBUG
         std::cout << "enter JumpState" << std::endl;
 #endif
