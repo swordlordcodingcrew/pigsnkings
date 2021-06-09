@@ -45,6 +45,7 @@ set(SOURCES
         tracks/gocryogo.h
         tracks/groovy.h
         tracks/u4iasmok.h
+        tracks/etheric_xm.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h
         fonts/hud_font_small.h
