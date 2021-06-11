@@ -535,12 +535,7 @@ namespace pnk
             mood->_z_order = 100; // TODO make sure that zorder works
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
-            mood->_anim_m_standard->setFinishedCallback([=]
-                {
-                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                    e->_spr = mood;
-                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
-                });
+            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
 
             _csl->addCollisionSprite(mood);
 
@@ -558,12 +553,7 @@ namespace pnk
         boom->setPosX(pe._pos.x - 16);
         boom->setPosY(pe._pos.y - 16);
         boom->init();
-        boom->_anim_m_standard->setFinishedCallback([=]
-            {
-                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                e->_spr = boom;
-                pnk::_pnk._dispatcher.queueEvent(std::move(e));
-            });
+        boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, boom.get()));
 
         if (pe._type == ETG_CRATE_EXPLODES)
         {
@@ -588,12 +578,7 @@ namespace pnk
         spMoodies poof = std::make_shared<Moodies>(*proto);
         poof->setPos(pe._pos);
         poof->init();
-        poof->_anim_m_standard->setFinishedCallback([=]
-           {
-               std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-               e->_spr = poof;
-               pnk::_pnk._dispatcher.queueEvent(std::move(e));
-           });
+        poof->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, poof.get()));
 
         _csl->addCollisionSprite(poof);
     }

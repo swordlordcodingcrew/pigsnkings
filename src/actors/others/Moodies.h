@@ -30,8 +30,8 @@ namespace pnk
 
         spTwAnim _anim_m_standard;
 
-    protected:
         void removeSelf();
+    protected:
 
     protected:
         friend class SpriteFactory;

@@ -220,17 +220,17 @@ namespace pnk
         ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
         assert(ret->_anim_m_picking_up != nullptr);
         ret->_anim_m_picking_up->loops(1);
-        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret));
+        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
 
         ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
         assert(ret->_anim_m_match_lit != nullptr);
         ret->_anim_m_match_lit->loops(5);
-        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret));
+        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
 
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
         assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(2);
-        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret));
+        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
 
         ret->_transform = blit::SpriteTransform::HORIZONTAL;
 
@@ -258,17 +258,17 @@ namespace pnk
         ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
         assert(ret->_anim_m_picking_up != nullptr);
         ret->_anim_m_picking_up->loops(1);
-        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret));
+        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
 
         ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
         assert(ret->_anim_m_match_lit != nullptr);
         ret->_anim_m_match_lit->loops(5);
-        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret));
+        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
 
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
         assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(2);
-        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret));
+        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
 
         ret->_transform = blit::SpriteTransform::HORIZONTAL;
 
@@ -304,7 +304,7 @@ namespace pnk
         ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
         assert(ret->_anim_m_shooting != nullptr);
         ret->_anim_m_shooting->loops(1);
-        ret->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, ret));
+        ret->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, ret.get()));
 
         ret->init();
 
