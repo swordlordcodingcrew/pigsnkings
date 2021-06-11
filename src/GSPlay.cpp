@@ -61,6 +61,7 @@
 #include <bt/bt.hpp>
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
+#include <sfx/crate_explode_22050_mono.h>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -507,7 +508,7 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_THROWN_BOMB)
         {
-            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["bomb"]);
+            spBombies proto = std::dynamic_pointer_cast<Bombies>(_hives["bomb"]);
             assert(proto != nullptr);
             spBombies bomb = std::make_shared<Bombies>(*proto);
             bomb->setPos(pe._pos);
@@ -541,7 +542,6 @@ namespace pnk
 
             dang::SndGear::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length, _pnk._prefs.volume_sfx);
         }
-
     }
 
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
@@ -554,6 +554,8 @@ namespace pnk
         boom->setPosY(pe._pos.y - 16);
         boom->init();
         boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, boom.get()));
+
+        dang::SndGear::playSfx(crate_explode_22050_mono, crate_explode_22050_mono_length, _pnk._prefs.volume_sfx);
 
         if (pe._type == ETG_CRATE_EXPLODES)
         {
@@ -611,6 +613,9 @@ namespace pnk
                 health -= 20;
                 break;
             case dang::SpriteType::FLYING_CANNONBALL:
+                health -= 40;
+                break;
+            case dang::SpriteType::EXPLOSION:
                 health -= 50;
                 break;
         }

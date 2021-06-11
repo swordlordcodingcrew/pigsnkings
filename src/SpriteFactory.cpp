@@ -461,13 +461,17 @@ namespace pnk
 
     spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
-        spThrowies ret = std::make_shared<pnk::Bombies>(so, is);
+        spBombies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->_type_num = dang::SpriteType::FLYING_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
-        ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_on");
+        ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_off");
         assert(ret->_anim_flying != nullptr);
         ret->_anim_flying->loops(-1);
+
+        ret->_anim_on_fire = txtr.getAnimation(is->getName(), "bomb_on");
+        assert(ret->_anim_on_fire != nullptr);
+        ret->_anim_on_fire->loops(3);
 
         ret->init();
 

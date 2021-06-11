@@ -36,18 +36,18 @@ namespace pnk
 
     }
 
-    Bombies::Bombies(const Throwies &bomb) : Throwies(bomb)
+    Bombies::Bombies(const Bombies &bomb) : Throwies(bomb)
     {
 #ifdef PNK_DEBUG
         std::cout << "Bombies copy constructor" << std::endl;
 #endif
         _to_the_left = bomb._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(bomb._anim_flying));
-
         _anim_flying->reset();
 
-        removeTweens(true);
-        removeAnimation(true);
+        _anim_on_fire = std::make_shared<dang::TwAnim>(*(bomb._anim_on_fire));
+        _anim_on_fire->setFinishedCallback(std::bind(&Bombies::triggerExplosion, this));
+        _anim_on_fire->reset();
     }
 
     Bombies::~Bombies()
@@ -74,21 +74,15 @@ namespace pnk
 
     void Bombies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
+        if (!_bIsOnFire && (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT))
         {
             // have the animation sequence triggered
-            triggerExplosion();
-
-            // me destroys in the next cycle, we need the pointer in this cycle for the event
-            _remove_me = true;
+            setBombOnFire();
         }
-        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        else if (_bIsOnFire && (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING))
         {
             // King hurt
             tellTheKingWeHitHim();
-
-            // me destroys in the next cycle, we need the pointer in this cycle for the event
-            _remove_me = true;
         }
     }
 
@@ -96,7 +90,7 @@ namespace pnk
     {
         if (other->_type_num == dang::SpriteType::KING || other->_type_num == dang::SpriteType::HOTRECT)
         {
-            return dang::CollisionSpriteLayer::CR_TOUCH;
+            return dang::CollisionSpriteLayer::CR_BOUNCE;
         }
 
         return dang::CollisionSpriteLayer::CR_NONE;
@@ -111,13 +105,25 @@ namespace pnk
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
+    void Bombies::setBombOnFire()
+    {
+        // no reset of animation needed, will only be called once and reet is called after initialisation
+        setAnimation(_anim_on_fire);
+        _bIsOnFire = true;
+    }
+
     void Bombies::triggerExplosion()
     {
+        setAnimation(_anim_flying);
+        _anim_on_fire = nullptr;
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOMB_EXPLODES));
         e->_spr = shared_from_this();
         e->_pos = this->getPos();
         e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_BOMB);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+        // me destroys in the next cycle, we need the pointer in this cycle for the event
+        _remove_me = true;
     }
 }

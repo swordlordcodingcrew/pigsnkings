@@ -22,7 +22,7 @@ namespace pnk
         PigBomb();
         PigBomb(const dang::tmx_spriteobject* so, spImagesheet is);
         ~PigBomb() override;
-        void init();
+        void init() override;
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;

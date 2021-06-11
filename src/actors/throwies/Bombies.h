@@ -21,7 +21,7 @@ namespace pnk
     {
     public:
         Bombies();
-        Bombies(const Throwies& bub);
+        Bombies(const Bombies& bub);
         Bombies(const dang::tmx_spriteobject* so, spImagesheet is);
         ~Bombies() override;
         void init() override;
@@ -29,9 +29,14 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
 
+        void setBombOnFire();
+        void triggerExplosion();
+
     protected:
         void tellTheKingWeHitHim() override;
-        void triggerExplosion();
+
+        spTwAnim    _anim_on_fire;
+        bool        _bIsOnFire{false};
 
     protected:
         friend class SpriteFactory;

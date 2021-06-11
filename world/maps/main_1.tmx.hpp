@@ -82,15 +82,15 @@ static const dang::tmx_layer main_1_main_bg = {
 // Objects for layer: main_decoration
 static const dang::tmx_spriteobject main_1_main_decoration_objects[] = {
 
-    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,""},
-    {16,"16","",16,128,32,32,true,"gfx_castle_decorations",10,""},
-    {17,"17","",16,160,32,32,true,"gfx_castle_decorations",20,""},
-    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,""},
-    {19,"19","",272,128,32,32,true,"gfx_castle_decorations",10,""},
-    {20,"20","",272,160,32,32,true,"gfx_castle_decorations",30,""},
-    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,""},
-    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,""},
-    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,""}
+    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
+    {16,"16","",16,128,32,32,true,"gfx_castle_decorations",10,"",0b0000},
+    {17,"17","",16,160,32,32,true,"gfx_castle_decorations",20,"",0b0000},
+    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
+    {19,"19","",272,128,32,32,true,"gfx_castle_decorations",10,"",0b0000},
+    {20,"20","",272,160,32,32,true,"gfx_castle_decorations",30,"",0b0000},
+    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0b0000},
+    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0b0000}
 
 };
 
@@ -114,11 +114,11 @@ static const dang::tmx_layer main_1_main_decoration = {
 // Objects for layer: main_obj
 static const dang::tmx_spriteobject main_1_main_obj_objects[] = {
 
-    {31,"hero","",64,192,32,32,true,"gfx_king",10,""},
-    {36,"about","button",131,91,58,32,true,"common_menus",0,""},
-    {37,"play","button",131,123,58,32,true,"common_menus",1,""},
-    {38,"prefs","button",131,155,58,32,true,"common_menus",2,""},
-    {39,"piggie","",216,192,32,32,true,"gfx_pig",0,""}
+    {31,"hero","",64,192,32,32,true,"gfx_king",10,"",0b0000},
+    {36,"about","button",131,91,58,32,true,"common_menus",0,"",0b0000},
+    {37,"play","button",131,123,58,32,true,"common_menus",1,"",0b0000},
+    {38,"prefs","button",131,155,58,32,true,"common_menus",2,"",0b0000},
+    {39,"piggie","",216,192,32,32,true,"gfx_pig",0,"",0b0000}
 
 };
 
@@ -156,7 +156,7 @@ static const dang::tmx_level main_1_level {
     .tileanimations = main_1_tileanimations,
     .tileanimations_len = main_1_tileanimations_len,
     .layers = main_1_layers,
-    .layers_len = main_1_layers_len
+    .layers_len = main_1_layers_len,
 };
 
 
