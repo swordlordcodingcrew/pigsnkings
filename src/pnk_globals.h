@@ -6,11 +6,11 @@
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
 
-//#define PNK_DEBUG_PRINT
+#define PNK_DEBUG_PRINT
 
 #ifdef PNK_DEBUG_PRINT
     #ifdef TARGET_32BLIT_HW
-        #define DEBUG_PRINT(...) blit::debug(__VA_ARGS__)
+        #define DEBUG_PRINT(...) blit::debugf(__VA_ARGS__)
     #else
         #define DEBUG_PRINT(...) std::printf(__VA_ARGS__)
     #endif
