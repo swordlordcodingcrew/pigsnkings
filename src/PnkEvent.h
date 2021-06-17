@@ -19,6 +19,7 @@ namespace pnk
     {
     public:
         PnkEvent(uint16_t filter, int32_t type);
+        ~PnkEvent() override;
         dang::Vector2F _pos{0,0};
         bool            _to_the_left{false};
         uint16_t        _payload{0}; // contains event specific details, optional

@@ -12,4 +12,9 @@ namespace pnk
         _type = type;
     }
 
+    PnkEvent::~PnkEvent()
+    {
+        _spr.reset();
+    }
+
 }
