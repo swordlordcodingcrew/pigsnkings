@@ -45,22 +45,12 @@ namespace pnk
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
-        const std::string& getInfotext() override { return _infoText; }
 
         void createBehaviourTrees(dang::Gear& gear);
 
     protected:
-        const std::string _infoText = "RIGHT: move right\n"
-                                      "LEFT: move left\n"
-                                      "Btn A ('z'): jump\n"
-                                      "Btn B ('x'): bubble\n"
-                                      "HOME ('1'): back to main\n"
-                                      "MENU ('2'): pause";
-
-
         const dang::tmx_level*          _tmx;
         std::shared_ptr<ScreenPlay>     _screenplay;
-
 
         // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};

@@ -15,10 +15,8 @@ namespace pnk
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
-        const std::string& getInfotext() override { return _infoText; }
 
     protected:
-        const std::string _infoText = "";
 
     };
 

@@ -109,20 +109,8 @@ namespace pnk
         // no need to clear the screen
         // have the engine render the game
         _gear.render(time);
-
-#ifdef PNK_DEBUG
-        renderInfoText();
-#endif
     }
 
-#ifdef PNK_DEBUG
-    void PigsnKings::renderInfoText()
-    {
-        // the text is only for development purpose
-        blit::screen.pen = blit::Pen(255, 255, 255);
-        blit::screen.text(_gs->getInfotext(), blit::minimal_font, blit::Point(1, 1));
-    }
-#endif
     void PigsnKings::removeImagesheets()
     {
         _gear.removeImagesheets();

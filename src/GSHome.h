@@ -20,13 +20,8 @@ namespace pnk
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
-        const std::string& getInfotext() override { return _infoText; }
 
     protected:
-        /**
-         * info text to show on the screen (development only - should be removed later on)
-         */
-        const std::string _infoText = "DOWN and UP to choose.\n X-Btn ('c') to select";
 
         void positionCandles();
         void playOink();
