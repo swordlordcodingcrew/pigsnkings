@@ -498,7 +498,7 @@ namespace pnk
     {
         if (pe._type == ETG_NEW_THROWN_CRATE)
         {
-            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["crate"]);
+            spCraties proto = std::dynamic_pointer_cast<Craties>(_hives["crate"]);
             assert(proto != nullptr);
             spCraties crate = std::make_shared<Craties>(*proto);
             crate->setPos(pe._pos);
@@ -547,7 +547,7 @@ namespace pnk
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
     {
         // TODO have different animations for crates and the rest
-        spMoodies proto = std::dynamic_pointer_cast<Moodies>(_hives["explosion"]);
+        spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
         assert(proto != nullptr);
         spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
         boom->setPosX(pe._pos.x - 16);
@@ -613,6 +613,9 @@ namespace pnk
                 health -= 20;
                 break;
             case dang::SpriteType::FLYING_CANNONBALL:
+                health -= 40;
+                break;
+            case dang::SpriteType::CANNON:
                 health -= 40;
                 break;
             case dang::SpriteType::EXPLOSION:
