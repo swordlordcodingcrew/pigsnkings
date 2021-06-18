@@ -449,10 +449,10 @@ namespace pnk
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
-        // bobbling with catched enemy
-        ret->_anim_flying = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{34}, 600, dang::Ease::OutQuad , -1, false, 2000));
+        // flying crates
+        ret->_anim_flying = txtr.getAnimation(is->getName(), "crate");
         assert(ret->_anim_flying != nullptr);
-        ret->_anim_flying->loops(0);
+        ret->_anim_flying->loops(-1);
 
         ret->init();
 
