@@ -67,7 +67,6 @@ namespace pnk
                         _path.clear();
                         _path_index = 0;
                         _vel.x = 0;
-                        _scene_graph->resetAStar();
                         ret = dang::BTNodeStatus::SUCCESS;
                     }
                     else
