@@ -74,6 +74,7 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"character_pigcrate",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100},{36, 100}}},
     {"character_pigcrate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}},
     {"character_pigcrate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}},
+    {"character_pigcrate",34,"crate",{{34, 100}}},
     {"character_pigcrate",37,"bubbling",{{37, 100},{38, 100}}},
     {"character_cannonsnpigs",0,"idling",{{0, 100}}},
     {"character_cannonsnpigs",1,"shooting",{{1, 100},{2, 100},{3, 100},{4, 100}}},
@@ -84,7 +85,7 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"common_items_bomb",5,"boom",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
 };
 
-static const size_t level_1_tileanimations_len = 50;
+static const size_t level_1_tileanimations_len = 51;
 
 // Layers ------------------------------------------------
 

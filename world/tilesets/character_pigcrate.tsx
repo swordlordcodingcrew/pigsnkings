@@ -61,6 +61,11 @@
    <frame tileid="33" duration="100"/>
   </animation>
  </tile>
+ <tile id="34" type="crate">
+  <animation>
+   <frame tileid="34" duration="100"/>
+  </animation>
+ </tile>
  <tile id="37" type="bubbling">
   <animation>
    <frame tileid="37" duration="100"/>
