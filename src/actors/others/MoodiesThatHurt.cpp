@@ -45,7 +45,7 @@ namespace pnk
     {
         this->Moodies::init();
 
-        _hotrect = {0, 0, 64, 64};
+        _hotrect = {16, 16, 32, 32};
     }
 
     void MoodiesThatHurt::collide(const dang::CollisionSpriteLayer::manifold &mf)
