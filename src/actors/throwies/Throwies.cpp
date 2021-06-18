@@ -42,6 +42,8 @@ namespace pnk
 
     Throwies::~Throwies()
     {
+        _anim_flying = nullptr;
+
 #ifdef PNK_DEBUG
         std::cout << "Throwies destructor" << std::endl;
 #endif

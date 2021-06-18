@@ -62,6 +62,10 @@ namespace pnk
 
     Bubble::~Bubble()
     {
+        if(!_catched_en.expired())
+        {
+            _catched_en.reset();
+        }
         std::cout << "bubble destructor" << std::endl;
     }
 

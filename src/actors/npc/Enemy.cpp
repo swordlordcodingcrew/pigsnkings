@@ -45,6 +45,8 @@ namespace pnk
 
     Enemy::~Enemy()
     {
+        _path.clear();
+
         std::cout << "enemy destructor" << std::endl;
     }
 
