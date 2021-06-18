@@ -39,8 +39,11 @@ namespace pnk
         // let the lower classes do the actual copying
         std::cout << "Moodies copy constructor" << std::endl;
 
-        _anim_m_standard = std::make_shared<dang::TwAnim>(*(moodie._anim_m_standard));
-        _anim_m_standard->reset();
+        if(moodie._anim_m_standard != nullptr)
+        {
+            _anim_m_standard = std::make_shared<dang::TwAnim>(*(moodie._anim_m_standard));
+            _anim_m_standard->reset();
+        }
 
         removeTweens(true);
         removeAnimation(true);
@@ -48,15 +51,16 @@ namespace pnk
 
     Moodies::~Moodies()
     {
+        _anim_m_standard = nullptr;
+        _animation = nullptr;
+        _tweens.clear();
+
         std::cout << "Moodies destructor" << std::endl;
     }
 
     void Moodies::init()
     {
         _hotrect = {0, 0, 0, 0};
-
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, -1));
-        addTween(nullTw);
 
         if(_anim_m_standard != nullptr)
         {
