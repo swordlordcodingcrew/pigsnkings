@@ -103,7 +103,6 @@ namespace pnk
 #ifdef PNK_DEBUG
         // test stuff
         uint32_t _cycles{0};
-        void renderInfoText();
 #endif
 
 #ifdef PNK_SND_DEBUG

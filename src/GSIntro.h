@@ -18,7 +18,6 @@ namespace pnk
 
     protected:
         uint32_t _last_time{0};
-        const std::string _infoText = "";
     };
 
 }
