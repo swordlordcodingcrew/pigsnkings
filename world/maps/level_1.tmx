@@ -250,7 +250,11 @@
   <object id="331" type="hotrect" x="224" y="32" width="128" height="32"/>
   <object id="333" name="dan" type="pig_box" gid="2147484062" x="512" y="96" width="32" height="32"/>
   <object id="334" type="pig_bomb" gid="2147484028" x="704" y="96" width="32" height="32"/>
-  <object id="335" type="pig_normal" gid="333" x="576" y="704" width="32" height="32"/>
+  <object id="335" type="pig_normal" gid="333" x="576" y="704" width="32" height="32">
+   <properties>
+    <property name="bt" value="loiter"/>
+   </properties>
+  </object>
   <object id="336" type="pig_normal" gid="333" x="832" y="576" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
