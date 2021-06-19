@@ -452,7 +452,7 @@
   </object>
   <object id="437" type="0" x="336" y="664">
    <properties>
-    <property name="walk_0" type="object" value="417"/>
+    <property name="walk_0" type="object" value="416"/>
    </properties>
    <point/>
   </object>
