@@ -152,9 +152,13 @@ namespace pnk
 
         gear.addBehaviourTree("test_path", std::make_shared<dang::BehaviourTree>(treeTestPath));
 
+//        std::function<dang::BTNodeStatus(<dang::Sprite*>)> func = std::bind(&Enemy::setDestinationBombDepot, std::placeholders::_1);
+//                .leaf(std::bind(&Enemy::setDestinationBombDepot, std::placeholders::_1))
+
         auto treeRandomLoiter = dang::Builder{}
                 .sequence()
-                .leaf(Enemy::BTsetDestinationBombDepot)
+                .leaf(Enemy::BTrandomNextWaypoint)
+//                .leaf(Enemy::BTsetDestinationBombDepot)
                 .leaf(Enemy::BTcheckPathCompleted)
                 .leaf(Enemy::BTrandomNextWaypoint)
                 .leaf(Enemy::BTcheckPathCompleted)
