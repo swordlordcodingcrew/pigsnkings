@@ -100,6 +100,10 @@ namespace pnk
         // for calculating diffs
         uint32_t _last_time{0};
 
+#ifdef PNK_DEBUG_MEM
+        int _mem{0};
+#endif
+
 #ifdef PNK_DEBUG
         // test stuff
         uint32_t _cycles{0};

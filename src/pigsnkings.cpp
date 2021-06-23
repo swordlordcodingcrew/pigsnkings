@@ -1,6 +1,9 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the Pigs and Kings game
 
+#include <malloc.h>
+#include <fonts/hud_font_small.h>
+#include <iostream>
 #include "snd/SndGear.hpp"
 #include "Imagesheet.hpp"
 #include "tween/TwAnim.hpp"
@@ -109,6 +112,17 @@ namespace pnk
         // no need to clear the screen
         // have the engine render the game
         _gear.render(time);
+
+        // show amount of memory used
+
+#ifdef PNK_DEBUG_MEM
+        blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
+        if (_mem < mallinfo().uordblks)
+        {
+            _mem = mallinfo().uordblks;
+            std::cout << " heap: " << std::to_string(_mem) << std::endl;
+        }
+#endif
     }
 
     void PigsnKings::removeImagesheets()
