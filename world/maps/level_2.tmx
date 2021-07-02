@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="11">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -32,7 +32,18 @@
 </data>
  </layer>
  <objectgroup id="2" name="lvl_2_mood"/>
- <objectgroup id="3" name="lvl_2_obj"/>
+ <objectgroup id="3" name="lvl_2_obj">
+  <object id="1" type="bubble_proto" gid="190" x="512" y="448" width="32" height="32"/>
+  <object id="2" type="crate_proto" gid="443" x="608" y="448" width="32" height="32"/>
+  <object id="3" type="bomb_proto" gid="402" x="576" y="448" width="32" height="32"/>
+  <object id="4" type="pigpoof_proto" gid="357" x="544" y="448" width="32" height="32"/>
+  <object id="5" type="cannonmuzzle_proto" gid="453" x="608" y="416" width="32" height="32"/>
+  <object id="6" type="cannonball_proto" gid="456" x="576" y="416" width="32" height="32"/>
+  <object id="7" type="boom_proto" gid="462" x="640" y="416" width="64" height="64"/>
+  <object id="8" type="king" gid="306" x="1888" y="288" width="32" height="32"/>
+  <object id="9" type="coin_silver" gid="137" x="832" y="369" width="32" height="48"/>
+  <object id="10" type="coin_gold" gid="141" x="1024" y="288" width="32" height="48"/>
+ </objectgroup>
  <objectgroup id="5" name="lvl_2_fg"/>
  <objectgroup id="4" name="lvl_2_hud">
   <object id="250" gid="332" x="15" y="18" width="32" height="32"/>
