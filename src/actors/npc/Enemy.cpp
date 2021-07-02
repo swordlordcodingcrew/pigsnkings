@@ -63,7 +63,7 @@ namespace pnk
                     if (_path_index + 1 == _path.size())
                     {
                         _current_wp = _path[_path_index];
-                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
+//                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
 
                         // ultimate goal reached. Reset stuff
                         _path.clear();
@@ -177,6 +177,7 @@ namespace pnk
                 case dang::e_tmx_waypoint_connection::wpc_invalid:
                 case dang::e_tmx_waypoint_connection::wpc_walk:
                 {
+                    _walkSpeed = 2;
                     removeTweens(true);
                     _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;
@@ -185,12 +186,44 @@ namespace pnk
                 case dang::e_tmx_waypoint_connection::wpc_jump:
                 {
                     removeTweens(true);
+                    dang::Vector2F v{0,0}, v_end{0,0};
+                    if (spwp->_pos.y < getHotrectAbs().center().y)
+                    {
+                        // the waypoint is higher than the hero
+                        v.y = -16;
+                    }
+                    else
+                    {
+                        // equal or lower
+                        v.y = -6;
+                    }
+
+                    if ((spwp->_pos.x - getHotrectAbs().center().x) * (spwp->_pos.x - getHotrectAbs().center().x) > 1600)
+                    {
+                        // long horizontal distance
+//                        _walkSpeed = 2;
+                        if (spwp->_pos.x - _pos.x < 0)
+                        {
+                            v.x = -16;
+                            v_end.x = -2;
+                        }
+                        else
+                        {
+                            v.x = 16;
+                            v_end.x = 2;
+                        }
+                        spTwVel tw = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
+                        addTween(tw);
+                    }
+                    else
+                    {
+                        _walkSpeed = 2;
+                        _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                        spTwVelY tw = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
+                        addTween(tw);
+                    }
 //                    float vx = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
 //                    spTwVel tw = std::make_shared<dang::TwVel>(dang::Vector2F(vx*1.5f, -16), dang::Vector2F(vx, 0), 600, &dang::Ease::OutQuad, 1, false );
-                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVelY tw = std::make_shared<dang::TwVelY>(-16.0f, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
-                    addTween(tw);
-                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                     _current_wp = wp;
                     break;
                 }
