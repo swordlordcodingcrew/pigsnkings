@@ -42,7 +42,7 @@
   <object id="7" type="boom_proto" gid="462" x="640" y="416" width="64" height="64"/>
   <object id="8" type="king" gid="306" x="1888" y="288" width="32" height="32"/>
   <object id="9" type="coin_silver" gid="137" x="832" y="369" width="32" height="48"/>
-  <object id="10" type="coin_gold" gid="141" x="1024" y="288" width="32" height="48"/>
+  <object id="10" type="coin_gold" gid="141" x="1024" y="274" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_2_fg"/>
  <objectgroup id="4" name="lvl_2_hud">
