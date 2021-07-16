@@ -54,7 +54,7 @@ namespace pnk
             TRACKS = 0,
             SFX,
             VOLUME,
-            DIFFICULTY,
+            GAMESAVESLOT,
             ENDOF_PREFS
         };
 
@@ -74,6 +74,7 @@ namespace pnk
             float volume_sfx{.5f};
             bool invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
             uint8_t selectedModule{PLAY};
+            uint8_t currentGameSaveSlot{1}; // 1-4
         };
 
         struct gamestate
@@ -82,7 +83,7 @@ namespace pnk
             uint8_t  lives{3};
             uint8_t  health{100}; // percent
             uint32_t score{0};
-            uint32_t active_level{1};
+            uint32_t active_level{2};
             uint32_t active_room{0};
         };
 

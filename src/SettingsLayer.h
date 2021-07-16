@@ -26,6 +26,7 @@ namespace pnk
         explicit SettingsLayer(Layer::E_TYPE type) : Layer(type){};
 
         void paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val);
+        void paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val);
         void paintBackground(const dang::Gear& gear);
 
         blit::Pen backgroundColour;
@@ -41,6 +42,7 @@ namespace pnk
         {
             STEP_10,
             STEP_3,
+            GAMESLOT,
             YESNO
         };
 
@@ -57,6 +59,7 @@ namespace pnk
 
         std::shared_ptr<dang::Imagesheet> _is_castle;
         std::shared_ptr<dang::Imagesheet> _is_hud;
+        std::shared_ptr<dang::Imagesheet> _is_king;
 
     };
 }

@@ -62,6 +62,7 @@
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
+#include <rsrc/level_2.tmx.hpp>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -205,6 +206,10 @@ namespace pnk
             default:
                 _screenplay = std::make_shared<L1SP>();
                 _tmx = &level_1_level;
+                break;
+            case 2:
+                _screenplay = std::make_shared<L2SP>();
+                _tmx = &level_2_level;
                 break;
         }
 
