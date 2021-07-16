@@ -66,5 +66,11 @@ namespace pnk
         L1SP();
     };
 
+    class L2SP : public ScreenPlay
+    {
+    public:
+        L2SP();
+    };
+
 }
 

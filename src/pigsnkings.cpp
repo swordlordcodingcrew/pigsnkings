@@ -71,14 +71,7 @@ namespace pnk
             blit::write_save(_prefs, PREFERENCES);
         }
 
-        DEBUG_PRINT("pigsnkings: prefs loaded\n");
-
-        // TODO loading gamestates (there are four.. not sure which one to read, probably first until user chooses differently)
-        if(!blit::read_save(_gamestate, GAMESTATE_1)) {
-            blit::write_save(_gamestate, GAMESTATE_1);
-        }
-
-        DEBUG_PRINT("pigsnkings: game states loaded\n");
+        refreshGamestateFromSave();
 
         _gs = GameState::_gs_intro;
         _gs->enter(_gear, 0);
@@ -86,6 +79,30 @@ namespace pnk
         DEBUG_PRINT("pigsnkings: initial module loaded\n");
 
         _last_time = blit::now();
+    }
+
+    void PigsnKings::refreshGamestateFromSave()
+    {
+        // sanity check for current gamesave slot
+        if(_prefs.currentGameSaveSlot < 1 || _prefs.currentGameSaveSlot > 4)
+        {
+            _prefs.currentGameSaveSlot = 1;
+        }
+
+        DEBUG_PRINT("pigsnkings: prefs loaded\n");
+
+        // loading the gamestate from the prefs
+        if(!blit::read_save(_gamestate, _prefs.currentGameSaveSlot)) {
+            // TODO: this is a terrible hack! but go with it until we can switch levels directly in the game...
+            if(_prefs.currentGameSaveSlot == 2)
+            {
+                DEBUG_PRINT("pigsnkings: gamestate hack activated, check your active level");
+                _gamestate.active_level = _prefs.currentGameSaveSlot;
+            }
+            blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+        }
+
+        DEBUG_PRINT("pigsnkings: game states loaded\n");
     }
 
     void PigsnKings::update(uint32_t time)

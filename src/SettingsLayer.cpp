@@ -9,6 +9,7 @@
 #include <rsrc/gfx/hud_ui.png.h>
 #include <sfx/coin_22050_mono.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
+#include <rsrc/gfx/king.png.h>
 
 #include "Gear.hpp"
 #include "SettingsLayer.h"
@@ -42,22 +43,30 @@ namespace pnk
         _prefs.at(_pnk.VOLUME).caption = "Volume";
         _prefs.at(_pnk.VOLUME).curVal = 1; // blit persist.volume
 
-        _prefs.at(_pnk.DIFFICULTY).caption = "Difficulty";
-        _prefs.at(_pnk.DIFFICULTY).curVal = 1;
-        _prefs.at(_pnk.DIFFICULTY).type = STEP_3; // OINK, MEDIUM, HARD
+        _prefs.at(_pnk.GAMESAVESLOT).caption = "Gameslot";
+        _prefs.at(_pnk.GAMESAVESLOT).curVal = _pnk._prefs.currentGameSaveSlot;
+        _prefs.at(_pnk.GAMESAVESLOT).type = GAMESLOT; // 1-4
 
         _is_castle = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 12, 8);
         _is_hud = std::make_shared<dang::Imagesheet>("hud_ui", &hud_ui, 15, 7);
+        _is_king = std::make_shared<dang::Imagesheet>("gfx_king", &gfx_king, 27, 1);
     }
 
     SettingsLayer::~SettingsLayer()
     {
+        _is_castle.reset();
+        _is_hud.reset();
+        _is_king.reset();
+
         // this is a hack. we set play as the default option in the stored settings
         // otherwise the default would always be prefs
         // which is annoying as hell. I know, I tried this :)
         _pnk._prefs.selectedModule = _pnk.PLAY;
         blit::write_save(_pnk._prefs, _pnk.PREFERENCES);
         _pnk._prefs.selectedModule = _pnk.PREFS;
+
+        // reload the currently selected gamestate
+        _pnk.refreshGamestateFromSave();
     }
 
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
@@ -67,8 +76,6 @@ namespace pnk
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
             _selectedPref = ++_selectedPref % _pnk.ENDOF_PREFS;
-
-            //positionCandles();
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
@@ -78,51 +85,65 @@ namespace pnk
             else {
                 _selectedPref = --_selectedPref % _pnk.ENDOF_PREFS;
             }
-
-            //positionCandles();
         }
 
         // ----------------------
         // left and right
-
-        // TODO make sure to check for 10 step vs 3 step vs bool
         if (blit::buttons.pressed & blit::Button::DPAD_LEFT)
         {
-            //positionCandles();
             auto& pref = _prefs.at(_selectedPref);
-            pref.curVal > 0.1f ? (_prefs.at(_selectedPref).curVal -= .1f) : (_prefs.at(_selectedPref).curVal = 0);
 
-            // check sfx vs tracks
-            if(pref.caption == "Music")
+            // check for different pref types, handle them accordingly
+            if(pref.type == STEP_10)
             {
-                _pnk._prefs.volume_track = pref.curVal;
-            }
-            else
-            {
-                _pnk._prefs.volume_sfx = pref.curVal;
-            }
+                pref.curVal > 0.1f ? (_prefs.at(_selectedPref).curVal -= .1f) : (_prefs.at(_selectedPref).curVal = 0);
 
-            // make some noise to show user how this sounds
-            dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
+                // check sfx vs tracks
+                if(pref.caption == "Music")
+                {
+                    _pnk._prefs.volume_track = pref.curVal;
+                }
+                else
+                {
+                    _pnk._prefs.volume_sfx = pref.curVal;
+                }
+
+                // make some noise to show user how this sounds
+                dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
+            }
+            else if(pref.type == GAMESLOT)
+            {
+                pref.curVal > 1 ? (_prefs.at(_selectedPref).curVal -= 1) : (_prefs.at(_selectedPref).curVal = 4);
+                _pnk._prefs.currentGameSaveSlot = pref.curVal;
+            }
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_RIGHT)
         {
-            //positionCandles();
             auto& pref = _prefs.at(_selectedPref);
-            pref.curVal < 0.9f ? (_prefs.at(_selectedPref).curVal += .1f) : (_prefs.at(_selectedPref).curVal = 1);
 
-            // check sfx vs tracks
-            if(pref.caption == "Music")
+            // check prefs type to handle accordingly
+            if(pref.type == STEP_10)
             {
-                _pnk._prefs.volume_track = pref.curVal;
-            }
-            else
-            {
-                _pnk._prefs.volume_sfx = pref.curVal;
-            }
+                pref.curVal < 0.9f ? (_prefs.at(_selectedPref).curVal += .1f) : (_prefs.at(_selectedPref).curVal = 1);
 
-            // make some noise to show user how this sounds
-            dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
+                // check sfx vs tracks
+                if(pref.caption == "Music")
+                {
+                    _pnk._prefs.volume_track = pref.curVal;
+                }
+                else
+                {
+                    _pnk._prefs.volume_sfx = pref.curVal;
+                }
+
+                // make some noise to show user how this sounds
+                dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
+            }
+            else if(pref.type == GAMESLOT)
+            {
+                pref.curVal < 5 ? (_prefs.at(_selectedPref).curVal += 1) : (_prefs.at(_selectedPref).curVal = 1);
+                _pnk._prefs.currentGameSaveSlot = pref.curVal;
+            }
         }
     }
 
@@ -132,15 +153,21 @@ namespace pnk
 
         uint8_t i = 0;
 
+        const uint8_t y_dist = 32;
+
         for(auto& pref : _prefs)
         {
             i == _selectedPref ? blit::screen.pen = foregroundColour : blit::screen.pen = backgroundColour;
 
-            blit::screen.text(pref.caption, hud_font_small, blit::Point(49, 50 + (i * 20)), true, blit::TextAlign::left);
+            blit::screen.text(pref.caption, hud_font_small, blit::Point(49, 50 + (i * y_dist)), true, blit::TextAlign::left);
 
             if(pref.type == STEP_10)
             {
-                paintSlider(gear, 140, 50 + (i * 20), pref.curVal);
+                paintSlider(gear, 140, 50 + (i * y_dist), pref.curVal);
+            }
+            else if(pref.type == GAMESLOT)
+            {
+                paintGameslot(gear, 140, 50 + (i * y_dist), pref.curVal);
             }
 
             i++;
@@ -173,7 +200,38 @@ namespace pnk
         blit::screen.blit_sprite(sr, dp, 0);
     }
 
-    // paint the background
+    void SettingsLayer::paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val)
+    {
+        y = y - 10;
+
+        blit::screen.sprites = _is_king->getSurface();
+
+        blit::Rect sr = _is_king->getBlitRect(0);
+        blit::Point dp = {x, y};
+        blit::screen.blit_sprite(sr, dp, 0);
+
+        dp = {x+30, y};
+        blit::screen.blit_sprite(sr, dp, 0);
+
+        dp = {x+60, y};
+        blit::screen.blit_sprite(sr, dp, 0);
+
+        dp = {x+90, y};
+        blit::screen.blit_sprite(sr, dp, 0);
+
+        sr = _is_king->getBlitRect(2);
+        dp = {(x + (30 * (val-1))), y};
+        blit::screen.blit_sprite(sr, dp, 0);
+
+        blit::screen.pen = backgroundColour;
+        y = y + 10 + 8; // add 10 we lost before + a few until we are above the stomach of the king
+
+        for(uint8_t i = 1; i <= 4; i++ )
+        {
+            blit::screen.text(std::to_string(i), hud_font_small, blit::Point((x + (30 * (i-1))) + 13, y), true, blit::TextAlign::left);
+        }
+    }
+        // paint the background
     void SettingsLayer::paintBackground(const dang::Gear& gear)
     {
         blit::screen.sprites = _is_castle->getSurface();

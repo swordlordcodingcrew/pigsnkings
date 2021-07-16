@@ -65,6 +65,7 @@
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
 #include <iostream>
+#include <rsrc/level_2.tmx.hpp>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -210,6 +211,10 @@ namespace pnk
             default:
                 _screenplay = std::make_shared<L1SP>();
                 _tmx = &level_1_level;
+                break;
+            case 2:
+                _screenplay = std::make_shared<L2SP>();
+                _tmx = &level_2_level;
                 break;
         }
 
@@ -775,7 +780,6 @@ namespace pnk
         _active_act_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
     }
-
 
 }
 

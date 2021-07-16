@@ -399,11 +399,26 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {251,"251","pig_normal",352,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {252,"252","pig_normal",672,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {253,"253","pig_normal",896,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
-    {254,"254","hotrect",1920,272,8,64,true,"",0,"",0b0000}
+    {254,"254","hotrect",1920,272,8,64,true,"",0,"",0b0000},
+    {255,"0","room_trigger",1603,288,2,32,true,"",0,"",0b0000},
+    {256,"1","room_trigger",1597,288,2,32,true,"",0,"",0b0000},
+    {257,"1","room_trigger",1285,288,2,32,true,"",0,"",0b0000},
+    {258,"2","room_trigger",1274,288,2,32,true,"",0,"",0b0000},
+    {259,"2","room_trigger",973,448,2,32,true,"",0,"",0b0000},
+    {260,"3","room_trigger",960,448,2,32,true,"",0,"",0b0000},
+    {261,"3","room_trigger",645,288,2,32,true,"",0,"",0b0000},
+    {262,"4","room_trigger",630,288,2,32,true,"",0,"",0b0000},
+    {263,"4","room_trigger",325,448,2,32,true,"",0,"",0b0000},
+    {264,"5","room_trigger",309,448,2,32,true,"",0,"",0b0000},
+    {265,"5","room_trigger",309,192,2,32,true,"",0,"",0b0000},
+    {266,"6","room_trigger",328,192,2,32,true,"",0,"",0b0000},
+    {267,"6","room_trigger",629,32,2,32,true,"",0,"",0b0000},
+    {268,"7","room_trigger",661,32,2,32,true,"",0,"",0b0000},
+    {269,"7","room_trigger",949,192,2,32,true,"",0,"",0b0000}
 
 };
 
-static const size_t level_2_lvl_2_obj_objects_len = 139;
+static const size_t level_2_lvl_2_obj_objects_len = 154;
 
 static const dang::tmx_layer level_2_lvl_2_obj = {
     .name = "lvl_2_obj",
@@ -512,6 +527,10 @@ static const dang::tmx_level level_2_level {
     .tileanimations_len = level_2_tileanimations_len,
     .layers = level_2_layers,
     .layers_len = level_2_layers_len,
+    .waypoints = nullptr,
+    .waypoints_len = 0,
+    .waypoint_connections = nullptr,
+    .waypoint_connections_len = 0
 };
 
 
