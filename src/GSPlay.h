@@ -48,6 +48,7 @@ namespace pnk
 
         void createBehaviourTrees(dang::Gear& gear);
 
+
     protected:
         const dang::tmx_level*          _tmx;
         std::shared_ptr<ScreenPlay>     _screenplay;
@@ -88,6 +89,7 @@ namespace pnk
         void initGameVars();
         void updateVpPos();
         void changeRoom(int32_t room_nr, bool warp);
+
 
     };
 

@@ -62,6 +62,9 @@
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
+#include <bt/NTree.h>
+#include <bt/NTBuilder.h>
+#include <iostream>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -122,6 +125,22 @@ namespace pnk
 
     void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
+        std::shared_ptr<dang::NTree> tr = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+//                    .leaf(Enemy::BTsleep)
+            .end()
+        .build();
+
+        gear.addNTree("loiter", tr);
+
         auto trInsan = dang::Builder{}
                 .sequence()
                     .leaf(dang::Sprite::BTIsHeroAround)
@@ -143,35 +162,21 @@ namespace pnk
 
         gear.addBehaviourTree("cratepig", std::make_shared<dang::BehaviourTree>(treeCratePig));
 
-        auto treeTestPath = dang::Builder{}
+        auto treeRandomLoiter = dang::Builder{}
+            .selector()
                 .sequence()
-                    .leaf(Enemy::BTsetDestinationWaypointTestFunc)
+                    .leaf(Enemy::BTsetRandNeighbourWaypoint)
                     .leaf(Enemy::BTcheckPathCompleted)
                 .end()
-                .build();
-
-        gear.addBehaviourTree("test_path", std::make_shared<dang::BehaviourTree>(treeTestPath));
-
-//        std::function<dang::BTNodeStatus(<dang::Sprite*>)> func = std::bind(&Enemy::setDestinationBombDepot, std::placeholders::_1);
-//                .leaf(std::bind(&Enemy::setDestinationBombDepot, std::placeholders::_1))
-
-        auto treeRandomLoiter = dang::Builder{}
                 .sequence()
-                .leaf(Enemy::BTrandomNextWaypoint)
-//                .leaf(Enemy::BTsetDestinationBombDepot)
-                .leaf(Enemy::BTcheckPathCompleted)
-                .leaf(Enemy::BTrandomNextWaypoint)
-                .leaf(Enemy::BTcheckPathCompleted)
-                .leaf(Enemy::BTrandomNextWaypoint)
-                .leaf(Enemy::BTcheckPathCompleted)
-                .leaf(Enemy::BTrandomNextWaypoint)
-                .leaf(Enemy::BTcheckPathCompleted)
-                .leaf(Enemy::BTrandomNextWaypoint)
-                .leaf(Enemy::BTcheckPathCompleted)
+                    .leaf(Enemy::BTfindNearestWaypointH)
+                    .leaf(Enemy::BTcheckPathCompleted)
                 .end()
-                .build();
+//                    .leaf(Enemy::BTsleep)
+            .end()
+        .build();
 
-        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeRandomLoiter));
+//        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeRandomLoiter));
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
@@ -770,6 +775,7 @@ namespace pnk
         _active_act_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
     }
+
 
 }
 

@@ -119,6 +119,12 @@ namespace pnk
     {
         if(so->bt.length() > 0)
         {
+            std::shared_ptr<dang::NTree> ntr = txtr._gear->getNTree(so->bt);
+            if(ntr != nullptr)
+            {
+                sprite->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
+            }
+
             std::shared_ptr<dang::BehaviourTree> tree = txtr._gear->getBehaviourTree(so->bt);
             if(tree != nullptr)
             {
@@ -516,7 +522,7 @@ namespace pnk
             if (room._extent_pixels.contains(spr->getPos()))
             {
                 spr->_scene_graph = room._scene_graph;
-                spWaypoint wp = spr->_scene_graph->getNearestWaypoint(spr->getHotrectAbs().center());
+                spWaypoint wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectAbs().center());
                 if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
                 {
                     spr->_current_wp = wp;
