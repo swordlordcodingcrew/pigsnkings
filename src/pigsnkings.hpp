@@ -38,8 +38,7 @@ namespace pnk
         void render(uint32_t time);
 
         void removeImagesheets();
-
-
+        void refreshGamestateFromSave();
 
         enum e_selection
         {

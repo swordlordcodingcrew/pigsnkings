@@ -64,6 +64,9 @@ namespace pnk
         _pnk._prefs.selectedModule = _pnk.PLAY;
         blit::write_save(_pnk._prefs, _pnk.PREFERENCES);
         _pnk._prefs.selectedModule = _pnk.PREFS;
+
+        // reload the currently selected gamestate
+        _pnk.refreshGamestateFromSave();
     }
 
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
