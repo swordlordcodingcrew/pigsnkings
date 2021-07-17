@@ -58,7 +58,6 @@
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 
-#include <bt/bt.hpp>
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
@@ -142,7 +141,7 @@ namespace pnk
 
         gear.addNTree("loiter", tr);
 
-        auto trInsan = dang::Builder{}
+/*        auto trInsan = dang::Builder{}
                 .sequence()
                     .leaf(dang::Sprite::BTIsHeroAround)
                     .leaf(dang::Sprite::BTLoiter)
@@ -178,6 +177,7 @@ namespace pnk
         .build();
 
 //        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeRandomLoiter));
+*/
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
@@ -425,7 +425,8 @@ namespace pnk
         gear.removeLayers();
 
         // remove behaviour trees
-        gear.removeBehaviourTrees();
+//        gear.removeBehaviourTrees();
+        gear.removeNTrees();
 
         dang::SndGear::stopMod();
 

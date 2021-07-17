@@ -9,7 +9,6 @@
 #include <tween/TwAccY.hpp>
 #include <tween/TwVelY.hpp>
 
-//#include "TmxExtruder.hpp"
 #include "src/pigsnkings.hpp"
 
 #include "Enemy.h"
@@ -50,69 +49,54 @@ namespace pnk
         std::cout << "enemy destructor" << std::endl;
     }
 
-    dang::BTNodeStatus Enemy::checkPathCompleted()
+    dang::BTNode::Status Enemy::checkPathCompleted()
     {
-        dang::BTNodeStatus ret{dang::BTNodeStatus::FAILURE};
+        dang::BTNode::Status ret{dang::BTNode::Status::FAILURE};
 
         if (!_path.empty())
         {
-            switch (checkWaypointReached())
+            ret = checkWaypointReached();
+            if (ret == dang::BTNode::Status::SUCCESS)
             {
-                case dang::BTNodeStatus::SUCCESS:
+                if (_path_index + 1 == _path.size())
                 {
-                    if (_path_index + 1 == _path.size())
-                    {
-                        _current_wp = _path[_path_index];
+                    _current_wp = _path[_path_index];
 //                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
 
-                        // ultimate goal reached. Reset stuff
-                        _path.clear();
-                        _path_index = 0;
-                        _vel.x = 0;
-                        ret = dang::BTNodeStatus::SUCCESS;
-                    }
-                    else
-                    {
-                        // next waypoint
-                        _current_wp = _path[_path_index];
-                        _path_index++;
-                        startOutToWaypoint();
-                        ret = dang::BTNodeStatus::RUNNING;
-                    }
-                    break;
+                    // ultimate goal reached. Reset stuff
+                    _path.clear();
+                    _path_index = 0;
+                    _vel.x = 0;
+                    ret = dang::BTNode::Status::SUCCESS;
                 }
-                case dang::BTNodeStatus::RUNNING:
+                else
                 {
-                    ret = dang::BTNodeStatus::RUNNING;
-                    break;
-                }
-                case dang::BTNodeStatus::FAILURE:
-                default:
-                {
-                    ret = dang::BTNodeStatus::FAILURE;
-                    break;
+                    // next waypoint
+                    _current_wp = _path[_path_index];
+                    _path_index++;
+                    startOutToWaypoint();
+                    ret = dang::BTNode::Status::RUNNING;
                 }
             }
-
         }
         return ret;
     }
 
-    dang::BTNodeStatus Enemy::setRandNeighbourWaypoint()
+    dang::BTNode::Status Enemy::setRandNeighbourWaypoint()
     {
         _scene_graph->getRandomNextWaypoint(_current_wp, _path);
         _path_index = 0;
         if (_path.empty())
         {
             // no other waypoint (?). Would be a design error, returning failure
-            return dang::BTNodeStatus::FAILURE;
+            return dang::BTNode::Status::FAILURE;
         }
 
         startOutToWaypoint();
-        return dang::BTNodeStatus::SUCCESS;
+        return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNodeStatus Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
+    dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
     {
         spWaypoint start = _current_wp.lock();
         spWaypoint dest = _scene_graph->getWaypointWithType(depot_type);
@@ -125,14 +109,14 @@ namespace pnk
                 if (!_path.empty())
                 {
                     startOutToWaypoint();
-                    return dang::BTNodeStatus::SUCCESS;
+                    return dang::BTNode::Status::SUCCESS;
                 }
             }
         }
-        return dang::BTNodeStatus::FAILURE;
+        return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNodeStatus Enemy::checkWaypointReached()
+    dang::BTNode::Status Enemy::checkWaypointReached()
     {
         if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
         {
@@ -142,19 +126,19 @@ namespace pnk
                 _max_time_to_wp = 0;
                 _time_elapsed_to_wp = 0;
 //                std::cout << "waypoint reached" << std::endl;
-                return dang::BTNodeStatus::SUCCESS;
+                return dang::BTNode::Status::SUCCESS;
             }
             else
             {
-                return dang::BTNodeStatus::RUNNING;
+                return dang::BTNode::Status::RUNNING;
             }
         }
         else
         {
             if (blit::now() - _time_elapsed_to_wp > _max_time_to_wp)
             {
-                std::cout << "checkWaypointReached: time is up!" << std::endl;
-                return dang::BTNodeStatus::FAILURE;
+//                std::cout << "checkWaypointReached: time is up!" << std::endl;
+                return dang::BTNode::Status::FAILURE;
             }
 
             spWaypoint w = _path[_path_index].lock();
@@ -168,10 +152,10 @@ namespace pnk
                     _vel.x /= 2;
                 }
 
-                return dang::BTNodeStatus::RUNNING;
+                return dang::BTNode::Status::RUNNING;
             }
 
-            return dang::BTNodeStatus::FAILURE;
+            return dang::BTNode::Status::FAILURE;
 
         }
 
@@ -252,9 +236,9 @@ namespace pnk
 
     }
 
-    dang::BTNodeStatus Enemy::findNearestWaypoint(bool only_horizontally)
+    dang::BTNode::Status Enemy::findNearestWaypoint(bool only_horizontally)
     {
-        std::cout << "find nearest waypoint" << std::endl;
+//        std::cout << "find nearest waypoint" << std::endl;
 
         // first clear any remainy of the last path
         _path.clear();
@@ -278,97 +262,55 @@ namespace pnk
             _path_index = 0;
 //            _current_wp = _path[_path_index];
             startOutToWaypoint();
-            return dang::BTNodeStatus::SUCCESS;
+            return dang::BTNode::Status::SUCCESS;
         }
 
-        return dang::BTNodeStatus::FAILURE;
+        return dang::BTNode::Status::FAILURE;
     }
 
     /** static BT hooks */
 
-
-    dang::BTNodeStatus Enemy::BTcheckPathCompleted(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->checkPathCompleted() : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setRandNeighbourWaypoint() : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTcheckWaypointReached(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->checkWaypointReached() : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_bombdepot) : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTsetDestinationCrateDepot(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_cratedepot) : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTfindNearestWaypoint(std::shared_ptr<Sprite> s)
-    {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->findNearestWaypoint(false) : dang::BTNodeStatus::FAILURE);
-    }
-
-    dang::BTNodeStatus Enemy::BTfindNearestWaypointH(std::shared_ptr<Sprite> s)
-    {
-        std:: cout << "find nearest waypoint H" << std::endl;
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->findNearestWaypoint(true) : dang::BTNodeStatus::FAILURE);
-    }
-
     dang::BTNode::Status Enemy::NTcheckPathCompleted(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        if (spr)
-        {
-            dang::BTNodeStatus st = spr->checkPathCompleted();
-            if (st == dang::BTNodeStatus::FAILURE) return dang::BTNode::Status::FAILURE;
-            else if (st == dang::BTNodeStatus::SUCCESS) return dang::BTNode::Status::SUCCESS;
-            else return dang::BTNode::Status::RUNNING;
-        }
-
-        return dang::BTNode::Status::FAILURE;
+        return (spr ? spr->checkPathCompleted() : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        if (spr)
-        {
-            dang::BTNodeStatus st = spr->setRandNeighbourWaypoint();
-            if (st == dang::BTNodeStatus::FAILURE) return dang::BTNode::Status::FAILURE;
-            else if (st == dang::BTNodeStatus::SUCCESS) return dang::BTNode::Status::SUCCESS;
-            else return dang::BTNode::Status::RUNNING;
-        }
+        return (spr ? spr->setRandNeighbourWaypoint() : dang::BTNode::Status::FAILURE);
+    }
 
-        return dang::BTNode::Status::FAILURE;
+    dang::BTNode::Status Enemy::NTcheckWaypointReached(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->checkWaypointReached() : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_bombdepot) : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_cratedepot) : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTfindNearestWaypoint(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->findNearestWaypoint(false) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTfindNearestWaypointH(std::shared_ptr<Sprite> s)
     {
+//        std:: cout << "find nearest waypoint H" << std::endl;
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        if (spr)
-        {
-            dang::BTNodeStatus st = spr->findNearestWaypoint(true);
-            if (st == dang::BTNodeStatus::FAILURE) return dang::BTNode::Status::FAILURE;
-            else if (st == dang::BTNodeStatus::SUCCESS) return dang::BTNode::Status::SUCCESS;
-            else return dang::BTNode::Status::RUNNING;
-        }
-
-        return dang::BTNode::Status::FAILURE;
+        return (spr ? spr->findNearestWaypoint(true) : dang::BTNode::Status::FAILURE);
     }
+
 }
