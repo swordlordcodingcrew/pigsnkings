@@ -157,6 +157,10 @@ static const dang::tmx_level main_1_level {
     .tileanimations_len = main_1_tileanimations_len,
     .layers = main_1_layers,
     .layers_len = main_1_layers_len,
+    .waypoints = nullptr,
+    .waypoints_len = 0,
+    .waypoint_connections = nullptr,
+    .waypoint_connections_len = 0
 };
 
 
