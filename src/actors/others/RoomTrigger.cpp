@@ -21,6 +21,7 @@ namespace pnk
 
     RoomTrigger::RoomTrigger(const dang::tmx_spriteobject* so, bool warp) : dang::CollisionSprite(so, nullptr), _warp(warp)
     {
+        // name of the sprite object from the tiled level will be used as the room number to jump to
         _room = std::stoul(so->name);
     }
 

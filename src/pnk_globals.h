@@ -48,6 +48,7 @@ enum ET
     ETG_KING_HIT = 60,
     ETG_CHANGE_ROOM = 101,
     ETG_WARP_ROOM = 102,
+    ETG_CHANGE_LEVEL = 103,
     ETA_PAUSE = 201
 };
 

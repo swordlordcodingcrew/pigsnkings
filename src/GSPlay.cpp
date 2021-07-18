@@ -57,14 +57,13 @@
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
+#include <rsrc/level_2.tmx.hpp>
 
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
-#include <iostream>
-#include <rsrc/level_2.tmx.hpp>
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -284,6 +283,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
             else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
+            else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is, _screenplay); }
@@ -505,6 +505,13 @@ namespace pnk
             if (pe._payload != _active_act_index)
             {
                 changeRoom(pe._payload, true);
+            }
+        }
+        else if (pe._type == ETG_CHANGE_LEVEL)
+        {
+            if (pe._payload != _active_level_index)
+            {
+                changeLevel(pe._payload);
             }
         }
     }
@@ -780,6 +787,11 @@ namespace pnk
 
         _active_act_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
+    }
+
+    void GSPlay::changeLevel(int8_t level_nr)
+    {
+        DEBUG_PRINT("Changing level to %d\n\r", level_nr);
     }
 
 }

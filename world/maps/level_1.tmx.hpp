@@ -461,11 +461,12 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {494,"494","pig_normal",501,128,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {495,"495","pig_normal",448,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {496,"496","pig_normal",800,96,32,32,true,"gfx_pig",0,"loiter",0b0000},
-    {512,"512","hotrect_platform",64,704,32,4,true,"",0,"",0b0000}
+    {512,"512","hotrect_platform",64,704,32,4,true,"",0,"",0b0000},
+    {513,"2","level_trigger",64,544,32,32,true,"",0,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 195;
+static const size_t level_1_lvl_1_obj_objects_len = 196;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",

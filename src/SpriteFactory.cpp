@@ -26,6 +26,7 @@
 #include "src/actors/hero/Hero.h"
 #include "src/actors/npc/Enemy.h"
 #include "src/actors/others/RoomTrigger.h"
+#include "src/actors/others/LevelTrigger.h"
 #include "PnkEvent.h"
 
 #include "GSPlay.h"
@@ -110,6 +111,16 @@ namespace pnk
         spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
         ret->_visible = false;
         ret->_type_num = dang::SpriteType::WARP_ROOM_TRIGGER;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::LevelTrigger(const dang::tmx_spriteobject* so)
+    {
+        spCollisionSprite ret = std::make_shared<pnk::LevelTrigger>(so);
+        ret->_visible = false;
+        ret->_type_num = dang::SpriteType::LEVEL_TRIGGER;
         ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
 
         return ret;

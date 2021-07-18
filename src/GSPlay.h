@@ -67,6 +67,7 @@ namespace pnk
         // flow stuff
         ScreenPlay::act*        _active_act{nullptr};
         int32_t                 _active_act_index{-1};
+        int8_t                 _active_level_index{-1};
         uint32_t                _last_time{0};
         bool                    _warp{false};
 
@@ -89,7 +90,7 @@ namespace pnk
         void initGameVars();
         void updateVpPos();
         void changeRoom(int32_t room_nr, bool warp);
-
+        void changeLevel(int8_t level_nr);
 
     };
 
