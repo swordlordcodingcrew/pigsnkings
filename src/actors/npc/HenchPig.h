@@ -3,19 +3,12 @@
 
 #pragma once
 
-#include <CollisionSprite.hpp>
-#include <src/actors/npc/Enemy.h>
+#include <DangFwdDecl.h>
+
+#include "Enemy.h"
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
-
     enum e_state
     {
         SLEEPING = 0,
@@ -32,13 +25,13 @@ namespace pnk
     {
     public:
         HenchPig();
-        HenchPig(const dang::tmx_spriteobject* so, spImagesheet is);
+        HenchPig(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~HenchPig() override;
         void init() override;
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void bubble() override;
         void deBubble() override;
@@ -48,12 +41,12 @@ namespace pnk
         void startOutToWaypoint() override;
 
         // animations depot
-        spTwAnim _anim_m_sleeping;
-        spTwAnim _anim_m_hiding;
-        spTwAnim _anim_m_loitering;
-        spTwAnim _anim_m_throwing;
-        spTwAnim _anim_m_picking_up;
-        spTwAnim _anim_m_bubbling;
+        dang::spTwAnim _anim_m_sleeping;
+        dang::spTwAnim _anim_m_hiding;
+        dang::spTwAnim _anim_m_loitering;
+        dang::spTwAnim _anim_m_throwing;
+        dang::spTwAnim _anim_m_picking_up;
+        dang::spTwAnim _anim_m_bubbling;
     protected:
 
         virtual void tellTheKingWeHitHim();

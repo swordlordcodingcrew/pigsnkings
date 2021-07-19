@@ -3,28 +3,22 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
 #include <CollisionSprite.hpp>
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
-
     class Reward : public dang::CollisionSprite
     {
     public:
         Reward();
-        Reward(const dang::tmx_spriteobject* so, spImagesheet is);
+        Reward(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Reward() override;
         void    init();
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse  getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse  getCollisionResponse(const dang::spCollisionSprite& other) override;
 
     protected:
         void removeSelf();

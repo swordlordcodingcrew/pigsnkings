@@ -3,34 +3,28 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
 #include <CollisionSprite.hpp>
-#include <Event.hpp>
+//#include <Event.hpp>
 #include "ActionState.h"
 
 namespace pnk
 {
     class MotionState;
     class SomaticState;
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
     class Hero : public dang::CollisionSprite
     {
     public:
         Hero();
-        Hero(const dang::tmx_spriteobject* so, std::shared_ptr<dang::Imagesheet> is);
+        Hero(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Hero() override;
         void activateState();
 
         void update(uint32_t dt) override;
 
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         // state stuff
         bool isOnGround() const { return _on_ground; }
@@ -64,13 +58,13 @@ namespace pnk
 
 
         // animations depot
-        spTwAnim _anim_m_wait;
-        spTwAnim _anim_m_walk;
-        spTwAnim _anim_m_jump;
-        spTwAnim _anim_m_on_air;
-        spTwAnim _anim_bubble;
-        spTwAnim _anim_s_blink;
-        spTwAnim _anim_s_life_lost;
+        dang::spTwAnim _anim_m_wait;
+        dang::spTwAnim _anim_m_walk;
+        dang::spTwAnim _anim_m_jump;
+        dang::spTwAnim _anim_m_on_air;
+        dang::spTwAnim _anim_bubble;
+        dang::spTwAnim _anim_s_blink;
+        dang::spTwAnim _anim_s_life_lost;
 
     };
 

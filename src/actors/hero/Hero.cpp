@@ -81,7 +81,7 @@ namespace pnk
                         ax = mf.normalOther.x > 0 ? -9 : 9;
                     }
                 }
-                spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, _pnk._gravity, 1000, dang::Ease::InQuad);
+                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, _pnk._gravity, 1000, dang::Ease::InQuad);
                 addTween(twa);
 
             }
@@ -93,7 +93,7 @@ namespace pnk
             }
 
             /** the other has cross as collision response (i.e. rewards) */
-            if (other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_CROSS || other->getCollisionResponse(shared_from_this()) == dang::CollisionSpriteLayer::CR_NONE)
+            if (other->getCollisionResponse(std::dynamic_pointer_cast<CollisionSprite>(shared_from_this())) == dang::CollisionSpriteLayer::CR_CROSS || other->getCollisionResponse(std::dynamic_pointer_cast<CollisionSprite>(shared_from_this())) == dang::CollisionSpriteLayer::CR_NONE)
             {
                 return;
             }
@@ -128,7 +128,7 @@ namespace pnk
 
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(const spCollisionSprite& other)
     {
         if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {

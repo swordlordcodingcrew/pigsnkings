@@ -58,7 +58,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse MoodiesThatHurt::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse MoodiesThatHurt::getCollisionResponse(const spCollisionSprite& other)
     {
         if (other->_type_num == dang::SpriteType::KING && !_has_hurt)
         {

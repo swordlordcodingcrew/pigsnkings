@@ -90,7 +90,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Moodies::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Moodies::getCollisionResponse(const spCollisionSprite& other)
     {
         return dang::CollisionSpriteLayer::CR_NONE;
     }

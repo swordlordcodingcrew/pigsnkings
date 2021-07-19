@@ -90,7 +90,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Craties::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Craties::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         if (other->_type_num == dang::SpriteType::KING || other->_type_num == dang::SpriteType::HOTRECT)
         {

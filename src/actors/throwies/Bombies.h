@@ -3,31 +3,22 @@
 
 #pragma once
 
-#include <CollisionSprite.hpp>
+#include <DangFwdDecl.h>
 #include "Throwies.h"
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-    class Enemy;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
-
     class Bombies : public Throwies
     {
     public:
         Bombies();
         Bombies(const Bombies& bub);
-        Bombies(const dang::tmx_spriteobject* so, spImagesheet is);
+        Bombies(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Bombies() override;
         void init() override;
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void setBombOnFire();
         void triggerExplosion();
@@ -35,7 +26,7 @@ namespace pnk
     protected:
         void tellTheKingWeHitHim() override;
 
-        spTwAnim    _anim_on_fire;
+        dang::spTwAnim    _anim_on_fire;
         bool        _bIsOnFire{false};
 
     protected:

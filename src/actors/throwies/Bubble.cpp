@@ -231,7 +231,7 @@ namespace pnk
     }
 
 
-    dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         if (_state == bs_bursting)
         {

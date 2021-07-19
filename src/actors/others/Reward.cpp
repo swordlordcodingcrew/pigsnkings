@@ -78,7 +78,7 @@ namespace pnk
     {
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Reward::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Reward::getCollisionResponse(const spCollisionSprite& other)
     {
         if (other->_type_num == dang::SpriteType::KING && !_collected)
         {

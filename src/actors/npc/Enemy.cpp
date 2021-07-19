@@ -8,9 +8,9 @@
 #include <tween/TwVel.hpp>
 #include <tween/TwAccY.hpp>
 #include <tween/TwVelY.hpp>
+#include <path/Waypoint.hpp>
 
 #include "src/pigsnkings.hpp"
-
 #include "Enemy.h"
 #include "src/pnk_globals.h"
 #include "src/PnkEvent.h"
@@ -98,8 +98,8 @@ namespace pnk
 
     dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
     {
-        spWaypoint start = _current_wp.lock();
-        spWaypoint dest = _scene_graph->getWaypointWithType(depot_type);
+        dang::spWaypoint start = _current_wp.lock();
+        dang::spWaypoint dest = _scene_graph->getWaypointWithType(depot_type);
 
         if (dest != start)
         {
@@ -141,7 +141,7 @@ namespace pnk
                 return dang::BTNode::Status::FAILURE;
             }
 
-            spWaypoint w = _path[_path_index].lock();
+            dang::spWaypoint w = _path[_path_index].lock();
             if (w)
             {
                 // if the sprite went too far, turn around and go slower
@@ -163,8 +163,9 @@ namespace pnk
 
     void Enemy::startOutToWaypoint()
     {
-        wpWaypoint wp = _path[_path_index];
-        spWaypoint spwp = wp.lock();
+        dang::wpWaypoint wp = _path[_path_index];
+        dang::spWaypoint spwp = wp.lock();
+
         if (spwp)
         {
             uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
@@ -246,7 +247,7 @@ namespace pnk
         _vel.x = 0;
 
 
-        spWaypoint w;
+        dang::spWaypoint w;
         if (only_horizontally)
         {
             w = _scene_graph->findNearestWaypointH(getHotrectAbs());

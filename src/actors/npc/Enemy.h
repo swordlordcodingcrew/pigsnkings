@@ -3,34 +3,20 @@
 
 #pragma once
 
-#include <CollisionSprite.hpp>
 #include <vector>
 
-#include <bt/BTNode.h>
-#include <bt/NTreeState.h>
+#include <DangFwdDecl.h>
 
-namespace dang
-{
-    struct tmx_spriteobject;
-    class Imagesheet;
-    class SceneGraph;
-    class Waypoint;
-}
+#include <CollisionSprite.hpp>
 
 namespace pnk
 {
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spSceneGraph = std::shared_ptr<dang::SceneGraph>;
-    using wpWaypoint = std::weak_ptr<dang::Waypoint>;
-    using spWaypoint = std::shared_ptr<dang::Waypoint>;
 
     class Enemy : public dang::CollisionSprite
     {
     public:
         Enemy();
-        Enemy(const dang::tmx_spriteobject* so, spImagesheet is);
+        Enemy(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Enemy() override;
 
         virtual void    init();
@@ -38,7 +24,7 @@ namespace pnk
         // pure virtual enemy class
         void update(uint32_t dt) override = 0;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override = 0;
-        dang::CollisionSpriteLayer::eCollisionResponse getCollisionResponse(spSprite other) override = 0;
+        dang::CollisionSpriteLayer::eCollisionResponse getCollisionResponse(const dang::spCollisionSprite& other) override = 0;
 
         virtual bool isBubbled() = 0;
         virtual void bubble() = 0;
@@ -58,7 +44,7 @@ namespace pnk
         /** these functions are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
-        /** static hooks */
+        /** static hooks for the behaviour tree */
         static dang::BTNode::Status NTcheckPathCompleted(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTcheckWaypointReached(std::shared_ptr<Sprite> s);
@@ -68,14 +54,12 @@ namespace pnk
         static dang::BTNode::Status NTfindNearestWaypointH(std::shared_ptr<Sprite> s);
 
         /** path params */
-        spSceneGraph            _scene_graph{nullptr};
-        std::vector<wpWaypoint> _path;
-        wpWaypoint              _current_wp;
-        size_t                  _path_index{0};
-
-        // time in ms
-        uint32_t                _max_time_to_wp{0};
-        uint32_t                _time_elapsed_to_wp{0};
+        dang::spSceneGraph              _scene_graph{nullptr};
+        std::vector<dang::wpWaypoint>   _path;
+        dang::wpWaypoint                _current_wp;
+        size_t                          _path_index{0};
+        uint32_t                        _max_time_to_wp{0};         //!< time in ms
+        uint32_t                        _time_elapsed_to_wp{0};     //!< time in ms
 
     protected:
         bool _on_ground = false;

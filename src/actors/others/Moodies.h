@@ -3,32 +3,24 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
 #include <CollisionSprite.hpp>
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-    class Enemy;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
-
     class Moodies : public dang::CollisionSprite
     {
     public:
         Moodies();
         Moodies(const Moodies& bub);
-        Moodies(const dang::tmx_spriteobject* so, spImagesheet is);
+        Moodies(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Moodies() override;
         virtual void init();
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
-        spTwAnim _anim_m_standard;
+        dang::spTwAnim _anim_m_standard;
 
         void removeSelf();
     protected:

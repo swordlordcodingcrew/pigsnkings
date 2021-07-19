@@ -59,7 +59,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Cannon::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse Cannon::getCollisionResponse(const spCollisionSprite& other)
     {
         /** run into the king */
         if (other->_type_num == dang::SpriteType::KING)

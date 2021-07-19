@@ -3,38 +3,32 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
 #include <CollisionSprite.hpp>
-#include <src/actors/npc/Enemy.h>
+//#include <src/actors/npc/Enemy.h>
 #include <src/actors/npc/HenchPig.h>
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spTwAnim = std::shared_ptr<dang::TwAnim>;
 
     class Cannon : public dang::CollisionSprite
     {
     public:
         Cannon();
-        Cannon(const dang::tmx_spriteobject* so, spImagesheet is);
+        Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Cannon() override;
         virtual void init();
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void fire();
         void cannonHasFired();
 
         // animations depot
-        spTwAnim _anim_m_sleeping;
-        spTwAnim _anim_m_shooting;
+        dang::spTwAnim _anim_m_sleeping;
+        dang::spTwAnim _anim_m_shooting;
     protected:
 
         virtual void tellTheKingWeHitHim();

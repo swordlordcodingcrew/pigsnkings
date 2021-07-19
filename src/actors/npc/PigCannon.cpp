@@ -14,6 +14,7 @@
 #include "src/PnkEvent.h"
 #include "src/GSPlay.h"
 #include "src/SpriteFactory.hpp"
+#include "src/actors/others/Cannon.h"
 
 namespace pnk
 {
@@ -66,7 +67,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigCannon::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse PigCannon::getCollisionResponse(const spCollisionSprite& other)
     {
         return this->HenchPig::getCollisionResponse(other);
     }

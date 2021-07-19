@@ -3,30 +3,22 @@
 
 #pragma once
 
-#include <CollisionSprite.hpp>
-#include <src/actors/npc/Enemy.h>
+#include <DangFwdDecl.h>
 #include "HenchPig.h"
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-
     class PigCrate : public HenchPig
     {
     public:
         PigCrate();
-        PigCrate(const dang::tmx_spriteobject* so, spImagesheet is);
+        PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~PigCrate() override;
         void init() override;
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         bool onEnterLoitering() override;
         bool onEnterThrowing() override;

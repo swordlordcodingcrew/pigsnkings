@@ -3,32 +3,27 @@
 
 #pragma once
 
-#include <CollisionSprite.hpp>
-#include <src/actors/npc/Enemy.h>
-#include <src/actors/others/Cannon.h>
+#include <DangFwdDecl.h>
+//#include <src/actors/npc/Enemy.h>
+//#include <src/actors/others/Cannon.h>
 #include "HenchPig.h"
 
 namespace pnk
 {
-    struct tmx_spriteobject;
-    class Imagesheet;
-
-    using spSprite = std::shared_ptr<dang::Sprite>;
-    using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-    using spTweenable = std::shared_ptr<dang::Tweenable>;
-    using spCannon = std::shared_ptr<pnk::Cannon>;
+    class Cannon;
+    using spCannon = std::shared_ptr<Cannon>;
 
     class PigCannon : public HenchPig
     {
     public:
         PigCannon();
-        PigCannon(const dang::tmx_spriteobject* so, spImagesheet is);
+        PigCannon(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~PigCannon() override;
         void init();
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(spSprite other) override;
+        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         bool onEnterSleeping() override;
         bool onEnterThrowing() override;
@@ -38,7 +33,7 @@ namespace pnk
         virtual void lightingCannon();
         virtual void cannonIsLit();
 
-        spTwAnim _anim_m_match_lit;
+        dang::spTwAnim _anim_m_match_lit;
 
         spCannon _myCannon{nullptr};
 

@@ -42,7 +42,7 @@ namespace pnk
         this->HenchPig::update(dt);
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigCrate::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse PigCrate::getCollisionResponse(const spCollisionSprite& other)
     {
         return this->HenchPig::getCollisionResponse(other);
     }

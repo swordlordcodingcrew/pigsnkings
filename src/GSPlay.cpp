@@ -37,6 +37,7 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 #include "HUDLayer.hpp"
+#include "actors/others/Cannon.h"
 
 #include "tracks/gocryogo.h"
 #include "sfx/cannon_fire_22050_mono.h"

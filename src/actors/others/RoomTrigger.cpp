@@ -46,7 +46,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse RoomTrigger::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse RoomTrigger::getCollisionResponse(const spCollisionSprite& other)
     {
         if (other->_type_num == dang::SpriteType::KING)
         {

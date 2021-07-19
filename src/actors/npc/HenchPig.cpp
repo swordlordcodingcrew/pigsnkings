@@ -77,7 +77,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(spSprite other)
+    dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(const spCollisionSprite& other)
     {
         /** enemy is bubbled */
         if (_currentState == BUBBLED)
@@ -92,9 +92,7 @@ namespace pnk
         /** hit a platform hotrect */
         else if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
         {
-            spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
-
-            if (cs->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+            if (other->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
             {
                 _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             }
