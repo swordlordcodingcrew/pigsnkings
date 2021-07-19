@@ -92,7 +92,7 @@ namespace pnk
         static inline const std::string T_POTION_GREEN{"potion_green"};
         static inline const std::string T_POTION_RED{"potion_red"};
 
-        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite);
+        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs);
         static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);

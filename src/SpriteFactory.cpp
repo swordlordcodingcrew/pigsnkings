@@ -126,16 +126,15 @@ namespace pnk
         return ret;
     }
 
-    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::shared_ptr<dang::Sprite>& sprite)
+    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs)
     {
         if (so->bt.length() > 0)
         {
             std::shared_ptr<dang::NTree> ntr = txtr._gear->getNTree(so->bt);
             if (ntr != nullptr)
             {
-                sprite->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
+                cs->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
             }
-
         }
     }
 
