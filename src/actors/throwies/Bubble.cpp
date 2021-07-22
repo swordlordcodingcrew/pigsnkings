@@ -233,7 +233,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
     {
-        if (_state == bs_bursting)
+        if (_state == bs_bursting || _state == bs_wobbling)
         {
             return dang::CollisionSpriteLayer::CR_NONE;
         }
