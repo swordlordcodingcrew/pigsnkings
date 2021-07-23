@@ -48,6 +48,7 @@ namespace pnk
 
         void createBehaviourTrees(dang::Gear& gear);
 
+        void checkCheatActivation();
 
     protected:
         const dang::tmx_level*          _tmx;
@@ -66,8 +67,8 @@ namespace pnk
 
         // flow stuff
         ScreenPlay::act*        _active_act{nullptr};
-        int32_t                 _active_act_index{-1};
-        int8_t                 _active_level_index{-1};
+        int32_t                 _active_act_index{-1}; // which room are we in?
+        int8_t                 _active_level_index{-1}; // which level are we in?
         uint32_t                _last_time{0};
         bool                    _warp{false};
 

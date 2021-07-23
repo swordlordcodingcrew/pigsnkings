@@ -63,6 +63,7 @@
 #include <malloc.h>
 #include <libs/DANG/src/snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
+#include <sfx/cheat_22050_mono.h>
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
 
@@ -86,6 +87,9 @@ namespace pnk
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
 //        DEBUG_PRINT("GSPlay: play updatisng\n");
+
+        updateCheatKeyStream(blit::buttons.pressed);
+        checkCheatActivation();
 
 #ifdef PNK_DEBUG
         if (_last_time + 1000 < time)
@@ -795,5 +799,45 @@ namespace pnk
         DEBUG_PRINT("Changing level to %d\n\r", level_nr);
     }
 
+    void GSPlay::checkCheatActivation()
+    {
+        // inspector gadget for snes, debug menu
+        if(_pnk.cheatKeyStream == "DLRULLLL")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            DEBUG_PRINT("Cheat activated: Back to last room.\r\n");
+
+            changeRoom(_active_act_index - 1, true);
+        }
+        else if(_pnk.cheatKeyStream == "DLRURRRR")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            DEBUG_PRINT("Cheat activated: Forward to next room.\r\n");
+
+            changeRoom(_active_act_index + 1, true);
+        }
+        else if(_pnk.cheatKeyStream == "DLRUUUUU")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            DEBUG_PRINT("Cheat activated: Up to the next level.\r\n");
+
+            changeLevel(_active_level_index + 1);
+        }
+        else if(_pnk.cheatKeyStream == "DLRUDDDD")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            DEBUG_PRINT("Cheat activated: Down to the last level.\r\n");
+
+            changeLevel(_active_level_index - 1);
+        }
+    }
 }
 

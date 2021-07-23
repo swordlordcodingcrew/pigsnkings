@@ -25,6 +25,7 @@ namespace pnk
 
         void positionCandles();
         void playOink();
+        void checkCheatActivation();
 
         /**
          * rsrc for the home state

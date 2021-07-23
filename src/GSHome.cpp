@@ -21,7 +21,6 @@
 
 #include "32blit.hpp"
 
-//#include "rsrc/gfx/tiles_bg_png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
@@ -33,11 +32,12 @@
 #include "rsrc/main_1.tmx.hpp"
 //#include "tracks/gocryogo.h"
 #include "tracks/etheric_xm.h"
+#include "sfx/pig_squeal_22050_mono.h"
+#include "sfx/cheat_22050_mono.h"
 
 #include <cassert>
 #include <iostream>
 #include <sstream>
-#include <sfx/pig_squeal_22050_mono.h>
 
 namespace pnk
 {
@@ -103,7 +103,7 @@ namespace pnk
         DEBUG_PRINT("GSHome: entering\n");
 
         // set up music
-        dang::SndGear::playXM(etheric_xm, etheric_xm_length, _pnk._prefs.volume_track);
+        //dang::SndGear::playXM(etheric_xm, etheric_xm_length, _pnk._prefs.volume_track);
 
         // set up state
         _tmx = &main_1_level;
@@ -301,6 +301,28 @@ namespace pnk
         if(val == 1)
         {
             dang::SndGear::playSfx(pig_squeal_22050, pig_squeal_22050_length, _pnk._prefs.volume_sfx);
+        }
+    }
+
+    void GSHome::checkCheatActivation()
+    {
+        // inspector gadget for snes, debug menu
+        if(_pnk.cheatKeyStream == "DDULRDRL")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+
+            // flip and tell user (when debugging)
+            _pnk._prefs.invincible = !_pnk._prefs.invincible;
+            if(_pnk._prefs.invincible)
+            {
+                DEBUG_PRINT("I am invincible, as long as I’m alive.\r\n");
+            }
+            else
+            {
+                DEBUG_PRINT("History has shown there are no invincible Kings.\r\n");
+            }
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
         }
     }
 }
