@@ -88,6 +88,7 @@ namespace pnk
 
         gamestate       _gamestate; // state of current game
         prefs           _prefs; // world preferences
+        std::string     cheatKeyStream = "12345678";
 
     protected:
 

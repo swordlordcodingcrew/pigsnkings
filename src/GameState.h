@@ -61,6 +61,8 @@ namespace pnk
         virtual std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) = 0;
         virtual void enter(dang::Gear& gear, uint32_t time) = 0;
         virtual void exit(dang::Gear& gear, uint32_t time) = 0;
+
+        virtual void updateCheatKeyStream(uint32_t pressed);
     };
 
 }

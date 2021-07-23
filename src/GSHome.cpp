@@ -43,6 +43,9 @@ namespace pnk
 {
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
+        updateCheatKeyStream(blit::buttons.pressed);
+        checkCheatActivation();
+
         // if button x is pressed load the selected state
         if (blit::buttons.pressed & blit::Button::A)
         {
