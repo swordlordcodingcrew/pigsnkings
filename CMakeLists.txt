@@ -53,6 +53,7 @@ set(SOURCES
         sfx/bomb_explode_22050_mono.h
         sfx/bubble_pop_22050_mono.h
         sfx/cannon_fire_22050_mono.h
+        sfx/cheat_22050_mono.h
         sfx/coin_22050_mono.h
         sfx/crate_explode_22050_mono.h
         sfx/defeat_22050_mono.h
