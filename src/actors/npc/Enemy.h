@@ -52,6 +52,7 @@ namespace pnk
         static dang::BTNode::Status NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTfindNearestWaypoint(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTfindNearestWaypointH(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTSleep(std::shared_ptr<Sprite> s);
 
         /** path params */
         dang::spSceneGraph              _scene_graph{nullptr};

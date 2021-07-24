@@ -206,6 +206,7 @@ namespace pnk
         // TODO depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
         removeTweens(true);
         _currentState = BUBBLED;
+        _btDepot = std::move(_nTreeState);
         return true;
     }
 
@@ -224,6 +225,8 @@ namespace pnk
     {
         // TODO Pigs are aggressive when debubbled,
         // don't just loiter, piggie!
+        _nTreeState = std::move(_btDepot);
+
         _gravity = PigsnKings::_gravity;
         removeAnimation();
         _anim_m_loitering->reset();

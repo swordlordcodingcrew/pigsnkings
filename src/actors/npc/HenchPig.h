@@ -49,6 +49,9 @@ namespace pnk
         dang::spTwAnim _anim_m_bubbling;
     protected:
 
+        // inactive bt
+        dang::spNTreeState _btDepot{nullptr};
+
         virtual void tellTheKingWeHitHim();
 
         // the state the pig is in
