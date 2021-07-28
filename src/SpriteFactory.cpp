@@ -523,10 +523,10 @@ namespace pnk
     {
         for (auto room : sp->_acts)
         {
-            if (room._extent_pixels.contains(spr->getPos()))
+            if (room._extent_pixels.contains(spr->getPos()) && !room._scene_graph->getWaypoints().empty())
             {
                 spr->_scene_graph = room._scene_graph;
-                dang::spWaypoint wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectAbs().center());
+                const dang::Waypoint* wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectAbs().center());
                 if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
                 {
                     spr->_current_wp = wp;
