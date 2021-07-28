@@ -92,7 +92,7 @@ namespace pnk
         nullTw->setFinishedCallback(std::bind(&PigCannon::endSleeping, this));
         addTween(nullTw);
 
-        std::cout << "sleep entered " << std::endl;
+//        std::cout << "sleep entered " << std::endl;
 
         return true;
     }
