@@ -41,7 +41,9 @@ namespace pnk
 
     PigCannon::~PigCannon()
     {
+#ifdef PNK_DEBUG
         std::cout << "PigCannoneer destructor" << std::endl;
+#endif
     }
 
     void PigCannon::update(uint32_t dt)

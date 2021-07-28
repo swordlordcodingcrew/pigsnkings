@@ -8,6 +8,7 @@
 #include <DangFwdDecl.h>
 
 #include <CollisionSprite.hpp>
+#include <bt/BTNode.h>
 
 namespace pnk
 {

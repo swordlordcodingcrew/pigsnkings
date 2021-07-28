@@ -46,7 +46,9 @@ namespace pnk
     {
         _path.clear();
 
+#ifdef PNK_DEBUG
         std::cout << "enemy destructor" << std::endl;
+#endif
     }
 
     dang::BTNode::Status Enemy::checkPathCompleted()

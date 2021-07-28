@@ -34,7 +34,9 @@ namespace pnk
 
     PigCrate::~PigCrate()
     {
+#ifdef PNK_DEBUG
         std::cout << "PigCrate destructor" << std::endl;
+#endif
     }
 
     void PigCrate::update(uint32_t dt)

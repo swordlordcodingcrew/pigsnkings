@@ -71,7 +71,9 @@ namespace pnk
 
     Reward::~Reward()
     {
-        //std::cout << "reward destructor" << std::endl;
+#ifdef PNK_DEBUG
+        std::cout << "reward destructor" << std::endl;
+#endif
     }
 
     void Reward::update(uint32_t dt)

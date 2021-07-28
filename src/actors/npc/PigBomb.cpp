@@ -35,7 +35,9 @@ namespace pnk
 
     PigBomb::~PigBomb()
     {
+#ifdef PNK_DEBUG
         std::cout << "PigBomb destructor" << std::endl;
+#endif
     }
 
     void PigBomb::update(uint32_t dt)

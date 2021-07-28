@@ -40,7 +40,9 @@ namespace pnk
 
     HenchPig::~HenchPig()
     {
+#ifdef PNK_DEBUG
         std::cout << "HenchPig destructor" << std::endl;
+#endif
     }
 
     void HenchPig::update(uint32_t dt)
