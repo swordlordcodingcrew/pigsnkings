@@ -136,8 +136,8 @@ namespace pnk
         blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
         if (_mem < mallinfo().uordblks)
         {
+            std::cout << " heap: " << std::to_string(_mem) << ", increase: " << mallinfo().uordblks - _mem << std::endl;
             _mem = mallinfo().uordblks;
-            std::cout << " heap: " << std::to_string(_mem) << std::endl;
         }
 #endif
     }
