@@ -290,8 +290,9 @@ namespace pnk
         _btns.clear();
         _sprLeftCandle.reset();
         _sprRightCandle.reset();
+        _tmx = nullptr;
 
-        _pnk.removeImagesheets();
+        gear.removeImagesheets();
 
         // clear gear
         gear.removeLayers();

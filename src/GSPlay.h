@@ -51,8 +51,8 @@ namespace pnk
         void checkCheatActivation();
 
     protected:
-        const dang::tmx_level*          _tmx;
-        std::shared_ptr<ScreenPlay>     _screenplay;
+        const dang::tmx_level*          _tmx{nullptr};
+        std::shared_ptr<ScreenPlay>     _screenplay{nullptr};
 
         // the king
         std::shared_ptr<pnk::Hero> _spr_hero{nullptr};

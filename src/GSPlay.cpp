@@ -417,20 +417,26 @@ namespace pnk
 
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
+        _sub_ref = 0;
 
         _spr_hero.reset();
         _screenplay.reset();
         _csl.reset();
         _hives.clear();
+        _tmx = nullptr;
+        _active_act = nullptr;
+        _active_act_index = -1;
+        _active_level_index = -1;
+        _last_time = 0;
+        _warp = false;
 
         // remove images
-        _pnk.removeImagesheets();
+        gear.removeImagesheets();
 
         // remove layers
         gear.removeLayers();
 
         // remove behaviour trees
-//        gear.removeBehaviourTrees();
         gear.removeNTrees();
 
         dang::SndGear::stopMod();

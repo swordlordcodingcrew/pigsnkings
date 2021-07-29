@@ -30,7 +30,7 @@ namespace pnk
         /**
          * rsrc for the home state
          */
-        const dang::tmx_level* _tmx;
+        const dang::tmx_level* _tmx{nullptr};
 
         /**
          * rsrc-names
