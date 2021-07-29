@@ -1,6 +1,7 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
+#include <iostream>
 #include "PnkEvent.h"
 #include "Event.hpp"
 
@@ -14,6 +15,7 @@ namespace pnk
 
     PnkEvent::~PnkEvent()
     {
+//        std::cout << "PnkEvent destructor" << std::endl;
         _spr.reset();
     }
 

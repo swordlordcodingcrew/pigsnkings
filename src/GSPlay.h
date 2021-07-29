@@ -60,7 +60,7 @@ namespace pnk
         // the layer in which the game takes place
         std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
 
-        std::map<std::string, spCollisionSprite> _hives;
+        std::unordered_map<std::string, spCollisionSprite> _hives;
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
