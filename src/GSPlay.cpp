@@ -802,7 +802,7 @@ namespace pnk
     void GSPlay::checkCheatActivation()
     {
         // inspector gadget for snes, debug menu
-        if(_pnk.cheatKeyStream == "DLRULLLL")
+        if(_pnk.cheatKeyStream == "XXDLRULL")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
@@ -811,7 +811,7 @@ namespace pnk
 
             changeRoom(_active_act_index - 1, true);
         }
-        else if(_pnk.cheatKeyStream == "DLRURRRR")
+        else if(_pnk.cheatKeyStream == "XXDLRURR")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
@@ -820,7 +820,7 @@ namespace pnk
 
             changeRoom(_active_act_index + 1, true);
         }
-        else if(_pnk.cheatKeyStream == "DLRUUUUU")
+        else if(_pnk.cheatKeyStream == "XXDLRUUU")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
@@ -829,7 +829,7 @@ namespace pnk
 
             changeLevel(_active_level_index + 1);
         }
-        else if(_pnk.cheatKeyStream == "DLRUDDDD")
+        else if(_pnk.cheatKeyStream == "XXDLRUDD")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
