@@ -149,43 +149,6 @@ namespace pnk
 
         gear.addNTree("loiter", tr);
 
-/*        auto trInsan = dang::Builder{}
-                .sequence()
-                    .leaf(dang::Sprite::BTIsHeroAround)
-                    .leaf(dang::Sprite::BTLoiter)
-                    .leaf(PigCrate::BTThrowCrate)
-                .end()
-                .build();
-
-        gear.addBehaviourTree("insanity", std::make_shared<dang::BehaviourTree>(trInsan));
-
-        auto treeCratePig = dang::Builder{}
-                .sequence()
-                    .leaf(dang::Sprite::BTLoiter)
-                    .leaf(dang::Sprite::BTIsHeroAround)
-                    .leaf(PigCrate::BTHideInCrate)
-                    .void_leaf(&dang::Sprite::eat_food) // Void member function
-                .end()
-                .build();
-
-        gear.addBehaviourTree("cratepig", std::make_shared<dang::BehaviourTree>(treeCratePig));
-
-        auto treeRandomLoiter = dang::Builder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::BTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::BTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::BTfindNearestWaypointH)
-                    .leaf(Enemy::BTcheckPathCompleted)
-                .end()
-//                    .leaf(Enemy::BTsleep)
-            .end()
-        .build();
-
-//        gear.addBehaviourTree("loiter", std::make_shared<dang::BehaviourTree>(treeRandomLoiter));
-*/
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
@@ -210,10 +173,40 @@ namespace pnk
 
         dang::SndGear::playMod(gocryogo_mod, gocryogo_mod_length, _pnk._prefs.volume_track);
 
-        DEBUG_PRINT("GSPlay: choose level (%d)\n", mallinfo().uordblks);
+        loadLevel(_pnk._gamestate.active_level);
+
+        DEBUG_PRINT("GSPlay: callbacks\n");
+
+        // add event callback
+        std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
+        _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
+
+        DEBUG_PRINT("GSPlay: entered, let the games begin\n");
+    }
+
+    void GSPlay::exit(dang::Gear &gear, uint32_t time)
+    {
+        DEBUG_PRINT("GSPlay: enter exit()\n");
+
+        // remove callback
+        _pnk._dispatcher.removeSubscriber(_sub_ref);
+        _sub_ref = 0;
+
+        freeCurrentLevel();
+
+        dang::SndGear::stopMod();
+
+//         _pnk._prefs.active_room = _active_act_index;
+
+        DEBUG_PRINT("GSPlay: exit exit()\n");
+    }
+
+    void GSPlay::loadLevel(int8_t level_nr)
+    {
+        DEBUG_PRINT("GSPlay: load level %d (%d)\n", level_nr, mallinfo().uordblks);
 
         // choose level acc. to pnk
-        switch(_pnk._gamestate.active_level)
+        switch(level_nr)
         {
             case 1:
             default:
@@ -225,6 +218,8 @@ namespace pnk
                 _tmx = &level_2_level;
                 break;
         }
+
+        dang::Gear& gear = _pnk.getGear();
 
         // create behaviour trees
         // TODO should probably move up into the level specific setup
@@ -405,24 +400,10 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
-
-        DEBUG_PRINT("GSPlay: callbacks\n");
-
-        // add event callback
-        std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
-        _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
-
-        DEBUG_PRINT("GSPlay: entered, let the games begin\n");
     }
 
-    void GSPlay::exit(dang::Gear &gear, uint32_t time)
+    void GSPlay::freeCurrentLevel()
     {
-        DEBUG_PRINT("GSPlay: enter exit()\n");
-
-        // remove callback
-        _pnk._dispatcher.removeSubscriber(_sub_ref);
-        _sub_ref = 0;
-
         _spr_hero.reset();
         _screenplay.reset();
         _csl.reset();
@@ -430,9 +411,10 @@ namespace pnk
         _tmx = nullptr;
         _active_act = nullptr;
         _active_act_index = -1;
-        _active_level_index = -1;
         _last_time = 0;
         _warp = false;
+
+        dang::Gear& gear = _pnk.getGear();
 
         // remove images
         gear.removeImagesheets();
@@ -442,19 +424,8 @@ namespace pnk
 
         // remove behaviour trees
         gear.removeNTrees();
-
-        dang::SndGear::stopMod();
-
-//         _pnk._prefs.active_room = _active_act_index;
-
-        DEBUG_PRINT("GSPlay: exit exit()");
     }
 
-/*    void GSPlay::initGameVars()
-    {
-        _pnk.initGameVars();
-    }
-*/
     void GSPlay::gameEventReceived(dang::Event &e)
     {
         PnkEvent& pe = static_cast<PnkEvent&>(e);
@@ -524,7 +495,7 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_LEVEL)
         {
-            if (pe._payload != _active_level_index)
+            if (pe._payload != _pnk._gamestate.active_level)
             {
                 changeLevel(pe._payload);
             }
@@ -807,12 +778,16 @@ namespace pnk
     void GSPlay::changeLevel(int8_t level_nr)
     {
         DEBUG_PRINT("Changing level to %d\n\r", level_nr);
+        freeCurrentLevel();
+
+        // TODO check level_nr for bounds
+        loadLevel(level_nr);
     }
 
     void GSPlay::checkCheatActivation()
     {
         // inspector gadget for snes, debug menu
-        if(_pnk.cheatKeyStream == "DLRULLLL")
+        if(_pnk.cheatKeyStream == "XXDLRULL")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
@@ -821,7 +796,7 @@ namespace pnk
 
             changeRoom(_active_act_index - 1, true);
         }
-        else if(_pnk.cheatKeyStream == "DLRURRRR")
+        else if(_pnk.cheatKeyStream == "XXDLRURR")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
@@ -830,23 +805,23 @@ namespace pnk
 
             changeRoom(_active_act_index + 1, true);
         }
-        else if(_pnk.cheatKeyStream == "DLRUUUUU")
+        else if(_pnk.cheatKeyStream == "XXDLRUUU")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Up to the next level.\r\n");
 
-            changeLevel(_active_level_index + 1);
+            changeLevel(_pnk._gamestate.active_level + 1);
         }
-        else if(_pnk.cheatKeyStream == "DLRUDDDD")
+        else if(_pnk.cheatKeyStream == "XXDLRUDD")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Down to the last level.\r\n");
 
-            changeLevel(_active_level_index - 1);
+            changeLevel(_pnk._gamestate.active_level - 1);
         }
     }
 }

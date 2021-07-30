@@ -485,28 +485,24 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
     .spriteobejcts_len = level_2_lvl_2_hud_objects_len
 };
 
-// Objects for layer: lvl_2_paths
-static const dang::tmx_spriteobject level_2_lvl_2_paths_objects[] = {
-
-
+// layer with points - path layer
+static const dang::tmx_waypoint level_2_waypoints[] = {
+    {270, 1664,442, 0x0},
+    {271, 1728,474, 0x0},
+    {272, 1792,474, 0x0},
+    {273, 1856,442, 0x0},
 };
 
-static const size_t level_2_lvl_2_paths_objects_len = 0;
+static const size_t level_2_waypoints_len = 4;
 
-static const dang::tmx_layer level_2_lvl_2_paths = {
-    .name = "lvl_2_paths",
-    .type = dang::tmx_layerType::ltObjects,
-    .opacity = 1,
-    .visible = true,
-    .z_order = 5,
-    .tl_width = 0,
-    .tl_height = 0,
-    .tl_tileset = "",
-    .tl_tiles = nullptr,
-    .tl_tiles_len = 0,
-    .spriteobjects = level_2_lvl_2_paths_objects,
-    .spriteobejcts_len = level_2_lvl_2_paths_objects_len
+static const dang::tmx_waypoint_connection level_2_connections[] = {
+    {270, 271, 0x1},
+    {271, 272, 0x1},
+    {272, 273, 0x2},
+    {273, 272, 0x1},
 };
+
+static const size_t level_2_connections_len = 4;
 
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,
@@ -527,10 +523,10 @@ static const dang::tmx_level level_2_level {
     .tileanimations_len = level_2_tileanimations_len,
     .layers = level_2_layers,
     .layers_len = level_2_layers_len,
-    .waypoints = nullptr,
-    .waypoints_len = 0,
-    .waypoint_connections = nullptr,
-    .waypoint_connections_len = 0
+    .waypoints = level_2_waypoints,
+    .waypoints_len = level_2_waypoints_len,
+    .waypoint_connections = level_2_connections,
+    .waypoint_connections_len = level_2_connections_len
 };
 
 

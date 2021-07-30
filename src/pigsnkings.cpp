@@ -40,8 +40,6 @@ namespace pnk
      */
     const dang::Vector2F PigsnKings::_gravity = {0, 8.0};
 
-
-
     /**
      * main class
      */
@@ -148,6 +146,10 @@ namespace pnk
         _gear.removeImagesheets();
     }
 
+    dang::Gear& PigsnKings::getGear()
+    {
+        return _gear;
+    }
 
 }
 
