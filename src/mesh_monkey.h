@@ -2,6 +2,7 @@
 #define MESH_H
 
 #include <stdint-gcc.h>
+#include "type.h"
 
 #define NODECOUNT 122
 #define TRICOUNT 223

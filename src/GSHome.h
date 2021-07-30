@@ -44,13 +44,13 @@ namespace pnk
          */
          struct sel_struct
          {
-             spSprite btn;
-             spTwAnim anim;
+             dang::spSprite btn;
+             dang::spTwAnim anim;
              int img_index;
          };
         std::vector<sel_struct> _btns;
 
-        spSprite _sprLeftCandle{nullptr};
-        spSprite _sprRightCandle{nullptr};
+        dang::spSprite _sprLeftCandle{nullptr};
+        dang::spSprite _sprRightCandle{nullptr};
     };
 }

@@ -1,20 +1,21 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <iostream>
+#include "src/pnk_globals.h"
+#include "src/PnkEvent.h"
+//#include "src/GSPlay.h"
+//#include "src/SpriteFactory.hpp"
+#include "src/pigsnkings.hpp"
+#include "HenchPig.h"
+//#include "Enemy.h"
 
 #include <tween/TwAnim.hpp>
+#include <tween/TwNull.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 
-#include "src/pnk_globals.h"
-#include "src/PnkEvent.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
-#include "src/pigsnkings.hpp"
+#include <iostream>
 
-#include "HenchPig.h"
-#include "Enemy.h"
 
 namespace pnk
 {
@@ -79,7 +80,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(const spCollisionSprite& other)
+    dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         /** enemy is bubbled */
         if (_currentState == BUBBLED)
@@ -114,7 +115,7 @@ namespace pnk
 
     void HenchPig::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
+        dang::spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
 
         if (sprOther->_type_num == dang::SpriteType::KING)
         {
@@ -162,7 +163,7 @@ namespace pnk
 
         removeTweens(true);
 
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 1));
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
         addTween(nullTw);
 
@@ -184,7 +185,7 @@ namespace pnk
 
         _currentState = LOITERING;
 
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 1));
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
         addTween(nullTw);
 

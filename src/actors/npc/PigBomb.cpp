@@ -1,19 +1,22 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <tween/TwAnim.hpp>
-#include <Imagesheet.hpp>
-#include <iostream>
-
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
 
 #include "PigBomb.h"
+
+#include "src/pigsnkings.hpp"
 #include "src/pnk_globals.h"
-#include "Enemy.h"
+//#include "Enemy.h"
 #include "src/PnkEvent.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
+//#include "src/GSPlay.h"
+//#include "src/SpriteFactory.hpp"
+
+#include <tween/TwAnim.hpp>
+#include <tween/TwNull.hpp>
+#include <Imagesheet.hpp>
+#include <TmxExtruder.hpp>
+
+#include <iostream>
 
 namespace pnk
 {
@@ -64,7 +67,7 @@ namespace pnk
 
         _currentState = LOITERING;
 
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
         nullTw->setFinishedCallback(std::bind(&PigBomb::endLoitering, this));
         addTween(nullTw);
 
@@ -80,11 +83,11 @@ namespace pnk
 
         _currentState = THROWING;
 
-        spTwNull twPrepare = std::make_shared<dang::TwNull>(dang::TwNull(300, dang::Ease::Linear, 0));
+        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
         twPrepare->setFinishedCallback(std::bind(&PigBomb::throwing, this));
         addTween(twPrepare);
 
-        spTwNull twThrown = std::make_shared<dang::TwNull>(dang::TwNull(700, dang::Ease::Linear, 0));
+        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(700, dang::Ease::Linear, 0);
         twThrown->setFinishedCallback(std::bind(&PigBomb::endThrowing, this));
         addTween(twThrown);
 

@@ -101,7 +101,7 @@ namespace pnk
             // alter animation
             removeAnimation(true);
 
-            spTwAnim anim_poof;
+            dang::spTwAnim anim_poof;
 
             switch (this->_type_num)
             {

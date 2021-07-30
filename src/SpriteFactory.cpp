@@ -21,6 +21,7 @@
 #include "tween/TwAnim.hpp"
 #include "tween/Ease.hpp"
 #include "path/SceneGraph.hpp"
+#include <Gear.hpp>
 
 #include "SpriteFactory.hpp"
 #include "src/actors/hero/Hero.h"
@@ -30,6 +31,8 @@
 #include "PnkEvent.h"
 
 #include "GSPlay.h"
+
+#include <32blit.hpp>
 
 namespace pnk
 {

@@ -7,10 +7,13 @@
 #include "HUDLayer.hpp"
 #include "Sprite.hpp"
 #include "Gear.hpp"
-#include "GameState.h"
+//#include "GameState.h"
+#include "pigsnkings.hpp"
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
     HUDLayer::HUDLayer() : BaseHUDLayer()
     {
         foregroundColour = blit::Pen(63, 56, 81, 255);

@@ -84,6 +84,10 @@ extern char _sbss, _end, __ltdc_start;
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
+    using spHUDLayer = std::shared_ptr<HUDLayer>;
+
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
 //        DEBUG_PRINT("GSPlay: play updatisng\n");

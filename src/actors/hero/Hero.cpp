@@ -81,7 +81,7 @@ namespace pnk
                         ax = mf.normalOther.x > 0 ? -9 : 9;
                     }
                 }
-                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, _pnk._gravity, 1000, dang::Ease::InQuad);
+                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
                 addTween(twa);
 
             }

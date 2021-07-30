@@ -16,11 +16,13 @@
 #include "Layer.hpp"
 #include "Imagesheet.hpp"
 
-#include "type.h"
+//#include "type.h"
 #include "mesh_monkey.h"
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
     SettingsLayer::SettingsLayer() : Layer(dang::Layer::LT_UNDEFINED)
     {
         backgroundColour = blit::Pen(255, 255, 255, 255);
@@ -32,20 +34,20 @@ namespace pnk
         displayRect = blit::Rect(0, 0, blit::screen.bounds.w, blit::screen.bounds.h);
         blit::screen.rectangle(displayRect);
 
-        _prefs.resize(_pnk.ENDOF_PREFS, {"unset", 1, STEP_10});
+        _prefs.resize(PigsnKings::ENDOF_PREFS, {"unset", 1, STEP_10});
 
-        _prefs.at(_pnk.TRACKS).caption = "Music";
-        _prefs.at(_pnk.TRACKS).curVal = _pnk._prefs.volume_track;
+        _prefs.at(PigsnKings::TRACKS).caption = "Music";
+        _prefs.at(PigsnKings::TRACKS).curVal = _pnk._prefs.volume_track;
 
-        _prefs.at(_pnk.SFX).caption = "Sound FX";
-        _prefs.at(_pnk.SFX).curVal = _pnk._prefs.volume_sfx;
+        _prefs.at(PigsnKings::SFX).caption = "Sound FX";
+        _prefs.at(PigsnKings::SFX).curVal = _pnk._prefs.volume_sfx;
 
-        _prefs.at(_pnk.VOLUME).caption = "Volume";
-        _prefs.at(_pnk.VOLUME).curVal = 1; // blit persist.volume
+        _prefs.at(PigsnKings::VOLUME).caption = "Volume";
+        _prefs.at(PigsnKings::VOLUME).curVal = 1; // blit persist.volume
 
-        _prefs.at(_pnk.GAMESAVESLOT).caption = "Gameslot";
-        _prefs.at(_pnk.GAMESAVESLOT).curVal = _pnk._prefs.currentGameSaveSlot;
-        _prefs.at(_pnk.GAMESAVESLOT).type = GAMESLOT; // 1-4
+        _prefs.at(PigsnKings::GAMESAVESLOT).caption = "Gameslot";
+        _prefs.at(PigsnKings::GAMESAVESLOT).curVal = _pnk._prefs.currentGameSaveSlot;
+        _prefs.at(PigsnKings::GAMESAVESLOT).type = GAMESLOT; // 1-4
 
         _is_castle = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 12, 8);
         _is_hud = std::make_shared<dang::Imagesheet>("hud_ui", &hud_ui, 15, 7);

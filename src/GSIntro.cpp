@@ -10,6 +10,8 @@
 
 #include "GSIntro.h"
 #include "GSHome.h"
+#include "pnk_globals.h"
+
 #include "rsrc/gfx/sl_shield_32blit.png.h"
 
 namespace pnk
@@ -36,7 +38,7 @@ namespace pnk
         DEBUG_PRINT("GSIntro: viewport set\n");
 
 //        dang::SizeU size(104, 200);
-        spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", &img_sl_shield);
+        dang::spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", &img_sl_shield);
 
         DEBUG_PRINT("GSIntro: imagesheet loaded");
         std::shared_ptr<dang::SimpleImageLayer> sil = std::make_shared<dang::SimpleImageLayer>(is);

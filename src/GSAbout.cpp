@@ -1,20 +1,24 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <Gear.hpp>
-#include <32blit.hpp>
 
 #include "GSAbout.h"
 #include "GSHome.h"
 #include "ScrolltextLayer.h"
-
+#include "pigsnkings.hpp"
 #include "tracks/u4iasmok.h"
 
+#include <32blit.hpp>
+
+#include <Gear.hpp>
+#include <snd/SndGear.hpp>
+
 #include <cassert>
-#include <libs/DANG/src/snd/SndGear.hpp>
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
     std::shared_ptr<GameState> pnk::GSAbout::update(dang::Gear& gear, uint32_t time)
     {
         if (blit::buttons.pressed & blit::Button::X)

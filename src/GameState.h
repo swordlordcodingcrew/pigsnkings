@@ -3,50 +3,20 @@
 
 #pragma once
 
-#include "pigsnkings.hpp"
-#include <memory>
-#include <tween/TwSequence.hpp>
-#include <tween/TwNull.hpp>
+#include <DangFwdDecl.h>
 
-namespace dang
-{
-    class Gear;
-    class Layer;
-    class Sprite;
-    class CollisionSpriteLayer;
-    class SpriteLayer;
-    class TileLayer;
-    class CollisionSprite;
-    class Imagesheet;
-    class TwAnim;
-}
+#include <memory>
+
 namespace pnk
 {
     class HUDLayer;
-}
-
-using spSprite = std::shared_ptr<dang::Sprite>;
-using spLayer = std::shared_ptr<dang::Layer>;
-using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
-using spSpriteLayer = std::shared_ptr<dang::SpriteLayer>;
-using spHUDLayer = std::shared_ptr<pnk::HUDLayer>;
-using spTileLayer = std::shared_ptr<dang::TileLayer>;
-using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
-using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-using spTwAnim = std::shared_ptr<dang::TwAnim>;
-
-using spTwSeq = std::shared_ptr<dang::TwSequence>;
-using spTwNull = std::shared_ptr<dang::TwNull>;
-
-namespace pnk
-{
-    extern PigsnKings _pnk;
 
     class GSIntro;
     class GSHome;
     class GSPlay;
     class GSAbout;
     class GSPrefs;
+
 
     class GameState
     {

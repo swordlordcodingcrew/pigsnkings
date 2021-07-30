@@ -1,20 +1,24 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <tween/TwAnim.hpp>
-#include <Imagesheet.hpp>
-#include <iostream>
-
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
 
 #include "PigCannon.h"
+#include "../others/Cannon.h"
+#include "src/pigsnkings.hpp"
+
+//#include "TmxExtruder.hpp"
+
 #include "src/pnk_globals.h"
-#include "Enemy.h"
+//#include "Enemy.h"
 #include "src/PnkEvent.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
-#include "src/actors/others/Cannon.h"
+//#include "src/GSPlay.h"
+//#include "src/SpriteFactory.hpp"
+
+#include <tween/TwAnim.hpp>
+#include <tween/TwNull.hpp>
+#include <Imagesheet.hpp>
+
+#include <iostream>
 
 namespace pnk
 {
@@ -69,7 +73,7 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigCannon::getCollisionResponse(const spCollisionSprite& other)
+    dang::CollisionSpriteLayer::eCollisionResponse PigCannon::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         return this->HenchPig::getCollisionResponse(other);
     }
@@ -88,7 +92,7 @@ namespace pnk
 
         // TODO have a behaviour tree exit sleeping
         removeTweens(true);
-        spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(2000, dang::Ease::Linear, 1));
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(2000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&PigCannon::endSleeping, this));
         addTween(nullTw);
 

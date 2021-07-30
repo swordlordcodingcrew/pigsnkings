@@ -1,9 +1,10 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <engine/input.hpp>
-#include <graphics/sprite.hpp>
+//#include <engine/input.hpp>
+//#include <graphics/sprite.hpp>
 #include <libs/DANG/src/snd/SndGear.hpp>
+#include "src/pigsnkings.hpp"
 
 #include "MotionState.h"
 #include "src/actors/hero/Hero.h"
@@ -15,6 +16,8 @@
 
 namespace pnk
 {
+
+    extern PigsnKings _pnk;
 
     /************************************************************************
      * class Herostate base class
