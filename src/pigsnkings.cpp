@@ -133,9 +133,9 @@ namespace pnk
 
 #ifdef PNK_DEBUG_MEM
         blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
-        if (_mem < mallinfo().uordblks / 1024)
+        if (_mem != mallinfo().uordblks / 1024)
         {
-            std::cout << "heap=" << std::to_string(_mem) << "k, inc=" << (mallinfo().uordblks/1024 - _mem) << "k" << std::endl;
+            std::cout << "heap=" << std::to_string(_mem) << "k, delta=" << (mallinfo().uordblks/1024 - _mem) << "k" << std::endl;
             _mem = mallinfo().uordblks / 1024;
         }
 #endif
