@@ -5,15 +5,8 @@
 
 #include <memory>
 #include <tween/TwAnim.hpp>
-//#include "pnk_globals.h"
 #include "src/GSPlay.h"
 #include "src/actors/hero/Hero.h"
-
-
-#define HERO_JUMP blit::Button::A
-
-#define HERO_WALK_L blit::Button::DPAD_LEFT
-#define HERO_WALK_R blit::Button::DPAD_RIGHT
 
 namespace pnk
 {

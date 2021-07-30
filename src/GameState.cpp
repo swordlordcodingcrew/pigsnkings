@@ -7,9 +7,14 @@
 #include "GSPlay.h"
 #include "GSAbout.h"
 #include "GSPrefs.h"
+#include "pigsnkings.hpp"
+
+#include <32blit.hpp>
+
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
 
     std::shared_ptr<GSIntro> GameState::_gs_intro = std::make_shared<GSIntro>();
     std::shared_ptr<GSHome> GameState::_gs_home = std::make_shared<GSHome>();

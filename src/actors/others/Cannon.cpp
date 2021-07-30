@@ -39,7 +39,9 @@ namespace pnk
 
     Cannon::~Cannon()
     {
+#ifdef PNK_DEBUG
         std::cout << "Cannon destructor" << std::endl;
+#endif
     }
 
     void Cannon::update(uint32_t dt)

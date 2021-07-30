@@ -46,7 +46,9 @@ namespace pnk
     {
         _path.clear();
 
+#ifdef PNK_DEBUG
         std::cout << "enemy destructor" << std::endl;
+#endif
     }
 
     dang::BTNode::Status Enemy::checkPathCompleted()
@@ -98,8 +100,8 @@ namespace pnk
 
     dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
     {
-        dang::spWaypoint start = _current_wp.lock();
-        dang::spWaypoint dest = _scene_graph->getWaypointWithType(depot_type);
+        dang::Waypoint* start = const_cast<dang::Waypoint*>(_current_wp);
+        const dang::Waypoint* dest = _scene_graph->getWaypointWithType(depot_type);
 
         if (dest != start)
         {
@@ -141,21 +143,16 @@ namespace pnk
                 return dang::BTNode::Status::FAILURE;
             }
 
-            dang::spWaypoint w = _path[_path_index].lock();
-            if (w)
+            // if the sprite went too far, turn around and go slower
+            const dang::Waypoint* w = _path.at(_path_index);
+            if ((_vel.x < 0 && getHotrectAbs().center().x < w->_pos.x) || (_vel.x > 0 && getHotrectAbs().center().x > w->_pos.x))
             {
-                // if the sprite went too far, turn around and go slower
-                if ((_vel.x < 0 && getHotrectAbs().center().x < w->_pos.x) || (_vel.x > 0 && getHotrectAbs().center().x > w->_pos.x))
-                {
-                    _vel.x = -_vel.x;
-                    _transform = _vel.x > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-                    _vel.x /= 2;
-                }
-
-                return dang::BTNode::Status::RUNNING;
+                _vel.x = -_vel.x;
+                _transform = _vel.x > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+                _vel.x /= 2;
             }
 
-            return dang::BTNode::Status::FAILURE;
+            return dang::BTNode::Status::RUNNING;
 
         }
 
@@ -163,91 +160,91 @@ namespace pnk
 
     void Enemy::startOutToWaypoint()
     {
-        dang::wpWaypoint wp = _path[_path_index];
-        dang::spWaypoint spwp = wp.lock();
+        const dang::Waypoint* wp = _path.at(_path_index);
 
-        if (spwp)
+        uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
+        switch (conn_type)
         {
-            uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
-            switch (conn_type)
+            case dang::e_tmx_waypoint_connection::wpc_invalid:
+            case dang::e_tmx_waypoint_connection::wpc_walk:
             {
-                case dang::e_tmx_waypoint_connection::wpc_invalid:
-                case dang::e_tmx_waypoint_connection::wpc_walk:
-                {
-                    _walkSpeed = 2;
-                    removeTweens(true);
-                    _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    _max_time_to_wp = (std::fabs(spwp->_pos.x - getHotrectAbs().center().x) + 32) * 100 / _walkSpeed;
-                    _time_elapsed_to_wp = blit::now();
-                    _current_wp = wp;
-                    break;
-                }
-                case dang::e_tmx_waypoint_connection::wpc_jump:
-                {
-                    removeTweens(true);
-                    dang::Vector2F v{0,0}, v_end{0,0};
-                    if (spwp->_pos.y < getHotrectAbs().center().y)
-                    {
-                        // the waypoint is higher than the hero
-                        v.y = -16;
-                    }
-                    else
-                    {
-                        // equal or lower
-                        v.y = -6;
-                    }
-
-                    if ((spwp->_pos.x - getHotrectAbs().center().x) * (spwp->_pos.x - getHotrectAbs().center().x) > 1600)
-                    {
-                        // long horizontal distance
-                        if (spwp->_pos.x - _pos.x < 0)
-                        {
-                            v.x = -16;
-                            v_end.x = -2;
-                        }
-                        else
-                        {
-                            v.x = 16;
-                            v_end.x = 2;
-                        }
-                        _max_time_to_wp = 3000;
-                        _time_elapsed_to_wp = blit::now();
-                        spTwVel tw = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
-                        addTween(tw);
-                    }
-                    else
-                    {
-                        _max_time_to_wp = 2000;
-                        _time_elapsed_to_wp = blit::now();
-                        _walkSpeed = 2;
-                        _vel.x = spwp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                        spTwVelY tw = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
-                        addTween(tw);
-                    }
-                    _current_wp = wp;
-                    break;
-                }
-                case dang::e_tmx_waypoint_connection::wpc_warp:
-                    // TODO
-                    break;
-                default:
-                    break;
+                _walkSpeed = 2;
+                removeTweens(true);
+                _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectAbs().center().x) + 32) * 100 / _walkSpeed;
+                _time_elapsed_to_wp = blit::now();
+                _current_wp = wp;
+                break;
             }
+            case dang::e_tmx_waypoint_connection::wpc_jump:
+            {
+                removeTweens(true);
+                dang::Vector2F v{0,0}, v_end{0,0};
+                if (wp->_pos.y < getHotrectAbs().center().y)
+                {
+                    // the waypoint is higher than the hero
+                    v.y = -16;
+                }
+                else
+                {
+                    // equal or lower
+                    v.y = -6;
+                }
+
+                if ((wp->_pos.x - getHotrectAbs().center().x) * (wp->_pos.x - getHotrectAbs().center().x) > 1600)
+                {
+                    // long horizontal distance
+                    if (wp->_pos.x - _pos.x < 0)
+                    {
+                        v.x = -16;
+                        v_end.x = -2;
+                    }
+                    else
+                    {
+                        v.x = 16;
+                        v_end.x = 2;
+                    }
+                    _max_time_to_wp = 3000;
+                    _time_elapsed_to_wp = blit::now();
+                    spTwVel tw = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(tw);
+                }
+                else
+                {
+                    _max_time_to_wp = 2000;
+                    _time_elapsed_to_wp = blit::now();
+                    _walkSpeed = 2;
+                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                    spTwVelY tw = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(tw);
+                }
+                _current_wp = wp;
+                break;
+            }
+            case dang::e_tmx_waypoint_connection::wpc_warp:
+                // TODO
+                break;
+            default:
+                break;
         }
 
     }
 
+    /**
+     * this function is used if the npc is lost (i.e. bubbled and freed). This happens if the _max_time_to_wp is used up
+     * @param only_horizontally
+     * @return BT Status
+     */
     dang::BTNode::Status Enemy::findNearestWaypoint(bool only_horizontally)
     {
 //        std::cout << "find nearest waypoint" << std::endl;
 
-        // first clear any remainy of the last path
+        // first clear any remains of the last path
         _path.clear();
         _path_index = 0;
         _vel.x = 0;
 
-
-        dang::spWaypoint w;
+        const dang::Waypoint* w;
         if (only_horizontally)
         {
             w = _scene_graph->findNearestWaypointH(getHotrectAbs());
@@ -257,7 +254,7 @@ namespace pnk
             w = _scene_graph->findNearestWaypoint(getHotrectAbs().center());
         }
 
-        if (w)
+        if (w != nullptr)
         {
             _path.push_back(w);
             _path_index = 0;

@@ -3,28 +3,19 @@
 
 #pragma once
 
-#include <memory>
+#include "GameState.h"
+#include "ScreenPlay.h"
 
-#include <Event.hpp>
-#include <Dispatcher.hpp>
-#include <TmxExtruder.hpp>
 #include <Vector2T.hpp>
 
-#include "GameState.h"
-
-#include "ScreenPlay.h"
-#include "PnkEvent.h"
-
-namespace dang
-{
-    class BehaviourTree;
-    class TreeState;
-    class SpriteContext;
-}
 
 namespace pnk
 {
     class Hero;
+    using spHero = std::shared_ptr<Hero>;
+    class ScreenPlay;
+    using spScreenPlay = std::shared_ptr<ScreenPlay>;
+    class PnkEvent;
 
     class GSPlay : public GameState
     {
@@ -51,16 +42,12 @@ namespace pnk
         void checkCheatActivation();
 
     protected:
-        const dang::tmx_level*          _tmx;
-        std::shared_ptr<ScreenPlay>     _screenplay;
+        const dang::tmx_level*      _tmx{nullptr};           //!< level definition
+        spScreenPlay                _screenplay{nullptr};    //!< paths
+        spHero                       _spr_hero{nullptr};     //!< the king
+        dang::spCollisionSpriteLayer _csl{nullptr};          //!< the layer in which the collision detection takes place
 
-        // the king
-        std::shared_ptr<pnk::Hero> _spr_hero{nullptr};
-
-        // the layer in which the game takes place
-        std::shared_ptr<dang::CollisionSpriteLayer> _csl{nullptr};
-
-        std::map<std::string, spCollisionSprite> _hives;
+        std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};

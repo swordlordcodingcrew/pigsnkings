@@ -3,15 +3,15 @@
 
 #pragma once
 
-#include <list>
+//#include <list>
 #include <BaseHUDLayer.hpp>
 #include <32blit.hpp>
+#include <DangFwdDecl.h>
 
-#include "Layer.hpp"
+//#include "Layer.hpp"
 
 namespace pnk
 {
-    using spSprite = std::shared_ptr<dang::Sprite>;
 
     class HUDLayer : public dang::BaseHUDLayer
     {

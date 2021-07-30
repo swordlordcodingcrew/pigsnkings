@@ -8,6 +8,7 @@
 #include <DangFwdDecl.h>
 
 #include <CollisionSprite.hpp>
+#include <bt/BTNode.h>
 
 namespace pnk
 {
@@ -52,14 +53,15 @@ namespace pnk
         static dang::BTNode::Status NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTfindNearestWaypoint(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTfindNearestWaypointH(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTSleep(std::shared_ptr<Sprite> s);
 
         /** path params */
-        dang::spSceneGraph              _scene_graph{nullptr};
-        std::vector<dang::wpWaypoint>   _path;
-        dang::wpWaypoint                _current_wp;
-        size_t                          _path_index{0};
-        uint32_t                        _max_time_to_wp{0};         //!< time in ms
-        uint32_t                        _time_elapsed_to_wp{0};     //!< time in ms
+        dang::spSceneGraph                  _scene_graph{nullptr};
+        std::vector<const dang::Waypoint*>  _path;
+        const dang::Waypoint*               _current_wp{nullptr};
+        size_t                              _path_index{0};
+        uint32_t                            _max_time_to_wp{0};         //!< time in ms
+        uint32_t                            _time_elapsed_to_wp{0};     //!< time in ms
 
     protected:
         bool _on_ground = false;

@@ -66,7 +66,9 @@ namespace pnk
         {
             _catched_en.reset();
         }
+#ifdef PNK_DEBUG
         std::cout << "bubble destructor" << std::endl;
+#endif
     }
 
     void Bubble::init()

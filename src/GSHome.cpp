@@ -1,20 +1,9 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-// DANG includes
-#include "Gear.hpp"
-#include "Imagesheet.hpp"
-#include "Sprite.hpp"
-#include "SpriteLayer.hpp"
-#include "TileLayer.hpp"
-#include "Layer.hpp"
-#include "tween/Ease.hpp"
-#include "tween/TwAnim.hpp"
-#include "snd/SndGear.hpp"
-#include "tween/TwPos.hpp"
-#include "tween/TwSequence.hpp"
-
 #include "GSHome.h"
+#include "pigsnkings.hpp"
+
 #include "GSPlay.h"
 #include "GSPrefs.h"
 #include "GSAbout.h"
@@ -28,12 +17,23 @@
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/pnk_logo.png.h"
 #include "rsrc/gfx/menus.png.h"
-
 #include "rsrc/main_1.tmx.hpp"
-//#include "tracks/gocryogo.h"
 #include "tracks/etheric_xm.h"
 #include "sfx/pig_squeal_22050_mono.h"
 #include "sfx/cheat_22050_mono.h"
+
+// DANG includes
+#include <Gear.hpp>
+#include <Imagesheet.hpp>
+#include <Sprite.hpp>
+#include <SpriteLayer.hpp>
+#include <TileLayer.hpp>
+#include <tween/Ease.hpp>
+#include <tween/TwAnim.hpp>
+#include <tween/TwPos.hpp>
+#include <tween/TwSequence.hpp>
+#include <tween/TwNull.hpp>
+#include <snd/SndGear.hpp>
 
 #include <cassert>
 #include <iostream>
@@ -41,6 +41,8 @@
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
         updateCheatKeyStream(blit::buttons.pressed);
@@ -128,16 +130,16 @@ namespace pnk
         DEBUG_PRINT("GSHome: image sheets initialised\n");
 
         // create background Tilelayer
-        spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, true);
+        dang::spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, true);
 
         DEBUG_PRINT("GSHome: tile layer\n");
 
-        spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, false, true);
+        dang::spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, false, true);
 
         DEBUG_PRINT("GSHome: sprite layer\n");
 
         // create spritelayer w/o collision detection/resolution
-        spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, false, true);
+        dang::spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, false, true);
 
         DEBUG_PRINT("GSHome: auto layers done\n");
 
@@ -146,7 +148,7 @@ namespace pnk
             const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
 
             spImagesheet is = gear.getImagesheet(so->tileset);
-            spSprite spr = std::make_shared<dang::Sprite>(so, is);
+            dang::spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
             if (so->type == "candle")
@@ -176,7 +178,7 @@ namespace pnk
             const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
 
             spImagesheet is = gear.getImagesheet(so->tileset);
-            spSprite spr{nullptr};
+            dang::spSprite spr{nullptr};
             // buttons
             if(so->type == "button")
             {
@@ -210,11 +212,11 @@ namespace pnk
                 spr->_transform = blit::SpriteTransform::HORIZONTAL;
 
                 // run piggie run
-                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
+                dang::spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
 
                 // get a sequence and make sure that it is looping forever
-                spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
                 tw_seq_anim->loops(-1);
 
                 // piggie starting off screen to the left
@@ -228,7 +230,7 @@ namespace pnk
                 twPos->init(spr.get());
                 tw_seq_anim->addTween(twPos);
 
-                spTwNull nullTw = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
+                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
                 tw_seq_anim->addTween(nullTw);
 
                 spr->addTween(tw_seq_anim);
@@ -240,7 +242,7 @@ namespace pnk
                 spr->_imagesheet = is;
 
                 // run hero, run
-                spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1));
+                dang::spTwAnim anim = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);
                 spr->setAnimation(anim);
 
                 // hero starting off screen to the left
@@ -249,11 +251,11 @@ namespace pnk
                 dang::Vector2F  _move_to{320, spr->getPosY()};
 
                 // get a sequence and make sure that it is looping forever
-                spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
                 tw_seq_anim->loops(-1);
 
                 // total duration of 4000
-                spTwNull pauseBefore = std::make_shared<dang::TwNull>(dang::TwNull(600, dang::Ease::Linear, 0));
+                dang::spTwNull pauseBefore = std::make_shared<dang::TwNull>(600, dang::Ease::Linear, 0);
                 tw_seq_anim->addTween(pauseBefore);
 
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
@@ -262,7 +264,7 @@ namespace pnk
                 twPos->setFinishedCallback(std::bind(&GSHome::playOink, this));
                 tw_seq_anim->addTween(twPos);
 
-                spTwNull pauseAfter = std::make_shared<dang::TwNull>(dang::TwNull(800, dang::Ease::Linear, 0));
+                dang::spTwNull pauseAfter = std::make_shared<dang::TwNull>(800, dang::Ease::Linear, 0);
                 tw_seq_anim->addTween(pauseAfter);
 
                 spr->addTween(tw_seq_anim);
@@ -287,14 +289,16 @@ namespace pnk
     {
         dang::SndGear::stopXM();
 
+        // empty out gear
+        gear.removeImagesheets();
+        gear.removeLayers();
+        gear.removeNTrees();
+
         _btns.clear();
         _sprLeftCandle.reset();
         _sprRightCandle.reset();
+        _tmx = nullptr;
 
-        _pnk.removeImagesheets();
-
-        // clear gear
-        gear.removeLayers();
     }
 
     void GSHome::playOink()

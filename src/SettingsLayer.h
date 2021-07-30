@@ -1,14 +1,16 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
+
 #pragma once
 
+#include "pigsnkings.hpp"
+
+#include <32blit.hpp>
+
+#include <DangFwdDecl.h>
+#include <Layer.hpp>
+
 #include <list>
-
-#include "Layer.hpp"
-#include "32blit.hpp"
-
-#include "GameState.h"
-
 
 namespace pnk
 {
@@ -55,11 +57,12 @@ namespace pnk
 
         std::vector<prefs_struct> _prefs;
 
-        uint8_t _selectedPref{_pnk.TRACKS};
+//        uint8_t _selectedPref{_pnk.TRACKS};
+        uint8_t _selectedPref{PigsnKings::TRACKS};
 
-        std::shared_ptr<dang::Imagesheet> _is_castle;
-        std::shared_ptr<dang::Imagesheet> _is_hud;
-        std::shared_ptr<dang::Imagesheet> _is_king;
+        dang::spImagesheet _is_castle;
+        dang::spImagesheet _is_hud;
+        dang::spImagesheet _is_king;
 
     };
 }
