@@ -21,6 +21,7 @@
 #include "tracks/gocryogo.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
 
+
 using spLayer = std::shared_ptr<dang::Layer>;
 using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
 using spSpriteLayer = std::shared_ptr<dang::SpriteLayer>;
@@ -134,10 +135,10 @@ namespace pnk
 
 #ifdef PNK_DEBUG_MEM
         blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
-        if (_mem < mallinfo().uordblks)
+        if (_mem < mallinfo().uordblks / 1024)
         {
-            std::cout << " heap: " << std::to_string(_mem) << ", increase: " << mallinfo().uordblks - _mem << std::endl;
-            _mem = mallinfo().uordblks;
+            std::cout << "heap=" << std::to_string(_mem) << "k, inc=" << (mallinfo().uordblks/1024 - _mem) << "k" << std::endl;
+            _mem = mallinfo().uordblks / 1024;
         }
 #endif
     }
