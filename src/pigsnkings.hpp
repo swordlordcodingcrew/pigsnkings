@@ -90,6 +90,8 @@ namespace pnk
         prefs           _prefs; // world preferences
         std::string     cheatKeyStream = "12345678";
 
+        dang::Gear& getGear();
+
     protected:
 
         // the gear
