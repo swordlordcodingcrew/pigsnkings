@@ -86,6 +86,12 @@ namespace pnk
 
     dang::BTNode::Status Enemy::setRandNeighbourWaypoint()
     {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a neighbour is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
         _scene_graph->getRandomNextWaypoint(_current_wp, _path);
         _path_index = 0;
         if (_path.empty())
@@ -237,6 +243,10 @@ namespace pnk
      */
     dang::BTNode::Status Enemy::findNearestWaypoint(bool only_horizontally)
     {
+        if (_scene_graph == nullptr)
+        {
+            return dang::BTNode::Status::FAILURE;
+        }
 //        std::cout << "find nearest waypoint" << std::endl;
 
         // first clear any remains of the last path
