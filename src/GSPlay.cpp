@@ -244,7 +244,7 @@ namespace pnk
             room._extent_pixels.h = room._extent.h * _tmx->w->tileHeight;
 
             // add scenegraph
-            room._scene_graph = txtr.createPaths(room._extent_pixels);
+            txtr.createSceneGraphs(room._extent_pixels, room._scene_graphs);
         }
 
         DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);

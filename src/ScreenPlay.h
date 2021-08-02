@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
 #include <RectT.hpp>
 #include <Vector2T.hpp>
 
@@ -10,12 +11,6 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
-
-namespace dang
-{
-    class SceneGraph;
-    using spSceneGraph = std::shared_ptr<SceneGraph>;
-}
 
 namespace pnk
 {
@@ -45,8 +40,8 @@ namespace pnk
             /** size of room in pixels */
             dang::RectF         _extent_pixels{0, 0, 0, 0};
 
-            /** scenegraph */
-            dang::spSceneGraph        _scene_graph{nullptr};
+            /** scenegraphs in the room. There can be more than one */
+            std::vector<dang::spSceneGraph>        _scene_graphs;
 
             /**
              * passages to other rooms
