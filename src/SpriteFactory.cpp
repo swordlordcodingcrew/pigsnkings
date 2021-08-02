@@ -33,6 +33,7 @@
 #include "GSPlay.h"
 
 #include <32blit.hpp>
+#include <cfloat>
 
 namespace pnk
 {
@@ -528,8 +529,9 @@ namespace pnk
         {
             if (room._extent_pixels.contains(spr->getPos()) && !room._scene_graphs.empty())
             {
-                // TODO: find the right graph
-                spr->_scene_graph = room._scene_graphs[0];
+                size_t ind = findNearestGraph(room._scene_graphs, spr->getHotrectAbs().center());
+                spr->_scene_graph = room._scene_graphs[ind];
+
                 const dang::Waypoint* wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectAbs().center());
                 if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
                 {
@@ -545,6 +547,22 @@ namespace pnk
             }
         }
 
+    }
+
+    size_t SpriteFactory::findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos)
+    {
+        float dist = FLT_MAX;
+        size_t index{0};
+        for (size_t i = 0; i < sgs.size(); ++i)
+        {
+            float newdist = sgs[i]->findNearestWaypointDist(pos);
+            if (newdist < dist)
+            {
+                dist = newdist;
+                index = i;
+            }
+        }
+        return index;
     }
 
 }

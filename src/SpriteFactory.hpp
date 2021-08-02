@@ -94,6 +94,7 @@ namespace pnk
 
         static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs);
         static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
+        static size_t findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos);
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
