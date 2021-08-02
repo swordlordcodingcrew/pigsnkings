@@ -487,22 +487,52 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
 
 // layer with points - path layer
 static const dang::tmx_waypoint level_2_waypoints[] = {
-    {270, 1664,442, 0x0},
-    {271, 1728,474, 0x0},
-    {272, 1792,474, 0x0},
-    {273, 1856,442, 0x0},
+    {270, 1680,440, 0x0},
+    {271, 1712,472, 0x0},
+    {272, 1808,472, 0x0},
+    {273, 1840,440, 0x0},
+    {274, 1648,440, 0x0},
+    {275, 1872,440, 0x0},
+    {276, 1776,472, 0x0},
+    {277, 1744,472, 0x0},
+    {278, 1648,472, 0x0},
+    {279, 1872,472, 0x0},
+    {280, 1808,408, 0x0},
+    {281, 1712,408, 0x0},
+    {282, 1712,376, 0x0},
+    {283, 1808,376, 0x0},
+    {284, 1712,344, 0x0},
+    {285, 1808,344, 0x0},
 };
 
-static const size_t level_2_waypoints_len = 4;
+static const size_t level_2_waypoints_len = 16;
 
 static const dang::tmx_waypoint_connection level_2_connections[] = {
     {270, 271, 0x1},
-    {271, 272, 0x1},
+    {270, 274, 0x1},
+    {271, 278, 0x1},
+    {271, 277, 0x1},
+    {271, 270, 0x2},
+    {272, 276, 0x1},
+    {272, 279, 0x1},
     {272, 273, 0x2},
     {273, 272, 0x1},
+    {273, 275, 0x1},
+    {274, 270, 0x1},
+    {275, 273, 0x1},
+    {276, 272, 0x1},
+    {277, 271, 0x1},
+    {278, 271, 0x1},
+    {279, 272, 0x1},
+    {280, 281, 0x1},
+    {281, 280, 0x1},
+    {282, 283, 0x1},
+    {283, 282, 0x1},
+    {284, 285, 0x1},
+    {285, 284, 0x1},
 };
 
-static const size_t level_2_connections_len = 4;
+static const size_t level_2_connections_len = 22;
 
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,
