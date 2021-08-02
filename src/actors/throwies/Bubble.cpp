@@ -40,7 +40,7 @@ namespace pnk
 
     Bubble::Bubble(const Bubble &bub) : CollisionSprite(bub)
     {
-        std::cout << "bubble copy constructor" << std::endl;
+//        std::cout << "bubble copy constructor" << std::endl;
 
         _to_the_left = bub._to_the_left;
         _state = bs_hatch;
@@ -154,7 +154,7 @@ namespace pnk
 
             // set vel
             removeTweens(true);
-            _vel = {0, -0.5};
+            _vel = {0, -0.1};
 
             // alter animation
             removeAnimation(true);
