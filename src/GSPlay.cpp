@@ -152,7 +152,7 @@ namespace pnk
         dang::spNTree tr2 = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSight, this, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
                     .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
@@ -846,7 +846,7 @@ namespace pnk
         }
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
     {
         dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
         float ret = _csl->aaLoSH(cs, _spr_hero);

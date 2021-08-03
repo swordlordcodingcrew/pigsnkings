@@ -42,9 +42,9 @@ namespace pnk
         dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
         dang::BTNode::Status setRandPath();
-        dang::BTNode::Status setWPNearHero();
+        dang::BTNode::Status setWPHNearHero();
 
-        /** these functions are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
+        /** this function are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
         /** static hooks for the behaviour tree */
@@ -58,7 +58,6 @@ namespace pnk
         static dang::BTNode::Status NTsetDestinationCrateDepot(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
-        static dang::BTNode::Status NTSleep(dang::spSprite s);
 
         /** path params */
         dang::spSceneGraph                  _scene_graph{nullptr};

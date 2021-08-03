@@ -84,7 +84,7 @@ namespace pnk
         void freeCurrentLevel();
 
         // bt hooks
-        dang::BTNode::Status NTheroInSight(dang::spSprite s);
+        dang::BTNode::Status NTheroInSightH(dang::spSprite s);
 
     };
 

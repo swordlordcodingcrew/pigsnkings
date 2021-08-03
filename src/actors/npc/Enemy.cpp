@@ -63,7 +63,6 @@ namespace pnk
                 if (_path_index + 1 == _path.size())
                 {
                     _current_wp = _path[_path_index];
-//                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
 
                     // ultimate goal reached. Reset stuff
                     _path.clear();
@@ -84,7 +83,7 @@ namespace pnk
         return ret;
     }
 
-    dang::BTNode::Status Enemy::setWPNearHero()
+    dang::BTNode::Status Enemy::setWPHNearHero()
     {
         if (_current_wp == nullptr)
         {
@@ -99,14 +98,14 @@ namespace pnk
 
         float dist = _nTreeState->_payload["aaLoSH"];
         _nTreeState->_payload.erase("aaLoSH");
-        _scene_graph->getNearestNeighbourPathH(_current_wp, dist, _path);
+        _scene_graph->getNearestNeighbourHPath(_current_wp, dist, _path);
         if (_path.empty())
         {
             // no other waypoint (?). Would be a design error, returning failure
             return dang::BTNode::Status::FAILURE;
         }
 
-        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
+//        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
         startOutToWaypoint();
         return dang::BTNode::Status::SUCCESS;
     }
@@ -382,7 +381,7 @@ namespace pnk
     dang::BTNode::Status Enemy::NTsetWPNearHero(dang::spSprite s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setWPNearHero() : dang::BTNode::Status::FAILURE);
+        return (spr ? spr->setWPHNearHero() : dang::BTNode::Status::FAILURE);
     }
 
 
