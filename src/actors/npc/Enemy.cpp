@@ -84,6 +84,31 @@ namespace pnk
         return ret;
     }
 
+    dang::BTNode::Status Enemy::setRandPath()
+    {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        _path.clear();
+        _path_index = 0;
+        _vel.x = 0;
+
+        _scene_graph->getRandomPath(_current_wp, _path);
+        if (_path.empty())
+        {
+            // no other waypoint (?). Would be a design error, returning failure
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        startOutToWaypoint();
+        return dang::BTNode::Status::SUCCESS;
+    }
+
+
     dang::BTNode::Status Enemy::setRandNeighbourWaypoint()
     {
         if (_current_wp == nullptr)
@@ -319,6 +344,12 @@ namespace pnk
 //        std:: cout << "find nearest waypoint H" << std::endl;
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
         return (spr ? spr->findNearestWaypoint(true) : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTsetRandomPath(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setRandPath() : dang::BTNode::Status::FAILURE);
     }
 
 }

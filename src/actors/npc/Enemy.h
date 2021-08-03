@@ -41,6 +41,7 @@ namespace pnk
         /** these functions are used to set a destination wapoint */
         dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
+        dang::BTNode::Status setRandPath();
 
         /** these functions are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
@@ -48,6 +49,7 @@ namespace pnk
         /** static hooks for the behaviour tree */
         static dang::BTNode::Status NTcheckPathCompleted(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTsetRandomPath(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTcheckWaypointReached(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTsetDestinationBombDepot(std::shared_ptr<Sprite> s);
         static dang::BTNode::Status NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s);
