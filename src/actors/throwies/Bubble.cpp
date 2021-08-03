@@ -235,11 +235,6 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
     {
-        if (_state == bs_bursting || _state == bs_wobbling)
-        {
-            return dang::CollisionSpriteLayer::CR_NONE;
-        }
-
         if (other->_type_num == dang::SpriteType::KING)
         {
             if (_state == bs_enemy_catched)
@@ -247,8 +242,18 @@ namespace pnk
                 return dang::CollisionSpriteLayer::CR_CROSS;
             }
 
+            if (_state == bs_bursting)
+            {
+                return dang::CollisionSpriteLayer::CR_NONE;
+            }
+
             return dang::CollisionSpriteLayer::CR_SLIDE;
 
+        }
+
+        if (_state == bs_bursting || _state == bs_wobbling)
+        {
+            return dang::CollisionSpriteLayer::CR_NONE;
         }
 
         if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
