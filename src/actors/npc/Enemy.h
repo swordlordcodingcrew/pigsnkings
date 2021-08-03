@@ -42,20 +42,23 @@ namespace pnk
         dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
         dang::BTNode::Status setRandPath();
+        dang::BTNode::Status setWPNearHero();
 
         /** these functions are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
         /** static hooks for the behaviour tree */
-        static dang::BTNode::Status NTcheckPathCompleted(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetRandomPath(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTcheckWaypointReached(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetDestinationBombDepot(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTfindNearestWaypoint(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTfindNearestWaypointH(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTSleep(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTcheckPathCompleted(dang::spSprite s);
+        static dang::BTNode::Status NTsetRandNeighbourWaypoint(dang::spSprite s);
+        static dang::BTNode::Status NTsetRandomPath(dang::spSprite s);
+        static dang::BTNode::Status NTsetWPNearHero(dang::spSprite s);
+
+        static dang::BTNode::Status NTcheckWaypointReached(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationBombDepot(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationCrateDepot(dang::spSprite s);
+        static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
+        static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
+        static dang::BTNode::Status NTSleep(dang::spSprite s);
 
         /** path params */
         dang::spSceneGraph                  _scene_graph{nullptr};

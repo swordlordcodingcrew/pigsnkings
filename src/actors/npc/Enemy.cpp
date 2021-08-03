@@ -84,6 +84,33 @@ namespace pnk
         return ret;
     }
 
+    dang::BTNode::Status Enemy::setWPNearHero()
+    {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        _path.clear();
+        _path_index = 0;
+        _vel.x = 0;
+
+        float dist = _nTreeState->_payload["aaLoSH"];
+        _nTreeState->_payload.erase("aaLoSH");
+        _scene_graph->getNearestNeighbourPathH(_current_wp, dist, _path);
+        if (_path.empty())
+        {
+            // no other waypoint (?). Would be a design error, returning failure
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
+        startOutToWaypoint();
+        return dang::BTNode::Status::SUCCESS;
+    }
+
     dang::BTNode::Status Enemy::setRandPath()
     {
         if (_current_wp == nullptr)
@@ -117,7 +144,7 @@ namespace pnk
             return dang::BTNode::Status::FAILURE;
         }
 
-        _scene_graph->getRandomNextWaypoint(_current_wp, _path);
+        _scene_graph->getRandomNeighbourPath(_current_wp, _path);
         _path_index = 0;
         if (_path.empty())
         {
@@ -351,5 +378,12 @@ namespace pnk
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
         return (spr ? spr->setRandPath() : dang::BTNode::Status::FAILURE);
     }
+
+    dang::BTNode::Status Enemy::NTsetWPNearHero(dang::spSprite s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setWPNearHero() : dang::BTNode::Status::FAILURE);
+    }
+
 
 }

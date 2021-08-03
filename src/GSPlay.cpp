@@ -133,7 +133,7 @@ namespace pnk
 
     void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
-        std::shared_ptr<dang::NTree> tr = dang::NTBuilder{}
+        dang::spNTree tr = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(Enemy::NTsetRandNeighbourWaypoint)
@@ -148,6 +148,27 @@ namespace pnk
         .build();
 
         gear.addNTree("loiter", tr);
+
+        dang::spNTree tr2 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSight, this, std::placeholders::_1))
+                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+//                    .leaf(Enemy::BTsleep)
+            .end()
+        .build();
+
+        gear.addNTree("loiter_towards_hero", tr2);
 
     }
 
@@ -823,6 +844,19 @@ namespace pnk
 
             changeLevel(_pnk._gamestate.active_level - 1);
         }
+    }
+
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
+    {
+        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+        float ret = _csl->aaLoSH(cs, _spr_hero);
+
+        if (ret != 0)
+        {
+            cs->getNTreeState()->_payload["aaLoSH"] = ret;
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
     }
 }
 
