@@ -39,6 +39,7 @@ namespace pnk
 
         // path
         void startOutToWaypoint() override;
+        dang::BTNode::Status sleep();
 
         // animations depot
         dang::spTwAnim _anim_m_sleeping;
@@ -47,6 +48,10 @@ namespace pnk
         dang::spTwAnim _anim_m_throwing;
         dang::spTwAnim _anim_m_picking_up;
         dang::spTwAnim _anim_m_bubbling;
+
+        static dang::BTNode::Status NTSleep(dang::spSprite s);
+
+
     protected:
 
         // inactive bt

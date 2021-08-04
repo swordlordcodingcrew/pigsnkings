@@ -269,7 +269,7 @@
   </object>
   <object id="342" name="sam" type="pig_normal" gid="333" x="192" y="672" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="wait_for_hero"/>
    </properties>
   </object>
   <object id="344" type="crate_proto" gid="443" x="32" y="480" width="32" height="32"/>

@@ -170,6 +170,18 @@ namespace pnk
 
         gear.addNTree("loiter_towards_hero", tr2);
 
+        dang::spNTree tr3 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
+                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .leaf(HenchPig::NTSleep)
+            .end()
+        .build();
+
+        gear.addNTree("wait_for_hero", tr3);
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)

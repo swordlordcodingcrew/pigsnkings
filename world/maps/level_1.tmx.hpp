@@ -375,7 +375,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {336,"336","pig_normal",832,576,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {340,"boris","pig_box",736,704,32,32,true,"character_pigcrate",5,"",0b0001},
     {341,"fred","pig_bomb",192,160,32,32,true,"character_pigbomb",4,"insanity",0b0000},
-    {342,"sam","pig_normal",192,672,32,32,true,"gfx_pig",0,"loiter_towards_hero",0b0000},
+    {342,"sam","pig_normal",192,672,32,32,true,"gfx_pig",0,"wait_for_hero",0b0000},
     {344,"344","crate_proto",32,480,32,32,true,"character_pigcrate",34,"",0b0000},
     {345,"345","hotrect",-8,160,8,552,true,"",0,"",0b0000},
     {346,"346","hotrect",960,32,8,560,true,"",0,"",0b0000},

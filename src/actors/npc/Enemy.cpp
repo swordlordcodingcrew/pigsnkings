@@ -105,7 +105,7 @@ namespace pnk
             return dang::BTNode::Status::FAILURE;
         }
 
-//        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
+        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
         startOutToWaypoint();
         return dang::BTNode::Status::SUCCESS;
     }

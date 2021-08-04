@@ -35,6 +35,7 @@ namespace pnk
         _hotrect = {10, 16, 12, 16};
 
         onEnterSleeping();
+//        onEnterLoitering();
 
         setVel({0, 0});
     }
@@ -150,24 +151,41 @@ namespace pnk
 
     bool HenchPig::onEnterSleeping()
     {
-        // TODO check if we are on the air or on the ground. pigs don't sleep mid-air
-        if(_anim_m_sleeping != nullptr)
-        {
-            setAnimation(_anim_m_sleeping);
-        }
-        else
-        {
-            std::cerr << "_anim_m_sleeping is not set in HenchPig" << std::endl;
-        }
-        _currentState = SLEEPING;
+        _btDepot = std::move(_nTreeState);
+        assert(_anim_m_sleeping != nullptr);
+        setAnimation(_anim_m_sleeping);
 
         removeTweens(true);
-
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
+        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
         addTween(nullTw);
 
+        _currentState = SLEEPING;
+
         return true;
+    }
+
+    void HenchPig::endSleep()
+    {
+        prepareChangeState(LOITERING);
+    }
+
+    bool HenchPig::onEnterLoitering()
+    {
+        // activate the behaviour tree
+        _nTreeState = std::move(_btDepot);
+
+        _currentState = LOITERING;
+        return true;
+    }
+
+    void HenchPig::endLoitering()
+    {
+        // deactivate the behaviour tree
+        _btDepot = std::move(_nTreeState);
+
+        prepareChangeState(SLEEPING);
     }
 
     bool HenchPig::onEnterHiding()
@@ -176,21 +194,6 @@ namespace pnk
         return false;
     }
 
-    bool HenchPig::onEnterLoitering()
-    {
-        // TODO handle the walking with tweens
-        //_walkSpeed = _loiter_speed;
-        setAnimation(_anim_m_loitering);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-        _currentState = LOITERING;
-
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
-        addTween(nullTw);
-
-        return true;
-    }
 
     bool HenchPig::onEnterThrowing()
     {
@@ -243,15 +246,7 @@ namespace pnk
         return _currentState == BUBBLED;
     }
 
-    void HenchPig::endSleep()
-    {
-        prepareChangeState(LOITERING);
-    }
 
-    void HenchPig::endLoitering()
-    {
-        prepareChangeState(SLEEPING);
-    }
 
     void HenchPig::tellTheKingWeHitHim()
     {
@@ -294,5 +289,24 @@ namespace pnk
             _transform = blit::NONE;
 
         }
+    }
+
+    dang::BTNode::Status HenchPig::NTSleep(dang::spSprite s)
+    {
+//        std::cout << "NTSleep" << std::endl;
+        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status HenchPig::sleep()
+    {
+        if (_currentState == SLEEPING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+
+        prepareChangeState(SLEEPING);
+
+        return dang::BTNode::Status::SUCCESS;
     }
 }

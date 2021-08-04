@@ -155,11 +155,11 @@ namespace pnk
         ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
         assert(ret->_anim_m_bubbling != nullptr);
 
-        ret->init();
-
         attachBehaviourTree(txtr, so, ret);
 
         initSceneGraph(sp, ret);
+
+        ret->init();
 
         return ret;
     }
