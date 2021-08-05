@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="516">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="519">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -256,10 +256,14 @@
   </object>
   <object id="336" type="pig_normal" gid="333" x="832" y="608" width="32" height="32">
    <properties>
+    <property name="bt" value="lazy"/>
+   </properties>
+  </object>
+  <object id="340" name="boris" type="pig_box" gid="2147484062" x="736" y="704" width="32" height="32">
+   <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="340" name="boris" type="pig_box" gid="2147484062" x="736" y="704" width="32" height="32"/>
   <object id="341" name="fred" type="pig_bomb" gid="380" x="192" y="160" width="32" height="32">
    <properties>
     <property name="bt" value="insanity"/>
@@ -710,6 +714,25 @@
   <object id="514" x="912" y="632">
    <properties>
     <property name="jump_0" type="object" value="452"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="516" type="2" x="688" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="518"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="517" x="848" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="518"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="518" x="752" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="516"/>
+    <property name="walk_1" type="object" value="517"/>
    </properties>
    <point/>
   </object>

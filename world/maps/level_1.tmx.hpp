@@ -183,7 +183,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {256,"256","",864,608,32,32,true,"gfx_castle_decorations",10,"",0b0000},
     {257,"257","",864,640,32,32,true,"gfx_castle_decorations",10,"",0b0000},
     {258,"258","",864,672,32,32,true,"gfx_castle_decorations",20,"",0b0000},
-    {259,"259","",832,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {260,"260","",832,640,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {261,"261","",896,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {262,"262","",896,640,32,32,true,"gfx_castle_decorations",4,"",0b0000},
@@ -247,7 +246,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_mood_objects_len = 105;
+static const size_t level_1_lvl_1_mood_objects_len = 104;
 
 static const dang::tmx_layer level_1_lvl_1_mood = {
     .name = "lvl_1_mood",
@@ -320,7 +319,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {283,"283","hotrect",608,640,64,96,true,"",0,"",0b0000},
     {284,"284","hotrect",928,576,32,160,true,"",0,"",0b0000},
     {286,"286","hotrect",576,608,256,32,true,"",0,"",0b0000},
-    {288,"288","hotrect_platform",832,608,32,4,true,"",0,"",0b0000},
     {289,"289","hotrect_platform",832,640,32,4,true,"",0,"",0b0000},
     {290,"290","hotrect_platform",896,608,32,4,true,"",0,"",0b0000},
     {291,"291","hotrect_platform",896,640,32,4,true,"",0,"",0b0000},
@@ -372,8 +370,8 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {333,"dan","pig_box",512,96,32,32,true,"character_pigcrate",5,"",0b0001},
     {334,"334","pig_bomb",704,96,32,32,true,"character_pigbomb",4,"",0b0001},
     {335,"335","pig_normal",576,704,32,32,true,"gfx_pig",0,"lazy",0b0000},
-    {336,"336","pig_normal",832,576,32,32,true,"gfx_pig",0,"loiter",0b0000},
-    {340,"boris","pig_box",736,704,32,32,true,"character_pigcrate",5,"",0b0001},
+    {336,"336","pig_normal",832,608,32,32,true,"gfx_pig",0,"lazy",0b0000},
+    {340,"boris","pig_box",736,704,32,32,true,"character_pigcrate",5,"loiter",0b0001},
     {341,"fred","pig_bomb",192,160,32,32,true,"character_pigbomb",4,"insanity",0b0000},
     {342,"sam","pig_normal",192,672,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {344,"344","crate_proto",32,480,32,32,true,"character_pigcrate",34,"",0b0000},
@@ -465,7 +463,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 195;
+static const size_t level_1_lvl_1_obj_objects_len = 194;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
@@ -572,8 +570,8 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {448, 528,728, 0},
     {449, 592,728, 0},
     {450, 664,600, 0},
-    {451, 847,600, 0},
-    {452, 911,600, 0},
+    {451, 816,600, 0},
+    {452, 848,632, 0},
     {464, 896,474, 0x0},
     {465, 704,474, 0x0},
     {497, 910,218, 0x0},
@@ -589,9 +587,13 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {507, 476,154, 0x0},
     {508, 462,218, 0x0},
     {509, 796,186, 0x0},
+    {514, 912,632, 0x0},
+    {516, 688,728, 2},
+    {517, 848,728, 0x0},
+    {518, 752,728, 0x0},
 };
 
-static const size_t level_1_waypoints_len = 44;
+static const size_t level_1_waypoints_len = 48;
 
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {408, 409, 0x1},
@@ -652,8 +654,9 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {449, 446, 0x2},
     {450, 451, 0x1},
     {451, 450, 0x1},
-    {451, 452, 0x2},
+    {451, 452, 0x1},
     {452, 451, 0x2},
+    {452, 514, 0x2},
     {464, 465, 0x1},
     {465, 464, 0x1},
     {497, 498, 0x1},
@@ -673,9 +676,14 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {508, 504, 0x1},
     {509, 498, 0x1},
     {509, 501, 0x2},
+    {514, 452, 0x2},
+    {516, 518, 0x1},
+    {517, 518, 0x1},
+    {518, 516, 0x1},
+    {518, 517, 0x1},
 };
 
-static const size_t level_1_connections_len = 79;
+static const size_t level_1_connections_len = 85;
 
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
