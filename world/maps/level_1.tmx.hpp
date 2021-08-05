@@ -191,8 +191,8 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {264,"264","",896,704,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {278,"278","",704,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
     {279,"279","",768,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {82,"82","",384,576,32,32,true,"gfx_castle_decorations",4,"",0b0000},
-    {83,"83","",544,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
+    {82,"82","",384,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
+    {83,"83","",544,632,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {84,"84","",544,704,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {85,"85","",384,704,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {102,"102","",448,608,32,32,true,"gfx_castle_decorations",1,"",0b0000},
@@ -267,7 +267,7 @@ static const dang::tmx_layer level_1_lvl_1_mood = {
 // Objects for layer: lvl_1_obj
 static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
-    {143,"143","coin_silver",384,534,32,48,true,"gfx_items",0,"",0b0000},
+    {143,"143","coin_silver",384,560,32,48,true,"gfx_items",0,"",0b0000},
     {144,"144","coin_silver",448,598,32,48,true,"gfx_items",0,"",0b0000},
     {145,"145","coin_silver",480,598,32,48,true,"gfx_items",0,"",0b0000},
     {146,"146","coin_silver",544,662,32,48,true,"gfx_items",0,"",0b0000},
@@ -281,7 +281,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {154,"154","coin_silver",576,310,32,48,true,"gfx_items",0,"",0b0000},
     {155,"155","coin_gold",352,374,32,48,true,"gfx_items",4,"",0b0000},
     {156,"156","coin_gold",576,374,32,48,true,"gfx_items",4,"",0b0000},
-    {157,"157","coin_gold",544,566,32,48,true,"gfx_items",4,"",0b0000},
+    {157,"157","coin_gold",544,592,32,48,true,"gfx_items",4,"",0b0000},
     {158,"158","coin_gold",352,278,32,48,true,"gfx_items",4,"",0b0000},
     {159,"159","coin_gold",384,278,32,48,true,"gfx_items",4,"",0b0000},
     {160,"160","coin_gold",544,278,32,48,true,"gfx_items",4,"",0b0000},
@@ -310,12 +310,12 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {239,"239","hotrect",448,672,64,64,true,"",0,"",0b0000},
     {240,"240","hotrect",608,288,32,192,true,"",0,"",0b0000},
     {241,"241","hotrect",544,544,128,32,true,"",0,"",0b0000},
-    {243,"243","hotrect_platform",384,576,32,4,true,"",0,"",0b0000},
+    {243,"243","hotrect_platform",384,608,32,4,true,"",0,"",0b0000},
     {244,"244","hotrect_platform",448,608,64,4,true,"",0,"",0b0000},
     {245,"245","hotrect_platform",448,640,64,4,true,"",0,"",0b0000},
     {246,"246","hotrect_platform",384,704,32,4,true,"",0,"",0b0000},
     {247,"247","hotrect_platform",544,704,32,4,true,"",0,"",0b0000},
-    {248,"248","hotrect_platform",544,608,32,4,true,"",0,"",0b0000},
+    {248,"248","hotrect_platform",544,632,32,4,true,"",0,"",0b0000},
     {280,"280","hotrect",736,544,96,32,true,"",0,"",0b0000},
     {283,"283","hotrect",608,640,64,96,true,"",0,"",0b0000},
     {284,"284","hotrect",928,576,32,160,true,"",0,"",0b0000},
@@ -371,7 +371,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {331,"331","hotrect",224,32,160,32,true,"",0,"",0b0000},
     {333,"dan","pig_box",512,96,32,32,true,"character_pigcrate",5,"",0b0001},
     {334,"334","pig_bomb",704,96,32,32,true,"character_pigbomb",4,"",0b0001},
-    {335,"335","pig_normal",576,704,32,32,true,"gfx_pig",0,"loiter",0b0000},
+    {335,"335","pig_normal",576,704,32,32,true,"gfx_pig",0,"lazy",0b0000},
     {336,"336","pig_normal",832,576,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {340,"boris","pig_box",736,704,32,32,true,"character_pigcrate",5,"",0b0001},
     {341,"fred","pig_bomb",192,160,32,32,true,"character_pigbomb",4,"insanity",0b0000},
@@ -420,7 +420,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {428,"Mr Cannoneer","pig_cannon",448,448,32,32,true,"gfx_pig",0,"",0b0001},
     {429,"429","boom_proto",256,512,64,64,true,"common_items_bomb",5,"",0b0000},
     {430,"fred too","pig_bomb",224,384,32,32,true,"character_pigbomb",4,"insanity",0b0000},
-    {431,"431","pig_normal",352,704,32,32,true,"gfx_pig",0,"loiter",0b0001},
+    {431,"431","pig_normal",352,704,32,32,true,"gfx_pig",0,"lazy",0b0001},
     {434,"434","hotrect_platform",704,128,32,4,true,"",0,"",0b0000},
     {435,"435","hotrect_platform",512,128,32,4,true,"",0,"",0b0000},
     {436,"436","coin_silver",32,534,32,48,true,"gfx_items",0,"",0b0000},
@@ -564,10 +564,9 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {439, 496,664, 0},
     {440, 480,632, 0},
     {441, 464,600, 0},
-    {442, 408,568, 0},
-    {443, 352,568, 0},
+    {442, 400,600, 0},
+    {443, 368,568, 0},
     {444, 496,600, 0},
-    {445, 560,600, 0},
     {446, 560,696, 0},
     {447, 432,728, 0},
     {448, 528,728, 0},
@@ -592,7 +591,7 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {509, 796,186, 0x0},
 };
 
-static const size_t level_1_waypoints_len = 45;
+static const size_t level_1_waypoints_len = 44;
 
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {408, 409, 0x1},
@@ -638,13 +637,11 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {440, 444, 0x2},
     {441, 444, 0x1},
     {441, 442, 0x2},
-    {442, 443, 0x1},
     {442, 447, 0x1},
     {442, 441, 0x2},
+    {442, 443, 0x2},
     {443, 442, 0x1},
     {444, 441, 0x1},
-    {444, 445, 0x2},
-    {445, 444, 0x2},
     {446, 448, 0x1},
     {446, 449, 0x1},
     {447, 416, 0x1},
@@ -678,7 +675,7 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {509, 501, 0x2},
 };
 
-static const size_t level_1_connections_len = 81;
+static const size_t level_1_connections_len = 79;
 
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
