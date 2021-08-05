@@ -182,6 +182,25 @@ namespace pnk
         .build();
 
         gear.addNTree("wait_for_hero", tr3);
+
+        dang::spNTree tr4 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(Enemy::NTsetRandomPath)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
+                .end()
+                .leaf(HenchPig::NTSleep)
+            .end()
+        .build();
+
+        gear.addNTree("lazy", tr4);
+
     }
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
