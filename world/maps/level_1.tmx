@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="514">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="516">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
@@ -84,7 +84,6 @@
   <object id="256" gid="107" x="864" y="608" width="32" height="32"/>
   <object id="257" gid="107" x="864" y="640" width="32" height="32"/>
   <object id="258" gid="117" x="864" y="672" width="32" height="32"/>
-  <object id="259" gid="101" x="832" y="608" width="32" height="32"/>
   <object id="260" gid="101" x="832" y="640" width="32" height="32"/>
   <object id="261" gid="101" x="896" y="608" width="32" height="32"/>
   <object id="262" gid="101" x="896" y="640" width="32" height="32"/>
@@ -200,7 +199,6 @@
   <object id="283" type="hotrect" x="608" y="640" width="64" height="96"/>
   <object id="284" type="hotrect" x="928" y="576" width="32" height="160"/>
   <object id="286" type="hotrect" x="576" y="608" width="256" height="32"/>
-  <object id="288" type="hotrect_platform" x="832" y="608" width="32" height="4"/>
   <object id="289" type="hotrect_platform" x="832" y="640" width="32" height="4"/>
   <object id="290" type="hotrect_platform" x="896" y="608" width="32" height="4"/>
   <object id="291" type="hotrect_platform" x="896" y="640" width="32" height="4"/>
@@ -256,7 +254,7 @@
     <property name="bt" value="lazy"/>
    </properties>
   </object>
-  <object id="336" type="pig_normal" gid="333" x="832" y="576" width="32" height="32">
+  <object id="336" type="pig_normal" gid="333" x="832" y="608" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
@@ -607,16 +605,17 @@
    </properties>
    <point/>
   </object>
-  <object id="451" type="0" x="847" y="600">
+  <object id="451" type="0" x="816" y="600">
    <properties>
-    <property name="jump_0" type="object" value="452"/>
     <property name="walk_0" type="object" value="450"/>
+    <property name="walk_1" type="object" value="452"/>
    </properties>
    <point/>
   </object>
-  <object id="452" type="0" x="911" y="600">
+  <object id="452" type="0" x="848" y="632">
    <properties>
     <property name="jump_0" type="object" value="451"/>
+    <property name="jump_1" type="object" value="514"/>
    </properties>
    <point/>
   </object>
@@ -705,6 +704,12 @@
    <properties>
     <property name="jump_0" type="object" value="501"/>
     <property name="walk_0" type="object" value="498"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="514" x="912" y="632">
+   <properties>
+    <property name="jump_0" type="object" value="452"/>
    </properties>
    <point/>
   </object>
