@@ -180,7 +180,7 @@ namespace pnk
         if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
         {
             _vel.x = 0;
-            if (_on_ground)
+            if (_on_ground)     // waypoint in hotrect and on ground -> waypoint reached
             {
                 _max_time_to_wp = 0;
                 _time_elapsed_to_wp = 0;
@@ -197,6 +197,7 @@ namespace pnk
             if (blit::now() - _time_elapsed_to_wp > _max_time_to_wp)
             {
 //                std::cout << "checkWaypointReached: time is up!" << std::endl;
+                // waypoint was not reached in time
                 return dang::BTNode::Status::FAILURE;
             }
 
@@ -225,8 +226,8 @@ namespace pnk
             case dang::e_tmx_waypoint_connection::wpc_invalid:
             case dang::e_tmx_waypoint_connection::wpc_walk:
             {
-                _walkSpeed = 2;
-                removeTweens(true);
+                removeTween(_tw_short_jump, true);
+                removeTween(_tw_long_hoizr_jump, true);
                 _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                 _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectAbs().center().x) + 32) * 100 / _walkSpeed;
                 _time_elapsed_to_wp = blit::now();
@@ -235,7 +236,8 @@ namespace pnk
             }
             case dang::e_tmx_waypoint_connection::wpc_jump:
             {
-                removeTweens(true);
+                removeTween(_tw_short_jump, true);
+                removeTween(_tw_long_hoizr_jump, true);
                 dang::Vector2F v{0,0}, v_end{0,0};
                 if (wp->_pos.y < getHotrectAbs().center().y)
                 {
@@ -263,17 +265,16 @@ namespace pnk
                     }
                     _max_time_to_wp = 3000;
                     _time_elapsed_to_wp = blit::now();
-                    spTwVel tw = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
-                    addTween(tw);
+                    _tw_long_hoizr_jump = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(_tw_long_hoizr_jump);
                 }
                 else
                 {
                     _max_time_to_wp = 2000;
                     _time_elapsed_to_wp = blit::now();
-                    _walkSpeed = 2;
-                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVelY tw = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
-                    addTween(tw);
+                    _vel.x = wp->_pos.x - _pos.x < 0 ? -2 : 2;
+                    _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(_tw_short_jump);
                 }
                 _current_wp = wp;
                 break;

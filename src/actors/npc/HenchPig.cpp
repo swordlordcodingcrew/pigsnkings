@@ -65,6 +65,9 @@ namespace pnk
                 case LOITERING:
                     onEnterLoitering();
                     break;
+                case RAGING:
+                    onEnterRaging();
+                    break;
                 case THROWING:
                     onEnterThrowing();
                     break;
@@ -145,13 +148,24 @@ namespace pnk
 
     void HenchPig::prepareChangeState(e_state wishedState)
     {
-        // TODO We could have some logic here as well, or in the update routine?
         _nextState = wishedState;
+    }
+
+    dang::BTNode::Status HenchPig::sleep()
+    {
+        if (_currentState == SLEEPING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+
+        prepareChangeState(SLEEPING);
+
+        return dang::BTNode::Status::SUCCESS;
     }
 
     bool HenchPig::onEnterSleeping()
     {
-        _btDepot = std::move(_nTreeState);
+        _nTreeStateDepot = std::move(_nTreeState);
         assert(_anim_m_sleeping != nullptr);
         setAnimation(_anim_m_sleeping);
 
@@ -174,7 +188,7 @@ namespace pnk
     bool HenchPig::onEnterLoitering()
     {
         // activate the behaviour tree
-        _nTreeState = std::move(_btDepot);
+        _nTreeState = std::move(_nTreeStateDepot);
 
         _currentState = LOITERING;
         return true;
@@ -183,9 +197,37 @@ namespace pnk
     void HenchPig::endLoitering()
     {
         // deactivate the behaviour tree
-        _btDepot = std::move(_nTreeState);
+//        _nTreeStateDepot = std::move(_nTreeState);
 
-        prepareChangeState(SLEEPING);
+//        prepareChangeState(SLEEPING);
+    }
+
+    bool HenchPig::onEnterRaging()
+    {
+        std::cout << "enter raging" << std::endl;
+        _walkSpeed = _raging_speed;
+
+        // activate the behaviour tree, if not already active
+        if (_nTreeState == nullptr)
+        {
+            _nTreeState = std::move(_nTreeStateDepot);
+        }
+
+        removeTweens(true);
+        // rage for 6 sec
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(6000, dang::Ease::Linear, 1);
+        nullTw->setFinishedCallback(std::bind(&HenchPig::endRaging, this));
+        addTween(nullTw);
+
+        _currentState = RAGING;
+
+        return true;
+    }
+
+    void HenchPig::endRaging()
+    {
+        _walkSpeed = _loiter_speed;
+        prepareChangeState(LOITERING);
     }
 
     bool HenchPig::onEnterHiding()
@@ -207,38 +249,40 @@ namespace pnk
         return false;
     }
 
-    bool HenchPig::onEnterBubbled()
-    {
-        // TODO depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
-        removeTweens(true);
-        _currentState = BUBBLED;
-        _btDepot = std::move(_nTreeState);
-        return true;
-    }
-
     void HenchPig::bubble()
     {
-        _gravity = {0,0};
-        setVel({0,0});
-        removeAnimation();
-        _anim_m_bubbling->reset();
-        setAnimation(_anim_m_bubbling);
-
         prepareChangeState(BUBBLED);
     }
 
-    void HenchPig::deBubble()
+    bool HenchPig::onEnterBubbled()
     {
-        // TODO Pigs are aggressive when debubbled,
-        // don't just loiter, piggie!
-        _nTreeState = std::move(_btDepot);
+        // Remark: depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
+
+        _gravity = {0,0};
+        setVel({0,0});
+        removeAnimation();
+        removeTweens(true);
+
+        _anim_m_bubbling->reset();
+        setAnimation(_anim_m_bubbling);
+        _nTreeStateDepot = std::move(_nTreeState);
+
+        _currentState = BUBBLED;
+        return true;
+    }
+
+    void HenchPig::endBubble()
+    {
+        _nTreeState = std::move(_nTreeStateDepot);
 
         _gravity = PigsnKings::_gravity;
         removeAnimation();
         _anim_m_loitering->reset();
         setAnimation(_anim_m_loitering);
 
-        prepareChangeState(LOITERING);
+        // Pigs are aggressive when debubbled,
+        // don't just loiter, piggie!
+        prepareChangeState(RAGING);
     }
 
     bool HenchPig::isBubbled()
@@ -298,15 +342,6 @@ namespace pnk
         return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
     }
 
-    dang::BTNode::Status HenchPig::sleep()
-    {
-        if (_currentState == SLEEPING)
-        {
-            return dang::BTNode::Status::RUNNING;
-        }
 
-        prepareChangeState(SLEEPING);
 
-        return dang::BTNode::Status::SUCCESS;
-    }
 }

@@ -168,7 +168,7 @@ namespace pnk
                      std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
                      if (en)
                      { // enemy becomes free again
-                         en->deBubble();
+                         en->endBubble();
                          _catched_en.reset();
                      }
                  });
