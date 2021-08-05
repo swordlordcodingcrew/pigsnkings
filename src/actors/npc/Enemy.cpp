@@ -62,9 +62,7 @@ namespace pnk
                     _current_wp = _path[_path_index];
 
                     // ultimate goal reached. Reset stuff
-                    _path.clear();
-                    _path_index = 0;
-                    _vel.x = 0;
+                    resetPathVars();
                     ret = dang::BTNode::Status::SUCCESS;
                 }
                 else
@@ -269,6 +267,7 @@ namespace pnk
                         v.x = 16;
                         v_end.x = _walkSpeed;
                     }
+                    _vel.x = v.x;
                     _max_time_to_wp = 3000;
                     _time_elapsed_to_wp = blit::now();
                     _tw_long_horiz_jump = std::make_shared<dang::TwVel>(v, v_end, 600, &dang::Ease::OutQuad, 1, false );
@@ -279,7 +278,7 @@ namespace pnk
                     // short jump
                     _max_time_to_wp = 2000;
                     _time_elapsed_to_wp = blit::now();
-                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed/2.f : _walkSpeed/2.f;
+                    _vel.x = wp->_pos.x - _pos.x < 0 ? -3 : 3;
 //                    _vel.x = wp->_pos.x - _pos.x < 0 ? -2 : 2;
                     _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
                     addTween(_tw_short_jump);
