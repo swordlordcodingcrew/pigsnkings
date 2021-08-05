@@ -92,9 +92,7 @@ namespace pnk
         }
 
         // first clear any remains of the last path
-        _path.clear();
-        _path_index = 0;
-        _vel.x = 0;
+        resetPathVars();
 
         float dist = _nTreeState->_payload["aaLoSH"];
         _nTreeState->_payload.erase("aaLoSH");
@@ -119,9 +117,7 @@ namespace pnk
         }
 
         // first clear any remains of the last path
-        _path.clear();
-        _path_index = 0;
-        _vel.x = 0;
+        resetPathVars();
 
         _scene_graph->getRandomPath(_current_wp, _path);
         if (_path.empty())
@@ -143,8 +139,10 @@ namespace pnk
             return dang::BTNode::Status::FAILURE;
         }
 
+        // first clear any remains of the last path
+        resetPathVars();
+
         _scene_graph->getRandomNeighbourPath(_current_wp, _path);
-        _path_index = 0;
         if (_path.empty())
         {
             // no other waypoint (?). Would be a design error, returning failure
@@ -157,6 +155,15 @@ namespace pnk
 
     dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
     {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a neighbour is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
         dang::Waypoint* start = const_cast<dang::Waypoint*>(_current_wp);
         const dang::Waypoint* dest = _scene_graph->getWaypointWithType(depot_type);
 
@@ -299,7 +306,7 @@ namespace pnk
         {
             return dang::BTNode::Status::FAILURE;
         }
-//        std::cout << "find nearest waypoint" << std::endl;
+        std::cout << "find nearest waypoint" << std::endl;
 
         // first clear any remains of the last path
         _path.clear();
@@ -324,9 +331,20 @@ namespace pnk
             startOutToWaypoint();
             return dang::BTNode::Status::SUCCESS;
         }
+        std::cout << "no waypoint found" << std::endl;
 
         return dang::BTNode::Status::FAILURE;
     }
+
+    void Enemy::resetPathVars()
+    {
+        _path.clear();
+        _path_index = 0;
+        _vel.x = 0;
+        _max_time_to_wp = 0;
+        _time_elapsed_to_wp = 0;
+    }
+
 
     /** static BT hooks */
 
@@ -384,6 +402,7 @@ namespace pnk
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
         return (spr ? spr->setWPHNearHero() : dang::BTNode::Status::FAILURE);
     }
+
 
 
 }

@@ -59,13 +59,14 @@ namespace pnk
         static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
 
-        /** path params */
+        /** path params & funcs*/
         dang::spSceneGraph                  _scene_graph{nullptr};
         std::vector<const dang::Waypoint*>  _path;
         const dang::Waypoint*               _current_wp{nullptr};
         size_t                              _path_index{0};
         uint32_t                            _max_time_to_wp{0};         //!< time in ms
         uint32_t                            _time_elapsed_to_wp{0};     //!< time in ms
+        void        resetPathVars();
 
     protected:
         bool _on_ground = false;

@@ -187,8 +187,12 @@ namespace pnk
 
     bool HenchPig::onEnterLoitering()
     {
-        // activate the behaviour tree
-        _nTreeState = std::move(_nTreeStateDepot);
+        // activate the behaviour tree, if not already active
+        resetPathVars();
+        if (_nTreeState == nullptr)
+        {
+            _nTreeState = std::move(_nTreeStateDepot);
+        }
 
         _currentState = LOITERING;
         return true;
@@ -196,10 +200,6 @@ namespace pnk
 
     void HenchPig::endLoitering()
     {
-        // deactivate the behaviour tree
-//        _nTreeStateDepot = std::move(_nTreeState);
-
-//        prepareChangeState(SLEEPING);
     }
 
     bool HenchPig::onEnterRaging()
@@ -208,6 +208,7 @@ namespace pnk
         _walkSpeed = _raging_speed;
 
         // activate the behaviour tree, if not already active
+        resetPathVars();
         if (_nTreeState == nullptr)
         {
             _nTreeState = std::move(_nTreeStateDepot);
@@ -273,6 +274,7 @@ namespace pnk
 
     void HenchPig::endBubble()
     {
+        resetPathVars();
         _nTreeState = std::move(_nTreeStateDepot);
 
         _gravity = PigsnKings::_gravity;
