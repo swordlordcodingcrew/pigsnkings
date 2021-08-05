@@ -72,9 +72,8 @@ namespace pnk
         bool _on_ground = false;
         float _walkSpeed{2.0};
 
-        dang::spTwVel _tw_long_hoizr_jump{nullptr};
+        dang::spTwVel _tw_long_horiz_jump{nullptr};
         dang::spTwVelY _tw_short_jump{nullptr};
-
 
     };
 

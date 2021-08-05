@@ -215,8 +215,8 @@ namespace pnk
         }
 
         removeTweens(true);
-        // rage for 6 sec
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(6000, dang::Ease::Linear, 1);
+        // rage for 10 sec
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endRaging, this));
         addTween(nullTw);
 
