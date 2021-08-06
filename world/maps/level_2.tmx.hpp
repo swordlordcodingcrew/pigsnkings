@@ -400,8 +400,8 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {252,"252","pig_normal",672,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {253,"253","pig_normal",896,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {254,"254","hotrect",1920,272,8,64,true,"",0,"",0b0000},
-    {255,"0","room_trigger",1603,288,2,32,true,"",0,"",0b0000},
-    {256,"1","room_trigger",1597,288,2,32,true,"",0,"",0b0000},
+    {255,"0","room_trigger",1613,288,2,32,true,"",0,"",0b0000},
+    {256,"1","room_trigger",1589,288,2,32,true,"",0,"",0b0000},
     {257,"1","room_trigger",1285,288,2,32,true,"",0,"",0b0000},
     {258,"2","room_trigger",1274,288,2,32,true,"",0,"",0b0000},
     {259,"2","room_trigger",973,448,2,32,true,"",0,"",0b0000},
@@ -461,7 +461,7 @@ static const dang::tmx_layer level_2_lvl_2_fg = {
 // Objects for layer: lvl_2_hud
 static const dang::tmx_spriteobject level_2_lvl_2_hud_objects[] = {
 
-    {226,"226","",15,18,32,32,true,"gfx_king",26,"",0b0000},
+    {226,"226","hud_hero",15,18,32,32,true,"gfx_king",26,"",0b0000},
     {227,"227","",46,37,16,16,true,"hud_ui",61,"",0b0000},
     {228,"228","",62,37,16,16,true,"hud_ui",62,"",0b0000},
     {229,"229","",78,37,16,16,true,"hud_ui",63,"",0b0000}
@@ -487,22 +487,52 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
 
 // layer with points - path layer
 static const dang::tmx_waypoint level_2_waypoints[] = {
-    {270, 1664,442, 0x0},
-    {271, 1728,474, 0x0},
-    {272, 1792,474, 0x0},
-    {273, 1856,442, 0x0},
+    {270, 1680,440, 0x0},
+    {271, 1712,472, 0x0},
+    {272, 1808,472, 0x0},
+    {273, 1840,440, 0x0},
+    {274, 1648,440, 0x0},
+    {275, 1872,440, 0x0},
+    {276, 1776,472, 0x0},
+    {277, 1744,472, 0x0},
+    {278, 1648,472, 0x0},
+    {279, 1872,472, 0x0},
+    {280, 1808,408, 0x0},
+    {281, 1712,408, 0x0},
+    {282, 1712,376, 0x0},
+    {283, 1808,376, 0x0},
+    {284, 1712,344, 0x0},
+    {285, 1808,344, 0x0},
 };
 
-static const size_t level_2_waypoints_len = 4;
+static const size_t level_2_waypoints_len = 16;
 
 static const dang::tmx_waypoint_connection level_2_connections[] = {
     {270, 271, 0x1},
-    {271, 272, 0x1},
+    {270, 274, 0x1},
+    {271, 278, 0x1},
+    {271, 277, 0x1},
+    {271, 270, 0x2},
+    {272, 276, 0x1},
+    {272, 279, 0x1},
     {272, 273, 0x2},
     {273, 272, 0x1},
+    {273, 275, 0x1},
+    {274, 270, 0x1},
+    {275, 273, 0x1},
+    {276, 272, 0x1},
+    {277, 271, 0x1},
+    {278, 271, 0x1},
+    {279, 272, 0x1},
+    {280, 281, 0x1},
+    {281, 280, 0x1},
+    {282, 283, 0x1},
+    {283, 282, 0x1},
+    {284, 285, 0x1},
+    {285, 284, 0x1},
 };
 
-static const size_t level_2_connections_len = 4;
+static const size_t level_2_connections_len = 22;
 
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,

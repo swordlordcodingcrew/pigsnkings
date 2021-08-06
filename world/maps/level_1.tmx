@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="514">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="520">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
  <tileset firstgid="190" source="../tilesets/character_bubbles.tsx"/>
  <tileset firstgid="201" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="306" source="../tilesets/character_king.tsx"/>
- <tileset firstgid="333" source="../tilesets/character_pig.tsx"/>
- <tileset firstgid="376" source="../tilesets/character_pigbomb.tsx"/>
- <tileset firstgid="409" source="../tilesets/character_pigcrate.tsx"/>
- <tileset firstgid="448" source="../tilesets/character_cannonsnpigs.tsx"/>
- <tileset firstgid="457" source="../tilesets/common_items_bomb.tsx"/>
+ <tileset firstgid="334" source="../tilesets/character_pig.tsx"/>
+ <tileset firstgid="377" source="../tilesets/character_pigbomb.tsx"/>
+ <tileset firstgid="410" source="../tilesets/character_pigcrate.tsx"/>
+ <tileset firstgid="449" source="../tilesets/character_cannonsnpigs.tsx"/>
+ <tileset firstgid="458" source="../tilesets/common_items_bomb.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -84,7 +84,6 @@
   <object id="256" gid="107" x="864" y="608" width="32" height="32"/>
   <object id="257" gid="107" x="864" y="640" width="32" height="32"/>
   <object id="258" gid="117" x="864" y="672" width="32" height="32"/>
-  <object id="259" gid="101" x="832" y="608" width="32" height="32"/>
   <object id="260" gid="101" x="832" y="640" width="32" height="32"/>
   <object id="261" gid="101" x="896" y="608" width="32" height="32"/>
   <object id="262" gid="101" x="896" y="640" width="32" height="32"/>
@@ -92,8 +91,8 @@
   <object id="264" gid="101" x="896" y="704" width="32" height="32"/>
   <object id="278" gid="102" x="704" y="672" width="32" height="32"/>
   <object id="279" gid="102" x="768" y="672" width="32" height="32"/>
-  <object id="82" gid="101" x="384" y="576" width="32" height="32"/>
-  <object id="83" gid="101" x="544" y="608" width="32" height="32"/>
+  <object id="82" gid="101" x="384" y="608" width="32" height="32"/>
+  <object id="83" gid="101" x="544" y="632" width="32" height="32"/>
   <object id="84" gid="101" x="544" y="704" width="32" height="32"/>
   <object id="85" gid="101" x="384" y="704" width="32" height="32"/>
   <object id="102" gid="98" x="448" y="608" width="32" height="32"/>
@@ -147,7 +146,7 @@
   <object id="458" gid="101" x="896" y="389" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_1_obj">
-  <object id="143" type="coin_silver" gid="137" x="384" y="534" width="32" height="48"/>
+  <object id="143" type="coin_silver" gid="137" x="384" y="560" width="32" height="48"/>
   <object id="144" type="coin_silver" gid="137" x="448" y="598" width="32" height="48"/>
   <object id="145" type="coin_silver" gid="137" x="480" y="598" width="32" height="48"/>
   <object id="146" type="coin_silver" gid="137" x="544" y="662" width="32" height="48"/>
@@ -161,7 +160,7 @@
   <object id="154" type="coin_silver" gid="137" x="576" y="310" width="32" height="48"/>
   <object id="155" type="coin_gold" gid="141" x="352" y="374" width="32" height="48"/>
   <object id="156" type="coin_gold" gid="141" x="576" y="374" width="32" height="48"/>
-  <object id="157" type="coin_gold" gid="141" x="544" y="566" width="32" height="48"/>
+  <object id="157" type="coin_gold" gid="141" x="544" y="592" width="32" height="48"/>
   <object id="158" type="coin_gold" gid="141" x="352" y="278" width="32" height="48"/>
   <object id="159" type="coin_gold" gid="141" x="384" y="278" width="32" height="48"/>
   <object id="160" type="coin_gold" gid="141" x="544" y="278" width="32" height="48"/>
@@ -190,17 +189,16 @@
   <object id="239" type="hotrect" x="448" y="672" width="64" height="64"/>
   <object id="240" type="hotrect" x="608" y="288" width="32" height="192"/>
   <object id="241" type="hotrect" x="544" y="544" width="128" height="32"/>
-  <object id="243" type="hotrect_platform" x="384" y="576" width="32" height="4"/>
+  <object id="243" type="hotrect_platform" x="384" y="608" width="32" height="4"/>
   <object id="244" type="hotrect_platform" x="448" y="608" width="64" height="4"/>
   <object id="245" type="hotrect_platform" x="448" y="640" width="64" height="4"/>
   <object id="246" type="hotrect_platform" x="384" y="704" width="32" height="4"/>
   <object id="247" type="hotrect_platform" x="544" y="704" width="32" height="4"/>
-  <object id="248" type="hotrect_platform" x="544" y="608" width="32" height="4"/>
+  <object id="248" type="hotrect_platform" x="544" y="632" width="32" height="4"/>
   <object id="280" type="hotrect" x="736" y="544" width="96" height="32"/>
   <object id="283" type="hotrect" x="608" y="640" width="64" height="96"/>
   <object id="284" type="hotrect" x="928" y="576" width="32" height="160"/>
   <object id="286" type="hotrect" x="576" y="608" width="256" height="32"/>
-  <object id="288" type="hotrect_platform" x="832" y="608" width="32" height="4"/>
   <object id="289" type="hotrect_platform" x="832" y="640" width="32" height="4"/>
   <object id="290" type="hotrect_platform" x="896" y="608" width="32" height="4"/>
   <object id="291" type="hotrect_platform" x="896" y="640" width="32" height="4"/>
@@ -249,38 +247,42 @@
   <object id="326" type="hotrect" x="256" y="100" width="96" height="60"/>
   <object id="330" type="hotrect" x="384" y="68" width="32" height="28"/>
   <object id="331" type="hotrect" x="224" y="32" width="160" height="32"/>
-  <object id="333" name="dan" type="pig_box" gid="2147484062" x="512" y="96" width="32" height="32"/>
-  <object id="334" type="pig_bomb" gid="2147484028" x="704" y="96" width="32" height="32"/>
-  <object id="335" type="pig_normal" gid="333" x="576" y="704" width="32" height="32">
+  <object id="333" name="dan" type="pig_box" gid="2147484063" x="512" y="96" width="32" height="32"/>
+  <object id="334" type="pig_bomb" gid="2147484029" x="704" y="96" width="32" height="32"/>
+  <object id="335" type="pig_normal" gid="334" x="576" y="704" width="32" height="32">
+   <properties>
+    <property name="bt" value="lazy"/>
+   </properties>
+  </object>
+  <object id="336" type="pig_normal" gid="334" x="832" y="608" width="32" height="32">
+   <properties>
+    <property name="bt" value="lazy"/>
+   </properties>
+  </object>
+  <object id="340" name="boris" type="pig_box" gid="2147484063" x="736" y="704" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="336" type="pig_normal" gid="333" x="832" y="576" width="32" height="32">
-   <properties>
-    <property name="bt" value="loiter"/>
-   </properties>
-  </object>
-  <object id="340" name="boris" type="pig_box" gid="2147484062" x="736" y="704" width="32" height="32"/>
-  <object id="341" name="fred" type="pig_bomb" gid="380" x="192" y="160" width="32" height="32">
+  <object id="341" name="fred" type="pig_bomb" gid="381" x="192" y="160" width="32" height="32">
    <properties>
     <property name="bt" value="insanity"/>
    </properties>
   </object>
-  <object id="342" name="sam" type="pig_normal" gid="333" x="192" y="672" width="32" height="32">
+  <object id="342" name="sam" type="pig_normal" gid="334" x="192" y="672" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="344" type="crate_proto" gid="443" x="32" y="480" width="32" height="32"/>
+  <object id="344" type="crate_proto" gid="444" x="32" y="480" width="32" height="32"/>
   <object id="345" type="hotrect" x="-8" y="160" width="8" height="552"/>
   <object id="346" type="hotrect" x="960" y="32" width="8" height="560"/>
   <object id="347" name="1" type="room_trigger" x="317" y="544" width="2" height="32"/>
   <object id="348" name="0" type="room_trigger" x="288" y="544" width="2" height="32"/>
   <object id="349" name="2" type="room_trigger" x="640" y="576" width="2" height="32"/>
   <object id="350" name="1" type="room_trigger" x="608" y="576" width="2" height="32"/>
-  <object id="351" type="bomb_proto" gid="402" x="64" y="480" width="32" height="32"/>
-  <object id="352" type="pigpoof_proto" gid="357" x="96" y="480" width="32" height="32"/>
+  <object id="351" type="bomb_proto" gid="403" x="64" y="480" width="32" height="32"/>
+  <object id="352" type="pigpoof_proto" gid="358" x="96" y="480" width="32" height="32"/>
   <object id="353" name="3" type="warp_room_trigger" x="958" y="544" width="2" height="32"/>
   <object id="354" type="hotrect" x="32" y="256" width="96" height="64"/>
   <object id="355" type="hotrect" x="224" y="416" width="32" height="32"/>
@@ -307,22 +309,22 @@
   <object id="380" name="4" type="warp_room_trigger" x="320" y="448" width="2" height="32"/>
   <object id="381" name="5" type="room_trigger" x="288" y="64" width="2" height="32"/>
   <object id="382" name="4" type="room_trigger" x="320" y="64" width="2" height="32"/>
-  <object id="383" name="5" type="warp_room_trigger" x="128" y="320" width="32" height="2"/>
-  <object id="384" name="6" type="warp_room_trigger" x="5" y="192" width="32" height="2" rotation="90"/>
+  <object id="383" name="5" type="warp_room_trigger" x="32" y="192" width="2" height="32"/>
+  <object id="384" name="6" type="warp_room_trigger" x="15" y="192" width="32" height="2" rotation="90"/>
   <object id="385" type="hotrect" x="480" y="192" width="40" height="4"/>
-  <object id="425" name="Bertha" type="cannon" gid="2147484096" x="480" y="448" width="32" height="32"/>
-  <object id="426" type="cannonmuzzle_proto" gid="453" x="160" y="480" width="32" height="32"/>
-  <object id="427" type="cannonball_proto" gid="456" x="192" y="480" width="32" height="32"/>
-  <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483981" x="448" y="448" width="32" height="32"/>
-  <object id="429" type="boom_proto" gid="462" x="256" y="512" width="64" height="64"/>
-  <object id="430" name="fred too" type="pig_bomb" gid="380" x="224" y="384" width="32" height="32">
+  <object id="425" name="Bertha" type="cannon" gid="2147484097" x="480" y="448" width="32" height="32"/>
+  <object id="426" type="cannonmuzzle_proto" gid="454" x="160" y="480" width="32" height="32"/>
+  <object id="427" type="cannonball_proto" gid="457" x="192" y="480" width="32" height="32"/>
+  <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483982" x="448" y="448" width="32" height="32"/>
+  <object id="429" type="boom_proto" gid="463" x="256" y="512" width="64" height="64"/>
+  <object id="430" name="fred too" type="pig_bomb" gid="381" x="224" y="384" width="32" height="32">
    <properties>
     <property name="bt" value="insanity"/>
    </properties>
   </object>
-  <object id="431" type="pig_normal" gid="2147483981" x="352" y="704" width="32" height="32">
+  <object id="431" type="pig_normal" gid="2147483982" x="352" y="704" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter"/>
+    <property name="bt" value="lazy"/>
    </properties>
   </object>
   <object id="434" type="hotrect_platform" x="704" y="128" width="32" height="4"/>
@@ -333,7 +335,7 @@
   <object id="455" type="hotrect_platform" x="800" y="336" width="32" height="4"/>
   <object id="459" type="hotrect_platform" x="896" y="389" width="32" height="4"/>
   <object id="460" type="hotrect" x="704" y="224" width="224" height="32"/>
-  <object id="463" type="pig_normal" gid="333" x="880" y="448" width="32" height="32">
+  <object id="463" type="pig_normal" gid="334" x="880" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
@@ -363,37 +365,38 @@
   <object id="488" type="coin_gold" gid="141" x="32" y="150" width="32" height="48"/>
   <object id="489" type="hotrect" x="0" y="32" width="32" height="160"/>
   <object id="490" type="hotrect" x="32" y="224" width="224" height="32"/>
-  <object id="491" name="fred" type="pig_bomb" gid="380" x="96" y="96" width="32" height="32">
+  <object id="491" name="fred" type="pig_bomb" gid="381" x="96" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="insanity"/>
    </properties>
   </object>
-  <object id="492" type="pig_normal" gid="333" x="800" y="192" width="32" height="32">
+  <object id="492" type="pig_normal" gid="334" x="800" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="493" type="pig_normal" gid="333" x="624" y="128" width="32" height="32">
+  <object id="493" type="pig_normal" gid="334" x="624" y="128" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="494" type="pig_normal" gid="333" x="501" y="128" width="32" height="32">
+  <object id="494" type="pig_normal" gid="334" x="501" y="128" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="495" type="pig_normal" gid="333" x="448" y="192" width="32" height="32">
+  <object id="495" type="pig_normal" gid="334" x="448" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="496" type="pig_normal" gid="333" x="800" y="96" width="32" height="32">
+  <object id="496" type="pig_normal" gid="334" x="800" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
   <object id="513" name="2" type="level_trigger" x="64" y="544" width="32" height="32"/>
+  <object id="519" name="6" type="warp_room_trigger" x="128" y="288" width="32" height="2"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
@@ -409,7 +412,7 @@
   <object id="511" gid="14" x="576" y="192" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_1_hud">
-  <object id="250" gid="332" x="15" y="18" width="32" height="32"/>
+  <object id="250" type="hud_hero" gid="332" x="15" y="18" width="32" height="32"/>
   <object id="251" gid="262" x="46" y="37" width="16" height="16"/>
   <object id="252" gid="263" x="62" y="37" width="16" height="16"/>
   <object id="254" gid="264" x="78" y="37" width="16" height="16"/>
@@ -553,15 +556,15 @@
    </properties>
    <point/>
   </object>
-  <object id="442" type="0" x="408" y="568">
+  <object id="442" type="0" x="400" y="600">
    <properties>
     <property name="jump_0" type="object" value="441"/>
-    <property name="walk_0" type="object" value="443"/>
+    <property name="jump_1" type="object" value="443"/>
     <property name="walk_1" type="object" value="447"/>
    </properties>
    <point/>
   </object>
-  <object id="443" type="0" x="352" y="568">
+  <object id="443" type="0" x="368" y="568">
    <properties>
     <property name="walk_0" type="object" value="442"/>
    </properties>
@@ -569,14 +572,7 @@
   </object>
   <object id="444" type="0" x="496" y="600">
    <properties>
-    <property name="jump_0" type="object" value="445"/>
     <property name="walk_0" type="object" value="441"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="445" type="0" x="560" y="600">
-   <properties>
-    <property name="jump_0" type="object" value="444"/>
    </properties>
    <point/>
   </object>
@@ -614,16 +610,17 @@
    </properties>
    <point/>
   </object>
-  <object id="451" type="0" x="847" y="600">
+  <object id="451" type="0" x="816" y="600">
    <properties>
-    <property name="jump_0" type="object" value="452"/>
     <property name="walk_0" type="object" value="450"/>
+    <property name="walk_1" type="object" value="452"/>
    </properties>
    <point/>
   </object>
-  <object id="452" type="0" x="911" y="600">
+  <object id="452" type="0" x="848" y="632">
    <properties>
     <property name="jump_0" type="object" value="451"/>
+    <property name="jump_1" type="object" value="514"/>
    </properties>
    <point/>
   </object>
@@ -649,6 +646,7 @@
   <object id="498" x="814" y="218">
    <properties>
     <property name="jump_0" type="object" value="499"/>
+    <property name="jump_1" type="object" value="509"/>
     <property name="walk_0" type="object" value="497"/>
    </properties>
    <point/>
@@ -712,6 +710,31 @@
    <properties>
     <property name="jump_0" type="object" value="501"/>
     <property name="walk_0" type="object" value="498"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="514" x="912" y="632">
+   <properties>
+    <property name="jump_0" type="object" value="452"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="516" type="2" x="688" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="518"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="517" x="848" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="518"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="518" x="752" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="516"/>
+    <property name="walk_1" type="object" value="517"/>
    </properties>
    <point/>
   </object>

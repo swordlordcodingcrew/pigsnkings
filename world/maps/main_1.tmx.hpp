@@ -18,7 +18,7 @@ static const dang::tmx_tileset main_1_tilesets[] = {
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
     {"main_pnk_logo", &main_pnk_logo, 1,218,36,218,36,1,1},
     {"gfx_castle_decorations", &gfx_castle_decorations, 40,32,32,320,128,10,4},
-    {"gfx_king", &gfx_king, 27,32,32,864,32,27,1},
+    {"gfx_king", &gfx_king, 28,32,32,896,32,28,1},
     {"gfx_pig", &gfx_pig, 43,32,32,1376,32,43,1},
     {"common_menus", &common_menus, 3,58,32,58,96,1,3},
 };

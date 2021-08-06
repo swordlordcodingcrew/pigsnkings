@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="274">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="286">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="137" source="../tilesets/common_items.tsx"/>
  <tileset firstgid="190" source="../tilesets/character_bubbles.tsx"/>
  <tileset firstgid="201" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="306" source="../tilesets/character_king.tsx"/>
- <tileset firstgid="333" source="../tilesets/character_pig.tsx"/>
- <tileset firstgid="376" source="../tilesets/character_pigbomb.tsx"/>
- <tileset firstgid="409" source="../tilesets/character_pigcrate.tsx"/>
- <tileset firstgid="448" source="../tilesets/character_cannonsnpigs.tsx"/>
- <tileset firstgid="457" source="../tilesets/common_items_bomb.tsx"/>
+ <tileset firstgid="334" source="../tilesets/character_pig.tsx"/>
+ <tileset firstgid="377" source="../tilesets/character_pigbomb.tsx"/>
+ <tileset firstgid="410" source="../tilesets/character_pigcrate.tsx"/>
+ <tileset firstgid="449" source="../tilesets/character_cannonsnpigs.tsx"/>
+ <tileset firstgid="458" source="../tilesets/common_items_bomb.tsx"/>
  <layer id="1" name="lvl_2_bg" width="60" height="16">
   <data encoding="csv">
 5,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
@@ -142,12 +142,12 @@
  </objectgroup>
  <objectgroup id="3" name="lvl_2_obj">
   <object id="1" type="bubble_proto" gid="190" x="512" y="448" width="32" height="32"/>
-  <object id="2" type="crate_proto" gid="443" x="608" y="448" width="32" height="32"/>
-  <object id="3" type="bomb_proto" gid="402" x="576" y="448" width="32" height="32"/>
-  <object id="4" type="pigpoof_proto" gid="357" x="544" y="448" width="32" height="32"/>
-  <object id="5" type="cannonmuzzle_proto" gid="453" x="608" y="416" width="32" height="32"/>
-  <object id="6" type="cannonball_proto" gid="456" x="576" y="416" width="32" height="32"/>
-  <object id="7" type="boom_proto" gid="462" x="640" y="416" width="64" height="64"/>
+  <object id="2" type="crate_proto" gid="444" x="608" y="448" width="32" height="32"/>
+  <object id="3" type="bomb_proto" gid="403" x="576" y="448" width="32" height="32"/>
+  <object id="4" type="pigpoof_proto" gid="358" x="544" y="448" width="32" height="32"/>
+  <object id="5" type="cannonmuzzle_proto" gid="454" x="608" y="416" width="32" height="32"/>
+  <object id="6" type="cannonball_proto" gid="457" x="576" y="416" width="32" height="32"/>
+  <object id="7" type="boom_proto" gid="463" x="640" y="416" width="64" height="64"/>
   <object id="8" type="king" gid="306" x="1888" y="288" width="32" height="32"/>
   <object id="9" type="coin_silver" gid="137" x="832" y="369" width="32" height="48"/>
   <object id="10" type="coin_gold" gid="141" x="1024" y="274" width="32" height="48"/>
@@ -248,152 +248,152 @@
   <object id="220" type="hotrect_platform" x="96" y="128" width="128" height="4"/>
   <object id="221" type="hotrect_platform" x="96" y="160" width="128" height="4"/>
   <object id="222" type="hotrect_platform" x="96" y="192" width="128" height="4"/>
-  <object id="223" name="dan" type="pig_box" gid="414" x="960" y="192" width="32" height="32"/>
-  <object id="224" type="pig_bomb" gid="380" x="1440" y="320" width="32" height="32"/>
-  <object id="225" type="pig_normal" gid="333" x="1344" y="448" width="32" height="32">
+  <object id="223" name="dan" type="pig_box" gid="415" x="960" y="192" width="32" height="32"/>
+  <object id="224" type="pig_bomb" gid="381" x="1440" y="320" width="32" height="32"/>
+  <object id="225" type="pig_normal" gid="334" x="1344" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="226" type="pig_bomb" gid="380" x="1408" y="384" width="32" height="32"/>
-  <object id="227" type="pig_normal" gid="333" x="1312" y="320" width="32" height="32">
+  <object id="226" type="pig_bomb" gid="381" x="1408" y="384" width="32" height="32"/>
+  <object id="227" type="pig_normal" gid="334" x="1312" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="228" type="pig_normal" gid="333" x="1696" y="320" width="32" height="32">
+  <object id="228" type="pig_normal" gid="334" x="1696" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="229" type="pig_normal" gid="333" x="1696" y="352" width="32" height="32">
+  <object id="229" type="pig_normal" gid="334" x="1696" y="352" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="230" type="pig_normal" gid="333" x="1792" y="384" width="32" height="32">
+  <object id="230" type="pig_normal" gid="334" x="1792" y="384" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="231" type="pig_normal" gid="333" x="1856" y="416" width="32" height="32">
+  <object id="231" type="pig_normal" gid="334" x="1856" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="232" type="pig_normal" gid="333" x="1632" y="416" width="32" height="32">
+  <object id="232" type="pig_normal" gid="334" x="1632" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="233" type="pig_normal" gid="333" x="1024" y="448" width="32" height="32">
+  <object id="233" type="pig_normal" gid="334" x="1024" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="234" type="pig_normal" gid="333" x="800" y="448" width="32" height="32">
+  <object id="234" type="pig_normal" gid="334" x="800" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="235" type="pig_normal" gid="333" x="832" y="320" width="32" height="32">
+  <object id="235" type="pig_normal" gid="334" x="832" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="236" type="pig_normal" gid="333" x="640" y="288" width="32" height="32">
+  <object id="236" type="pig_normal" gid="334" x="640" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="237" type="pig_normal" gid="333" x="192" y="288" width="32" height="32">
+  <object id="237" type="pig_normal" gid="334" x="192" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="238" type="pig_normal" gid="333" x="256" y="448" width="32" height="32">
+  <object id="238" type="pig_normal" gid="334" x="256" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="239" type="pig_normal" gid="333" x="32" y="448" width="32" height="32">
+  <object id="239" type="pig_normal" gid="334" x="32" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="240" type="pig_normal" gid="333" x="32" y="416" width="32" height="32">
+  <object id="240" type="pig_normal" gid="334" x="32" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="241" type="pig_normal" gid="333" x="64" y="384" width="32" height="32">
+  <object id="241" type="pig_normal" gid="334" x="64" y="384" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="242" type="pig_normal" gid="333" x="32" y="352" width="32" height="32">
+  <object id="242" type="pig_normal" gid="334" x="32" y="352" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="243" type="pig_normal" gid="333" x="64" y="320" width="32" height="32">
+  <object id="243" type="pig_normal" gid="334" x="64" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="244" type="pig_normal" gid="333" x="32" y="288" width="32" height="32">
+  <object id="244" type="pig_normal" gid="334" x="32" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="245" type="pig_normal" gid="333" x="96" y="192" width="32" height="32">
+  <object id="245" type="pig_normal" gid="334" x="96" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="246" type="pig_normal" gid="333" x="96" y="32" width="32" height="32">
+  <object id="246" type="pig_normal" gid="334" x="96" y="32" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="247" type="pig_normal" gid="333" x="96" y="96" width="32" height="32">
+  <object id="247" type="pig_normal" gid="334" x="96" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="248" type="pig_normal" gid="333" x="352" y="96" width="32" height="32">
+  <object id="248" type="pig_normal" gid="334" x="352" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="249" type="pig_normal" gid="333" x="576" y="96" width="32" height="32">
+  <object id="249" type="pig_normal" gid="334" x="576" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="250" type="pig_normal" gid="333" x="576" y="192" width="32" height="32">
+  <object id="250" type="pig_normal" gid="334" x="576" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="251" type="pig_normal" gid="333" x="352" y="192" width="32" height="32">
+  <object id="251" type="pig_normal" gid="334" x="352" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="252" type="pig_normal" gid="333" x="672" y="192" width="32" height="32">
+  <object id="252" type="pig_normal" gid="334" x="672" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="253" type="pig_normal" gid="333" x="896" y="192" width="32" height="32">
+  <object id="253" type="pig_normal" gid="334" x="896" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
   </object>
   <object id="254" type="hotrect" x="1920" y="272" width="8" height="64"/>
-  <object id="255" name="0" type="room_trigger" x="1603" y="288" width="2" height="32"/>
-  <object id="256" name="1" type="room_trigger" x="1597" y="288" width="2" height="32"/>
+  <object id="255" name="0" type="room_trigger" x="1613" y="288" width="2" height="32"/>
+  <object id="256" name="1" type="room_trigger" x="1589" y="288" width="2" height="32"/>
   <object id="257" name="1" type="room_trigger" x="1285" y="288" width="2" height="32"/>
   <object id="258" name="2" type="room_trigger" x="1274" y="288" width="2" height="32"/>
   <object id="259" name="2" type="room_trigger" x="973" y="448" width="2" height="32"/>
@@ -410,33 +410,111 @@
  </objectgroup>
  <objectgroup id="5" name="lvl_2_fg"/>
  <objectgroup id="4" name="lvl_2_hud">
-  <object id="226" gid="332" x="15" y="18" width="32" height="32"/>
+  <object id="226" type="hud_hero" gid="332" x="15" y="18" width="32" height="32"/>
   <object id="227" gid="262" x="46" y="37" width="16" height="16"/>
   <object id="228" gid="263" x="62" y="37" width="16" height="16"/>
   <object id="229" gid="264" x="78" y="37" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="lvl_2_paths">
-  <object id="270" x="1664" y="442">
+  <object id="270" x="1680" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="271"/>
+    <property name="walk_1" type="object" value="274"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="271" x="1712" y="472">
+   <properties>
+    <property name="jump_0" type="object" value="270"/>
+    <property name="walk_0" type="object" value="278"/>
+    <property name="walk_1" type="object" value="277"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="272" x="1808" y="472">
+   <properties>
+    <property name="jump_0" type="object" value="273"/>
+    <property name="walk_0" type="object" value="276"/>
+    <property name="walk_1" type="object" value="279"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="273" x="1840" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="272"/>
+    <property name="walk_1" type="object" value="275"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="274" x="1648" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="270"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="275" x="1872" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="273"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="276" x="1776" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="272"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="277" x="1744" y="472">
    <properties>
     <property name="walk_0" type="object" value="271"/>
    </properties>
    <point/>
   </object>
-  <object id="271" x="1728" y="474">
+  <object id="278" x="1648" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="271"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="279" x="1872" y="472">
    <properties>
     <property name="walk_0" type="object" value="272"/>
    </properties>
    <point/>
   </object>
-  <object id="272" x="1792" y="474">
+  <object id="280" x="1808" y="408">
    <properties>
-    <property name="jump_0" type="object" value="273"/>
+    <property name="walk_0" type="object" value="281"/>
    </properties>
    <point/>
   </object>
-  <object id="273" x="1856" y="442">
+  <object id="281" x="1712" y="408">
    <properties>
-    <property name="walk_0" type="object" value="272"/>
+    <property name="walk_0" type="object" value="280"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="282" x="1712" y="376">
+   <properties>
+    <property name="walk_0" type="object" value="283"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="283" x="1808" y="376">
+   <properties>
+    <property name="walk_0" type="object" value="282"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="284" x="1712" y="344">
+   <properties>
+    <property name="walk_0" type="object" value="285"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="285" x="1808" y="344">
+   <properties>
+    <property name="walk_0" type="object" value="284"/>
    </properties>
    <point/>
   </object>
