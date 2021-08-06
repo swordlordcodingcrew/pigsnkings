@@ -41,10 +41,12 @@
 
 #include "tracks/gocryogo.h"
 #include "sfx/cannon_fire_22050_mono.h"
+#include "sfx/bubble_blow_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
 #include "sfx/king_damage_22050.h"
 #include "sfx/health_22050_mono.h"
 #include "sfx/lifelost_22050_mono.h"
+#include "sfx/teleport_22050_mono.h"
 
 #include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
@@ -425,7 +427,7 @@ namespace pnk
 #ifdef TARGET_32BLIT_HW
 
             // memory stats
-        DEBUG_PRINT("GSPlay: Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+        //DEBUG_PRINT("GSPlay: Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
 
 #endif
         }
@@ -499,6 +501,8 @@ namespace pnk
             bub->_to_the_left = pe._to_the_left;
             bub->init();
             _csl->addCollisionSprite(bub);
+
+            dang::SndGear::playSfx(bubble_blow_22050_mono, bubble_blow_22050_mono_length, _pnk._prefs.volume_sfx);
         }
         else if (pe._type == ETG_REMOVE_SPRITE)
         {
@@ -834,6 +838,8 @@ namespace pnk
 
         _active_act_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
+
+        dang::SndGear::playSfx(teleport_22050_mono, teleport_22050_mono_length, _pnk._prefs.volume_sfx);
     }
 
     void GSPlay::changeLevel(int8_t level_nr)
