@@ -5,5 +5,5 @@ splash:
   file: gfx/loader-splash.png
 icon:
   file: gfx/loader-icon.png
-version: v0.1.1
+version: v0.1.2
 category: jumpnrun
