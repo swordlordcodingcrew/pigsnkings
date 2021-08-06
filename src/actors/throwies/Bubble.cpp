@@ -40,7 +40,7 @@ namespace pnk
 
     Bubble::Bubble(const Bubble &bub) : CollisionSprite(bub)
     {
-        std::cout << "bubble copy constructor" << std::endl;
+//        std::cout << "bubble copy constructor" << std::endl;
 
         _to_the_left = bub._to_the_left;
         _state = bs_hatch;
@@ -154,7 +154,7 @@ namespace pnk
 
             // set vel
             removeTweens(true);
-            _vel = {0, -0.5};
+            _vel = {0, -0.1};
 
             // alter animation
             removeAnimation(true);
@@ -168,7 +168,7 @@ namespace pnk
                      std::shared_ptr<Enemy> en = std::static_pointer_cast<Enemy>(_catched_en.lock());
                      if (en)
                      { // enemy becomes free again
-                         en->deBubble();
+                         en->endBubble();
                          _catched_en.reset();
                      }
                  });
@@ -235,11 +235,6 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
     {
-        if (_state == bs_bursting || _state == bs_wobbling)
-        {
-            return dang::CollisionSpriteLayer::CR_NONE;
-        }
-
         if (other->_type_num == dang::SpriteType::KING)
         {
             if (_state == bs_enemy_catched)
@@ -247,8 +242,18 @@ namespace pnk
                 return dang::CollisionSpriteLayer::CR_CROSS;
             }
 
+            if (_state == bs_bursting)
+            {
+                return dang::CollisionSpriteLayer::CR_NONE;
+            }
+
             return dang::CollisionSpriteLayer::CR_SLIDE;
 
+        }
+
+        if (_state == bs_bursting || _state == bs_wobbling)
+        {
+            return dang::CollisionSpriteLayer::CR_NONE;
         }
 
         if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)

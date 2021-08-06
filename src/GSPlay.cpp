@@ -133,7 +133,7 @@ namespace pnk
 
     void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
-        std::shared_ptr<dang::NTree> tr = dang::NTBuilder{}
+        dang::spNTree tr = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(Enemy::NTsetRandNeighbourWaypoint)
@@ -148,6 +148,58 @@ namespace pnk
         .build();
 
         gear.addNTree("loiter", tr);
+
+        dang::spNTree tr2 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
+                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+//                    .leaf(Enemy::BTsleep)
+            .end()
+        .build();
+
+        gear.addNTree("loiter_towards_hero", tr2);
+
+        dang::spNTree tr3 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
+                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .leaf(HenchPig::NTSleep)
+            .end()
+        .build();
+
+        gear.addNTree("wait_for_hero", tr3);
+
+        dang::spNTree tr4 = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(Enemy::NTsetRandomPath)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
+                .end()
+                .leaf(HenchPig::NTSleep)
+            .end()
+        .build();
+
+        gear.addNTree("lazy", tr4);
 
     }
 
@@ -244,7 +296,7 @@ namespace pnk
             room._extent_pixels.h = room._extent.h * _tmx->w->tileHeight;
 
             // add scenegraph
-            room._scene_graph = txtr.createPaths(room._extent_pixels);
+            txtr.createSceneGraphs(room._extent_pixels, room._scene_graphs);
         }
 
         DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);
@@ -269,12 +321,12 @@ namespace pnk
 
         DEBUG_PRINT("GSPlay: sprite objects (%d)\n", mallinfo().uordblks);
 
-#ifdef TARGET_32BLIT_HW
+//#ifdef TARGET_32BLIT_HW
 
         // memory stats
-        blit::debugf("Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
+        //blit::debugf("Mem: %i + %i (%i) = %i\n", static_used, mallinfo().uordblks, heap_total, total_ram);
 
-#endif
+//#endif
 
         // create sprites
         for (size_t j = 0; j < _csl->_tmx_layer->spriteobejcts_len; j++)
@@ -387,7 +439,16 @@ namespace pnk
 
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
-        if (!_screenplay->_l_hud_name.empty()) txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, true, true);
+        if (!_screenplay->_l_hud_name.empty())
+        {
+            txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, true, true);
+
+            // run through all sprites in HUD layer and check for the kings head (and make it change when user cheats)
+            if(_pnk.isCheating())
+            {
+                hudl->changeCheatSprite();
+            }
+        }
 
         DEBUG_PRINT("GSPlay: change room\n");
 
@@ -794,6 +855,7 @@ namespace pnk
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Back to last room.\r\n");
 
+            userIsCheating();
             changeRoom(_active_act_index - 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRURR")
@@ -803,6 +865,7 @@ namespace pnk
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Forward to next room.\r\n");
 
+            userIsCheating();
             changeRoom(_active_act_index + 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRUUU")
@@ -812,6 +875,7 @@ namespace pnk
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Up to the next level.\r\n");
 
+            userIsCheating();
             changeLevel(_pnk._gamestate.active_level + 1);
         }
         else if(_pnk.cheatKeyStream == "XXDLRUDD")
@@ -821,8 +885,34 @@ namespace pnk
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             DEBUG_PRINT("Cheat activated: Down to the last level.\r\n");
 
+            userIsCheating();
             changeLevel(_pnk._gamestate.active_level - 1);
         }
+    }
+
+    void GSPlay::userIsCheating()
+    {
+        spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
+        if(hudl == nullptr)
+        {
+            return;
+        }
+
+        hudl->changeCheatSprite();
+    }
+
+
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
+    {
+        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+        float ret = _csl->aaLoSH(cs, _spr_hero);
+
+        if (ret != 0)
+        {
+            cs->getNTreeState()->_payload["aaLoSH"] = ret;
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
     }
 }
 

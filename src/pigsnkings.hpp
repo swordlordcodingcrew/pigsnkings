@@ -37,6 +37,8 @@ namespace pnk
         void update(uint32_t time);
         void render(uint32_t time);
 
+        bool isCheating();
+
         void removeImagesheets();
         void refreshGamestateFromSave();
 
@@ -84,6 +86,7 @@ namespace pnk
             uint32_t score{0};
             uint32_t active_level{2};
             uint32_t active_room{0};
+            bool     has_cheated{false};
         };
 
         gamestate       _gamestate; // state of current game

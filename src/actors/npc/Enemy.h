@@ -29,7 +29,7 @@ namespace pnk
 
         virtual bool isBubbled() = 0;
         virtual void bubble() = 0;
-        virtual void deBubble() = 0;
+        virtual void endBubble() = 0;
 
         /**
          * Behaviour tree functions
@@ -41,31 +41,39 @@ namespace pnk
         /** these functions are used to set a destination wapoint */
         dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
+        dang::BTNode::Status setRandPath();
+        dang::BTNode::Status setWPHNearHero();
 
-        /** these functions are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
+        /** this function are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
         /** static hooks for the behaviour tree */
-        static dang::BTNode::Status NTcheckPathCompleted(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTcheckWaypointReached(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetDestinationBombDepot(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTfindNearestWaypoint(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTfindNearestWaypointH(std::shared_ptr<Sprite> s);
-        static dang::BTNode::Status NTSleep(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTcheckPathCompleted(dang::spSprite s);
+        static dang::BTNode::Status NTsetRandNeighbourWaypoint(dang::spSprite s);
+        static dang::BTNode::Status NTsetRandomPath(dang::spSprite s);
+        static dang::BTNode::Status NTsetWPNearHero(dang::spSprite s);
 
-        /** path params */
+        static dang::BTNode::Status NTcheckWaypointReached(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationBombDepot(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationCrateDepot(dang::spSprite s);
+        static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
+        static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
+
+        /** path params & funcs*/
         dang::spSceneGraph                  _scene_graph{nullptr};
         std::vector<const dang::Waypoint*>  _path;
         const dang::Waypoint*               _current_wp{nullptr};
         size_t                              _path_index{0};
         uint32_t                            _max_time_to_wp{0};         //!< time in ms
         uint32_t                            _time_elapsed_to_wp{0};     //!< time in ms
+        void        resetPathVars();
 
     protected:
         bool _on_ground = false;
         float _walkSpeed{2.0};
+
+        dang::spTwVel _tw_long_horiz_jump{nullptr};
+        dang::spTwVelY _tw_short_jump{nullptr};
 
     };
 

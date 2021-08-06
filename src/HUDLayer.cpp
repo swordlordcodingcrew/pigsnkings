@@ -21,6 +21,18 @@ namespace pnk
         healthColour = blit::Pen(78, 110, 197, 255);
     }
 
+    void HUDLayer::changeCheatSprite()
+    {
+        for (dang::spSprite& spr : _sprites)
+        {
+            if(spr->_type_name == "hud_hero")
+            {
+                // a bit of a hack, needs to be changed when grafx changes
+                spr->_img_index = 27;
+            }
+        }
+    }
+
     void HUDLayer::updateInternal(uint32_t dt, const dang::Gear &gear)
     {
 

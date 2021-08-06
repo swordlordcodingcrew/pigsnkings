@@ -35,6 +35,7 @@ namespace pnk
         _hotrect = {10, 16, 12, 16};
 
         onEnterSleeping();
+//        onEnterLoitering();
 
         setVel({0, 0});
     }
@@ -63,6 +64,9 @@ namespace pnk
                     break;
                 case LOITERING:
                     onEnterLoitering();
+                    break;
+                case RAGING:
+                    onEnterRaging();
                     break;
                 case THROWING:
                     onEnterThrowing();
@@ -144,30 +148,87 @@ namespace pnk
 
     void HenchPig::prepareChangeState(e_state wishedState)
     {
-        // TODO We could have some logic here as well, or in the update routine?
         _nextState = wishedState;
+    }
+
+    dang::BTNode::Status HenchPig::sleep()
+    {
+        if (_currentState == SLEEPING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+
+        prepareChangeState(SLEEPING);
+
+        return dang::BTNode::Status::SUCCESS;
     }
 
     bool HenchPig::onEnterSleeping()
     {
-        // TODO check if we are on the air or on the ground. pigs don't sleep mid-air
-        if(_anim_m_sleeping != nullptr)
-        {
-            setAnimation(_anim_m_sleeping);
-        }
-        else
-        {
-            std::cerr << "_anim_m_sleeping is not set in HenchPig" << std::endl;
-        }
-        _currentState = SLEEPING;
+        _nTreeStateDepot = std::move(_nTreeState);
+        assert(_anim_m_sleeping != nullptr);
+        setAnimation(_anim_m_sleeping);
 
         removeTweens(true);
-
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
+        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
         addTween(nullTw);
 
+        _currentState = SLEEPING;
+
         return true;
+    }
+
+    void HenchPig::endSleep()
+    {
+        prepareChangeState(LOITERING);
+    }
+
+    bool HenchPig::onEnterLoitering()
+    {
+        // activate the behaviour tree, if not already active
+        resetPathVars();
+        if (_nTreeState == nullptr)
+        {
+            _nTreeState = std::move(_nTreeStateDepot);
+        }
+
+        _currentState = LOITERING;
+        return true;
+    }
+
+    void HenchPig::endLoitering()
+    {
+    }
+
+    bool HenchPig::onEnterRaging()
+    {
+        std::cout << "enter raging" << std::endl;
+        _walkSpeed = _raging_speed;
+
+        // activate the behaviour tree, if not already active
+        resetPathVars();
+        if (_nTreeState == nullptr)
+        {
+            _nTreeState = std::move(_nTreeStateDepot);
+        }
+
+        removeTweens(true);
+        // rage for 10 sec
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
+        nullTw->setFinishedCallback(std::bind(&HenchPig::endRaging, this));
+        addTween(nullTw);
+
+        _currentState = RAGING;
+
+        return true;
+    }
+
+    void HenchPig::endRaging()
+    {
+        _walkSpeed = _loiter_speed;
+        prepareChangeState(LOITERING);
     }
 
     bool HenchPig::onEnterHiding()
@@ -176,21 +237,6 @@ namespace pnk
         return false;
     }
 
-    bool HenchPig::onEnterLoitering()
-    {
-        // TODO handle the walking with tweens
-        //_walkSpeed = _loiter_speed;
-        setAnimation(_anim_m_loitering);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-        _currentState = LOITERING;
-
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&HenchPig::endLoitering, this));
-        addTween(nullTw);
-
-        return true;
-    }
 
     bool HenchPig::onEnterThrowing()
     {
@@ -204,38 +250,41 @@ namespace pnk
         return false;
     }
 
-    bool HenchPig::onEnterBubbled()
-    {
-        // TODO depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
-        removeTweens(true);
-        _currentState = BUBBLED;
-        _btDepot = std::move(_nTreeState);
-        return true;
-    }
-
     void HenchPig::bubble()
     {
-        _gravity = {0,0};
-        setVel({0,0});
-        removeAnimation();
-        _anim_m_bubbling->reset();
-        setAnimation(_anim_m_bubbling);
-
         prepareChangeState(BUBBLED);
     }
 
-    void HenchPig::deBubble()
+    bool HenchPig::onEnterBubbled()
     {
-        // TODO Pigs are aggressive when debubbled,
-        // don't just loiter, piggie!
-        _nTreeState = std::move(_btDepot);
+        // Remark: depending on subclass and type of henchpig the pig will let crates or bombs fall to the ground
+
+        _gravity = {0,0};
+        setVel({0,0});
+        removeAnimation();
+        removeTweens(true);
+
+        _anim_m_bubbling->reset();
+        setAnimation(_anim_m_bubbling);
+        _nTreeStateDepot = std::move(_nTreeState);
+
+        _currentState = BUBBLED;
+        return true;
+    }
+
+    void HenchPig::endBubble()
+    {
+        resetPathVars();
+        _nTreeState = std::move(_nTreeStateDepot);
 
         _gravity = PigsnKings::_gravity;
         removeAnimation();
         _anim_m_loitering->reset();
         setAnimation(_anim_m_loitering);
 
-        prepareChangeState(LOITERING);
+        // Pigs are aggressive when debubbled,
+        // don't just loiter, piggie!
+        prepareChangeState(RAGING);
     }
 
     bool HenchPig::isBubbled()
@@ -243,15 +292,7 @@ namespace pnk
         return _currentState == BUBBLED;
     }
 
-    void HenchPig::endSleep()
-    {
-        prepareChangeState(LOITERING);
-    }
 
-    void HenchPig::endLoitering()
-    {
-        prepareChangeState(SLEEPING);
-    }
 
     void HenchPig::tellTheKingWeHitHim()
     {
@@ -295,4 +336,14 @@ namespace pnk
 
         }
     }
+
+    dang::BTNode::Status HenchPig::NTSleep(dang::spSprite s)
+    {
+//        std::cout << "NTSleep" << std::endl;
+        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+    }
+
+
+
 }

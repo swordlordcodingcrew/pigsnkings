@@ -314,7 +314,7 @@ namespace pnk
     void GSHome::checkCheatActivation()
     {
         // inspector gadget for snes, debug menu
-        if(_pnk.cheatKeyStream == "DDULRDRL")
+        if(_pnk.cheatKeyStream == "XXULRDRL")
         {
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';

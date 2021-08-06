@@ -14,10 +14,11 @@ namespace pnk
         SLEEPING = 0,
         HIDING,
         LOITERING,
+        RAGING,
         THROWING,
         FIRING,
         PICKING_UP,
-        BUBBLED, // this one is tricky, since it it managed by the Enemy base class
+        BUBBLED,
         REMOVE_SELF
     };
 
@@ -34,11 +35,9 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void bubble() override;
-        void deBubble() override;
+        void endBubble() override;
         bool isBubbled() override;
 
-        // path
-        void startOutToWaypoint() override;
 
         // animations depot
         dang::spTwAnim _anim_m_sleeping;
@@ -47,10 +46,17 @@ namespace pnk
         dang::spTwAnim _anim_m_throwing;
         dang::spTwAnim _anim_m_picking_up;
         dang::spTwAnim _anim_m_bubbling;
+
+        /** path and bt functions */
+        static dang::BTNode::Status NTSleep(dang::spSprite s);
+        dang::BTNode::Status        sleep();
+        void                        startOutToWaypoint() override;
+
+
     protected:
 
         // inactive bt
-        dang::spNTreeState _btDepot{nullptr};
+        dang::spNTreeState _nTreeStateDepot{nullptr};
 
         virtual void tellTheKingWeHitHim();
 
@@ -62,19 +68,25 @@ namespace pnk
         virtual void prepareChangeState(e_state wishedState);
 
         virtual bool onEnterSleeping();
+        virtual void endSleep();
+
         virtual bool onEnterHiding();
+
         virtual bool onEnterLoitering();
+        virtual void endLoitering();
+
+        virtual bool onEnterRaging();
+        virtual void endRaging();
+
         virtual bool onEnterThrowing();
         virtual bool onEnterPickingUp();
         virtual bool onEnterBubbled();
-
-        virtual void endSleep();
-        virtual void endLoitering();
 
         virtual void poofing();
 
         virtual void removeSelf();
 
         const uint8_t _loiter_speed{2};
+        const uint8_t _raging_speed{6};
     };
 }

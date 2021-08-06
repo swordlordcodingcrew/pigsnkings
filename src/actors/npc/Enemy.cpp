@@ -18,9 +18,6 @@
 
 namespace pnk
 {
-    using spTwVel = std::shared_ptr<dang::TwVel>;
-    using spTwVelY = std::shared_ptr<dang::TwVelY>;
-
     extern PigsnKings _pnk;
 
     Enemy::Enemy() : dang::CollisionSprite()
@@ -63,12 +60,9 @@ namespace pnk
                 if (_path_index + 1 == _path.size())
                 {
                     _current_wp = _path[_path_index];
-//                        std::cout << "path: enemy " << int8_t(_type_num) << " reached goal " << _current_wp.lock()->_id << std::endl;
 
                     // ultimate goal reached. Reset stuff
-                    _path.clear();
-                    _path_index = 0;
-                    _vel.x = 0;
+                    resetPathVars();
                     ret = dang::BTNode::Status::SUCCESS;
                 }
                 else
@@ -84,10 +78,66 @@ namespace pnk
         return ret;
     }
 
+    dang::BTNode::Status Enemy::setWPHNearHero()
+    {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
+        float dist = _nTreeState->_payload["aaLoSH"];
+        _nTreeState->_payload.erase("aaLoSH");
+        _scene_graph->getNearestNeighbourHPath(_current_wp, dist, _path);
+        if (_path.empty())
+        {
+            // no other waypoint (?). Would be a design error, returning failure
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        std::cout << "nearest wp=" << _path[0]->_id << std::endl;
+        startOutToWaypoint();
+        return dang::BTNode::Status::SUCCESS;
+    }
+
+    dang::BTNode::Status Enemy::setRandPath()
+    {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
+        _scene_graph->getRandomPath(_current_wp, _path);
+        if (_path.empty())
+        {
+            // no other waypoint (?). Would be a design error, returning failure
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        startOutToWaypoint();
+        return dang::BTNode::Status::SUCCESS;
+    }
+
+
     dang::BTNode::Status Enemy::setRandNeighbourWaypoint()
     {
-        _scene_graph->getRandomNextWaypoint(_current_wp, _path);
-        _path_index = 0;
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a neighbour is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
+        _scene_graph->getRandomNeighbourPath(_current_wp, _path);
         if (_path.empty())
         {
             // no other waypoint (?). Would be a design error, returning failure
@@ -100,6 +150,15 @@ namespace pnk
 
     dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
     {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a neighbour is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
         dang::Waypoint* start = const_cast<dang::Waypoint*>(_current_wp);
         const dang::Waypoint* dest = _scene_graph->getWaypointWithType(depot_type);
 
@@ -123,7 +182,7 @@ namespace pnk
         if (_scene_graph->waypointReached(getHotrectAbs(), _path[_path_index]))
         {
             _vel.x = 0;
-            if (_on_ground)
+            if (_on_ground)     // waypoint in hotrect and on ground -> waypoint reached
             {
                 _max_time_to_wp = 0;
                 _time_elapsed_to_wp = 0;
@@ -140,6 +199,7 @@ namespace pnk
             if (blit::now() - _time_elapsed_to_wp > _max_time_to_wp)
             {
 //                std::cout << "checkWaypointReached: time is up!" << std::endl;
+                // waypoint was not reached in time
                 return dang::BTNode::Status::FAILURE;
             }
 
@@ -168,8 +228,8 @@ namespace pnk
             case dang::e_tmx_waypoint_connection::wpc_invalid:
             case dang::e_tmx_waypoint_connection::wpc_walk:
             {
-                _walkSpeed = 2;
-                removeTweens(true);
+                removeTween(_tw_short_jump, true);
+                removeTween(_tw_long_horiz_jump, true);
                 _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
                 _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectAbs().center().x) + 32) * 100 / _walkSpeed;
                 _time_elapsed_to_wp = blit::now();
@@ -178,17 +238,20 @@ namespace pnk
             }
             case dang::e_tmx_waypoint_connection::wpc_jump:
             {
-                removeTweens(true);
+                removeTween(_tw_short_jump, true);
+                removeTween(_tw_long_horiz_jump, true);
                 dang::Vector2F v{0,0}, v_end{0,0};
                 if (wp->_pos.y < getHotrectAbs().center().y)
                 {
                     // the waypoint is higher than the hero
-                    v.y = -16;
+//                    v.y = -16;
+                    v.y = -15 - (0.4f * _walkSpeed);
                 }
                 else
                 {
                     // equal or lower
-                    v.y = -6;
+//                    v.y = -6;
+                    v.y = -5 + (0.4f * _walkSpeed);
                 }
 
                 if ((wp->_pos.x - getHotrectAbs().center().x) * (wp->_pos.x - getHotrectAbs().center().x) > 1600)
@@ -197,26 +260,28 @@ namespace pnk
                     if (wp->_pos.x - _pos.x < 0)
                     {
                         v.x = -16;
-                        v_end.x = -2;
+                        v_end.x = -_walkSpeed;
                     }
                     else
                     {
                         v.x = 16;
-                        v_end.x = 2;
+                        v_end.x = _walkSpeed;
                     }
+                    _vel.x = v.x;
                     _max_time_to_wp = 3000;
                     _time_elapsed_to_wp = blit::now();
-                    spTwVel tw = std::make_shared<dang::TwVel>(v,v_end, 600, &dang::Ease::OutQuad, 1, false );
-                    addTween(tw);
+                    _tw_long_horiz_jump = std::make_shared<dang::TwVel>(v, v_end, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(_tw_long_horiz_jump);
                 }
                 else
                 {
+                    // short jump
                     _max_time_to_wp = 2000;
                     _time_elapsed_to_wp = blit::now();
-                    _walkSpeed = 2;
-                    _vel.x = wp->_pos.x - _pos.x < 0 ? -_walkSpeed : _walkSpeed;
-                    spTwVelY tw = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
-                    addTween(tw);
+                    _vel.x = wp->_pos.x - _pos.x < 0 ? -3 : 3;
+//                    _vel.x = wp->_pos.x - _pos.x < 0 ? -2 : 2;
+                    _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::OutQuad, 1, false );
+                    addTween(_tw_short_jump);
                 }
                 _current_wp = wp;
                 break;
@@ -237,7 +302,11 @@ namespace pnk
      */
     dang::BTNode::Status Enemy::findNearestWaypoint(bool only_horizontally)
     {
-//        std::cout << "find nearest waypoint" << std::endl;
+        if (_scene_graph == nullptr)
+        {
+            return dang::BTNode::Status::FAILURE;
+        }
+        std::cout << "find nearest waypoint" << std::endl;
 
         // first clear any remains of the last path
         _path.clear();
@@ -262,9 +331,20 @@ namespace pnk
             startOutToWaypoint();
             return dang::BTNode::Status::SUCCESS;
         }
+        std::cout << "no waypoint found" << std::endl;
 
         return dang::BTNode::Status::FAILURE;
     }
+
+    void Enemy::resetPathVars()
+    {
+        _path.clear();
+        _path_index = 0;
+        _vel.x = 0;
+        _max_time_to_wp = 0;
+        _time_elapsed_to_wp = 0;
+    }
+
 
     /** static BT hooks */
 
@@ -310,5 +390,19 @@ namespace pnk
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
         return (spr ? spr->findNearestWaypoint(true) : dang::BTNode::Status::FAILURE);
     }
+
+    dang::BTNode::Status Enemy::NTsetRandomPath(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setRandPath() : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTsetWPNearHero(dang::spSprite s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setWPHNearHero() : dang::BTNode::Status::FAILURE);
+    }
+
+
 
 }

@@ -7,7 +7,7 @@
 #include "ScreenPlay.h"
 
 #include <Vector2T.hpp>
-
+#include <bt/BTNode.h>
 
 namespace pnk
 {
@@ -82,6 +82,12 @@ namespace pnk
 
         void loadLevel(int8_t level_nr);
         void freeCurrentLevel();
+
+        void userIsCheating();
+
+        // bt hooks
+        dang::BTNode::Status NTheroInSightH(dang::spSprite s);
+
     };
 
 }

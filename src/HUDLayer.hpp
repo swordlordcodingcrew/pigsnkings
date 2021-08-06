@@ -19,6 +19,8 @@ namespace pnk
         HUDLayer();
         ~HUDLayer() override = default;
 
+        void changeCheatSprite();
+
     protected:
         void updateInternal(uint32_t dt, const dang::Gear& gear) override;
         void renderInternal(const dang::Gear& gear) override;

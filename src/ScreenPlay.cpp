@@ -37,20 +37,20 @@ namespace pnk
         act room3;
         room3._extent = {20, 8, 10, 8};
         room3._passage_from[2] = {0, 6};
-        room3._passage_from[4] = {0, 4};
+        room3._passage_from[4] = {0, 1};
         _acts.push_back(room3);
 
         act room4;
         room4._extent = {9, 0, 21, 8};
-        room4._passage_from[3] = {20, 2};
+        room4._passage_from[3] = {19, 2};
         room4._passage_from[5] = {0, 2};
         room4._passage_from[7] = {6, 6};
         _acts.push_back(room4);
 
         act room5;
-        room5._extent = {0, 0, 10, 9};
-        room5._passage_from[4] = {9, 2};
-        room5._passage_from[6] = {5, 6};
+        room5._extent = {0, 0, 10, 8};
+        room5._passage_from[4] = {8, 2};
+        room5._passage_from[6] = {0, 6};
         _acts.push_back(room5);
 
         act room6;
