@@ -246,14 +246,22 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
+   },
+   "king 31.aseprite": {
+    "frame": { "x": 864, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
    }
  },
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.x-dev",
   "image": "king.png",
-  "format": "RGBA8888",
-  "size": { "w": 864, "h": 32 },
+  "format": "I8",
+  "size": { "w": 896, "h": 32 },
   "scale": "1",
   "frameTags": [
    { "name": "Idle", "from": 0, "to": 10, "direction": "forward" },
@@ -264,7 +272,7 @@
    { "name": "Run", "from": 14, "to": 21, "direction": "forward" },
    { "name": "Attack", "from": 22, "to": 24, "direction": "forward" },
    { "name": "Dead", "from": 25, "to": 29, "direction": "forward" },
-   { "name": "HUD", "from": 30, "to": 30, "direction": "forward" }
+   { "name": "HUD", "from": 30, "to": 31, "direction": "forward" }
   ],
   "layers": [
    { "name": "Dibujo", "opacity": 255, "blendMode": "normal" }
