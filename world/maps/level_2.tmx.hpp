@@ -19,7 +19,7 @@ static const dang::tmx_tileset level_2_tilesets[] = {
     {"gfx_items", &gfx_items, 53,32,48,1696,48,53,1},
     {"gfx_bubbles", &gfx_bubbles, 11,32,32,352,32,11,1},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
-    {"gfx_king", &gfx_king, 27,32,32,864,32,27,1},
+    {"gfx_king", &gfx_king, 28,32,32,896,32,28,1},
     {"gfx_pig", &gfx_pig, 43,32,32,1376,32,43,1},
     {"character_pigbomb", &character_pigbomb, 33,32,32,1056,32,33,1},
     {"character_pigcrate", &character_pigcrate, 39,32,32,1248,32,39,1},
