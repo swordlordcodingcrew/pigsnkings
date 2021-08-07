@@ -7,8 +7,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # if you want to see dang debug info drawn, enable this
-add_definitions(-DDANG_DEBUG_DRAW)
+#add_definitions(-DDANG_DEBUG_DRAW)
 add_definitions(-DPNK_DEBUG_MEM)
+
+# remove assert statements
+#add_definitions(-DNDEBUG)
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
