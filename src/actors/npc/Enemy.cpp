@@ -306,12 +306,8 @@ namespace pnk
         {
             return dang::BTNode::Status::FAILURE;
         }
-        std::cout << "find nearest waypoint" << std::endl;
 
-        // first clear any remains of the last path
-        _path.clear();
-        _path_index = 0;
-        _vel.x = 0;
+        resetPathVars();
 
         const dang::Waypoint* w;
         if (only_horizontally)
@@ -327,7 +323,6 @@ namespace pnk
         {
             _path.push_back(w);
             _path_index = 0;
-//            _current_wp = _path[_path_index];
             startOutToWaypoint();
             return dang::BTNode::Status::SUCCESS;
         }

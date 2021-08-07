@@ -395,8 +395,8 @@
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="513" name="2" type="level_trigger" x="64" y="544" width="32" height="32"/>
-  <object id="519" name="6" type="warp_room_trigger" x="128" y="288" width="32" height="2"/>
+  <object id="513" name="2" type="level_trigger" x="32" y="320" width="2" height="32"/>
+  <object id="519" name="6" type="warp_room_trigger" x="128" y="265" width="32" height="2"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>

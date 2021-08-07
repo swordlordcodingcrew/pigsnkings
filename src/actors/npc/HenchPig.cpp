@@ -11,8 +11,8 @@
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
-#include <Imagesheet.hpp>
-#include <TmxExtruder.hpp>
+//#include <Imagesheet.hpp>
+//#include <TmxExtruder.hpp>
 
 #include <iostream>
 
@@ -169,7 +169,8 @@ namespace pnk
         assert(_anim_m_sleeping != nullptr);
         setAnimation(_anim_m_sleeping);
 
-        removeTweens(true);
+//        removeTween(_tw_short_jump, true);
+//        removeTween(_tw_long_horiz_jump, true);
         uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
         dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
@@ -214,7 +215,7 @@ namespace pnk
             _nTreeState = std::move(_nTreeStateDepot);
         }
 
-        removeTweens(true);
+//        removeTweens(true);
         // rage for 10 sec
         dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endRaging, this));
@@ -227,6 +228,7 @@ namespace pnk
 
     void HenchPig::endRaging()
     {
+        std::cout << "end raging" << std::endl;
         _walkSpeed = _loiter_speed;
         prepareChangeState(LOITERING);
     }

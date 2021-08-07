@@ -4,10 +4,10 @@
 #include "PigCrate.h"
 #include "src/pigsnkings.hpp"
 #include "src/pnk_globals.h"
-//#include "Enemy.h"
 #include "src/PnkEvent.h"
 //#include "src/GSPlay.h"
 //#include "src/SpriteFactory.hpp"
+//#include "Enemy.h"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
@@ -57,7 +57,9 @@ namespace pnk
 
     bool PigCrate::onEnterLoitering()
     {
-        // TODO handle the walking with tweens
+        return this->HenchPig::onEnterLoitering();
+
+/*        // TODO handle the walking with tweens
         //_walkSpeed = _loiter_speed;
         setAnimation(_anim_m_loitering);
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
@@ -69,11 +71,11 @@ namespace pnk
         addTween(nullTw);
 
         return true;
-    }
+*/    }
 
     bool PigCrate::onEnterThrowing()
     {
-        // TODO handle the spawning of a new crate
+/*        // TODO handle the spawning of a new crate
         //_walkSpeed = _loiter_speed;
         setAnimation(_anim_m_throwing);
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
@@ -89,11 +91,14 @@ namespace pnk
         addTween(twThrown);
 
         return true;
+        */
+
+        return false;
     }
 
     void PigCrate::endLoitering()
     {
-        prepareChangeState(THROWING);
+//        prepareChangeState(THROWING);
     }
 
     void PigCrate::throwing()
@@ -107,8 +112,8 @@ namespace pnk
 
     void PigCrate::endThrowing()
     {
-        _anim_m_throwing->reset();
-        prepareChangeState(SLEEPING);
+//        _anim_m_throwing->reset();
+//        prepareChangeState(SLEEPING);
     }
 
     dang::BTNodeStatus PigCrate::BTPickUpCrate(std::shared_ptr<Sprite> s)
