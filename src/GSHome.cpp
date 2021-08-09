@@ -147,7 +147,7 @@ namespace pnk
         {
             const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
 
-            spImagesheet is = gear.getImagesheet(so->tileset);
+            dang::spImagesheet is = gear.getImagesheet(so->tileset);
             dang::spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
@@ -177,7 +177,7 @@ namespace pnk
         {
             const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
 
-            spImagesheet is = gear.getImagesheet(so->tileset);
+            dang::spImagesheet is = gear.getImagesheet(so->tileset);
             dang::spSprite spr{nullptr};
             // buttons
             if(so->type == "button")

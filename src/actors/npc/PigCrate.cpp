@@ -24,7 +24,7 @@ namespace pnk
     {
     }
 
-    PigCrate::PigCrate(const dang::tmx_spriteobject* so, spImagesheet is) : pnk::HenchPig(so, is)
+    PigCrate::PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::HenchPig(so, is)
     {
     }
 

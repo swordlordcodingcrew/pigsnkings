@@ -9,6 +9,7 @@
 #include <tween/TwAccY.hpp>
 #include <tween/TwVelY.hpp>
 #include <path/Waypoint.hpp>
+#include <libs/DANG/src/TmxExtruder.hpp>
 
 #include "src/pigsnkings.hpp"
 #include "Enemy.h"
@@ -25,7 +26,7 @@ namespace pnk
         _gravity = PigsnKings::_gravity;
     }
 
-    Enemy::Enemy(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Enemy::Enemy(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::CollisionSprite(so, is)
     {
         _gravity = PigsnKings::_gravity;
     }
