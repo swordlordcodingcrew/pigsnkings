@@ -3,16 +3,12 @@
 
 #include "src/pnk_globals.h"
 #include "src/PnkEvent.h"
-//#include "src/GSPlay.h"
-//#include "src/SpriteFactory.hpp"
 #include "src/pigsnkings.hpp"
 #include "HenchPig.h"
-//#include "Enemy.h"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
-//#include <Imagesheet.hpp>
-//#include <TmxExtruder.hpp>
+#include <Rand.hpp>
 
 #include <iostream>
 
@@ -171,7 +167,8 @@ namespace pnk
 
 //        removeTween(_tw_short_jump, true);
 //        removeTween(_tw_long_horiz_jump, true);
-        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
+        uint32_t sleep_duration = dang::Rand::get(500, 1500);;    //!< sleep between 0.5 to 2 secs
+//        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
         dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
         addTween(nullTw);
