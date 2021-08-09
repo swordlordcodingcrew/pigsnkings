@@ -1,21 +1,16 @@
 #pragma once
 
 #include "pnk_globals.h"
-#include "TmxExtruder.hpp"
-#include "32blit.hpp"
-#include "Gear.hpp"
-#include "Dispatcher.hpp"
-#include "Event.hpp"
 
-// forward declarations
-namespace dang
-{
-    struct tmx_level;
-    class Event;
-    class Imagesheet;
-}
+#include <32blit.hpp>
 
-using spImagesheet = std::shared_ptr<dang::Imagesheet>;
+#include <DangFwdDecl.h>
+#include <Vector2T.hpp>
+#include <Dispatcher.hpp>
+#include <Gear.hpp>
+//#include <TmxExtruder.hpp>
+//#include <Event.hpp>
+
 
 namespace pnk
 {

@@ -1,16 +1,7 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the Pigs and Kings game
 
-#include <malloc.h>
 #include <fonts/hud_font_small.h>
-#include <iostream>
-#include "snd/SndGear.hpp"
-#include "Imagesheet.hpp"
-#include "tween/TwAnim.hpp"
-#include "TileLayer.hpp"
-#include "CollisionSprite.hpp"
-#include "CollisionSpriteLayer.hpp"
-#include "src/actors/hero/Hero.h"
 #include "pigsnkings.hpp"
 #include "src/actors/throwies/Bubble.h"
 #include "GameState.h"
@@ -20,13 +11,18 @@
 #include "sfx/bubble_pop_22050_mono.h"
 #include "tracks/gocryogo.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
+#include "src/actors/hero/Hero.h"
 
+#include <Rand.hpp>
+#include <snd/SndGear.hpp>
+#include <Imagesheet.hpp>
+#include <tween/TwAnim.hpp>
+#include <TileLayer.hpp>
+#include <CollisionSprite.hpp>
+#include <CollisionSpriteLayer.hpp>
 
-using spLayer = std::shared_ptr<dang::Layer>;
-using spCollisionSpriteLayer = std::shared_ptr<dang::CollisionSpriteLayer>;
-using spSpriteLayer = std::shared_ptr<dang::SpriteLayer>;
-using spTileLayer = std::shared_ptr<dang::TileLayer>;
-using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
+#include <malloc.h>
+#include <iostream>
 
 namespace pnk
 {
@@ -64,6 +60,9 @@ namespace pnk
         blit::set_screen_mode(blit::ScreenMode::hires);
 
         DEBUG_PRINT("pigsnkings: screen mode set\n");
+
+        DEBUG_PRINT("pigsnkings: seed the random generator\n");
+        dang::Rand::seed();
 
         // loading preferences, if there are none, write defaults
         if(!blit::read_save(_prefs, PREFERENCES)) {
