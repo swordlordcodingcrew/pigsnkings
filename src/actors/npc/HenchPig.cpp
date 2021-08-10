@@ -22,7 +22,7 @@ namespace pnk
     {
     }
 
-    HenchPig::HenchPig(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
+    HenchPig::HenchPig(const dang::tmx_spriteobject* so, const dang::spImagesheet& is) : pnk::Enemy(so, is)
     {
     }
 
@@ -30,8 +30,14 @@ namespace pnk
     {
         _hotrect = {10, 16, 12, 16};
 
-        onEnterSleeping();
-//        onEnterLoitering();
+        if (_nTreeState != nullptr)
+        {
+            NTNap(shared_from_this());
+        }
+        else
+        {
+            onEnterSleeping();
+        }
 
         setVel({0, 0});
     }
@@ -61,8 +67,8 @@ namespace pnk
                 case LOITERING:
                     onEnterLoitering();
                     break;
-                case RAGING:
-                    onEnterRaging();
+                case BERSERK:
+                    onEnterBerserk();
                     break;
                 case THROWING:
                     onEnterThrowing();
@@ -161,18 +167,21 @@ namespace pnk
 
     bool HenchPig::onEnterSleeping()
     {
-        _nTreeStateDepot = std::move(_nTreeState);
         assert(_anim_m_sleeping != nullptr);
         setAnimation(_anim_m_sleeping);
 
-//        removeTween(_tw_short_jump, true);
-//        removeTween(_tw_long_horiz_jump, true);
-        uint32_t sleep_duration = dang::Rand::get(500, 1500);;    //!< sleep between 0.5 to 2 secs
-//        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
-        addTween(nullTw);
+        if (_nTreeState != nullptr)
+        {
+            if (_nTreeState->_payload.count("sleep_min") > 0 && _nTreeState->_payload.count("sleep_max") > 0)
+            {
+                uint32_t sleep_duration = dang::Rand::get(uint32_t(_nTreeState->_payload["sleep_min"]), uint32_t(_nTreeState->_payload["sleep_max"]));
+                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
+                nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
+                addTween(nullTw);
+            }
+        }
 
+        _nTreeStateDepot = std::move(_nTreeState);
         _currentState = SLEEPING;
 
         return true;
@@ -200,10 +209,10 @@ namespace pnk
     {
     }
 
-    bool HenchPig::onEnterRaging()
+    bool HenchPig::onEnterBerserk()
     {
         std::cout << "enter raging" << std::endl;
-        _walkSpeed = _raging_speed;
+        _walkSpeed = _berserk_speed;
 
         // activate the behaviour tree, if not already active
         resetPathVars();
@@ -215,15 +224,15 @@ namespace pnk
 //        removeTweens(true);
         // rage for 10 sec
         dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&HenchPig::endRaging, this));
+        nullTw->setFinishedCallback(std::bind(&HenchPig::endBerserk, this));
         addTween(nullTw);
 
-        _currentState = RAGING;
+        _currentState = BERSERK;
 
         return true;
     }
 
-    void HenchPig::endRaging()
+    void HenchPig::endBerserk()
     {
         std::cout << "end raging" << std::endl;
         _walkSpeed = _loiter_speed;
@@ -283,7 +292,7 @@ namespace pnk
 
         // Pigs are aggressive when debubbled,
         // don't just loiter, piggie!
-        prepareChangeState(RAGING);
+        prepareChangeState(BERSERK);
     }
 
     bool HenchPig::isBubbled()
@@ -336,13 +345,32 @@ namespace pnk
         }
     }
 
+    dang::BTNode::Status HenchPig::NTNap(dang::spSprite s)
+    {
+//        std::cout << "NTSleep" << std::endl;
+        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        spr->_nTreeState->_payload["sleep_min"] = 500;
+        spr->_nTreeState->_payload["sleep_max"] = 1500;
+        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+    }
+
     dang::BTNode::Status HenchPig::NTSleep(dang::spSprite s)
     {
 //        std::cout << "NTSleep" << std::endl;
         std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        spr->_nTreeState->_payload["sleep_min"] = 2000;
+        spr->_nTreeState->_payload["sleep_max"] = 4000;
         return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
     }
 
+    dang::BTNode::Status HenchPig::NTNarcolepsy(dang::spSprite s)
+    {
+//        std::cout << "NTSleep" << std::endl;
+        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        spr->_nTreeState->_payload["sleep_min"] = 5000;
+        spr->_nTreeState->_payload["sleep_max"] = 10000;
+        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+    }
 
 
 }

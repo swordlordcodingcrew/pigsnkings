@@ -145,10 +145,9 @@ namespace pnk
                     .leaf(Enemy::NTfindNearestWaypointH)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-//                    .leaf(Enemy::BTsleep)
+               .leaf(HenchPig::NTSleep)
             .end()
         .build();
-
         gear.addNTree("loiter", tr);
 
         dang::spNTree tr2 = dang::NTBuilder{}
@@ -166,23 +165,21 @@ namespace pnk
                     .leaf(Enemy::NTfindNearestWaypointH)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-//                    .leaf(Enemy::BTsleep)
-            .end()
-        .build();
-
-        gear.addNTree("loiter_towards_hero", tr2);
-
-        dang::spNTree tr3 = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
-                    .leaf(Enemy::NTsetWPNearHero)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
                 .leaf(HenchPig::NTSleep)
             .end()
         .build();
+        gear.addNTree("loiter_towards_hero", tr2);
 
+        dang::spNTree tr3 = dang::NTBuilder{}
+                .selector()
+                    .sequence()
+                        .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
+                        .leaf(Enemy::NTsetWPNearHero)
+                        .leaf(Enemy::NTcheckPathCompleted)
+                    .end()
+                .leaf(HenchPig::NTNap)
+            .end()
+        .build();
         gear.addNTree("wait_for_hero", tr3);
 
         dang::spNTree tr4 = dang::NTBuilder{}
@@ -200,7 +197,6 @@ namespace pnk
                 .leaf(HenchPig::NTSleep)
             .end()
         .build();
-
         gear.addNTree("lazy", tr4);
 
     }

@@ -26,7 +26,7 @@ namespace pnk
         _gravity = PigsnKings::_gravity;
     }
 
-    Enemy::Enemy(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::CollisionSprite(so, is)
+    Enemy::Enemy(const dang::tmx_spriteobject* so, const dang::spImagesheet& is) : dang::CollisionSprite(so, is)
     {
         _gravity = PigsnKings::_gravity;
     }

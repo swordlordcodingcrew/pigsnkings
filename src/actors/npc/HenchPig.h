@@ -14,7 +14,7 @@ namespace pnk
         SLEEPING = 0,
         HIDING,
         LOITERING,
-        RAGING,
+        BERSERK,
         THROWING,
         FIRING,
         PICKING_UP,
@@ -26,7 +26,7 @@ namespace pnk
     {
     public:
         HenchPig();
-        HenchPig(const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        HenchPig(const dang::tmx_spriteobject* so, const dang::spImagesheet& is);
         ~HenchPig() override;
         void init() override;
 
@@ -39,7 +39,7 @@ namespace pnk
         bool isBubbled() override;
 
 
-        // animations depot
+        /** animations depot */
         dang::spTwAnim _anim_m_sleeping;
         dang::spTwAnim _anim_m_hiding;
         dang::spTwAnim _anim_m_loitering;
@@ -48,10 +48,12 @@ namespace pnk
         dang::spTwAnim _anim_m_bubbling;
 
         /** path and bt functions */
-        static dang::BTNode::Status NTSleep(dang::spSprite s);
+        static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state
+        static dang::BTNode::Status NTSleep(dang::spSprite s);              //!< 2 - 4 sec of sleep state
+        static dang::BTNode::Status NTNarcolepsy(dang::spSprite s);         //!< 5 - 10 sec of sleep state
+
         dang::BTNode::Status        sleep();
         void                        startOutToWaypoint() override;
-
 
     protected:
 
@@ -75,8 +77,8 @@ namespace pnk
         virtual bool onEnterLoitering();
         virtual void endLoitering();
 
-        virtual bool onEnterRaging();
-        virtual void endRaging();
+        virtual bool onEnterBerserk();
+        virtual void endBerserk();
 
         virtual bool onEnterThrowing();
         virtual bool onEnterPickingUp();
@@ -87,6 +89,6 @@ namespace pnk
         virtual void removeSelf();
 
         const uint8_t _loiter_speed{2};
-        const uint8_t _raging_speed{6};
+        const uint8_t _berserk_speed{6};
     };
 }
