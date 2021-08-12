@@ -12,6 +12,18 @@
 
 namespace pnk
 {
+    enum e_state
+            {
+        SLEEPING = 0,
+        HIDING,
+        LOITERING,
+        BERSERK,
+        THROWING,
+        FIRING,
+        PICKING_UP,
+        BUBBLED,
+        REMOVE_SELF
+            };
 
     class Enemy : public dang::CollisionSprite
     {

@@ -5,7 +5,6 @@
 
 #include <string>
 #include <memory>
-#include "src/actors/others/Reward.h"
 #include "ScreenPlay.h"
 
 namespace dang
@@ -24,6 +23,8 @@ namespace pnk
 {
     // forward declarations
     class Hero;
+    class PigBoss;
+    class Reward;
     class Enemy;
     class HenchPig;
     class Bubble;
@@ -41,6 +42,7 @@ namespace pnk
 using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 using spHero = std::shared_ptr<pnk::Hero>;
+using spBoss = std::shared_ptr<pnk::PigBoss>;
 using spEnemy = std::shared_ptr<pnk::Enemy>;
 using spHenchPig = std::shared_ptr<pnk::HenchPig>;
 using spReward = std::shared_ptr<pnk::Reward>;
@@ -64,6 +66,7 @@ namespace pnk
          * type names. These should correspond to the object-types in the tiled-files
          */
         static inline const std::string T_KING{"king"};
+        static inline const std::string T_BOSS{"boss"};
         static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
         static inline const std::string T_CRATE_PROTO{"crate_proto"};
         static inline const std::string T_BOMB_PROTO{"bomb_proto"};
@@ -74,6 +77,7 @@ namespace pnk
         static inline const std::string T_HOTRECT{"hotrect"};
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
         static inline const std::string T_ROOM_TRIGGER{"room_trigger"};
+        static inline const std::string T_BOSSBATTLE_TRIGGER{"bossbattle_trigger"};
         static inline const std::string T_LEVEL_TRIGGER{"level_trigger"};
         static inline const std::string T_WARP_ROOM_TRIGGER{"warp_room_trigger"};
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
@@ -97,6 +101,7 @@ namespace pnk
         static size_t findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos);
 
         static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static spBoss Boss(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
@@ -117,6 +122,7 @@ namespace pnk
         static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
         static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
         static spCollisionSprite LevelTrigger(const dang::tmx_spriteobject* so);
+        static spCollisionSprite BossbattleTrigger(const dang::tmx_spriteobject* so);
     };
 
 }

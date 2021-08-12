@@ -142,6 +142,10 @@ namespace pnk
             {
                 return; // cannoneers and cannons dont get bubbled
             }
+            else if(mf.me->_type_num == dang::SpriteType::PIG_BOSS || mf.other->_type_num == dang::SpriteType::PIG_BOSS)
+            {
+                return; // royals dont get bubbled
+            }
 
             _catched_en = std::static_pointer_cast<Enemy>(mf.me == shared_from_this() ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();

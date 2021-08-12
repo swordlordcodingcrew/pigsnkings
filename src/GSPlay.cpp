@@ -21,6 +21,7 @@
 #include "src/actors/npc/HenchPig.h"
 #include "src/actors/npc/PigCrate.h"
 #include "src/actors/npc/PigCannon.h"
+#include "src/actors/npc/PigBoss.h"
 #include "src/actors/throwies/Bombies.h"
 #include "src/actors/throwies/Bubble.h"
 #include "src/actors/throwies/Cannonball.h"
@@ -28,6 +29,7 @@
 #include "src/actors/throwies/Craties.h"
 #include "src/actors/others/Moodies.h"
 #include "src/actors/others/MoodiesThatHurt.h"
+#include "src/actors/others/Reward.h"
 
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
@@ -55,6 +57,7 @@
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
+#include "rsrc/gfx/pig_king.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
@@ -338,6 +341,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
+            else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, is, _screenplay); }
@@ -362,6 +366,11 @@ namespace pnk
             {
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
+            }
+            else if (so->type == SpriteFactory::T_BOSS)
+            {
+                _spr_boss = SpriteFactory::Boss(txtr, so, is);
+                spr = _spr_boss;
             }
 
             if (spr != nullptr)
@@ -451,8 +460,14 @@ namespace pnk
         DEBUG_PRINT("GSPlay: change room\n");
 
         // choose room acc. to prefs
+        //_active_act_index = _pnk._gamestate.active_room - 1;
+        //changeRoom(_pnk._gamestate.active_room, true);
+
+        // TODO DEBUG ONLY
+        _pnk._gamestate.active_room = 6;
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
+
 
         DEBUG_PRINT("GSPlay: viewport\n");
 

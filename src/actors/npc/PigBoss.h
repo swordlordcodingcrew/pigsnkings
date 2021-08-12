@@ -10,12 +10,12 @@
 namespace pnk
 {
 
-    class HenchPig : public Enemy
+    class PigBoss : public Enemy
     {
     public:
-        HenchPig();
-        HenchPig(const dang::tmx_spriteobject* so, const dang::spImagesheet& is);
-        ~HenchPig() override;
+        PigBoss();
+        PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        ~PigBoss() override;
         void init() override;
 
         void update(uint32_t dt) override;
@@ -27,19 +27,11 @@ namespace pnk
         bool isBubbled() override;
 
 
-        /** animations depot */
+        // animations depot
         dang::spTwAnim _anim_m_sleeping;
-        dang::spTwAnim _anim_m_hiding;
-        dang::spTwAnim _anim_m_loitering;
-        dang::spTwAnim _anim_m_throwing;
-        dang::spTwAnim _anim_m_picking_up;
-        dang::spTwAnim _anim_m_bubbling;
 
         /** path and bt functions */
-        static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state
-        static dang::BTNode::Status NTSleep(dang::spSprite s);              //!< 2 - 4 sec of sleep state
-        static dang::BTNode::Status NTNarcolepsy(dang::spSprite s);         //!< 5 - 10 sec of sleep state
-
+        static dang::BTNode::Status NTSleep(dang::spSprite s);
         dang::BTNode::Status        sleep();
         void                        startOutToWaypoint() override;
 
@@ -60,23 +52,15 @@ namespace pnk
         virtual bool onEnterSleeping();
         virtual void endSleep();
 
-        virtual bool onEnterHiding();
-
         virtual bool onEnterLoitering();
         virtual void endLoitering();
 
-        virtual bool onEnterBerserk();
-        virtual void endBerserk();
-
-        virtual bool onEnterThrowing();
-        virtual bool onEnterPickingUp();
-        virtual bool onEnterBubbled();
-
-        virtual void poofing();
+        virtual bool onEnterRaging();
+        virtual void endRaging();
 
         virtual void removeSelf();
 
         const uint8_t _loiter_speed{2};
-        const uint8_t _berserk_speed{6};
+        const uint8_t _raging_speed{6};
     };
 }
