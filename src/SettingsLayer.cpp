@@ -17,7 +17,6 @@
 #include "Imagesheet.hpp"
 
 //#include "type.h"
-#include "mesh_monkey.h"
 
 namespace pnk
 {

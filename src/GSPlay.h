@@ -13,6 +13,8 @@ namespace pnk
 {
     class Hero;
     using spHero = std::shared_ptr<Hero>;
+    class PigBoss;
+    using spBoss = std::shared_ptr<PigBoss>;
     class ScreenPlay;
     using spScreenPlay = std::shared_ptr<ScreenPlay>;
     class PnkEvent;
@@ -45,6 +47,7 @@ namespace pnk
         const dang::tmx_level*      _tmx{nullptr};           //!< level definition
         spScreenPlay                _screenplay{nullptr};    //!< paths
         spHero                       _spr_hero{nullptr};     //!< the king
+        spBoss                       _spr_boss{nullptr};     //!< the respective boss (or nullptr)
         dang::spCollisionSpriteLayer _csl{nullptr};          //!< the layer in which the collision detection takes place
 
         std::unordered_map<std::string, dang::spCollisionSprite> _hives{};

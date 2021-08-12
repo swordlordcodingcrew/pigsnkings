@@ -5,7 +5,7 @@
 #include <iostream>
 #include <src/actors/npc/PigCrate.h>
 #include <src/actors/npc/PigBomb.h>
-#include <src/actors/throwies/Throwies.h>
+#include "src/actors/npc/PigBoss.h"
 #include <src/actors/throwies/Craties.h>
 #include <src/actors/throwies/Bombies.h>
 #include <src/actors/throwies/Cannonball.h>
@@ -13,6 +13,7 @@
 #include <src/actors/others/Moodies.h>
 #include <src/actors/others/MoodiesThatHurt.h>
 #include <src/actors/others/Cannon.h>
+#include <src/actors/others/Reward.h>
 #include <src/actors/npc/PigCannon.h>
 #include "CollisionSprite.hpp"
 #include "TmxExtruder.hpp"
@@ -25,10 +26,9 @@
 
 #include "SpriteFactory.hpp"
 #include "src/actors/hero/Hero.h"
-#include "src/actors/npc/Enemy.h"
 #include "src/actors/others/RoomTrigger.h"
 #include "src/actors/others/LevelTrigger.h"
-#include "PnkEvent.h"
+#include "src/actors/others/BossbattleTrigger.h"
 
 #include "GSPlay.h"
 
@@ -80,6 +80,16 @@ namespace pnk
         return ret;
     }
 
+    spBoss SpriteFactory::Boss(dang::TmxExtruder &txtr, const dang::tmx_spriteobject *so, spImagesheet is)
+    {
+        assert(is != nullptr);
+        spBoss ret = std::make_shared<pnk::PigBoss>(so, is);
+        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
+        ret->_type_num = dang::SpriteType::PIG_BOSS;
+
+        return ret;
+    }
+
     spCollisionSprite SpriteFactory::Hotrect(const dang::tmx_spriteobject* so)
     {
         spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
@@ -125,6 +135,16 @@ namespace pnk
         spCollisionSprite ret = std::make_shared<pnk::LevelTrigger>(so);
         ret->_visible = false;
         ret->_type_num = dang::SpriteType::LEVEL_TRIGGER;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::BossbattleTrigger(const dang::tmx_spriteobject* so)
+    {
+        spCollisionSprite ret = std::make_shared<pnk::BossbattleTrigger>(so);
+        ret->_visible = false;
+        ret->_type_num = dang::SpriteType::BOSS_BATTLE_TRIGGER;
         ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
 
         return ret;
