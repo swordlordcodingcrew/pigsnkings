@@ -4,7 +4,7 @@
 #pragma once
 
 #include "GameState.h"
-#include "ScreenPlay.h"
+#include "src/levels/ScreenPlay.h"
 
 #include <Vector2T.hpp>
 #include <bt/BTNode.h>
@@ -85,6 +85,7 @@ namespace pnk
 
         void userIsCheating();
 
+    public:
         // bt hooks
         dang::BTNode::Status NTheroInSightH(dang::spSprite s);
 

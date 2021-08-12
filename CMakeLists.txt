@@ -33,6 +33,7 @@ add_subdirectory(libs/DANG)
 
 # ---- Sources ----
 aux_source_directory(src SRC)
+aux_source_directory(src/levels SRC_LEVELS)
 aux_source_directory(src/actors SRC_ACTORS)
 aux_source_directory(src/actors/throwies SRC_ACTORS_THROWIES)
 aux_source_directory(src/actors/npc SRC_ACTORS_NPC)
@@ -41,6 +42,7 @@ aux_source_directory(src/actors/hero SRC_ACTORS_HERO)
 aux_source_directory(rsrc RSRC)
 set(SOURCES
         ${SRC}
+        ${SRC_LEVELS}
         ${SRC_ACTORS}
         ${SRC_ACTORS_THROWIES}
         ${SRC_ACTORS_NPC}

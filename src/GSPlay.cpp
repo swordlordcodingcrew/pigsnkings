@@ -32,7 +32,6 @@
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
-#include "ScreenPlay.h"
 #include "SpriteFactory.hpp"
 #include "GSPlay.h"
 #include "GSHome.h"
