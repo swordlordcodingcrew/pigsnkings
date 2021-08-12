@@ -17,7 +17,7 @@ namespace pnk
     {
     public:
         Enemy();
-        Enemy(const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        Enemy(const dang::tmx_spriteobject* so, const dang::spImagesheet& is);
         ~Enemy() override;
 
         virtual void    init();

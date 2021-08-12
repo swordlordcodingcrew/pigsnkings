@@ -37,7 +37,7 @@ namespace pnk
     Moodies::Moodies(const Moodies& moodie) : CollisionSprite(moodie)
     {
         // let the lower classes do the actual copying
-        std::cout << "Moodies copy constructor" << std::endl;
+//        std::cout << "Moodies copy constructor" << std::endl;
 
         if(moodie._anim_m_standard != nullptr)
         {

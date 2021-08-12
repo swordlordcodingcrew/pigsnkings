@@ -29,7 +29,7 @@ namespace pnk
     {
     }
 
-    PigCannon::PigCannon(const dang::tmx_spriteobject* so, spImagesheet is) : pnk::HenchPig(so, is)
+    PigCannon::PigCannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::HenchPig(so, is)
     {
     }
 

@@ -38,6 +38,7 @@
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <Rand.hpp>
 
 namespace pnk
 {
@@ -147,7 +148,7 @@ namespace pnk
         {
             const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
 
-            spImagesheet is = gear.getImagesheet(so->tileset);
+            dang::spImagesheet is = gear.getImagesheet(so->tileset);
             dang::spSprite spr = std::make_shared<dang::Sprite>(so, is);
             spr->_visible = true;
             spr->_imagesheet = is;
@@ -177,7 +178,7 @@ namespace pnk
         {
             const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
 
-            spImagesheet is = gear.getImagesheet(so->tileset);
+            dang::spImagesheet is = gear.getImagesheet(so->tileset);
             dang::spSprite spr{nullptr};
             // buttons
             if(so->type == "button")
@@ -303,9 +304,9 @@ namespace pnk
 
     void GSHome::playOink()
     {
-        // yes, I know this is not truly random. nobody cares...
-        auto val = std::rand() % 100;
-        if(val == 1)
+        uint32_t val = dang::Rand::get(0, 100);
+//        auto val = std::rand() % 100;
+        if (val == 1)
         {
             dang::SndGear::playSfx(pig_squeal_22050, pig_squeal_22050_length, _pnk._prefs.volume_sfx);
         }

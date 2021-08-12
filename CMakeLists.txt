@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DDANG_DEBUG_DRAW)
 #add_definitions(-DPNK_DEBUG_MEM)
 
+# remove assert statements
+#add_definitions(-DNDEBUG)
+
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
 
@@ -52,7 +55,6 @@ set(SOURCES
         fonts/hud_font_big.h
         fonts/hud_font_small.h
         sfx/bomb_explode_22050_mono.h
-        sfx/bubble_blow_22050_mono.h
         sfx/bubble_pop_22050_mono.h
         sfx/cannon_fire_22050_mono.h
         sfx/cheat_22050_mono.h
@@ -64,7 +66,6 @@ set(SOURCES
         sfx/king_damage_22050.h
         sfx/lifelost_22050_mono.h
         sfx/pig_squeal_22050_mono.h
-        sfx/teleport_22050_mono.h
         sfx/victory_22050_mono.h
         )
 # in case there is a file which should not be added:
