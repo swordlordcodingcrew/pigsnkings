@@ -62,7 +62,7 @@ namespace pnk
         std::unordered_map<std::string, dang::spNTree>  _bt;
 
     };
-
+/*
     class L1SP : public ScreenPlay
     {
     public:
@@ -74,6 +74,6 @@ namespace pnk
     public:
         L2SP();
     };
-
+*/
 }
 

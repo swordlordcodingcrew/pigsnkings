@@ -68,8 +68,10 @@ namespace pnk
         room7._passage_from[4] = {1, 7};
         _acts.push_back(room7);
 
-        /** behaviour trees */
-        dang::spNTree tr = dang::NTBuilder{}
+        // behaviour trees
+
+        // generic loitering
+        _bt["loiter"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(Enemy::NTsetRandNeighbourWaypoint)
@@ -83,9 +85,7 @@ namespace pnk
             .end()
         .build();
 
-        _bt["loiter"] = tr;
-
-        dang::spNTree tr2 = dang::NTBuilder{}
+        _bt["loiter_towards_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
@@ -103,36 +103,34 @@ namespace pnk
                 .leaf(HenchPig::NTSleep)
             .end()
         .build();
-        _bt["loiter_towards_hero"] = tr2;
 
-        dang::spNTree tr3 = dang::NTBuilder{}
-                .selector()
+
+        _bt["wait_for_hero"] = dang::NTBuilder{}
+            .selector()
                 .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                .leaf(Enemy::NTsetWPNearHero)
-                .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(Enemy::NTcheckPathCompleted)
                 .end()
                 .leaf(HenchPig::NTNap)
-                .end()
-                .build();
-        _bt["wait_for_hero"] = tr3;
+            .end()
+        .build();
 
-        dang::spNTree tr4 = dang::NTBuilder{}
-                .selector()
+        _bt["loiter_leasurly"] = dang::NTBuilder{}
+            .selector()
                 .sequence()
-                .leaf(Enemy::NTsetRandomPath)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(HenchPig::NTSleep)
+                    .leaf(Enemy::NTsetRandomPath)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
                 .end()
                 .sequence()
-                .leaf(Enemy::NTfindNearestWaypointH)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(HenchPig::NTSleep)
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTSleep)
                 .end()
                 .leaf(HenchPig::NTSleep)
-                .end()
-                .build();
-        _bt["lazy"] = tr4;
+            .end()
+        .build();
     }
 
 }

@@ -1,35 +1,6 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <cassert>
-#include <memory>
-
-#include <Gear.hpp>
-#include <Imagesheet.hpp>
-#include <Sprite.hpp>
-#include <SpriteLayer.hpp>
-#include <TileLayer.hpp>
-#include <Layer.hpp>
-#include <tween/Ease.hpp>
-#include <tween/TwAnim.hpp>
-#include <CollisionSprite.hpp>
-#include <path/SceneGraph.hpp>
-#include <path/Waypoint.hpp>
-
-#include "src/actors/hero/Hero.h"
-#include "src/actors/npc/Enemy.h"
-#include "src/actors/npc/HenchPig.h"
-#include "src/actors/npc/PigCrate.h"
-#include "src/actors/npc/PigCannon.h"
-#include "src/actors/npc/PigBoss.h"
-#include "src/actors/throwies/Bombies.h"
-#include "src/actors/throwies/Bubble.h"
-#include "src/actors/throwies/Cannonball.h"
-#include "src/actors/throwies/Throwies.h"
-#include "src/actors/throwies/Craties.h"
-#include "src/actors/others/Moodies.h"
-#include "src/actors/others/MoodiesThatHurt.h"
-#include "src/actors/others/Reward.h"
 
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
@@ -38,9 +9,26 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 #include "HUDLayer.hpp"
+#include "actors/hero/Hero.h"
+#include "actors/npc/Enemy.h"
+#include "actors/npc/HenchPig.h"
+#include "actors/npc/PigCrate.h"
+#include "actors/npc/PigCannon.h"
+#include "actors/npc/PigBoss.h"
+#include "actors/throwies/Bombies.h"
+#include "actors/throwies/Bubble.h"
+#include "actors/throwies/Cannonball.h"
+#include "actors/throwies/Throwies.h"
+#include "actors/throwies/Craties.h"
+#include "actors/others/Moodies.h"
+#include "actors/others/MoodiesThatHurt.h"
+#include "actors/others/Reward.h"
 #include "actors/others/Cannon.h"
+#include "levels/Level1SP.hpp"
+#include "levels/Level2SP.hpp"
 
 #include "tracks/gocryogo.h"
+
 #include "sfx/cannon_fire_22050_mono.h"
 #include "sfx/bubble_blow_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
@@ -62,14 +50,29 @@
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
-#include <rsrc/level_2.tmx.hpp>
+#include "rsrc/level_2.tmx.hpp"
 
-#include <malloc.h>
-#include <libs/DANG/src/snd/SndGear.hpp>
+#include <snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
 #include <sfx/cheat_22050_mono.h>
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
+#include <Gear.hpp>
+#include <Imagesheet.hpp>
+#include <Sprite.hpp>
+#include <SpriteLayer.hpp>
+#include <TileLayer.hpp>
+#include <Layer.hpp>
+#include <tween/Ease.hpp>
+#include <tween/TwAnim.hpp>
+#include <CollisionSprite.hpp>
+#include <path/SceneGraph.hpp>
+#include <path/Waypoint.hpp>
+
+#include <malloc.h>
+#include <cassert>
+#include <memory>
+
 
 #ifdef TARGET_32BLIT_HW
 /*
@@ -135,7 +138,7 @@ namespace pnk
         return GameState::_gs_play;
     }
 
-    void GSPlay::createBehaviourTrees(dang::Gear& gear)
+/*    void GSPlay::createBehaviourTrees(dang::Gear& gear)
     {
         dang::spNTree tr = dang::NTBuilder{}
             .selector()
@@ -202,6 +205,7 @@ namespace pnk
         gear.addNTree("lazy", tr4);
 
     }
+*/
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
@@ -262,20 +266,24 @@ namespace pnk
         {
             case 1:
             default:
-                _screenplay = std::make_shared<L1SP>();
+                _screenplay = std::make_shared<Level1SP>(*this);
+//                _screenplay = std::make_shared<Level1SP>();
                 _tmx = &level_1_level;
                 break;
             case 2:
-                _screenplay = std::make_shared<L2SP>();
+                _screenplay = std::make_shared<Level2SP>(*this);
+//                _screenplay = std::make_shared<L2SP>();
                 _tmx = &level_2_level;
                 break;
         }
 
         dang::Gear& gear = _pnk.getGear();
 
-        // create behaviour trees
-        // TODO should probably move up into the level specific setup
-        createBehaviourTrees(gear);
+        // add level specific behaviour trees
+        for (const auto& bthm : _screenplay->_bt)
+        {
+            gear.addNTree(bthm.first, bthm.second);
+        }
 
         dang::TmxExtruder txtr(_tmx, &gear);
 

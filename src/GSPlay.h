@@ -39,7 +39,7 @@ namespace pnk
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
 
-        void createBehaviourTrees(dang::Gear& gear);
+//        void createBehaviourTrees(dang::Gear& gear);
 
         void checkCheatActivation();
 
