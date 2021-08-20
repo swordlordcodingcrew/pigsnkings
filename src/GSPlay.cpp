@@ -1029,6 +1029,7 @@ namespace pnk
     {
         int8_t health = _pnk._gamestate.boss_health;
 
+        // the boss can't be more dead than dead
         if(health <= 0)
         {
             return;

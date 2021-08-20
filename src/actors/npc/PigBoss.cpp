@@ -24,12 +24,11 @@ namespace pnk
     PigBoss::PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
     {
         _hotrect = {10, 10, 12, 22};
+        _nextState = BERSERK;
     }
 
     void PigBoss::init()
     {
-        onEnterSleeping();
-
         setVel({0, 0});
     }
 
@@ -40,11 +39,10 @@ namespace pnk
 #endif
     }
 
+    // TODO: move into the onDying nextstate etc structure
     void PigBoss::die()
     {
-        setAnimation(_anim_m_die);
-        _currentState = DEAD;
-        removeTweens(true);
+        _nextState = DEAD;
     }
 
     void PigBoss::update(uint32_t dt)
@@ -63,7 +61,10 @@ namespace pnk
                     onEnterLoitering();
                     break;
                 case BERSERK:
-                    onEnterRaging();
+                    onEnterBerserk();
+                    break;
+                case DEAD:
+                    onEnterDead();
                     break;
                 case REMOVE_SELF:
                     removeSelf();
@@ -77,7 +78,7 @@ namespace pnk
         /** run into the king */
         if (other->_type_num == dang::SpriteType::KING)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+            _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
         }
         /** hit a platform hotrect */
         else if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
@@ -104,10 +105,16 @@ namespace pnk
     {
         dang::spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
 
-        if (sprOther->_type_num == dang::SpriteType::KING)
+        // warning, this is the other way round than in, say, the hero
+        // we want the others normal, not our normal!
+        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
+
+        if (sprOther->_type_num == dang::SpriteType::KING && normal.y > 0 && _currentState == BERSERK)
         {
-            // TODO handled by the king himself?
-            //tellTheKingWeHitHim();
+            // TODO check first if the other one can still collide?
+            // tell the pig king he is hit, should be stunned for a few rounds
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+            pnk::_pnk._dispatcher.queueEvent(std::move(e));
         }
         else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
         {
@@ -184,9 +191,9 @@ namespace pnk
     {
     }
 
-    bool PigBoss::onEnterRaging()
+    bool PigBoss::onEnterBerserk()
     {
-        std::cout << "enter raging" << std::endl;
+        std::cout << "enter berserk" << std::endl;
         _walkSpeed = _raging_speed;
 
         // activate the behaviour tree, if not already active
@@ -198,19 +205,31 @@ namespace pnk
 
         removeTweens(true);
         // rage for 10 sec
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&PigBoss::endRaging, this));
-        addTween(nullTw);
+//        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
+//        nullTw->setFinishedCallback(std::bind(&PigBoss::endBerserk, this));
+//        addTween(nullTw);
 
         _currentState = BERSERK;
 
         return true;
     }
 
-    void PigBoss::endRaging()
+    void PigBoss::endBerserk()
     {
         _walkSpeed = _loiter_speed;
         prepareChangeState(LOITERING);
+    }
+
+    bool PigBoss::onEnterDead()
+    {
+        std::cout << "enter dead" << std::endl;
+
+        setAnimation(_anim_m_die);
+        removeTweens(true);
+
+        _currentState = DEAD;
+
+        return true;
     }
 
     void PigBoss::tellTheKingWeHitHim()

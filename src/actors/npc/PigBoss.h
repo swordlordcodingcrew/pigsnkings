@@ -61,8 +61,10 @@ namespace pnk
         virtual bool onEnterLoitering();
         virtual void endLoitering();
 
-        virtual bool onEnterRaging();
-        virtual void endRaging();
+        virtual bool onEnterBerserk();
+        virtual void endBerserk();
+
+        virtual bool onEnterDead();
 
         virtual void removeSelf();
 

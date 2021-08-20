@@ -62,43 +62,40 @@ namespace pnk
             // collision with enemy
             if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
             {
-                // from above
+                // if hero from above, no real hit, only jump back
                 if(other->_type_num == dang::SpriteType::PIG_BOSS && normal.y > 0)
                 {
-                    // tell the pig king he is hit, should be stunned for a few rounds
-                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
-                    e->_spr = shared_from_this();
-                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                    // do nothing
                 }
                 else
                 {
                     _hit = true;
-                    float ax{0};
-                    if (mf.me.get() == this)
+                }
+                float ax{0};
+                if (mf.me.get() == this)
+                {
+                    if (mf.normalMe.x == 0)
                     {
-                        if (mf.normalMe.x == 0)
-                        {
-                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
-                        }
-                        else
-                        {
-                            ax = mf.normalMe.x > 0 ? -9 : 9;
-                        }
+                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
                     }
                     else
                     {
-                        if (mf.normalOther.x == 0)
-                        {
-                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
-                        }
-                        else
-                        {
-                            ax = mf.normalOther.x > 0 ? -9 : 9;
-                        }
+                        ax = mf.normalMe.x > 0 ? -9 : 9;
                     }
-                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
-                    addTween(twa);
                 }
+                else
+                {
+                    if (mf.normalOther.x == 0)
+                    {
+                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                    }
+                    else
+                    {
+                        ax = mf.normalOther.x > 0 ? -9 : 9;
+                    }
+                }
+                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
+                addTween(twa);
             }
 
             /** hero hits a platform-hotrect */
