@@ -68,22 +68,48 @@ namespace pnk
         room7._passage_from[4] = {1, 7};
         _acts.push_back(room7);
 
-        // behaviour trees
+        // behaviour tree for finding back to the path system
+        dang::spNTree back_to_path_h = dang::NTBuilder{}
+            .sequence()
+                .leaf(Enemy::NTfindNearestWaypointH)
+                .leaf(Enemy::NTcheckPathCompleted)
+            .end()
+        .build();
+
+        dang::spNTree back_to_path = dang::NTBuilder{}
+            .sequence()
+                .leaf(Enemy::NTfindNearestWaypoint)
+                .leaf(Enemy::NTcheckPathCompleted)
+            .end()
+        .build();
 
         // generic loitering
         _bt["loiter"] = dang::NTBuilder{}
+            .sequence()
+                .selector()
+                    .sequence()
+                        .leaf(Enemy::NTsetRandomPath)
+                        .leaf(Enemy::NTcheckPathCompleted)
+                    .end()
+                    .tree(back_to_path_h)
+                    .tree(back_to_path)
+                .end()
+                .leaf(HenchPig::NTSleep)
+            .end()
+        .build();
+
+        _bt["berserk"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(Enemy::NTsetRandNeighbourWaypoint)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .leaf(HenchPig::NTSleep)
+                .tree(back_to_path_h)
+                .tree(back_to_path)
             .end()
         .build();
+
+
 
         _bt["loiter_towards_hero"] = dang::NTBuilder{}
             .selector()
@@ -116,21 +142,6 @@ namespace pnk
             .end()
         .build();
 
-        _bt["loiter_leasurly"] = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::NTsetRandomPath)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
     }
 
 }
