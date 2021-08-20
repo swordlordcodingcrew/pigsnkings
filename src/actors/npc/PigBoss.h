@@ -26,9 +26,15 @@ namespace pnk
         void endBubble() override;
         bool isBubbled() override;
 
+        void die();
 
         // animations depot
         dang::spTwAnim _anim_m_sleeping;
+        dang::spTwAnim _anim_m_running;
+        dang::spTwAnim _anim_m_landing;
+        dang::spTwAnim _anim_m_jumping;
+        dang::spTwAnim _anim_m_hit;
+        dang::spTwAnim _anim_m_die;
 
         /** path and bt functions */
         static dang::BTNode::Status NTSleep(dang::spSprite s);

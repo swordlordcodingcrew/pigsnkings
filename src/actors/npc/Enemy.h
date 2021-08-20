@@ -22,7 +22,8 @@ namespace pnk
         FIRING,
         PICKING_UP,
         BUBBLED,
-        REMOVE_SELF
+        REMOVE_SELF,
+        DEAD
             };
 
     class Enemy : public dang::CollisionSprite

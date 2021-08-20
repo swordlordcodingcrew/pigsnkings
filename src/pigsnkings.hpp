@@ -77,12 +77,12 @@ namespace pnk
         {
             // which module is set in the GSHome (where is the candle)
             uint8_t  lives{3};
-            uint8_t  health{100}; // percent
+            int8_t  health{100}; // percent
             uint32_t score{0};
             uint32_t active_level{2};
             uint32_t active_room{0};
 
-            uint8_t  boss_health{100}; // percent
+            int8_t  boss_health{100}; // percent
             bool     has_cheated{false};
         };
 

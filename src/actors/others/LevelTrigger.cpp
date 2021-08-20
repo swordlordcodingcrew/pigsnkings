@@ -24,6 +24,11 @@ namespace pnk
         _level = std::stoul(so->name);
     }
 
+    void LevelTrigger::activateTrigger()
+    {
+        _is_activated = true;
+    }
+
     void LevelTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
         if (mf.me->_type_num == dang::SpriteType::KING || mf.other->_type_num == dang::SpriteType::KING)
@@ -36,7 +41,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse LevelTrigger::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING)
+        if (_is_activated && other->_type_num == dang::SpriteType::KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }

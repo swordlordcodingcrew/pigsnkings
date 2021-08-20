@@ -75,6 +75,7 @@
 #include <malloc.h>
 #include <cassert>
 #include <memory>
+#include <src/actors/others/LevelTrigger.h>
 
 
 #ifdef TARGET_32BLIT_HW
@@ -888,6 +889,9 @@ namespace pnk
         DEBUG_PRINT("Changing level to %d\n\r", level_nr);
         freeCurrentLevel();
 
+        _active_act_index = 1;
+        // TODO check if we need to set the gamestate active room as well
+
         // TODO check level_nr for bounds
         loadLevel(level_nr);
     }
@@ -1006,12 +1010,29 @@ namespace pnk
             }
         }
 
+        // activate level trigger
+        dang::spSpriteLayer ol = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_COLLISIONSPRITELAYER));
+        if(ol != nullptr)
+        {
+            auto spr = ol->getSpriteByType(SpriteFactory::T_LEVEL_TRIGGER);
+            if(spr != nullptr)
+            {
+                auto lvlTrigger = std::static_pointer_cast<LevelTrigger>(spr);
+                lvlTrigger->activateTrigger();
+            }
+        }
+
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
     {
         int8_t health = _pnk._gamestate.boss_health;
+
+        if(health <= 0)
+        {
+            return;
+        }
 
         switch(_pnk._gamestate.active_level)
         {
@@ -1023,15 +1044,17 @@ namespace pnk
                     break;
         }
 
-        _pnk._gamestate.boss_health = health;
-
         if(health <= 0)
         {
+            _spr_boss->die();
+
             // tell the pig king he is dead
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_DIES));
-            e->_spr = pe._spr;
+            e->_payload = 1;
             pnk::_pnk._dispatcher.queueEvent(std::move(e));
         }
+
+        _pnk._gamestate.boss_health = health;
     }
 
 }

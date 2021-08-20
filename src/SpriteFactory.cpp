@@ -87,6 +87,28 @@ namespace pnk
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = dang::SpriteType::PIG_BOSS;
 
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        assert(ret->_anim_m_sleeping != nullptr);
+
+        ret->_anim_m_running = txtr.getAnimation(is->getName(), "running");
+        assert(ret->_anim_m_running != nullptr);
+
+        ret->_anim_m_landing = txtr.getAnimation(is->getName(), "landing");
+        assert(ret->_anim_m_landing != nullptr);
+        ret->_anim_m_landing->loops(1);
+
+        ret->_anim_m_jumping = txtr.getAnimation(is->getName(), "jumping");
+        assert(ret->_anim_m_jumping != nullptr);
+        ret->_anim_m_jumping->loops(1);
+
+        ret->_anim_m_hit = txtr.getAnimation(is->getName(), "hit");
+        assert(ret->_anim_m_hit != nullptr);
+        ret->_anim_m_hit->loops(2);
+
+        ret->_anim_m_die = txtr.getAnimation(is->getName(), "die");
+        assert(ret->_anim_m_die != nullptr);
+        ret->_anim_m_die->loops(1);
+
         return ret;
     }
 

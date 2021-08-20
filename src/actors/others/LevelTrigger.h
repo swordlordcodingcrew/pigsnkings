@@ -16,8 +16,12 @@ namespace pnk
 
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+
+        void activateTrigger();
+
     protected:
         uint8_t _level{1};
+        bool _is_activated{false};
     };
 
 }

@@ -23,14 +23,12 @@ namespace pnk
 
     PigBoss::PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
     {
+        _hotrect = {10, 10, 12, 22};
     }
 
     void PigBoss::init()
     {
-        _hotrect = {10, 16, 12, 16};
-
         onEnterSleeping();
-//        onEnterLoitering();
 
         setVel({0, 0});
     }
@@ -40,6 +38,13 @@ namespace pnk
 #ifdef PNK_DEBUG
         std::cout << "PigBoss destructor" << std::endl;
 #endif
+    }
+
+    void PigBoss::die()
+    {
+        setAnimation(_anim_m_die);
+        _currentState = DEAD;
+        removeTweens(true);
     }
 
     void PigBoss::update(uint32_t dt)
@@ -101,7 +106,8 @@ namespace pnk
 
         if (sprOther->_type_num == dang::SpriteType::KING)
         {
-            tellTheKingWeHitHim();
+            // TODO handled by the king himself?
+            //tellTheKingWeHitHim();
         }
         else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
         {
