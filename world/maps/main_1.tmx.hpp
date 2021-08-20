@@ -17,7 +17,7 @@ static const dang::tmx_tileset main_1_tilesets[] = {
     {"gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 96,32,32,384,256,12,8},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
     {"main_pnk_logo", &main_pnk_logo, 1,218,36,218,36,1,1},
-    {"gfx_castle_decorations", &gfx_castle_decorations, 40,32,32,320,128,10,4},
+    {"gfx_castle_decorations", &gfx_castle_decorations, 32,32,32,256,128,8,4},
     {"gfx_king", &gfx_king, 28,32,32,896,32,28,1},
     {"gfx_pig", &gfx_pig, 43,32,32,1376,32,43,1},
     {"common_menus", &common_menus, 3,58,32,58,96,1,3},
@@ -28,6 +28,7 @@ static const size_t main_1_tilesets_len = 7;
 // Animations ------------------------------------------------
 
 static const dang::tmx_tileanimation main_1_tileanimations[] = {
+    {"gfx_castle_decorations",5,"flicker",{{5, 100},{6, 100},{7, 100},{13, 100},{14, 100},{15, 100}}},
     {"gfx_king",0,"wait",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100},{6, 100},{0, 800}}},
     {"gfx_king",1,"blink",{{0, 100},{25, 100}}},
     {"gfx_king",7,"jump",{{9, 100},{7, 100}}},
@@ -44,7 +45,7 @@ static const dang::tmx_tileanimation main_1_tileanimations[] = {
     {"gfx_pig",40,"lighting_cannon",{{40, 100},{41, 100},{42, 100}}},
 };
 
-static const size_t main_1_tileanimations_len = 14;
+static const size_t main_1_tileanimations_len = 15;
 
 // Layers ------------------------------------------------
 
@@ -83,14 +84,14 @@ static const dang::tmx_layer main_1_main_bg = {
 static const dang::tmx_spriteobject main_1_main_decoration_objects[] = {
 
     {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {16,"16","",16,128,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {17,"17","",16,160,32,32,true,"gfx_castle_decorations",20,"",0b0000},
     {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {19,"19","",272,128,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {20,"20","",272,160,32,32,true,"gfx_castle_decorations",30,"",0b0000},
     {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0b0000},
     {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0b0000}
+    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {40,"40","",272,128,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {41,"41","",16,128,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {42,"42","",272,160,32,32,true,"gfx_castle_decorations",24,"",0b0000},
+    {43,"43","",16,160,32,32,true,"gfx_castle_decorations",16,"",0b0000}
 
 };
 

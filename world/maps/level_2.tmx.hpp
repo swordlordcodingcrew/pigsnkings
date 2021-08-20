@@ -15,7 +15,7 @@ static const dang::tmx_world level_2_world = {
 
 static const dang::tmx_tileset level_2_tilesets[] = {
     {"gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 96,32,32,384,256,12,8},
-    {"gfx_castle_decorations", &gfx_castle_decorations, 40,32,32,320,128,10,4},
+    {"gfx_castle_decorations", &gfx_castle_decorations, 32,32,32,256,128,8,4},
     {"gfx_items", &gfx_items, 53,32,48,1696,48,53,1},
     {"gfx_bubbles", &gfx_bubbles, 11,32,32,352,32,11,1},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},

@@ -15,7 +15,7 @@ static const dang::tmx_world level_1_world = {
 
 static const dang::tmx_tileset level_1_tilesets[] = {
     {"gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 96,32,32,384,256,12,8},
-    {"gfx_castle_decorations", &gfx_castle_decorations, 40,32,32,320,128,10,4},
+    {"gfx_castle_decorations", &gfx_castle_decorations, 32,32,32,256,128,8,4},
     {"gfx_items", &gfx_items, 53,32,48,1696,48,53,1},
     {"gfx_bubbles", &gfx_bubbles, 11,32,32,352,32,11,1},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
@@ -26,13 +26,15 @@ static const dang::tmx_tileset level_1_tilesets[] = {
     {"character_cannonsnpigs", &character_cannonsnpigs, 9,32,32,288,32,9,1},
     {"common_items_bomb", &common_items_bomb, 11,64,64,704,64,11,1},
     {"character_pigking", &character_pigking, 33,32,32,1056,32,33,1},
+    {"levels_door", &levels_door, 4,46,56,184,56,4,1},
 };
 
-static const size_t level_1_tilesets_len = 12;
+static const size_t level_1_tilesets_len = 13;
 
 // Animations ------------------------------------------------
 
 static const dang::tmx_tileanimation level_1_tileanimations[] = {
+    {"gfx_castle_decorations",5,"flicker",{{5, 100},{6, 100},{7, 100},{13, 100},{14, 100},{15, 100}}},
     {"gfx_items",0,"coin_silver",{{0, 100},{1, 100},{2, 100},{3, 100}}},
     {"gfx_items",4,"coin_gold",{{4, 100},{5, 100},{6, 100},{7, 100}}},
     {"gfx_items",8,"coin_poof",{{8, 100},{9, 100},{10, 100},{11, 100}}},
@@ -86,7 +88,7 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"common_items_bomb",5,"boom",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
 };
 
-static const size_t level_1_tileanimations_len = 51;
+static const size_t level_1_tileanimations_len = 52;
 
 // Layers ------------------------------------------------
 
@@ -140,38 +142,11 @@ static const dang::tmx_layer level_1_lvl_1_bg = {
 // Objects for layer: lvl_1_mood
 static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
 
-    {3,"3","",61,654,32,32,true,"gfx_castle_decorations",20,"",0b0000},
     {4,"4","",61,622,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {5,"5","",238,623,32,32,true,"gfx_castle_decorations",21,"",0b0000},
-    {6,"6","",270,623,32,32,true,"gfx_castle_decorations",22,"",0b0000},
-    {7,"7","",238,655,32,32,true,"gfx_castle_decorations",31,"",0b0000},
-    {8,"8","",270,655,32,32,true,"gfx_castle_decorations",32,"",0b0000},
-    {64,"64","",166,134,32,32,true,"gfx_castle_decorations",21,"",0b0000},
-    {65,"65","",198,134,32,32,true,"gfx_castle_decorations",22,"",0b0000},
-    {66,"66","",166,166,32,32,true,"gfx_castle_decorations",31,"",0b0000},
-    {67,"67","",198,166,32,32,true,"gfx_castle_decorations",32,"",0b0000},
     {86,"86","",399,625,32,32,true,"gfx_castle_decorations",0,"",0b0000},
     {87,"87","",528,624,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {88,"88","",399,657,32,32,true,"gfx_castle_decorations",30,"",0b0000},
-    {89,"89","",528,656,32,32,true,"gfx_castle_decorations",30,"",0b0000},
-    {98,"98","",448,553,32,32,true,"gfx_castle_decorations",23,"",0b0000},
-    {99,"99","",480,553,32,32,true,"gfx_castle_decorations",24,"",0b0000},
-    {100,"100","",448,585,32,32,true,"gfx_castle_decorations",33,"",0b0000},
-    {101,"101","",480,585,32,32,true,"gfx_castle_decorations",34,"",0b0000},
-    {121,"121","",460,307,32,32,true,"gfx_castle_decorations",21,"",0b0000},
-    {122,"122","",492,307,32,32,true,"gfx_castle_decorations",22,"",0b0000},
-    {123,"123","",460,339,32,32,true,"gfx_castle_decorations",31,"",0b0000},
-    {124,"124","",492,339,32,32,true,"gfx_castle_decorations",32,"",0b0000},
-    {129,"129","",460,400,32,32,true,"gfx_castle_decorations",23,"",0b0000},
-    {130,"130","",492,400,32,32,true,"gfx_castle_decorations",24,"",0b0000},
-    {131,"131","",460,432,32,32,true,"gfx_castle_decorations",33,"",0b0000},
-    {133,"133","",492,432,32,32,true,"gfx_castle_decorations",34,"",0b0000},
     {134,"134","",64,328,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {135,"135","",64,360,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {136,"136","",64,392,32,32,true,"gfx_castle_decorations",20,"",0b0000},
     {137,"137","",224,326,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {138,"138","",224,358,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {139,"139","",224,390,32,32,true,"gfx_castle_decorations",20,"",0b0000},
     {52,"52","",160,672,32,32,true,"gfx_castle_decorations",1,"",0b0000},
     {53,"53","",192,672,32,32,true,"gfx_castle_decorations",3,"",0b0000},
     {47,"47","",128,576,32,32,true,"gfx_castle_decorations",4,"",0b0000},
@@ -181,16 +156,13 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {233,"233","",160,704,32,32,true,"gfx_castle_decorations",2,"",0b0000},
     {234,"234","",192,704,32,32,true,"gfx_castle_decorations",3,"",0b0000},
     {255,"255","",864,576,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {256,"256","",864,608,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {257,"257","",864,640,32,32,true,"gfx_castle_decorations",10,"",0b0000},
-    {258,"258","",864,672,32,32,true,"gfx_castle_decorations",20,"",0b0000},
     {260,"260","",832,640,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {261,"261","",896,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {262,"262","",896,640,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {263,"263","",896,672,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {264,"264","",896,704,32,32,true,"gfx_castle_decorations",4,"",0b0000},
-    {278,"278","",704,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {279,"279","",768,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {278,"278","flicker",704,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {279,"279","flicker",768,672,32,32,true,"gfx_castle_decorations",5,"",0b0000},
     {82,"82","",384,608,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {83,"83","",544,632,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {84,"84","",544,704,32,32,true,"gfx_castle_decorations",4,"",0b0000},
@@ -217,8 +189,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {57,"57","",64,96,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {58,"58","",96,64,32,32,true,"gfx_castle_decorations",1,"",0b0000},
     {59,"59","",128,64,32,32,true,"gfx_castle_decorations",3,"",0b0000},
-    {62,"62","",192,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
-    {63,"63","",224,96,32,32,true,"gfx_castle_decorations",13,"",0b0000},
     {165,"165","",384,192,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {166,"166","",832,192,32,32,true,"gfx_castle_decorations",1,"",0b0000},
     {167,"167","",864,192,32,32,true,"gfx_castle_decorations",3,"",0b0000},
@@ -235,14 +205,41 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {433,"433","",704,128,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {457,"457","",800,336,32,32,true,"gfx_castle_decorations",4,"",0b0000},
     {458,"458","",896,389,32,32,true,"gfx_castle_decorations",4,"",0b0000},
-    {525,"525","",32,438,32,32,true,"gfx_castle_decorations",14,"",0b0000},
-    {526,"526","",256,438,32,32,true,"gfx_castle_decorations",14,"",0b0000},
-    {536,"536","",128,416,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {537,"537","",160,416,32,32,true,"gfx_castle_decorations",5,"",0b0000}
+    {536,"536","flicker",96,407,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {537,"537","flicker",192,407,32,32,true,"gfx_castle_decorations",5,"",0b0000},
+    {544,"544","",61,654,32,32,true,"gfx_castle_decorations",16,"",0b0000},
+    {545,"545","",230,634,32,32,true,"gfx_castle_decorations",17,"",0b0000},
+    {546,"546","",262,634,32,32,true,"gfx_castle_decorations",18,"",0b0000},
+    {547,"547","",230,666,32,32,true,"gfx_castle_decorations",25,"",0b0000},
+    {548,"548","",262,666,32,32,true,"gfx_castle_decorations",26,"",0b0000},
+    {549,"549","",399,657,32,32,true,"gfx_castle_decorations",16,"",0b0000},
+    {550,"550","",528,656,32,32,true,"gfx_castle_decorations",24,"",0b0000},
+    {551,"551","",460,556,32,32,true,"gfx_castle_decorations",17,"",0b0000},
+    {552,"552","",492,556,32,32,true,"gfx_castle_decorations",18,"",0b0000},
+    {553,"553","",460,588,32,32,true,"gfx_castle_decorations",25,"",0b0000},
+    {554,"554","",492,588,32,32,true,"gfx_castle_decorations",26,"",0b0000},
+    {555,"555","",864,608,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {556,"556","",864,640,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {557,"557","",864,672,32,32,true,"gfx_castle_decorations",24,"",0b0000},
+    {558,"558","",64,352,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {559,"559","",224,352,32,32,true,"gfx_castle_decorations",8,"",0b0000},
+    {560,"560","",224,384,32,32,true,"gfx_castle_decorations",16,"",0b0000},
+    {561,"561","",64,384,32,32,true,"gfx_castle_decorations",24,"",0b0000},
+    {562,"562","",460,332,32,32,true,"gfx_castle_decorations",19,"",0b0000},
+    {563,"563","",492,332,32,32,true,"gfx_castle_decorations",20,"",0b0000},
+    {564,"564","",492,364,32,32,true,"gfx_castle_decorations",28,"",0b0000},
+    {565,"565","",460,364,32,32,true,"gfx_castle_decorations",27,"",0b0000},
+    {566,"566","",492,396,32,32,true,"gfx_castle_decorations",18,"",0b0000},
+    {567,"567","",492,428,32,32,true,"gfx_castle_decorations",26,"",0b0000},
+    {568,"568","",460,428,32,32,true,"gfx_castle_decorations",25,"",0b0000},
+    {569,"569","",460,396,32,32,true,"gfx_castle_decorations",17,"",0b0000},
+    {584,"584","",256,438,32,32,true,"gfx_castle_decorations",12,"",0b0000},
+    {585,"585","",32,438,32,32,true,"gfx_castle_decorations",12,"",0b0000},
+    {543,"door","door",137,424,46,56,true,"levels_door",0,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_mood_objects_len = 99;
+static const size_t level_1_lvl_1_mood_objects_len = 94;
 
 static const dang::tmx_layer level_1_lvl_1_mood = {
     .name = "lvl_1_mood",
@@ -455,13 +452,28 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {519,"6","warp_room_trigger",128,288,64,2,true,"",0,"",0b0000},
     {527,"527","hotrect",256,438,32,10,true,"",0,"",0b0000},
     {528,"528","hotrect",32,439,32,10,true,"",0,"",0b0000},
-    {529,"529","boss",256,448,32,32,true,"character_pigking",0,"",0b0000},
+    {529,"529","boss",224,448,32,32,true,"character_pigking",0,"",0b0000},
     {530,"bossbattle trigger","bossbattle_trigger",128,352,64,32,true,"",0,"",0b0000},
-    {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000}
+    {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
+    {538,"door","level_change_trigger",144,425,32,55,true,"",0,"",0b0000},
+    {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
+    {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
+    {572,"572","",160,128,32,32,true,"gfx_castle_decorations",19,"",0b0000},
+    {573,"573","",160,160,32,32,true,"gfx_castle_decorations",27,"",0b0000},
+    {574,"574","",192,160,32,32,true,"gfx_castle_decorations",28,"",0b0000},
+    {575,"575","",192,128,32,32,true,"gfx_castle_decorations",20,"",0b0000},
+    {576,"576","",768,64,32,32,true,"gfx_castle_decorations",20,"",0b0000},
+    {577,"577","",736,64,32,32,true,"gfx_castle_decorations",19,"",0b0000},
+    {578,"578","",736,96,32,32,true,"gfx_castle_decorations",27,"",0b0000},
+    {579,"579","",768,96,32,32,true,"gfx_castle_decorations",28,"",0b0000},
+    {580,"580","",544,64,32,32,true,"gfx_castle_decorations",17,"",0b0000},
+    {581,"581","",576,64,32,32,true,"gfx_castle_decorations",18,"",0b0000},
+    {582,"582","",544,96,32,32,true,"gfx_castle_decorations",25,"",0b0000},
+    {583,"583","",576,96,32,32,true,"gfx_castle_decorations",26,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 196;
+static const size_t level_1_lvl_1_obj_objects_len = 211;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
