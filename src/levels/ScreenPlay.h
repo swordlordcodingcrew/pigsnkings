@@ -51,10 +51,18 @@ namespace pnk
             std::unordered_map<int32_t,dang::Vector2U>  _passage_from;
         };
 
+        /**
+         * the rooms per level
+         */
         std::vector<act> _acts;
 
-    };
+        /**
+         * the behaviour trees in this level
+         */
+        std::unordered_map<std::string, dang::spNTree>  _bt;
 
+    };
+/*
     class L1SP : public ScreenPlay
     {
     public:
@@ -66,6 +74,6 @@ namespace pnk
     public:
         L2SP();
     };
-
+*/
 }
 

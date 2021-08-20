@@ -159,6 +159,10 @@ namespace pnk
             {
                 cs->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
             }
+            else
+            {
+                std::cout << "ERROR: could not find behaviour tree " << so->bt << std::endl;
+            }
         }
     }
 

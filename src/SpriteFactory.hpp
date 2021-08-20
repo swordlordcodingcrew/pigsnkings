@@ -5,7 +5,8 @@
 
 #include <string>
 #include <memory>
-#include "ScreenPlay.h"
+#include "src/actors/others/Reward.h"
+#include "src/levels/ScreenPlay.h"
 
 namespace dang
 {

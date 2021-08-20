@@ -1,6 +1,6 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
-
+/*
 #include "ScreenPlay.h"
 
 namespace pnk
@@ -16,9 +16,9 @@ namespace pnk
         // viewport = 320 x 240 px
         act room0;
         room0._extent = {0, 16, 10, 8};
-        /** the starting point of the level */
+        // the starting point of the level
         room0._passage_from[-1] = {0, 5};
-        /** when coming from room 1, start at given position */
+        // when coming from room 1, start at given position
         room0._passage_from[1] = {8, 1};
         _acts.push_back(room0);
 
@@ -75,9 +75,9 @@ namespace pnk
         // viewport = 320 x 240 px
         act room0;
         room0._extent = {49, 8, 11, 8}; // global coordinates
-        /** the starting point of the level */
+        // the starting point of the level
         room0._passage_from[-1] = {9, 1}; // local, no global coordinates
-        /** when coming from room 1, start at given position */
+        // when coming from room 1, start at given position
         room0._passage_from[1] = {0, 1}; // local, no global coordinates
         _acts.push_back(room0);
 
@@ -124,3 +124,4 @@ namespace pnk
         _acts.push_back(room7);
     }
 }
+ */
