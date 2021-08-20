@@ -1,0 +1,52 @@
+{ "frames": {
+   "door 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 46, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 56 },
+    "sourceSize": { "w": 46, "h": 56 },
+    "duration": 100
+   },
+   "door 1.aseprite": {
+    "frame": { "x": 46, "y": 0, "w": 46, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 56 },
+    "sourceSize": { "w": 46, "h": 56 },
+    "duration": 100
+   },
+   "door 2.aseprite": {
+    "frame": { "x": 92, "y": 0, "w": 46, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 56 },
+    "sourceSize": { "w": 46, "h": 56 },
+    "duration": 100
+   },
+   "door 3.aseprite": {
+    "frame": { "x": 138, "y": 0, "w": 46, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 56 },
+    "sourceSize": { "w": 46, "h": 56 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "image": "door.png",
+  "format": "I8",
+  "size": { "w": 184, "h": 56 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Idle", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Opening", "from": 1, "to": 3, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Door", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
