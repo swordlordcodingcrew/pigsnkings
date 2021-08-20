@@ -388,9 +388,9 @@
   <object id="527" type="hotrect" x="256" y="438" width="32" height="10"/>
   <object id="528" type="hotrect" x="32" y="439" width="32" height="10"/>
   <object id="529" type="boss" gid="461" x="224" y="448" width="32" height="32"/>
-  <object id="530" name="bossbattle trigger" type="bossbattle_trigger" x="128" y="352" width="64" height="32"/>
+  <object id="530" name="bossbattle trigger" type="bossbattle_trigger" x="96" y="352" width="128" height="16"/>
   <object id="535" type="hotrect" x="192" y="288" width="96" height="32"/>
-  <object id="538" name="door" type="level_change_trigger" x="144" y="425" width="32" height="55"/>
+  <object id="538" name="2" type="level_trigger" x="144" y="425" width="32" height="55"/>
   <object id="570" gid="106" x="192" y="96" width="32" height="32"/>
   <object id="571" gid="108" x="224" y="96" width="32" height="32"/>
   <object id="572" gid="116" x="160" y="128" width="32" height="32"/>

@@ -86,9 +86,15 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"common_items_bomb",0,"bomb_idle",{{0, 100}}},
     {"common_items_bomb",1,"bomb_lit",{{1, 100},{2, 100},{3, 100},{4, 100}}},
     {"common_items_bomb",5,"boom",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
+    {"character_pigking",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100}}},
+    {"character_pigking",12,"running",{{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}},
+    {"character_pigking",17,"landing",{{18, 100},{19, 100},{20, 100}}},
+    {"character_pigking",21,"jumping",{{21, 100},{22, 100},{23, 100},{24, 100},{25, 100}}},
+    {"character_pigking",26,"hit",{{26, 100},{27, 100}}},
+    {"character_pigking",28,"die",{{28, 100},{29, 100},{30, 100},{31, 100}}},
 };
 
-static const size_t level_1_tileanimations_len = 52;
+static const size_t level_1_tileanimations_len = 58;
 
 // Layers ------------------------------------------------
 
@@ -453,9 +459,9 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {527,"527","hotrect",256,438,32,10,true,"",0,"",0b0000},
     {528,"528","hotrect",32,439,32,10,true,"",0,"",0b0000},
     {529,"529","boss",224,448,32,32,true,"character_pigking",0,"",0b0000},
-    {530,"bossbattle trigger","bossbattle_trigger",128,352,64,32,true,"",0,"",0b0000},
+    {530,"bossbattle trigger","bossbattle_trigger",96,352,128,16,true,"",0,"",0b0000},
     {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
-    {538,"door","level_change_trigger",144,425,32,55,true,"",0,"",0b0000},
+    {538,"2","level_trigger",144,425,32,55,true,"",0,"",0b0000},
     {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
     {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
     {572,"572","",160,128,32,32,true,"gfx_castle_decorations",19,"",0b0000},
