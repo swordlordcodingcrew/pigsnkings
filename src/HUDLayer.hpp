@@ -21,6 +21,9 @@ namespace pnk
 
         void changeCheatSprite();
 
+        void activateBossHUD();
+        void deactivateBossHUD();
+
     protected:
         void updateInternal(uint32_t dt, const dang::Gear& gear) override;
         void renderInternal(const dang::Gear& gear) override;
@@ -31,6 +34,8 @@ namespace pnk
 
         const uint8_t shadowOffset{1};
 
+        bool isCheating{false};
+        bool isBossVisible{false};
     };
 }
 

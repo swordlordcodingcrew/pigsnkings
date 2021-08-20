@@ -21,6 +21,8 @@
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
+
     Hero::Hero() : CollisionSprite()
     {
     }
@@ -54,36 +56,49 @@ namespace pnk
         {
             spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
 
-            /** collision with enemy */
+            // check direction
+            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+
+            // collision with enemy
             if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
             {
-                _hit = true;
-                float ax{0};
-                if (mf.me.get() == this)
+                // from above
+                if(other->_type_num == dang::SpriteType::PIG_BOSS && normal.y > 0)
                 {
-                    if (mf.normalMe.x == 0)
-                    {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
-                    }
-                    else
-                    {
-                        ax = mf.normalMe.x > 0 ? -9 : 9;
-                    }
+                    // tell the pig king he is hit, should be stunned for a few rounds
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+                    e->_spr = shared_from_this();
+                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
                 }
                 else
                 {
-                    if (mf.normalOther.x == 0)
+                    _hit = true;
+                    float ax{0};
+                    if (mf.me.get() == this)
                     {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        if (mf.normalMe.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalMe.x > 0 ? -9 : 9;
+                        }
                     }
                     else
                     {
-                        ax = mf.normalOther.x > 0 ? -9 : 9;
+                        if (mf.normalOther.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalOther.x > 0 ? -9 : 9;
+                        }
                     }
+                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
+                    addTween(twa);
                 }
-                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
-                addTween(twa);
-
             }
 
             /** hero hits a platform-hotrect */
@@ -99,8 +114,6 @@ namespace pnk
             }
 
             /** hit with something solid */
-            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
-
             if (normal.y > 0)
             {
                 if (mf.other->_type_num == dang::SpriteType::BUBBLE || mf.me->_type_num == dang::SpriteType::BUBBLE)
@@ -111,6 +124,13 @@ namespace pnk
                         _on_ground = true;
                         _vel.y = 0;
                     }
+                }
+                else if (mf.other->_type_num == dang::SpriteType::PIG_BOSS || mf.me->_type_num == dang::SpriteType::PIG_BOSS)
+                {
+                    _on_ground = true;
+                    _vel.y = 0;
+
+                    // todo plus tell the pigking he was hit
                 }
                 else
                 {

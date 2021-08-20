@@ -81,6 +81,8 @@ namespace pnk
             uint32_t score{0};
             uint32_t active_level{2};
             uint32_t active_room{0};
+
+            uint8_t  boss_health{100}; // percent
             bool     has_cheated{false};
         };
 

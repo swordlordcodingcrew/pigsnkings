@@ -30,12 +30,14 @@
 #include "tracks/gocryogo.h"
 
 #include "sfx/cannon_fire_22050_mono.h"
+#include "sfx/boss_battle_22050_mono.h"
 #include "sfx/bubble_blow_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
 #include "sfx/king_damage_22050.h"
 #include "sfx/health_22050_mono.h"
 #include "sfx/lifelost_22050_mono.h"
 #include "sfx/teleport_22050_mono.h"
+#include "sfx/victory_22050_mono.h"
 
 #include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
@@ -46,6 +48,7 @@
 #include "rsrc/gfx/king.png.h"
 #include "rsrc/gfx/pig_king.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
+#include "rsrc/gfx/door.png.h"
 #include "rsrc/gfx/pig.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
@@ -320,7 +323,10 @@ namespace pnk
         DEBUG_PRINT("GSPlay: mood layer (%d)\n", mallinfo().uordblks);
 
         // create mood Tilelayer
-        if (!_screenplay->_l_mood_name.empty()) txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true);
+        if (!_screenplay->_l_mood_name.empty())
+        {
+            dang::spSpriteLayer sl = txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true, true);
+        }
 
         DEBUG_PRINT("GSPlay: collision sprite layer (%d)\n", mallinfo().uordblks);
 
@@ -447,7 +453,7 @@ namespace pnk
         DEBUG_PRINT("GSPlay: fg layer\n");
 
         // create foreground layer
-        txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true);
+        txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true, false);
 
         DEBUG_PRINT("GSPlay: hud layer\n");
 
@@ -471,7 +477,7 @@ namespace pnk
         //changeRoom(_pnk._gamestate.active_room, true);
 
         // TODO DEBUG ONLY
-        //_pnk._gamestate.active_room = 6;
+        _pnk._gamestate.active_room = 6;
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
@@ -568,6 +574,20 @@ namespace pnk
             {
                 changeRoom(pe._payload, false);
             }
+        }
+        else if (pe._type == ETG_START_BOSSBATTLE)
+        {
+            // let the boss battles begin
+            startBossBattle();
+        }
+        else if (pe._type == ETG_BOSS_HIT)
+        {
+            handleBossHit(pe);
+        }
+        else if (pe._type == ETG_BOSS_DIES)
+        {
+            // hero won
+            endBossBattle();
         }
         else if (pe._type == ETG_WARP_ROOM)
         {
@@ -720,8 +740,11 @@ namespace pnk
         }
         else
         {
+            if(_pnk._gamestate.health != health)
+            {
+                dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
+            }
             _pnk._gamestate.health = health;
-            dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
         }
     }
 
@@ -938,5 +961,78 @@ namespace pnk
         }
         return dang::BTNode::Status::FAILURE;
     }
+
+    void GSPlay::startBossBattle()
+    {
+        // activate boss
+        _pnk._gamestate.boss_health = 100;
+        if(_spr_boss != nullptr)
+        {
+
+        }
+
+        // change tune?
+
+        // activate boss health display in the hud
+        spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
+        if(hudl != nullptr)
+        {
+            hudl->activateBossHUD();
+        }
+
+        // play fanfare (actually its a meep meep)
+        dang::SndGear::playSfx(boss_battle_22050_mono, boss_battle_22050_mono_length, _pnk._prefs.volume_sfx);
+    }
+
+    void GSPlay::endBossBattle()
+    {
+        /*
+        // lets not do this, player should see how she killed the boss
+        spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
+        if(hudl != nullptr)
+        {
+            hudl->deactivateBossHUD();
+        }
+         */
+
+        // show doors
+        dang::spSpriteLayer mood = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByName("lvl_1_mood"));
+        if(mood != nullptr)
+        {
+            auto spr = mood->getSpriteByType("door");
+            if(spr != nullptr)
+            {
+                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 700, dang::Ease::Linear, 1)));
+            }
+        }
+
+        dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
+    }
+
+    void GSPlay::handleBossHit(PnkEvent& pe)
+    {
+        int8_t health = _pnk._gamestate.boss_health;
+
+        switch(_pnk._gamestate.active_level)
+        {
+                case 1:
+                    health -= 34;
+                    break;
+                case 2:
+                    health -= 34;
+                    break;
+        }
+
+        _pnk._gamestate.boss_health = health;
+
+        if(health <= 0)
+        {
+            // tell the pig king he is dead
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_DIES));
+            e->_spr = pe._spr;
+            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        }
+    }
+
 }
 

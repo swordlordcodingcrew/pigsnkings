@@ -88,6 +88,10 @@ namespace pnk
 
         void userIsCheating();
 
+        void startBossBattle();
+        void endBossBattle();
+        void handleBossHit(PnkEvent& pe);
+
     public:
         // bt hooks
         dang::BTNode::Status NTheroInSightH(dang::spSprite s);

@@ -23,6 +23,12 @@ namespace pnk
 
     void HUDLayer::changeCheatSprite()
     {
+        // we already did, chickening out
+        if(isCheating)
+        {
+            return;
+        }
+
         for (dang::spSprite& spr : _sprites)
         {
             if(spr->_type_name == "hud_hero")
@@ -31,6 +37,47 @@ namespace pnk
                 spr->_img_index = 27;
             }
         }
+
+        isCheating = true;
+    }
+
+    void HUDLayer::activateBossHUD()
+    {
+        // we already did
+        if(isBossVisible)
+        {
+            return;
+        }
+
+        for (dang::spSprite& spr : _sprites)
+        {
+            if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
+            {
+                spr->_visible = true;
+            }
+        }
+
+        isBossVisible = true;
+    }
+
+    void HUDLayer::deactivateBossHUD()
+    {
+        // we already did
+        if(!isBossVisible)
+        {
+            return;
+        }
+
+        for (dang::spSprite& spr : _sprites)
+        {
+            if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
+            {
+                // a bit of a hack, needs to be changed when grafx changes
+                spr->_visible = false;
+            }
+        }
+
+        isBossVisible = false;
     }
 
     void HUDLayer::updateInternal(uint32_t dt, const dang::Gear &gear)
@@ -59,5 +106,14 @@ namespace pnk
         blit::screen.pen = healthColour;
         float width = _pnk._gamestate.health * 0.3;
         blit::screen.rectangle(blit::Rect(55, 44, width, 2));
+
+        if(isBossVisible)
+        {
+            // boss health bar
+            // TODO: make sure it does not grow bigger than full size
+            blit::screen.pen = healthColour;
+            float width = _pnk._gamestate.boss_health * 0.3;
+            blit::screen.rectangle(blit::Rect(235, 44, width, 2));
+        }
     }
 }

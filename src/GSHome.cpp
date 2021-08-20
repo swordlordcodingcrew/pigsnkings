@@ -113,7 +113,7 @@ namespace pnk
 
         // set up state
         _tmx = &main_1_level;
-        dang::TmxExtruder tmx_ext(_tmx, &gear);
+        dang::TmxExtruder txtr(_tmx, &gear);
 
         DEBUG_PRINT("GSHome: extruded\n");
 
@@ -126,21 +126,21 @@ namespace pnk
         gear.setActiveWorldSize(vp.w, vp.h);
 
         DEBUG_PRINT("GSHome: init image sheets\n");
-        tmx_ext.getImagesheets();
+        txtr.getImagesheets();
 
         DEBUG_PRINT("GSHome: image sheets initialised\n");
 
         // create background Tilelayer
-        dang::spTileLayer tl = tmx_ext.getTileLayer(tmx_bg_layer_name, true);
+        dang::spTileLayer tl = txtr.getTileLayer(tmx_bg_layer_name, true);
 
         DEBUG_PRINT("GSHome: tile layer\n");
 
-        dang::spSpriteLayer dl = tmx_ext.getSpriteLayer(tmx_deco_layer_name, false, true);
+        dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, false, true, false);
 
         DEBUG_PRINT("GSHome: sprite layer\n");
 
         // create spritelayer w/o collision detection/resolution
-        dang::spSpriteLayer sl = tmx_ext.getSpriteLayer(tmx_obj_layer_name, false, true);
+        dang::spSpriteLayer sl = txtr.getSpriteLayer(tmx_obj_layer_name, false, true, false);
 
         DEBUG_PRINT("GSHome: auto layers done\n");
 
@@ -154,7 +154,10 @@ namespace pnk
             spr->_imagesheet = is;
             if (so->type == "candle")
             {
-                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{5, 6, 7, 15, 16, 17}, 700, dang::Ease::Linear, -1)));
+                // missing assert, but no way to find out i
+                auto flickering = txtr.getAnimation(is->getName(), "flicker");
+                assert(flickering != nullptr);
+                spr->setAnimation(flickering);
 
                 if(so->name == "leftcandle")
                 {
