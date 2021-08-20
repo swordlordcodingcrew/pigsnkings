@@ -43,10 +43,13 @@ namespace pnk
         dang::BTNode::Status        sleep();
         void                        startOutToWaypoint() override;
 
+        void setNTreeBerserk(dang::spNTreeState berserk) { _nTreeStateBerserk = berserk; }
+
     protected:
 
-        // inactive bt
-        dang::spNTreeState _nTreeStateDepot{nullptr};
+        // inactive bts
+        dang::spNTreeState _nTreeStateDefault{nullptr};
+        dang::spNTreeState _nTreeStateBerserk{nullptr};
 
         virtual void tellTheKingWeHitHim();
 

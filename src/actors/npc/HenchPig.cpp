@@ -32,6 +32,7 @@ namespace pnk
 
         if (_nTreeState != nullptr)
         {
+            _nTreeStateDefault = _nTreeState;
             _nTreeState->_payload["sleep_min"] = 500;
             _nTreeState->_payload["sleep_max"] = 1500;
             onEnterSleeping();
@@ -183,7 +184,7 @@ namespace pnk
             }
         }
 
-        _nTreeStateDepot = std::move(_nTreeState);
+        _nTreeState.reset();
         _currentState = SLEEPING;
 
         return true;
@@ -198,9 +199,9 @@ namespace pnk
     {
         // activate the behaviour tree, if not already active
         resetPathVars();
-        if (_nTreeState == nullptr)
+        if (_nTreeState != _nTreeStateDefault)
         {
-            _nTreeState = std::move(_nTreeStateDepot);
+            _nTreeState = _nTreeStateDefault;
         }
 
         _currentState = LOITERING;
@@ -209,22 +210,25 @@ namespace pnk
 
     void HenchPig::endLoitering()
     {
+        _nTreeState.reset();
+        _nTreeStateDefault->clearState();
+        resetPathVars();
     }
 
     bool HenchPig::onEnterBerserk()
     {
-        std::cout << "enter raging" << std::endl;
+        std::cout << "enter berserk" << std::endl;
         _walkSpeed = _berserk_speed;
 
         // activate the behaviour tree, if not already active
         resetPathVars();
-        if (_nTreeState == nullptr)
+        if (_nTreeState != _nTreeStateBerserk)
         {
-            _nTreeState = std::move(_nTreeStateDepot);
+            _nTreeState = _nTreeStateBerserk;
         }
 
 //        removeTweens(true);
-        // rage for 10 sec
+        // berserk for 10 sec
         dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endBerserk, this));
         addTween(nullTw);
@@ -238,6 +242,9 @@ namespace pnk
     {
         std::cout << "end berserk" << std::endl;
         _walkSpeed = _loiter_speed;
+        _nTreeState.reset();
+        _nTreeStateBerserk->clearState();
+        resetPathVars();
         prepareChangeState(LOITERING);
     }
 
@@ -276,7 +283,8 @@ namespace pnk
 
         _anim_m_bubbling->reset();
         setAnimation(_anim_m_bubbling);
-        _nTreeStateDepot = std::move(_nTreeState);
+        _nTreeState.reset();
+        _nTreeStateDefault->clearState();
 
         _currentState = BUBBLED;
         return true;
@@ -285,7 +293,6 @@ namespace pnk
     void HenchPig::endBubble()
     {
         resetPathVars();
-        _nTreeState = std::move(_nTreeStateDepot);
 
         _gravity = PigsnKings::_gravity;
         removeAnimation();

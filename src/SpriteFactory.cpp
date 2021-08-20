@@ -172,22 +172,6 @@ namespace pnk
         return ret;
     }
 
-    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs)
-    {
-        if (so->bt.length() > 0)
-        {
-            std::shared_ptr<dang::NTree> ntr = txtr._gear->getNTree(so->bt);
-            if (ntr != nullptr)
-            {
-                cs->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
-            }
-            else
-            {
-                std::cout << "ERROR: could not find behaviour tree " << so->bt << std::endl;
-            }
-        }
-    }
-
     spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
@@ -202,6 +186,12 @@ namespace pnk
         assert(ret->_anim_m_bubbling != nullptr);
 
         attachBehaviourTree(txtr, so, ret);
+
+        dang::spNTree t = sp->_bt["berserk"];
+        if (t != nullptr)
+        {
+            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
+        }
 
         initSceneGraph(sp, ret);
 
@@ -610,5 +600,22 @@ namespace pnk
         }
         return index;
     }
+
+    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs)
+    {
+        if (so->bt.length() > 0)
+        {
+            std::shared_ptr<dang::NTree> ntr = txtr._gear->getNTree(so->bt);
+            if (ntr != nullptr)
+            {
+                cs->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
+            }
+            else
+            {
+                std::cout << "ERROR: could not find behaviour tree " << so->bt << std::endl;
+            }
+        }
+    }
+
 
 }
