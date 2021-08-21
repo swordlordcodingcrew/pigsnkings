@@ -211,7 +211,10 @@ namespace pnk
     void HenchPig::endLoitering()
     {
         _nTreeState.reset();
-        _nTreeStateDefault->clearState();
+        if (_nTreeStateDefault != nullptr)
+        {
+            _nTreeStateDefault->clearState();
+        }
         resetPathVars();
     }
 
@@ -284,7 +287,10 @@ namespace pnk
         _anim_m_bubbling->reset();
         setAnimation(_anim_m_bubbling);
         _nTreeState.reset();
-        _nTreeStateDefault->clearState();
+        if (_nTreeStateDefault != nullptr)
+        {
+            _nTreeStateDefault->clearState();
+        }
 
         _currentState = BUBBLED;
         return true;
