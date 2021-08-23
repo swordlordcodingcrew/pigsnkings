@@ -478,9 +478,9 @@ namespace pnk
         changeRoom(_pnk._gamestate.active_room, true);
 
         // TODO DEBUG ONLY
-        //_pnk._gamestate.active_room = 6;
-        //_active_act_index = _pnk._gamestate.active_room - 1;
-        //changeRoom(_pnk._gamestate.active_room, true);
+        _pnk._gamestate.active_room = 2;
+        _active_act_index = _pnk._gamestate.active_room - 1;
+        changeRoom(_pnk._gamestate.active_room, true);
 
 
         DEBUG_PRINT("GSPlay: viewport\n");

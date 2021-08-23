@@ -32,6 +32,9 @@ namespace pnk
         static dang::BTNodeStatus BTThrowCrate(std::shared_ptr<Sprite> s);
         static dang::BTNodeStatus BTHideInCrate(std::shared_ptr<Sprite> s);
 
+        /** path and bt functions */
+        static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
+
     protected:
 
     };

@@ -4,6 +4,7 @@
 #include "Level1SP.hpp"
 #include "../actors/npc/Enemy.h"
 #include "../actors/npc/HenchPig.h"
+#include "../actors/npc/PigCrate.h"
 #include "../GSPlay.h"
 
 #include <bt/NTBuilder.h>
@@ -68,7 +69,7 @@ namespace pnk
         room7._passage_from[4] = {1, 7};
         _acts.push_back(room7);
 
-        // behaviour tree for finding back to the path system
+        // behaviour tree 1 for finding back to the path system
         dang::spNTree back_to_path_h = dang::NTBuilder{}
             .sequence()
                 .leaf(Enemy::NTfindNearestWaypointH)
@@ -76,6 +77,7 @@ namespace pnk
             .end()
         .build();
 
+        // behaviour tree 2 for finding back to the path system
         dang::spNTree back_to_path = dang::NTBuilder{}
             .sequence()
                 .leaf(Enemy::NTfindNearestWaypoint)
@@ -110,23 +112,21 @@ namespace pnk
         .build();
 
 
-
-        _bt["loiter_towards_hero"] = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                    .leaf(Enemy::NTsetWPNearHero)
-                    .leaf(Enemy::NTcheckPathCompleted)
+        _bt["loiter_with_crate"] = dang::NTBuilder{}
+            .sequence()
+                .selector()
+                    .sequence()
+                        .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                        .leaf(PigCrate::NTThrowCrate)
+                    .end()
+                    .sequence()
+                        .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                        .leaf(Enemy::NTcheckPathCompleted)
+                    .end()
+                    .tree(back_to_path_h)
+                    .tree(back_to_path)
                 .end()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .leaf(HenchPig::NTSleep)
+                .leaf(HenchPig::NTNap)
             .end()
         .build();
 

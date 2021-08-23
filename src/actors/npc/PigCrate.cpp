@@ -133,4 +133,9 @@ namespace pnk
 //        std::cout << "hiding in crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
+
+    dang::BTNode::Status PigCrate::NTThrowCrate(dang::spSprite s)
+    {
+        return dang::BTNode::Status::FAILURE;
+    }
 }
