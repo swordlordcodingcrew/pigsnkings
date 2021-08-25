@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include <DangFwdDecl.h>
-
 #include "Enemy.h"
 
 namespace pnk
@@ -72,6 +70,8 @@ namespace pnk
         virtual void endBerserk();
 
         virtual bool onEnterThrowing();
+        virtual void endThrowing();
+
         virtual bool onEnterPickingUp();
         virtual bool onEnterBubbled();
 

@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include <vector>
-
 #include <DangFwdDecl.h>
-
 #include <CollisionSprite.hpp>
 #include <bt/BTNode.h>
+
+#include <vector>
+
 
 namespace pnk
 {

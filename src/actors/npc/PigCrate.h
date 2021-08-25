@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <DangFwdDecl.h>
 #include "HenchPig.h"
 
 namespace pnk
@@ -20,23 +19,21 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
-        bool onEnterLoitering() override;
         bool onEnterThrowing() override;
-
-        void endLoitering() override;
+        virtual void endThrowing() override;
         virtual void throwing();
-        virtual void endThrowing();
+        bool        _crated{true};
 
-        // Behaviour Tree functions
-        static dang::BTNodeStatus BTPickUpCrate(std::shared_ptr<Sprite> s);
-        static dang::BTNodeStatus BTThrowCrate(std::shared_ptr<Sprite> s);
-        static dang::BTNodeStatus BTHideInCrate(std::shared_ptr<Sprite> s);
+//        bool onEnterLoitering() override;
+
 
         /** path and bt functions */
+        static dang::BTNodeStatus BTPickUpCrate(dang::spSprite s);
+        static dang::BTNodeStatus BTThrowCrate(dang::spSprite s);
+        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
         static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
 
     protected:
-
     };
 
 }

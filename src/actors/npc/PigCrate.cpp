@@ -11,6 +11,7 @@
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
+#include <tween/TwSequence.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 
@@ -55,26 +56,34 @@ namespace pnk
         this->HenchPig::collide(mf);
     }
 
-    bool PigCrate::onEnterLoitering()
+/*    bool PigCrate::onEnterLoitering()
     {
-        return this->HenchPig::onEnterLoitering();
-
-/*        // TODO handle the walking with tweens
-        //_walkSpeed = _loiter_speed;
-        setAnimation(_anim_m_loitering);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-        _currentState = LOITERING;
-
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
-        nullTw->setFinishedCallback(std::bind(&PigCrate::endLoitering, this));
-        addTween(nullTw);
-
-        return true;
-*/    }
+        return HenchPig::onEnterLoitering();
+    }
+*/
 
     bool PigCrate::onEnterThrowing()
     {
+        assert(_anim_m_throwing != nullptr);
+        removeAnimation();
+        setAnimation(_anim_m_throwing);
+        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+
+        _currentState = THROWING;
+//        _crated = false;
+
+        dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
+        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(100, dang::Ease::Linear, 0);
+        twPrepare->setFinishedCallback(std::bind(&PigCrate::throwing, this));
+        tws->addTween(twPrepare);
+
+        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(400, dang::Ease::Linear, 0);
+        twThrown->setFinishedCallback(std::bind(&PigCrate::endThrowing, this));
+        tws->addTween(twThrown);
+        addTween(tws);
+
+        return true;
+
 /*        // TODO handle the spawning of a new crate
         //_walkSpeed = _loiter_speed;
         setAnimation(_anim_m_throwing);
@@ -96,15 +105,19 @@ namespace pnk
         return false;
     }
 
-    void PigCrate::endLoitering()
-    {
-//        prepareChangeState(THROWING);
-    }
-
     void PigCrate::throwing()
     {
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_THROWN_CRATE));
-        e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+        if (_nTreeState->_payload.count("aaLoSH"))
+        {
+            e->_to_the_left = _nTreeState->_payload["aaLoSH"] > 0;
+            _nTreeState->_payload.erase("aaLoSH");
+        }
+        else
+        {
+            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+        }
+
         e->_pos = this->getPos();
         e->_pos.y -= 10; // piggie holds the box on ground + 10 (yeah, small piggie)
         _pnk._dispatcher.queueEvent(std::move(e));
@@ -113,22 +126,22 @@ namespace pnk
     void PigCrate::endThrowing()
     {
 //        _anim_m_throwing->reset();
-//        prepareChangeState(SLEEPING);
+        prepareChangeState(LOITERING);
     }
 
-    dang::BTNodeStatus PigCrate::BTPickUpCrate(std::shared_ptr<Sprite> s)
+    dang::BTNodeStatus PigCrate::BTPickUpCrate(dang::spSprite s)
     {
 //        std::cout << "picking up crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
 
-    dang::BTNodeStatus PigCrate::BTThrowCrate(std::shared_ptr<Sprite> s)
+    dang::BTNodeStatus PigCrate::BTThrowCrate(dang::spSprite s)
     {
 //        std::cout << "throwing crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
 
-    dang::BTNodeStatus PigCrate::BTHideInCrate(std::shared_ptr<Sprite> s)
+    dang::BTNodeStatus PigCrate::BTHideInCrate(dang::spSprite s)
     {
 //        std::cout << "hiding in crate: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
@@ -136,6 +149,27 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTThrowCrate(dang::spSprite s)
     {
-        return dang::BTNode::Status::FAILURE;
+        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+
+        if (!spr->_crated)
+        {
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        if (spr->_currentState != THROWING)
+        {
+            spr->prepareChangeState(THROWING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == THROWING && spr->_nextState != THROWING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+        else
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+
     }
+
 }

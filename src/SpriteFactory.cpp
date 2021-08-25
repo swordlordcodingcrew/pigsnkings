@@ -219,14 +219,17 @@ namespace pnk
         assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(0);
 
-        ret->init();
-
-        // function checks if there is a so.behaviourtree property
-        // if set, checks in gear whats the pointer to said tree
-        // generates treestate object, sets pointer to tree and sets that to the new sprite
         attachBehaviourTree(txtr, so, ret);
 
+        dang::spNTree t = sp->_bt["berserk"];
+        if (t != nullptr)
+        {
+            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
+        }
+
         initSceneGraph(sp, ret);
+
+        ret->init();
 
         return ret;
     }

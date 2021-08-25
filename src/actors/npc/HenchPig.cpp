@@ -264,6 +264,10 @@ namespace pnk
         return false;
     }
 
+    void HenchPig::endThrowing()
+    {
+    }
+
     bool HenchPig::onEnterPickingUp()
     {
         // handled by subclasses

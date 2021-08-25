@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="589">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="590">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -736,14 +736,14 @@
    </properties>
    <point/>
   </object>
-  <object id="517" x="816" y="728">
+  <object id="517" x="752" y="728">
    <properties>
     <property name="walk_0" type="object" value="518"/>
     <property name="walk_1" type="object" value="588"/>
    </properties>
    <point/>
   </object>
-  <object id="518" x="752" y="728">
+  <object id="518" x="720" y="728">
    <properties>
     <property name="walk_0" type="object" value="516"/>
     <property name="walk_1" type="object" value="517"/>
@@ -777,9 +777,16 @@
    </properties>
    <point/>
   </object>
-  <object id="588" x="880" y="728">
+  <object id="588" x="784" y="728">
    <properties>
     <property name="walk_0" type="object" value="517"/>
+    <property name="walk_1" type="object" value="589"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="589" x="816" y="728">
+   <properties>
+    <property name="walk_0" type="object" value="588"/>
    </properties>
    <point/>
   </object>
