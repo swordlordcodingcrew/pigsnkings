@@ -34,6 +34,7 @@ namespace pnk
     void PigBomb::init()
     {
         this->HenchPig::init();
+        _walkSpeed = 0;
     }
 
     PigBomb::~PigBomb()

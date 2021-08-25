@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="590">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="593">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -238,7 +238,11 @@
   <object id="326" type="hotrect" x="256" y="100" width="96" height="60"/>
   <object id="330" type="hotrect" x="384" y="68" width="32" height="28"/>
   <object id="331" type="hotrect" x="224" y="32" width="160" height="32"/>
-  <object id="333" name="dan" type="pig_box" gid="2147484055" x="512" y="96" width="32" height="32"/>
+  <object id="333" name="dan" type="pig_box" gid="2147484055" x="512" y="96" width="32" height="32">
+   <properties>
+    <property name="bt" value="wait_crate"/>
+   </properties>
+  </object>
   <object id="334" type="pig_bomb" gid="2147484021" x="704" y="96" width="32" height="32"/>
   <object id="335" type="pig_normal" gid="326" x="576" y="704" width="32" height="32">
    <properties>
@@ -305,11 +309,7 @@
   <object id="427" type="cannonball_proto" gid="449" x="256" y="192" width="32" height="32"/>
   <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="448" y="448" width="32" height="32"/>
   <object id="429" type="boom_proto" gid="455" x="288" y="224" width="64" height="64"/>
-  <object id="430" name="fred too" type="pig_bomb" gid="373" x="32" y="352" width="32" height="32">
-   <properties>
-    <property name="bt" value="insanity"/>
-   </properties>
-  </object>
+  <object id="430" name="fred too" type="pig_bomb" gid="373" x="32" y="352" width="32" height="32"/>
   <object id="431" type="pig_normal" gid="2147483974" x="352" y="704" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
@@ -353,11 +353,7 @@
   <object id="488" type="coin_gold" gid="133" x="32" y="150" width="32" height="48"/>
   <object id="489" type="hotrect" x="0" y="32" width="32" height="160"/>
   <object id="490" type="hotrect" x="0" y="224" width="224" height="32"/>
-  <object id="491" name="fred" type="pig_bomb" gid="373" x="96" y="96" width="32" height="32">
-   <properties>
-    <property name="bt" value="insanity"/>
-   </properties>
-  </object>
+  <object id="491" name="fred" type="pig_bomb" gid="373" x="96" y="96" width="32" height="32"/>
   <object id="492" type="pig_normal" gid="326" x="800" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
@@ -368,7 +364,7 @@
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="494" type="pig_normal" gid="326" x="501" y="128" width="32" height="32">
+  <object id="494" type="pig_normal" gid="326" x="512" y="128" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
    </properties>
@@ -405,6 +401,12 @@
   <object id="581" gid="115" x="576" y="64" width="32" height="32"/>
   <object id="582" gid="122" x="544" y="96" width="32" height="32"/>
   <object id="583" gid="123" x="576" y="96" width="32" height="32"/>
+  <object id="592" x="720" y="152">
+   <properties>
+    <property name="walk_0" type="object" value="503"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
@@ -647,77 +649,90 @@
    </properties>
    <point/>
   </object>
-  <object id="497" x="910" y="218">
+  <object id="497" x="912" y="216">
    <properties>
     <property name="jump_0" type="object" value="499"/>
     <property name="walk_0" type="object" value="498"/>
    </properties>
    <point/>
   </object>
-  <object id="498" x="814" y="218">
+  <object id="498" x="816" y="216">
    <properties>
-    <property name="jump_0" type="object" value="499"/>
+    <property name="jump_0" type="object" value="591"/>
     <property name="jump_1" type="object" value="509"/>
     <property name="walk_0" type="object" value="497"/>
    </properties>
    <point/>
   </object>
-  <object id="499" x="864" y="186">
+  <object id="499" x="880" y="184">
    <properties>
-    <property name="walk_0" type="object" value="498"/>
+    <property name="walk_0" type="object" value="591"/>
     <property name="walk_1" type="object" value="497"/>
    </properties>
    <point/>
   </object>
   <object id="500" x="816" y="122">
    <properties>
-    <property name="walk_0" type="object" value="499"/>
+    <property name="block_0" type="object" value="501"/>
+    <property name="walk_0" type="object" value="591"/>
    </properties>
    <point/>
   </object>
-  <object id="501" x="764" y="154">
+  <object id="501" x="752" y="152">
    <properties>
     <property name="jump_0" type="object" value="500"/>
-    <property name="walk_0" type="object" value="503"/>
+    <property name="walk_0" type="object" value="509"/>
    </properties>
    <point/>
   </object>
-  <object id="502" x="516" y="153">
+  <object id="502" x="528" y="152">
    <properties>
-    <property name="jump_0" type="object" value="507"/>
     <property name="walk_0" type="object" value="503"/>
+    <property name="walk_1" type="object" value="590"/>
    </properties>
    <point/>
   </object>
-  <object id="503" x="640" y="153">
+  <object id="503" x="640" y="152">
    <properties>
-    <property name="walk_0" type="object" value="501"/>
+    <property name="walk_0" type="object" value="592"/>
     <property name="walk_1" type="object" value="502"/>
    </properties>
    <point/>
   </object>
-  <object id="504" x="398" y="218">
+  <object id="504" x="432" y="216">
    <properties>
+    <property name="jump_0" type="object" value="505"/>
     <property name="walk_0" type="object" value="508"/>
    </properties>
    <point/>
   </object>
-  <object id="505" x="397" y="186">
+  <object id="505" x="400" y="184">
+   <properties>
+    <property name="jump_0" type="object" value="506"/>
+    <property name="walk_0" type="object" value="504"/>
+   </properties>
    <point/>
   </object>
-  <object id="506" x="420" y="154">
+  <object id="506" x="432" y="152">
+   <properties>
+    <property name="walk_0" type="object" value="505"/>
+    <property name="walk_1" type="object" value="507"/>
+   </properties>
    <point/>
   </object>
-  <object id="507" x="476" y="154">
+  <object id="507" x="464" y="152">
+   <properties>
+    <property name="walk_0" type="object" value="506"/>
+   </properties>
    <point/>
   </object>
-  <object id="508" x="462" y="218">
+  <object id="508" x="464" y="216">
    <properties>
     <property name="walk_0" type="object" value="504"/>
    </properties>
    <point/>
   </object>
-  <object id="509" x="796" y="186">
+  <object id="509" x="784" y="184">
    <properties>
     <property name="jump_0" type="object" value="501"/>
     <property name="walk_0" type="object" value="498"/>
@@ -787,6 +802,20 @@
   <object id="589" x="816" y="728">
    <properties>
     <property name="walk_0" type="object" value="588"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="590" x="496" y="184">
+   <properties>
+    <property name="jump_0" type="object" value="502"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="591" x="848" y="184">
+   <properties>
+    <property name="block_0" type="object" value="500"/>
+    <property name="walk_0" type="object" value="499"/>
+    <property name="walk_1" type="object" value="498"/>
    </properties>
    <point/>
   </object>

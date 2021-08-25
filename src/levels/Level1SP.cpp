@@ -128,6 +128,14 @@ namespace pnk
         .build();
 
 
+        _bt["wait_crate"] = dang::NTBuilder{}
+            .sequence()
+                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                .leaf(PigCrate::NTThrowCrate)
+            .end()
+        .build();
+
+
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
