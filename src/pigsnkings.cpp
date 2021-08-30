@@ -90,13 +90,8 @@ namespace pnk
         DEBUG_PRINT("pigsnkings: prefs loaded\n");
 
         // loading the gamestate from the prefs
-        if(!blit::read_save(_gamestate, _prefs.currentGameSaveSlot)) {
-            // TODO: this is a terrible hack! but go with it until we can switch levels directly in the game...
-            if(_prefs.currentGameSaveSlot == 2)
-            {
-                DEBUG_PRINT("pigsnkings: gamestate hack activated, check your active level");
-                _gamestate.active_level = _prefs.currentGameSaveSlot;
-            }
+        if(!blit::read_save(_gamestate, _prefs.currentGameSaveSlot))
+        {
             blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
         }
 
