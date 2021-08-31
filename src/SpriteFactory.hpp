@@ -15,7 +15,6 @@ namespace dang
     class Imagesheet;
     class TmxExtruder;
     class Sprite;
-    class ScreenPlay;
 
     struct tmx_spriteobject;
 }

@@ -23,6 +23,7 @@
 #include "actors/others/Moodies.h"
 #include "actors/others/MoodiesThatHurt.h"
 #include "actors/others/Reward.h"
+#include <src/actors/others/LevelTrigger.h>
 #include "actors/others/Cannon.h"
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
@@ -75,7 +76,6 @@
 #include <malloc.h>
 #include <cassert>
 #include <memory>
-#include <src/actors/others/LevelTrigger.h>
 
 
 #ifdef TARGET_32BLIT_HW
@@ -1053,9 +1053,14 @@ namespace pnk
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_DIES));
             e->_payload = 1;
             pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+            _pnk._gamestate.boss_health = 0;
+        }
+        else
+        {
+            _pnk._gamestate.boss_health = health;
         }
 
-        _pnk._gamestate.boss_health = health;
     }
 
 }
