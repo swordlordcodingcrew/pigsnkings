@@ -241,11 +241,13 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {569,"569","",460,396,32,32,true,"gfx_castle_decorations",17,"",0b0000},
     {584,"584","",256,438,32,32,true,"gfx_castle_decorations",12,"",0b0000},
     {585,"585","",32,438,32,32,true,"gfx_castle_decorations",12,"",0b0000},
-    {543,"door","door",137,424,46,56,true,"levels_door",0,"",0b0000}
+    {543,"door","door",137,328,46,56,true,"levels_door",0,"",0b0000},
+    {594,"594","",128,384,32,32,true,"gfx_castle_decorations",9,"",0b0000},
+    {595,"595","",160,384,32,32,true,"gfx_castle_decorations",11,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_mood_objects_len = 94;
+static const size_t level_1_lvl_1_mood_objects_len = 96;
 
 static const dang::tmx_layer level_1_lvl_1_mood = {
     .name = "lvl_1_mood",
@@ -459,9 +461,9 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {527,"527","hotrect",256,438,32,10,true,"",0,"",0b0000},
     {528,"528","hotrect",32,439,32,10,true,"",0,"",0b0000},
     {529,"529","boss",224,448,32,32,true,"character_pigking",0,"",0b0000},
-    {530,"bossbattle trigger","bossbattle_trigger",96,352,128,16,true,"",0,"",0b0000},
+    {530,"bossbattle trigger","bossbattle_trigger",96,337,128,16,true,"",0,"",0b0000},
     {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
-    {538,"2","level_trigger",144,425,32,55,true,"",0,"",0b0000},
+    {538,"2","level_trigger",144,336,32,49,true,"",0,"",0b0000},
     {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
     {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
     {572,"572","",160,128,32,32,true,"gfx_castle_decorations",19,"",0b0000},
@@ -476,11 +478,12 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {581,"581","",576,64,32,32,true,"gfx_castle_decorations",18,"",0b0000},
     {582,"582","",544,96,32,32,true,"gfx_castle_decorations",25,"",0b0000},
     {583,"583","",576,96,32,32,true,"gfx_castle_decorations",26,"",0b0000},
-    {592,"592","",720,152,0,0,true,"",0,"",0b0000}
+    {592,"592","",720,152,0,0,true,"",0,"",0b0000},
+    {593,"593","hotrect",128,385,64,10,true,"",0,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 212;
+static const size_t level_1_lvl_1_obj_objects_len = 213;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
