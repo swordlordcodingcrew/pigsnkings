@@ -1,6 +1,8 @@
 // (c) 2019-1 by SwordLord - the coding crew
 // This file is part of the pnk game
 
+#include "../pnk_globals.h"
+
 #include "Level1SP.hpp"
 #include "../actors/npc/Enemy.h"
 #include "../actors/npc/HenchPig.h"
@@ -8,6 +10,15 @@
 #include "../GSPlay.h"
 
 #include <bt/NTBuilder.h>
+
+#ifdef PNK_DEBUG_PRINT
+
+#ifdef TARGET_32BLIT_HW
+#include "32blit.hpp"
+#endif
+
+#include <malloc.h>
+#endif
 
 namespace pnk
 {
@@ -69,6 +80,8 @@ namespace pnk
         room7._passage_from[4] = {1, 7};
         _acts.push_back(room7);
 
+        DEBUG_PRINT("Level1SP: before bt (%d)\r\n", mallinfo().uordblks);
+
         // behaviour tree 1 for finding back to the path system
         dang::spNTree back_to_path_h = dang::NTBuilder{}
             .sequence()
@@ -76,6 +89,8 @@ namespace pnk
                 .leaf(Enemy::NTcheckPathCompleted)
             .end()
         .build();
+
+        DEBUG_PRINT("Level1SP: after bt 1 (%d)\r\n", mallinfo().uordblks);
 
         // behaviour tree 2 for finding back to the path system
         dang::spNTree back_to_path = dang::NTBuilder{}
@@ -85,6 +100,8 @@ namespace pnk
             .end()
         .build();
 
+        DEBUG_PRINT("Level1SP: after bt 2 (%d)\r\n", mallinfo().uordblks);
+
         // generic loitering
         _bt["loiter"] = dang::NTBuilder{}
             .sequence()
@@ -93,12 +110,14 @@ namespace pnk
                         .leaf(Enemy::NTsetRandomPath)
                         .leaf(Enemy::NTcheckPathCompleted)
                     .end()
-                    .tree(back_to_path_h)
+                    .tree(back_to_path_h)   // crash in this function on hw
                     .tree(back_to_path)
                 .end()
                 .leaf(HenchPig::NTSleep)
             .end()
         .build();
+
+        DEBUG_PRINT("Level1SP: after bt 3 (%d)\r\n", mallinfo().uordblks);
 
         _bt["berserk"] = dang::NTBuilder{}
             .selector()
@@ -111,6 +130,8 @@ namespace pnk
             .end()
         .build();
 
+
+        DEBUG_PRINT("Level1SP: after bt 4 (%d)\r\n", mallinfo().uordblks);
 
         _bt["loiter_with_crate"] = dang::NTBuilder{}
             .selector()
@@ -128,13 +149,20 @@ namespace pnk
         .build();
 
 
+        DEBUG_PRINT("Level1SP: after bt 5 (%d)\r\n", mallinfo().uordblks);
+
         _bt["wait_crate"] = dang::NTBuilder{}
-            .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                .leaf(PigCrate::NTThrowCrate)
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(PigCrate::NTThrowCrate)
+                .end()
+                .leaf(HenchPig::NTNap)
             .end()
         .build();
 
+
+        DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()

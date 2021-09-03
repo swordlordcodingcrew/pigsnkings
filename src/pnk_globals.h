@@ -5,7 +5,7 @@
 
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
-//#define PNK_DEBUG_PRINT
+#define PNK_DEBUG_PRINT
 
 #ifdef PNK_DEBUG_PRINT
     #ifdef TARGET_32BLIT_HW

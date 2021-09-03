@@ -307,7 +307,7 @@ namespace pnk
 
     void GSHome::playOink()
     {
-        uint32_t val = dang::Rand::get(0, 100);
+        uint32_t val = dang::Rand::get(uint32_t(0), uint32_t(100));
 //        auto val = std::rand() % 100;
         if (val == 1)
         {
