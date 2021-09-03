@@ -26,12 +26,14 @@ namespace pnk
 
 
         /** animations depot */
-        dang::spTwAnim _anim_m_sleeping;
-        dang::spTwAnim _anim_m_hiding;
-        dang::spTwAnim _anim_m_loitering;
-        dang::spTwAnim _anim_m_throwing;
-        dang::spTwAnim _anim_m_picking_up;
-        dang::spTwAnim _anim_m_bubbling;
+        dang::spTwAnim _anim_m_sleeping{nullptr};
+        dang::spTwAnim _anim_m_hiding{nullptr};
+        dang::spTwAnim _anim_m_loitering{nullptr};
+        dang::spTwAnim _anim_m_throwing{nullptr};
+        dang::spTwAnim _anim_m_picking_up{nullptr};
+        dang::spTwAnim _anim_m_bubbling{nullptr};
+        dang::spTwAnim _anim_empty_sleeping{nullptr};
+        dang::spTwAnim _anim_empty_loitering{nullptr};
 
         /** path and bt functions */
         static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state

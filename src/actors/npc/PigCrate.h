@@ -19,10 +19,6 @@ namespace pnk
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
-        bool onEnterThrowing() override;
-        virtual void endThrowing() override;
-        virtual void throwing();
-        bool        _crated{true};
 
 //        bool onEnterLoitering() override;
 
@@ -34,6 +30,12 @@ namespace pnk
         static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
 
     protected:
+
+        bool onEnterThrowing() override;
+        virtual void endThrowing() override;
+        virtual void throwing();
+        bool        _crated{true};
+
     };
 
 }

@@ -16,6 +16,7 @@
 #include <TmxExtruder.hpp>
 
 #include <iostream>
+#include <libs/DANG/src/Rand.hpp>
 
 namespace pnk
 {
@@ -56,11 +57,6 @@ namespace pnk
         this->HenchPig::collide(mf);
     }
 
-/*    bool PigCrate::onEnterLoitering()
-    {
-        return HenchPig::onEnterLoitering();
-    }
-*/
 
     bool PigCrate::onEnterThrowing()
     {
@@ -70,7 +66,15 @@ namespace pnk
         _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
 
         _currentState = THROWING;
-//        _crated = false;
+        _crated = false;
+        dang::spTwAnim tmp_anim = _anim_m_loitering;
+        _anim_m_loitering = _anim_empty_loitering;
+        _anim_empty_loitering = tmp_anim;
+
+        tmp_anim = _anim_m_sleeping;
+        _anim_m_sleeping = _anim_empty_sleeping;
+        _anim_empty_sleeping = tmp_anim;
+
 
         dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
         dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(100, dang::Ease::Linear, 0);
@@ -84,25 +88,6 @@ namespace pnk
 
         return true;
 
-/*        // TODO handle the spawning of a new crate
-        //_walkSpeed = _loiter_speed;
-        setAnimation(_anim_m_throwing);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-        _currentState = THROWING;
-
-        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
-        twPrepare->setFinishedCallback(std::bind(&PigCrate::throwing, this));
-        addTween(twPrepare);
-
-        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(700, dang::Ease::Linear, 0);
-        twThrown->setFinishedCallback(std::bind(&PigCrate::endThrowing, this));
-        addTween(twThrown);
-
-        return true;
-        */
-
-        return false;
     }
 
     void PigCrate::throwing()
@@ -125,7 +110,6 @@ namespace pnk
 
     void PigCrate::endThrowing()
     {
-//        _anim_m_throwing->reset();
         prepareChangeState(LOITERING);
     }
 
@@ -171,5 +155,7 @@ namespace pnk
         }
 
     }
+
+
 
 }

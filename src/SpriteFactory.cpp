@@ -202,8 +202,10 @@ namespace pnk
     }
 
     // it is a wooden crate.. for making buses out of them
-    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
+    spHenchPig SpriteFactory::PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp)
     {
+        spImagesheet is = iss.at(so->tileset);
+
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = ST_PIG_BOX;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
@@ -219,6 +221,13 @@ namespace pnk
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
         assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(0);
+
+        // animations without crate
+        is = iss.at("gfx_pig");
+        ret->_anim_empty_sleeping = txtr.getAnimation(is, "sleeping");
+        assert(ret->_anim_empty_sleeping != nullptr);
+        ret->_anim_empty_loitering = txtr.getAnimation(is, "loitering");
+        assert(ret->_anim_empty_loitering != nullptr);
 
         attachBehaviourTree(txtr, so, ret);
 
