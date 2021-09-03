@@ -126,8 +126,6 @@ namespace pnk
                 {
                     _on_ground = true;
                     _vel.y = 0;
-
-                    // todo plus tell the pigking he was hit
                 }
                 else
                 {
