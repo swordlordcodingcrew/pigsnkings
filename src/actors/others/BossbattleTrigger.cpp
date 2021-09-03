@@ -23,7 +23,7 @@ namespace pnk
 
     void BossbattleTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.me->_type_num == dang::SpriteType::KING || mf.other->_type_num == dang::SpriteType::KING)
+        if (mf.me->_type_num == ST_KING || mf.other->_type_num == ST_KING)
         {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_START_BOSSBATTLE));
                 _pnk._dispatcher.queueEvent(std::move(e));
@@ -32,7 +32,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse BossbattleTrigger::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING)
+        if (other->_type_num == ST_KING)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }

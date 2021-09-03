@@ -130,19 +130,19 @@ namespace pnk
 
     void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (((mf.other->_type_num > dang::SpriteType::ENEMIES && mf.other->_type_num < dang::SpriteType::ENEMIES_END)
-                || (mf.me->_type_num > dang::SpriteType::ENEMIES && mf.me->_type_num < dang::SpriteType::ENEMIES_END))
+        if (((mf.other->_type_num > ST_ENEMIES && mf.other->_type_num < ST_ENEMIES_END)
+                || (mf.me->_type_num > ST_ENEMIES && mf.me->_type_num < ST_ENEMIES_END))
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
 
             // yeah, could be added to the check above, but if we add a few more exceptions, would it still be readable?
             // or do some whitelist instead of ranges...
-            if((mf.me->_type_num == dang::SpriteType::CANNON || mf.other->_type_num == dang::SpriteType::CANNON)
-                || (mf.me->_type_num == dang::SpriteType::PIG_CANNON || mf.other->_type_num == dang::SpriteType::PIG_CANNON))
+            if((mf.me->_type_num == ST_CANNON || mf.other->_type_num == ST_CANNON)
+                || (mf.me->_type_num == ST_PIG_CANNON || mf.other->_type_num == ST_PIG_CANNON))
             {
                 return; // cannoneers and cannons dont get bubbled
             }
-            else if(mf.me->_type_num == dang::SpriteType::PIG_BOSS || mf.other->_type_num == dang::SpriteType::PIG_BOSS)
+            else if(mf.me->_type_num == ST_PIG_BOSS || mf.other->_type_num == ST_PIG_BOSS)
             {
                 return; // royals dont get bubbled
             }
@@ -184,7 +184,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -196,7 +196,7 @@ namespace pnk
 
                     // reward
                     std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
-                    e->_payload = static_cast<uint16_t>(dang::SpriteType::PIG_REWARD);
+                    e->_payload = ST_PIG_REWARD;
                     e->_spr = shared_from_this();
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
@@ -239,7 +239,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING)
+        if (other->_type_num == ST_KING)
         {
             if (_state == bs_enemy_catched)
             {
@@ -260,12 +260,12 @@ namespace pnk
             return dang::CollisionSpriteLayer::CR_NONE;
         }
 
-        if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
+        if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
         {
             return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
         }
 
-        if (other->_type_num == dang::SpriteType::HOTRECT)
+        if (other->_type_num == ST_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }

@@ -76,12 +76,12 @@ namespace pnk
 
     void Throwies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
+        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
         {
             // me destroys
             this->removeSelf();
         }
-        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -93,7 +93,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Throwies::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING || other->_type_num == dang::SpriteType::HOTRECT)
+        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }

@@ -76,12 +76,12 @@ namespace pnk
     dang::CollisionSpriteLayer::eCollisionResponse PigBoss::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         /** run into the king */
-        if (other->_type_num == dang::SpriteType::KING && _currentState != DEAD)
+        if (other->_type_num == ST_KING && _currentState != DEAD)
         {
             _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
+        else if (other->_type_num == ST_HOTRECT_PLATFORM)
         {
             if (other->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
             {
@@ -109,7 +109,7 @@ namespace pnk
         // we want the others normal, not our normal!
         const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
 
-        if (sprOther->_type_num == dang::SpriteType::KING && normal.y > 0 && _currentState == BERSERK)
+        if (sprOther->_type_num == ST_KING && normal.y > 0 && _currentState == BERSERK)
         {
             // TODO check first if the other one can still collide?
             // tell the pig king he is hit, should be stunned for a few rounds
@@ -237,7 +237,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = static_cast<uint16_t>(dang::SpriteType::PIG_BOSS);
+        e->_payload = ST_PIG_BOSS;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 

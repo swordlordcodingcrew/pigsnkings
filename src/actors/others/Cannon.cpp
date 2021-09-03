@@ -64,12 +64,12 @@ namespace pnk
     dang::CollisionSpriteLayer::eCollisionResponse Cannon::getCollisionResponse(const spCollisionSprite& other)
     {
         /** run into the king */
-        if (other->_type_num == dang::SpriteType::KING)
+        if (other->_type_num == ST_KING)
         {
             _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
+        else if (other->_type_num == ST_HOTRECT_PLATFORM)
         {
             spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
 
@@ -94,7 +94,7 @@ namespace pnk
     {
         spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
 
-        if (sprOther->_type_num == dang::SpriteType::KING)
+        if (sprOther->_type_num == ST_KING)
         {
             tellTheKingWeHitHim();
         }
@@ -168,7 +168,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = static_cast<uint16_t>(dang::SpriteType::PIG_CANNON);
+        e->_payload = ST_PIG_CANNON;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 

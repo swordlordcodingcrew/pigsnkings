@@ -52,7 +52,7 @@ namespace pnk
 
     void MoodiesThatHurt::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             // only hurts once
             _has_hurt = true;
@@ -62,7 +62,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse MoodiesThatHurt::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING && !_has_hurt)
+        if (other->_type_num == ST_KING && !_has_hurt)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }

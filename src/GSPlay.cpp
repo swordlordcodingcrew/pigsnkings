@@ -707,30 +707,30 @@ namespace pnk
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
-        switch(static_cast<dang::SpriteType>(pe._payload))
+        switch(pe._payload)
         {
-            case dang::SpriteType::PIG_NORMAL:
+            case ST_PIG_NORMAL:
                 health -= 30;
                 break;
-            case dang::SpriteType::PIG_BOMB:
+            case ST_PIG_BOMB:
                 health -= 35;
                 break;
-            case dang::SpriteType::PIG_BOX:
+            case ST_PIG_BOX:
                 health -= 35;
                 break;
-            case dang::SpriteType::FLYING_BOMB:
+            case ST_FLYING_BOMB:
                 health -= 10;
                 break;
-            case dang::SpriteType::FLYING_CRATE:
+            case ST_FLYING_CRATE:
                 health -= 20;
                 break;
-            case dang::SpriteType::FLYING_CANNONBALL:
+            case ST_FLYING_CANNONBALL:
                 health -= 40;
                 break;
-            case dang::SpriteType::CANNON:
+            case ST_CANNON:
                 health -= 40;
                 break;
-            case dang::SpriteType::EXPLOSION:
+            case ST_EXPLOSION:
                 health -= 50;
                 break;
         }
@@ -773,33 +773,33 @@ namespace pnk
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
     {
-        switch (static_cast<dang::SpriteType>(pe._payload))
+        switch (pe._payload)
         {
-            case dang::SpriteType::COIN_SILVER:
+            case ST_COIN_SILVER:
                 addScore(10);
                 break;
-            case dang::SpriteType::COIN_GOLD:
+            case ST_COIN_GOLD:
                 addScore(50);
                 break;
-            case dang::SpriteType::GEM_BLUE:
+            case ST_GEM_BLUE:
                 addScore(30);
                 break;
-            case dang::SpriteType::GEM_GREEN:
+            case ST_GEM_GREEN:
                 addScore(60);
                 break;
-            case dang::SpriteType::GEM_RED:
+            case ST_GEM_RED:
                 addScore(100);
                 break;
-            case dang::SpriteType::POTION_BLUE:
+            case ST_POTION_BLUE:
                 addHealth(1);
                 break;
-            case dang::SpriteType::POTION_RED:
+            case ST_POTION_RED:
                 addHealth(5);
                 break;
-            case dang::SpriteType::POTION_GREEN:
+            case ST_POTION_GREEN:
                 addHealth(20);
                 break;
-            case dang::SpriteType::PIG_REWARD:
+            case ST_PIG_REWARD:
                 addScore(100);
                 break;
                 // Default gets nothing
@@ -1006,7 +1006,7 @@ namespace pnk
             auto spr = mood->getSpriteByType("door");
             if(spr != nullptr)
             {
-                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 700, dang::Ease::Linear, 1)));
+                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 900, dang::Ease::Linear, 1)));
             }
         }
 

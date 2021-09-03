@@ -54,3 +54,62 @@ enum ET
     ETA_PAUSE = 201
 };
 
+/**
+ * definition of sprite types
+ * ST: sprite type
+ */
+enum SpriteType
+{
+    ST_UNDEFINED = 0,
+
+    // 1 - 9 king and associated stuff to king
+    ST_KING = 1,
+    ST_BUBBLE = 5,
+
+    // 10 - 39 enemies
+    ST_ENEMIES = 10,
+    ST_PIG_NORMAL = 11,
+    ST_NORMAL_PIG_HIVE = 12,
+    ST_PIG_BETTER = 13,
+    ST_PIG_BOX = 14,
+    ST_PIG_BOMB = 15,
+    ST_PIG_CANNON = 16,
+    ST_CANNON = 17,
+    ST_FLYING_CANNONBALL = 18,
+    ST_FLYING_CRATE = 19,
+    ST_FLYING_BOMB = 20,
+    ST_PIG_BOSS = 30,
+    ST_EXPLOSION = 38,
+    ST_ENEMIES_END = 39,
+
+    // 40 - 49 hotrects
+    ST_HOTRECT = 40,
+    ST_HOTRECT_PLATFORM = 41,
+
+    // 50 - 69 coins and rewards in general
+    ST_REWARDS = 50,
+    ST_COIN_SILVER = 51,
+    ST_COIN_GOLD = 52,
+    ST_GEM_BLUE = 53,
+    ST_GEM_GREEN = 54,
+    ST_GEM_RED = 55,
+    ST_POTION_BLUE = 56,
+    ST_POTION_RED = 57,
+    ST_POTION_GREEN = 58,
+    ST_PIG_REWARD = 59,
+    ST_REWARDS_END = 69,
+
+    // 70 - 79 triggers
+    ST_TRIGGERS = 70,
+    ST_ROOM_TRIGGER = 71,
+    ST_WARP_ROOM_TRIGGER = 72,
+    ST_LEVEL_TRIGGER = 73,
+    ST_BOSS_BATTLE_TRIGGER = 74,
+    ST_TRIGGERS_END = 79,
+
+    // 80 - 89 Mood stuff
+    ST_PIG_POOF = 81,
+    ST_CANNON_MUZZLE = 82
+};
+
+

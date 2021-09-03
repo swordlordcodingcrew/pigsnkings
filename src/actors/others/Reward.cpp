@@ -36,28 +36,28 @@ namespace pnk
         // lets discuss the problem
         switch (this->_type_num)
         {
-            case dang::SpriteType::COIN_SILVER:
+            case ST_COIN_SILVER:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::COIN_GOLD:
+            case ST_COIN_GOLD:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{4, 5, 6, 7}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::GEM_BLUE:
+            case ST_GEM_BLUE:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{12, 13, 14, 15}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::GEM_GREEN:
+            case ST_GEM_GREEN:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{16, 17, 18, 19}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::GEM_RED:
+            case ST_GEM_RED:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{20, 21, 22, 23}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::POTION_BLUE:
+            case ST_POTION_BLUE:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{28, 29, 30, 31, 32, 33, 34}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::POTION_RED:
+            case ST_POTION_RED:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{35, 36, 37, 38, 39, 40, 41}, 500, &dang::Ease::Linear, -1)));
                 break;
-            case dang::SpriteType::POTION_GREEN:
+            case ST_POTION_GREEN:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{42, 43, 44, 45, 46, 47, 48}, 500, &dang::Ease::Linear, -1)));
                 break;
                 // Default gets silver coin
@@ -82,7 +82,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Reward::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING && !_collected)
+        if (other->_type_num == ST_KING && !_collected)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
@@ -92,7 +92,7 @@ namespace pnk
 
     void Reward::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             this->_collected = true;
 
@@ -105,18 +105,18 @@ namespace pnk
 
             switch (this->_type_num)
             {
-                case dang::SpriteType::COIN_SILVER:
-                case dang::SpriteType::COIN_GOLD:
+                case ST_COIN_SILVER:
+                case ST_COIN_GOLD:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{8, 9, 10, 11}, 400, &dang::Ease::Linear, 0));
                     break;
-                case dang::SpriteType::GEM_BLUE:
-                case dang::SpriteType::GEM_GREEN:
-                case dang::SpriteType::GEM_RED:
+                case ST_GEM_BLUE:
+                case ST_GEM_GREEN:
+                case ST_GEM_RED:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{24, 25, 26, 27}, 400, &dang::Ease::Linear, 0));
                     break;
-                case dang::SpriteType::POTION_BLUE:
-                case dang::SpriteType::POTION_RED:
-                case dang::SpriteType::POTION_GREEN:
+                case ST_POTION_BLUE:
+                case ST_POTION_RED:
+                case ST_POTION_GREEN:
                     anim_poof = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{49, 50, 51, 52}, 400, &dang::Ease::Linear, 0));
                     break;
                     // Default gets silver coin
@@ -132,7 +132,7 @@ namespace pnk
         }
     }
 
-    void Reward::createRewardEvent(dang::SpriteType rewardType)
+    void Reward::createRewardEvent(uint8_t rewardType)
     {
         // remove reward
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));

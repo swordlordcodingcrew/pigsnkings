@@ -80,12 +80,12 @@ namespace pnk
 
     void Moodies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
+        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
         {
             // me destroys
             //this->removeSelf();
         }
-        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             // me destroys
             //_remove_me = true;

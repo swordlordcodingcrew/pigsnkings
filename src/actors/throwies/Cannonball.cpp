@@ -72,7 +72,7 @@ namespace pnk
 
     void Cannonball::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == dang::SpriteType::HOTRECT || mf.me->_type_num == dang::SpriteType::HOTRECT)
+        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
         {
             // have the animation sequence triggered
             triggerExplosion();
@@ -80,7 +80,7 @@ namespace pnk
             // me destroys in the next cycle, we need the pointer in this cycle for the event
             _remove_me = true;
         }
-        else if (mf.other->_type_num == dang::SpriteType::KING || mf.me->_type_num == dang::SpriteType::KING)
+        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -92,7 +92,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Cannonball::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == dang::SpriteType::KING || other->_type_num == dang::SpriteType::HOTRECT)
+        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
@@ -105,7 +105,7 @@ namespace pnk
         //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
-        e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_CANNONBALL);
+        e->_payload = ST_FLYING_CANNONBALL;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
@@ -115,7 +115,7 @@ namespace pnk
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CANNONBALL_EXPLODES));
         e->_spr = shared_from_this();
         e->_pos = this->getPos();
-        e->_payload = static_cast<uint16_t>(dang::SpriteType::FLYING_CANNONBALL);
+        e->_payload = ST_FLYING_CANNONBALL;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

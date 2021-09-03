@@ -22,7 +22,7 @@ namespace pnk
 
     protected:
         void removeSelf();
-        void createRewardEvent(dang::SpriteType rewardType);
+        void createRewardEvent(uint8_t rewardType);
         bool _collected{false}; // turns true when hit the first time
     };
 }

@@ -60,10 +60,10 @@ namespace pnk
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
             // collision with enemy
-            if (other->_type_num > dang::SpriteType::ENEMIES && other->_type_num < dang::SpriteType::ENEMIES_END)
+            if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
             {
                 // if hero from above, no real hit, only jump back
-                if(other->_type_num == dang::SpriteType::PIG_BOSS && normal.y > 0)
+                if(other->_type_num == ST_PIG_BOSS && normal.y > 0)
                 {
                     // do nothing
                 }
@@ -113,16 +113,16 @@ namespace pnk
             /** hit with something solid */
             if (normal.y > 0)
             {
-                if (mf.other->_type_num == dang::SpriteType::BUBBLE || mf.me->_type_num == dang::SpriteType::BUBBLE)
+                if (mf.other->_type_num == ST_BUBBLE || mf.me->_type_num == ST_BUBBLE)
                 {
-                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == dang::SpriteType::BUBBLE ? mf.me : mf.other);
+                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == ST_BUBBLE ? mf.me : mf.other);
                     if (bubble->_state != Bubble::bs_enemy_catched)
                     {
                         _on_ground = true;
                         _vel.y = 0;
                     }
                 }
-                else if (mf.other->_type_num == dang::SpriteType::PIG_BOSS || mf.me->_type_num == dang::SpriteType::PIG_BOSS)
+                else if (mf.other->_type_num == ST_PIG_BOSS || mf.me->_type_num == ST_PIG_BOSS)
                 {
                     _on_ground = true;
                     _vel.y = 0;
@@ -133,7 +133,7 @@ namespace pnk
                     _vel.y = 0;
                 }
             }
-            else if (normal.y < 0 && mf.other->_type_num != dang::SpriteType::BUBBLE && mf.me->_type_num != dang::SpriteType::BUBBLE)
+            else if (normal.y < 0 && mf.other->_type_num != ST_BUBBLE && mf.me->_type_num != ST_BUBBLE)
             {
                 _top_hit = true;
                 _vel.y = 0;
@@ -147,7 +147,7 @@ namespace pnk
     {
         if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {
-            if (other->_type_num == dang::SpriteType::HOTRECT_PLATFORM)
+            if (other->_type_num == ST_HOTRECT_PLATFORM)
             {
                 spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
 
