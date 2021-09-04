@@ -32,8 +32,8 @@ namespace pnk
         dang::spTwAnim _anim_m_throwing{nullptr};
         dang::spTwAnim _anim_m_picking_up{nullptr};
         dang::spTwAnim _anim_m_bubbling{nullptr};
-        dang::spTwAnim _anim_empty_sleeping{nullptr};
-        dang::spTwAnim _anim_empty_loitering{nullptr};
+        dang::spTwAnim _anim_alt_sleeping{nullptr};
+        dang::spTwAnim _anim_alt_loitering{nullptr};
 
         /** path and bt functions */
         static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state

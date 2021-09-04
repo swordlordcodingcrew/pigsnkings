@@ -63,17 +63,23 @@ namespace pnk
         assert(_anim_m_throwing != nullptr);
         removeAnimation();
         setAnimation(_anim_m_throwing);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+        if (_nTreeState->_payload.count("aaLoSH"))
+        {
+            _transform = _nTreeState->_payload["aaLoSH"] > 0;
+        }
+//        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+//        _walkSpeed = 0;
+        setVel({0,0});
 
         _currentState = THROWING;
         _crated = false;
         dang::spTwAnim tmp_anim = _anim_m_loitering;
-        _anim_m_loitering = _anim_empty_loitering;
-        _anim_empty_loitering = tmp_anim;
+        _anim_m_loitering = _anim_alt_loitering;
+        _anim_alt_loitering = tmp_anim;
 
         tmp_anim = _anim_m_sleeping;
-        _anim_m_sleeping = _anim_empty_sleeping;
-        _anim_empty_sleeping = tmp_anim;
+        _anim_m_sleeping = _anim_alt_sleeping;
+        _anim_alt_sleeping = tmp_anim;
 
 
         dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
@@ -113,22 +119,41 @@ namespace pnk
         prepareChangeState(LOITERING);
     }
 
-    dang::BTNodeStatus PigCrate::BTPickUpCrate(dang::spSprite s)
+    void PigCrate::pickupCrate()
     {
-//        std::cout << "picking up crate: " << s->getPos().x << std::endl;
-        return dang::BTNodeStatus::FAILURE;
+        _crated = true;
+        dang::spTwAnim tmp_anim = _anim_m_loitering;
+        _anim_m_loitering = _anim_alt_loitering;
+        _anim_alt_loitering = tmp_anim;
+
+        tmp_anim = _anim_m_sleeping;
+        _anim_m_sleeping = _anim_alt_sleeping;
+        _anim_alt_sleeping = tmp_anim;
+
+        if (_currentState == LOITERING)
+        {
+            setAnimation(_anim_m_loitering);
+        }
+        else if (_currentState == SLEEPING)
+        {
+            setAnimation(_anim_m_sleeping);
+        }
     }
 
-    dang::BTNodeStatus PigCrate::BTThrowCrate(dang::spSprite s)
+    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::spSprite s)
     {
-//        std::cout << "throwing crate: " << s->getPos().x << std::endl;
-        return dang::BTNodeStatus::FAILURE;
-    }
+        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
 
-    dang::BTNodeStatus PigCrate::BTHideInCrate(dang::spSprite s)
-    {
-//        std::cout << "hiding in crate: " << s->getPos().x << std::endl;
-        return dang::BTNodeStatus::FAILURE;
+        if (spr->_crated)
+        {
+            return dang::BTNode::Status::FAILURE;
+        }
+        else
+        {
+            spr->pickupCrate();
+            return dang::BTNode::Status::SUCCESS;
+        }
+
     }
 
     dang::BTNode::Status PigCrate::NTThrowCrate(dang::spSprite s)
@@ -156,6 +181,17 @@ namespace pnk
 
     }
 
+    dang::BTNode::Status PigCrate::NTWithCrate(dang::spSprite s)
+    {
+        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+        return spr->_crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
+    }
+
+/*    dang::BTNodeStatus PigCrate::BTHideInCrate(dang::spSprite s)
+    {
+        return dang::BTNodeStatus::FAILURE;
+    }
+*/
 
 
 }

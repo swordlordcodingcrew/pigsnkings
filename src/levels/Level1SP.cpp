@@ -136,6 +136,13 @@ namespace pnk
         _bt["loiter_with_crate"] = dang::NTBuilder{}
             .selector()
                 .sequence()
+                    .inverter().leaf(PigCrate::NTWithCrate)
+                    .leaf(Enemy::NTsetDestinationCrateDepot)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(HenchPig::NTNap)
+                    .leaf(PigCrate::NTPickUpCrate)
+                .end()
+                .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
                     .leaf(PigCrate::NTThrowCrate)
                 .end()

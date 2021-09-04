@@ -24,10 +24,10 @@ namespace pnk
 
 
         /** path and bt functions */
-        static dang::BTNodeStatus BTPickUpCrate(dang::spSprite s);
-        static dang::BTNodeStatus BTThrowCrate(dang::spSprite s);
-        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
+        static dang::BTNode::Status NTPickUpCrate(dang::spSprite s);
         static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
+        static dang::BTNode::Status NTWithCrate(dang::spSprite s);
+//        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
 
     protected:
 
@@ -35,6 +35,7 @@ namespace pnk
         virtual void endThrowing() override;
         virtual void throwing();
         bool        _crated{true};
+        void        pickupCrate();
 
     };
 
