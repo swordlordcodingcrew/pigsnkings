@@ -456,14 +456,13 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {494,"494","pig_normal",512,128,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {495,"495","pig_normal",448,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {496,"496","pig_normal",800,96,32,32,true,"gfx_pig",0,"loiter",0b0000},
-    {513,"2","level_trigger",32,320,2,32,true,"",0,"",0b0000},
     {519,"6","warp_room_trigger",128,288,64,2,true,"",0,"",0b0000},
     {527,"527","hotrect",256,438,32,10,true,"",0,"",0b0000},
     {528,"528","hotrect",32,439,32,10,true,"",0,"",0b0000},
     {529,"529","boss",224,448,32,32,true,"character_pigking",0,"",0b0000},
     {530,"bossbattle trigger","bossbattle_trigger",96,337,128,16,true,"",0,"",0b0000},
     {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
-    {538,"2","level_trigger",144,336,32,49,true,"",0,"",0b0000},
+    {538,"2","level_trigger",152,336,16,49,true,"",0,"",0b0000},
     {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
     {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
     {572,"572","",160,128,32,32,true,"gfx_castle_decorations",19,"",0b0000},
@@ -483,7 +482,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 213;
+static const size_t level_1_lvl_1_obj_objects_len = 212;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
