@@ -33,6 +33,15 @@ namespace pnk
         static inline const float E_WALK_VEL = 2;
         static inline const float CRATE_VEL = 20;
 
+        /**
+         * waypoint depot types
+         */
+        enum e_waypoint_type
+        {
+            wp_none = 0x0,
+            wp_bombdepot = 0x1,
+            wp_cratedepot = 0x2
+        };
 
     public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;

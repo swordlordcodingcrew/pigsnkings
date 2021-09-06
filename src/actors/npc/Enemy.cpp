@@ -365,13 +365,13 @@ namespace pnk
     dang::BTNode::Status Enemy::NTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_bombdepot) : dang::BTNode::Status::FAILURE);
+        return (spr ? spr->setDestinationWaypointByDepot(GSPlay::wp_bombdepot) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(dang::wp_cratedepot) : dang::BTNode::Status::FAILURE);
+        return (spr ? spr->setDestinationWaypointByDepot(GSPlay::wp_cratedepot) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTfindNearestWaypoint(std::shared_ptr<Sprite> s)
