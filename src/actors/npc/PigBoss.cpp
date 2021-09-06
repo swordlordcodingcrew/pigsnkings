@@ -76,9 +76,16 @@ namespace pnk
     dang::CollisionSpriteLayer::eCollisionResponse PigBoss::getCollisionResponse(const dang::spCollisionSprite& other)
     {
         /** run into the king */
-        if (other->_type_num == ST_KING && _currentState != DEAD)
+        if (other->_type_num == ST_KING)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
+            if (_currentState == DEAD)
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            }
+            else
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
+            }
         }
         /** hit a platform hotrect */
         else if (other->_type_num == ST_HOTRECT_PLATFORM)
