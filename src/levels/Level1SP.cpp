@@ -133,7 +133,22 @@ namespace pnk
 
         DEBUG_PRINT("Level1SP: after bt 4 (%d)\r\n", mallinfo().uordblks);
 
-        _bt["loiter_with_crate"] = dang::NTBuilder{}
+        _bt["loiter_with_one_crate"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(PigCrate::NTThrowCrate)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .tree(back_to_path_h)
+                .tree(back_to_path)
+            .end()
+        .build();
+
+        _bt["loiter_with_crates"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .inverter().leaf(PigCrate::NTWithCrate)
