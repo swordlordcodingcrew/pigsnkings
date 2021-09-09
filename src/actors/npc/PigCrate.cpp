@@ -65,10 +65,9 @@ namespace pnk
         setAnimation(_anim_m_throwing);
         if (_nTreeState->_payload.count("aaLoSH"))
         {
-            _transform = _nTreeState->_payload["aaLoSH"] > 0;
+            _transform = _nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
         }
 //        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-//        _walkSpeed = 0;
         setVel({0,0});
 
         _currentState = THROWING;
@@ -83,11 +82,11 @@ namespace pnk
 
 
         dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
-        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(100, dang::Ease::Linear, 0);
+        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
         twPrepare->setFinishedCallback(std::bind(&PigCrate::throwing, this));
         tws->addTween(twPrepare);
 
-        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(400, dang::Ease::Linear, 0);
+        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
         twThrown->setFinishedCallback(std::bind(&PigCrate::endThrowing, this));
         tws->addTween(twThrown);
         addTween(tws);
@@ -160,25 +159,21 @@ namespace pnk
     {
         std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
 
-        if (!spr->_crated)
-        {
-            return dang::BTNode::Status::FAILURE;
-        }
-
-        if (spr->_currentState != THROWING)
+        if (spr->_crated && spr->_currentState != THROWING)
         {
             spr->prepareChangeState(THROWING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == THROWING && spr->_nextState == THROWING)
+        {
             return dang::BTNode::Status::RUNNING;
         }
         else if (spr->_currentState == THROWING && spr->_nextState != THROWING)
         {
             return dang::BTNode::Status::SUCCESS;
         }
-        else
-        {
-            return dang::BTNode::Status::RUNNING;
-        }
 
+        return dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status PigCrate::NTWithCrate(dang::spSprite s)
