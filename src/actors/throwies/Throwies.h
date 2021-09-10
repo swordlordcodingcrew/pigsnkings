@@ -24,7 +24,8 @@ namespace pnk
         bool    _to_the_left{true};
 
         // animations depot
-        dang::spTwAnim _anim_flying; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
+        dang::spTwAnim _anim_flying;
+        dang::spTwAnim _anim_destruction;
 
     protected:
         void removeSelf();

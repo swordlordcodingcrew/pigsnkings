@@ -6,7 +6,6 @@
 
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
-#include <tween/TwSequence.hpp>
 #include <tween/TwVel.hpp>
 
 #include "TmxExtruder.hpp"
@@ -20,9 +19,6 @@
 
 namespace pnk
 {
-    using spTwSeq = std::shared_ptr<dang::TwSequence>;
-    using spTwVel = std::shared_ptr<dang::TwVel>;
-
     extern PigsnKings _pnk;
 
     Throwies::Throwies()
@@ -55,10 +51,8 @@ namespace pnk
 
         // movement sequence
         float velx = _to_the_left ? -GSPlay::CRATE_VEL : GSPlay::CRATE_VEL;
-        spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
-        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
-        tw_seq->addTween(twv1);
-        addTween(tw_seq);
+        dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+        addTween(twv1);
 
         if(_anim_flying != nullptr)
         {

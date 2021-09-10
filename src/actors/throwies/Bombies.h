@@ -27,7 +27,7 @@ namespace pnk
         void tellTheKingWeHitHim() override;
 
         dang::spTwAnim    _anim_on_fire;
-        bool        _bIsOnFire{false};
+        bool               _bIsOnFire{false};
 
     protected:
         friend class SpriteFactory;

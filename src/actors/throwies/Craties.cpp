@@ -21,9 +21,6 @@
 
 namespace pnk
 {
-    using spTwSeq = std::shared_ptr<dang::TwSequence>;
-    using spTwVel = std::shared_ptr<dang::TwVel>;
-
     extern PigsnKings _pnk;
 
     Craties::Craties()
