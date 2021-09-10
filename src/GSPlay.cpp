@@ -271,12 +271,10 @@ namespace pnk
             case 1:
             default:
                 _screenplay = std::make_shared<Level1SP>(*this);
-//                _screenplay = std::make_shared<Level1SP>();
                 _tmx = &level_1_level;
                 break;
             case 2:
                 _screenplay = std::make_shared<Level2SP>(*this);
-//                _screenplay = std::make_shared<L2SP>();
                 _tmx = &level_2_level;
                 break;
         }
@@ -474,15 +472,24 @@ namespace pnk
 
         DEBUG_PRINT("GSPlay: change room\n");
 
+        // TODO DEBUG ONLY
+        /*
+        if(level_nr == 1)
+        {
+            _pnk._gamestate.active_room = 6;
+            _active_act_index = _pnk._gamestate.active_room - 1;
+            changeRoom(_pnk._gamestate.active_room, true);
+        }
+        else
+        {
         // choose room acc. to prefs
+            _active_act_index = _pnk._gamestate.active_room - 1;
+            changeRoom(_pnk._gamestate.active_room, true);
+        }
+        */
+
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
-
-        // TODO DEBUG ONLY
-        //_pnk._gamestate.active_room = 4;
-        //_active_act_index = _pnk._gamestate.active_room - 1;
-        //changeRoom(_pnk._gamestate.active_room, true);
-
 
         DEBUG_PRINT("GSPlay: viewport\n");
 
@@ -890,8 +897,11 @@ namespace pnk
         DEBUG_PRINT("Changing level to %d\n\r", level_nr);
         freeCurrentLevel();
 
-        _active_act_index = 1;
-        // TODO check if we need to set the gamestate active room as well
+        // reset current level and room to new ones
+        _pnk._gamestate.active_room = 0;
+        _pnk._gamestate.active_level = level_nr;
+
+        // TODO store gamestate values to disc so that the level gets loaded next time
 
         // TODO check level_nr for bounds
         loadLevel(level_nr);

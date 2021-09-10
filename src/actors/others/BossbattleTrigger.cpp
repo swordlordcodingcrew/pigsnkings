@@ -26,7 +26,10 @@ namespace pnk
         if (mf.me->_type_num == ST_KING || mf.other->_type_num == ST_KING)
         {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_START_BOSSBATTLE));
-                _pnk._dispatcher.queueEvent(std::move(e));
+            _pnk._dispatcher.queueEvent(std::move(e));
+
+            // make sure not to hit anymore
+            _hotrect = {0,0,0,0};
         }
     }
 
