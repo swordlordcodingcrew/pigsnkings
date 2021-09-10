@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="character_pigcrate" tilewidth="32" tileheight="32" tilecount="39" columns="39" objectalignment="topleft">
- <image source="../../gfx/characters/pig_crate.png" trans="ff00ff" width="1248" height="32"/>
+<tileset version="1.4" tiledversion="1.4.3" name="pig_crate" tilewidth="32" tileheight="32" tilecount="40" columns="40" objectalignment="topleft">
+ <image source="../../gfx/characters/pig_crate.png" trans="ff00ff" width="1280" height="32"/>
  <tile id="0" type="picking_up">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -40,7 +40,6 @@
    <frame tileid="22" duration="100"/>
    <frame tileid="23" duration="100"/>
    <frame tileid="24" duration="100"/>
-   <frame tileid="36" duration="100"/>
   </animation>
  </tile>
  <tile id="23" type="bubbling"/>
@@ -64,6 +63,13 @@
  <tile id="34" type="crate">
   <animation>
    <frame tileid="34" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="35" type="hit">
+  <animation>
+   <frame tileid="34" duration="150"/>
+   <frame tileid="35" duration="150"/>
+   <frame tileid="36" duration="150"/>
   </animation>
  </tile>
  <tile id="37" type="bubbling">

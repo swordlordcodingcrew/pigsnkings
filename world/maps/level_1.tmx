@@ -9,10 +9,10 @@
  <tileset firstgid="326" source="../tilesets/character_pig.tsx"/>
  <tileset firstgid="369" source="../tilesets/character_pigbomb.tsx"/>
  <tileset firstgid="402" source="../tilesets/character_pigcrate.tsx"/>
- <tileset firstgid="441" source="../tilesets/character_cannonsnpigs.tsx"/>
- <tileset firstgid="450" source="../tilesets/common_items_bomb.tsx"/>
- <tileset firstgid="461" source="../tilesets/character_pigking.tsx"/>
- <tileset firstgid="494" source="../tilesets/levels_door.tsx"/>
+ <tileset firstgid="442" source="../tilesets/character_cannonsnpigs.tsx"/>
+ <tileset firstgid="451" source="../tilesets/common_items_bomb.tsx"/>
+ <tileset firstgid="462" source="../tilesets/character_pigking.tsx"/>
+ <tileset firstgid="495" source="../tilesets/levels_door.tsx"/>
  <layer id="1" name="lvl_1_bg" width="30" height="24">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -135,7 +135,7 @@
   <object id="569" gid="114" x="460" y="396" width="32" height="32"/>
   <object id="584" gid="109" x="256" y="438" width="32" height="32"/>
   <object id="585" gid="109" x="32" y="438" width="32" height="32"/>
-  <object id="543" name="door" type="door" gid="494" x="137" y="328" width="46" height="56"/>
+  <object id="543" name="door" type="door" gid="495" x="137" y="328" width="46" height="56"/>
   <object id="594" gid="106" x="128" y="384" width="32" height="32"/>
   <object id="595" gid="108" x="160" y="384" width="32" height="32"/>
  </objectgroup>
@@ -258,7 +258,7 @@
   </object>
   <object id="340" name="boris" type="pig_box" gid="2147484055" x="736" y="704" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_with_crate"/>
+    <property name="bt" value="loiter_with_one_crate"/>
    </properties>
   </object>
   <object id="341" name="fred" type="pig_bomb" gid="373" x="192" y="160" width="32" height="32">
@@ -306,11 +306,11 @@
   <object id="383" name="5" type="warp_room_trigger" x="32" y="192" width="2" height="32"/>
   <object id="384" name="6" type="warp_room_trigger" x="15" y="192" width="32" height="2" rotation="90"/>
   <object id="385" type="hotrect" x="480" y="192" width="40" height="4"/>
-  <object id="425" name="Bertha" type="cannon" gid="2147484089" x="480" y="448" width="32" height="32"/>
-  <object id="426" type="cannonmuzzle_proto" gid="446" x="256" y="256" width="32" height="32"/>
-  <object id="427" type="cannonball_proto" gid="449" x="256" y="192" width="32" height="32"/>
+  <object id="425" name="Bertha" type="cannon" gid="2147484090" x="480" y="448" width="32" height="32"/>
+  <object id="426" type="cannonmuzzle_proto" gid="447" x="256" y="256" width="32" height="32"/>
+  <object id="427" type="cannonball_proto" gid="450" x="256" y="192" width="32" height="32"/>
   <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="448" y="448" width="32" height="32"/>
-  <object id="429" type="boom_proto" gid="455" x="288" y="224" width="64" height="64"/>
+  <object id="429" type="boom_proto" gid="456" x="288" y="224" width="64" height="64"/>
   <object id="430" name="fred too" type="pig_bomb" gid="373" x="32" y="352" width="32" height="32"/>
   <object id="431" type="pig_normal" gid="2147483974" x="352" y="704" width="32" height="32">
    <properties>
@@ -384,7 +384,7 @@
   <object id="519" name="6" type="warp_room_trigger" x="128" y="288" width="64" height="2"/>
   <object id="527" type="hotrect" x="256" y="438" width="32" height="10"/>
   <object id="528" type="hotrect" x="32" y="439" width="32" height="10"/>
-  <object id="529" type="boss" gid="461" x="224" y="448" width="32" height="32"/>
+  <object id="529" type="boss" gid="462" x="224" y="448" width="32" height="32"/>
   <object id="530" name="bossbattle trigger" type="bossbattle_trigger" x="96" y="337" width="128" height="16"/>
   <object id="535" type="hotrect" x="192" y="288" width="96" height="32"/>
   <object id="538" name="2" type="level_trigger" x="152" y="336" width="16" height="49"/>
@@ -429,7 +429,7 @@
   <object id="251" gid="254" x="46" y="37" width="16" height="16"/>
   <object id="252" gid="255" x="62" y="37" width="16" height="16"/>
   <object id="254" gid="256" x="78" y="37" width="16" height="16"/>
-  <object id="521" type="hud_boss" gid="493" x="274" y="19" width="32" height="32"/>
+  <object id="521" type="hud_boss" gid="494" x="274" y="19" width="32" height="32"/>
   <object id="522" type="hud_boss_health" gid="254" x="225" y="37" width="16" height="16"/>
   <object id="523" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
   <object id="524" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>

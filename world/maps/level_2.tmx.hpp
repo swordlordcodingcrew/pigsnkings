@@ -22,7 +22,7 @@ static const dang::tmx_tileset level_2_tilesets[] = {
     {"gfx_king", &gfx_king, 28,32,32,896,32,28,1},
     {"gfx_pig", &gfx_pig, 43,32,32,1376,32,43,1},
     {"character_pigbomb", &character_pigbomb, 33,32,32,1056,32,33,1},
-    {"character_pigcrate", &character_pigcrate, 39,32,32,1248,32,39,1},
+    {"pig_crate", &pig_crate, 40,32,32,1280,32,40,1},
     {"character_cannonsnpigs", &character_cannonsnpigs, 9,32,32,288,32,9,1},
     {"common_items_bomb", &common_items_bomb, 11,64,64,704,64,11,1},
 };
@@ -32,6 +32,7 @@ static const size_t level_2_tilesets_len = 11;
 // Animations ------------------------------------------------
 
 static const dang::tmx_tileanimation level_2_tileanimations[] = {
+    {"gfx_castle_decorations",5,"flicker",{{5, 100},{6, 100},{7, 100},{13, 100},{14, 100},{15, 100}}},
     {"gfx_items",0,"coin_silver",{{0, 100},{1, 100},{2, 100},{3, 100}}},
     {"gfx_items",4,"coin_gold",{{4, 100},{5, 100},{6, 100},{7, 100}}},
     {"gfx_items",8,"coin_poof",{{8, 100},{9, 100},{10, 100},{11, 100}}},
@@ -68,14 +69,15 @@ static const dang::tmx_tileanimation level_2_tileanimations[] = {
     {"character_pigbomb",25,"bomb_off",{{25, 100}}},
     {"character_pigbomb",26,"bomb_on",{{26, 100},{27, 100},{28, 100},{29, 100}}},
     {"character_pigbomb",31,"bubbling",{{31, 100},{32, 100}}},
-    {"character_pigcrate",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}},
-    {"character_pigcrate",5,"sleeping",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}},
-    {"character_pigcrate",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}},
-    {"character_pigcrate",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100},{36, 100}}},
-    {"character_pigcrate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}},
-    {"character_pigcrate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}},
-    {"character_pigcrate",34,"crate",{{34, 100}}},
-    {"character_pigcrate",37,"bubbling",{{37, 100},{38, 100}}},
+    {"pig_crate",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100}}},
+    {"pig_crate",5,"sleeping",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}},
+    {"pig_crate",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}},
+    {"pig_crate",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100},{36, 100}}},
+    {"pig_crate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}},
+    {"pig_crate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}},
+    {"pig_crate",34,"crate",{{34, 100}}},
+    {"pig_crate",35,"hit",{{34, 150},{35, 150},{36, 150}}},
+    {"pig_crate",37,"bubbling",{{37, 100},{38, 100}}},
     {"character_cannonsnpigs",0,"idling",{{0, 100}}},
     {"character_cannonsnpigs",1,"shooting",{{1, 100},{2, 100},{3, 100},{4, 100}}},
     {"character_cannonsnpigs",5,"muzzle_flash",{{5, 100},{6, 100},{7, 100}}},
@@ -85,7 +87,7 @@ static const dang::tmx_tileanimation level_2_tileanimations[] = {
     {"common_items_bomb",5,"boom",{{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100}}},
 };
 
-static const size_t level_2_tileanimations_len = 51;
+static const size_t level_2_tileanimations_len = 53;
 
 // Layers ------------------------------------------------
 
@@ -262,7 +264,7 @@ static const dang::tmx_layer level_2_lvl_2_mood = {
 static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
 
     {1,"1","bubble_proto",512,448,32,32,true,"gfx_bubbles",0,"",0b0000},
-    {2,"2","crate_proto",608,448,32,32,true,"character_pigcrate",34,"",0b0000},
+    {2,"2","crate_proto",608,448,32,32,true,"pig_crate",34,"",0b0000},
     {3,"3","bomb_proto",576,448,32,32,true,"character_pigbomb",26,"",0b0000},
     {4,"4","pigpoof_proto",544,448,32,32,true,"gfx_pig",24,"",0b0000},
     {5,"5","cannonmuzzle_proto",608,416,32,32,true,"character_cannonsnpigs",5,"",0b0000},
@@ -368,7 +370,7 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {220,"220","hotrect_platform",96,128,128,4,true,"",0,"",0b0000},
     {221,"221","hotrect_platform",96,160,128,4,true,"",0,"",0b0000},
     {222,"222","hotrect_platform",96,192,128,4,true,"",0,"",0b0000},
-    {223,"dan","pig_box",960,192,32,32,true,"character_pigcrate",5,"",0b0000},
+    {223,"dan","pig_box",960,192,32,32,true,"pig_crate",5,"",0b0000},
     {224,"224","pig_bomb",1440,320,32,32,true,"character_pigbomb",4,"",0b0000},
     {225,"225","pig_normal",1344,448,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {226,"226","pig_bomb",1408,384,32,32,true,"character_pigbomb",4,"",0b0000},
