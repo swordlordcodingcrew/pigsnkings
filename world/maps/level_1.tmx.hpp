@@ -244,11 +244,13 @@ static const dang::tmx_spriteobject level_1_lvl_1_mood_objects[] = {
     {585,"585","",32,438,32,32,true,"gfx_castle_decorations",12,"",0b0000},
     {543,"door","door",137,328,46,56,true,"levels_door",0,"",0b0000},
     {594,"594","",128,384,32,32,true,"gfx_castle_decorations",9,"",0b0000},
-    {595,"595","",160,384,32,32,true,"gfx_castle_decorations",11,"",0b0000}
+    {595,"595","",160,384,32,32,true,"gfx_castle_decorations",11,"",0b0000},
+    {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
+    {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000}
 
 };
 
-static const size_t level_1_lvl_1_mood_objects_len = 96;
+static const size_t level_1_lvl_1_mood_objects_len = 98;
 
 static const dang::tmx_layer level_1_lvl_1_mood = {
     .name = "lvl_1_mood",
@@ -410,10 +412,10 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {383,"5","warp_room_trigger",32,192,2,32,true,"",0,"",0b0000},
     {384,"6","warp_room_trigger",15,192,32,2,true,"",0,"",0b0000},
     {385,"385","hotrect",480,192,40,4,true,"",0,"",0b0000},
-    {425,"Bertha","cannon",480,448,32,32,true,"character_cannonsnpigs",0,"",0b0001},
+    {425,"Bertha","cannon",576,480,32,32,true,"character_cannonsnpigs",0,"",0b0011},
     {426,"426","cannonmuzzle_proto",256,256,32,32,true,"character_cannonsnpigs",5,"",0b0000},
     {427,"427","cannonball_proto",256,192,32,32,true,"character_cannonsnpigs",8,"",0b0000},
-    {428,"Mr Cannoneer","pig_cannon",448,448,32,32,true,"gfx_pig",0,"",0b0001},
+    {428,"Mr Cannoneer","pig_cannon",608,480,32,32,true,"gfx_pig",0,"",0b0011},
     {429,"429","boom_proto",288,224,64,64,true,"common_items_bomb",5,"",0b0000},
     {430,"fred too","pig_bomb",32,352,32,32,true,"character_pigbomb",4,"",0b0000},
     {431,"431","pig_normal",352,704,32,32,true,"gfx_pig",0,"loiter",0b0001},
@@ -464,8 +466,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {530,"bossbattle trigger","bossbattle_trigger",96,337,128,16,true,"",0,"",0b0000},
     {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
     {538,"2","level_trigger",152,336,16,49,true,"",0,"",0b0000},
-    {570,"570","",192,96,32,32,true,"gfx_castle_decorations",9,"",0b0000},
-    {571,"571","",224,96,32,32,true,"gfx_castle_decorations",11,"",0b0000},
     {572,"572","",160,128,32,32,true,"gfx_castle_decorations",19,"",0b0000},
     {573,"573","",160,160,32,32,true,"gfx_castle_decorations",27,"",0b0000},
     {574,"574","",192,160,32,32,true,"gfx_castle_decorations",28,"",0b0000},
@@ -483,7 +483,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 212;
+static const size_t level_1_lvl_1_obj_objects_len = 210;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
