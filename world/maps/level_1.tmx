@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="596">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="597">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -154,7 +154,7 @@
   <object id="152" type="coin_silver" gid="129" x="384" y="310" width="32" height="48"/>
   <object id="153" type="coin_silver" gid="129" x="544" y="310" width="32" height="48"/>
   <object id="154" type="coin_silver" gid="129" x="576" y="310" width="32" height="48"/>
-  <object id="155" type="coin_gold" gid="133" x="352" y="374" width="32" height="48"/>
+  <object id="155" type="coin_gold" gid="133" x="576" y="438" width="32" height="48"/>
   <object id="156" type="coin_gold" gid="133" x="576" y="374" width="32" height="48"/>
   <object id="157" type="coin_gold" gid="133" x="544" y="592" width="32" height="48"/>
   <object id="158" type="coin_gold" gid="133" x="352" y="278" width="32" height="48"/>
@@ -305,13 +305,13 @@
   <object id="380" name="4" type="warp_room_trigger" x="320" y="448" width="2" height="32"/>
   <object id="381" name="5" type="room_trigger" x="288" y="64" width="2" height="32"/>
   <object id="382" name="4" type="room_trigger" x="320" y="64" width="2" height="32"/>
-  <object id="383" name="5" type="warp_room_trigger" x="32" y="192" width="2" height="32"/>
-  <object id="384" name="6" type="warp_room_trigger" x="15" y="192" width="32" height="2" rotation="90"/>
+  <object id="383" name="5" type="warp_room_trigger" x="14" y="192" width="2" height="32"/>
+  <object id="384" name="6" type="warp_room_trigger" x="27" y="192" width="2" height="32"/>
   <object id="385" type="hotrect" x="480" y="192" width="40" height="4"/>
-  <object id="425" name="Bertha" type="cannon" gid="3221225914" x="576" y="480" width="32" height="32" rotation="180"/>
+  <object id="425" name="Bertha" type="cannon" gid="2147484090" x="384" y="384" width="32" height="32"/>
   <object id="426" type="cannonmuzzle_proto" gid="447" x="256" y="256" width="32" height="32"/>
   <object id="427" type="cannonball_proto" gid="450" x="256" y="192" width="32" height="32"/>
-  <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="3221225798" x="608" y="480" width="32" height="32" rotation="180"/>
+  <object id="428" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="352" y="384" width="32" height="32"/>
   <object id="429" type="boom_proto" gid="456" x="288" y="224" width="64" height="64"/>
   <object id="430" name="fred too" type="pig_bomb" gid="373" x="32" y="352" width="32" height="32"/>
   <object id="431" type="pig_normal" gid="2147483974" x="352" y="704" width="32" height="32">
@@ -409,6 +409,7 @@
    <point/>
   </object>
   <object id="593" type="hotrect" x="128" y="385" width="64" height="10"/>
+  <object id="596" type="coin_gold" gid="133" x="544" y="374" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
