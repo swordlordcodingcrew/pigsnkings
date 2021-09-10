@@ -67,9 +67,9 @@
  </tile>
  <tile id="35" type="hit">
   <animation>
-   <frame tileid="34" duration="150"/>
-   <frame tileid="35" duration="150"/>
-   <frame tileid="36" duration="150"/>
+   <frame tileid="34" duration="80"/>
+   <frame tileid="35" duration="80"/>
+   <frame tileid="36" duration="100"/>
   </animation>
  </tile>
  <tile id="37" type="bubbling">

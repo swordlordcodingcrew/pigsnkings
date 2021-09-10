@@ -78,7 +78,7 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"pig_crate",25,"looking_out",{{25, 100},{26, 100},{27, 100}}},
     {"pig_crate",28,"jumping",{{28, 100},{29, 100},{30, 100},{31, 100},{32, 100},{33, 100}}},
     {"pig_crate",34,"crate",{{34, 100}}},
-    {"pig_crate",35,"hit",{{34, 150},{35, 150},{36, 150}}},
+    {"pig_crate",35,"hit",{{34, 80},{35, 80},{36, 100}}},
     {"pig_crate",37,"bubbling",{{37, 100},{38, 100}}},
     {"character_cannonsnpigs",0,"idling",{{0, 100}}},
     {"character_cannonsnpigs",1,"shooting",{{1, 100},{2, 100},{3, 100},{4, 100}}},
