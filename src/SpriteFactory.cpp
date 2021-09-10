@@ -513,9 +513,12 @@ namespace pnk
         ret->_to_the_left = to_the_left;
 
         // flying crates
-        ret->_anim_flying = txtr.getAnimation(is->getName(), "crate");
+        ret->_anim_flying = txtr.getAnimation(is, "crate");
         assert(ret->_anim_flying != nullptr);
-        ret->_anim_flying->loops(-1);
+
+        // crate destruction
+        ret->_anim_destruction = txtr.getAnimation(is, "hit", dang::Ease::Linear, 1);
+        assert(ret->_anim_destruction != nullptr);
 
         ret->init();
 

@@ -30,16 +30,17 @@ namespace pnk
 
     Craties::Craties(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
     {
-
+        _coll_response = dang::CollisionSpriteLayer::CR_TOUCH;
     }
 
-    Craties::Craties(const Throwies &crate) : Throwies(crate)
+    Craties::Craties(const Craties &crate) : Throwies(crate)
     {
 #ifdef PNK_DEBUG
         std::cout << "craties copy constructor" << std::endl;
 #endif
         _to_the_left = crate._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(crate._anim_flying));
+        _anim_destruction = std::make_shared<dang::TwAnim>(*(crate._anim_destruction));
 
         removeTweens(true);
         removeAnimation(true);
@@ -71,25 +72,37 @@ namespace pnk
     {
         if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
         {
-            // have the animation sequence triggered
-            triggerExplosion();
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _gravity = {0,0};
+            _vel = {0,0};
+            removeAnimation();
+            _anim_destruction->setFinishedCallback([=]()
+            {
+                _remove_me = true;
+            });
+            setAnimation(_anim_destruction);
 
-            // me destroys in the next cycle, we need the pointer in this cycle for the event
-            _remove_me = true;
         }
         else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
 
-            // me destroys in the next cycle, we need the pointer in this cycle for the event
-            _remove_me = true;
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _gravity = {0,0};
+            _vel = {0,0};
+            removeAnimation();
+            _anim_destruction->setFinishedCallback([=]()
+            {
+                _remove_me = true;
+            });
+            setAnimation(_anim_destruction);
         }
     }
 
     dang::CollisionSpriteLayer::eCollisionResponse Craties::getCollisionResponse(const dang::spCollisionSprite& other)
     {
-        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
+        if (_coll_response != dang::CollisionSpriteLayer::CR_NONE && (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT))
         {
             return dang::CollisionSpriteLayer::CR_TOUCH;
         }
