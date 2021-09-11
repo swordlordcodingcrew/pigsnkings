@@ -142,75 +142,6 @@ namespace pnk
         return GameState::_gs_play;
     }
 
-/*    void GSPlay::createBehaviourTrees(dang::Gear& gear)
-    {
-        dang::spNTree tr = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-               .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("loiter", tr);
-
-        dang::spNTree tr2 = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
-                    .leaf(Enemy::NTsetWPNearHero)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("loiter_towards_hero", tr2);
-
-        dang::spNTree tr3 = dang::NTBuilder{}
-                .selector()
-                    .sequence()
-                        .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
-                        .leaf(Enemy::NTsetWPNearHero)
-                        .leaf(Enemy::NTcheckPathCompleted)
-                    .end()
-                .leaf(HenchPig::NTNap)
-            .end()
-        .build();
-        gear.addNTree("wait_for_hero", tr3);
-
-        dang::spNTree tr4 = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::NTsetRandomPath)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("lazy", tr4);
-
-    }
-*/
-
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
         DEBUG_PRINT("GSPlay: entered (%d)\n", mallinfo().uordblks);
@@ -473,10 +404,9 @@ namespace pnk
         DEBUG_PRINT("GSPlay: change room\n");
 
         // TODO DEBUG ONLY
-        /*
-        if(level_nr == 1)
+/*        if(level_nr == 1)
         {
-            _pnk._gamestate.active_room = 6;
+            _pnk._gamestate.active_room = 3;
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
@@ -486,11 +416,10 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-        */
 
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
-
+*/
         DEBUG_PRINT("GSPlay: viewport\n");
 
         // set viewport to active room
