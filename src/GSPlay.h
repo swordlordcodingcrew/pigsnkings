@@ -23,15 +23,6 @@ namespace pnk
     {
     public:
 
-        /**
-         * waypoint depot types
-         */
-        enum e_waypoint_type
-        {
-            wp_none = 0x0,
-            wp_bombdepot = 0x1,
-            wp_cratedepot = 0x2
-        };
 
     public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;

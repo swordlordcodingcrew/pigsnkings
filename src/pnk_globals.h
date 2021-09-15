@@ -115,6 +115,18 @@ enum SpriteType
     ST_CANNON_MUZZLE = 82
 };
 
+
+/**
+ * definition of waypoint depot types
+ */
+enum e_waypoint_type
+{
+    WPT_NONE = 0x0,
+    WPT_BOMBDEPOT = 0x1,
+    WPT_CRATEDEPOT = 0x2
+};
+
+
 /**
  * game consts
  */
