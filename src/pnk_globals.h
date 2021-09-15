@@ -3,9 +3,12 @@
 
 #pragma once
 
+#include <cstdint>
+
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
 //#define PNK_DEBUG_PRINT
+
 
 #ifdef PNK_DEBUG_PRINT
     #ifdef TARGET_32BLIT_HW
@@ -112,4 +115,16 @@ enum SpriteType
     ST_CANNON_MUZZLE = 82
 };
 
+/**
+ * game consts
+ */
 
+static inline const float H_WALK_VEL = 7;           // hero walk velocity
+static inline const float H_JUMP_VEL = -16;         // hero jump velocity
+static inline const uint32_t H_JUMP_COUNT = 30;     // max jump cyclies
+static inline const float BUBBLE_VEL = 20;          // bubble horizontal velocity
+static inline const float BUBBLE_VEL_UP = -1.5;     // bubble vertical velocity
+
+static inline const float E_WALK_VEL = 2;           // enemy walk velocity
+
+static inline const float CRATE_VEL = 20;           // crate throwing velocity

@@ -107,10 +107,10 @@ namespace pnk
         _state = bs_growing;
 
         // movement sequence
-        float velx = _to_the_left ? -GSPlay::BUBBLE_VEL : GSPlay::BUBBLE_VEL;
+        float velx = _to_the_left ? -BUBBLE_VEL : BUBBLE_VEL;
         spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
         spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, &dang::Ease::InQuad);
-        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, GSPlay::BUBBLE_VEL_UP), 100, &dang::Ease::Linear);
+        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, BUBBLE_VEL_UP), 100, &dang::Ease::Linear);
         tw_seq->addTween(twv1);
         tw_seq->addTween(twv2);
         addTween(tw_seq);

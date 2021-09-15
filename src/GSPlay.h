@@ -22,16 +22,6 @@ namespace pnk
     class GSPlay : public GameState
     {
     public:
-        /**
-         * hero consts
-         */
-        static inline const float H_WALK_VEL = 7;
-        static inline const float H_JUMP_VEL = -16;
-        static inline const uint32_t H_JUMP_COUNT = 30;
-        static inline const float BUBBLE_VEL = 20;
-        static inline const float BUBBLE_VEL_UP = -1.5;
-        static inline const float E_WALK_VEL = 2;
-        static inline const float CRATE_VEL = 20;
 
         /**
          * waypoint depot types
