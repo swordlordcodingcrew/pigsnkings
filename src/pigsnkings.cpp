@@ -112,7 +112,9 @@ namespace pnk
             _gs->enter(_gear, time);
         }
 
-        _gear.update(time - _last_time);
+        // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
+        _gear.update(10);
+//        _gear.update(time - _last_time);
 
         _last_time = time;
     }
