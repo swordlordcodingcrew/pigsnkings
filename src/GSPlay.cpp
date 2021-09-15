@@ -117,10 +117,6 @@ namespace pnk
         {
             return GameState::_gs_home;
         }
-        else if (blit::buttons.pressed & blit::Button::HOME)
-        {
-//            return GameState::_gs_prefs;
-        }
 
         updateVpPos();
         if (_warp)
@@ -416,10 +412,10 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-
+*/
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
-*/
+
         DEBUG_PRINT("GSPlay: viewport\n");
 
         // set viewport to active room
