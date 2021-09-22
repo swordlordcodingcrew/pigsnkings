@@ -18,29 +18,28 @@ namespace pnk
     class ScreenPlay;
     using spScreenPlay = std::shared_ptr<ScreenPlay>;
     class PnkEvent;
+    class TextLayer;
+    using spTextLayer = std::shared_ptr<TextLayer>;
 
     class GSPlay : public GameState
     {
-    public:
-
-
     public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
 
-//        void createBehaviourTrees(dang::Gear& gear);
-
         void checkCheatActivation();
 
     protected:
-        const dang::tmx_level*      _tmx{nullptr};           //!< level definition
-        spScreenPlay                _screenplay{nullptr};    //!< paths
-        spHero                       _spr_hero{nullptr};     //!< the king
-        spBoss                       _spr_boss{nullptr};     //!< the respective boss (or nullptr)
-        dang::spCollisionSpriteLayer _csl{nullptr};          //!< the layer in which the collision detection takes place
+        const dang::tmx_level*          _tmx{nullptr};          //!< level definition
+        spScreenPlay                    _screenplay{nullptr};   //!< paths
+        spHero                          _spr_hero{nullptr};     //!< the king
+        spBoss                          _spr_boss{nullptr};     //!< the respective boss (or nullptr)
+        dang::spCollisionSpriteLayer    _csl{nullptr};          //!< the layer in which the collision detection takes place
+        spTextLayer                     _txtl{nullptr};
 
         std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
+        std::string_view text{"Line 1\nLine 2"};
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
@@ -81,6 +80,9 @@ namespace pnk
         void startBossBattle();
         void endBossBattle();
         void handleBossHit(PnkEvent& pe);
+
+        void showInfoLayer(bool pause, uint32_t ttl, const std::string_view& message);
+        void hideInfoLayer();
 
     public:
         // bt hooks

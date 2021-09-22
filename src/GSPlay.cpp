@@ -9,6 +9,7 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 #include "HUDLayer.hpp"
+#include "TextLayer.hpp"
 #include "actors/hero/Hero.h"
 #include "actors/npc/Enemy.h"
 #include "actors/npc/HenchPig.h"
@@ -55,6 +56,7 @@
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
+#include "rsrc/game_strings.hpp"
 
 #include <snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
@@ -169,6 +171,9 @@ namespace pnk
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
         DEBUG_PRINT("GSPlay: entered, let the games begin\n");
+
+        // show starting text
+        showInfoLayer(true, 0, str_lvl1_intro);
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
@@ -396,6 +401,13 @@ namespace pnk
                 hudl->changeCheatSprite();
             }
         }
+
+        // create text layser
+        _txtl = std::make_shared<TextLayer>();
+        _txtl->_z_order = 10;
+        _txtl->setText(text);
+        gear.addLayer(_txtl);
+
 
         DEBUG_PRINT("GSPlay: change room\n");
 
@@ -998,6 +1010,26 @@ namespace pnk
         }
 
     }
+
+    void GSPlay::showInfoLayer(bool pause, uint32_t ttl, const std::string_view &message)
+    {
+        if (pause)
+        {
+            _pnk.getGear().setLayersActive(false);
+        }
+        _txtl->setText(message);
+        _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
+        _txtl->setActive(true);
+        _txtl->setVisibility(true);
+    }
+
+    void GSPlay::hideInfoLayer()
+    {
+        _pnk.getGear().setLayersActive(true);
+        _txtl->setActive(false);
+        _txtl->setVisibility(false);
+    }
+
 
 }
 
