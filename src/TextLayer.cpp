@@ -50,7 +50,7 @@ namespace pnk
         blit::screen.pen = blit::Pen(0, 0, 0, 255);;
         for (size_t i = 0; i < _text.size(); ++i)
         {
-            blit::screen.text(_text[i], barcadebrawl, blit::Point(blit::screen.bounds.w / 2, 60 + i * 10), true, blit::TextAlign::center_h);
+            blit::screen.text(_text[i], barcadebrawl, blit::Point(blit::screen.bounds.w / 2, 30 + i * 10), true, blit::TextAlign::center_h);
         }
 
     }
@@ -78,7 +78,7 @@ namespace pnk
         std::string_view finalColumn(txt.data() + indexCommaToRightOfColumn + 1, txt.size() - indexCommaToRightOfColumn - 1);
         _text.push_back(finalColumn);
 
-        _whitishRect = {32, 58, blit::screen.bounds.w - 64, int32_t(62 + _text.size() * 10) };
+        _whitishRect = {34, 26, blit::screen.bounds.w - 68, int32_t(8 + _text.size() * 10) };
     }
 
     void TextLayer::setTtl(uint32_t ttl_ms, std::function<void (void)> cb)

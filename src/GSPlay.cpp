@@ -173,7 +173,16 @@ namespace pnk
         DEBUG_PRINT("GSPlay: entered, let the games begin\n");
 
         // show starting text
-        showInfoLayer(true, 0, str_lvl1_intro);
+        switch (_pnk._gamestate.active_level)
+        {
+            case 1:
+            default:
+                showInfoLayer(true, 10000, str_lvl1_intro);
+                break;
+            case 2:
+                showInfoLayer(true, 10000, str_lvl2_intro);
+                break;
+        }
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
@@ -405,7 +414,6 @@ namespace pnk
         // create text layser
         _txtl = std::make_shared<TextLayer>();
         _txtl->_z_order = 10;
-        _txtl->setText(text);
         gear.addLayer(_txtl);
 
 
@@ -971,6 +979,19 @@ namespace pnk
         }
 
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
+
+        // show end text
+        switch (_pnk._gamestate.active_level)
+        {
+            case 1:
+            default:
+                showInfoLayer(false, 10000, str_lvl1_end);
+                break;
+            case 2:
+                showInfoLayer(false, 10000, str_lvl2_end);
+                break;
+        }
+
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
@@ -1013,10 +1034,12 @@ namespace pnk
 
     void GSPlay::showInfoLayer(bool pause, uint32_t ttl, const std::string_view &message)
     {
-        if (pause)
+/*        if (pause)
         {
             _pnk.getGear().setLayersActive(false);
         }
+*/
+        _csl->setActive(false);
         _txtl->setText(message);
         _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
         _txtl->setActive(true);
@@ -1025,7 +1048,8 @@ namespace pnk
 
     void GSPlay::hideInfoLayer()
     {
-        _pnk.getGear().setLayersActive(true);
+//        _pnk.getGear().setLayersActive(true);
+        _csl->setActive(true);
         _txtl->setActive(false);
         _txtl->setVisibility(false);
     }

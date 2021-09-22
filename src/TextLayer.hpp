@@ -4,7 +4,11 @@
 #pragma once
 
 #include <Layer.hpp>
-#include <libs/32blit-sdk/32blit/types/rect.hpp>
+
+#include <types/rect.hpp>
+
+#include <vector>
+#include <functional>
 
 namespace pnk
 {
