@@ -18,8 +18,6 @@ namespace pnk
     class ScreenPlay;
     using spScreenPlay = std::shared_ptr<ScreenPlay>;
     class PnkEvent;
-    class TextLayer;
-    using spTextLayer = std::shared_ptr<TextLayer>;
 
     class GSPlay : public GameState
     {
@@ -36,8 +34,7 @@ namespace pnk
         spHero                          _spr_hero{nullptr};     //!< the king
         spBoss                          _spr_boss{nullptr};     //!< the respective boss (or nullptr)
         dang::spCollisionSpriteLayer    _csl{nullptr};          //!< the layer in which the collision detection takes place
-        spTextLayer                     _txtl{nullptr};
-
+        dang::spMessageLayer            _txtl{nullptr};
         std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
 
         // viewport pos (top left)

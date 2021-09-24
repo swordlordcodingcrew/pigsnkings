@@ -9,7 +9,6 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 #include "HUDLayer.hpp"
-#include "TextLayer.hpp"
 #include "actors/hero/Hero.h"
 #include "actors/npc/Enemy.h"
 #include "actors/npc/HenchPig.h"
@@ -57,6 +56,7 @@
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
 #include "rsrc/game_strings.hpp"
+#include "fonts/barcadebrawl.h"
 
 #include <snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
@@ -68,6 +68,7 @@
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
 #include <TileLayer.hpp>
+#include <MessageLayer.hpp>
 #include <Layer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
@@ -401,7 +402,7 @@ namespace pnk
         }
 
         // create text layser
-        _txtl = std::make_shared<TextLayer>();
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
         _txtl->_z_order = 10;
         gear.addLayer(_txtl);
 
