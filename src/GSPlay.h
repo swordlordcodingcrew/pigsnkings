@@ -39,16 +39,13 @@ namespace pnk
         spTextLayer                     _txtl{nullptr};
 
         std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
-        std::string_view text{"Line 1\nLine 2"};
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
 
         // flow stuff
-        ScreenPlay::act*        _active_act{nullptr};
-        int32_t                 _active_act_index{-1}; // which room are we in?
-        // that var moved into the prefs
-        // int8_t                 _active_level_index{-1}; // which level are we in?
+        ScreenPlay::act*        _active_room{nullptr};
+        int8_t                  _active_room_index{-1}; // which room are we in?
         uint32_t                _last_time{0};
         bool                    _warp{false};
 

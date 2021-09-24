@@ -426,7 +426,7 @@ namespace pnk
 //        _active_act_index = _pnk._gamestate.active_room - 1;
 //        changeRoom(_pnk._gamestate.active_room, true);
 
-        _active_act_index = _pnk._gamestate.active_room - 1;
+        _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
         DEBUG_PRINT("GSPlay: viewport\n");
@@ -436,7 +436,7 @@ namespace pnk
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
 
         // show starting text (only at the beginning of the level)
-        if (_active_act_index == 0)
+        if (_active_room_index == 0)
         {
             switch (_pnk._gamestate.active_level)
             {
@@ -460,8 +460,8 @@ namespace pnk
         _csl.reset();
         _hives.clear();
         _tmx = nullptr;
-        _active_act = nullptr;
-        _active_act_index = -1;
+        _active_room = nullptr;
+        _active_room_index = -1;
         _last_time = 0;
         _warp = false;
 
@@ -534,7 +534,7 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_ROOM)
         {
-            if (pe._payload != _active_act_index)
+            if (pe._payload != _active_room_index)
             {
                 changeRoom(pe._payload, false);
             }
@@ -555,7 +555,7 @@ namespace pnk
         }
         else if (pe._type == ETG_WARP_ROOM)
         {
-            if (pe._payload != _active_act_index)
+            if (pe._payload != _active_room_index)
             {
                 changeRoom(pe._payload, true);
             }
@@ -723,9 +723,9 @@ namespace pnk
         }
 
         dang::Vector2F sp;
-        dang::Vector2U restart_pos = _active_act->_passage_from[_active_act_index - 1];
-        sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
-        sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
+        dang::Vector2U restart_pos = _active_room->_passage_from[_active_room_index - 1];
+        sp.x = (_active_room->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
+        sp.y = (_active_room->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
@@ -799,26 +799,26 @@ namespace pnk
         // viewport follows hero within room
         dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-        if (pos.x < _active_act->_extent_pixels.left() + 160)
+        if (pos.x < _active_room->_extent_pixels.left() + 160)
         {
-            _vp_pos.x = _active_act->_extent_pixels.left() + 160;
+            _vp_pos.x = _active_room->_extent_pixels.left() + 160;
         }
-        else if (pos.x > _active_act->_extent_pixels.right() - 160)
+        else if (pos.x > _active_room->_extent_pixels.right() - 160)
         {
-            _vp_pos.x = _active_act->_extent_pixels.right() - 160;
+            _vp_pos.x = _active_room->_extent_pixels.right() - 160;
         }
         else
         {
             _vp_pos.x = pos.x;
         }
 
-        if (pos.y < _active_act->_extent_pixels.top() + 120)
+        if (pos.y < _active_room->_extent_pixels.top() + 120)
         {
-            _vp_pos.y = _active_act->_extent_pixels.top() + 120;
+            _vp_pos.y = _active_room->_extent_pixels.top() + 120;
         }
-        else if (pos.y > _active_act->_extent_pixels.bottom() - 120)
+        else if (pos.y > _active_room->_extent_pixels.bottom() - 120)
         {
-            _vp_pos.y = _active_act->_extent_pixels.bottom() - 120;
+            _vp_pos.y = _active_room->_extent_pixels.bottom() - 120;
         }
         else
         {
@@ -828,20 +828,20 @@ namespace pnk
 
     void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
-        _active_act = &_screenplay->_acts[room_nr];
+        _active_room = &_screenplay->_acts[room_nr];
 
         if (warp)
         {
             dang::Vector2F sp;
 
-            dang::Vector2U passage = _active_act->_passage_from[_active_act_index];
-            sp.x = (_active_act->_extent.x + passage.x) * _tmx->w->tileWidth;
-            sp.y = (_active_act->_extent.y + passage.y) * _tmx->w->tileHeight;
+            dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
+            sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
+            sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
             _spr_hero->setPos(sp);
             _warp = true;
         }
 
-        _active_act_index = room_nr;
+        _active_room_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
 
         dang::SndGear::playSfx(teleport_22050_mono, teleport_22050_mono_length, _pnk._prefs.volume_sfx);
@@ -873,7 +873,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Back to last room.\r\n");
 
             userIsCheating();
-            changeRoom(_active_act_index - 1, true);
+            changeRoom(_active_room_index - 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRURR")
         {
@@ -883,7 +883,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Forward to next room.\r\n");
 
             userIsCheating();
-            changeRoom(_active_act_index + 1, true);
+            changeRoom(_active_room_index + 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRUUU")
         {
