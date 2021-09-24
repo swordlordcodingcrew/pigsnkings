@@ -172,17 +172,6 @@ namespace pnk
 
         DEBUG_PRINT("GSPlay: entered, let the games begin\n");
 
-        // show starting text
-        switch (_pnk._gamestate.active_level)
-        {
-            case 1:
-            default:
-                showInfoLayer(true, 10000, str_lvl1_intro);
-                break;
-            case 2:
-                showInfoLayer(true, 10000, str_lvl2_intro);
-                break;
-        }
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
@@ -433,6 +422,10 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 */
+//        _pnk._gamestate.active_room = 4;
+//        _active_act_index = _pnk._gamestate.active_room - 1;
+//        changeRoom(_pnk._gamestate.active_room, true);
+
         _active_act_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
@@ -441,6 +434,23 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
+
+        // show starting text (only at the beginning of the level)
+        if (_active_act_index == 0)
+        {
+            switch (_pnk._gamestate.active_level)
+            {
+                case 1:
+                default:
+                    showInfoLayer(true, 10000, str_lvl1_intro);
+                    break;
+                case 2:
+                    showInfoLayer(true, 10000, str_lvl2_intro);
+                    break;
+            }
+
+        }
+
     }
 
     void GSPlay::freeCurrentLevel()
