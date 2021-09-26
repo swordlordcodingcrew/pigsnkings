@@ -1,5 +1,5 @@
 // (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 
 #include "PigCannon.h"
@@ -153,9 +153,9 @@ namespace pnk
         prepareChangeState(SLEEPING);
     }
 
-    dang::BTNodeStatus PigCannon::BTFireCannon(std::shared_ptr<Sprite> s)
+/*    dang::BTNodeStatus PigCannon::BTFireCannon(std::shared_ptr<Sprite> s)
     {
         std::cout << "firing cannon: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
-}
+*/}

@@ -1,13 +1,10 @@
 // (c) 2019-20 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #include "PigCrate.h"
 #include "src/pigsnkings.hpp"
 #include "src/pnk_globals.h"
 #include "src/PnkEvent.h"
-//#include "src/GSPlay.h"
-//#include "src/SpriteFactory.hpp"
-//#include "Enemy.h"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
@@ -16,7 +13,7 @@
 #include <TmxExtruder.hpp>
 
 #include <iostream>
-#include <libs/DANG/src/Rand.hpp>
+#include <cassert>
 
 namespace pnk
 {

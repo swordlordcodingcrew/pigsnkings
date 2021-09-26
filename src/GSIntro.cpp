@@ -1,18 +1,18 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
 
+#include "pnk_globals.h"
+#include "GSIntro.h"
+#include "GSHome.h"
+
+#include "rsrc/gfx/sl_shield_32blit.png.h"
+
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
 #include <Sprite.hpp>
-#include <SpriteLayer.hpp>
 #include <SimpleImageLayer.hpp>
-#include <32blit.hpp>
 
-#include "GSIntro.h"
-#include "GSHome.h"
-#include "pnk_globals.h"
-
-#include "rsrc/gfx/sl_shield_32blit.png.h"
+#include <cassert>
 
 namespace pnk
 {
