@@ -22,53 +22,27 @@ namespace pnk
     class GSPlay : public GameState
     {
     public:
-        /**
-         * hero consts
-         */
-        static inline const float H_WALK_VEL = 7;
-        static inline const float H_JUMP_VEL = -16;
-        static inline const uint32_t H_JUMP_COUNT = 30;
-        static inline const float BUBBLE_VEL = 20;
-        static inline const float BUBBLE_VEL_UP = -1.5;
-        static inline const float E_WALK_VEL = 2;
-        static inline const float CRATE_VEL = 20;
-
-        /**
-         * waypoint depot types
-         */
-        enum e_waypoint_type
-        {
-            wp_none = 0x0,
-            wp_bombdepot = 0x1,
-            wp_cratedepot = 0x2
-        };
-
-    public:
         std::shared_ptr<GameState> update(dang::Gear& gear, uint32_t time) override;
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
 
-//        void createBehaviourTrees(dang::Gear& gear);
-
         void checkCheatActivation();
 
     protected:
-        const dang::tmx_level*      _tmx{nullptr};           //!< level definition
-        spScreenPlay                _screenplay{nullptr};    //!< paths
-        spHero                       _spr_hero{nullptr};     //!< the king
-        spBoss                       _spr_boss{nullptr};     //!< the respective boss (or nullptr)
-        dang::spCollisionSpriteLayer _csl{nullptr};          //!< the layer in which the collision detection takes place
-
+        const dang::tmx_level*          _tmx{nullptr};          //!< level definition
+        spScreenPlay                    _screenplay{nullptr};   //!< paths
+        spHero                          _spr_hero{nullptr};     //!< the king
+        spBoss                          _spr_boss{nullptr};     //!< the respective boss (or nullptr)
+        dang::spCollisionSpriteLayer    _csl{nullptr};          //!< the layer in which the collision detection takes place
+        dang::spMessageLayer            _txtl{nullptr};
         std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
 
         // flow stuff
-        ScreenPlay::act*        _active_act{nullptr};
-        int32_t                 _active_act_index{-1}; // which room are we in?
-        // that var moved into the prefs
-        // int8_t                 _active_level_index{-1}; // which level are we in?
+        ScreenPlay::act*        _active_room{nullptr};
+        int8_t                  _active_room_index{-1}; // which room are we in?
         uint32_t                _last_time{0};
         bool                    _warp{false};
 
@@ -100,6 +74,9 @@ namespace pnk
         void startBossBattle();
         void endBossBattle();
         void handleBossHit(PnkEvent& pe);
+
+        void showInfoLayer(bool pause, uint32_t ttl, const std::string_view& message);
+        void hideInfoLayer();
 
     public:
         // bt hooks

@@ -3,10 +3,13 @@
 
 #pragma once
 
-#include <memory>
-#include <tween/TwAnim.hpp>
+#include "src/pnk_globals.h"
 #include "src/GSPlay.h"
 #include "src/actors/hero/Hero.h"
+
+#include <tween/TwAnim.hpp>
+
+#include <memory>
 
 namespace pnk
 {
@@ -61,7 +64,7 @@ namespace pnk
         std::shared_ptr<MotionState> update(Hero& hero) override;
         void setAnimation(Hero& hero) override;
     protected:
-        uint32_t _count{GSPlay::H_JUMP_COUNT};
+        uint32_t _count{H_JUMP_COUNT};
     };
 
     class OnAirState : public MotionState

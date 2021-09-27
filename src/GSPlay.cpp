@@ -55,6 +55,8 @@
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
+#include "rsrc/game_strings.hpp"
+#include "fonts/barcadebrawl.h"
 
 #include <snd/SndGear.hpp>
 #include <sfx/crate_explode_22050_mono.h>
@@ -66,6 +68,7 @@
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
 #include <TileLayer.hpp>
+#include <MessageLayer.hpp>
 #include <Layer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
@@ -117,10 +120,6 @@ namespace pnk
         {
             return GameState::_gs_home;
         }
-        else if (blit::buttons.pressed & blit::Button::HOME)
-        {
-//            return GameState::_gs_prefs;
-        }
 
         updateVpPos();
         if (_warp)
@@ -141,75 +140,6 @@ namespace pnk
 
         return GameState::_gs_play;
     }
-
-/*    void GSPlay::createBehaviourTrees(dang::Gear& gear)
-    {
-        dang::spNTree tr = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-               .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("loiter", tr);
-
-        dang::spNTree tr2 = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
-                    .leaf(Enemy::NTsetWPNearHero)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("loiter_towards_hero", tr2);
-
-        dang::spNTree tr3 = dang::NTBuilder{}
-                .selector()
-                    .sequence()
-                        .leaf(std::bind(&GSPlay::NTheroInSightH, this, std::placeholders::_1))
-                        .leaf(Enemy::NTsetWPNearHero)
-                        .leaf(Enemy::NTcheckPathCompleted)
-                    .end()
-                .leaf(HenchPig::NTNap)
-            .end()
-        .build();
-        gear.addNTree("wait_for_hero", tr3);
-
-        dang::spNTree tr4 = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(Enemy::NTsetRandomPath)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTfindNearestWaypointH)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTSleep)
-                .end()
-                .leaf(HenchPig::NTSleep)
-            .end()
-        .build();
-        gear.addNTree("lazy", tr4);
-
-    }
-*/
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
@@ -242,6 +172,7 @@ namespace pnk
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
         DEBUG_PRINT("GSPlay: entered, let the games begin\n");
+
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
@@ -470,13 +401,18 @@ namespace pnk
             }
         }
 
+        // create text layser
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
+        _txtl->_z_order = 10;
+        gear.addLayer(_txtl);
+
+
         DEBUG_PRINT("GSPlay: change room\n");
 
         // TODO DEBUG ONLY
-        /*
-        if(level_nr == 1)
+/*        if(level_nr == 1)
         {
-            _pnk._gamestate.active_room = 6;
+            _pnk._gamestate.active_room = 3;
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
@@ -486,9 +422,12 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-        */
+*/
+//        _pnk._gamestate.active_room = 4;
+//        _active_act_index = _pnk._gamestate.active_room - 1;
+//        changeRoom(_pnk._gamestate.active_room, true);
 
-        _active_act_index = _pnk._gamestate.active_room - 1;
+        _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
         DEBUG_PRINT("GSPlay: viewport\n");
@@ -496,6 +435,23 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
+
+        // show starting text (only at the beginning of the level)
+        if (_active_room_index == 0)
+        {
+            switch (_pnk._gamestate.active_level)
+            {
+                case 1:
+                default:
+                    showInfoLayer(true, 10000, str_lvl1_intro);
+                    break;
+                case 2:
+                    showInfoLayer(true, 10000, str_lvl2_intro);
+                    break;
+            }
+
+        }
+
     }
 
     void GSPlay::freeCurrentLevel()
@@ -505,8 +461,8 @@ namespace pnk
         _csl.reset();
         _hives.clear();
         _tmx = nullptr;
-        _active_act = nullptr;
-        _active_act_index = -1;
+        _active_room = nullptr;
+        _active_room_index = -1;
         _last_time = 0;
         _warp = false;
 
@@ -579,7 +535,7 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_ROOM)
         {
-            if (pe._payload != _active_act_index)
+            if (pe._payload != _active_room_index)
             {
                 changeRoom(pe._payload, false);
             }
@@ -600,7 +556,7 @@ namespace pnk
         }
         else if (pe._type == ETG_WARP_ROOM)
         {
-            if (pe._payload != _active_act_index)
+            if (pe._payload != _active_room_index)
             {
                 changeRoom(pe._payload, true);
             }
@@ -768,9 +724,9 @@ namespace pnk
         }
 
         dang::Vector2F sp;
-        dang::Vector2U restart_pos = _active_act->_passage_from[_active_act_index - 1];
-        sp.x = (_active_act->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
-        sp.y = (_active_act->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
+        dang::Vector2U restart_pos = _active_room->_passage_from[_active_room_index - 1];
+        sp.x = (_active_room->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
+        sp.y = (_active_room->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
         _spr_hero->lifeLost(sp);
 
         // TODO define MAXHEALTH
@@ -844,26 +800,26 @@ namespace pnk
         // viewport follows hero within room
         dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-        if (pos.x < _active_act->_extent_pixels.left() + 160)
+        if (pos.x < _active_room->_extent_pixels.left() + 160)
         {
-            _vp_pos.x = _active_act->_extent_pixels.left() + 160;
+            _vp_pos.x = _active_room->_extent_pixels.left() + 160;
         }
-        else if (pos.x > _active_act->_extent_pixels.right() - 160)
+        else if (pos.x > _active_room->_extent_pixels.right() - 160)
         {
-            _vp_pos.x = _active_act->_extent_pixels.right() - 160;
+            _vp_pos.x = _active_room->_extent_pixels.right() - 160;
         }
         else
         {
             _vp_pos.x = pos.x;
         }
 
-        if (pos.y < _active_act->_extent_pixels.top() + 120)
+        if (pos.y < _active_room->_extent_pixels.top() + 120)
         {
-            _vp_pos.y = _active_act->_extent_pixels.top() + 120;
+            _vp_pos.y = _active_room->_extent_pixels.top() + 120;
         }
-        else if (pos.y > _active_act->_extent_pixels.bottom() - 120)
+        else if (pos.y > _active_room->_extent_pixels.bottom() - 120)
         {
-            _vp_pos.y = _active_act->_extent_pixels.bottom() - 120;
+            _vp_pos.y = _active_room->_extent_pixels.bottom() - 120;
         }
         else
         {
@@ -873,20 +829,20 @@ namespace pnk
 
     void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
-        _active_act = &_screenplay->_acts[room_nr];
+        _active_room = &_screenplay->_acts[room_nr];
 
         if (warp)
         {
             dang::Vector2F sp;
 
-            dang::Vector2U passage = _active_act->_passage_from[_active_act_index];
-            sp.x = (_active_act->_extent.x + passage.x) * _tmx->w->tileWidth;
-            sp.y = (_active_act->_extent.y + passage.y) * _tmx->w->tileHeight;
+            dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
+            sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
+            sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
             _spr_hero->setPos(sp);
             _warp = true;
         }
 
-        _active_act_index = room_nr;
+        _active_room_index = room_nr;
         _pnk._gamestate.active_room = room_nr;
 
         dang::SndGear::playSfx(teleport_22050_mono, teleport_22050_mono_length, _pnk._prefs.volume_sfx);
@@ -918,7 +874,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Back to last room.\r\n");
 
             userIsCheating();
-            changeRoom(_active_act_index - 1, true);
+            changeRoom(_active_room_index - 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRURR")
         {
@@ -928,7 +884,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Forward to next room.\r\n");
 
             userIsCheating();
-            changeRoom(_active_act_index + 1, true);
+            changeRoom(_active_room_index + 1, true);
         }
         else if(_pnk.cheatKeyStream == "XXDLRUUU")
         {
@@ -1034,6 +990,19 @@ namespace pnk
         }
 
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
+
+        // show end text
+        switch (_pnk._gamestate.active_level)
+        {
+            case 1:
+            default:
+                showInfoLayer(false, 10000, str_lvl1_end);
+                break;
+            case 2:
+                showInfoLayer(false, 10000, str_lvl2_end);
+                break;
+        }
+
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
@@ -1073,6 +1042,29 @@ namespace pnk
         }
 
     }
+
+    void GSPlay::showInfoLayer(bool pause, uint32_t ttl, const std::string_view &message)
+    {
+/*        if (pause)
+        {
+            _pnk.getGear().setLayersActive(false);
+        }
+*/
+        _csl->setActive(false);
+        _txtl->setText(message);
+        _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
+        _txtl->setActive(true);
+        _txtl->setVisibility(true);
+    }
+
+    void GSPlay::hideInfoLayer()
+    {
+//        _pnk.getGear().setLayersActive(true);
+        _csl->setActive(true);
+        _txtl->setActive(false);
+        _txtl->setVisibility(false);
+    }
+
 
 }
 
