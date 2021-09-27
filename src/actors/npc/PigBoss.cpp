@@ -12,6 +12,7 @@
 #include <TmxExtruder.hpp>
 
 #include <iostream>
+#include <cassert>
 
 namespace pnk
 {

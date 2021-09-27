@@ -1,15 +1,12 @@
 // (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 
 #include "PigBomb.h"
 
 #include "src/pigsnkings.hpp"
 #include "src/pnk_globals.h"
-//#include "Enemy.h"
 #include "src/PnkEvent.h"
-//#include "src/GSPlay.h"
-//#include "src/SpriteFactory.hpp"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
@@ -115,7 +112,7 @@ namespace pnk
         prepareChangeState(SLEEPING);
     }
 
-    dang::BTNodeStatus PigBomb::BTPickUpBomb(std::shared_ptr<Sprite> s)
+/*    dang::BTNodeStatus PigBomb::BTPickUpBomb(std::shared_ptr<Sprite> s)
     {
         std::cout << "picking up bomb: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
@@ -126,4 +123,4 @@ namespace pnk
         std::cout << "throwing bomb: " << s->getPos().x << std::endl;
         return dang::BTNodeStatus::FAILURE;
     }
-}
+*/}

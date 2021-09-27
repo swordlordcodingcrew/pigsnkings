@@ -1,5 +1,5 @@
 // (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #pragma once
 
@@ -28,8 +28,8 @@ namespace pnk
         virtual void endThrowing();
 
         // Behaviour Tree functions
-        static dang::BTNodeStatus BTPickUpBomb(std::shared_ptr<Sprite> s);
-        static dang::BTNodeStatus BTThrowBomb(std::shared_ptr<Sprite> s);
+//        static dang::BTNodeStatus BTPickUpBomb(std::shared_ptr<Sprite> s);
+//        static dang::BTNodeStatus BTThrowBomb(std::shared_ptr<Sprite> s);
 
 
     protected:

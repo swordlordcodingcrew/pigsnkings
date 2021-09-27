@@ -71,8 +71,8 @@ namespace pnk
 
         refreshGamestateFromSave();
 
-        _gs = GameState::_gs_intro;
-        _gs->enter(_gear, 0);
+        _current_gs = GameState::_gs_intro;
+        _current_gs->enter(_gear, 0);
 
         DEBUG_PRINT("pigsnkings: initial module loaded\n");
 
@@ -103,18 +103,48 @@ namespace pnk
         // first globally handle events
         _dispatcher.publishEvents();
 
-        std::shared_ptr<GameState> gs = _gs->update(_gear, time);
-
-        if (gs != _gs)
+        if (_fade_out)
         {
-            _gs->exit(_gear, time);
-            _gs = gs;
-            _gs->enter(_gear, time);
+            if (_fade_colour.a < 255)
+            {
+                _fade_colour.a = _fade_colour.a + _fade_step > 255 ? 255 : _fade_colour.a + _fade_step;
+                _gear.update(10);
+            }
+            else
+            {
+                _current_gs->exit(_gear, time);
+                _current_gs = _new_gs;
+                _current_gs->enter(_gear, time);
+                _fade_out = false;
+                _fade_in = true;
+            }
         }
+        else if (_fade_in)
+        {
+            if (_fade_colour.a > 0)
+            {
+                _fade_colour.a = _fade_colour.a - _fade_step < 0 ? 0 : _fade_colour.a - _fade_step;
+                _gear.update(10);
+            }
+            else
+            {
+                _fade_in = false;
+            }
+        }
+        else
+        {
+            _new_gs = _current_gs->update(_gear, time);
 
-        // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
-        _gear.update(10);
+            if (_new_gs != _current_gs)
+            {
+                _fade_out = true;
+            }
+
+            // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
+            _gear.update(10);
 //        _gear.update(time - _last_time);
+
+        }
 
         _last_time = time;
     }
@@ -124,6 +154,12 @@ namespace pnk
         // no need to clear the screen
         // have the engine render the game
         _gear.render(time);
+
+        if (_fade_out || _fade_in)
+        {
+            blit::screen.pen = _fade_colour;
+            blit::screen.rectangle({0,0, blit::screen.bounds.w, blit::screen.bounds.h});
+        }
 
         // show amount of memory used
 
