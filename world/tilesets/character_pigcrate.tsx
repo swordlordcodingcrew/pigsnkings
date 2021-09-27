@@ -60,22 +60,26 @@
    <frame tileid="33" duration="100"/>
   </animation>
  </tile>
+ <tile id="33" type="hit">
+  <animation>
+   <frame tileid="33" duration="80"/>
+   <frame tileid="34" duration="80"/>
+   <frame tileid="35" duration="80"/>
+   <frame tileid="36" duration="80"/>
+   <frame tileid="37" duration="80"/>
+  </animation>
+ </tile>
  <tile id="34" type="crate">
   <animation>
    <frame tileid="34" duration="100"/>
   </animation>
  </tile>
- <tile id="35" type="hit">
+ <tile id="35" type="hit"/>
+ <tile id="37" type="bubbling"/>
+ <tile id="38" type="bubbling">
   <animation>
-   <frame tileid="34" duration="150"/>
-   <frame tileid="35" duration="150"/>
-   <frame tileid="36" duration="150"/>
-  </animation>
- </tile>
- <tile id="37" type="bubbling">
-  <animation>
-   <frame tileid="37" duration="100"/>
    <frame tileid="38" duration="100"/>
+   <frame tileid="39" duration="100"/>
   </animation>
  </tile>
 </tileset>
