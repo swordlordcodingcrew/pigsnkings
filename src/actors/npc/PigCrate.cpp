@@ -187,6 +187,32 @@ namespace pnk
         return spr->_crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
+    dang::BTNode::Status PigCrate::NTDistanceOK(dang::spSprite s)
+    {
+        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+
+        if (spr->_nTreeState->_payload.count("aaLoSH"))
+        {
+            float dist = spr->_nTreeState->_payload["aaLoSH"];
+            dist = std::abs(dist);
+            if (dist < 110)
+            {
+                return dang::BTNode::Status::SUCCESS;
+            }
+        }
+        else if (spr->_nTreeState->_payload.count("LoS"))
+        {
+            float dist = spr->_nTreeState->_payload["LoS"];
+            dist = std::abs(dist);
+            if (dist < 110)
+            {
+                return dang::BTNode::Status::SUCCESS;
+            }
+        }
+
+        return dang::BTNode::Status::FAILURE;
+    }
+
 /*    dang::BTNodeStatus PigCrate::BTHideInCrate(dang::spSprite s)
     {
         return dang::BTNodeStatus::FAILURE;

@@ -28,6 +28,7 @@ namespace pnk
         static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
         static dang::BTNode::Status NTWithCrate(dang::spSprite s);
 //        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
+        static dang::BTNode::Status NTDistanceOK(dang::spSprite s);
 
     protected:
 

@@ -177,6 +177,7 @@ namespace pnk
             .selector()
                 .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                    .leaf(PigCrate::NTDistanceOK)
                     .leaf(PigCrate::NTThrowCrate)
                 .end()
                 .leaf(HenchPig::NTNap)
