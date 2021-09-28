@@ -423,7 +423,7 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 */
-//        _pnk._gamestate.active_room = 4;
+        _pnk._gamestate.active_room = 4;
 //        _active_act_index = _pnk._gamestate.active_room - 1;
 //        changeRoom(_pnk._gamestate.active_room, true);
 
@@ -920,19 +920,6 @@ namespace pnk
     }
 
 
-    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
-    {
-        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
-        float ret = _csl->aaLoSH(cs, _spr_hero);
-
-        if (ret != 0)
-        {
-            cs->getNTreeState()->_payload["aaLoSH"] = ret;
-            return dang::BTNode::Status::SUCCESS;
-        }
-        return dang::BTNode::Status::FAILURE;
-    }
-
     void GSPlay::startBossBattle()
     {
         // activate boss
@@ -1063,6 +1050,33 @@ namespace pnk
         _csl->setActive(true);
         _txtl->setActive(false);
         _txtl->setVisibility(false);
+    }
+
+
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
+    {
+        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+        float ret = _csl->aaLoSH(cs, _spr_hero);
+
+        if (ret != 0)
+        {
+            cs->getNTreeState()->_payload["aaLoSH"] = ret;
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
+    }
+
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
+    {
+        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+        float ret = _csl->loS(cs, _spr_hero);
+
+        if (ret != 0)
+        {
+            cs->getNTreeState()->_payload["LoS"] = ret;
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
     }
 
 

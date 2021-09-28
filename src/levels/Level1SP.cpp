@@ -176,7 +176,7 @@ namespace pnk
         _bt["wait_crate"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
                     .leaf(PigCrate::NTThrowCrate)
                 .end()
                 .leaf(HenchPig::NTNap)

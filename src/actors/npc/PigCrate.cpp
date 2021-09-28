@@ -64,7 +64,10 @@ namespace pnk
         {
             _transform = _nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
         }
-//        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+        else if (_nTreeState->_payload.count("LoS"))
+        {
+            _transform = _nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+        }
         setVel({0,0});
 
         _currentState = THROWING;
@@ -99,6 +102,11 @@ namespace pnk
         {
             e->_to_the_left = _nTreeState->_payload["aaLoSH"] > 0;
             _nTreeState->_payload.erase("aaLoSH");
+        }
+        else if (_nTreeState->_payload.count("LoS"))
+        {
+            e->_to_the_left = _nTreeState->_payload["LoS"] > 0;
+            _nTreeState->_payload.erase("LoS");
         }
         else
         {
