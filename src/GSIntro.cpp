@@ -19,7 +19,7 @@ namespace pnk
 
     std::shared_ptr<GameState> pnk::GSIntro::update(dang::Gear& gear, uint32_t time)
     {
-        if (time - _last_time > 1000)
+        if (time - _enter_time > 1000)
         {
             return GameState::_gs_home;
         }
@@ -30,6 +30,8 @@ namespace pnk
     void GSIntro::enter(dang::Gear& gear, uint32_t time)
     {
         DEBUG_PRINT("GSIntro: entering\n");
+
+        _enter_time = time;
 
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
