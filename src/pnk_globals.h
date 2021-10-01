@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cstdint>
+#include <libs/32blit-sdk/32blit/graphics/surface.hpp>
 
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
@@ -131,12 +132,15 @@ enum e_waypoint_type
  * game consts
  */
 
-static inline const float H_WALK_VEL = 7;           // hero walk velocity
-static inline const float H_JUMP_VEL = -16;         // hero jump velocity
-static inline const uint32_t H_JUMP_COUNT = 30;     // max jump cyclies
-static inline const float BUBBLE_VEL = 20;          // bubble horizontal velocity
-static inline const float BUBBLE_VEL_UP = -1.5;     // bubble vertical velocity
+static inline const float H_WALK_VEL{7};           // hero walk velocity
+static inline const float H_JUMP_VEL{-16};         // hero jump velocity
+static inline const uint32_t H_JUMP_COUNT{30};     // max jump cyclies
+static inline const float BUBBLE_VEL{20};          // bubble horizontal velocity
+static inline const float BUBBLE_VEL_UP{-1.5};     // bubble vertical velocity
 
-static inline const float E_WALK_VEL = 2;           // enemy walk velocity
+static inline const float E_WALK_VEL{2};           // enemy walk velocity
 
-static inline const float CRATE_VEL = 20;           // crate throwing velocity
+static inline const float CRATE_VEL{20};           // crate throwing velocity
+
+static inline const blit::Pen FADE_COL{0,0,0};  // fading colour
+static inline const uint8_t FADE_STEP{8};           // fade step (fading ist from 0 to 255)

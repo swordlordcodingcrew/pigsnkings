@@ -423,7 +423,7 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 */
-        _pnk._gamestate.active_room = 4;
+//        _pnk._gamestate.active_room = 4;
 //        _active_act_index = _pnk._gamestate.active_room - 1;
 //        changeRoom(_pnk._gamestate.active_room, true);
 
@@ -850,17 +850,19 @@ namespace pnk
 
     void GSPlay::changeLevel(int8_t level_nr)
     {
-        DEBUG_PRINT("Changing level to %d\n\r", level_nr);
-        freeCurrentLevel();
+        _pnk.getGear().fade(FADE_COL, FADE_STEP, [=](){
+            DEBUG_PRINT("Changing level to %d\n\r", level_nr);
+            freeCurrentLevel();
 
-        // reset current level and room to new ones
-        _pnk._gamestate.active_room = 0;
-        _pnk._gamestate.active_level = level_nr;
+            // reset current level and room to new ones
+            _pnk._gamestate.active_room = 0;
+            _pnk._gamestate.active_level = level_nr;
 
-        // TODO store gamestate values to disc so that the level gets loaded next time
+            // TODO store gamestate values to disc so that the level gets loaded next time
 
-        // TODO check level_nr for bounds
-        loadLevel(level_nr);
+            // TODO check level_nr for bounds
+            loadLevel(level_nr);
+        });
     }
 
     void GSPlay::checkCheatActivation()
