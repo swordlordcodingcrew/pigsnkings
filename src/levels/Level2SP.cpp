@@ -22,25 +22,25 @@ namespace pnk
         act room0;
         room0._extent = {49, 8, 11, 8}; // global coordinates
         /** the starting point of the level */
-        room0._passage_from[-1] = {9, 1}; // local, no global coordinates
+        room0._passage_from[-1] = {10, 1}; // local, no global coordinates
         /** when coming from room 1, start at given position */
         room0._passage_from[1] = {0, 1}; // local, no global coordinates
         _acts.push_back(room0);
 
         act room1;
-        room1._extent = {40, 8, 10, 8};
-        room1._passage_from[0] = {9, 1};
+        room1._extent = {39, 8, 12, 8};
+        room1._passage_from[0] = {10, 1};
         room1._passage_from[2] = {0, 1};
         _acts.push_back(room1);
 
         act room2;
-        room2._extent = {30, 8, 10, 8};
+        room2._extent = {30, 8, 11, 8};
         room2._passage_from[1] = {9, 1};
         room2._passage_from[3] = {0, 14};
         _acts.push_back(room2);
 
         act room3;
-        room3._extent = {20, 8, 10, 8};
+        room3._extent = {19, 8, 12, 8};
         room3._passage_from[2] = {10, 14};
         room3._passage_from[4] = {0, 1};
         _acts.push_back(room3);
