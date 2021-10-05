@@ -1,18 +1,17 @@
 // (c) 2019-1 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include "../pnk_globals.h"
-
 #include "Level1SP.hpp"
+#include "../pnk_globals.h"
+#include "../GSPlay.h"
 #include "../actors/npc/Enemy.h"
 #include "../actors/npc/HenchPig.h"
 #include "../actors/npc/PigCrate.h"
-#include "../GSPlay.h"
+#include "../actors/npc/PigBomb.h"
 
 #include <bt/NTBuilder.h>
 
 #ifdef PNK_DEBUG_PRINT
-
 #ifdef TARGET_32BLIT_HW
 #include "32blit.hpp"
 #endif
@@ -184,6 +183,16 @@ namespace pnk
             .end()
         .build();
 
+        _bt["wait_bomb"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                    .leaf(PigBomb::NTDistanceOK)
+                    .leaf(PigBomb::NTThrowBomb)
+                .end()
+                .leaf(HenchPig::NTNap)
+            .end()
+        .build();
 
         DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 

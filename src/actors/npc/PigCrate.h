@@ -11,16 +11,13 @@ namespace pnk
     {
     public:
         PigCrate();
-        PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet& is);
         ~PigCrate() override;
         void init() override;
 
         void update(uint32_t dt) override;
         void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
-
-
-//        bool onEnterLoitering() override;
 
 
         /** path and bt functions */
@@ -32,11 +29,11 @@ namespace pnk
 
     protected:
 
-        bool onEnterThrowing() override;
-        virtual void endThrowing() override;
-        virtual void throwing();
-        bool        _crated{true};
-        void        pickupCrate();
+        bool            onEnterThrowing() override;
+        virtual void    endThrowing() override;
+        virtual void    throwing();
+        bool            _crated{true};
+        void            pickupCrate();
 
     };
 

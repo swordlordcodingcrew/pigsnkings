@@ -9,8 +9,6 @@
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
 #include <tween/TwSequence.hpp>
-#include <Imagesheet.hpp>
-#include <TmxExtruder.hpp>
 
 #include <iostream>
 #include <cassert>
@@ -23,7 +21,7 @@ namespace pnk
     {
     }
 
-    PigCrate::PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::HenchPig(so, is)
+    PigCrate::PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet& is) : pnk::HenchPig(so, is)
     {
     }
 
@@ -70,6 +68,7 @@ namespace pnk
         }
         setVel({0,0});
 
+        // change the anims from crate-carrying to empty-handed
         _currentState = THROWING;
         _crated = false;
         dang::spTwAnim tmp_anim = _anim_m_loitering;

@@ -94,7 +94,7 @@
   <object id="168" gid="100" x="448" y="160" width="32" height="32"/>
   <object id="169" gid="98" x="416" y="160" width="32" height="32"/>
   <object id="164" gid="101" x="448" y="64" width="32" height="32"/>
-  <object id="328" gid="101" x="352" y="104" width="32" height="32"/>
+  <object id="328" gid="101" x="352" y="112" width="32" height="32"/>
   <object id="378" gid="101" x="416" y="64" width="32" height="32"/>
   <object id="115" gid="100" x="384" y="320" width="32" height="32"/>
   <object id="110" gid="98" x="352" y="320" width="32" height="32"/>
@@ -136,8 +136,8 @@
   <object id="543" name="door" type="door" gid="495" x="137" y="328" width="46" height="56"/>
   <object id="594" gid="106" x="128" y="384" width="32" height="32"/>
   <object id="595" gid="108" x="160" y="384" width="32" height="32"/>
-  <object id="570" gid="106" x="192" y="96" width="32" height="32"/>
-  <object id="571" gid="108" x="224" y="96" width="32" height="32"/>
+  <object id="570" gid="106" x="192" y="112" width="32" height="32"/>
+  <object id="571" gid="108" x="224" y="112" width="32" height="32"/>
   <object id="605" gid="109" x="832" y="376" width="32" height="32"/>
   <object id="606" gid="106" x="736" y="360" width="32" height="32"/>
   <object id="607" gid="108" x="768" y="360" width="32" height="32"/>
@@ -238,8 +238,8 @@
   <object id="322" type="hotrect_platform" x="832" y="192" width="64" height="4"/>
   <object id="323" type="hotrect_platform" x="800" y="128" width="32" height="4"/>
   <object id="324" type="hotrect_platform" x="384" y="64" width="96" height="4"/>
-  <object id="326" type="hotrect" x="256" y="100" width="96" height="60"/>
-  <object id="330" type="hotrect" x="384" y="68" width="32" height="28"/>
+  <object id="326" type="hotrect" x="256" y="96" width="96" height="64"/>
+  <object id="330" type="hotrect" x="384" y="68" width="32" height="60"/>
   <object id="331" type="hotrect" x="224" y="32" width="160" height="32"/>
   <object id="333" name="dan" type="pig_box" gid="2147484055" x="512" y="96" width="32" height="32">
    <properties>
@@ -290,11 +290,11 @@
   <object id="362" type="hotrect_platform" x="96" y="128" width="32" height="4"/>
   <object id="363" type="hotrect_platform" x="64" y="160" width="32" height="4"/>
   <object id="364" type="hotrect_platform" x="96" y="192" width="32" height="4"/>
-  <object id="365" type="hotrect" x="192" y="96" width="160" height="12"/>
+  <object id="365" type="hotrect" x="192" y="112" width="64" height="12"/>
   <object id="369" type="hotrect_platform" x="32" y="384" width="32" height="4"/>
   <object id="370" type="hotrect_platform" x="256" y="384" width="32" height="4"/>
   <object id="371" name="3" type="warp_room_trigger" x="957" y="64" width="2" height="32"/>
-  <object id="372" type="hotrect_platform" x="352" y="104" width="32" height="4"/>
+  <object id="372" type="hotrect_platform" x="352" y="112" width="32" height="4"/>
   <object id="374" type="hotrect" x="928" y="128" width="32" height="352"/>
   <object id="376" name="2" type="warp_room_trigger" x="640" y="448" width="2" height="32"/>
   <object id="377" name="4" type="warp_room_trigger" x="640" y="288" width="2" height="32"/>

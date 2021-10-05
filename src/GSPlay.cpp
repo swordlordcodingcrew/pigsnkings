@@ -96,6 +96,13 @@ extern "C"
 extern char _sbss, _end, __ltdc_start;
 #endif
 
+/**
+ * TODOs
+ * - z_order (in tiled exporter
+ * - gfx PigBomb when without bomb (PigCrate?)
+ */
+
+
 namespace pnk
 {
     extern PigsnKings _pnk;
@@ -287,7 +294,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
             else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
+            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -423,9 +430,7 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 */
-//        _pnk._gamestate.active_room = 4;
-//        _active_act_index = _pnk._gamestate.active_room - 1;
-//        changeRoom(_pnk._gamestate.active_room, true);
+        _pnk._gamestate.active_room = 5;
 
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
@@ -505,7 +510,6 @@ namespace pnk
             }
             else
             {
-                // TODO if it is stale, we should retry? or wait? or...
                 DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
             }
         }
@@ -609,7 +613,7 @@ namespace pnk
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPos(pe._pos);
             mood->setPosX(pe._pos.x + 10);
-            mood->_z_order = 100; // TODO make sure that zorder works
+            mood->_z_order = 100;
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
