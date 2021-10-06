@@ -448,7 +448,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {489,"489","hotrect",0,32,32,160,true,"",0,"",0b0000},
     {490,"490","hotrect",0,224,224,32,true,"",0,"",0b0000},
     {491,"fred","pig_bomb",96,96,32,32,true,"character_pigbomb",4,"wait_bomb",0b0000},
-    {494,"494","pig_normal",512,128,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {495,"495","pig_normal",448,192,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {496,"496","pig_normal",800,96,32,32,true,"gfx_pig",0,"loiter",0b0000},
     {519,"6","warp_room_trigger",128,288,64,2,true,"",0,"",0b0000},
@@ -478,7 +477,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 204;
+static const size_t level_1_lvl_1_obj_objects_len = 203;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
@@ -597,7 +596,7 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {500, 816,122, 0x0},
     {501, 752,152, 0x0},
     {502, 528,152, 0x0},
-    {503, 640,152, 0x0},
+    {503, 656,152, 0x0},
     {504, 432,216, 0x0},
     {505, 400,184, 0x0},
     {506, 432,152, 0x0},
@@ -617,9 +616,26 @@ static const dang::tmx_waypoint level_1_waypoints[] = {
     {590, 496,184, 0x0},
     {591, 848,184, 0x0},
     {592, 720,152, 0x0},
+    {613, 624,152, 0x0},
+    {614, 528,120, 0x0},
+    {615, 720,120, 0x0},
+    {616, 688,152, 0x0},
+    {617, 560,152, 0x0},
+    {618, 112,120, 0x0},
+    {619, 80,152, 0x0},
+    {620, 112,184, 0x0},
+    {621, 80,216, 0x0},
+    {622, 48,216, 0x0},
+    {623, 80,88, 0x0},
+    {624, 112,56, 0x0},
+    {625, 144,56, 0x0},
+    {626, 240,152, 0x0},
+    {627, 208,184, 0x0},
+    {628, 176,216, 0x0},
+    {629, 112,216, 0x0},
 };
 
-static const size_t level_1_waypoints_len = 54;
+static const size_t level_1_waypoints_len = 71;
 
 static const dang::tmx_waypoint_connection level_1_connections[] = {
     {409, 410, 0x1},
@@ -709,10 +725,9 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {500, 501, 0x8},
     {501, 509, 0x1},
     {501, 500, 0x2},
-    {502, 503, 0x1},
     {502, 590, 0x1},
-    {503, 592, 0x1},
-    {503, 502, 0x1},
+    {502, 617, 0x1},
+    {503, 616, 0x1},
     {504, 508, 0x1},
     {504, 505, 0x2},
     {505, 504, 0x1},
@@ -740,13 +755,50 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
     {588, 589, 0x1},
     {589, 588, 0x1},
     {590, 502, 0x2},
+    {590, 614, 0x8},
     {591, 499, 0x1},
     {591, 498, 0x1},
     {591, 500, 0x8},
-    {592, 503, 0x1},
+    {592, 616, 0x1},
+    {592, 615, 0x2},
+    {613, 617, 0x1},
+    {614, 617, 0x1},
+    {614, 590, 0x1},
+    {615, 616, 0x1},
+    {615, 592, 0x8},
+    {616, 503, 0x1},
+    {616, 592, 0x1},
+    {616, 615, 0x2},
+    {617, 502, 0x1},
+    {617, 613, 0x1},
+    {617, 614, 0x2},
+    {618, 619, 0x1},
+    {618, 623, 0x2},
+    {619, 620, 0x1},
+    {619, 622, 0x1},
+    {619, 618, 0x2},
+    {620, 621, 0x1},
+    {620, 619, 0x2},
+    {621, 622, 0x1},
+    {621, 620, 0x2},
+    {622, 621, 0x1},
+    {622, 619, 0x8},
+    {622, 623, 0x8},
+    {623, 618, 0x1},
+    {623, 622, 0x1},
+    {623, 624, 0x2},
+    {624, 623, 0x1},
+    {624, 625, 0x1},
+    {625, 624, 0x1},
+    {626, 627, 0x1},
+    {627, 628, 0x1},
+    {627, 626, 0x2},
+    {628, 629, 0x1},
+    {628, 627, 0x2},
+    {629, 628, 0x1},
 };
 
-static const size_t level_1_connections_len = 122;
+static const size_t level_1_connections_len = 158;
 
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,

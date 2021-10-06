@@ -119,7 +119,14 @@ namespace pnk
 
     void PigCrate::endThrowing()
     {
-        prepareChangeState(LOITERING);
+        if (_nTreeStateDefault == nullptr)
+        {
+            prepareChangeState(SLEEPING);
+        }
+        else
+        {
+            prepareChangeState(LOITERING);
+        }
     }
 
     void PigCrate::pickupCrate()
@@ -188,6 +195,7 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTDistanceOK(dang::spSprite s)
     {
+
         std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
 
         if (spr->_nTreeState->_payload.count("aaLoSH"))

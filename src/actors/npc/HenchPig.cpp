@@ -199,7 +199,6 @@ namespace pnk
     bool HenchPig::onEnterLoitering()
     {
         // activate the behaviour tree, if not already active
-//        resetPathVars();
         if (_nTreeState != _nTreeStateDefault)
         {
             _nTreeState = _nTreeStateDefault;

@@ -175,22 +175,35 @@ namespace pnk
         _bt["wait_crate"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
-                    .leaf(PigCrate::NTDistanceOK)
-                    .leaf(PigCrate::NTThrowCrate)
+                    .leaf(PigCrate::NTWithCrate)
+                    .selector()
+                        .sequence()
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(PigCrate::NTDistanceOK)
+                            .leaf(PigCrate::NTThrowCrate)
+                        .end()
+                        .leaf(HenchPig::NTNap)
+                    .end()
                 .end()
-                .leaf(HenchPig::NTNap)
+                .tree(_bt["loiter"])
             .end()
         .build();
+
 
         _bt["wait_bomb"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
-                    .leaf(PigBomb::NTDistanceOK)
-                    .leaf(PigBomb::NTThrowBomb)
+                    .leaf(PigBomb::NTWithBomb)
+                    .selector()
+                        .sequence()
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(PigBomb::NTDistanceOK)
+                            .leaf(PigBomb::NTThrowBomb)
+                        .end()
+                        .leaf(HenchPig::NTNap)
+                    .end()
                 .end()
-                .leaf(HenchPig::NTNap)
+                .tree(_bt["loiter"])
             .end()
         .build();
 
