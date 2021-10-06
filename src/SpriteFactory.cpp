@@ -262,6 +262,7 @@ namespace pnk
         assert(ret->_anim_m_picking_up != nullptr);
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
         assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_throwing->loops(0);
 
         // animations without bomb
         is = iss.at("gfx_pig");
