@@ -252,15 +252,15 @@ namespace pnk
         ret->_type_num = ST_PIG_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+        ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_m_loitering != nullptr);
-        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
+        ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
         assert(ret->_anim_m_bubbling != nullptr);
-        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "picking_up");
+        ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up");
         assert(ret->_anim_m_picking_up != nullptr);
-        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
+        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing");
         assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(0);
 

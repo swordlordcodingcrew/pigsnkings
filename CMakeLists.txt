@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DNDEBUG)
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
-add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions")
+add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions" "-Wattributes")
 
 # ---- 32blit stuff ----
 #set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
