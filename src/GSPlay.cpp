@@ -39,6 +39,8 @@
 #include "sfx/lifelost_22050_mono.h"
 #include "sfx/teleport_22050_mono.h"
 #include "sfx/victory_22050_mono.h"
+#include "sfx/crate_explode_22050_mono.h"
+#include "sfx/cheat_22050_mono.h"
 
 #include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
@@ -59,8 +61,6 @@
 #include "fonts/barcadebrawl.h"
 
 #include <snd/SndGear.hpp>
-#include <sfx/crate_explode_22050_mono.h>
-#include <sfx/cheat_22050_mono.h>
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
 #include <Gear.hpp>
@@ -72,6 +72,7 @@
 #include <Layer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
+#include <tween/TwVel.hpp>
 #include <CollisionSprite.hpp>
 #include <path/SceneGraph.hpp>
 #include <path/Waypoint.hpp>
@@ -98,8 +99,10 @@ extern char _sbss, _end, __ltdc_start;
 
 /**
  * TODOs
- * - z_order (in tiled exporter
- * - gfx PigBomb when without bomb (PigCrate?)
+ * - z_order (in tiled exporter)
+ * - loose bomb when bubbled
+ * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
+ * - make event-dispatcher global
  */
 
 
@@ -429,9 +432,9 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-*/
-        _pnk._gamestate.active_room = 5;
 
+        _pnk._gamestate.active_room = 4;
+*/
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
@@ -515,7 +518,9 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
                 || pe._type == ETG_NEW_THROWN_BOMB
-                || pe._type == ETG_NEW_FIRED_CANNON)
+                || pe._type == ETG_NEW_FIRED_CANNON
+                || pe._type == ETG_NEW_DROP_BOMB
+                || pe._type == ETG_NEW_DROP_CRATE)
         {
             handleNewThrowie(pe);
         }
@@ -576,7 +581,7 @@ namespace pnk
 
     void GSPlay::handleNewThrowie(PnkEvent& pe)
     {
-        if (pe._type == ETG_NEW_THROWN_CRATE)
+        if (pe._type == ETG_NEW_THROWN_CRATE || pe._type == ETG_NEW_DROP_CRATE)
         {
             spCraties proto = std::dynamic_pointer_cast<Craties>(_hives["crate"]);
             assert(proto != nullptr);
@@ -584,9 +589,16 @@ namespace pnk
             crate->setPos(pe._pos);
             crate->_to_the_left = pe._to_the_left;
             crate->init();
+
+            // movement sequence
+            float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
+            velx = pe._to_the_left ? -velx : velx;
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            crate->addTween(twv1);
+
             _csl->addCollisionSprite(crate);
         }
-        else if (pe._type == ETG_NEW_THROWN_BOMB)
+        else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
             spBombies proto = std::dynamic_pointer_cast<Bombies>(_hives["bomb"]);
             assert(proto != nullptr);
@@ -594,6 +606,13 @@ namespace pnk
             bomb->setPos(pe._pos);
             bomb->_to_the_left = pe._to_the_left;
             bomb->init();
+
+            // movement sequence
+            float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
+            velx = pe._to_the_left ? -velx : velx;
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            bomb->addTween(twv1);
+
             _csl->addCollisionSprite(bomb);
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)

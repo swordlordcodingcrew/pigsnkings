@@ -41,9 +41,11 @@ enum ET
     ETG_NEW_BUBBLE = 10,
     ETG_REMOVE_SPRITE = 11,
     ETG_NEW_THROWN_CRATE = 20,
-    ETG_NEW_THROWN_BOMB = 21,
-    ETG_NEW_FIRED_CANNON = 22,
-    ETG_NEW_POOF = 23,
+    ETG_NEW_DROP_CRATE = 21,
+    ETG_NEW_THROWN_BOMB = 22,
+    ETG_NEW_DROP_BOMB = 23,
+    ETG_NEW_FIRED_CANNON = 24,
+    ETG_NEW_POOF = 25,
     ETG_REWARD_HIT = 30,
     ETG_CRATE_EXPLODES = 50,
     ETG_BOMB_EXPLODES = 51,
@@ -141,6 +143,10 @@ static inline const float BUBBLE_VEL_UP{-1.5};     // bubble vertical velocity
 static inline const float E_WALK_VEL{2};           // enemy walk velocity
 
 static inline const float CRATE_VEL{20};           // crate throwing velocity
+static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
+
+static inline const float BOMB_VEL{20};           // bomb throwing velocity
+static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
 
 static inline const blit::Pen FADE_COL{0,0,0};  // fading colour
 static inline const uint8_t FADE_STEP{8};           // fade step (fading ist from 0 to 255)

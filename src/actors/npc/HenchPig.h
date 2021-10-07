@@ -21,7 +21,6 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void bubble() override;
-        void endBubble() override;
         bool isBubbled() override;
 
 
@@ -75,7 +74,9 @@ namespace pnk
         virtual void endThrowing();
 
         virtual bool onEnterPickingUp();
+
         virtual bool onEnterBubbled();
+        void endBubble() override;
 
         virtual void poofing();
 

@@ -35,6 +35,9 @@ namespace pnk
         bool            _crated{true};
         void            pickupCrate();
 
+        bool            onEnterBubbled() override;
+
+
     };
 
 }
