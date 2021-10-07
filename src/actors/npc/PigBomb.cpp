@@ -90,24 +90,7 @@ namespace pnk
         addTween(tws);
 
         return true;
-
-/*
-        //_walkSpeed = _loiter_speed;
-        setAnimation(_anim_m_throwing);
-        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
-
-        _currentState = THROWING;
-
-        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
-        twPrepare->setFinishedCallback(std::bind(&PigBomb::throwing, this));
-        addTween(twPrepare);
-
-        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(700, dang::Ease::Linear, 0);
-        twThrown->setFinishedCallback(std::bind(&PigBomb::endThrowing, this));
-        addTween(twThrown);
-
-        return true;
-*/    }
+    }
 
 
     void PigBomb::throwing()
