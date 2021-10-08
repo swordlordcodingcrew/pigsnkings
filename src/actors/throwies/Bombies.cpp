@@ -61,7 +61,7 @@ namespace pnk
     {
         this->Throwies::init();
 
-        _hotrect = {6, 9, 20, 20};
+        _hotrect = {11, 20, 10, 10};
     }
 
     void Bombies::update(uint32_t dt)
