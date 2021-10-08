@@ -74,7 +74,8 @@ namespace pnk
 
     void Bombies::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (!_bIsOnFire && (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT))
+        if (!_bIsOnFire && (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT
+                         || mf.other->_type_num == ST_HOTRECT_PLATFORM || mf.me->_type_num == ST_HOTRECT_PLATFORM))
         {
             // have the animation sequence triggered
             setBombOnFire();
@@ -88,7 +89,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Bombies::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
+        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT || other->_type_num == ST_HOTRECT_PLATFORM)
         {
             return dang::CollisionSpriteLayer::CR_BOUNCE;
         }
