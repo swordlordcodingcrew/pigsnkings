@@ -142,6 +142,33 @@ namespace pnk
         }
     }
 
+    bool PigBomb::onEnterBubbled()
+    {
+        if (_with_bomb)
+        {
+            // drop bomb
+            _with_bomb = false;
+            dang::spTwAnim tmp_anim = _anim_m_loitering;
+            _anim_m_loitering = _anim_alt_loitering;
+            _anim_alt_loitering = tmp_anim;
+
+            tmp_anim = _anim_m_sleeping;
+            _anim_m_sleeping = _anim_alt_sleeping;
+            _anim_alt_sleeping = tmp_anim;
+
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_DROP_BOMB));
+            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_pos = this->getPos();
+            e->_pos.y -= 10; // piggie holds the bomb on ground + 10 (yeah, small piggie)
+            _pnk._dispatcher.queueEvent(std::move(e));
+
+        }
+
+        return HenchPig::onEnterBubbled();
+
+    }
+
+
     dang::BTNode::Status PigBomb::NTPickUpBomb(dang::spSprite s)
     {
         std::shared_ptr<PigBomb> spr = std::dynamic_pointer_cast<PigBomb>(s);

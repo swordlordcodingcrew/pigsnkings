@@ -29,6 +29,7 @@ namespace pnk
     protected:
         bool            onEnterThrowing() override;
         virtual void    endThrowing() override;
+        bool            onEnterBubbled() override;
         virtual void    throwing();
         bool            _with_bomb{true};
         void            pickupBomb();
