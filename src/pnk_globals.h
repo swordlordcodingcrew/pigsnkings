@@ -77,7 +77,7 @@ enum SpriteType
     ST_PIG_NORMAL = 11,
     ST_NORMAL_PIG_HIVE = 12,
     ST_PIG_BETTER = 13,
-    ST_PIG_BOX = 14,
+    ST_PIG_CRATE = 14,
     ST_PIG_BOMB = 15,
     ST_PIG_CANNON = 16,
     ST_CANNON = 17,
@@ -150,3 +150,12 @@ static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
 
 static inline const blit::Pen FADE_COL{0,0,0};  // fading colour
 static inline const uint8_t FADE_STEP{8};           // fade step (fading ist from 0 to 255)
+
+static inline const uint8_t DAMAGE_PIG_NORMAL{30};         // when touching a normal pig
+static inline const uint8_t DAMAGE_PIG_BOMB{35};           // when touching a pig with a bomb
+static inline const uint8_t DAMAGE_PIG_CRATE{35};          // when touching a pig with a crate
+static inline const uint8_t DAMAGE_FLYING_BOMB{10};        // when hit with a flying bomb
+static inline const uint8_t DAMAGE_FLYING_CRATE{20};       // when hit with a flying crate
+static inline const uint8_t DAMAGE_FLYING_CANNONBALL{40};  // when hit with a flying cannonball
+static inline const uint8_t DAMAGE_CANNON{40};             // when touching a cannon
+static inline const uint8_t DAMAGE_EXPLOSION{50};          // when hit with an explosion

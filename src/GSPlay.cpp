@@ -100,7 +100,6 @@ extern char _sbss, _end, __ltdc_start;
 /**
  * TODOs
  * - z_order (in tiled exporter)
- * - loose bomb when bubbled
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
  * - make event-dispatcher global
  */
@@ -433,7 +432,7 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 
-        _pnk._gamestate.active_room = 4;
+        _pnk._gamestate.active_room = 5;
 */
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
@@ -610,7 +609,7 @@ namespace pnk
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
-            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -10), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             bomb->addTween(twv1);
 
             _csl->addCollisionSprite(bomb);
@@ -645,7 +644,6 @@ namespace pnk
 
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
     {
-        // TODO have different animations for crates and the rest
         spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
         assert(proto != nullptr);
         spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
@@ -694,35 +692,19 @@ namespace pnk
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
-        switch(pe._payload)
+        switch (pe._payload)
         {
-            case ST_PIG_NORMAL:
-                health -= 30;
-                break;
-            case ST_PIG_BOMB:
-                health -= 35;
-                break;
-            case ST_PIG_BOX:
-                health -= 35;
-                break;
-            case ST_FLYING_BOMB:
-                health -= 10;
-                break;
-            case ST_FLYING_CRATE:
-                health -= 20;
-                break;
-            case ST_FLYING_CANNONBALL:
-                health -= 40;
-                break;
-            case ST_CANNON:
-                health -= 40;
-                break;
-            case ST_EXPLOSION:
-                health -= 50;
-                break;
+            case ST_PIG_NORMAL:         health -= DAMAGE_PIG_NORMAL;        break;
+            case ST_PIG_BOMB:           health -= DAMAGE_PIG_BOMB;          break;
+            case ST_PIG_CRATE:          health -= DAMAGE_PIG_CRATE;         break;
+            case ST_FLYING_BOMB:        health -= DAMAGE_FLYING_BOMB;       break;
+            case ST_FLYING_CRATE:       health -= DAMAGE_FLYING_CRATE;      break;
+            case ST_FLYING_CANNONBALL:  health -= DAMAGE_FLYING_CANNONBALL; break;
+            case ST_CANNON:             health -= DAMAGE_CANNON;            break;
+            case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
             handleKingLoosesLife();
         }
