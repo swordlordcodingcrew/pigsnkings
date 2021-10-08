@@ -207,7 +207,7 @@ namespace pnk
         spImagesheet is = iss.at(so->tileset);
 
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
-        ret->_type_num = ST_PIG_BOX;
+        ret->_type_num = ST_PIG_CRATE;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
