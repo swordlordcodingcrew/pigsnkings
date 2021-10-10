@@ -40,12 +40,6 @@ namespace pnk
         static dang::BTNode::Status NTsetSleepLong(dang::spSprite s);                // 5 - 10 sec of sleep state
         static dang::BTNode::Status NTdoSleep(dang::spSprite s);
 
-
-/*        static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state
-        static dang::BTNode::Status NTSleep(dang::spSprite s);              //!< 2 - 4 sec of sleep state
-        static dang::BTNode::Status NTNarcolepsy(dang::spSprite s);         //!< 5 - 10 sec of sleep state
-        dang::BTNode::Status        sleep();
-*/
         void                        startOutToWaypoint() override;
 
         void setNTreeBerserk(dang::spNTreeState berserk) { _nTreeStateBerserk = berserk; }

@@ -70,22 +70,23 @@ namespace pnk
         _acts.push_back(room7);
 
         /** behaviour trees */
-/*        dang::spNTree tr = dang::NTBuilder{}
-                .selector()
+        dang::spNTree tr = dang::NTBuilder{}
+            .selector()
                 .sequence()
-                .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
                 .end()
                 .sequence()
-                .leaf(Enemy::NTfindNearestWaypointH)
-                .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(Enemy::NTfindNearestWaypointH)
+                    .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-                .leaf(HenchPig::NTSleep)
-                .end()
-                .build();
+                .leaf(HenchPig::NTsetSleepMedium)
+                .leaf(HenchPig::NTdoSleep)
+            .end()
+        .build();
 
         _bt["loiter"] = tr;
-
+/*
         dang::spNTree tr2 = dang::NTBuilder{}
                 .selector()
                 .sequence()

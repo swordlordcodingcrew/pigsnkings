@@ -372,31 +372,7 @@ namespace pnk
 
         }
     }
-/*
-    dang::BTNode::Status HenchPig::NTNap(dang::spSprite s)
-    {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 500;
-        spr->_nTreeState->_payload["sleep_max"] = 1500;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
-    }
 
-    dang::BTNode::Status HenchPig::NTSleep(dang::spSprite s)
-    {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 2000;
-        spr->_nTreeState->_payload["sleep_max"] = 4000;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
-    }
-
-    dang::BTNode::Status HenchPig::NTNarcolepsy(dang::spSprite s)
-    {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 5000;
-        spr->_nTreeState->_payload["sleep_max"] = 10000;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
-    }
-*/
     dang::BTNode::Status HenchPig::NTsetSleepShort(dang::spSprite s)
     {
         std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
