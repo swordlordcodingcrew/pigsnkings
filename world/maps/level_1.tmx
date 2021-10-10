@@ -154,7 +154,7 @@
   <object id="578" gid="124" x="736" y="96" width="32" height="32"/>
   <object id="579" gid="125" x="768" y="96" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_1_obj" locked="1">
+ <objectgroup id="3" name="lvl_1_obj">
   <object id="143" type="coin_silver" gid="129" x="384" y="560" width="32" height="48"/>
   <object id="144" type="coin_silver" gid="129" x="448" y="598" width="32" height="48"/>
   <object id="145" type="coin_silver" gid="129" x="480" y="598" width="32" height="48"/>
@@ -384,7 +384,11 @@
   <object id="519" name="6" type="warp_room_trigger" x="128" y="288" width="64" height="2"/>
   <object id="527" type="hotrect" x="256" y="438" width="32" height="10"/>
   <object id="528" type="hotrect" x="32" y="439" width="32" height="10"/>
-  <object id="529" type="boss" gid="462" x="224" y="448" width="32" height="32"/>
+  <object id="529" type="boss" gid="462" x="256" y="448" width="32" height="32">
+   <properties>
+    <property name="bt" value="boss"/>
+   </properties>
+  </object>
   <object id="530" name="bossbattle trigger" type="bossbattle_trigger" x="96" y="337" width="128" height="16"/>
   <object id="535" type="hotrect" x="192" y="288" width="96" height="32"/>
   <object id="538" name="2" type="level_trigger" x="152" y="336" width="16" height="49"/>
@@ -399,7 +403,7 @@
   </object>
   <object id="631" type="hotrect" x="0" y="288" width="32" height="64"/>
  </objectgroup>
- <objectgroup id="5" name="lvl_1_fg">
+ <objectgroup id="5" name="lvl_1_fg" locked="1">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
   <object id="387" gid="19" x="384" y="32" width="32" height="32"/>
   <object id="389" gid="27" x="416" y="32" width="32" height="32"/>

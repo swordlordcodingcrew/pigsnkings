@@ -463,7 +463,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {519,"6","warp_room_trigger",128,288,64,2,true,"",0,"",0b0000},
     {527,"527","hotrect",256,438,32,10,true,"",0,"",0b0000},
     {528,"528","hotrect",32,439,32,10,true,"",0,"",0b0000},
-    {529,"529","boss",224,448,32,32,true,"character_pigking",0,"",0b0000},
+    {529,"529","boss",256,448,32,32,true,"character_pigking",0,"boss",0b0000},
     {530,"bossbattle trigger","bossbattle_trigger",96,337,128,16,true,"",0,"",0b0000},
     {535,"535","hotrect",192,288,96,32,true,"",0,"",0b0000},
     {538,"2","level_trigger",152,336,16,49,true,"",0,"",0b0000},

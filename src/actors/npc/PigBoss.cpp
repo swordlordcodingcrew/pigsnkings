@@ -25,7 +25,8 @@ namespace pnk
     PigBoss::PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
     {
         _hotrect = {10, 10, 12, 22};
-        _nextState = BERSERK;
+        _walkSpeed = 8;     // king is on steroids
+        _nextState = LOITERING;
     }
 
     void PigBoss::init()

@@ -250,6 +250,14 @@ namespace pnk
 
         DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 
+        _bt["boss"] = dang::NTBuilder{}
+            .sequence()
+                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                .leaf(Enemy::NTsetRandNeighbourWaypoint)    // there is only one neighbour waypoint -> runs back and forth
+                .leaf(Enemy::NTcheckPathCompleted)
+            .end()
+        .build();
+
 /*        _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()

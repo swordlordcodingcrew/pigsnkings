@@ -400,6 +400,7 @@ namespace pnk
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
         spr->_nTreeState->_payload["sleep_duration"] = duration;
         spr->prepareChangeState(SLEEPING);
+        return dang::BTNode::Status::SUCCESS;
     }
 
     dang::BTNode::Status HenchPig::NTdoSleep(dang::spSprite s)
