@@ -126,7 +126,8 @@ enum e_waypoint_type
 {
     WPT_NONE = 0x0,
     WPT_BOMBDEPOT = 0x1,
-    WPT_CRATEDEPOT = 0x2
+    WPT_CRATEDEPOT = 0x2,
+    WPT_POI = 0x4
 };
 
 

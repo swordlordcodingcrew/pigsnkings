@@ -70,7 +70,7 @@ namespace pnk
         _acts.push_back(room7);
 
         /** behaviour trees */
-        dang::spNTree tr = dang::NTBuilder{}
+/*        dang::spNTree tr = dang::NTBuilder{}
                 .selector()
                 .sequence()
                 .leaf(Enemy::NTsetRandNeighbourWaypoint)
@@ -134,7 +134,7 @@ namespace pnk
                 .end()
                 .build();
         _bt["lazy"] = tr4;
-
+*/
 
     }
 }

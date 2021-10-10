@@ -149,7 +149,7 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status Enemy::setDestinationWaypointByDepot(uint32_t depot_type)
+    dang::BTNode::Status Enemy::setDestinationWaypointByType(uint32_t wp_type)
     {
         if (_current_wp == nullptr)
         {
@@ -161,7 +161,7 @@ namespace pnk
         resetPathVars();
 
         dang::Waypoint* start = const_cast<dang::Waypoint*>(_current_wp);
-        const dang::Waypoint* dest = _scene_graph->getWaypointWithType(depot_type);
+        const dang::Waypoint* dest = _scene_graph->getWaypointWithType(wp_type);
 
         if (dest != start)
         {
@@ -365,13 +365,19 @@ namespace pnk
     dang::BTNode::Status Enemy::NTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(WPT_BOMBDEPOT) : dang::BTNode::Status::FAILURE);
+        return (spr ? spr->setDestinationWaypointByType(WPT_BOMBDEPOT) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s)
     {
         std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
-        return (spr ? spr->setDestinationWaypointByDepot(WPT_CRATEDEPOT) : dang::BTNode::Status::FAILURE);
+        return (spr ? spr->setDestinationWaypointByType(WPT_CRATEDEPOT) : dang::BTNode::Status::FAILURE);
+    }
+
+    dang::BTNode::Status Enemy::NTsetDestinationPOI(std::shared_ptr<Sprite> s)
+    {
+        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        return (spr ? spr->setDestinationWaypointByType(WPT_POI) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTfindNearestWaypoint(std::shared_ptr<Sprite> s)

@@ -118,7 +118,14 @@ namespace pnk
 
     void PigBomb::endThrowing()
     {
-        prepareChangeState(LOITERING);
+        if (_nTreeStateDefault == nullptr)
+        {
+            prepareChangeState(SLEEPING);
+        }
+        else
+        {
+            prepareChangeState(LOITERING);
+        }
     }
 
     void PigBomb::pickupBomb()

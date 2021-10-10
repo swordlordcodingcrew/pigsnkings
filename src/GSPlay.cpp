@@ -99,6 +99,7 @@ extern char _sbss, _end, __ltdc_start;
 
 /**
  * TODOs
+ * - boss battle
  * - z_order (in tiled exporter)
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
  * - make event-dispatcher global
@@ -431,9 +432,9 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-
-        _pnk._gamestate.active_room = 5;
 */
+        _pnk._gamestate.active_room = 6;
+
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 

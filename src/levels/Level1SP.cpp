@@ -112,7 +112,8 @@ namespace pnk
                     .tree(back_to_path_h)   // crash in this function on hw
                     .tree(back_to_path)
                 .end()
-                .leaf(HenchPig::NTSleep)
+                .leaf(HenchPig::NTsetSleepMedium)
+                .leaf(HenchPig::NTdoSleep)
             .end()
         .build();
 
@@ -147,7 +148,7 @@ namespace pnk
             .end()
         .build();
 
-        _bt["loiter_with_crates"] = dang::NTBuilder{}
+/*        _bt["loiter_with_crates"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .inverter().leaf(PigCrate::NTWithCrate)
@@ -168,7 +169,7 @@ namespace pnk
                 .tree(back_to_path)
             .end()
         .build();
-
+*/
 
         DEBUG_PRINT("Level1SP: after bt 5 (%d)\r\n", mallinfo().uordblks);
 
@@ -181,9 +182,13 @@ namespace pnk
                             .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
                             .leaf(PigCrate::NTDistanceOK)
                             .leaf(PigCrate::NTThrowCrate)
-                            .leaf(HenchPig::NTSleep)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
                         .end()
-                        .leaf(HenchPig::NTNap)
+                        .sequence()
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
                     .end()
                 .end()
                 .tree(_bt["loiter"])
@@ -200,28 +205,65 @@ namespace pnk
                             .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
                             .leaf(PigBomb::NTDistanceOK)
                             .leaf(PigBomb::NTThrowBomb)
-                            .leaf(HenchPig::NTSleep)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
                         .end()
-                        .leaf(HenchPig::NTNap)
+                        .sequence()
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
                     .end()
                 .end()
                 .tree(_bt["loiter"])
             .end()
         .build();
 
+        _bt["wait_with_bombs"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .inverter().leaf(PigBomb::NTWithBomb)
+                    .selector()
+                        .sequence()
+                            .leaf(Enemy::NTsetDestinationBombDepot)
+                            .leaf(Enemy::NTcheckPathCompleted)
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                            .leaf(PigBomb::NTPickUpBomb)
+                            .leaf(Enemy::NTsetDestinationPOI)
+                            .leaf(Enemy::NTcheckPathCompleted)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                        .tree(back_to_path_h)
+                        .tree(back_to_path)
+                    .end()
+                .end()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+//                    .leaf(PigBomb::NTDistanceOK)
+                    .leaf(PigBomb::NTThrowBomb)
+                    .leaf(HenchPig::NTsetSleepMedium)
+                    .leaf(HenchPig::NTdoSleep)
+                .end()
+            .end()
+        .build();
+
         DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 
-        _bt["wait_for_hero"] = dang::NTBuilder{}
+/*        _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
                     .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-                .leaf(HenchPig::NTNap)
+                .sequence()
+                    .leaf(HenchPig::NTsetSleepShort)
+                    .leaf(HenchPig::NTdoSleep)
+                .end()
             .end()
         .build();
-
+*/
     }
 
 }

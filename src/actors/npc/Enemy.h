@@ -52,7 +52,7 @@ namespace pnk
         virtual void startOutToWaypoint();
 
         /** these functions are used to set a destination wapoint */
-        dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
+        dang::BTNode::Status setDestinationWaypointByType(uint32_t wp_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
         dang::BTNode::Status setRandPath();
         dang::BTNode::Status setWPHNearHero();
@@ -69,6 +69,7 @@ namespace pnk
         static dang::BTNode::Status NTcheckWaypointReached(dang::spSprite s);
         static dang::BTNode::Status NTsetDestinationBombDepot(dang::spSprite s);
         static dang::BTNode::Status NTsetDestinationCrateDepot(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationPOI(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
 
