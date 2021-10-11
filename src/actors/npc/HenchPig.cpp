@@ -34,8 +34,7 @@ namespace pnk
         if (_nTreeState != nullptr)
         {
             _nTreeStateDefault = _nTreeState;
-            _nTreeState->_payload["sleep_min"] = 500;
-            _nTreeState->_payload["sleep_max"] = 1500;
+            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(500, 1500);
             onEnterSleeping();
         }
         else
@@ -185,16 +184,8 @@ namespace pnk
                 nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
                 addTween(nullTw);
             }
-/*            if (_nTreeState->_payload.count("sleep_min") > 0 && _nTreeState->_payload.count("sleep_max") > 0)
-            {
-                uint32_t sleep_duration = dang::Rand::get(uint32_t(_nTreeState->_payload["sleep_min"]), uint32_t(_nTreeState->_payload["sleep_max"]));
-                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
-                nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
-                addTween(nullTw);
-            }
-*/        }
+        }
 
-//        _nTreeState.reset();
         _currentState = SLEEPING;
 
         return true;

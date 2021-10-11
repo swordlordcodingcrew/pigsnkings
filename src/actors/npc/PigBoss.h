@@ -37,14 +37,12 @@ namespace pnk
         dang::spTwAnim _anim_m_die;
 
         /** path and bt functions */
-        static dang::BTNode::Status NTSleep(dang::spSprite s);
-        dang::BTNode::Status        sleep();
         void                        startOutToWaypoint() override;
+        static dang::BTNode::Status NTLurk(dang::spSprite s);
+        static dang::BTNode::Status NTRun(dang::spSprite s);
+
 
     protected:
-
-        // inactive bt
-        dang::spNTreeState _nTreeStateDepot{nullptr};
 
         virtual void tellTheKingWeHitHim();
 
@@ -61,14 +59,10 @@ namespace pnk
         virtual bool onEnterLoitering();
         virtual void endLoitering();
 
-        virtual bool onEnterBerserk();
-        virtual void endBerserk();
-
         virtual bool onEnterDead();
 
         virtual void removeSelf();
 
-        const uint8_t _loiter_speed{2};
-        const uint8_t _raging_speed{6};
+        const uint8_t _loiter_speed{8};
     };
 }

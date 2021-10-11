@@ -81,34 +81,37 @@ namespace pnk
         return ret;
     }
 
-    spBoss SpriteFactory::Boss(dang::TmxExtruder &txtr, const dang::tmx_spriteobject *so, spImagesheet is)
+    spBoss SpriteFactory::Boss(dang::TmxExtruder &txtr, const dang::tmx_spriteobject *so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp)
     {
+        spImagesheet is = iss.at(so->tileset);
+
         assert(is != nullptr);
         spBoss ret = std::make_shared<pnk::PigBoss>(so, is);
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = ST_PIG_BOSS;
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-
-        ret->_anim_m_running = txtr.getAnimation(is->getName(), "running");
+        ret->_anim_m_running = txtr.getAnimation(is, "running");
         assert(ret->_anim_m_running != nullptr);
-
-        ret->_anim_m_landing = txtr.getAnimation(is->getName(), "landing");
+        ret->_anim_m_landing = txtr.getAnimation(is, "landing");
         assert(ret->_anim_m_landing != nullptr);
         ret->_anim_m_landing->loops(1);
-
-        ret->_anim_m_jumping = txtr.getAnimation(is->getName(), "jumping");
+        ret->_anim_m_jumping = txtr.getAnimation(is, "jumping");
         assert(ret->_anim_m_jumping != nullptr);
         ret->_anim_m_jumping->loops(1);
-
-        ret->_anim_m_hit = txtr.getAnimation(is->getName(), "hit");
+        ret->_anim_m_hit = txtr.getAnimation(is, "hit");
         assert(ret->_anim_m_hit != nullptr);
         ret->_anim_m_hit->loops(2);
-
-        ret->_anim_m_die = txtr.getAnimation(is->getName(), "die");
+        ret->_anim_m_die = txtr.getAnimation(is, "die");
         assert(ret->_anim_m_die != nullptr);
         ret->_anim_m_die->loops(1);
+
+        attachBehaviourTree(txtr, so, ret);
+
+        initSceneGraph(sp, ret);
+
+        ret->init();
 
         return ret;
     }

@@ -103,6 +103,7 @@ extern char _sbss, _end, __ltdc_start;
  * - z_order (in tiled exporter)
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
  * - make event-dispatcher global
+ * - wait animation of npcs with random delay and longer cycles
  */
 
 
@@ -323,7 +324,7 @@ namespace pnk
             }
             else if (so->type == SpriteFactory::T_BOSS)
             {
-                _spr_boss = SpriteFactory::Boss(txtr, so, is);
+                _spr_boss = SpriteFactory::Boss(txtr, so, iss, _screenplay);
                 spr = _spr_boss;
             }
 

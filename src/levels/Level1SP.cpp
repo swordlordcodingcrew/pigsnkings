@@ -8,6 +8,7 @@
 #include "../actors/npc/HenchPig.h"
 #include "../actors/npc/PigCrate.h"
 #include "../actors/npc/PigBomb.h"
+#include "../actors/npc/PigBoss.h"
 
 #include <bt/NTBuilder.h>
 
@@ -253,8 +254,9 @@ namespace pnk
         _bt["boss"] = dang::NTBuilder{}
             .sequence()
                 .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                .leaf(Enemy::NTsetRandNeighbourWaypoint)    // there is only one neighbour waypoint -> runs back and forth
+                .leaf(PigBoss::NTRun)
                 .leaf(Enemy::NTcheckPathCompleted)
+                .leaf(PigBoss::NTLurk)
             .end()
         .build();
 

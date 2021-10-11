@@ -145,7 +145,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        if (_somatic_state == SomaticState::_normal)
         {
             if (other->_type_num == ST_HOTRECT_PLATFORM)
             {
@@ -164,6 +164,32 @@ namespace pnk
 
             _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             return _coll_response;
+        }
+        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        {
+            if (other->_type_num == ST_HOTRECT_PLATFORM)
+            {
+                spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
+
+                if (cs->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+                {
+                    _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                    return _coll_response;
+                }
+
+                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                return _coll_response;
+
+            }
+            else if (other->_type_num == ST_HOTRECT)
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                return _coll_response;
+            }
+
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            return _coll_response;
+
         }
 
         _coll_response = dang::CollisionSpriteLayer::CR_NONE;
