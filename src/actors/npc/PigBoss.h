@@ -33,6 +33,7 @@ namespace pnk
         dang::spTwAnim _anim_m_running;
         dang::spTwAnim _anim_m_landing;
         dang::spTwAnim _anim_m_jumping;
+        dang::spTwAnim _anim_m_recovering;
         dang::spTwAnim _anim_m_hit;
         dang::spTwAnim _anim_m_die;
 
@@ -40,6 +41,8 @@ namespace pnk
         void                        startOutToWaypoint() override;
         static dang::BTNode::Status NTLurk(dang::spSprite s);
         static dang::BTNode::Status NTRun(dang::spSprite s);
+        static dang::BTNode::Status NTHit(dang::spSprite s);
+        static dang::BTNode::Status NTRecover(dang::spSprite s);
 
 
     protected:
@@ -59,10 +62,16 @@ namespace pnk
         virtual bool onEnterLoitering();
         virtual void endLoitering();
 
+        virtual bool onEnterHiding();
+        virtual void endHiding();
+
         virtual bool onEnterDead();
 
         virtual void removeSelf();
 
-        const uint8_t _loiter_speed{8};
+        const uint8_t _loiter_speed{7};
+        const uint8_t _hiding_speed{16};
+
+        bool _hit{false};
     };
 }

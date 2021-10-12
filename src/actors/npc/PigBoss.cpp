@@ -63,6 +63,9 @@ namespace pnk
                 case LOITERING:
                     onEnterLoitering();
                     break;
+                case HIDING:
+                    onEnterHiding();
+                    break;
                 case DEAD:
                     onEnterDead();
                     break;
@@ -78,7 +81,7 @@ namespace pnk
         /** run into the king */
         if (other->_type_num == ST_KING)
         {
-            if (_currentState == DEAD)
+            if (_currentState == DEAD || _currentState == HIDING || _hit)
             {
                 _coll_response = dang::CollisionSpriteLayer::CR_NONE;
             }
@@ -111,10 +114,14 @@ namespace pnk
 
         if (sprOther->_type_num == ST_KING && normal.y > 0 && _currentState == LOITERING)
         {
-            // TODO check first if the other one can still collide?
-            // tell the pig king he is hit, should be stunned for a few rounds
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
-            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+            if (!_hit)
+            {
+                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+                pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                _hit = true;
+                _walkSpeed = _hiding_speed;
+                _vel.x = _vel.x > 0 ? _walkSpeed : -_walkSpeed;
+            }
         }
         else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
         {
@@ -168,12 +175,31 @@ namespace pnk
         prepareChangeState(SLEEPING);
     }
 
+    bool PigBoss::onEnterHiding()
+    {
+        _currentState = HIDING;
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(2000, dang::Ease::Linear, 1);
+        nullTw->setFinishedCallback(std::bind(&PigBoss::endHiding, this));
+        addTween(nullTw);
+
+        setAnimation(_anim_m_recovering);
+        return true;
+    }
+
+    void PigBoss::endHiding()
+    {
+        _walkSpeed = _loiter_speed;
+        _hit = false;
+        prepareChangeState(SLEEPING);
+    }
+
     bool PigBoss::onEnterDead()
     {
         std::cout << "enter dead" << std::endl;
 
         setAnimation(_anim_m_die);
         removeTweens(true);
+        _nTreeState.reset();
 
         _currentState = DEAD;
 
@@ -267,4 +293,37 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
 
     }
+
+    dang::BTNode::Status PigBoss::NTHit(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_hit)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
+    }
+
+    dang::BTNode::Status PigBoss::NTRecover(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_currentState != HIDING && spr->_nextState != HIDING)
+        {
+            spr->prepareChangeState(HIDING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == HIDING && spr->_nextState == HIDING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == HIDING && spr->_nextState != HIDING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+
+        }
+        return dang::BTNode::Status::FAILURE;
+    }
+
 }

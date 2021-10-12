@@ -29,6 +29,7 @@ namespace pnk
         // state stuff
         bool isOnGround() const { return _on_ground; }
         bool topHit() const { return _top_hit; }
+        bool isInNormalState() const;
 
         void lifeLost(const dang::Vector2F& restart_pos);
 

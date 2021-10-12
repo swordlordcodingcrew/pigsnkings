@@ -1006,7 +1006,7 @@ namespace pnk
         int8_t health = _pnk._gamestate.boss_health;
 
         // the boss can't be more dead than dead
-        if(health <= 0)
+        if (health <= 0)
         {
             return;
         }
@@ -1046,7 +1046,7 @@ namespace pnk
             _pnk.getGear().setLayersActive(false);
         }
 */
-        _csl->setActive(false);
+        _csl->setActive(!pause);
         _txtl->setText(message);
         _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
         _txtl->setActive(true);
@@ -1064,27 +1064,36 @@ namespace pnk
 
     dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
     {
-        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
-        float ret = _csl->aaLoSH(cs, _spr_hero);
-
-        if (ret != 0)
+        if (_spr_hero->isInNormalState())
         {
-            cs->getNTreeState()->_payload["aaLoSH"] = ret;
-            return dang::BTNode::Status::SUCCESS;
+            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            float ret = _csl->aaLoSH(cs, _spr_hero);
+
+            if (ret != 0)
+            {
+                cs->getNTreeState()->_payload["aaLoSH"] = ret;
+                return dang::BTNode::Status::SUCCESS;
+            }
+
         }
+
         return dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
     {
-        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
-        float ret = _csl->loS(cs, _spr_hero);
-
-        if (ret != 0)
+        if (_spr_hero->isInNormalState())
         {
-            cs->getNTreeState()->_payload["LoS"] = ret;
-            return dang::BTNode::Status::SUCCESS;
+            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            float ret = _csl->loS(cs, _spr_hero);
+
+            if (ret != 0)
+            {
+                cs->getNTreeState()->_payload["LoS"] = ret;
+                return dang::BTNode::Status::SUCCESS;
+            }
         }
+
         return dang::BTNode::Status::FAILURE;
     }
 

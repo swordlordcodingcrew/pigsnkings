@@ -107,6 +107,9 @@ namespace pnk
         assert(ret->_anim_m_die != nullptr);
         ret->_anim_m_die->loops(1);
 
+        ret->_anim_m_recovering = dang::spTwAnim((ret->_anim_m_sleeping));
+        ret->_anim_m_recovering->duration(400);
+
         attachBehaviourTree(txtr, so, ret);
 
         initSceneGraph(sp, ret);

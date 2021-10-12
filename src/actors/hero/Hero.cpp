@@ -62,40 +62,39 @@ namespace pnk
             // collision with enemy
             if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
             {
-                // if hero from above, no real hit, only jump back
-                if(other->_type_num == ST_PIG_BOSS && normal.y > 0)
-                {
-                    // do nothing
-                }
-                else
+                if (!(other->_type_num == ST_PIG_BOSS && normal.y > 0))
                 {
                     _hit = true;
-                }
-                float ax{0};
-                if (mf.me.get() == this)
-                {
-                    if (mf.normalMe.x == 0)
+                    float ax{0};
+                    if (mf.me.get() == this)
                     {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        if (mf.normalMe.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalMe.x > 0 ? -9 : 9;
+                        }
                     }
                     else
                     {
-                        ax = mf.normalMe.x > 0 ? -9 : 9;
+                        if (mf.normalOther.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalOther.x > 0 ? -9 : 9;
+                        }
                     }
+                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
+                    addTween(twa);
                 }
                 else
                 {
-                    if (mf.normalOther.x == 0)
-                    {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
-                    }
-                    else
-                    {
-                        ax = mf.normalOther.x > 0 ? -9 : 9;
-                    }
+                    // pigboss hit from above
                 }
-                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
-                addTween(twa);
             }
 
             /** hero hits a platform-hotrect */
@@ -232,5 +231,9 @@ namespace pnk
 
     }
 
+    bool Hero::isInNormalState() const
+    {
+        return _somatic_state == SomaticState::_normal;
+    }
 
 }

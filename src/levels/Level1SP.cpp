@@ -252,11 +252,17 @@ namespace pnk
         DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 
         _bt["boss"] = dang::NTBuilder{}
-            .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                .leaf(PigBoss::NTRun)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(PigBoss::NTLurk)
+            .selector()
+                .sequence()
+                    .leaf(PigBoss::NTHit)
+                    .leaf(PigBoss::NTRecover)
+                .end()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(PigBoss::NTRun)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(PigBoss::NTLurk)
+                .end()
             .end()
         .build();
 
