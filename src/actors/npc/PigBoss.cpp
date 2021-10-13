@@ -112,15 +112,22 @@ namespace pnk
         // we want the others normal, not our normal!
         const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
 
-        if (sprOther->_type_num == ST_KING && normal.y > 0 && _currentState == LOITERING)
+        if (sprOther->_type_num == ST_KING && _currentState == LOITERING)
         {
-            if (!_hit)
+            if (normal.y > 0)
             {
-                std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
-                pnk::_pnk._dispatcher.queueEvent(std::move(e));
-                _hit = true;
-                _walkSpeed = _hiding_speed;
-                _vel.x = _vel.x > 0 ? _walkSpeed : -_walkSpeed;
+                if (!_hit)
+                {
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                    _hit = true;
+                    _walkSpeed = _hiding_speed;
+                    _vel.x = _vel.x > 0 ? _walkSpeed : -_walkSpeed;
+                }
+            }
+            else
+            {
+                tellTheKingWeHitHim();
             }
         }
         else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
@@ -178,7 +185,7 @@ namespace pnk
     bool PigBoss::onEnterHiding()
     {
         _currentState = HIDING;
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(2000, dang::Ease::Linear, 1);
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(BOSS_RECOVER_TIME, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&PigBoss::endHiding, this));
         addTween(nullTw);
 
@@ -200,6 +207,7 @@ namespace pnk
         setAnimation(_anim_m_die);
         removeTweens(true);
         _nTreeState.reset();
+        _vel.x = 0;
 
         _currentState = DEAD;
 
@@ -208,7 +216,6 @@ namespace pnk
 
     void PigBoss::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_PIG_BOSS;
@@ -235,7 +242,6 @@ namespace pnk
         else
         {
             _transform = blit::NONE;
-
         }
     }
 

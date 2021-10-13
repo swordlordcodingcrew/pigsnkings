@@ -92,6 +92,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_sleeping->delay(300);
         ret->_anim_m_running = txtr.getAnimation(is, "running");
         assert(ret->_anim_m_running != nullptr);
         ret->_anim_m_landing = txtr.getAnimation(is, "landing");
@@ -107,8 +108,9 @@ namespace pnk
         assert(ret->_anim_m_die != nullptr);
         ret->_anim_m_die->loops(1);
 
-        ret->_anim_m_recovering = dang::spTwAnim((ret->_anim_m_sleeping));
-        ret->_anim_m_recovering->duration(400);
+        ret->_anim_m_recovering = std::make_shared<dang::TwAnim>(*(ret->_anim_m_sleeping));
+        ret->_anim_m_recovering->duration(300);
+        ret->_anim_m_recovering->delay(0);
 
         attachBehaviourTree(txtr, so, ret);
 

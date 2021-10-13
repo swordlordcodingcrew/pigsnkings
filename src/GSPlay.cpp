@@ -99,7 +99,6 @@ extern char _sbss, _end, __ltdc_start;
 
 /**
  * TODOs
- * - boss battle
  * - z_order (in tiled exporter)
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
  * - make event-dispatcher global
@@ -704,6 +703,7 @@ namespace pnk
             case ST_FLYING_CANNONBALL:  health -= DAMAGE_FLYING_CANNONBALL; break;
             case ST_CANNON:             health -= DAMAGE_CANNON;            break;
             case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
+            case ST_PIG_BOSS:           health -= DAMAGE_PIGBOSS;           break;
         }
 
         if (health <= 0)
@@ -953,6 +953,12 @@ namespace pnk
 
     void GSPlay::endBossBattle()
     {
+        // remove all remaining piggies
+        _csl->removeSpritesByTypeNum(ST_PIG_NORMAL);
+        _csl->removeSpritesByTypeNum(ST_PIG_CRATE);
+        _csl->removeSpritesByTypeNum(ST_PIG_BOMB);
+        _csl->removeSpritesByTypeNum(ST_PIG_CANNON);
+
         /*
         // lets not do this, player should see how she killed the boss
         spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
