@@ -433,7 +433,7 @@ namespace pnk
             changeRoom(_pnk._gamestate.active_room, true);
         }
 */
-        _pnk._gamestate.active_room = 6;
+        _pnk._gamestate.active_room = 2;
 
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
