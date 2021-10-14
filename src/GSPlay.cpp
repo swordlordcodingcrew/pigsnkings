@@ -430,9 +430,9 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-*/
-        _pnk._gamestate.active_room = 5;
 
+        _pnk._gamestate.active_room = 5;
+*/
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
