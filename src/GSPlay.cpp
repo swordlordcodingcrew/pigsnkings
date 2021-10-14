@@ -100,8 +100,7 @@ extern char _sbss, _end, __ltdc_start;
 /**
  * TODOs
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
- * - make event-dispatcher global
- * - wait animation of npcs with random delay and longer cycles
+ * (- make event-dispatcher global)
  */
 
 
@@ -431,9 +430,9 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-
-        _pnk._gamestate.active_room = 2;
 */
+        _pnk._gamestate.active_room = 5;
+
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 

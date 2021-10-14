@@ -11,6 +11,7 @@
  </tile>
  <tile id="4" type="sleeping">
   <animation>
+   <frame tileid="13" duration="100"/>
    <frame tileid="4" duration="100"/>
    <frame tileid="5" duration="100"/>
    <frame tileid="6" duration="100"/>

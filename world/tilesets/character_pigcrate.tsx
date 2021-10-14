@@ -12,8 +12,9 @@
  </tile>
  <tile id="5" type="sleeping">
   <animation>
-   <frame tileid="5" duration="100"/>
+   <frame tileid="13" duration="100"/>
    <frame tileid="6" duration="100"/>
+   <frame tileid="5" duration="100"/>
    <frame tileid="7" duration="100"/>
    <frame tileid="8" duration="100"/>
    <frame tileid="9" duration="100"/>
