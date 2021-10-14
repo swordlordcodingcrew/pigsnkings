@@ -99,7 +99,6 @@ extern char _sbss, _end, __ltdc_start;
 
 /**
  * TODOs
- * - z_order: bug in first loaded room
  * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
  * - make event-dispatcher global
  * - wait animation of npcs with random delay and longer cycles
