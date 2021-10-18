@@ -34,7 +34,7 @@ namespace pnk
         if (_nTreeState != nullptr)
         {
             _nTreeStateDefault = _nTreeState;
-            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(500, 1500);
+            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
             onEnterSleeping();
         }
         else

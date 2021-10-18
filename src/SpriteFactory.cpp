@@ -190,7 +190,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
@@ -223,7 +223,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_m_loitering != nullptr);
@@ -239,7 +239,7 @@ namespace pnk
         is = iss.at("gfx_pig");
         ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_alt_sleeping != nullptr);
-        ret->_anim_alt_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_alt_loitering != nullptr);
@@ -269,7 +269,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_m_loitering != nullptr);
@@ -285,7 +285,7 @@ namespace pnk
         is = iss.at("gfx_pig");
         ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_alt_sleeping != nullptr);
-        ret->_anim_alt_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_alt_loitering != nullptr);
@@ -314,7 +314,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
@@ -354,7 +354,7 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(1000, 2000));
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
