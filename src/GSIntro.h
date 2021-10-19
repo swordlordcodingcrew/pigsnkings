@@ -17,7 +17,7 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
 
     protected:
-        uint32_t _enter_time{0};
+        uint32_t _duration{0};        // in ms
     };
 
 }

@@ -19,7 +19,9 @@ namespace pnk
 
     std::shared_ptr<GameState> pnk::GSIntro::update(dang::Gear& gear, uint32_t time)
     {
-        if (time - _enter_time > 1000)
+        _duration += 10;    // update is called every 10 ms
+
+        if (_duration > 1000)
         {
             return GameState::_gs_home;
         }
@@ -30,8 +32,6 @@ namespace pnk
     void GSIntro::enter(dang::Gear& gear, uint32_t time)
     {
         DEBUG_PRINT("GSIntro: entering\n");
-
-        _enter_time = time;
 
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
@@ -57,6 +57,8 @@ namespace pnk
 
         // clear gear
         gear.removeLayers();
+
+        _duration = 0;
     }
 
 }
