@@ -8,8 +8,6 @@
 #include "GSIntro.h"
 #include "GSHome.h"
 #include "GSPlay.h"
-#include "sfx/bubble_pop_22050_mono.h"
-#include "tracks/gocryogo.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
 #include "src/actors/hero/Hero.h"
 
@@ -103,48 +101,24 @@ namespace pnk
         // first globally handle events
         _dispatcher.publishEvents();
 
-        if (_fade_out)
+        if (!_gear.fading())
         {
-            if (_fade_colour.a < 255)
-            {
-                _fade_colour.a = _fade_colour.a + _fade_step > 255 ? 255 : _fade_colour.a + _fade_step;
-                _gear.update(10);
-            }
-            else
-            {
+            _new_gs = _current_gs->update(_gear, time);
+        }
+
+        if (_new_gs != _current_gs)
+        {
+            _gear.fade(FADE_COL, FADE_STEP, [=](){
                 _current_gs->exit(_gear, time);
                 _current_gs = _new_gs;
                 _current_gs->enter(_gear, time);
-                _fade_out = false;
-                _fade_in = true;
-            }
-        }
-        else if (_fade_in)
-        {
-            if (_fade_colour.a > 0)
-            {
-                _fade_colour.a = _fade_colour.a - _fade_step < 0 ? 0 : _fade_colour.a - _fade_step;
-                _gear.update(10);
-            }
-            else
-            {
-                _fade_in = false;
-            }
-        }
-        else
-        {
-            _new_gs = _current_gs->update(_gear, time);
 
-            if (_new_gs != _current_gs)
-            {
-                _fade_out = true;
-            }
+            });
+        }
 
-            // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
-            _gear.update(10);
+        // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
+        _gear.update(10);
 //        _gear.update(time - _last_time);
-
-        }
 
         _last_time = time;
     }
@@ -155,15 +129,9 @@ namespace pnk
         // have the engine render the game
         _gear.render(time);
 
-        if (_fade_out || _fade_in)
-        {
-            blit::screen.pen = _fade_colour;
-            blit::screen.rectangle({0,0, blit::screen.bounds.w, blit::screen.bounds.h});
-        }
-
-        // show amount of memory used
 
 #ifdef PNK_DEBUG_MEM
+        // show amount of memory used
         blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
         if (_mem != mallinfo().uordblks / 1024)
         {

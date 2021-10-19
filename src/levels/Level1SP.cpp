@@ -1,18 +1,18 @@
 // (c) 2019-1 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include "../pnk_globals.h"
-
 #include "Level1SP.hpp"
+#include "../pnk_globals.h"
+#include "../GSPlay.h"
 #include "../actors/npc/Enemy.h"
 #include "../actors/npc/HenchPig.h"
 #include "../actors/npc/PigCrate.h"
-#include "../GSPlay.h"
+#include "../actors/npc/PigBomb.h"
+#include "../actors/npc/PigBoss.h"
 
 #include <bt/NTBuilder.h>
 
 #ifdef PNK_DEBUG_PRINT
-
 #ifdef TARGET_32BLIT_HW
 #include "32blit.hpp"
 #endif
@@ -113,7 +113,8 @@ namespace pnk
                     .tree(back_to_path_h)   // crash in this function on hw
                     .tree(back_to_path)
                 .end()
-                .leaf(HenchPig::NTSleep)
+                .leaf(HenchPig::NTsetSleepMedium)
+                .leaf(HenchPig::NTdoSleep)
             .end()
         .build();
 
@@ -148,7 +149,7 @@ namespace pnk
             .end()
         .build();
 
-        _bt["loiter_with_crates"] = dang::NTBuilder{}
+/*        _bt["loiter_with_crates"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .inverter().leaf(PigCrate::NTWithCrate)
@@ -169,34 +170,116 @@ namespace pnk
                 .tree(back_to_path)
             .end()
         .build();
-
+*/
 
         DEBUG_PRINT("Level1SP: after bt 5 (%d)\r\n", mallinfo().uordblks);
 
         _bt["wait_crate"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                    .leaf(PigCrate::NTThrowCrate)
+                    .leaf(PigCrate::NTWithCrate)
+                    .selector()
+                        .sequence()
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(PigCrate::NTDistanceOK)
+                            .leaf(PigCrate::NTThrowCrate)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                        .sequence()
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                    .end()
                 .end()
-                .leaf(HenchPig::NTNap)
+                .tree(_bt["loiter"])
             .end()
         .build();
 
 
+        _bt["wait_bomb"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(PigBomb::NTWithBomb)
+                    .selector()
+                        .sequence()
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(PigBomb::NTDistanceOK)
+                            .leaf(PigBomb::NTThrowBomb)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                        .sequence()
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                    .end()
+                .end()
+                .tree(_bt["loiter"])
+            .end()
+        .build();
+
+        _bt["wait_with_bombs"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .inverter().leaf(PigBomb::NTWithBomb)
+                    .selector()
+                        .sequence()
+                            .leaf(Enemy::NTsetDestinationBombDepot)
+                            .leaf(Enemy::NTcheckPathCompleted)
+                            .leaf(HenchPig::NTsetSleepLong)
+                            .leaf(HenchPig::NTdoSleep)
+                            .leaf(PigBomb::NTPickUpBomb)
+                            .leaf(Enemy::NTsetDestinationPOI)
+                            .leaf(Enemy::NTcheckPathCompleted)
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                        .tree(back_to_path_h)
+                        .tree(back_to_path)
+                    .end()
+                .end()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+//                    .leaf(PigBomb::NTDistanceOK)
+                    .leaf(PigBomb::NTThrowBomb)
+                    .leaf(HenchPig::NTsetSleepMedium)
+                    .leaf(HenchPig::NTdoSleep)
+                .end()
+            .end()
+        .build();
+
         DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 
-        _bt["wait_for_hero"] = dang::NTBuilder{}
+        _bt["boss"] = dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(PigBoss::NTHit)
+                    .leaf(PigBoss::NTRecover)
+                .end()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(PigBoss::NTRun)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(PigBoss::NTLurk)
+                .end()
+            .end()
+        .build();
+
+/*        _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
                     .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-                .leaf(HenchPig::NTNap)
+                .sequence()
+                    .leaf(HenchPig::NTsetSleepShort)
+                    .leaf(HenchPig::NTdoSleep)
+                .end()
             .end()
         .build();
-
+*/
     }
 
 }

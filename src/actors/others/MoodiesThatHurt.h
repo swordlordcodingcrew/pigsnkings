@@ -1,5 +1,5 @@
 // (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #pragma once
 
@@ -21,6 +21,7 @@ namespace pnk
 
     protected:
         bool _has_hurt{false};
+        void tellTheKingWeHitHim();
     };
 }
 

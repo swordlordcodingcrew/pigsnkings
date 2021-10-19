@@ -1,9 +1,10 @@
 // (c) 2019-20 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #pragma once
 
 #include <cstdint>
+#include <libs/32blit-sdk/32blit/graphics/surface.hpp>
 
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
@@ -40,9 +41,11 @@ enum ET
     ETG_NEW_BUBBLE = 10,
     ETG_REMOVE_SPRITE = 11,
     ETG_NEW_THROWN_CRATE = 20,
-    ETG_NEW_THROWN_BOMB = 21,
-    ETG_NEW_FIRED_CANNON = 22,
-    ETG_NEW_POOF = 23,
+    ETG_NEW_DROP_CRATE = 21,
+    ETG_NEW_THROWN_BOMB = 22,
+    ETG_NEW_DROP_BOMB = 23,
+    ETG_NEW_FIRED_CANNON = 24,
+    ETG_NEW_POOF = 25,
     ETG_REWARD_HIT = 30,
     ETG_CRATE_EXPLODES = 50,
     ETG_BOMB_EXPLODES = 51,
@@ -74,7 +77,7 @@ enum SpriteType
     ST_PIG_NORMAL = 11,
     ST_NORMAL_PIG_HIVE = 12,
     ST_PIG_BETTER = 13,
-    ST_PIG_BOX = 14,
+    ST_PIG_CRATE = 14,
     ST_PIG_BOMB = 15,
     ST_PIG_CANNON = 16,
     ST_CANNON = 17,
@@ -123,7 +126,8 @@ enum e_waypoint_type
 {
     WPT_NONE = 0x0,
     WPT_BOMBDEPOT = 0x1,
-    WPT_CRATEDEPOT = 0x2
+    WPT_CRATEDEPOT = 0x2,
+    WPT_POI = 0x4
 };
 
 
@@ -131,12 +135,33 @@ enum e_waypoint_type
  * game consts
  */
 
-static inline const float H_WALK_VEL = 7;           // hero walk velocity
-static inline const float H_JUMP_VEL = -16;         // hero jump velocity
-static inline const uint32_t H_JUMP_COUNT = 30;     // max jump cyclies
-static inline const float BUBBLE_VEL = 20;          // bubble horizontal velocity
-static inline const float BUBBLE_VEL_UP = -1.5;     // bubble vertical velocity
+static inline const float H_WALK_VEL{7};           // hero walk velocity
+static inline const float H_JUMP_VEL{-16};         // hero jump velocity
+static inline const uint32_t H_JUMP_COUNT{30};     // max jump cyclies
+static inline const float BUBBLE_VEL{20};          // bubble horizontal velocity
+static inline const float BUBBLE_VEL_UP{-1.5};     // bubble vertical velocity
 
-static inline const float E_WALK_VEL = 2;           // enemy walk velocity
+static inline const float E_WALK_VEL{2};           // enemy walk velocity
 
-static inline const float CRATE_VEL = 20;           // crate throwing velocity
+static inline const float CRATE_VEL{20};           // crate throwing velocity
+static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
+
+static inline const float BOMB_VEL{24};           // bomb throwing velocity
+static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
+
+static inline const blit::Pen FADE_COL{0,0,0};  // fading colour
+static inline const uint8_t FADE_STEP{8};           // fade step (fading ist from 0 to 255)
+
+/** damage params */
+static inline const uint8_t DAMAGE_PIG_NORMAL{30};         // when touching a normal pig
+static inline const uint8_t DAMAGE_PIG_BOMB{35};           // when touching a pig with a bomb
+static inline const uint8_t DAMAGE_PIG_CRATE{35};          // when touching a pig with a crate
+static inline const uint8_t DAMAGE_FLYING_BOMB{10};        // when hit with a flying bomb
+static inline const uint8_t DAMAGE_FLYING_CRATE{20};       // when hit with a flying crate
+static inline const uint8_t DAMAGE_FLYING_CANNONBALL{40};  // when hit with a flying cannonball
+static inline const uint8_t DAMAGE_CANNON{40};             // when touching a cannon
+static inline const uint8_t DAMAGE_EXPLOSION{50};          // when hit with an explosion
+static inline const uint8_t DAMAGE_PIGBOSS{39};            // when toucing the pig boss
+
+/** boss battle params */
+static inline const uint32_t BOSS_RECOVER_TIME{3000};           // in ms. Duration of recovery

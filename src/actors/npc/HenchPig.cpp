@@ -34,8 +34,7 @@ namespace pnk
         if (_nTreeState != nullptr)
         {
             _nTreeStateDefault = _nTreeState;
-            _nTreeState->_payload["sleep_min"] = 500;
-            _nTreeState->_payload["sleep_max"] = 1500;
+            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
             onEnterSleeping();
         }
         else
@@ -157,18 +156,21 @@ namespace pnk
         _nextState = wishedState;
     }
 
-    dang::BTNode::Status HenchPig::sleep()
+/*    dang::BTNode::Status HenchPig::sleep()
     {
-        if (_currentState == SLEEPING)
+        if (_currentState != SLEEPING)
         {
+            prepareChangeState(SLEEPING);
             return dang::BTNode::Status::RUNNING;
         }
+        else if (_currentState == SLEEPING && _nextState != SLEEPING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
 
-        prepareChangeState(SLEEPING);
-
-        return dang::BTNode::Status::SUCCESS;
+        return dang::BTNode::Status::RUNNING;
     }
-
+*/
     bool HenchPig::onEnterSleeping()
     {
         assert(_anim_m_sleeping != nullptr);
@@ -176,16 +178,14 @@ namespace pnk
 
         if (_nTreeState != nullptr)
         {
-            if (_nTreeState->_payload.count("sleep_min") > 0 && _nTreeState->_payload.count("sleep_max") > 0)
+            if (_nTreeState->_payload.count("sleep_duration") > 0)
             {
-                uint32_t sleep_duration = dang::Rand::get(uint32_t(_nTreeState->_payload["sleep_min"]), uint32_t(_nTreeState->_payload["sleep_max"]));
-                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
+                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(_nTreeState->_payload["sleep_duration"], dang::Ease::Linear, 1);
                 nullTw->setFinishedCallback(std::bind(&HenchPig::endSleep, this));
                 addTween(nullTw);
             }
         }
 
-        _nTreeState.reset();
         _currentState = SLEEPING;
 
         return true;
@@ -199,7 +199,6 @@ namespace pnk
     bool HenchPig::onEnterLoitering()
     {
         // activate the behaviour tree, if not already active
-//        resetPathVars();
         if (_nTreeState != _nTreeStateDefault)
         {
             _nTreeState = _nTreeStateDefault;
@@ -365,28 +364,46 @@ namespace pnk
         }
     }
 
-    dang::BTNode::Status HenchPig::NTNap(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepShort(dang::spSprite s)
     {
         std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 500;
-        spr->_nTreeState->_payload["sleep_max"] = 1500;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+        assert(spr != nullptr);
+        uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
+        spr->_nTreeState->_payload["sleep_duration"] = duration;
+        spr->prepareChangeState(SLEEPING);
+        return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTSleep(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::spSprite s)
     {
         std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 2000;
-        spr->_nTreeState->_payload["sleep_max"] = 4000;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+        assert(spr != nullptr);
+        uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
+        spr->_nTreeState->_payload["sleep_duration"] = duration;
+        spr->prepareChangeState(SLEEPING);
+        return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTNarcolepsy(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepLong(dang::spSprite s)
     {
         std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
-        spr->_nTreeState->_payload["sleep_min"] = 5000;
-        spr->_nTreeState->_payload["sleep_max"] = 10000;
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
+        assert(spr != nullptr);
+        uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
+        spr->_nTreeState->_payload["sleep_duration"] = duration;
+        spr->prepareChangeState(SLEEPING);
+        return dang::BTNode::Status::SUCCESS;
+    }
+
+    dang::BTNode::Status HenchPig::NTdoSleep(dang::spSprite s)
+    {
+        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        assert(spr != nullptr);
+        if (spr->_currentState == SLEEPING || spr->_nextState == SLEEPING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+
+        return dang::BTNode::Status::SUCCESS;
     }
 
 

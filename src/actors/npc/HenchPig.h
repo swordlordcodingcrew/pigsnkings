@@ -21,7 +21,6 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         void bubble() override;
-        void endBubble() override;
         bool isBubbled() override;
 
 
@@ -36,11 +35,11 @@ namespace pnk
         dang::spTwAnim _anim_alt_loitering{nullptr};
 
         /** path and bt functions */
-        static dang::BTNode::Status NTNap(dang::spSprite s);                //!< 0.5 - 1.5 sec of sleep state
-        static dang::BTNode::Status NTSleep(dang::spSprite s);              //!< 2 - 4 sec of sleep state
-        static dang::BTNode::Status NTNarcolepsy(dang::spSprite s);         //!< 5 - 10 sec of sleep state
+        static dang::BTNode::Status NTsetSleepShort(dang::spSprite s);               // 0.5 - 1.5 sec of sleep state
+        static dang::BTNode::Status NTsetSleepMedium(dang::spSprite s);              // 2 - 4 sec of sleep state
+        static dang::BTNode::Status NTsetSleepLong(dang::spSprite s);                // 5 - 10 sec of sleep state
+        static dang::BTNode::Status NTdoSleep(dang::spSprite s);
 
-        dang::BTNode::Status        sleep();
         void                        startOutToWaypoint() override;
 
         void setNTreeBerserk(dang::spNTreeState berserk) { _nTreeStateBerserk = berserk; }
@@ -75,7 +74,9 @@ namespace pnk
         virtual void endThrowing();
 
         virtual bool onEnterPickingUp();
+
         virtual bool onEnterBubbled();
+        void endBubble() override;
 
         virtual void poofing();
 

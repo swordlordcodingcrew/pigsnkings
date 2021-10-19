@@ -1,40 +1,41 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <cassert>
-#include <iostream>
-#include <src/actors/npc/PigCrate.h>
-#include <src/actors/npc/PigBomb.h>
-#include "src/actors/npc/PigBoss.h"
-#include <src/actors/throwies/Craties.h>
-#include <src/actors/throwies/Bombies.h>
-#include <src/actors/throwies/Cannonball.h>
-#include "src/actors/throwies/Bubble.h"
-#include <src/actors/others/Moodies.h>
-#include <src/actors/others/MoodiesThatHurt.h>
-#include <src/actors/others/Cannon.h>
-#include <src/actors/others/Reward.h>
-#include <src/actors/npc/PigCannon.h>
-#include "CollisionSprite.hpp"
-#include "TmxExtruder.hpp"
-#include "Imagesheet.hpp"
-#include "Sprite.hpp"
-#include "tween/TwAnim.hpp"
-#include "tween/Ease.hpp"
-#include "path/SceneGraph.hpp"
-#include <Gear.hpp>
-
 #include "SpriteFactory.hpp"
-#include "src/actors/hero/Hero.h"
-#include "src/actors/others/RoomTrigger.h"
-#include "src/actors/others/LevelTrigger.h"
-#include "src/actors/others/BossbattleTrigger.h"
-
 #include "GSPlay.h"
 #include "pnk_globals.h"
+#include "actors/npc/PigCrate.h"
+#include "actors/npc/PigBomb.h"
+#include "actors/npc/PigBoss.h"
+#include "actors/throwies/Craties.h"
+#include "actors/throwies/Bombies.h"
+#include "actors/throwies/Cannonball.h"
+#include "actors/throwies/Bubble.h"
+#include "actors/others/Moodies.h"
+#include "actors/others/MoodiesThatHurt.h"
+#include "actors/others/Cannon.h"
+#include "actors/others/Reward.h"
+#include "actors/npc/PigCannon.h"
+#include "actors/hero/Hero.h"
+#include "actors/others/RoomTrigger.h"
+#include "actors/others/LevelTrigger.h"
+#include "actors/others/BossbattleTrigger.h"
+
+#include <Gear.hpp>
+#include <CollisionSprite.hpp>
+#include <TmxExtruder.hpp>
+#include <Imagesheet.hpp>
+#include <Sprite.hpp>
+#include <tween/TwAnim.hpp>
+#include <tween/Ease.hpp>
+#include <path/SceneGraph.hpp>
 
 #include <32blit.hpp>
+
 #include <cfloat>
+#include <cassert>
+#include <iostream>
+#include <libs/DANG/src/Rand.hpp>
 
 namespace pnk
 {
@@ -81,34 +82,42 @@ namespace pnk
         return ret;
     }
 
-    spBoss SpriteFactory::Boss(dang::TmxExtruder &txtr, const dang::tmx_spriteobject *so, spImagesheet is)
+    spBoss SpriteFactory::Boss(dang::TmxExtruder &txtr, const dang::tmx_spriteobject *so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp)
     {
+        spImagesheet is = iss.at(so->tileset);
+
         assert(is != nullptr);
         spBoss ret = std::make_shared<pnk::PigBoss>(so, is);
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = ST_PIG_BOSS;
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-
-        ret->_anim_m_running = txtr.getAnimation(is->getName(), "running");
+        ret->_anim_m_sleeping->delay(300);
+        ret->_anim_m_running = txtr.getAnimation(is, "running");
         assert(ret->_anim_m_running != nullptr);
-
-        ret->_anim_m_landing = txtr.getAnimation(is->getName(), "landing");
+        ret->_anim_m_landing = txtr.getAnimation(is, "landing");
         assert(ret->_anim_m_landing != nullptr);
         ret->_anim_m_landing->loops(1);
-
-        ret->_anim_m_jumping = txtr.getAnimation(is->getName(), "jumping");
+        ret->_anim_m_jumping = txtr.getAnimation(is, "jumping");
         assert(ret->_anim_m_jumping != nullptr);
         ret->_anim_m_jumping->loops(1);
-
-        ret->_anim_m_hit = txtr.getAnimation(is->getName(), "hit");
+        ret->_anim_m_hit = txtr.getAnimation(is, "hit");
         assert(ret->_anim_m_hit != nullptr);
         ret->_anim_m_hit->loops(2);
-
-        ret->_anim_m_die = txtr.getAnimation(is->getName(), "die");
+        ret->_anim_m_die = txtr.getAnimation(is, "die");
         assert(ret->_anim_m_die != nullptr);
         ret->_anim_m_die->loops(1);
+
+        ret->_anim_m_recovering = std::make_shared<dang::TwAnim>(*(ret->_anim_m_sleeping));
+        ret->_anim_m_recovering->duration(300);
+        ret->_anim_m_recovering->delay(0);
+
+        attachBehaviourTree(txtr, so, ret);
+
+        initSceneGraph(sp, ret);
+
+        ret->init();
 
         return ret;
     }
@@ -181,6 +190,8 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
@@ -207,11 +218,13 @@ namespace pnk
         spImagesheet is = iss.at(so->tileset);
 
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
-        ret->_type_num = ST_PIG_BOX;
+        ret->_type_num = ST_PIG_CRATE;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
@@ -226,6 +239,8 @@ namespace pnk
         is = iss.at("gfx_pig");
         ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_alt_sleeping != nullptr);
+        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
         assert(ret->_anim_alt_loitering != nullptr);
 
@@ -244,30 +259,51 @@ namespace pnk
         return ret;
     }
 
-    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
+    spHenchPig SpriteFactory::PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp)
     {
+        spImagesheet is = iss.at(so->tileset);
+
         spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = ST_PIG_BOMB;
         ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
-        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
-        assert(ret->_anim_m_bubbling != nullptr);
-        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "picking_up");
-        assert(ret->_anim_m_picking_up != nullptr);
-        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "throwing");
-        assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
-        ret->init();
+        ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
+        assert(ret->_anim_m_loitering != nullptr);
+        ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
+        assert(ret->_anim_m_bubbling != nullptr);
+        ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up");
+        assert(ret->_anim_m_picking_up != nullptr);
+        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing");
+        assert(ret->_anim_m_throwing != nullptr);
+        ret->_anim_m_throwing->loops(0);
+
+        // animations without bomb
+        is = iss.at("gfx_pig");
+        ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
+        assert(ret->_anim_alt_sleeping != nullptr);
+        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
+        ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
+        assert(ret->_anim_alt_loitering != nullptr);
 
         attachBehaviourTree(txtr, so, ret);
 
+        dang::spNTree t = sp->_bt["berserk"];
+        if (t != nullptr)
+        {
+            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
+        }
+
         initSceneGraph(sp, ret);
 
+        ret->init();
+
         return ret;
+
     }
 
     spHenchPig SpriteFactory::PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp)
@@ -278,6 +314,8 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
@@ -316,6 +354,8 @@ namespace pnk
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
         assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");

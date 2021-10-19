@@ -52,12 +52,12 @@ namespace pnk
         virtual void startOutToWaypoint();
 
         /** these functions are used to set a destination wapoint */
-        dang::BTNode::Status setDestinationWaypointByDepot(uint32_t depot_type);
+        dang::BTNode::Status setDestinationWaypointByType(uint32_t wp_type);
         dang::BTNode::Status setRandNeighbourWaypoint();
         dang::BTNode::Status setRandPath();
         dang::BTNode::Status setWPHNearHero();
 
-        /** this function are used if the sprite missed the dest waypoint and has to get back somehow to the path system */
+        /** this function is used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
         /** static hooks for the behaviour tree */
@@ -69,6 +69,7 @@ namespace pnk
         static dang::BTNode::Status NTcheckWaypointReached(dang::spSprite s);
         static dang::BTNode::Status NTsetDestinationBombDepot(dang::spSprite s);
         static dang::BTNode::Status NTsetDestinationCrateDepot(dang::spSprite s);
+        static dang::BTNode::Status NTsetDestinationPOI(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypoint(dang::spSprite s);
         static dang::BTNode::Status NTfindNearestWaypointH(dang::spSprite s);
 

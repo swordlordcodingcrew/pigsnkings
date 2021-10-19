@@ -62,40 +62,39 @@ namespace pnk
             // collision with enemy
             if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
             {
-                // if hero from above, no real hit, only jump back
-                if(other->_type_num == ST_PIG_BOSS && normal.y > 0)
-                {
-                    // do nothing
-                }
-                else
+                if (!(other->_type_num == ST_PIG_BOSS && normal.y > 0))
                 {
                     _hit = true;
-                }
-                float ax{0};
-                if (mf.me.get() == this)
-                {
-                    if (mf.normalMe.x == 0)
+                    float ax{0};
+                    if (mf.me.get() == this)
                     {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        if (mf.normalMe.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalMe.x > 0 ? -9 : 9;
+                        }
                     }
                     else
                     {
-                        ax = mf.normalMe.x > 0 ? -9 : 9;
+                        if (mf.normalOther.x == 0)
+                        {
+                            ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
+                        }
+                        else
+                        {
+                            ax = mf.normalOther.x > 0 ? -9 : 9;
+                        }
                     }
+                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
+                    addTween(twa);
                 }
                 else
                 {
-                    if (mf.normalOther.x == 0)
-                    {
-                        ax = _transform == blit::SpriteTransform::NONE ? -9 : 9;
-                    }
-                    else
-                    {
-                        ax = mf.normalOther.x > 0 ? -9 : 9;
-                    }
+                    // pigboss hit from above
                 }
-                dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
-                addTween(twa);
             }
 
             /** hero hits a platform-hotrect */
@@ -145,7 +144,7 @@ namespace pnk
 
     dang::CollisionSpriteLayer::eCollisionResponse Hero::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (_somatic_state == SomaticState::_normal || _somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        if (_somatic_state == SomaticState::_normal)
         {
             if (other->_type_num == ST_HOTRECT_PLATFORM)
             {
@@ -164,6 +163,32 @@ namespace pnk
 
             _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             return _coll_response;
+        }
+        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        {
+            if (other->_type_num == ST_HOTRECT_PLATFORM)
+            {
+                spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
+
+                if (cs->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+                {
+                    _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                    return _coll_response;
+                }
+
+                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                return _coll_response;
+
+            }
+            else if (other->_type_num == ST_HOTRECT)
+            {
+                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                return _coll_response;
+            }
+
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            return _coll_response;
+
         }
 
         _coll_response = dang::CollisionSpriteLayer::CR_NONE;
@@ -206,5 +231,9 @@ namespace pnk
 
     }
 
+    bool Hero::isInNormalState() const
+    {
+        return _somatic_state == SomaticState::_normal;
+    }
 
 }

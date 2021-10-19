@@ -50,9 +50,9 @@ namespace pnk
         _hotrect = {6, 9, 20, 20};
 
         // movement sequence
-        float velx = _to_the_left ? -CRATE_VEL : CRATE_VEL;
-        dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
-        addTween(twv1);
+//        float velx = _to_the_left ? -CRATE_VEL : CRATE_VEL;
+//        dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+//        addTween(twv1);
 
         if(_anim_flying != nullptr)
         {

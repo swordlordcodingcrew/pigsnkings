@@ -11,6 +11,7 @@
  </tile>
  <tile id="4" type="sleeping">
   <animation>
+   <frame tileid="13" duration="100"/>
    <frame tileid="4" duration="100"/>
    <frame tileid="5" duration="100"/>
    <frame tileid="6" duration="100"/>
@@ -42,13 +43,6 @@
    <frame tileid="24" duration="100"/>
   </animation>
  </tile>
- <tile id="23" type="bubbling">
-  <animation>
-   <frame tileid="23" duration="100"/>
-   <frame tileid="24" duration="100"/>
-  </animation>
- </tile>
- <tile id="24" type="bubbling"/>
  <tile id="25" type="bomb_off">
   <animation>
    <frame tileid="25" duration="100"/>

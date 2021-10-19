@@ -9,8 +9,6 @@
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
 #include <tween/TwSequence.hpp>
-#include <Imagesheet.hpp>
-#include <TmxExtruder.hpp>
 
 #include <iostream>
 #include <cassert>
@@ -23,7 +21,7 @@ namespace pnk
     {
     }
 
-    PigCrate::PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::HenchPig(so, is)
+    PigCrate::PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet& is) : pnk::HenchPig(so, is)
     {
     }
 
@@ -64,9 +62,13 @@ namespace pnk
         {
             _transform = _nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
         }
-//        _transform = _walkSpeed > 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+        else if (_nTreeState->_payload.count("LoS"))
+        {
+            _transform = _nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+        }
         setVel({0,0});
 
+        // change the anims from crate-carrying to empty-handed
         _currentState = THROWING;
         _crated = false;
         dang::spTwAnim tmp_anim = _anim_m_loitering;
@@ -100,6 +102,11 @@ namespace pnk
             e->_to_the_left = _nTreeState->_payload["aaLoSH"] > 0;
             _nTreeState->_payload.erase("aaLoSH");
         }
+        else if (_nTreeState->_payload.count("LoS"))
+        {
+            e->_to_the_left = _nTreeState->_payload["LoS"] > 0;
+            _nTreeState->_payload.erase("LoS");
+        }
         else
         {
             e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
@@ -112,7 +119,14 @@ namespace pnk
 
     void PigCrate::endThrowing()
     {
-        prepareChangeState(LOITERING);
+        if (_nTreeStateDefault == nullptr)
+        {
+            prepareChangeState(SLEEPING);
+        }
+        else
+        {
+            prepareChangeState(LOITERING);
+        }
     }
 
     void PigCrate::pickupCrate()
@@ -135,6 +149,34 @@ namespace pnk
             setAnimation(_anim_m_sleeping);
         }
     }
+
+    bool PigCrate::onEnterBubbled()
+    {
+        if (_crated)
+        {
+            // drop crate
+            _crated = false;
+            dang::spTwAnim tmp_anim = _anim_m_loitering;
+            _anim_m_loitering = _anim_alt_loitering;
+            _anim_alt_loitering = tmp_anim;
+
+            tmp_anim = _anim_m_sleeping;
+            _anim_m_sleeping = _anim_alt_sleeping;
+            _anim_alt_sleeping = tmp_anim;
+
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_DROP_CRATE));
+            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_pos = this->getPos();
+            e->_pos.y -= 10; // piggie holds the box on ground + 10 (yeah, small piggie)
+            _pnk._dispatcher.queueEvent(std::move(e));
+
+        }
+
+        return HenchPig::onEnterBubbled();
+
+    }
+
+
 
     dang::BTNode::Status PigCrate::NTPickUpCrate(dang::spSprite s)
     {
@@ -178,6 +220,34 @@ namespace pnk
         std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
         return spr->_crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
+
+    dang::BTNode::Status PigCrate::NTDistanceOK(dang::spSprite s)
+    {
+
+        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+
+        if (spr->_nTreeState->_payload.count("aaLoSH"))
+        {
+            float dist = spr->_nTreeState->_payload["aaLoSH"];
+            dist = std::abs(dist);
+            if (dist < 110)
+            {
+                return dang::BTNode::Status::SUCCESS;
+            }
+        }
+        else if (spr->_nTreeState->_payload.count("LoS"))
+        {
+            float dist = spr->_nTreeState->_payload["LoS"];
+            dist = std::abs(dist);
+            if (dist < 110)
+            {
+                return dang::BTNode::Status::SUCCESS;
+            }
+        }
+
+        return dang::BTNode::Status::FAILURE;
+    }
+
 
 /*    dang::BTNodeStatus PigCrate::BTHideInCrate(dang::spSprite s)
     {

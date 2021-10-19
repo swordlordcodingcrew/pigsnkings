@@ -39,6 +39,8 @@
 #include "sfx/lifelost_22050_mono.h"
 #include "sfx/teleport_22050_mono.h"
 #include "sfx/victory_22050_mono.h"
+#include "sfx/crate_explode_22050_mono.h"
+#include "sfx/cheat_22050_mono.h"
 
 #include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
@@ -59,8 +61,6 @@
 #include "fonts/barcadebrawl.h"
 
 #include <snd/SndGear.hpp>
-#include <sfx/crate_explode_22050_mono.h>
-#include <sfx/cheat_22050_mono.h>
 #include <bt/NTree.h>
 #include <bt/NTBuilder.h>
 #include <Gear.hpp>
@@ -72,6 +72,7 @@
 #include <Layer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
+#include <tween/TwVel.hpp>
 #include <CollisionSprite.hpp>
 #include <path/SceneGraph.hpp>
 #include <path/Waypoint.hpp>
@@ -95,6 +96,13 @@ extern "C"
 #include "../../../fonts/hud_font_small.h"
 extern char _sbss, _end, __ltdc_start;
 #endif
+
+/**
+ * TODOs
+ * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
+ * (- make event-dispatcher global)
+ */
+
 
 namespace pnk
 {
@@ -287,7 +295,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
             else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, is, _screenplay); }
+            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -313,7 +321,7 @@ namespace pnk
             }
             else if (so->type == SpriteFactory::T_BOSS)
             {
-                _spr_boss = SpriteFactory::Boss(txtr, so, is);
+                _spr_boss = SpriteFactory::Boss(txtr, so, iss, _screenplay);
                 spr = _spr_boss;
             }
 
@@ -422,11 +430,9 @@ namespace pnk
             _active_act_index = _pnk._gamestate.active_room - 1;
             changeRoom(_pnk._gamestate.active_room, true);
         }
-*/
-//        _pnk._gamestate.active_room = 4;
-//        _active_act_index = _pnk._gamestate.active_room - 1;
-//        changeRoom(_pnk._gamestate.active_room, true);
 
+        _pnk._gamestate.active_room = 5;
+*/
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
@@ -505,13 +511,14 @@ namespace pnk
             }
             else
             {
-                // TODO if it is stale, we should retry? or wait? or...
                 DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
             }
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
                 || pe._type == ETG_NEW_THROWN_BOMB
-                || pe._type == ETG_NEW_FIRED_CANNON)
+                || pe._type == ETG_NEW_FIRED_CANNON
+                || pe._type == ETG_NEW_DROP_BOMB
+                || pe._type == ETG_NEW_DROP_CRATE)
         {
             handleNewThrowie(pe);
         }
@@ -572,7 +579,7 @@ namespace pnk
 
     void GSPlay::handleNewThrowie(PnkEvent& pe)
     {
-        if (pe._type == ETG_NEW_THROWN_CRATE)
+        if (pe._type == ETG_NEW_THROWN_CRATE || pe._type == ETG_NEW_DROP_CRATE)
         {
             spCraties proto = std::dynamic_pointer_cast<Craties>(_hives["crate"]);
             assert(proto != nullptr);
@@ -580,9 +587,16 @@ namespace pnk
             crate->setPos(pe._pos);
             crate->_to_the_left = pe._to_the_left;
             crate->init();
+
+            // movement sequence
+            float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
+            velx = pe._to_the_left ? -velx : velx;
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            crate->addTween(twv1);
+
             _csl->addCollisionSprite(crate);
         }
-        else if (pe._type == ETG_NEW_THROWN_BOMB)
+        else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
             spBombies proto = std::dynamic_pointer_cast<Bombies>(_hives["bomb"]);
             assert(proto != nullptr);
@@ -590,6 +604,13 @@ namespace pnk
             bomb->setPos(pe._pos);
             bomb->_to_the_left = pe._to_the_left;
             bomb->init();
+
+            // movement sequence
+            float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
+            velx = pe._to_the_left ? -velx : velx;
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -10), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            bomb->addTween(twv1);
+
             _csl->addCollisionSprite(bomb);
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
@@ -609,7 +630,7 @@ namespace pnk
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPos(pe._pos);
             mood->setPosX(pe._pos.x + 10);
-            mood->_z_order = 100; // TODO make sure that zorder works
+            mood->_z_order = 100;
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
@@ -622,7 +643,6 @@ namespace pnk
 
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
     {
-        // TODO have different animations for crates and the rest
         spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
         assert(proto != nullptr);
         spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
@@ -671,35 +691,20 @@ namespace pnk
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
-        switch(pe._payload)
+        switch (pe._payload)
         {
-            case ST_PIG_NORMAL:
-                health -= 30;
-                break;
-            case ST_PIG_BOMB:
-                health -= 35;
-                break;
-            case ST_PIG_BOX:
-                health -= 35;
-                break;
-            case ST_FLYING_BOMB:
-                health -= 10;
-                break;
-            case ST_FLYING_CRATE:
-                health -= 20;
-                break;
-            case ST_FLYING_CANNONBALL:
-                health -= 40;
-                break;
-            case ST_CANNON:
-                health -= 40;
-                break;
-            case ST_EXPLOSION:
-                health -= 50;
-                break;
+            case ST_PIG_NORMAL:         health -= DAMAGE_PIG_NORMAL;        break;
+            case ST_PIG_BOMB:           health -= DAMAGE_PIG_BOMB;          break;
+            case ST_PIG_CRATE:          health -= DAMAGE_PIG_CRATE;         break;
+            case ST_FLYING_BOMB:        health -= DAMAGE_FLYING_BOMB;       break;
+            case ST_FLYING_CRATE:       health -= DAMAGE_FLYING_CRATE;      break;
+            case ST_FLYING_CANNONBALL:  health -= DAMAGE_FLYING_CANNONBALL; break;
+            case ST_CANNON:             health -= DAMAGE_CANNON;            break;
+            case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
+            case ST_PIG_BOSS:           health -= DAMAGE_PIGBOSS;           break;
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
             handleKingLoosesLife();
         }
@@ -850,17 +855,19 @@ namespace pnk
 
     void GSPlay::changeLevel(int8_t level_nr)
     {
-        DEBUG_PRINT("Changing level to %d\n\r", level_nr);
-        freeCurrentLevel();
+        _pnk.getGear().fade(FADE_COL, FADE_STEP, [=](){
+            DEBUG_PRINT("Changing level to %d\n\r", level_nr);
+            freeCurrentLevel();
 
-        // reset current level and room to new ones
-        _pnk._gamestate.active_room = 0;
-        _pnk._gamestate.active_level = level_nr;
+            // reset current level and room to new ones
+            _pnk._gamestate.active_room = 0;
+            _pnk._gamestate.active_level = level_nr;
 
-        // TODO store gamestate values to disc so that the level gets loaded next time
+            // TODO store gamestate values to disc so that the level gets loaded next time
 
-        // TODO check level_nr for bounds
-        loadLevel(level_nr);
+            // TODO check level_nr for bounds
+            loadLevel(level_nr);
+        });
     }
 
     void GSPlay::checkCheatActivation()
@@ -920,19 +927,6 @@ namespace pnk
     }
 
 
-    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
-    {
-        dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
-        float ret = _csl->aaLoSH(cs, _spr_hero);
-
-        if (ret != 0)
-        {
-            cs->getNTreeState()->_payload["aaLoSH"] = ret;
-            return dang::BTNode::Status::SUCCESS;
-        }
-        return dang::BTNode::Status::FAILURE;
-    }
-
     void GSPlay::startBossBattle()
     {
         // activate boss
@@ -957,6 +951,12 @@ namespace pnk
 
     void GSPlay::endBossBattle()
     {
+        // remove all remaining piggies
+        _csl->removeSpritesByTypeNum(ST_PIG_NORMAL);
+        _csl->removeSpritesByTypeNum(ST_PIG_CRATE);
+        _csl->removeSpritesByTypeNum(ST_PIG_BOMB);
+        _csl->removeSpritesByTypeNum(ST_PIG_CANNON);
+
         /*
         // lets not do this, player should see how she killed the boss
         spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
@@ -1010,7 +1010,7 @@ namespace pnk
         int8_t health = _pnk._gamestate.boss_health;
 
         // the boss can't be more dead than dead
-        if(health <= 0)
+        if (health <= 0)
         {
             return;
         }
@@ -1050,7 +1050,7 @@ namespace pnk
             _pnk.getGear().setLayersActive(false);
         }
 */
-        _csl->setActive(false);
+        _csl->setActive(!pause);
         _txtl->setText(message);
         _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
         _txtl->setActive(true);
@@ -1063,6 +1063,42 @@ namespace pnk
         _csl->setActive(true);
         _txtl->setActive(false);
         _txtl->setVisibility(false);
+    }
+
+
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
+    {
+        if (_spr_hero->isInNormalState())
+        {
+            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            float ret = _csl->aaLoSH(cs, _spr_hero);
+
+            if (ret != 0)
+            {
+                cs->getNTreeState()->_payload["aaLoSH"] = ret;
+                return dang::BTNode::Status::SUCCESS;
+            }
+
+        }
+
+        return dang::BTNode::Status::FAILURE;
+    }
+
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
+    {
+        if (_spr_hero->isInNormalState())
+        {
+            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            float ret = _csl->loS(cs, _spr_hero);
+
+            if (ret != 0)
+            {
+                cs->getNTreeState()->_payload["LoS"] = ret;
+                return dang::BTNode::Status::SUCCESS;
+            }
+        }
+
+        return dang::BTNode::Status::FAILURE;
     }
 
 

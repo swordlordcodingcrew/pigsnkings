@@ -1,5 +1,5 @@
 // (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #include <iostream>
 
@@ -52,11 +52,14 @@ namespace pnk
 
     void MoodiesThatHurt::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
-        if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        if (!_has_hurt && (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING))
         {
             // only hurts once
             _has_hurt = true;
-            _hotrect = {0, 0, 0, 0};
+//            _hotrect = {0, 0, 0, 0};
+            // King hurt
+            tellTheKingWeHitHim();
+
         }
     }
 
@@ -69,4 +72,14 @@ namespace pnk
 
         return dang::CollisionSpriteLayer::CR_NONE;
     }
+
+    void MoodiesThatHurt::tellTheKingWeHitHim()
+    {
+        //
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
+        e->_spr = shared_from_this();
+        e->_payload = ST_EXPLOSION;
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+    }
+
 }

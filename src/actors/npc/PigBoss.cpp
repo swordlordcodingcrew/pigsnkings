@@ -25,11 +25,13 @@ namespace pnk
     PigBoss::PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
     {
         _hotrect = {10, 10, 12, 22};
-        _nextState = BERSERK;
+        _walkSpeed = _loiter_speed;     // king is on steroids
     }
 
     void PigBoss::init()
     {
+        onEnterSleeping();
+
         setVel({0, 0});
     }
 
@@ -61,8 +63,8 @@ namespace pnk
                 case LOITERING:
                     onEnterLoitering();
                     break;
-                case BERSERK:
-                    onEnterBerserk();
+                case HIDING:
+                    onEnterHiding();
                     break;
                 case DEAD:
                     onEnterDead();
@@ -79,7 +81,7 @@ namespace pnk
         /** run into the king */
         if (other->_type_num == ST_KING)
         {
-            if (_currentState == DEAD)
+            if (_currentState == DEAD || _currentState == HIDING || _hit)
             {
                 _coll_response = dang::CollisionSpriteLayer::CR_NONE;
             }
@@ -89,20 +91,13 @@ namespace pnk
             }
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == ST_HOTRECT_PLATFORM)
+        else if (other->_type_num == ST_HOTRECT)
         {
-            if (other->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
-            {
-                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
-            }
-            else
-            {
-                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
-            }
+            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
         }
         else
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
         }
 
         return _coll_response;
@@ -117,12 +112,23 @@ namespace pnk
         // we want the others normal, not our normal!
         const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
 
-        if (sprOther->_type_num == ST_KING && normal.y > 0 && _currentState == BERSERK)
+        if (sprOther->_type_num == ST_KING && _currentState == LOITERING)
         {
-            // TODO check first if the other one can still collide?
-            // tell the pig king he is hit, should be stunned for a few rounds
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
-            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+            if (normal.y > 0)
+            {
+                if (!_hit)
+                {
+                    std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+                    pnk::_pnk._dispatcher.queueEvent(std::move(e));
+                    _hit = true;
+                    _walkSpeed = _hiding_speed;
+                    _vel.x = _vel.x > 0 ? _walkSpeed : -_walkSpeed;
+                }
+            }
+            else
+            {
+                tellTheKingWeHitHim();
+            }
         }
         else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
         {
@@ -148,29 +154,12 @@ namespace pnk
         _nextState = wishedState;
     }
 
-    dang::BTNode::Status PigBoss::sleep()
-    {
-        if (_currentState == SLEEPING)
-        {
-            return dang::BTNode::Status::RUNNING;
-        }
-
-        prepareChangeState(SLEEPING);
-
-        return dang::BTNode::Status::SUCCESS;
-    }
-
     bool PigBoss::onEnterSleeping()
     {
-        _nTreeStateDepot = std::move(_nTreeState);
         assert(_anim_m_sleeping != nullptr);
         setAnimation(_anim_m_sleeping);
 
-        removeTweens(true);
-        uint32_t sleep_duration = std::rand() % 1500 + 500;    //!< sleep between 0.5 to 2 secs
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(sleep_duration, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&PigBoss::endSleep, this));
-        addTween(nullTw);
+        setVel({0,0});
 
         _currentState = SLEEPING;
 
@@ -184,48 +173,31 @@ namespace pnk
 
     bool PigBoss::onEnterLoitering()
     {
-        // activate the behaviour tree, if not already active
-        resetPathVars();
-        if (_nTreeState == nullptr)
-        {
-            _nTreeState = std::move(_nTreeStateDepot);
-        }
-
         _currentState = LOITERING;
         return true;
     }
 
     void PigBoss::endLoitering()
     {
+        prepareChangeState(SLEEPING);
     }
 
-    bool PigBoss::onEnterBerserk()
+    bool PigBoss::onEnterHiding()
     {
-        std::cout << "enter berserk" << std::endl;
-        _walkSpeed = _raging_speed;
+        _currentState = HIDING;
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(BOSS_RECOVER_TIME, dang::Ease::Linear, 1);
+        nullTw->setFinishedCallback(std::bind(&PigBoss::endHiding, this));
+        addTween(nullTw);
 
-        // activate the behaviour tree, if not already active
-        resetPathVars();
-        if (_nTreeState == nullptr)
-        {
-            _nTreeState = std::move(_nTreeStateDepot);
-        }
-
-        removeTweens(true);
-        // rage for 10 sec
-//        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
-//        nullTw->setFinishedCallback(std::bind(&PigBoss::endBerserk, this));
-//        addTween(nullTw);
-
-        _currentState = BERSERK;
-
+        setAnimation(_anim_m_recovering);
         return true;
     }
 
-    void PigBoss::endBerserk()
+    void PigBoss::endHiding()
     {
         _walkSpeed = _loiter_speed;
-        prepareChangeState(LOITERING);
+        _hit = false;
+        prepareChangeState(SLEEPING);
     }
 
     bool PigBoss::onEnterDead()
@@ -234,6 +206,8 @@ namespace pnk
 
         setAnimation(_anim_m_die);
         removeTweens(true);
+        _nTreeState.reset();
+        _vel.x = 0;
 
         _currentState = DEAD;
 
@@ -242,7 +216,6 @@ namespace pnk
 
     void PigBoss::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_PIG_BOSS;
@@ -261,7 +234,7 @@ namespace pnk
     {
         Enemy::startOutToWaypoint();
         removeAnimation();
-        setAnimation(_animation);
+        setAnimation(_anim_m_running);
         if (_vel.x > 0)
         {
             _transform = blit::HORIZONTAL;
@@ -269,15 +242,7 @@ namespace pnk
         else
         {
             _transform = blit::NONE;
-
         }
-    }
-
-    dang::BTNode::Status PigBoss::NTSleep(dang::spSprite s)
-    {
-        //        std::cout << "NTSleep" << std::endl;
-        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
-        return (spr ? spr->sleep() : dang::BTNode::Status::FAILURE);
     }
 
     void PigBoss::bubble()
@@ -294,4 +259,77 @@ namespace pnk
     {
         return false;
     }
+
+    dang::BTNode::Status PigBoss::NTLurk(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_currentState != SLEEPING && spr->_nextState != SLEEPING)
+        {
+            spr->prepareChangeState(SLEEPING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if  (spr->_currentState == SLEEPING && spr->_nextState == SLEEPING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+
+        return dang::BTNode::Status::FAILURE;
+    }
+
+    dang::BTNode::Status PigBoss::NTRun(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_currentState != LOITERING && spr->_nextState != LOITERING)
+        {
+            dang::BTNode::Status ret1 = spr->setRandNeighbourWaypoint();
+            if (ret1 == dang::BTNode::Status::FAILURE)
+            {
+                return dang::BTNode::Status::FAILURE;
+            }
+            spr->prepareChangeState(LOITERING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if  (spr->_currentState == LOITERING && spr->_nextState == LOITERING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+
+        return dang::BTNode::Status::FAILURE;
+
+    }
+
+    dang::BTNode::Status PigBoss::NTHit(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_hit)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+        return dang::BTNode::Status::FAILURE;
+    }
+
+    dang::BTNode::Status PigBoss::NTRecover(dang::spSprite s)
+    {
+        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        assert(spr != nullptr);
+        if (spr->_currentState != HIDING && spr->_nextState != HIDING)
+        {
+            spr->prepareChangeState(HIDING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == HIDING && spr->_nextState == HIDING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr->_currentState == HIDING && spr->_nextState != HIDING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+
+        }
+        return dang::BTNode::Status::FAILURE;
+    }
+
 }

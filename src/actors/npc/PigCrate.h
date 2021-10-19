@@ -1,5 +1,5 @@
 // (c) 2019-20 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #pragma once
 
@@ -11,7 +11,7 @@ namespace pnk
     {
     public:
         PigCrate();
-        PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet& is);
         ~PigCrate() override;
         void init() override;
 
@@ -20,22 +20,23 @@ namespace pnk
         dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
 
-//        bool onEnterLoitering() override;
-
-
         /** path and bt functions */
         static dang::BTNode::Status NTPickUpCrate(dang::spSprite s);
         static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
         static dang::BTNode::Status NTWithCrate(dang::spSprite s);
 //        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
+        static dang::BTNode::Status NTDistanceOK(dang::spSprite s);
 
     protected:
 
-        bool onEnterThrowing() override;
-        virtual void endThrowing() override;
-        virtual void throwing();
-        bool        _crated{true};
-        void        pickupCrate();
+        bool            onEnterThrowing() override;
+        virtual void    endThrowing() override;
+        virtual void    throwing();
+        bool            _crated{true};
+        void            pickupCrate();
+
+        bool            onEnterBubbled() override;
+
 
     };
 

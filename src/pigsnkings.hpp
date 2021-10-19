@@ -101,12 +101,6 @@ namespace pnk
         std::shared_ptr<GameState>   _current_gs{nullptr};
         std::shared_ptr<GameState>   _new_gs{nullptr};
 
-        // fading params
-        bool        _fade_out{false};
-        bool        _fade_in{false};
-        blit::Pen   _fade_colour{0,0, 0, 0};
-        uint8_t     _fade_step{16};
-
         // for calculating diffs
         uint32_t _last_time{0};
 

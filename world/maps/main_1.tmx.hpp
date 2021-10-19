@@ -83,15 +83,15 @@ static const dang::tmx_layer main_1_main_bg = {
 // Objects for layer: main_decoration
 static const dang::tmx_spriteobject main_1_main_decoration_objects[] = {
 
-    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0b0000},
-    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0b0000},
-    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0b0000},
-    {40,"40","",272,128,32,32,true,"gfx_castle_decorations",8,"",0b0000},
-    {41,"41","",16,128,32,32,true,"gfx_castle_decorations",8,"",0b0000},
-    {42,"42","",272,160,32,32,true,"gfx_castle_decorations",24,"",0b0000},
-    {43,"43","",16,160,32,32,true,"gfx_castle_decorations",16,"",0b0000}
+    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
+    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
+    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0,0b0000},
+    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
+    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
+    {40,"40","",272,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {41,"41","",16,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {42,"42","",272,160,32,32,true,"gfx_castle_decorations",24,"",0,0b0000},
+    {43,"43","",16,160,32,32,true,"gfx_castle_decorations",16,"",0,0b0000}
 
 };
 
@@ -115,11 +115,11 @@ static const dang::tmx_layer main_1_main_decoration = {
 // Objects for layer: main_obj
 static const dang::tmx_spriteobject main_1_main_obj_objects[] = {
 
-    {31,"hero","",64,192,32,32,true,"gfx_king",10,"",0b0000},
-    {36,"about","button",131,91,58,32,true,"common_menus",0,"",0b0000},
-    {37,"play","button",131,123,58,32,true,"common_menus",1,"",0b0000},
-    {38,"prefs","button",131,155,58,32,true,"common_menus",2,"",0b0000},
-    {39,"piggie","",216,192,32,32,true,"gfx_pig",0,"",0b0000}
+    {31,"hero","",64,192,32,32,true,"gfx_king",10,"",0,0b0000},
+    {36,"about","button",131,91,58,32,true,"common_menus",0,"",0,0b0000},
+    {37,"play","button",131,123,58,32,true,"common_menus",1,"",0,0b0000},
+    {38,"prefs","button",131,155,58,32,true,"common_menus",2,"",0,0b0000},
+    {39,"piggie","",216,192,32,32,true,"gfx_pig",0,"",0,0b0000}
 
 };
 

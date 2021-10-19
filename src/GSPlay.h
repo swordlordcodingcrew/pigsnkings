@@ -81,6 +81,7 @@ namespace pnk
     public:
         // bt hooks
         dang::BTNode::Status NTheroInSightH(dang::spSprite s);
+        dang::BTNode::Status NTheroInSight(dang::spSprite s);
 
     };
 
