@@ -49,8 +49,7 @@ namespace pnk
         updateCheatKeyStream(blit::buttons.pressed);
         checkCheatActivation();
 
-        // if button x is pressed load the selected state
-        if (blit::buttons.pressed & blit::Button::A)
+        if (blit::buttons.pressed & BTN_OK)
         {
             if (_pnk._prefs.selectedModule == _pnk.PLAY)
             {

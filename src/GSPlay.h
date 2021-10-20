@@ -6,6 +6,8 @@
 #include "GameState.h"
 #include "src/levels/ScreenPlay.h"
 
+#include <engine/input.hpp>
+
 #include <Vector2T.hpp>
 #include <bt/BTNode.h>
 
@@ -76,7 +78,7 @@ namespace pnk
         void handleBossHit(PnkEvent& pe);
 
         void showInfoLayer(bool pause, uint32_t ttl, const std::string_view& message);
-        void hideInfoLayer();
+        void hideInfoLayer(blit::Button btn);
 
     public:
         // bt hooks

@@ -21,7 +21,7 @@ namespace pnk
 
     std::shared_ptr<GameState> pnk::GSAbout::update(dang::Gear& gear, uint32_t time)
     {
-        if (blit::buttons.pressed & blit::Button::X)
+        if (blit::buttons.pressed & (BTN_BACK | BTN_EXIT))
         {
             return GameState::_gs_home;
         }

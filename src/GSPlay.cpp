@@ -97,12 +97,6 @@ extern "C"
 extern char _sbss, _end, __ltdc_start;
 #endif
 
-/**
- * TODOs
- * - buttons (X = OK/Continue, Y = BACK/Cancel, A = jump, B = bubble)
- * (- make event-dispatcher global)
- */
-
 
 namespace pnk
 {
@@ -124,7 +118,7 @@ namespace pnk
             DEBUG_PRINT("GSPlay: update check\n");
         }
 #endif
-        if (blit::buttons.pressed & blit::Button::MENU)
+        if (blit::buttons.pressed & BTN_EXIT)
         {
             return GameState::_gs_home;
         }
@@ -412,6 +406,7 @@ namespace pnk
         // create text layser
         _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
         _txtl->_z_order = 10;
+        _txtl->setButtons(BTN_OK, BTN_CANCEL);
         gear.addLayer(_txtl);
 
 
@@ -1045,19 +1040,14 @@ namespace pnk
 
     void GSPlay::showInfoLayer(bool pause, uint32_t ttl, const std::string_view &message)
     {
-/*        if (pause)
-        {
-            _pnk.getGear().setLayersActive(false);
-        }
-*/
         _csl->setActive(!pause);
         _txtl->setText(message);
-        _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this));
+        _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this, std::placeholders::_1));
         _txtl->setActive(true);
         _txtl->setVisibility(true);
     }
 
-    void GSPlay::hideInfoLayer()
+    void GSPlay::hideInfoLayer(blit::Button btn)
     {
 //        _pnk.getGear().setLayersActive(true);
         _csl->setActive(true);

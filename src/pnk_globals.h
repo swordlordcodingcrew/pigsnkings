@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <libs/32blit-sdk/32blit/graphics/surface.hpp>
+#include <libs/32blit-sdk/32blit/engine/input.hpp>
 
 //#define PNK_DEBUG
 //#define PNK_SND_DEBUG
@@ -165,3 +166,11 @@ static inline const uint8_t DAMAGE_PIGBOSS{39};            // when toucing the p
 
 /** boss battle params */
 static inline const uint32_t BOSS_RECOVER_TIME{3000};           // in ms. Duration of recovery
+
+/** button settings */
+static inline const blit::Button BTN_OK{blit::Button::X};
+static inline const blit::Button BTN_BACK{blit::Button::Y};
+static inline const blit::Button BTN_CANCEL{blit::Button::Y};
+static inline const blit::Button BTN_EXIT{blit::Button::MENU};
+static inline const blit::Button BTN_JUMP{blit::Button::A};
+static inline const blit::Button BTN_BUBBLE{blit::Button::B};
