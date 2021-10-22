@@ -49,10 +49,9 @@ set(SOURCES
         ${SRC_ACTORS_OTHERS}
         ${SRC_ACTORS_HERO}
         ${RSRC}
-        tracks/gocryogo.h
-        tracks/groovy.h
+        tracks/kingsofdawn.h
+        tracks/paperbird.h
         tracks/u4iasmok.h
-        tracks/etheric_xm.h
         fonts/barcadebrawl.h
         fonts/hud_font_big.h
         fonts/hud_font_small.h
