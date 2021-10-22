@@ -290,8 +290,6 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {148,"148","coin_silver",128,598,32,48,true,"gfx_items",0,"",600,0b0000},
     {149,"149","coin_silver",160,568,32,48,true,"gfx_items",0,"",600,0b0000},
     {150,"150","coin_silver",96,568,32,48,true,"gfx_items",0,"",600,0b0000},
-    {151,"151","coin_silver",352,310,32,48,true,"gfx_items",0,"",600,0b0000},
-    {152,"152","coin_silver",384,310,32,48,true,"gfx_items",0,"",600,0b0000},
     {153,"153","coin_silver",544,310,32,48,true,"gfx_items",0,"",600,0b0000},
     {154,"154","coin_silver",576,310,32,48,true,"gfx_items",0,"",600,0b0000},
     {155,"155","coin_gold",576,438,32,48,true,"gfx_items",4,"",600,0b0000},
@@ -472,11 +470,14 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {597,"597","hotrect_platform",160,608,32,4,true,"",0,"",0,0b0000},
     {608,"608","hotrect",832,376,32,8,true,"",0,"",0,0b0000},
     {610,"dan too","pig_box",704,96,32,32,true,"pig_crate",5,"wait_crate",200,0b0001},
-    {631,"631","hotrect",0,288,32,64,true,"",0,"",0,0b0000}
+    {631,"631","hotrect",0,288,32,64,true,"",0,"",0,0b0000},
+    {636,"Mr Cannoneer","pig_cannon",352,320,32,32,true,"gfx_pig",0,"",200,0b0001},
+    {637,"Bertha","cannon",384,320,32,32,true,"character_cannonsnpigs",0,"",0,0b0001},
+    {638,"638","coin_gold",544,438,32,48,true,"gfx_items",4,"",600,0b0000}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 191;
+static const size_t level_1_lvl_1_obj_objects_len = 192;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",
