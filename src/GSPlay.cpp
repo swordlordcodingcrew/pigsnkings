@@ -1019,6 +1019,7 @@ namespace pnk
         switch(_pnk._gamestate.active_level)
         {
                 case 1:
+                default:
                     health -= DAMAGE_TO_PIGBOSS;
                     break;
                 case 2:
