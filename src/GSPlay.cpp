@@ -12,7 +12,6 @@
 #include "actors/hero/Hero.h"
 #include "actors/npc/Enemy.h"
 #include "actors/npc/HenchPig.h"
-#include "actors/npc/PigCrate.h"
 #include "actors/npc/PigCannon.h"
 #include "actors/npc/PigBoss.h"
 #include "actors/throwies/Bombies.h"
@@ -22,13 +21,12 @@
 #include "actors/throwies/Craties.h"
 #include "actors/others/Moodies.h"
 #include "actors/others/MoodiesThatHurt.h"
-#include "actors/others/Reward.h"
 #include <src/actors/others/LevelTrigger.h>
 #include "actors/others/Cannon.h"
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
 
-#include "tracks/gocryogo.h"
+#include "tracks/kingsofdawn.h"
 
 #include "sfx/cannon_fire_22050_mono.h"
 #include "sfx/boss_battle_22050_mono.h"
@@ -163,7 +161,7 @@ namespace pnk
 
         _last_time = 0;
 
-        dang::SndGear::playMod(gocryogo_mod, gocryogo_mod_length, _pnk._prefs.volume_track);
+        dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
         loadLevel(_pnk._gamestate.active_level);
 
@@ -184,6 +182,8 @@ namespace pnk
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
         _sub_ref = 0;
+
+        _pnk.saveCurrentGamestate();
 
         freeCurrentLevel();
 
@@ -775,6 +775,12 @@ namespace pnk
     void GSPlay::addScore(uint8_t score)
     {
         _pnk._gamestate.score += score;
+
+        if(_pnk._gamestate.score > _pnk._gamestate.high_score)
+        {
+            _pnk._gamestate.high_score = _pnk._gamestate.score;
+        }
+
         dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
     }
 

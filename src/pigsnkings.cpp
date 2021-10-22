@@ -96,6 +96,22 @@ namespace pnk
         DEBUG_PRINT("pigsnkings: game states loaded\n");
     }
 
+    void PigsnKings::saveCurrentGamestate()
+    {
+        // sanity check for current gamesave slot
+        if(_prefs.currentGameSaveSlot < 1 || _prefs.currentGameSaveSlot > 4)
+        {
+            _prefs.currentGameSaveSlot = 1;
+        }
+
+        DEBUG_PRINT("pigsnkings: saving gamestate\n");
+
+        // saving the gamestate
+        blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+
+        DEBUG_PRINT("pigsnkings: game state saved\n");
+    }
+
     void PigsnKings::update(uint32_t time)
     {
         // first globally handle events

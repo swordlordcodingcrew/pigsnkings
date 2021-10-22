@@ -31,6 +31,8 @@ namespace pnk
         void paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val);
         void paintBackground(const dang::Gear& gear);
 
+        void refreshTempGamestateFromSave(const uint8_t slot);
+
         blit::Pen backgroundColour;
         blit::Pen foregroundColour;
         blit::Pen highlightColour;
@@ -63,6 +65,8 @@ namespace pnk
         dang::spImagesheet _is_castle;
         dang::spImagesheet _is_hud;
         dang::spImagesheet _is_king;
+
+        PigsnKings::gamestate _temp_gamestate; // state of selected game (so that we can show it)
 
     };
 }

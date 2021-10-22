@@ -36,6 +36,7 @@ namespace pnk
 
         void removeImagesheets();
         void refreshGamestateFromSave();
+        void saveCurrentGamestate();
 
         enum e_selection
         {
@@ -76,9 +77,10 @@ namespace pnk
         struct gamestate
         {
             // which module is set in the GSHome (where is the candle)
-            uint8_t  lives{3};
+            int8_t  lives{3};
             int8_t  health{100}; // percent
             uint32_t score{0};
+            uint32_t high_score{0};
             uint32_t active_level{1};
             uint32_t active_room{0};
 

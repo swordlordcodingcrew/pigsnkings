@@ -50,7 +50,9 @@ namespace pnk
 
         _is_castle = std::make_shared<dang::Imagesheet>("gfx_levels_castle_tiles", &gfx_levels_castle_tiles, 12, 8);
         _is_hud = std::make_shared<dang::Imagesheet>("hud_ui", &hud_ui, 15, 7);
-        _is_king = std::make_shared<dang::Imagesheet>("gfx_king", &gfx_king, 27, 1);
+        _is_king = std::make_shared<dang::Imagesheet>("gfx_king", &gfx_king, 28, 1);
+
+        refreshTempGamestateFromSave(_pnk._prefs.currentGameSaveSlot);
     }
 
     SettingsLayer::~SettingsLayer()
@@ -116,6 +118,7 @@ namespace pnk
             {
                 pref.curVal > 1 ? (_prefs.at(_selectedPref).curVal -= 1) : (_prefs.at(_selectedPref).curVal = 4);
                 _pnk._prefs.currentGameSaveSlot = pref.curVal;
+                refreshTempGamestateFromSave(pref.curVal);
             }
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_RIGHT)
@@ -142,8 +145,9 @@ namespace pnk
             }
             else if(pref.type == GAMESLOT)
             {
-                pref.curVal < 5 ? (_prefs.at(_selectedPref).curVal += 1) : (_prefs.at(_selectedPref).curVal = 1);
+                pref.curVal < 4 ? (_prefs.at(_selectedPref).curVal += 1) : (_prefs.at(_selectedPref).curVal = 1);
                 _pnk._prefs.currentGameSaveSlot = pref.curVal;
+                refreshTempGamestateFromSave(pref.curVal);
             }
         }
     }
@@ -207,30 +211,36 @@ namespace pnk
 
         blit::screen.sprites = _is_king->getSurface();
 
-        blit::Rect sr = _is_king->getBlitRect(0);
-        blit::Point dp = {x, y};
-        blit::screen.blit_sprite(sr, dp, 0);
-
-        dp = {x+30, y};
-        blit::screen.blit_sprite(sr, dp, 0);
-
-        dp = {x+60, y};
-        blit::screen.blit_sprite(sr, dp, 0);
-
-        dp = {x+90, y};
-        blit::screen.blit_sprite(sr, dp, 0);
-
-        sr = _is_king->getBlitRect(2);
-        dp = {(x + (30 * (val-1))), y};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::Rect sr = _is_king->getBlitRect(27);
+        blit::Rect sr_selected = _is_king->getBlitRect(26);
 
         blit::screen.pen = backgroundColour;
-        y = y + 10 + 8; // add 10 we lost before + a few until we are above the stomach of the king
 
-        for(uint8_t i = 1; i <= 4; i++ )
+        for(uint8_t i = 1; i <= 4; i++)
         {
-            blit::screen.text(std::to_string(i), hud_font_small, blit::Point((x + (30 * (i-1))) + 13, y), true, blit::TextAlign::left);
+            blit::Point dp = {x + ((i-1) * 30), y};
+
+            if(val == i)
+            {
+                blit::screen.blit_sprite(sr_selected, dp, 0);
+            }
+            else
+            {
+                blit::screen.blit_sprite(sr, dp, 0);
+            }
+
+            // add 10 we lost before + a few until we are above the head of the king
+            blit::screen.text(std::to_string(i), hud_font_small, blit::Point((x + (30 * (i-1))) + 15, y + 10 + 9), true, blit::TextAlign::left);
         }
+
+        y += 40;
+
+        blit::screen.text("Highscore:", hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x + 120, y), true, blit::TextAlign::right);
+
+        std::string stats = "Level: " + std::to_string(_temp_gamestate.active_level) + ", Room: " + std::to_string(_temp_gamestate.active_room);
+        blit::screen.text(stats, hud_font_small, blit::Point(x, y + 18), true, blit::TextAlign::left);
+
     }
         // paint the background
     void SettingsLayer::paintBackground(const dang::Gear& gear)
@@ -300,5 +310,11 @@ namespace pnk
         sr = _is_castle->getBlitRect(17);
         dp = {288, 216};
         blit::screen.blit_sprite(sr, dp, 0);
+    }
+
+    void SettingsLayer::refreshTempGamestateFromSave(const uint8_t slot)
+    {
+        // loading the gamestate from the prefs
+        blit::read_save(_temp_gamestate, slot);
     }
 }

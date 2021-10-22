@@ -90,15 +90,20 @@ namespace pnk
         std::string score =  std::to_string(_pnk._gamestate.score);
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;
 
+        std::string highScore =  std::to_string(_pnk._gamestate.high_score);
+        std::string formattedHighScore = "HS:" + std::string(5 - highScore.length(), '0') + highScore;
+
         std::string lives =  std::to_string(_pnk._gamestate.lives);
         std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;
 
         blit::screen.pen = backgroundColour;
         blit::screen.text(prefixedScore, hud_font_small, blit::Point(49 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::left);
+        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::center_h);
         blit::screen.text(prefixedLives, hud_font_small, blit::Point(34 + shadowOffset, 49 + shadowOffset), true, blit::TextAlign::center_h);
 
         blit::screen.pen = foregroundColour;
         blit::screen.text(prefixedScore, hud_font_small, blit::Point(49, 18), true, blit::TextAlign::left);
+        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160, 18), true, blit::TextAlign::center_h);
         blit::screen.text(prefixedLives, hud_font_small, blit::Point(34, 49), true, blit::TextAlign::center_h);
 
         // health bar

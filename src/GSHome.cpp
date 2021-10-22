@@ -34,6 +34,7 @@
 #include <tween/TwSequence.hpp>
 #include <tween/TwNull.hpp>
 #include <snd/SndGear.hpp>
+#include <tracks/paperbird.h>
 
 #include <cassert>
 #include <iostream>
@@ -108,7 +109,7 @@ namespace pnk
         DEBUG_PRINT("GSHome: entering\n");
 
         // set up music
-        //dang::SndGear::playXM(etheric_xm, etheric_xm_length, _pnk._prefs.volume_track);
+        dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
 
         // set up state
         _tmx = &main_1_level;
@@ -290,7 +291,7 @@ namespace pnk
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
-        dang::SndGear::stopXM();
+        dang::SndGear::stopMod();
 
         // empty out gear
         gear.removeImagesheets();
