@@ -696,7 +696,7 @@ namespace pnk
             case ST_FLYING_CANNONBALL:  health -= DAMAGE_FLYING_CANNONBALL; break;
             case ST_CANNON:             health -= DAMAGE_CANNON;            break;
             case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
-            case ST_PIG_BOSS:           health -= DAMAGE_PIGBOSS;           break;
+            case ST_PIG_BOSS:           health -= DAMAGE_FROM_PIGBOSS;           break;
         }
 
         if (health <= 0)
@@ -1019,10 +1019,10 @@ namespace pnk
         switch(_pnk._gamestate.active_level)
         {
                 case 1:
-                    health -= 34;
+                    health -= DAMAGE_TO_PIGBOSS;
                     break;
                 case 2:
-                    health -= 34;
+                    health -= DAMAGE_TO_PIGBOSS;
                     break;
         }
 
