@@ -16,7 +16,6 @@
 #include "Layer.hpp"
 #include "Imagesheet.hpp"
 
-//#include "type.h"
 
 namespace pnk
 {
@@ -235,10 +234,9 @@ namespace pnk
 
         y += 40;
 
-        blit::screen.text("HS:", hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
-        blit::screen.text(std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x + 120, y), true, blit::TextAlign::right);
+        blit::screen.text("HS: " + std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
 
-        std::string stats = "Level: " + std::to_string(_temp_gamestate.active_level) + ", Room: " + std::to_string(_temp_gamestate.active_room);
+        std::string stats = "<3: " + std::to_string(_temp_gamestate.lives) + ", L: " + std::to_string(_temp_gamestate.active_level) + ", R: " + std::to_string(_temp_gamestate.active_room);
         blit::screen.text(stats, hud_font_small, blit::Point(x, y + 18), true, blit::TextAlign::left);
 
     }
