@@ -6,6 +6,7 @@
 #include "GSHome.h"
 
 #include "rsrc/gfx/sl_shield_32blit.png.h"
+#include "pigsnkings.hpp"
 
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
@@ -13,15 +14,29 @@
 #include <SimpleImageLayer.hpp>
 
 #include <cassert>
+#include <snd/SndGear.hpp>
+#include <sfx/cheat_22050_mono.h>
+#include <sfx/defeat_22050_mono.h>
 
 namespace pnk
 {
+    extern PigsnKings _pnk;
 
     std::shared_ptr<GameState> pnk::GSIntro::update(dang::Gear& gear, uint32_t time)
     {
         _duration += 10;    // update is called every 10 ms
 
-        if (_duration > 1000)
+        // validate if magic event triggered
+        // user decides to delete (reset) all game slots
+        if (blit::buttons.pressed & blit::Button::X && blit::buttons.pressed & blit::Button::Y)
+        {
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            _pnk.resetPrefsGameslot();
+            _pnk.resetAllGameslots();
+
+            return GameState::_gs_home;
+        }
+        else if (_duration > 1000)
         {
             return GameState::_gs_home;
         }

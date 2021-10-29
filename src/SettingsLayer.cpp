@@ -216,7 +216,7 @@ namespace pnk
 
         blit::screen.pen = backgroundColour;
 
-        for(uint8_t i = 1; i <= 4; i++)
+        for(uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
         {
             blit::Point dp = {x + ((i-1) * 30), y};
 
@@ -235,7 +235,7 @@ namespace pnk
 
         y += 40;
 
-        blit::screen.text("Highscore:", hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text("HS:", hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
         blit::screen.text(std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x + 120, y), true, blit::TextAlign::right);
 
         std::string stats = "Level: " + std::to_string(_temp_gamestate.active_level) + ", Room: " + std::to_string(_temp_gamestate.active_room);

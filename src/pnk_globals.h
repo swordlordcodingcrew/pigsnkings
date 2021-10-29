@@ -152,6 +152,9 @@ static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
 static inline const float BOMB_VEL{24};           // bomb throwing velocity
 static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
 
+static inline const uint8_t FIRST_GAME_SAVE_SLOT{1}; // number of first game save slot available
+static inline const uint8_t LAST_GAME_SAVE_SLOT{4}; // number of last game save slots available
+
 static inline const blit::Pen FADE_COL{0,0,0};  // fading colour
 static inline const uint8_t FADE_STEP{8};           // fade step (fading ist from 0 to 255)
 

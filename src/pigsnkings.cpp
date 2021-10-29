@@ -63,7 +63,8 @@ namespace pnk
         dang::Rand::seed();
 
         // loading preferences, if there are none, write defaults
-        if(!blit::read_save(_prefs, PREFERENCES)) {
+        if(!blit::read_save(_prefs, PREFERENCES))
+        {
             blit::write_save(_prefs, PREFERENCES);
         }
 
@@ -80,9 +81,9 @@ namespace pnk
     void PigsnKings::refreshGamestateFromSave()
     {
         // sanity check for current gamesave slot
-        if(_prefs.currentGameSaveSlot < 1 || _prefs.currentGameSaveSlot > 4)
+        if(_prefs.currentGameSaveSlot < FIRST_GAME_SAVE_SLOT || _prefs.currentGameSaveSlot > LAST_GAME_SAVE_SLOT)
         {
-            _prefs.currentGameSaveSlot = 1;
+            _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
         }
 
         DEBUG_PRINT("pigsnkings: prefs loaded\n");
@@ -99,9 +100,9 @@ namespace pnk
     void PigsnKings::saveCurrentGamestate()
     {
         // sanity check for current gamesave slot
-        if(_prefs.currentGameSaveSlot < 1 || _prefs.currentGameSaveSlot > 4)
+        if(_prefs.currentGameSaveSlot < FIRST_GAME_SAVE_SLOT || _prefs.currentGameSaveSlot > LAST_GAME_SAVE_SLOT)
         {
-            _prefs.currentGameSaveSlot = 1;
+            _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
         }
 
         DEBUG_PRINT("pigsnkings: saving gamestate\n");
@@ -110,6 +111,32 @@ namespace pnk
         blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
 
         DEBUG_PRINT("pigsnkings: game state saved\n");
+    }
+
+    void PigsnKings::resetAllGameslots()
+    {
+        for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
+        {
+            gamestate ngs = {};
+            blit::write_save(ngs, i);
+        }
+
+        // reload current gamestate
+        refreshGamestateFromSave();
+    }
+
+    void PigsnKings::refreshPrefsFromSave()
+    {
+        blit::read_save(_prefs, PREFERENCES);
+    }
+
+    void PigsnKings::resetPrefsGameslot()
+    {
+        prefs prfs = {};
+        blit::write_save(prfs, 0);
+
+        // reload prefs
+        refreshPrefsFromSave();
     }
 
     void PigsnKings::update(uint32_t time)

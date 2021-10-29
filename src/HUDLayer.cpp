@@ -91,7 +91,7 @@ namespace pnk
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;
 
         std::string highScore =  std::to_string(_pnk._gamestate.high_score);
-        std::string formattedHighScore = "HS:" + std::string(5 - highScore.length(), '0') + highScore;
+        std::string formattedHighScore = "HS:" + std::string(8 - highScore.length(), '0') + highScore;
 
         std::string lives =  std::to_string(_pnk._gamestate.lives);
         std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;

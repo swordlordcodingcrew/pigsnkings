@@ -35,8 +35,13 @@ namespace pnk
         bool isCheating();
 
         void removeImagesheets();
+
+        // game saves
         void refreshGamestateFromSave();
         void saveCurrentGamestate();
+        void resetAllGameslots(); // save1-4
+        void refreshPrefsFromSave();
+        void resetPrefsGameslot(); // save0
 
         enum e_selection
         {
@@ -67,25 +72,25 @@ namespace pnk
 
         struct prefs
         {
+            uint8_t version{1}; // of the prefs for upgrading
             float volume_track{.5f};
             float volume_sfx{.5f};
             bool invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
-            uint8_t selectedModule{PLAY};
+            uint8_t selectedModule{PLAY}; // which module is set in the GSHome (where is the candle)
             uint8_t currentGameSaveSlot{1}; // 1-4
         };
 
         struct gamestate
         {
-            // which module is set in the GSHome (where is the candle)
+            uint8_t version{1}; // of the gamestate for upgrading
             int8_t  lives{3};
             int8_t  health{100}; // percent
             uint32_t score{0};
             uint32_t high_score{0};
-            uint32_t active_level{1};
-            uint32_t active_room{0};
-
+            uint16_t active_level{1};
+            uint16_t active_room{0};
             int8_t  boss_health{100}; // percent
-            bool     has_cheated{false};
+            bool    has_cheated{false}; // persistent
         };
 
         gamestate       _gamestate; // state of current game
