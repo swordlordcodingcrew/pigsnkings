@@ -47,6 +47,7 @@ namespace pnk
         int8_t                  _active_room_index{-1}; // which room are we in?
         uint32_t                _last_time{0};
         bool                    _warp{false};
+        bool                    _leaveGame{false};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};
@@ -78,7 +79,9 @@ namespace pnk
         void handleBossHit(PnkEvent& pe);
 
         void showInfoLayer(bool pause, uint32_t ttl, const std::string_view& message);
+        void showGameOverInfo();
         void hideInfoLayer(blit::Button btn);
+        void gameOverCallback(blit::Button btn);
 
     public:
         // bt hooks

@@ -117,7 +117,7 @@ namespace pnk
             DEBUG_PRINT("GSPlay: update check\n");
         }
 #endif
-        if (blit::buttons.pressed & BTN_EXIT)
+        if (blit::buttons.pressed & BTN_EXIT || _leaveGame)
         {
             return GameState::_gs_home;
         }
@@ -145,6 +145,9 @@ namespace pnk
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
         DEBUG_PRINT("GSPlay: entered (%d)\n", mallinfo().uordblks);
+
+        // make sure to not just leave again now we met
+        _leaveGame = false;
 
 #ifdef TARGET_32BLIT_HW
 
@@ -728,6 +731,8 @@ namespace pnk
         _pnk._gamestate.health = 100;
 
         dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
+
+        showGameOverInfo();
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -1049,6 +1054,15 @@ namespace pnk
         _txtl->setVisibility(true);
     }
 
+    void GSPlay::showGameOverInfo()
+    {
+        _csl->setActive(true);
+        _txtl->setText(str_game_over);
+        _txtl->setTtl(10000, std::bind(&GSPlay::gameOverCallback, this, std::placeholders::_1));
+        _txtl->setActive(true);
+        _txtl->setVisibility(true);
+    }
+
     void GSPlay::hideInfoLayer(blit::Button btn)
     {
 //        _pnk.getGear().setLayersActive(true);
@@ -1057,6 +1071,10 @@ namespace pnk
         _txtl->setVisibility(false);
     }
 
+    void GSPlay::gameOverCallback(blit::Button btn)
+    {
+        _leaveGame = true;
+    }
 
     dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
     {

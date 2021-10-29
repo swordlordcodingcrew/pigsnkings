@@ -22,6 +22,13 @@ vanquished!\n\
 Lets clean up the next floor\n\
 You may proceed to the door"};
 
+const static std::string_view str_game_over{"OH NO!\n\
+\n\
+You lost.\n\
+Game Over!\n\
+\n\
+(press 'B' to quit)"};
+
 /**
  * Level 2 strings
  */
