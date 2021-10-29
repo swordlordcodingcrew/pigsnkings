@@ -88,10 +88,10 @@
   <object id="104" gid="100" x="480" y="608" width="32" height="32"/>
   <object id="105" gid="100" x="480" y="640" width="32" height="32"/>
   <object id="170" gid="101" x="800" y="128" width="32" height="32"/>
-  <object id="117" gid="101" x="416" y="352" width="32" height="32"/>
-  <object id="118" gid="101" x="416" y="416" width="32" height="32"/>
-  <object id="119" gid="101" x="512" y="416" width="32" height="32"/>
-  <object id="120" gid="101" x="512" y="352" width="32" height="32"/>
+  <object id="117" gid="101" x="416" y="357" width="32" height="32"/>
+  <object id="118" gid="101" x="416" y="421" width="32" height="32"/>
+  <object id="119" gid="101" x="512" y="421" width="32" height="32"/>
+  <object id="120" gid="101" x="512" y="357" width="32" height="32"/>
   <object id="112" gid="100" x="480" y="384" width="32" height="32"/>
   <object id="113" gid="100" x="480" y="448" width="32" height="32"/>
   <object id="108" gid="98" x="448" y="448" width="32" height="32"/>
@@ -374,10 +374,10 @@
     <property name="z_order" type="int" value="600"/>
    </properties>
   </object>
-  <object id="294" type="hotrect_platform" x="416" y="416" width="32" height="4"/>
-  <object id="295" type="hotrect_platform" x="416" y="352" width="32" height="4"/>
-  <object id="296" type="hotrect_platform" x="512" y="352" width="32" height="4"/>
-  <object id="297" type="hotrect_platform" x="512" y="416" width="32" height="4"/>
+  <object id="294" type="hotrect_platform" x="416" y="421" width="32" height="4"/>
+  <object id="295" type="hotrect_platform" x="416" y="357" width="32" height="4"/>
+  <object id="296" type="hotrect_platform" x="512" y="357" width="32" height="4"/>
+  <object id="297" type="hotrect_platform" x="512" y="421" width="32" height="4"/>
   <object id="298" type="hotrect_platform" x="448" y="384" width="64" height="4"/>
   <object id="299" type="hotrect_platform" x="448" y="448" width="64" height="4"/>
   <object id="300" type="hotrect_platform" x="352" y="320" width="64" height="4"/>
