@@ -37,6 +37,7 @@
 #include "sfx/lifelost_22050_mono.h"
 #include "sfx/teleport_22050_mono.h"
 #include "sfx/victory_22050_mono.h"
+#include "sfx/bomb_explode_22050_mono.h"
 #include "sfx/crate_explode_22050_mono.h"
 #include "sfx/cheat_22050_mono.h"
 
@@ -638,30 +639,24 @@ namespace pnk
 
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
     {
-        spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
-        assert(proto != nullptr);
-        spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
-        boom->setPosX(pe._pos.x - 16);
-        boom->setPosY(pe._pos.y - 16);
-        boom->init();
-        boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, boom.get()));
-
-        dang::SndGear::playSfx(crate_explode_22050_mono, crate_explode_22050_mono_length, _pnk._prefs.volume_sfx);
-
-        if (pe._type == ETG_CRATE_EXPLODES)
+        if (pe._type == ETG_CRATE_EXPLODES || pe._type == ETG_BOMB_EXPLODES)
         {
+            spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
+            assert(proto != nullptr);
+            spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
+            boom->setPosX(pe._pos.x - 16);
+            boom->setPosY(pe._pos.y - 16);
+            boom->init();
+            boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, boom.get()));
+            _csl->addCollisionSprite(boom);
 
-        }
-        else if (pe._type == ETG_BOMB_EXPLODES)
-        {
-
+            dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
         }
         else if (pe._type == ETG_CANNONBALL_EXPLODES)
         {
-
+            // no explosion
+            dang::SndGear::playSfx(crate_explode_22050_mono, crate_explode_22050_mono_length, _pnk._prefs.volume_sfx);
         }
-
-        _csl->addCollisionSprite(boom);
     }
 
     void GSPlay::handleNewPoof(PnkEvent& pe)

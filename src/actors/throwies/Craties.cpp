@@ -82,6 +82,7 @@ namespace pnk
             });
             setAnimation(_anim_destruction);
 
+            triggerExplosion(); // does only do sound, no explosion fx
         }
         else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
         {
@@ -97,6 +98,8 @@ namespace pnk
                 _remove_me = true;
             });
             setAnimation(_anim_destruction);
+
+            // no sfx, the hero already plays one
         }
     }
 
