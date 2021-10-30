@@ -642,7 +642,7 @@ namespace pnk
 
     void GSPlay::handleExplodingThrowie(PnkEvent& pe)
     {
-        if (pe._type == ETG_CRATE_EXPLODES || pe._type == ETG_BOMB_EXPLODES)
+        if (pe._type == ETG_BOMB_EXPLODES || pe._type == ETG_CANNONBALL_EXPLODES)
         {
             spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
             assert(proto != nullptr);
@@ -655,9 +655,9 @@ namespace pnk
 
             dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
         }
-        else if (pe._type == ETG_CANNONBALL_EXPLODES)
+        else if (pe._type == ETG_CRATE_EXPLODES)
         {
-            // no explosion
+            // no explosion when crates explode, only sound
             dang::SndGear::playSfx(crate_explode_22050_mono, crate_explode_22050_mono_length, _pnk._prefs.volume_sfx);
         }
     }
