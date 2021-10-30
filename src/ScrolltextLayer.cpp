@@ -158,7 +158,7 @@ namespace pnk
                 blit::screen.pen = highlightColour;
 
                 // remove the star, don't print it
-                sLine.replace(0, 1, "");
+                sLine = sLine.substr(1);
             }
 
             // render & make sure to clip to screen

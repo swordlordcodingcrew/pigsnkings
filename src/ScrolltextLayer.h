@@ -47,7 +47,7 @@ class ScrolltextLayer : public dang::Layer
         const int upperBorder = 24;
         const int rowHeight = 12;
 
-        const std::vector<std::string> credits = {
+        const std::vector<std::string_view> credits = {
                 "",
                 "*Pigs n Kings",
                 "(c) 2020-2021 by",
