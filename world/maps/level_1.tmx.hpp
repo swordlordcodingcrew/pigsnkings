@@ -473,11 +473,14 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {631,"631","hotrect",0,288,32,64,true,"",0,"",0,0b0000},
     {636,"Mr Cannoneer","pig_cannon",352,320,32,32,true,"gfx_pig",0,"",200,0b0001},
     {637,"Bertha","cannon",384,320,32,32,true,"character_cannonsnpigs",0,"",0,0b0001},
-    {638,"638","coin_gold",544,438,32,48,true,"gfx_items",4,"",600,0b0000}
+    {638,"638","coin_gold",544,438,32,48,true,"gfx_items",4,"",600,0b0000},
+    {639,"savepoint_trigger","savepoint_trigger",352,544,32,32,true,"",0,"",0,0b0000},
+    {640,"savepoint_trigger","savepoint_trigger",672,448,32,32,true,"",0,"",0,0b0000},
+    {641,"savepoint_trigger","savepoint_trigger",224,64,32,32,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_1_lvl_1_obj_objects_len = 192;
+static const size_t level_1_lvl_1_obj_objects_len = 195;
 
 static const dang::tmx_layer level_1_lvl_1_obj = {
     .name = "lvl_1_obj",

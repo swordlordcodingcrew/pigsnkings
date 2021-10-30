@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="639">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="642">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -697,6 +697,9 @@
     <property name="z_order" type="int" value="600"/>
    </properties>
   </object>
+  <object id="639" name="savepoint_trigger" type="savepoint_trigger" x="352" y="544" width="32" height="32"/>
+  <object id="640" name="savepoint_trigger" type="savepoint_trigger" x="672" y="448" width="32" height="32"/>
+  <object id="641" name="savepoint_trigger" type="savepoint_trigger" x="224" y="64" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_1_fg" locked="1">
   <object id="386" gid="26" x="352" y="32" width="32" height="32"/>
