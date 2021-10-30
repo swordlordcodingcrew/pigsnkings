@@ -717,7 +717,9 @@ namespace pnk
 
         if(_pnk._gamestate.lives <= 0)
         {
-            // TODO GAME OVER
+            showGameOverInfo();
+
+            // reset live count before storing current game status to disc
             _pnk._gamestate.lives = 3;
         }
 
@@ -727,12 +729,10 @@ namespace pnk
         sp.y = (_active_room->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
         _spr_hero->lifeLost(sp);
 
-        // TODO define MAXHEALTH
-        _pnk._gamestate.health = 100;
+        // reset health
+        _pnk._gamestate.health = HERO_MAX_HEALTH;
 
         dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
-
-        showGameOverInfo();
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
