@@ -49,6 +49,7 @@ namespace pnk
         // TODO save gamestates
         // the question is if this makes sense here or
         // if we place savepoints througout the level
+        // we decided to do savepoints using triggers
     }
 
     void PigsnKings::init()

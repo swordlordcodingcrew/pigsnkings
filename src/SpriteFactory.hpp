@@ -78,6 +78,7 @@ namespace pnk
         static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
         static inline const std::string T_ROOM_TRIGGER{"room_trigger"};
         static inline const std::string T_BOSSBATTLE_TRIGGER{"bossbattle_trigger"};
+        static inline const std::string T_SAVEPOINT_TRIGGER{"savepoint_trigger"};
         static inline const std::string T_LEVEL_TRIGGER{"level_trigger"};
         static inline const std::string T_WARP_ROOM_TRIGGER{"warp_room_trigger"};
         static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
@@ -123,6 +124,7 @@ namespace pnk
         static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
         static spCollisionSprite LevelTrigger(const dang::tmx_spriteobject* so);
         static spCollisionSprite BossbattleTrigger(const dang::tmx_spriteobject* so);
+        static spCollisionSprite SavepointTrigger(const dang::tmx_spriteobject* so);
     };
 
 }

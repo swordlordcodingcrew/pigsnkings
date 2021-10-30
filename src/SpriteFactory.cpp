@@ -20,6 +20,7 @@
 #include "actors/others/RoomTrigger.h"
 #include "actors/others/LevelTrigger.h"
 #include "actors/others/BossbattleTrigger.h"
+#include "actors/others/SavepointTrigger.h"
 
 #include <Gear.hpp>
 #include <CollisionSprite.hpp>
@@ -177,6 +178,16 @@ namespace pnk
         spCollisionSprite ret = std::make_shared<pnk::BossbattleTrigger>(so);
         ret->_visible = false;
         ret->_type_num = ST_BOSS_BATTLE_TRIGGER;
+        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+
+        return ret;
+    }
+
+    spCollisionSprite SpriteFactory::SavepointTrigger(const dang::tmx_spriteobject* so)
+    {
+        spCollisionSprite ret = std::make_shared<pnk::SavepointTrigger>(so);
+        ret->_visible = false;
+        ret->_type_num = ST_SAVEPOINT_TRIGGER;
         ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
 
         return ret;
