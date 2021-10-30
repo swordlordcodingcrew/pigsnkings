@@ -119,6 +119,13 @@ namespace pnk
 #endif
         if (blit::buttons.pressed & BTN_EXIT || _leaveGame)
         {
+            // only happens when dying or when solved the game, reset some params
+            if(_leaveGame)
+            {
+                _pnk._gamestate.active_room = 0;
+                _pnk._gamestate.score = 0;
+            }
+
             return GameState::_gs_home;
         }
 
@@ -979,6 +986,8 @@ namespace pnk
         }
 
         // activate level trigger
+        // TODO reactivate once we have a playable level 2
+        /*
         dang::spSpriteLayer ol = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_COLLISIONSPRITELAYER));
         if(ol != nullptr)
         {
@@ -989,6 +998,7 @@ namespace pnk
                 lvlTrigger->activateTrigger();
             }
         }
+         */
 
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
 
@@ -1004,6 +1014,8 @@ namespace pnk
                 break;
         }
 
+        // TODO this is a hack and should be removed once we activate other levels besides level 1.
+        _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
@@ -1058,7 +1070,7 @@ namespace pnk
     {
         _csl->setActive(true);
         _txtl->setText(str_game_over);
-        _txtl->setTtl(10000, std::bind(&GSPlay::gameOverCallback, this, std::placeholders::_1));
+        _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
         _txtl->setActive(true);
         _txtl->setVisibility(true);
     }
@@ -1071,7 +1083,7 @@ namespace pnk
         _txtl->setVisibility(false);
     }
 
-    void GSPlay::gameOverCallback(blit::Button btn)
+    void GSPlay::leaveTheGameCallback(blit::Button btn)
     {
         _leaveGame = true;
     }

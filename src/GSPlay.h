@@ -81,7 +81,7 @@ namespace pnk
         void showInfoLayer(bool pause, uint32_t ttl, const std::string_view& message);
         void showGameOverInfo();
         void hideInfoLayer(blit::Button btn);
-        void gameOverCallback(blit::Button btn);
+        void leaveTheGameCallback(blit::Button btn);
 
     public:
         // bt hooks
