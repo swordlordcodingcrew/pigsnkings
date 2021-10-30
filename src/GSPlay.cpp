@@ -740,31 +740,31 @@ namespace pnk
         switch (pe._payload)
         {
             case ST_COIN_SILVER:
-                addScore(10);
+                addScore(REWARD_POINT_COIN_SILVER);
                 break;
             case ST_COIN_GOLD:
-                addScore(50);
+                addScore(REWARD_POINT_COIN_GOLD);
                 break;
             case ST_GEM_BLUE:
-                addScore(30);
+                addScore(REWARD_POINT_GEM_BLUE);
                 break;
             case ST_GEM_GREEN:
-                addScore(60);
+                addScore(REWARD_POINT_GEM_GREEN);
                 break;
             case ST_GEM_RED:
-                addScore(100);
+                addScore(REWARD_POINT_GEM_RED);
                 break;
             case ST_POTION_BLUE:
-                addHealth(1);
+                addHealth(REWARD_POINT_POTION_BLUE);
                 break;
             case ST_POTION_RED:
-                addHealth(5);
+                addHealth(REWARD_POINT_POTION_RED);
                 break;
             case ST_POTION_GREEN:
-                addHealth(20);
+                addHealth(REWARD_POINT_POTION_GREEN);
                 break;
             case ST_PIG_REWARD:
-                addScore(100);
+                addScore(REWARD_POINT_PIG_REWARD);
                 break;
                 // Default gets nothing
             default:
@@ -790,10 +790,10 @@ namespace pnk
 
         h += healthGain;
 
-        // TODO define MAXHEALTH
-        if(h > 100)
+        // make sure to not have more health than possible in game logic
+        if(h > HERO_MAX_HEALTH)
         {
-            h = 100;
+            h = HERO_MAX_HEALTH;
         }
 
         _pnk._gamestate.health = h;

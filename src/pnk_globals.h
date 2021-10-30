@@ -170,6 +170,20 @@ static inline const uint8_t DAMAGE_EXPLOSION{50};          // when hit with an e
 static inline const uint8_t DAMAGE_FROM_PIGBOSS{41};            // when toucing the pig boss
 static inline const uint8_t DAMAGE_TO_PIGBOSS{34};            // when hitting the pig boss
 
+// hero params
+static inline const uint8_t HERO_MAX_HEALTH{100};            // max health hero can gain
+
+// reward gain params
+static inline const uint8_t REWARD_POINT_COIN_SILVER{10};
+static inline const uint8_t REWARD_POINT_COIN_GOLD{50};
+static inline const uint8_t REWARD_POINT_GEM_BLUE{30};
+static inline const uint8_t REWARD_POINT_GEM_GREEN{60};
+static inline const uint8_t REWARD_POINT_GEM_RED{100};
+static inline const uint8_t REWARD_POINT_POTION_BLUE{1};
+static inline const uint8_t REWARD_POINT_POTION_RED{5};
+static inline const uint8_t REWARD_POINT_POTION_GREEN{20};
+static inline const uint8_t REWARD_POINT_PIG_REWARD{100};
+
 /** boss battle params */
 static inline const uint32_t BOSS_RECOVER_TIME{3000};           // in ms. Duration of recovery
 
