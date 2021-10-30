@@ -33,7 +33,7 @@ namespace pnk
         }
     }
 
-    dang::SavepointTrigger::eCollisionResponse BossbattleTrigger::getCollisionResponse(const spCollisionSprite& other)
+    dang::CollisionSpriteLayer::eCollisionResponse SavepointTrigger::getCollisionResponse(const spCollisionSprite& other)
     {
         if (other->_type_num == ST_KING)
         {

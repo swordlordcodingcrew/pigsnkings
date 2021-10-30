@@ -124,6 +124,7 @@ namespace pnk
             {
                 _pnk._gamestate.active_room = 0;
                 _pnk._gamestate.score = 0;
+                saveGamestate();
             }
 
             return GameState::_gs_home;
@@ -194,13 +195,9 @@ namespace pnk
         _pnk._dispatcher.removeSubscriber(_sub_ref);
         _sub_ref = 0;
 
-        _pnk.saveCurrentGamestate();
-
         freeCurrentLevel();
 
         dang::SndGear::stopMod();
-
-//         _pnk._prefs.active_room = _active_act_index;
 
         DEBUG_PRINT("GSPlay: exit exit()\n");
     }
@@ -299,6 +296,7 @@ namespace pnk
             else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
             else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
             else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
+            else if (so->type == SpriteFactory::T_SAVEPOINT_TRIGGER) { spr = SpriteFactory::SavepointTrigger(so); }
             else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, iss, _screenplay); }
@@ -580,6 +578,11 @@ namespace pnk
             {
                 changeLevel(pe._payload);
             }
+        }
+        else if (pe._type == ETG_SAVEPOINT_TRIGGERED)
+        {
+            // let the boss battles begin
+            saveGamestate();
         }
     }
 
@@ -1056,6 +1059,13 @@ namespace pnk
         }
 
     }
+
+    void GSPlay::saveGamestate()
+    {
+        // TODO play sound?
+        _pnk.saveCurrentGamestate();
+    }
+
 
     void GSPlay::showInfoLayer(bool pause, uint32_t ttl, const std::string_view &message)
     {

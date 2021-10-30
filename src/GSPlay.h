@@ -69,6 +69,8 @@ namespace pnk
         void changeRoom(int32_t room_nr, bool warp);
         void changeLevel(int8_t level_nr);
 
+        void saveGamestate();
+
         void loadLevel(int8_t level_nr);
         void freeCurrentLevel();
 
