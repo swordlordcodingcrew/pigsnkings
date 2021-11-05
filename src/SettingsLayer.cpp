@@ -40,9 +40,6 @@ namespace pnk
         _prefs.at(PigsnKings::SFX).caption = "Sound FX";
         _prefs.at(PigsnKings::SFX).curVal = _pnk._prefs.volume_sfx;
 
-        _prefs.at(PigsnKings::VOLUME).caption = "Volume";
-        _prefs.at(PigsnKings::VOLUME).curVal = 1; // blit persist.volume
-
         _prefs.at(PigsnKings::GAMESAVESLOT).caption = "Gameslot";
         _prefs.at(PigsnKings::GAMESAVESLOT).curVal = _pnk._prefs.currentGameSaveSlot;
         _prefs.at(PigsnKings::GAMESAVESLOT).type = GAMESLOT; // 1-4
@@ -104,14 +101,17 @@ namespace pnk
                 if(pref.caption == "Music")
                 {
                     _pnk._prefs.volume_track = pref.curVal;
+                    // change volume
+                    dang::SndGear::changeModVolume(_pnk._prefs.volume_track);
+                    // make some noise to show user how this sounds
+                    dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_track);
                 }
                 else
                 {
                     _pnk._prefs.volume_sfx = pref.curVal;
+                    // make some noise to show user how this sounds
+                    dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
                 }
-
-                // make some noise to show user how this sounds
-                dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
             }
             else if(pref.type == GAMESLOT)
             {
@@ -133,14 +133,17 @@ namespace pnk
                 if(pref.caption == "Music")
                 {
                     _pnk._prefs.volume_track = pref.curVal;
+                    // change volume
+                    dang::SndGear::changeModVolume(_pnk._prefs.volume_track);
+                    // make some noise to show user how this sounds
+                    dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_track);
                 }
                 else
                 {
                     _pnk._prefs.volume_sfx = pref.curVal;
+                    // make some noise to show user how this sounds
+                    dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
                 }
-
-                // make some noise to show user how this sounds
-                dang::SndGear::playSfx(coin_22050_mono_wav, coin_22050_mono_wav_length, _pnk._prefs.volume_sfx);
             }
             else if(pref.type == GAMESLOT)
             {

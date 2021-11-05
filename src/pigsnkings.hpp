@@ -55,7 +55,6 @@ namespace pnk
         {
             TRACKS = 0,
             SFX,
-            VOLUME,
             GAMESAVESLOT,
             ENDOF_PREFS
         };
