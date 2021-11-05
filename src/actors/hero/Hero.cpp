@@ -204,7 +204,7 @@ namespace pnk
             _somatic_state = SomaticState::_life_lost;
             _somatic_state->enter(*this, dt);
         }
-        else if (_hit)
+        else if (_hit && !_pnk._gamestate.invincible)
         {
             _hit = false;
             _somatic_state = SomaticState::_hit;

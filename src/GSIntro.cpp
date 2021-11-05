@@ -62,6 +62,9 @@ namespace pnk
         assert(sil != nullptr);
         gear.addLayer(sil);
 
+        // will later be used to upgrade gamesave and pref format
+        _pnk.initEmptyGameslots();
+
         DEBUG_PRINT("GSIntro: layer set up\n");
     }
 

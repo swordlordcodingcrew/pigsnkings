@@ -39,6 +39,7 @@ namespace pnk
         // game saves
         void refreshGamestateFromSave();
         void saveCurrentGamestate();
+        void initEmptyGameslots(); // save1-4
         void resetAllGameslots(); // save1-4
         void refreshPrefsFromSave();
         void resetPrefsGameslot(); // save0
@@ -74,7 +75,6 @@ namespace pnk
             uint8_t version{1}; // of the prefs for upgrading
             float volume_track{.5f};
             float volume_sfx{.5f};
-            bool invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
             uint8_t selectedModule{PLAY}; // which module is set in the GSHome (where is the candle)
             uint8_t currentGameSaveSlot{1}; // 1-4
         };
@@ -90,6 +90,7 @@ namespace pnk
             uint16_t active_room{0};
             int8_t  boss_health{BOSS_MAX_HEALTH}; // percent
             bool    has_cheated{false}; // persistent
+            bool    invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
         };
 
         gamestate       _gamestate; // state of current game

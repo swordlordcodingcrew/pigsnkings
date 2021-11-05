@@ -308,7 +308,6 @@ namespace pnk
     void GSHome::playOink()
     {
         uint32_t val = dang::Rand::get(uint32_t(0), uint32_t(100));
-//        auto val = std::rand() % 100;
         if (val == 1)
         {
             dang::SndGear::playSfx(pig_squeal_22050, pig_squeal_22050_length, _pnk._prefs.volume_sfx);
@@ -317,23 +316,6 @@ namespace pnk
 
     void GSHome::checkCheatActivation()
     {
-        // inspector gadget for snes, debug menu
-        if(_pnk.cheatKeyStream == "XXULRDRL")
-        {
-            // handled this cheat, reset stream
-            _pnk.cheatKeyStream[7] = '8';
-
-            // flip and tell user (when debugging)
-            _pnk._prefs.invincible = !_pnk._prefs.invincible;
-            if(_pnk._prefs.invincible)
-            {
-                DEBUG_PRINT("I am invincible, as long as I’m alive.\r\n");
-            }
-            else
-            {
-                DEBUG_PRINT("History has shown there are no invincible Kings.\r\n");
-            }
-            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
-        }
+        // no cheats in the home
     }
 }

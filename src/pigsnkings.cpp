@@ -114,6 +114,18 @@ namespace pnk
         DEBUG_PRINT("pigsnkings: game state saved\n");
     }
 
+    void PigsnKings::initEmptyGameslots()
+    {
+        for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
+        {
+            gamestate ngs = {};
+            if(!blit::read_save(ngs, i))
+            {
+                blit::write_save(ngs, i);
+            }
+        }
+    }
+
     void PigsnKings::resetAllGameslots()
     {
         for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
@@ -197,7 +209,7 @@ namespace pnk
 
     bool PigsnKings::isCheating()
     {
-        return _prefs.invincible || _gamestate.has_cheated;
+        return _gamestate.invincible || _gamestate.has_cheated;
     }
 }
 

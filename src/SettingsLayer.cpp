@@ -237,10 +237,22 @@ namespace pnk
 
         y += 40;
 
-        blit::screen.text("HS: " + std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text("Highscore: " + std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
 
-        std::string stats = "<3: " + std::to_string(_temp_gamestate.lives) + ", L: " + std::to_string(_temp_gamestate.active_level) + ", R: " + std::to_string(_temp_gamestate.active_room);
-        blit::screen.text(stats, hud_font_small, blit::Point(x, y + 18), true, blit::TextAlign::left);
+        y += 18;
+
+        std::string s1{"<3: " + std::to_string(_temp_gamestate.lives) + ", Cheater: " + (_temp_gamestate.has_cheated || _temp_gamestate.invincible ? "Y":"N")};
+        blit::screen.text(s1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+
+        y += 18;
+
+        std::string s2{"Score: " + std::to_string(_temp_gamestate.score)};
+        blit::screen.text(s2, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+
+        y += 18;
+
+        std::string s3{"Level: " + std::to_string(_temp_gamestate.active_level) + ", Room: " + std::to_string(_temp_gamestate.active_room)};
+        blit::screen.text(s3, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
 
     }
         // paint the background

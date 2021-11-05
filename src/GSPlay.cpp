@@ -688,7 +688,7 @@ namespace pnk
 
     void GSPlay::handleKingHealth(PnkEvent& pe)
     {
-        if(_pnk._prefs.invincible)
+        if(_pnk._gamestate.invincible)
         {
             return;
         }
@@ -927,10 +927,23 @@ namespace pnk
             userIsCheating();
             changeLevel(_pnk._gamestate.active_level - 1);
         }
+        else if(_pnk.cheatKeyStream == "XXULRDRL")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            DEBUG_PRINT("Cheat activated: Invincible.\r\n");
+
+            userIsCheating();
+            _pnk._gamestate.invincible = true;
+            saveGamestate();
+        }
     }
 
     void GSPlay::userIsCheating()
     {
+        _pnk._gamestate.has_cheated = true;
+
         spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
         if(hudl == nullptr)
         {
