@@ -77,7 +77,8 @@ namespace pnk
 
         act room7;
         room7._extent = {10, 8, 10, 8};
-        room7._passage_from[4] = {1, 7};
+        room7._passage_from[4] = {1, 6};
+        room7._passage_from[6] = {1, 6};
         _acts.push_back(room7);
 
         DEBUG_PRINT("Level1SP: before bt (%d)\r\n", mallinfo().uordblks);
