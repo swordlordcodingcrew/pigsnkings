@@ -14,6 +14,7 @@
 #include <snd/SndGear.hpp>
 
 #include <cassert>
+#include <sfx/cheat_22050_mono.h>
 
 namespace pnk
 {
@@ -21,6 +22,9 @@ namespace pnk
 
     std::shared_ptr<GameState> pnk::GSAbout::update(dang::Gear& gear, uint32_t time)
     {
+        updateCheatKeyStream(blit::buttons.pressed);
+        checkCheatActivation();
+
         if (blit::buttons.pressed & (BTN_BACK | BTN_EXIT))
         {
             return GameState::_gs_home;
@@ -54,5 +58,22 @@ namespace pnk
         dang::SndGear::stopMod();
 
         blit::debugf("left\r\n");
+    }
+
+    void GSAbout::checkCheatActivation()
+    {
+        // inspector gadget for snes, debug menu
+        if(_pnk.cheatKeyStream == "BBAALRLR")
+        {
+            // handled this cheat, reset stream
+            _pnk.cheatKeyStream[7] = '8';
+
+            DEBUG_PRINT("Cheat activated: Deleting savefiles.\r\n");
+            blit::debugf("deleted\r\n");
+
+            dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+            _pnk.resetPrefsGameslot();
+            _pnk.resetAllGameslots();
+        }
     }
 }

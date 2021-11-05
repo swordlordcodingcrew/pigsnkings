@@ -17,6 +17,7 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
 
     protected:
+        void checkCheatActivation();
 
     };
 

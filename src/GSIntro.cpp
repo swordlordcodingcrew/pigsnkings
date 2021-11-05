@@ -75,5 +75,4 @@ namespace pnk
 
         _duration = 0;
     }
-
 }
