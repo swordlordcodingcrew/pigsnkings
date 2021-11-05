@@ -69,7 +69,6 @@ namespace pnk
             _pnk.cheatKeyStream[7] = '8';
 
             DEBUG_PRINT("Cheat activated: Deleting savefiles.\r\n");
-            blit::debugf("deleted\r\n");
 
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
             _pnk.resetPrefsGameslot();
