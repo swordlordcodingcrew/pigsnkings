@@ -62,7 +62,7 @@ namespace pnk
 
     void GSAbout::checkCheatActivation()
     {
-        // inspector gadget for snes, debug menu
+        // B and A are not used, X and Y leave about screen
         if(_pnk.cheatKeyStream == "BBAALRLR")
         {
             // handled this cheat, reset stream
