@@ -82,13 +82,13 @@ namespace pnk
         struct gamestate
         {
             uint8_t version{1}; // of the gamestate for upgrading
-            int8_t  lives{3};
-            int8_t  health{100}; // percent
+            int8_t  lives{HERO_MAX_LIVES};
+            int8_t  health{HERO_MAX_HEALTH}; // percent
             uint32_t score{0};
             uint32_t high_score{0};
             uint16_t active_level{1};
             uint16_t active_room{0};
-            int8_t  boss_health{100}; // percent
+            int8_t  boss_health{BOSS_MAX_HEALTH}; // percent
             bool    has_cheated{false}; // persistent
         };
 

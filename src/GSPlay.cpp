@@ -124,7 +124,7 @@ namespace pnk
             {
                 _pnk._gamestate.active_room = 0;
                 _pnk._gamestate.score = 0;
-                _pnk._gamestate.lives = 3;
+                _pnk._gamestate.lives = HERO_MAX_LIVES;
                 saveGamestate();
             }
 
@@ -665,6 +665,7 @@ namespace pnk
             _csl->addCollisionSprite(boom);
 
             dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
+            dang::SndGear::playRumble(20);
         }
         else if (pe._type == ETG_CRATE_EXPLODES)
         {
@@ -717,6 +718,7 @@ namespace pnk
             if(_pnk._gamestate.health != health)
             {
                 dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
+                dang::SndGear::playRumble(15);
             }
             _pnk._gamestate.health = health;
         }
@@ -730,8 +732,8 @@ namespace pnk
         {
             showGameOverInfo();
 
-            // reset live count before storing current game status to disc
-            _pnk._gamestate.lives = 3;
+            // reset lives count before storing current game status to disc
+            _pnk._gamestate.lives = HERO_MAX_LIVES;
         }
 
         dang::Vector2F sp;
@@ -942,7 +944,7 @@ namespace pnk
     void GSPlay::startBossBattle()
     {
         // activate boss
-        _pnk._gamestate.boss_health = 100;
+        _pnk._gamestate.boss_health = BOSS_MAX_HEALTH;
         if(_spr_boss != nullptr)
         {
 
@@ -1096,7 +1098,6 @@ namespace pnk
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)
     {
-
         _leaveGame = true;
     }
 

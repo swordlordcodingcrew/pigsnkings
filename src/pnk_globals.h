@@ -173,7 +173,11 @@ static inline const uint8_t DAMAGE_FROM_PIGBOSS{41};            // when toucing 
 static inline const uint8_t DAMAGE_TO_PIGBOSS{34};            // when hitting the pig boss
 
 // hero params
+static inline const uint8_t HERO_MAX_LIVES{3};            // max lives hero can gain
 static inline const uint8_t HERO_MAX_HEALTH{100};            // max health hero can gain
+
+// boss params
+static inline const uint8_t BOSS_MAX_HEALTH{100};            // max health boss can gain
 
 // reward gain params
 static inline const uint8_t REWARD_POINT_COIN_SILVER{10};
