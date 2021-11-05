@@ -124,6 +124,7 @@ namespace pnk
             {
                 _pnk._gamestate.active_room = 0;
                 _pnk._gamestate.score = 0;
+                _pnk._gamestate.lives = 3;
                 saveGamestate();
             }
 
@@ -1095,6 +1096,7 @@ namespace pnk
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)
     {
+
         _leaveGame = true;
     }
 
