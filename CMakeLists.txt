@@ -7,12 +7,21 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # if you want to see dang debug info drawn, enable this
-#add_definitions(-DPNK_DEBUG_PRINT)
+add_definitions(-DPNK_DEBUG_PRINT)
 #add_definitions(-DDANG_DEBUG_DRAW)
-#add_definitions(-DPNK_DEBUG_MEM)
+add_definitions(-DDANG_DEBUG_PRINT)
+add_definitions(-DPNK_DEBUG_MEM)
 
 # remove assert statements
 #add_definitions(-DNDEBUG)
+
+if (CMAKE_BUID_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG=1)
+elseif (CMAKE_BUID_TYPE MATCHES Release)
+    add_definitions(-DRELEASE=1)
+elseif (CMAKE_BUID_TYPE MATCHES 32blit_HW)
+    add_definitions(-DTARGET_32BLIT_HW=1)
+endif()
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions" "-Wattributes")
