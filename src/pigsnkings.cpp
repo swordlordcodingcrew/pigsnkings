@@ -121,6 +121,7 @@ namespace pnk
             gamestate ngs = {};
             if(!blit::read_save(ngs, i))
             {
+                DEBUG_PRINT("pigsnkings: new gamesave written at %d\n", i);
                 blit::write_save(ngs, i);
             }
         }
