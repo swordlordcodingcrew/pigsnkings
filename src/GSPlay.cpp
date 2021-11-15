@@ -503,6 +503,7 @@ namespace pnk
             _csl->addCollisionSprite(bub);
 
             dang::SndGear::playSfx(bubble_blow_22050_mono, bubble_blow_22050_mono_length, _pnk._prefs.volume_sfx);
+            dang::SndGear::playRumbleTrack(&dang::explosion, 0);
         }
         else if (pe._type == ETG_REMOVE_SPRITE)
         {
@@ -543,6 +544,8 @@ namespace pnk
         }
         else if (pe._type == ETG_REWARD_HIT)
         {
+            dang::SndGear::playRumbleTrack(&dang::poke, 0);
+
             handleRewardCollected(pe);
         }
         else if (pe._type == ETG_CHANGE_ROOM)
@@ -665,7 +668,7 @@ namespace pnk
             _csl->addCollisionSprite(boom);
 
             dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
-            dang::SndGear::playRumble(20);
+            dang::SndGear::playRumbleTrack(&dang::explosion, 0);
         }
         else if (pe._type == ETG_CRATE_EXPLODES)
         {
@@ -718,7 +721,7 @@ namespace pnk
             if(_pnk._gamestate.health != health)
             {
                 dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
-                dang::SndGear::playRumble(15);
+                dang::SndGear::playRumbleTrack(&dang::double_knock, 0);
             }
             _pnk._gamestate.health = health;
         }
