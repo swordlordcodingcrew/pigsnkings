@@ -196,6 +196,19 @@ namespace pnk
             _mem = mallinfo().uordblks / 1024;
         }
 #endif
+
+#ifdef PNK_DEBUG_FPS
+        _last_ticks = _current_ticks;
+        _current_ticks = blit::now();
+        blit::screen.alpha = 255;
+        blit::screen.pen = blit::Pen(255, 255, 255, 100);
+        blit::screen.rectangle(blit::Rect(1, 240 - 10, 16, 9));
+        blit::screen.pen = blit::Pen(255, 0, 0);
+        std::string fms = std::to_string(_current_ticks - _last_ticks);
+        blit::screen.text(fms, blit::minimal_font, blit::Rect(3, 240 - 9, 16, 16));
+
+#endif
+
     }
 
     void PigsnKings::removeImagesheets()

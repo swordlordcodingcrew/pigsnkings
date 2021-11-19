@@ -7,10 +7,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # if you want to see dang debug info drawn, enable this
-add_definitions(-DPNK_DEBUG_PRINT)
+#add_definitions(-DPNK_DEBUG_PRINT)
 #add_definitions(-DDANG_DEBUG_DRAW)
-add_definitions(-DDANG_DEBUG_PRINT)
-add_definitions(-DPNK_DEBUG_MEM)
+#add_definitions(-DDANG_DEBUG_PRINT)
+#add_definitions(-DPNK_DEBUG_MEM)
+add_definitions(-DPNK_DEBUG_FPS)
 
 # remove assert statements
 #add_definitions(-DNDEBUG)

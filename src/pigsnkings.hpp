@@ -123,6 +123,12 @@ namespace pnk
 #ifdef PNK_SND_DEBUG
         static uint32_t _last_mod_time;
 #endif
+
+#ifdef PNK_DEBUG_FPS
+        uint32_t _last_ticks{0};
+        uint32_t _current_ticks{0};
+#endif
     };
+
 }
 

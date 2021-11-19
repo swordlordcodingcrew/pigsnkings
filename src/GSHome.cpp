@@ -35,11 +35,12 @@
 #include <tween/TwNull.hpp>
 #include <snd/SndGear.hpp>
 #include <tracks/paperbird.h>
+#include <Rand.hpp>
 
 #include <cassert>
 #include <iostream>
 #include <sstream>
-#include <Rand.hpp>
+#include <malloc.h>
 
 namespace pnk
 {
@@ -109,7 +110,9 @@ namespace pnk
         DEBUG_PRINT("GSHome: entering\n");
 
         // set up music
+        DEBUG_PRINT("GSHome: load track (%d)\n", mallinfo().uordblks);
         dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
+        DEBUG_PRINT("GSHome: track loaded (%d)\n", mallinfo().uordblks);
 
         // set up state
         _tmx = &main_1_level;

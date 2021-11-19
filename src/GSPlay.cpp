@@ -159,7 +159,7 @@ namespace pnk
         _leaveGame = false;
 
 #ifdef TARGET_32BLIT_HW
-
+#ifdef PNK_DEBUG_MEM
         // memory stats
 
         auto static_used = &_end - &_sbss;
@@ -169,7 +169,7 @@ namespace pnk
 
 
         blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, heap_used, heap_total, total_ram);
-
+#endif
 #endif
 
         _last_time = 0;
