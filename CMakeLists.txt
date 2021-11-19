@@ -16,11 +16,11 @@ add_definitions(-DPNK_DEBUG_FPS)
 # remove assert statements
 #add_definitions(-DNDEBUG)
 
-if (CMAKE_BUID_TYPE MATCHES Debug)
+if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG=1)
-elseif (CMAKE_BUID_TYPE MATCHES Release)
+elseif (CMAKE_BUILD_TYPE MATCHES Release)
     add_definitions(-DRELEASE=1)
-elseif (CMAKE_BUID_TYPE MATCHES 32blit_HW)
+elseif (CMAKE_BUILD_TYPE MATCHES 32blit_HW)
     add_definitions(-DTARGET_32BLIT_HW=1)
 endif()
 
