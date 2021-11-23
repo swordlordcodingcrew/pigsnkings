@@ -76,7 +76,7 @@ namespace pnk
 
         DEBUG_PRINT("pigsnkings: initial module loaded\n");
 
-        _last_time = blit::now();
+        _last_update_time = blit::now();
     }
 
     void PigsnKings::refreshGamestateFromSave()
@@ -173,11 +173,12 @@ namespace pnk
             });
         }
 
+        _dt_update_time = time - _last_update_time;
         // update is called every 10 ms. if using (time - _last_time) debugging or pausing the game causes unwanted sideeffects
         _gear.update(10);
-//        _gear.update(time - _last_time);
+//        _gear.update(time - _last_update_time);
 
-        _last_time = time;
+        _last_update_time = time;
     }
 
     void PigsnKings::render(uint32_t time)
@@ -198,14 +199,15 @@ namespace pnk
 #endif
 
 #ifdef PNK_DEBUG_FPS
-        _last_ticks = _current_ticks;
-        _current_ticks = blit::now();
+        _last_render_ticks = _current_render_ticks;
+        _current_render_ticks = blit::now();
         blit::screen.alpha = 255;
-        blit::screen.pen = blit::Pen(255, 255, 255, 100);
-        blit::screen.rectangle(blit::Rect(1, 240 - 10, 16, 9));
+        blit::screen.pen = blit::Pen(255, 255, 255, 200);
+        blit::screen.rectangle(blit::Rect(1, 240 - 10, 100, 9));
         blit::screen.pen = blit::Pen(255, 0, 0);
-        std::string fms = std::to_string(_current_ticks - _last_ticks);
-        blit::screen.text(fms, blit::minimal_font, blit::Rect(3, 240 - 9, 16, 16));
+        std::string fms = "ups=" + std::to_string(int32_t(1000.0f / (_dt_update_time))) + " fps=" + std::to_string(int32_t(1000.0f / (_current_render_ticks - _last_render_ticks)));
+//        std::string fms = std::to_string(int32_t(1000.0f / (_current_ticks - _last_ticks)));
+        blit::screen.text(fms, blit::minimal_font, blit::Rect(3, 240 - 9, 100, 16));
 
 #endif
 

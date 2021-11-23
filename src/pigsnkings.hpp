@@ -109,7 +109,8 @@ namespace pnk
         std::shared_ptr<GameState>   _new_gs{nullptr};
 
         // for calculating diffs
-        uint32_t _last_time{0};
+        uint32_t _last_update_time{0};
+        uint32_t _dt_update_time{0};
 
 #ifdef PNK_DEBUG_MEM
         int _mem{0};
@@ -125,8 +126,8 @@ namespace pnk
 #endif
 
 #ifdef PNK_DEBUG_FPS
-        uint32_t _last_ticks{0};
-        uint32_t _current_ticks{0};
+        uint32_t _last_render_ticks{0};
+        uint32_t _current_render_ticks{0};
 #endif
     };
 
