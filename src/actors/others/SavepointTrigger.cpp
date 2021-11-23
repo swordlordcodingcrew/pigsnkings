@@ -29,13 +29,14 @@ namespace pnk
             _pnk._dispatcher.queueEvent(std::move(e));
 
             // make sure not to hit anymore
-            _hotrect = {0,0,0,0};
+//            _hotrect = {0,0,0,0};
+            _consumed = true;
         }
     }
 
     dang::CollisionSpriteLayer::eCollisionResponse SavepointTrigger::getCollisionResponse(const spCollisionSprite& other)
     {
-        if (other->_type_num == ST_KING)
+        if (other->_type_num == ST_KING && !_consumed)
         {
             return dang::CollisionSpriteLayer::CR_CROSS;
         }
