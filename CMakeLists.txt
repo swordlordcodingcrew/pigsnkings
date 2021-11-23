@@ -18,6 +18,7 @@ add_definitions(-DPNK_DEBUG_FPS)
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG=1)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 elseif (CMAKE_BUILD_TYPE MATCHES Release)
     add_definitions(-DRELEASE=1)
 elseif (CMAKE_BUILD_TYPE MATCHES 32blit_HW)
