@@ -174,6 +174,7 @@ namespace pnk
 
         _last_time = 0;
 
+        dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
         loadLevel(_pnk._gamestate.active_level);

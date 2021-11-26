@@ -111,7 +111,10 @@ namespace pnk
 
         // set up music
         DEBUG_PRINT("GSHome: load track (%d)\n", mallinfo().uordblks);
-        dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
+        if (!dang::SndGear::modPlaying())
+        {
+            dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
+        }
         DEBUG_PRINT("GSHome: track loaded (%d)\n", mallinfo().uordblks);
 
         // set up state
@@ -294,7 +297,8 @@ namespace pnk
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
-        dang::SndGear::stopMod();
+
+        //        dang::SndGear::stopMod();
 
         // empty out gear
         gear.removeImagesheets();

@@ -29,7 +29,7 @@ namespace pnk
     void GSPrefs::enter(dang::Gear& gear, uint32_t time)
     {
         // set up music
-        dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
+//        dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
 
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
@@ -42,7 +42,7 @@ namespace pnk
 
     void GSPrefs::exit(dang::Gear& gear, uint32_t time)
     {
-        dang::SndGear::stopMod();
+//        dang::SndGear::stopMod();
 
         gear.removeLayers();
     }
