@@ -96,6 +96,7 @@ namespace pnk
         gamestate       _gamestate; // state of current game
         prefs           _prefs; // world preferences
         std::string     cheatKeyStream = "12345678";
+        std::forward_list<uint16_t> _removed_sprites;
 
         dang::Gear& getGear();
 

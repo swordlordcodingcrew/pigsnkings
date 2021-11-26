@@ -385,6 +385,13 @@ namespace pnk
 
             DEBUG_PRINT("GSPlay: sprite %d of %d (%d)\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
 
+            // remove sprites that have been taken/vanquished before
+            for (auto id : _pnk._removed_sprites)
+            {
+                _csl->removeSpriteById(id);
+            }
+
+
 #ifdef TARGET_32BLIT_HW
 
             // memory stats
@@ -510,7 +517,13 @@ namespace pnk
             std::shared_ptr<dang::Sprite> spr = pe._spr.lock();
             if (spr != nullptr)
             {
-                _csl->removeSprite(pe._spr.lock());
+                _csl->removeSprite(spr);
+
+                if ((spr->_type_num > ST_ENEMIES && spr->_type_num < ST_ENEMIES_END) ||
+                    (spr->_type_num > ST_REWARDS && spr->_type_num < ST_REWARDS_END))
+                {
+                    _pnk._removed_sprites.push_front(spr->_id);
+                }
 #ifdef PNK_DEBUG
                 DEBUG_PRINT("GSPlay: remove sprite from layer\n");
 #endif
