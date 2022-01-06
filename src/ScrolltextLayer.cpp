@@ -179,14 +179,12 @@ namespace pnk
     // paints a frame around the scrolltext
     void ScrolltextLayer::paintFrame(const dang::Gear& gear)
     {
-        blit::screen.sprites = is->getSurface();
-
         // top side
         blit::Rect sr = is->getBlitRect(25);
         for(int i = 0; i < 10; i++)
         {
             blit::Point dp = {i * 32, -8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(is->getSurface(), sr, dp, 0);
         }
 
         // bottom side
@@ -194,7 +192,7 @@ namespace pnk
         for(int i = 0; i < 10; i++)
         {
             blit::Point dp = {i * 32, 216};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(is->getSurface(), sr, dp, 0);
         }
 
         // left side
@@ -202,7 +200,7 @@ namespace pnk
         for(int j = 1; j < 8; j++)
         {
             blit::Point dp = {0, (j * 32) - 8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(is->getSurface(), sr, dp, 0);
         }
 
         // right side
@@ -210,29 +208,29 @@ namespace pnk
         for(int j = 1; j < 8; j++)
         {
             blit::Point dp = {288, (j * 32) - 8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(is->getSurface(), sr, dp, 0);
         }
 
         // once every corner
         // top left
         sr = is->getBlitRect(4);
         blit::Point dp = {0, - 8};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(is->getSurface(), sr, dp, 0);
 
         // top right
         sr = is->getBlitRect(5);
         dp = {288, - 8};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(is->getSurface(), sr, dp, 0);
 
         // bottom left
         sr = is->getBlitRect(16);
         dp = {0, 216};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(is->getSurface(), sr, dp, 0);
 
         // bottom right
         sr = is->getBlitRect(17);
         dp = {288, 216};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(is->getSurface(), sr, dp, 0);
     }
 
     void ScrolltextLayer::resetScrolling()

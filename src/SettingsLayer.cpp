@@ -183,35 +183,31 @@ namespace pnk
 
     void SettingsLayer::paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val)
     {
-        blit::screen.sprites = _is_hud->getSurface();
-
         blit::Rect sr = _is_hud->getBlitRect(61);
         blit::Point dp = {x, y};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_hud->getSurface(), sr, dp, 0);
 
         sr = _is_hud->getBlitRect(62);
 
         for(int i = 1; i < 6; i++)
         {
             dp = {x + (i * 16), y};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(_is_hud->getSurface(), sr, dp, 0);
         }
 
         sr = _is_hud->getBlitRect(63);
         dp = {x + (6 * 16), y};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_hud->getSurface(), sr, dp, 0);
 
         // the slider
         sr = _is_hud->getBlitRect(60);
         dp = {static_cast<int32_t>(x + (val * 100)), y};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_hud->getSurface(), sr, dp, 0);
     }
 
     void SettingsLayer::paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val)
     {
         y = y - 10;
-
-        blit::screen.sprites = _is_king->getSurface();
 
         blit::Rect sr = _is_king->getBlitRect(27);
         blit::Rect sr_selected = _is_king->getBlitRect(26);
@@ -224,11 +220,11 @@ namespace pnk
 
             if(val == i)
             {
-                blit::screen.blit_sprite(sr_selected, dp, 0);
+                blit::screen.blit(_is_king->getSurface(), sr_selected, dp, 0);
             }
             else
             {
-                blit::screen.blit_sprite(sr, dp, 0);
+                blit::screen.blit(_is_king->getSurface(), sr, dp, 0);
             }
 
             // add 10 we lost before + a few until we are above the head of the king
@@ -258,8 +254,6 @@ namespace pnk
         // paint the background
     void SettingsLayer::paintBackground(const dang::Gear& gear)
     {
-        blit::screen.sprites = _is_castle->getSurface();
-
         // back wall
         blit::Rect sr = _is_castle->getBlitRect(61);
         for(int i = 0; i < 10; i++)
@@ -267,7 +261,7 @@ namespace pnk
             for(int j = 0; j < 8; j++)
             {
                 blit::Point dp = {i * 32, j * 32};
-                blit::screen.blit_sprite(sr, dp, 0);
+                blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
             }
         }
 
@@ -276,7 +270,7 @@ namespace pnk
         for(int i = 0; i < 10; i++)
         {
             blit::Point dp = {i * 32, -8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
         }
 
         // bottom side
@@ -284,7 +278,7 @@ namespace pnk
         for(int i = 0; i < 10; i++)
         {
             blit::Point dp = {i * 32, 216};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
         }
 
         // left side
@@ -292,7 +286,7 @@ namespace pnk
         for(int j = 1; j < 8; j++)
         {
             blit::Point dp = {0, (j * 32) - 8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
         }
 
         // right side
@@ -300,29 +294,29 @@ namespace pnk
         for(int j = 1; j < 8; j++)
         {
             blit::Point dp = {288, (j * 32) - 8};
-            blit::screen.blit_sprite(sr, dp, 0);
+            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
         }
 
         // once every corner
         // top left
         sr = _is_castle->getBlitRect(4);
         blit::Point dp = {0, - 8};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
 
         // top right
         sr = _is_castle->getBlitRect(5);
         dp = {288, - 8};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
 
         // bottom left
         sr = _is_castle->getBlitRect(16);
         dp = {0, 216};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
 
         // bottom right
         sr = _is_castle->getBlitRect(17);
         dp = {288, 216};
-        blit::screen.blit_sprite(sr, dp, 0);
+        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
     }
 
     void SettingsLayer::refreshTempGamestateFromSave(const uint8_t slot)
