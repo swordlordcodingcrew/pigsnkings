@@ -12,6 +12,9 @@
 
 namespace pnk
 {
+    class ScreenPlay;
+    using spScreenPlay = std::shared_ptr<ScreenPlay>;
+
     enum e_state
             {
         SLEEPING = 0,
@@ -50,6 +53,7 @@ namespace pnk
         dang::BTNode::Status checkPathCompleted();
         dang::BTNode::Status checkWaypointReached();
         virtual void startOutToWaypoint();
+        void initSceneGraph(const spScreenPlay &sp);
 
         /** these functions are used to set a destination wapoint */
         dang::BTNode::Status setDestinationWaypointByType(uint32_t wp_type);

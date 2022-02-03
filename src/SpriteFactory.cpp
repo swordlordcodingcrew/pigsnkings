@@ -116,7 +116,7 @@ namespace pnk
 
         attachBehaviourTree(txtr, so, ret);
 
-        initSceneGraph(sp, ret);
+//        initSceneGraph(sp, ret);
 
         ret->init();
 
@@ -216,7 +216,7 @@ namespace pnk
             ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
         }
 
-        initSceneGraph(sp, ret);
+//        initSceneGraph(sp, ret);
 
         ret->init();
 
@@ -263,7 +263,7 @@ namespace pnk
             ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
         }
 
-        initSceneGraph(sp, ret);
+//        initSceneGraph(sp, ret);
 
         ret->init();
 
@@ -309,7 +309,7 @@ namespace pnk
             ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
         }
 
-        initSceneGraph(sp, ret);
+//        initSceneGraph(sp, ret);
 
         ret->init();
 
@@ -626,17 +626,17 @@ namespace pnk
         return ret;
     }
 
-    void SpriteFactory::initSceneGraph(const spScreenPlay &sp, const spEnemy &spr)
+/*    void SpriteFactory::initSceneGraph(const spScreenPlay &sp, const spEnemy &spr)
     {
         for (auto room : sp->_acts)
         {
             if (room._extent_pixels.contains(spr->getPos()) && !room._scene_graphs.empty())
             {
-                size_t ind = findNearestGraph(room._scene_graphs, spr->getHotrectAbs().center());
+                size_t ind = findNearestGraph(room._scene_graphs, spr->getHotrectG().center());
                 spr->_scene_graph = room._scene_graphs[ind];
 
-                const dang::Waypoint* wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectAbs().center());
-                if (spr->_scene_graph->waypointReached(spr->getHotrectAbs(), wp))
+                const dang::Waypoint* wp = spr->_scene_graph->findNearestWaypoint(spr->getHotrectG().center());
+                if (spr->_scene_graph->waypointReached(spr->getHotrectG(), wp))
                 {
                     spr->_current_wp = wp;
                 }
@@ -651,8 +651,8 @@ namespace pnk
         }
 
     }
-
-    size_t SpriteFactory::findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos)
+*/
+/*    size_t SpriteFactory::findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos)
     {
         float dist = FLT_MAX;
         size_t index{0};
@@ -667,7 +667,7 @@ namespace pnk
         }
         return index;
     }
-
+*/
     void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs)
     {
         if (so->bt.length() > 0)

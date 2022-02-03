@@ -193,6 +193,7 @@ namespace pnk
     {
         DEBUG_PRINT("GSPlay: enter exit()\n");
 
+        saveGamestate();
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
         _sub_ref = 0;
@@ -292,6 +293,7 @@ namespace pnk
             spImagesheet is = gear.getImagesheet(so->tileset);
             std::unordered_map<std::string, spImagesheet> iss = gear.getImagesheets();
             spCollisionSprite spr = nullptr;
+
             if      (so->type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so->type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
             else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
@@ -299,9 +301,6 @@ namespace pnk
             else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
             else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
             else if (so->type == SpriteFactory::T_SAVEPOINT_TRIGGER) { spr = SpriteFactory::SavepointTrigger(so); }
-            else if (so->type == SpriteFactory::T_PIG_NORMAL)        { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, iss, _screenplay); }
-            else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, iss, _screenplay); }
             else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
             else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
@@ -324,11 +323,6 @@ namespace pnk
                 _spr_hero = SpriteFactory::King(txtr, so, is);
                 spr = _spr_hero;
             }
-            else if (so->type == SpriteFactory::T_BOSS)
-            {
-                _spr_boss = SpriteFactory::Boss(txtr, so, iss, _screenplay);
-                spr = _spr_boss;
-            }
 
             if (spr != nullptr)
             {
@@ -336,6 +330,29 @@ namespace pnk
             }
             else
             {
+                if (so->type == SpriteFactory::T_BOSS)
+                {
+                    _spr_boss = SpriteFactory::Boss(txtr, so, iss, _screenplay);
+                    spr = _spr_boss;
+                }
+                else if (so->type == SpriteFactory::T_PIG_NORMAL)             { spr = SpriteFactory::NormalPig(txtr, so, is, _screenplay); }
+                else if (so->type == SpriteFactory::T_PIG_BOX)           { spr = SpriteFactory::PigCrate(txtr, so, iss, _screenplay); }
+                else if (so->type == SpriteFactory::T_PIG_BOMB)          { spr = SpriteFactory::PigBomb(txtr, so, iss, _screenplay); }
+
+                if (spr != nullptr)
+                {
+                    _csl->addCollisionSprite(spr);
+
+                    // global pos is needed for the graphs and the global pos can only be determind when added to a layer due to the tree-structure
+                    spEnemy en = std::static_pointer_cast<Enemy>(spr);
+                    en->initSceneGraph(_screenplay);
+                }
+
+            }
+
+            if (spr == nullptr)
+            {
+
                 if (so->type == SpriteFactory::T_BUBBLE_PROTO)
                 {
                     spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
@@ -893,8 +910,10 @@ namespace pnk
             // reset current level and room to new ones
             _pnk._gamestate.active_room = 0;
             _pnk._gamestate.active_level = level_nr;
+            _pnk._removed_sprites.clear();
 
             // TODO store gamestate values to disc so that the level gets loaded next time
+            saveGamestate();
 
             // TODO check level_nr for bounds
             loadLevel(level_nr);
@@ -1023,7 +1042,6 @@ namespace pnk
 
         // activate level trigger
         // TODO reactivate once we have a playable level 2
-        /*
         dang::spSpriteLayer ol = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_COLLISIONSPRITELAYER));
         if(ol != nullptr)
         {
@@ -1034,7 +1052,6 @@ namespace pnk
                 lvlTrigger->activateTrigger();
             }
         }
-         */
 
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
 
@@ -1051,7 +1068,7 @@ namespace pnk
         }
 
         // TODO this is a hack and should be removed once we activate other levels besides level 1.
-        _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
+//        _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
@@ -1120,7 +1137,6 @@ namespace pnk
 
     void GSPlay::hideInfoLayer(blit::Button btn)
     {
-//        _pnk.getGear().setLayersActive(true);
         _csl->setActive(true);
         _txtl->setActive(false);
         _txtl->setVisibility(false);

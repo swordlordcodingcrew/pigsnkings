@@ -104,7 +104,7 @@ namespace pnk
         /** hit a platform hotrect */
         else if (other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            if (other->getHotrectAbs().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+            if (other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
             {
                 _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
             }

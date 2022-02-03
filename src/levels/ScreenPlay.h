@@ -61,19 +61,9 @@ namespace pnk
          */
         std::unordered_map<std::string, dang::spNTree>  _bt;
 
-    };
-/*
-    class L1SP : public ScreenPlay
-    {
-    public:
-        L1SP();
-    };
+        size_t findNearestGraph(const dang::Vector2F& pos);
 
-    class L2SP : public ScreenPlay
-    {
-    public:
-        L2SP();
+
     };
-*/
 }
 
