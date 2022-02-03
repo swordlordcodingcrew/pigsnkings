@@ -26,28 +26,14 @@ Pigs all around!\n\
 \n\
 (press 'X' to start)"};
 
-/*
- * We will replace below text with that here once we have level 2!
- const static std::string_view str_lvl1_end{"The pig boss is\n\
+const static std::string_view str_lvl1_end{"The pig boss is\n\
 vanquished!\n\
 Lets clean up the next floor\n\
 You may proceed to the door"};
 
- */
-// TODO replace me with the text above once we have level 2
-const static std::string_view str_lvl1_end{"The pig boss is\n\
-vanquished!\n\
-\n\
-But let us first design\n\
-the next few levels\n\
-\n\
-You will now return\n\
-to the main screen"};
-
 /**
  * Level 2 strings
  */
-
 const static std::string_view str_lvl2_intro{"You enter your chambers\n\
 in the 2nd floor\n\
 But AAARGH\n\
