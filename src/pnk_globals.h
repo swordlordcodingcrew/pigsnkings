@@ -7,10 +7,6 @@
 #include <libs/32blit-sdk/32blit/graphics/surface.hpp>
 #include <libs/32blit-sdk/32blit/engine/input.hpp>
 
-//#define PNK_DEBUG
-//#define PNK_SND_DEBUG
-//#define PNK_DEBUG_PRINT
-
 
 #ifdef PNK_DEBUG_PRINT
     #ifdef TARGET_32BLIT_HW
