@@ -111,7 +111,7 @@ namespace pnk
                         .leaf(Enemy::NTsetRandomPath)
                         .leaf(Enemy::NTcheckPathCompleted)
                     .end()
-                    .tree(back_to_path_h)   // crash in this function on hw
+                    .tree(back_to_path_h)
                     .tree(back_to_path)
                 .end()
                 .leaf(HenchPig::NTsetSleepMedium)
