@@ -31,8 +31,6 @@ namespace pnk
     void PigBoss::init()
     {
         onEnterSleeping();
-
-        setVel({0, 0});
     }
 
     PigBoss::~PigBoss()
