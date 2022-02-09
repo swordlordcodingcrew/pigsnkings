@@ -136,6 +136,7 @@ static const dang::tmx_layer level_1_lvl_1_bg = {
     .opacity = 1,
     .visible = true,
     .z_order = 0,
+    .position = {0,0},
     .tl_width = 30,
     .tl_height = 24,
     .tl_tileset = "gfx_levels_castle_tiles",
@@ -270,6 +271,7 @@ static const dang::tmx_layer level_1_lvl_1_mood = {
     .opacity = 1,
     .visible = true,
     .z_order = 1,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -410,7 +412,7 @@ static const dang::tmx_spriteobject level_1_lvl_1_obj_objects[] = {
     {374,"374","hotrect",928,128,32,352,true,"",0,"",0,0b0000},
     {376,"2","warp_room_trigger",640,448,2,32,true,"",0,"",0,0b0000},
     {377,"4","warp_room_trigger",640,288,2,32,true,"",0,"",0,0b0000},
-    {379,"7","warp_room_trigger",608,192,2,32,true,"",0,"",0,0b0000},
+    {379,"7","warp_room_trigger",606,192,2,32,true,"",0,"",0,0b0000},
     {380,"4","warp_room_trigger",320,448,2,32,true,"",0,"",0,0b0000},
     {381,"5","room_trigger",288,64,2,32,true,"",0,"",0,0b0000},
     {382,"4","room_trigger",320,64,2,32,true,"",0,"",0,0b0000},
@@ -488,6 +490,7 @@ static const dang::tmx_layer level_1_lvl_1_obj = {
     .opacity = 1,
     .visible = true,
     .z_order = 2,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -524,6 +527,7 @@ static const dang::tmx_layer level_1_lvl_1_fg = {
     .opacity = 1,
     .visible = true,
     .z_order = 3,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -555,6 +559,7 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
     .opacity = 1,
     .visible = true,
     .z_order = 4,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -564,7 +569,7 @@ static const dang::tmx_layer level_1_lvl_1_hud = {
     .spriteobejcts_len = level_1_lvl_1_hud_objects_len
 };
 
-// layer with points - path layer
+// path layer
 static const dang::tmx_waypoint level_1_waypoints[] = {
     {409, 48,696, 0},
     {410, 80,728, 0},
@@ -831,7 +836,9 @@ static const dang::tmx_level level_1_level {
     .waypoints = level_1_waypoints,
     .waypoints_len = level_1_waypoints_len,
     .waypoint_connections = level_1_connections,
-    .waypoint_connections_len = level_1_connections_len
+    .waypoint_connections_len = level_1_connections_len,
+    .wavepoints = nullptr,
+    .wavepoints_len = 0
 };
 
 

@@ -13,7 +13,7 @@
  <tileset firstgid="451" source="../tilesets/common_items_bomb.tsx"/>
  <tileset firstgid="462" source="../tilesets/character_pigking.tsx"/>
  <tileset firstgid="495" source="../tilesets/levels_door.tsx"/>
- <layer id="1" name="lvl_1_bg" width="30" height="24">
+ <layer id="1" name="lvl_1_bg" width="30" height="24" locked="1">
   <data encoding="csv">
 5,26,26,26,26,26,26,6,14,14,14,14,14,5,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
 15,49,50,50,50,50,51,25,26,26,26,26,19,27,49,50,50,50,51,25,27,49,50,50,50,50,50,50,51,25,
@@ -170,7 +170,7 @@
   <object id="578" gid="124" x="736" y="96" width="32" height="32"/>
   <object id="579" gid="125" x="768" y="96" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_1_obj" locked="1">
+ <objectgroup id="3" name="lvl_1_obj">
   <object id="143" type="coin_silver" gid="129" x="384" y="560" width="32" height="48">
    <properties>
     <property name="z_order" type="int" value="600"/>
@@ -477,7 +477,7 @@
   <object id="374" type="hotrect" x="928" y="128" width="32" height="352"/>
   <object id="376" name="2" type="warp_room_trigger" x="640" y="448" width="2" height="32"/>
   <object id="377" name="4" type="warp_room_trigger" x="640" y="288" width="2" height="32"/>
-  <object id="379" name="7" type="warp_room_trigger" x="608" y="192" width="2" height="32"/>
+  <object id="379" name="7" type="warp_room_trigger" x="606" y="192" width="2" height="32"/>
   <object id="380" name="4" type="warp_room_trigger" x="320" y="448" width="2" height="32"/>
   <object id="381" name="5" type="room_trigger" x="288" y="64" width="2" height="32"/>
   <object id="382" name="4" type="room_trigger" x="320" y="64" width="2" height="32"/>
