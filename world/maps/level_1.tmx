@@ -662,7 +662,7 @@
   <object id="519" name="6" type="warp_room_trigger" x="128" y="288" width="64" height="2"/>
   <object id="527" type="hotrect" x="256" y="438" width="32" height="10"/>
   <object id="528" type="hotrect" x="32" y="439" width="32" height="10"/>
-  <object id="529" type="boss" gid="462" x="256" y="448" width="32" height="32">
+  <object id="529" type="boss" gid="462" x="254" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="boss"/>
     <property name="z_order" type="int" value="200"/>
@@ -726,7 +726,7 @@
   <object id="523" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
   <object id="524" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_1_paths" locked="1">
+ <objectgroup id="6" name="lvl_1_paths">
   <object id="409" type="0" x="48" y="696">
    <properties>
     <property name="walk_0" type="object" value="410"/>
