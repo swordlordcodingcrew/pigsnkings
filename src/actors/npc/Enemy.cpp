@@ -16,6 +16,7 @@
 #include <tween/TwVelY.hpp>
 #include <path/Waypoint.hpp>
 #include <TmxExtruder.hpp>
+#include <iostream>
 
 namespace pnk
 {
@@ -296,7 +297,7 @@ namespace pnk
             {
                 dang::Vector2F v{0,0};
                 dang::Vector2F v_end{0,0};
-                if (wp->_pos.y < getHotrectG().center().y)
+                if (getHotrectG().center().y - wp->_pos.y > 10)     // safety buffer of 10 units for the check if higher / lower
                 {
                     // the waypoint is higher than the hero
                     v.y = -15 - (0.4f * _walkSpeed);
@@ -307,9 +308,8 @@ namespace pnk
                     v.y = -5 + (0.4f * _walkSpeed);
                 }
 
-                if ((wp->_pos.x - getHotrectG().center().x) * (wp->_pos.x - getHotrectG().center().x) > 1600)
+                if ((wp->_pos.x - getHotrectG().center().x) * (wp->_pos.x - getHotrectG().center().x) > 1600)  // long horizontal distance
                 {
-                    // long horizontal distance
                     if (wp->_pos.x - _pos_g.x < 0)
                     {
                         v.x = -16;
