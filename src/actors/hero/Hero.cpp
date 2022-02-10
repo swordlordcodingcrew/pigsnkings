@@ -52,13 +52,13 @@ namespace pnk
 
     void Hero::collide(const dang::CollisionSpriteLayer::manifold &mf)
     {
+        spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
+
+        // check direction
+        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+
         if (_somatic_state == SomaticState::_normal)
         {
-            spCollisionSprite other = mf.me.get() == this ? mf.other : mf.me;
-
-            // check direction
-            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
-
             // collision with enemy
             if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
             {
@@ -112,19 +112,16 @@ namespace pnk
             /** hit with something solid */
             if (normal.y > 0)
             {
-                if (mf.other->_type_num == ST_BUBBLE || mf.me->_type_num == ST_BUBBLE)
+//                if (mf.other->_type_num == ST_BUBBLE || mf.me->_type_num == ST_BUBBLE)
+                if (other->_type_num == ST_BUBBLE)
                 {
-                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == ST_BUBBLE ? mf.me : mf.other);
+//                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == ST_BUBBLE ? mf.me : mf.other);
+                    spBubble bubble = std::static_pointer_cast<Bubble>(other);
                     if (bubble->_state != Bubble::bs_enemy_catched)
                     {
                         _on_ground = true;
                         _vel.y = 0;
                     }
-                }
-                else if (mf.other->_type_num == ST_PIG_BOSS || mf.me->_type_num == ST_PIG_BOSS)
-                {
-                    _on_ground = true;
-                    _vel.y = 0;
                 }
                 else
                 {
@@ -132,12 +129,21 @@ namespace pnk
                     _vel.y = 0;
                 }
             }
-            else if (normal.y < 0 && mf.other->_type_num != ST_BUBBLE && mf.me->_type_num != ST_BUBBLE)
+            else if (normal.y < 0 && other->_type_num != ST_BUBBLE)
             {
                 _top_hit = true;
                 _vel.y = 0;
             }
 
+        }
+        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        {
+            /** hit with hotrect */
+            if (normal.y > 0 && other->_type_num == ST_HOTRECT)
+            {
+                _on_ground = true;
+                _vel.y = 0;
+            }
         }
 
     }
