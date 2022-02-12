@@ -11,6 +11,7 @@
 //#include <TmxExtruder.hpp>
 //#include <Event.hpp>
 
+#include <list>
 
 namespace pnk
 {
@@ -81,7 +82,8 @@ namespace pnk
 
         struct gamestate
         {
-            uint8_t version{1}; // of the gamestate for upgrading
+            uint8_t version{2}; // of the gamestate for upgrading
+            uint32_t save_size{0};    // size of saved gamestate (v2)
             int8_t  lives{HERO_MAX_LIVES};
             int8_t  health{HERO_MAX_HEALTH}; // percent
             uint32_t score{0};
@@ -96,7 +98,7 @@ namespace pnk
         gamestate       _gamestate; // state of current game
         prefs           _prefs; // world preferences
         std::string     cheatKeyStream = "12345678";
-        std::forward_list<uint16_t> _removed_sprites;
+        std::list<uint16_t> _removed_sprites;
 
         dang::Gear& getGear();
 

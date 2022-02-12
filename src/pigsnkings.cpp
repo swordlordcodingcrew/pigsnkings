@@ -21,6 +21,8 @@
 
 #include <malloc.h>
 #include <iostream>
+#include <cstring>
+#include <cassert>
 
 namespace pnk
 {
@@ -89,12 +91,60 @@ namespace pnk
 
         DEBUG_PRINT("pigsnkings: prefs loaded\n");
 
-        // loading the gamestate from the prefs
-        if(!blit::read_save(_gamestate, _prefs.currentGameSaveSlot))
+        struct {
+            uint8_t version{0};
+            uint32_t size{0};
+        } header;
+
+        if (blit::read_save(header, _prefs.currentGameSaveSlot))
         {
+            if (header.version == 2)
+            {
+
+                char*   save = new(std::nothrow) char[header.size];
+                if (save != nullptr)
+                {
+                    std::memset(save, 0xFF, header.size);
+                    assert(header.size >= sizeof(gamestate));
+
+                    if (blit::read_save(save, header.size, _prefs.currentGameSaveSlot))
+                    {
+                        std::memcpy(&_gamestate, save, sizeof(gamestate));
+
+                        uint32_t num_ids = (header.size - sizeof(gamestate)) / 2;
+
+                        for (size_t cnt = 0; cnt < num_ids; ++cnt)
+                        {
+                            assert(sizeof(gamestate) + cnt*2 < header.size);
+                            uint16_t id{0};
+                            std::memcpy(&id, save + sizeof(gamestate) + cnt*2, sizeof(uint16_t));
+                            _removed_sprites.push_back(id);
+                        }
+
+                    }
+
+                    delete [] save;
+                }
+            }
+            else
+            {
+                _gamestate.save_size = sizeof(gamestate);
+                blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+            }
+        }
+        else
+        {
+            _gamestate.save_size = sizeof(gamestate);
             blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
         }
 
+
+        // loading the gamestate from the prefs
+/*        if(!blit::read_save(_gamestate, _prefs.currentGameSaveSlot))
+        {
+            blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+        }
+*/
         DEBUG_PRINT("pigsnkings: game states loaded\n");
     }
 
@@ -108,8 +158,37 @@ namespace pnk
 
         DEBUG_PRINT("pigsnkings: saving gamestate\n");
 
+        uint32_t size = sizeof(gamestate) + _removed_sprites.size() * sizeof(uint16_t);
+        _gamestate.save_size = size;
+        char*   save = new(std::nothrow) char[size];
+
+        if (save != nullptr)
+        {
+//            std::memset(save, 0xFF, size);
+
+            std::memcpy(save, &_gamestate, sizeof(gamestate));
+            size_t cnt{0};
+            for (uint16_t id : _removed_sprites)
+            {
+                assert(sizeof(gamestate) + cnt < size);
+                std::memcpy(save + sizeof(gamestate) + cnt, &id, sizeof(uint16_t));
+//                save[sizeof(gamestate) + cnt] = id;
+                cnt += sizeof(uint16_t);
+            }
+
+            // saving the gamestate
+            blit::write_save(save, size, _prefs.currentGameSaveSlot);
+
+            delete [] save;
+        }
+        else
+        {
+            _gamestate.save_size = sizeof(gamestate);
+            blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+        }
+
         // saving the gamestate
-        blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+//        blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
 
         DEBUG_PRINT("pigsnkings: game state saved\n");
     }
