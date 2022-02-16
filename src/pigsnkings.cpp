@@ -89,6 +89,8 @@ namespace pnk
             _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
         }
 
+        _removed_sprites.clear();
+
         DEBUG_PRINT("pigsnkings: prefs loaded\n");
 
         struct {
@@ -187,10 +189,41 @@ namespace pnk
             blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
         }
 
-        // saving the gamestate
-//        blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
-
         DEBUG_PRINT("pigsnkings: game state saved\n");
+    }
+
+    bool PigsnKings::loadGameState(uint8_t slot, gamestate& gs)
+    {
+        bool ret{true};
+
+        // sanity check for current gamesave slot
+        if(slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
+        {
+            slot = FIRST_GAME_SAVE_SLOT;
+        }
+
+        struct {
+            uint8_t version{0};
+            uint32_t size{0};
+        } header;
+
+        if (blit::read_save(header, slot))
+        {
+            if (header.version == 2)
+            {
+                blit::read_save(gs, slot);
+            }
+            else
+            {
+                ret = false;
+            }
+        }
+        else
+        {
+            ret = false;
+        }
+
+        return ret;
     }
 
     void PigsnKings::initEmptyGameslots()

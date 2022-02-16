@@ -156,8 +156,6 @@ namespace pnk
 
     void SettingsLayer::render(const dang::Gear& gear)
     {
-        paintBackground(gear);
-
         uint8_t i = 0;
 
         const uint8_t y_dist = 32;
@@ -166,19 +164,21 @@ namespace pnk
         {
             i == _selectedPref ? blit::screen.pen = foregroundColour : blit::screen.pen = backgroundColour;
 
-            blit::screen.text(pref.caption, hud_font_small, blit::Point(49, 50 + (i * y_dist)), true, blit::TextAlign::left);
+            blit::screen.text(pref.caption, hud_font_small, blit::Point(49, 40 + (i * y_dist)), true, blit::TextAlign::left);
 
             if(pref.type == STEP_10)
             {
-                paintSlider(gear, 140, 50 + (i * y_dist), pref.curVal);
+                paintSlider(gear, 140, 40 + (i * y_dist), pref.curVal);
             }
             else if(pref.type == GAMESLOT)
             {
-                paintGameslot(gear, 140, 50 + (i * y_dist), pref.curVal);
+                paintGameslot(gear, 140, 40 + (i * y_dist), pref.curVal);
             }
 
             i++;
         }
+
+        paintStats(gear, 49, 158);
     }
 
     void SettingsLayer::paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val)
@@ -230,98 +230,62 @@ namespace pnk
             // add 10 we lost before + a few until we are above the head of the king
             blit::screen.text(std::to_string(i), hud_font_small, blit::Point((x + (30 * (i-1))) + 15, y + 10 + 9), true, blit::TextAlign::left);
         }
-
-        y += 40;
-
-        blit::screen.text("Highscore: " + std::to_string(_temp_gamestate.high_score), hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
-
-        y += 18;
-
-        std::string s1{"<3: " + std::to_string(_temp_gamestate.lives) + ", Cheater: " + (_temp_gamestate.has_cheated || _temp_gamestate.invincible ? "Y":"N")};
-        blit::screen.text(s1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
-
-        y += 18;
-
-        std::string s2{"Score: " + std::to_string(_temp_gamestate.score)};
-        blit::screen.text(s2, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
-
-        y += 18;
-
-        std::string s3{"Level: " + std::to_string(_temp_gamestate.active_level) + ", Room: " + std::to_string(_temp_gamestate.active_room)};
-        blit::screen.text(s3, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
-
     }
-        // paint the background
-    void SettingsLayer::paintBackground(const dang::Gear& gear)
+
+    void SettingsLayer::paintStats(const dang::Gear& gear, uint8_t x, uint8_t y)
     {
-        // back wall
-        blit::Rect sr = _is_castle->getBlitRect(61);
-        for(int i = 0; i < 10; i++)
+        uint8_t d_row1 = 60;
+        uint8_t d_row3 = 100;
+
+        std::string str1{"Level:" };
+        std::string str2{std::to_string(_temp_gamestate.active_level)};
+        blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
+
+        y += 16;
+
+        str1 = "Room:";
+        str2 = std::to_string(_temp_gamestate.active_room);
+        blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
+
+        y += 16;
+
+        str1 = "Lives:";
+        str2 = std::to_string(_temp_gamestate.lives);
+        blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
+
+        y -= 32;
+        x += 100;
+
+        str1 = "Highscore:";
+        str2 = std::to_string(_temp_gamestate.high_score);
+        blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(str2, hud_font_small, blit::Point(x + d_row3, y), true, blit::TextAlign::left);
+
+        y += 16;
+
+        str1 = "Score:";
+        str2 = std::to_string(_temp_gamestate.score);
+        blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+        blit::screen.text(str2, hud_font_small, blit::Point(x + d_row3, y), true, blit::TextAlign::left);
+
+        if (_temp_gamestate.has_cheated)
         {
-            for(int j = 0; j < 8; j++)
-            {
-                blit::Point dp = {i * 32, j * 32};
-                blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-            }
+            y += 16;
+            str1 = "Cheater: Yes";
+            blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
+            blit::screen.text("Yes", hud_font_small, blit::Point(x + d_row3, y), true, blit::TextAlign::left);
+
         }
 
-        // top side
-        sr = _is_castle->getBlitRect(25);
-        for(int i = 0; i < 10; i++)
-        {
-            blit::Point dp = {i * 32, -8};
-            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-        }
-
-        // bottom side
-        sr = _is_castle->getBlitRect(1);
-        for(int i = 0; i < 10; i++)
-        {
-            blit::Point dp = {i * 32, 216};
-            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-        }
-
-        // left side
-        sr = _is_castle->getBlitRect(14);
-        for(int j = 1; j < 8; j++)
-        {
-            blit::Point dp = {0, (j * 32) - 8};
-            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-        }
-
-        // right side
-        sr = _is_castle->getBlitRect(12);
-        for(int j = 1; j < 8; j++)
-        {
-            blit::Point dp = {288, (j * 32) - 8};
-            blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-        }
-
-        // once every corner
-        // top left
-        sr = _is_castle->getBlitRect(4);
-        blit::Point dp = {0, - 8};
-        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-
-        // top right
-        sr = _is_castle->getBlitRect(5);
-        dp = {288, - 8};
-        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-
-        // bottom left
-        sr = _is_castle->getBlitRect(16);
-        dp = {0, 216};
-        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
-
-        // bottom right
-        sr = _is_castle->getBlitRect(17);
-        dp = {288, 216};
-        blit::screen.blit(_is_castle->getSurface(), sr, dp, 0);
     }
 
     void SettingsLayer::refreshTempGamestateFromSave(const uint8_t slot)
     {
         // loading the gamestate from the prefs
-        blit::read_save(_temp_gamestate, slot);
+//        blit::read_save(_temp_gamestate, slot);
+        _pnk.loadGameState(slot, _temp_gamestate);
     }
 }

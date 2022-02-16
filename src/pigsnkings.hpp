@@ -37,13 +37,6 @@ namespace pnk
 
         void removeImagesheets();
 
-        // game saves
-        void refreshGamestateFromSave();
-        void saveCurrentGamestate();
-        void initEmptyGameslots(); // save1-4
-        void resetAllGameslots(); // save1-4
-        void refreshPrefsFromSave();
-        void resetPrefsGameslot(); // save0
 
         enum e_selection
         {
@@ -94,6 +87,16 @@ namespace pnk
             bool    has_cheated{false}; // persistent
             bool    invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
         };
+
+        bool loadGameState(uint8_t slot, gamestate& gs);
+        // game saves
+        void refreshGamestateFromSave();
+        void saveCurrentGamestate();
+        void initEmptyGameslots(); // save1-4
+        void resetAllGameslots(); // save1-4
+        void refreshPrefsFromSave();
+        void resetPrefsGameslot(); // save0
+
 
         gamestate       _gamestate; // state of current game
         prefs           _prefs; // world preferences

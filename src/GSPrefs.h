@@ -3,8 +3,11 @@
 
 #pragma once
 
-#include <memory>
 #include "GameState.h"
+
+#include <TmxExtruder.hpp>
+
+#include <memory>
 
 namespace pnk
 {
@@ -17,5 +20,16 @@ namespace pnk
         void exit(dang::Gear& gear, uint32_t time) override;
 
     protected:
+        /**
+         * rsrc for the home state
+         */
+        const dang::tmx_level* _tmx{nullptr};
+
+        /**
+         * rsrc-names
+         */
+        const std::string tmx_bg_layer_name{"prefs_bg"};
+        const std::string tmx_deco_layer_name{"prefs_decoration"};
+
     };
 }

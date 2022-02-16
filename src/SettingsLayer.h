@@ -29,7 +29,7 @@ namespace pnk
 
         void paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val);
         void paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val);
-        void paintBackground(const dang::Gear& gear);
+        void paintStats(const dang::Gear& gear, uint8_t x, uint8_t y);
 
         void refreshTempGamestateFromSave(const uint8_t slot);
 
