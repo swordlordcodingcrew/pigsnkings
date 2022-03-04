@@ -178,7 +178,7 @@ namespace pnk
             i++;
         }
 
-        paintStats(gear, 49, 158);
+        paintStats(gear, 49, 169);
     }
 
     void SettingsLayer::paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val)
@@ -257,7 +257,7 @@ namespace pnk
         blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
 
         y -= 32;
-        x += 100;
+        x += 90;
 
         str1 = "Highscore:";
         str2 = std::to_string(_temp_gamestate.high_score);

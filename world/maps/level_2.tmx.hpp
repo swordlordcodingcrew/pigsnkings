@@ -120,6 +120,7 @@ static const dang::tmx_layer level_2_lvl_2_bg = {
     .opacity = 1,
     .visible = true,
     .z_order = 0,
+    .position = {0,0},
     .tl_width = 60,
     .tl_height = 16,
     .tl_tileset = "gfx_levels_castle_tiles",
@@ -288,6 +289,7 @@ static const dang::tmx_layer level_2_lvl_2_mood = {
     .opacity = 1,
     .visible = true,
     .z_order = 1,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -470,6 +472,7 @@ static const dang::tmx_layer level_2_lvl_2_obj = {
     .opacity = 1,
     .visible = true,
     .z_order = 2,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -493,6 +496,7 @@ static const dang::tmx_layer level_2_lvl_2_fg = {
     .opacity = 1,
     .visible = true,
     .z_order = 3,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -520,6 +524,7 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
     .opacity = 1,
     .visible = true,
     .z_order = 4,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -529,7 +534,7 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
     .spriteobejcts_len = level_2_lvl_2_hud_objects_len
 };
 
-// layer with points - path layer
+// path layer
 static const dang::tmx_waypoint level_2_waypoints[] = {
     {270, 1680,440, 0x0},
     {271, 1712,472, 0x0},
@@ -600,7 +605,9 @@ static const dang::tmx_level level_2_level {
     .waypoints = level_2_waypoints,
     .waypoints_len = level_2_waypoints_len,
     .waypoint_connections = level_2_connections,
-    .waypoint_connections_len = level_2_connections_len
+    .waypoint_connections_len = level_2_connections_len,
+    .wavepoints = nullptr,
+    .wavepoints_len = 0
 };
 
 
