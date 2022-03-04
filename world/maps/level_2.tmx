@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="329">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="345">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -11,6 +11,7 @@
  <tileset firstgid="402" source="../tilesets/character_pigcrate.tsx"/>
  <tileset firstgid="442" source="../tilesets/character_cannonsnpigs.tsx"/>
  <tileset firstgid="451" source="../tilesets/common_items_bomb.tsx"/>
+ <tileset firstgid="462" source="../tilesets/character_pigking.tsx"/>
  <layer id="1" name="lvl_2_bg" width="60" height="16">
   <data encoding="csv">
 5,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,14,14,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -177,6 +178,9 @@
   <object id="326" gid="102" x="224" y="160" width="32" height="32"/>
   <object id="327" gid="102" x="384" y="64" width="32" height="32"/>
   <object id="328" gid="102" x="544" y="64" width="32" height="32"/>
+  <object id="342" gid="101" x="1056" y="188" width="32" height="32"/>
+  <object id="343" gid="101" x="1056" y="124" width="32" height="32"/>
+  <object id="344" gid="101" x="1056" y="64" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_2_obj">
   <object id="1" type="bubble_proto" gid="182" x="512" y="448" width="32" height="32"/>
@@ -450,6 +454,16 @@
   <object id="288" type="hotrect" x="1888" y="32" width="32" height="192"/>
   <object id="289" type="hotrect" x="992" y="64" width="64" height="64"/>
   <object id="290" type="hotrect" x="1088" y="64" width="224" height="160"/>
+  <object id="337" type="boss" gid="462" x="1440" y="192" width="32" height="32">
+   <properties>
+    <property name="bt" value="boss"/>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="338" name="bossbattle trigger" type="bossbattle_trigger" x="1312" y="64" width="128" height="16"/>
+  <object id="339" type="hotrect_platform" x="1056" y="188" width="32" height="4"/>
+  <object id="340" type="hotrect_platform" x="1056" y="124" width="32" height="4"/>
+  <object id="341" type="hotrect_platform" x="1056" y="64" width="32" height="4"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_2_fg"/>
  <objectgroup id="4" name="lvl_2_hud">
@@ -457,6 +471,10 @@
   <object id="227" gid="254" x="46" y="37" width="16" height="16"/>
   <object id="228" gid="255" x="62" y="37" width="16" height="16"/>
   <object id="229" gid="256" x="78" y="37" width="16" height="16"/>
+  <object id="333" type="hud_boss" gid="494" x="274" y="19" width="32" height="32"/>
+  <object id="334" type="hud_boss_health" gid="254" x="225" y="37" width="16" height="16"/>
+  <object id="335" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
+  <object id="336" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="lvl_2_paths">
   <object id="270" x="1680" y="440">
