@@ -14,7 +14,7 @@
 14,14,14,14,14,14,14,14,14,14
 </data>
  </layer>
- <objectgroup id="2" name="prefs_decoration">
+ <objectgroup id="2" name="prefs_decoration" locked="1">
   <object id="166" gid="117" x="8" y="157" width="16" height="16"/>
   <object id="167" gid="177" x="8" y="189" width="16" height="16"/>
   <object id="168" gid="132" x="8" y="205" width="16" height="16"/>
