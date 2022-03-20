@@ -3,8 +3,9 @@
 
 #pragma once
 
-#include <DangFwdDecl.h>
 #include "Moodies.h"
+
+#include <DangFwdDecl.h>
 
 namespace pnk
 {
@@ -16,8 +17,8 @@ namespace pnk
         MoodiesThatHurt(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~MoodiesThatHurt() override;
         void init() override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+        void collide(const dang::manifold &mf) override;
+        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
     protected:
         bool _has_hurt{false};

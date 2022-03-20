@@ -64,37 +64,31 @@ namespace pnk
         _hotrect = {11, 20, 10, 10};
     }
 
-    void Bombies::update(uint32_t dt)
-    {
-        // will remove this Cratie when not needed anymore
-        this->Throwies::update(dt);
 
-        // add special stuff here
-    }
-
-    void Bombies::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Bombies::collide(const dang::manifold &mf)
     {
-        if (!_bIsOnFire && (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT
-                         || mf.other->_type_num == ST_HOTRECT_PLATFORM || mf.me->_type_num == ST_HOTRECT_PLATFORM))
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        if (!_bIsOnFire && (sprOther->_type_num == ST_HOTRECT || sprOther->_type_num == ST_HOTRECT_PLATFORM))
         {
             // have the animation sequence triggered
             setBombOnFire();
         }
-        else if (_bIsOnFire && (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING))
+        else if (_bIsOnFire && (sprOther->_type_num == ST_KING))
         {
             // King hurt
             tellTheKingWeHitHim();
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Bombies::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  Bombies::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT || other->_type_num == ST_HOTRECT_PLATFORM)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT || cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            return dang::CollisionSpriteLayer::CR_BOUNCE;
+            return dang::CR_BOUNCE;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void Bombies::tellTheKingWeHitHim()

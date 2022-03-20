@@ -21,9 +21,11 @@ namespace pnk
     {
     }
 
-    void SavepointTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void SavepointTrigger::collide(const dang::manifold &mf)
     {
-        if (mf.me->_type_num == ST_KING || mf.other->_type_num == ST_KING)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_KING)
         {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SAVEPOINT_TRIGGERED));
             _pnk._dispatcher.queueEvent(std::move(e));
@@ -34,12 +36,14 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse SavepointTrigger::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  SavepointTrigger::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING && !_consumed)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+
+        if (cs_other->_type_num == ST_KING && !_consumed)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            return dang::CR_CROSS;
         }
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 }

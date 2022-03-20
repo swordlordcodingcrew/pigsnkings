@@ -16,9 +16,9 @@ namespace pnk
         ~PigBomb() override;
         void init() override;
 
-        void update(uint32_t dt) override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+//        void update(uint32_t dt) override;
+//        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
+//        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         // Behaviour Tree functions
         static dang::BTNode::Status NTPickUpBomb(dang::spSprite s);

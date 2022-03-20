@@ -64,18 +64,20 @@ namespace pnk
     {
         if(_remove_me)
         {
-            removeSelf();
+            markRemove();
         }
     }
 
-    void Throwies::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Throwies::collide(const dang::manifold &mf)
     {
-        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_HOTRECT)
         {
             // me destroys
-            this->removeSelf();
+            markRemove();
         }
-        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        else if (sprOther->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -85,14 +87,15 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Throwies::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  Throwies::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT)
         {
-            return dang::CollisionSpriteLayer::CR_TOUCH;
+            return dang::CR_TOUCH;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void Throwies::tellTheKingWeHitHim()
@@ -101,11 +104,4 @@ namespace pnk
         std::cout << "Throwies wont tell the King anything!" << std::endl;
     }
 
-    void Throwies::removeSelf()
-    {
-         // remove throwie
-         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-         e->_spr = shared_from_this();
-         pnk::_pnk._dispatcher.queueEvent(std::move(e));
-    }
 }

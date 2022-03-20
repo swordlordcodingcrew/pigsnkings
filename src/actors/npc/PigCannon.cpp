@@ -73,16 +73,6 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigCannon::getCollisionResponse(const dang::spCollisionSprite& other)
-    {
-        return this->HenchPig::getCollisionResponse(other);
-    }
-
-    void PigCannon::collide(const dang::CollisionSpriteLayer::manifold &mf)
-    {
-        this->HenchPig::collide(mf);
-    }
-
     bool PigCannon::onEnterSleeping()
     {
         _anim_m_sleeping->reset();

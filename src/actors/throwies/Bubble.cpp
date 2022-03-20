@@ -128,26 +128,22 @@ namespace pnk
         }
     }
 
-    void Bubble::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Bubble::collide(const dang::manifold &mf)
     {
-        if (((mf.other->_type_num > ST_ENEMIES && mf.other->_type_num < ST_ENEMIES_END)
-                || (mf.me->_type_num > ST_ENEMIES && mf.me->_type_num < ST_ENEMIES_END))
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if ((sprOther->_type_num > ST_ENEMIES && sprOther->_type_num < ST_ENEMIES_END)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
 
             // yeah, could be added to the check above, but if we add a few more exceptions, would it still be readable?
             // or do some whitelist instead of ranges...
-            if((mf.me->_type_num == ST_CANNON || mf.other->_type_num == ST_CANNON)
-                || (mf.me->_type_num == ST_PIG_CANNON || mf.other->_type_num == ST_PIG_CANNON))
+            if (sprOther->_type_num == ST_CANNON || sprOther->_type_num == ST_PIG_CANNON || sprOther->_type_num == ST_PIG_BOSS)
             {
-                return; // cannoneers and cannons dont get bubbled
-            }
-            else if(mf.me->_type_num == ST_PIG_BOSS || mf.other->_type_num == ST_PIG_BOSS)
-            {
-                return; // royals dont get bubbled
+                return; // cannoneers, cannons and royals dont get bubbled
             }
 
-            _catched_en = std::static_pointer_cast<Enemy>(mf.me == shared_from_this() ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(mf.me.get() == this ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
@@ -184,7 +180,7 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        else if (sprOther->_type_num == ST_KING)
         {
             const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -237,40 +233,41 @@ namespace pnk
     }
 
 
-    dang::CollisionSpriteLayer::eCollisionResponse Bubble::getCollisionResponse(const dang::spCollisionSprite& other)
+    uint8_t  Bubble::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING)
         {
             if (_state == bs_enemy_catched)
             {
-                return dang::CollisionSpriteLayer::CR_CROSS;
+                return dang::CR_CROSS;
             }
 
             if (_state == bs_bursting)
             {
-                return dang::CollisionSpriteLayer::CR_NONE;
+                return dang::CR_NONE;
             }
 
-            return dang::CollisionSpriteLayer::CR_SLIDE;
+            return dang::CR_SLIDE;
 
         }
 
         if (_state == bs_bursting || _state == bs_wobbling)
         {
-            return dang::CollisionSpriteLayer::CR_NONE;
+            return dang::CR_NONE;
         }
 
-        if (other->_type_num > ST_ENEMIES && other->_type_num < ST_ENEMIES_END)
+        if (cs_other->_type_num > ST_ENEMIES && cs_other->_type_num < ST_ENEMIES_END)
         {
-            return _state == bs_enemy_catched ? dang::CollisionSpriteLayer::CR_NONE : dang::CollisionSpriteLayer::CR_CROSS;
+            return _state == bs_enemy_catched ? dang::CR_NONE : dang::CR_CROSS;
         }
 
-        if (other->_type_num == ST_HOTRECT)
+        if (cs_other->_type_num == ST_HOTRECT)
         {
-            return dang::CollisionSpriteLayer::CR_TOUCH;
+            return dang::CR_TOUCH;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void Bubble::removeSelf()

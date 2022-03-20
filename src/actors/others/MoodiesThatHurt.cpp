@@ -17,9 +17,6 @@
 
 namespace pnk
 {
-    using spTwSeq = std::shared_ptr<dang::TwSequence>;
-    using spTwVel = std::shared_ptr<dang::TwVel>;
-
     extern PigsnKings _pnk;
 
     MoodiesThatHurt::MoodiesThatHurt()
@@ -50,9 +47,10 @@ namespace pnk
         _hotrect = {16, 16, 32, 32};
     }
 
-    void MoodiesThatHurt::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void MoodiesThatHurt::collide(const dang::manifold &mf)
     {
-        if (!_has_hurt && (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING))
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        if (!_has_hurt && (sprOther->_type_num == ST_KING))
         {
             // only hurts once
             _has_hurt = true;
@@ -63,14 +61,16 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse MoodiesThatHurt::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  MoodiesThatHurt::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING && !_has_hurt)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+
+        if (cs_other->_type_num == ST_KING && !_has_hurt)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            return dang::CR_CROSS;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void MoodiesThatHurt::tellTheKingWeHitHim()

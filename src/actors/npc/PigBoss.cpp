@@ -74,37 +74,38 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigBoss::getCollisionResponse(const dang::spCollisionSprite& other)
+    uint8_t  PigBoss::getCollisionResponse(const dang::spCollisionObject& other)
     {
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         /** run into the king */
-        if (other->_type_num == ST_KING)
+        if (cs_other->_type_num == ST_KING)
         {
             if (_currentState == DEAD || _currentState == HIDING || _hit)
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+                _cr = dang::CR_NONE;
             }
             else
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
+                _cr = dang::CR_BOUNCE;
             }
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == ST_HOTRECT)
+        else if (cs_other->_type_num == ST_HOTRECT)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            _cr = dang::CR_SLIDE;
         }
         else
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _cr = dang::CR_NONE;
         }
 
-        return _coll_response;
+        return _cr;
 
     }
 
-    void PigBoss::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void PigBoss::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         // warning, this is the other way round than in, say, the hero
         // we want the others normal, not our normal!
@@ -128,7 +129,7 @@ namespace pnk
                 tellTheKingWeHitHim();
             }
         }
-        else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
+        else if (_cr == dang::CR_SLIDE)
         {
             const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -260,7 +261,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTLurk(dang::spSprite s)
     {
-        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
         assert(spr != nullptr);
         if (spr->_currentState != SLEEPING && spr->_nextState != SLEEPING)
         {
@@ -277,7 +278,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTRun(dang::spSprite s)
     {
-        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
         assert(spr != nullptr);
         if (spr->_currentState != LOITERING && spr->_nextState != LOITERING)
         {
@@ -300,7 +301,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTHit(dang::spSprite s)
     {
-        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
         assert(spr != nullptr);
         if (spr->_hit)
         {
@@ -311,7 +312,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTRecover(dang::spSprite s)
     {
-        std::shared_ptr<PigBoss> spr = std::dynamic_pointer_cast<PigBoss>(s);
+        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
         assert(spr != nullptr);
         if (spr->_currentState != HIDING && spr->_nextState != HIDING)
         {

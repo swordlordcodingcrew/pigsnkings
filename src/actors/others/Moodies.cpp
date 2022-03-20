@@ -74,34 +74,13 @@ namespace pnk
     {
         if(_remove_me)
         {
-            removeSelf();
+            markRemove();
         }
     }
 
-    void Moodies::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    uint8_t  Moodies::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
-        {
-            // me destroys
-            //this->removeSelf();
-        }
-        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
-        {
-            // me destroys
-            //_remove_me = true;
-        }
+        return dang::CR_NONE;
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Moodies::getCollisionResponse(const spCollisionSprite& other)
-    {
-        return dang::CollisionSpriteLayer::CR_NONE;
-    }
-
-    void Moodies::removeSelf()
-    {
-         // remove throwie
-         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-         e->_spr = shared_from_this();
-         pnk::_pnk._dispatcher.queueEvent(std::move(e));
-    }
 }

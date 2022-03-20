@@ -30,7 +30,7 @@ namespace pnk
 
     Craties::Craties(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
     {
-        _coll_response = dang::CollisionSpriteLayer::CR_TOUCH;
+        _cr = dang::CR_TOUCH;
     }
 
     Craties::Craties(const Craties &crate) : Throwies(crate)
@@ -60,19 +60,14 @@ namespace pnk
         _hotrect = {6, 9, 20, 20};
     }
 
-    void Craties::update(uint32_t dt)
-    {
-        // will remove this Cratie when not needed anymore
-        this->Throwies::update(dt);
 
-        // add special stuff here
-    }
-
-    void Craties::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Craties::collide(const dang::manifold &mf)
     {
-        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_HOTRECT)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _cr = dang::CR_NONE;
             _gravity = {0,0};
             _vel = {0,0};
             removeAnimation();
@@ -84,12 +79,12 @@ namespace pnk
 
             triggerExplosion(); // does only do sound, no explosion fx
         }
-        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        else if (sprOther->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
 
-            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _cr = dang::CR_NONE;
             _gravity = {0,0};
             _vel = {0,0};
             removeAnimation();
@@ -103,19 +98,19 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Craties::getCollisionResponse(const dang::spCollisionSprite& other)
+    uint8_t  Craties::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (_coll_response != dang::CollisionSpriteLayer::CR_NONE && (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT))
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (_cr != dang::CR_NONE && (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT))
         {
-            return dang::CollisionSpriteLayer::CR_TOUCH;
+            return dang::CR_TOUCH;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void Craties::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_FLYING_CRATE;
@@ -124,7 +119,6 @@ namespace pnk
 
     void Craties::triggerExplosion()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CRATE_EXPLODES));
         e->_spr = shared_from_this();
         e->_pos = this->getPos();

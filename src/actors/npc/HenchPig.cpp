@@ -89,42 +89,43 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse HenchPig::getCollisionResponse(const dang::spCollisionSprite& other)
+    uint8_t  HenchPig::getCollisionResponse(const dang::spCollisionObject& other)
     {
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         /** enemy is bubbled */
         if (_currentState == BUBBLED)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_NONE;
+            _cr = dang::CR_NONE;
         }
         /** run into the king */
-        else if (other->_type_num == ST_KING)
+        else if (cs_other->_type_num == ST_KING)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+            _cr = dang::CR_CROSS;
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == ST_HOTRECT_PLATFORM)
+        else if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            if (other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
+            if (cs_other->getHotrect().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                _cr = dang::CR_SLIDE;
             }
             else
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                _cr = dang::CR_CROSS;
             }
         }
         else
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            _cr = dang::CR_SLIDE;
         }
 
-        return _coll_response;
+        return _cr;
 
     }
 
-    void HenchPig::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void HenchPig::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         if (sprOther->_type_num == ST_KING)
         {
@@ -132,7 +133,7 @@ namespace pnk
 
             poofing();
         }
-        else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
+        else if (_cr == dang::CR_SLIDE)
         {
             const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
@@ -366,7 +367,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepShort(dang::spSprite s)
     {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
         assert(spr != nullptr);
         uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
         spr->_nTreeState->_payload["sleep_duration"] = duration;
@@ -376,7 +377,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::spSprite s)
     {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
         assert(spr != nullptr);
         uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
         spr->_nTreeState->_payload["sleep_duration"] = duration;
@@ -386,7 +387,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepLong(dang::spSprite s)
     {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
         assert(spr != nullptr);
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
         spr->_nTreeState->_payload["sleep_duration"] = duration;
@@ -396,7 +397,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTdoSleep(dang::spSprite s)
     {
-        std::shared_ptr<HenchPig> spr = std::dynamic_pointer_cast<HenchPig>(s);
+        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
         assert(spr != nullptr);
         if (spr->_currentState == SLEEPING || spr->_nextState == SLEEPING)
         {

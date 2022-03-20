@@ -73,6 +73,7 @@
 #include <tween/TwAnim.hpp>
 #include <tween/TwVel.hpp>
 #include <CollisionSprite.hpp>
+#include <CollisionSpriteLayer.hpp>
 #include <path/SceneGraph.hpp>
 #include <path/Waypoint.hpp>
 
@@ -292,7 +293,7 @@ namespace pnk
 
             spImagesheet is = gear.getImagesheet(so->tileset);
             std::unordered_map<std::string, spImagesheet> iss = gear.getImagesheets();
-            spCollisionSprite spr = nullptr;
+            dang::spCollisionSprite spr = nullptr;
 
             if      (so->type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
             else if (so->type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
@@ -355,43 +356,43 @@ namespace pnk
 
                 if (so->type == SpriteFactory::T_BUBBLE_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
+                    dang::spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["bubble"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CRATE_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Crate(txtr, so, is, false);
+                    dang::spCollisionSprite sprc = SpriteFactory::Crate(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["crate"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_BOMB_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is);
+                    dang::spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["bomb"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_EXPLOSION_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Explosion(txtr, so, is);
+                    dang::spCollisionSprite sprc = SpriteFactory::Explosion(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["explosion"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_PIG_POOF_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
+                    dang::spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["poof"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CANNONBALL_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Cannonball(txtr, so, is, false);
+                    dang::spCollisionSprite sprc = SpriteFactory::Cannonball(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["cannonball"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CANNONMUZZLE_PROTO)
                 {
-                    spCollisionSprite sprc = SpriteFactory::Cannonmuzzle(txtr, so, is);
+                    dang::spCollisionSprite sprc = SpriteFactory::Cannonmuzzle(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["cannonmuzzle"] = sprc;
                 }
@@ -519,7 +520,7 @@ namespace pnk
         PnkEvent& pe = static_cast<PnkEvent&>(e);
         if (pe._type == ETG_NEW_BUBBLE)
         {
-            spBubble bub_proto = std::dynamic_pointer_cast<Bubble>(_hives["bubble"]);
+            spBubble bub_proto = std::static_pointer_cast<Bubble>(_hives["bubble"]);
             assert(bub_proto != nullptr);
             spBubble bub = std::make_shared<Bubble>(*bub_proto);
             bub->setPos(pe._pos);
@@ -625,7 +626,7 @@ namespace pnk
     {
         if (pe._type == ETG_NEW_THROWN_CRATE || pe._type == ETG_NEW_DROP_CRATE)
         {
-            spCraties proto = std::dynamic_pointer_cast<Craties>(_hives["crate"]);
+            spCraties proto = std::static_pointer_cast<Craties>(_hives["crate"]);
             assert(proto != nullptr);
             spCraties crate = std::make_shared<Craties>(*proto);
             crate->setPos(pe._pos);
@@ -642,7 +643,7 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
-            spBombies proto = std::dynamic_pointer_cast<Bombies>(_hives["bomb"]);
+            spBombies proto = std::static_pointer_cast<Bombies>(_hives["bomb"]);
             assert(proto != nullptr);
             spBombies bomb = std::make_shared<Bombies>(*proto);
             bomb->setPos(pe._pos);
@@ -659,7 +660,7 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {
-            spThrowies proto = std::dynamic_pointer_cast<Throwies>(_hives["cannonball"]);
+            spThrowies proto = std::static_pointer_cast<Throwies>(_hives["cannonball"]);
             assert(proto != nullptr);
             spCannonball ball = std::make_shared<Cannonball>(*proto);
             ball->setPosX(pe._pos.x);
@@ -669,7 +670,7 @@ namespace pnk
             ball->init();
             _csl->addCollisionSprite(ball);
 
-            spMoodies protoMood = std::dynamic_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
+            spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
             assert(protoMood != nullptr);
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPos(pe._pos);
@@ -677,7 +678,8 @@ namespace pnk
             mood->_z_order = 100;
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
-            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
+//            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
+            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
 
             _csl->addCollisionSprite(mood);
 
@@ -689,13 +691,13 @@ namespace pnk
     {
         if (pe._type == ETG_BOMB_EXPLODES || pe._type == ETG_CANNONBALL_EXPLODES)
         {
-            spMoodiesThatHurt proto = std::dynamic_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
+            spMoodiesThatHurt proto = std::static_pointer_cast<MoodiesThatHurt>(_hives["explosion"]);
             assert(proto != nullptr);
             spMoodiesThatHurt boom = std::make_shared<MoodiesThatHurt>(*proto);
             boom->setPosX(pe._pos.x - 16);
             boom->setPosY(pe._pos.y - 16);
             boom->init();
-            boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, boom.get()));
+            boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, boom.get()));
             _csl->addCollisionSprite(boom);
 
             dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
@@ -710,12 +712,12 @@ namespace pnk
 
     void GSPlay::handleNewPoof(PnkEvent& pe)
     {
-        spMoodies proto = std::dynamic_pointer_cast<Moodies>(_hives["poof"]);
+        spMoodies proto = std::static_pointer_cast<Moodies>(_hives["poof"]);
         assert(proto != nullptr);
         spMoodies poof = std::make_shared<Moodies>(*proto);
         poof->setPos(pe._pos);
         poof->init();
-        poof->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, poof.get()));
+        poof->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, poof.get()));
 
         _csl->addCollisionSprite(poof);
     }
@@ -1151,7 +1153,7 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            dang::spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(s);
             float ret = _csl->aaLoSH(cs, _spr_hero);
 
             if (ret != 0)
@@ -1169,7 +1171,7 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::spCollisionSprite cs = std::dynamic_pointer_cast<dang::CollisionSprite>(s);
+            dang::spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(s);
             float ret = _csl->loS(cs, _spr_hero);
 
             if (ret != 0)

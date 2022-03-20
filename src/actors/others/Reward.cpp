@@ -88,19 +88,22 @@ namespace pnk
     {
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Reward::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t Reward::getCollisionResponse(const dang::spCollisionObject & other)
     {
-        if (other->_type_num == ST_KING && !_collected)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING && !_collected)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            return dang::CR_CROSS;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
-    void Reward::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Reward::collide(const dang::manifold &mf)
     {
-        if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_KING)
         {
             this->_collected = true;
 
@@ -151,9 +154,10 @@ namespace pnk
 
     void Reward::removeSelf()
     {
+        markRemove();
         // remove reward
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-        e->_spr = shared_from_this();
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+//        e->_spr = shared_from_this();
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

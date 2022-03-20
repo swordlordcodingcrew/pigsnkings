@@ -26,9 +26,11 @@ namespace pnk
     }
 
 
-    void RoomTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void RoomTrigger::collide(const dang::manifold &mf)
     {
-        if (mf.me->_type_num == ST_KING || mf.other->_type_num == ST_KING)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_KING)
         {
             if (_warp)
             {
@@ -46,13 +48,15 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse RoomTrigger::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  RoomTrigger::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+
+        if (cs_other->_type_num == ST_KING)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            return dang::CR_CROSS;
         }
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
 }

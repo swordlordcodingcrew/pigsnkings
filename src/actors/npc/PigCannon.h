@@ -20,8 +20,6 @@ namespace pnk
         void init();
 
         void update(uint32_t dt) override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
 
         bool onEnterSleeping() override;
         bool onEnterThrowing() override;

@@ -17,12 +17,10 @@ namespace pnk
         ~Moodies() override;
         virtual void init();
         void update(uint32_t dt) override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
         dang::spTwAnim _anim_m_standard;
 
-        void removeSelf();
     protected:
 
     protected:

@@ -17,9 +17,8 @@ namespace pnk
         Craties(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Craties() override;
         void init() override;
-        void update(uint32_t dt) override;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+        void collide(const dang::manifold &mf) override;
+        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
     protected:
         void tellTheKingWeHitHim() override;

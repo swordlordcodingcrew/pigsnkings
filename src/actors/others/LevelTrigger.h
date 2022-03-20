@@ -14,8 +14,8 @@ namespace pnk
         LevelTrigger();
         LevelTrigger(const dang::tmx_spriteobject* so);
 
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override;
-        dang::CollisionSpriteLayer::eCollisionResponse    getCollisionResponse(const dang::spCollisionSprite& other) override;
+        void collide(const dang::manifold &mf) override;
+        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
         void activateTrigger();
 

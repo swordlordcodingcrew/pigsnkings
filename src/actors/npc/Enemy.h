@@ -40,8 +40,8 @@ namespace pnk
 
         // pure virtual enemy class
         void update(uint32_t dt) override = 0;
-        void collide(const dang::CollisionSpriteLayer::manifold &mf) override = 0;
-        dang::CollisionSpriteLayer::eCollisionResponse getCollisionResponse(const dang::spCollisionSprite& other) override = 0;
+        void collide(const dang::manifold &mf) override = 0;
+        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override = 0;
 
         virtual bool isBubbled() = 0;
         virtual void bubble() = 0;

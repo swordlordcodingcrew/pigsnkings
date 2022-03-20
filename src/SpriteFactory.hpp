@@ -39,7 +39,6 @@ namespace pnk
 }
 
 // using assignments
-using spCollisionSprite = std::shared_ptr<dang::CollisionSprite>;
 using spImagesheet = std::shared_ptr<dang::Imagesheet>;
 using spHero = std::shared_ptr<pnk::Hero>;
 using spBoss = std::shared_ptr<pnk::PigBoss>;
@@ -97,7 +96,7 @@ namespace pnk
         static inline const std::string T_POTION_GREEN{"potion_green"};
         static inline const std::string T_POTION_RED{"potion_red"};
 
-        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs);
+        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const dang::spCollisionSprite& cs);
 //        static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 //        static size_t findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos);
 
@@ -112,19 +111,19 @@ namespace pnk
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spCollisionSprite Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static dang::spCollisionSprite Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
-        static spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spCollisionSprite Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static dang::spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static dang::spCollisionSprite Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spCollisionSprite Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spCollisionSprite Hotrect(const dang::tmx_spriteobject* so);
-        static spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
-        static spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
-        static spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
-        static spCollisionSprite LevelTrigger(const dang::tmx_spriteobject* so);
-        static spCollisionSprite BossbattleTrigger(const dang::tmx_spriteobject* so);
-        static spCollisionSprite SavepointTrigger(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
+        static dang::spCollisionSprite Hotrect(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite LevelTrigger(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite BossbattleTrigger(const dang::tmx_spriteobject* so);
+        static dang::spCollisionSprite SavepointTrigger(const dang::tmx_spriteobject* so);
     };
 
 }

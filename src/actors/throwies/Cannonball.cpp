@@ -62,17 +62,12 @@ namespace pnk
         _hotrect = {10, 10, 8, 8};
     }
 
-    void Cannonball::update(uint32_t dt)
-    {
-        // will remove this Cratie when not needed anymore
-        this->Throwies::update(dt);
 
-        // add special stuff here
-    }
-
-    void Cannonball::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Cannonball::collide(const dang::manifold &mf)
     {
-        if (mf.other->_type_num == ST_HOTRECT || mf.me->_type_num == ST_HOTRECT)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_HOTRECT)
         {
             // have the animation sequence triggered
             triggerExplosion();
@@ -80,7 +75,7 @@ namespace pnk
             // me destroys in the next cycle, we need the pointer in this cycle for the event
             _remove_me = true;
         }
-        else if (mf.other->_type_num == ST_KING || mf.me->_type_num == ST_KING)
+        else if (sprOther->_type_num == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -90,14 +85,15 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Cannonball::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  Cannonball::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (other->_type_num == ST_KING || other->_type_num == ST_HOTRECT)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT)
         {
-            return dang::CollisionSpriteLayer::CR_TOUCH;
+            return dang::CR_TOUCH;
         }
 
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 
     void Cannonball::tellTheKingWeHitHim()

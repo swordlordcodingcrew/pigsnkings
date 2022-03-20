@@ -44,7 +44,6 @@ namespace pnk
     {
         assert(is != nullptr);
         spHero ret = std::make_shared<pnk::Hero>(so, is);
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = ST_KING;
 
         // wait animation
@@ -89,7 +88,6 @@ namespace pnk
 
         assert(is != nullptr);
         spBoss ret = std::make_shared<pnk::PigBoss>(so, is);
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_type_num = ST_PIG_BOSS;
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
@@ -121,72 +119,72 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::Hotrect(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::Hotrect(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
+        dang::spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
         ret->_visible = false;
         ret->_type_num = ST_HOTRECT;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::HotrectPlatform(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::HotrectPlatform(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
+        dang::spCollisionSprite ret = std::make_shared<dang::CollisionSprite>(so, nullptr);
         ret->_visible = false;
         ret->_type_num = ST_HOTRECT_PLATFORM;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, false);
+        dang::spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, false);
         ret->_visible = false;
         ret->_type_num = ST_ROOM_TRIGGER;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
+        dang::spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
         ret->_visible = false;
         ret->_type_num = ST_WARP_ROOM_TRIGGER;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::LevelTrigger(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::LevelTrigger(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::LevelTrigger>(so);
+        dang::spCollisionSprite ret = std::make_shared<pnk::LevelTrigger>(so);
         ret->_visible = false;
         ret->_type_num = ST_LEVEL_TRIGGER;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::BossbattleTrigger(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::BossbattleTrigger(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::BossbattleTrigger>(so);
+        dang::spCollisionSprite ret = std::make_shared<pnk::BossbattleTrigger>(so);
         ret->_visible = false;
         ret->_type_num = ST_BOSS_BATTLE_TRIGGER;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::SavepointTrigger(const dang::tmx_spriteobject* so)
+    dang::spCollisionSprite SpriteFactory::SavepointTrigger(const dang::tmx_spriteobject* so)
     {
-        spCollisionSprite ret = std::make_shared<pnk::SavepointTrigger>(so);
+        dang::spCollisionSprite ret = std::make_shared<pnk::SavepointTrigger>(so);
         ret->_visible = false;
         ret->_type_num = ST_SAVEPOINT_TRIGGER;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         return ret;
     }
@@ -195,7 +193,6 @@ namespace pnk
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
         ret->_type_num = ST_PIG_NORMAL;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -226,7 +223,6 @@ namespace pnk
 
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->_type_num = ST_PIG_CRATE;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -270,7 +266,6 @@ namespace pnk
 
         spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->_type_num = ST_PIG_BOMB;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -313,7 +308,6 @@ namespace pnk
     {
         spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
         ret->_type_num = ST_PIG_CANNON;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -350,7 +344,6 @@ namespace pnk
     {
         spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
         ret->_type_num = ST_PIG_CANNON;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -398,8 +391,6 @@ namespace pnk
         ret->_img_index = 0;
         ret->_imagesheet = is;
 
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
-
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
         assert(ret->_anim_m_sleeping != nullptr);
         ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
@@ -414,11 +405,10 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    dang::spCollisionSprite SpriteFactory::Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spCannon ret = std::make_shared<pnk::Cannon>(so, is);
         ret->_type_num = ST_CANNON;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
         assert(ret->_anim_m_sleeping != nullptr);
@@ -432,11 +422,11 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    dang::spCollisionSprite SpriteFactory::Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
         ret->_type_num = ST_CANNON_MUZZLE;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_RIGID);
+        ret->setRigid(true);
 
         ret->_anim_m_standard = txtr.getAnimation(is->getName(), "muzzle_flash");
         assert(ret->_anim_m_standard != nullptr);
@@ -447,11 +437,10 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    dang::spCollisionSprite SpriteFactory::PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
         ret->_type_num = ST_PIG_POOF;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_standard = txtr.getAnimation(is->getName(), "poof");
         assert(ret->_anim_m_standard != nullptr);
@@ -505,7 +494,6 @@ namespace pnk
             ret->_type_num = ST_COIN_SILVER;
         }
 
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->init();
 
         return ret;
@@ -515,7 +503,6 @@ namespace pnk
     {
         spBubble ret = std::make_shared<pnk::Bubble>(so, is);
         ret->_type_num = ST_BUBBLE;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
         // bubble grows
@@ -547,7 +534,6 @@ namespace pnk
     {
         spThrowies ret = std::make_shared<pnk::Craties>(so, is);
         ret->_type_num = ST_FLYING_CRATE;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
         // flying crates
@@ -567,7 +553,6 @@ namespace pnk
     {
         spBombies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->_type_num = ST_FLYING_BOMB;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_off");
         assert(ret->_anim_flying != nullptr);
@@ -582,11 +567,10 @@ namespace pnk
         return ret;
     }
 
-    spCollisionSprite SpriteFactory::Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
+    dang::spCollisionSprite SpriteFactory::Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is)
     {
         spMoodiesThatHurt ret = std::make_shared<pnk::MoodiesThatHurt>(so, is);
         ret->_type_num = ST_EXPLOSION;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
 
         ret->_anim_m_standard = txtr.getAnimation(is->getName(), "boom");
         assert(ret->_anim_m_standard != nullptr);
@@ -601,7 +585,6 @@ namespace pnk
     {
         spThrowies ret = std::make_shared<pnk::Cannonball>(so, is);
         ret->_type_num = ST_FLYING_CANNONBALL;
-        ret->setCOType(dang::CollisionSpriteLayer::COT_DYNAMIC);
         ret->_to_the_left = to_the_left;
 
         ret->_anim_flying = txtr.getAnimation(is->getName(), "cannonball");
@@ -613,7 +596,7 @@ namespace pnk
         return ret;
     }
 
-    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const spCollisionSprite& cs)
+    void SpriteFactory::attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const dang::spCollisionSprite& cs)
     {
         if (so->bt.length() > 0)
         {

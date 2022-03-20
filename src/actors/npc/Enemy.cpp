@@ -398,62 +398,62 @@ namespace pnk
 
     dang::BTNode::Status Enemy::NTcheckPathCompleted(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->checkPathCompleted() : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetRandNeighbourWaypoint(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setRandNeighbourWaypoint() : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTcheckWaypointReached(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->checkWaypointReached() : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetDestinationBombDepot(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setDestinationWaypointByType(WPT_BOMBDEPOT) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setDestinationWaypointByType(WPT_CRATEDEPOT) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetDestinationPOI(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setDestinationWaypointByType(WPT_POI) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTfindNearestWaypoint(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->findNearestWaypoint(false) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTfindNearestWaypointH(std::shared_ptr<Sprite> s)
     {
 //        std:: cout << "find nearest waypoint H" << std::endl;
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->findNearestWaypoint(true) : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetRandomPath(std::shared_ptr<Sprite> s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setRandPath() : dang::BTNode::Status::FAILURE);
     }
 
     dang::BTNode::Status Enemy::NTsetWPNearHero(dang::spSprite s)
     {
-        std::shared_ptr<Enemy> spr = std::dynamic_pointer_cast<Enemy>(s);
+        std::shared_ptr<Enemy> spr = std::static_pointer_cast<Enemy>(s);
         return (spr ? spr->setWPHNearHero() : dang::BTNode::Status::FAILURE);
     }
 

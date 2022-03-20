@@ -38,7 +38,7 @@ namespace pnk
 #endif
     }
 
-    void PigBomb::update(uint32_t dt)
+/*    void PigBomb::update(uint32_t dt)
     {
         this->HenchPig::update(dt);
     }
@@ -52,7 +52,7 @@ namespace pnk
     {
         this->HenchPig::collide(mf);
     }
-
+*/
     bool PigBomb::onEnterThrowing()
     {
         assert(_anim_m_throwing != nullptr);
@@ -178,7 +178,7 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTPickUpBomb(dang::spSprite s)
     {
-        std::shared_ptr<PigBomb> spr = std::dynamic_pointer_cast<PigBomb>(s);
+        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
         if (spr->_with_bomb)
         {
@@ -194,7 +194,7 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTThrowBomb(dang::spSprite s)
     {
-        std::shared_ptr<PigBomb> spr = std::dynamic_pointer_cast<PigBomb>(s);
+        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
         if (spr->_with_bomb && spr->_currentState != THROWING)
         {
@@ -215,13 +215,13 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTWithBomb(dang::spSprite s)
     {
-        std::shared_ptr<PigBomb> spr = std::dynamic_pointer_cast<PigBomb>(s);
+        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
         return spr->_with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status PigBomb::NTDistanceOK(dang::spSprite s)
     {
-        std::shared_ptr<PigBomb> spr = std::dynamic_pointer_cast<PigBomb>(s);
+        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
         if (spr->_nTreeState->_payload.count("aaLoSH"))
         {

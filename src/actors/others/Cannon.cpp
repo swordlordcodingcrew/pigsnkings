@@ -61,44 +61,44 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse Cannon::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  Cannon::getCollisionResponse(const dang::spCollisionObject& other)
     {
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+
         /** run into the king */
-        if (other->_type_num == ST_KING)
+        if (cs_other->_type_num == ST_KING)
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_BOUNCE;
+            _cr = dang::CR_BOUNCE;
         }
         /** hit a platform hotrect */
-        else if (other->_type_num == ST_HOTRECT_PLATFORM)
+        else if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(other);
-
-            if (cs->getHotrectG().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
+            if (cs_other->getHotrectG().top() - 6 >= this->_last_pos.y + _hotrect.h && _vel.y > 0)
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+                _cr = dang::CR_SLIDE;
             }
             else
             {
-                _coll_response = dang::CollisionSpriteLayer::CR_CROSS;
+                _cr = dang::CR_CROSS;
             }
         }
         else
         {
-            _coll_response = dang::CollisionSpriteLayer::CR_SLIDE;
+            _cr = dang::CR_SLIDE;
         }
 
-        return _coll_response;
+        return _cr;
     }
 
-    void Cannon::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void Cannon::collide(const dang::manifold &mf)
     {
-        spCollisionSprite sprOther = mf.me.get() == this ? mf.other : mf.me;
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         if (sprOther->_type_num == ST_KING)
         {
             tellTheKingWeHitHim();
         }
-        else if (_coll_response == dang::CollisionSpriteLayer::CR_SLIDE)
+        else if (_cr == dang::CR_SLIDE)
         {
             const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 

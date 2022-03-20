@@ -29,9 +29,11 @@ namespace pnk
         _is_activated = true;
     }
 
-    void LevelTrigger::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void LevelTrigger::collide(const dang::manifold &mf)
     {
-        if (mf.me->_type_num == ST_KING || mf.other->_type_num == ST_KING)
+        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_KING)
         {
                 std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CHANGE_LEVEL));
                 e->_payload = _level;
@@ -39,12 +41,14 @@ namespace pnk
         }
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse LevelTrigger::getCollisionResponse(const spCollisionSprite& other)
+    uint8_t  LevelTrigger::getCollisionResponse(const dang::spCollisionObject& other)
     {
-        if (_is_activated && other->_type_num == ST_KING)
+        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+
+        if (_is_activated && cs_other->_type_num == ST_KING)
         {
-            return dang::CollisionSpriteLayer::CR_CROSS;
+            return dang::CR_CROSS;
         }
-        return dang::CollisionSpriteLayer::CR_NONE;
+        return dang::CR_NONE;
     }
 }

@@ -42,16 +42,16 @@ namespace pnk
         this->HenchPig::update(dt);
     }
 
-    dang::CollisionSpriteLayer::eCollisionResponse PigCrate::getCollisionResponse(const dang::spCollisionSprite& other)
+/*    uint8_t  PigCrate::getCollisionResponse(const dang::spCollisionObject& other)
     {
         return this->HenchPig::getCollisionResponse(other);
     }
 
-    void PigCrate::collide(const dang::CollisionSpriteLayer::manifold &mf)
+    void PigCrate::collide(const dang::manifold &mf)
     {
         this->HenchPig::collide(mf);
     }
-
+*/
 
     bool PigCrate::onEnterThrowing()
     {
@@ -180,7 +180,7 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTPickUpCrate(dang::spSprite s)
     {
-        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
         if (spr->_crated)
         {
@@ -196,7 +196,7 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTThrowCrate(dang::spSprite s)
     {
-        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
         if (spr->_crated && spr->_currentState != THROWING)
         {
@@ -217,14 +217,14 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTWithCrate(dang::spSprite s)
     {
-        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
         return spr->_crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status PigCrate::NTDistanceOK(dang::spSprite s)
     {
 
-        std::shared_ptr<PigCrate> spr = std::dynamic_pointer_cast<PigCrate>(s);
+        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
         if (spr->_nTreeState->_payload.count("aaLoSH"))
         {
