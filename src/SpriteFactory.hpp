@@ -5,6 +5,8 @@
 
 #include <string>
 #include <memory>
+#include <src/actors/hero/Hero.h>
+
 #include "src/actors/others/Reward.h"
 #include "src/levels/ScreenPlay.h"
 
