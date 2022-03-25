@@ -200,10 +200,15 @@ namespace pnk
                     std::shared_ptr<Enemy> en = _catched_en.lock();
                     if (en)
                     {
+                        en->markRemove();
+
+                        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, en->_id));
+                        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
                         // remove enemy
-                        std::unique_ptr<PnkEvent> er(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-                        er->_spr = _catched_en;
-                        pnk::_pnk._dispatcher.queueEvent(std::move(er));
+//                        std::unique_ptr<PnkEvent> er(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+//                        er->_spr = _catched_en;
+//                        pnk::_pnk._dispatcher.queueEvent(std::move(er));
 
                         // poof
                         std::unique_ptr<PnkEvent> ep(new PnkEvent(EF_GAME, ETG_NEW_POOF));
