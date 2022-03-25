@@ -39,7 +39,7 @@ namespace pnk
 
     Cannon::~Cannon()
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Cannon destructor" << std::endl;
 #endif
     }

@@ -227,6 +227,7 @@ namespace pnk
 
         _on_ground = false;
         _top_hit = false;
+
     }
 
     void Hero::lifeLost(const dang::Vector2F& restart_pos)

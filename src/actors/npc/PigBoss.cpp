@@ -35,7 +35,7 @@ namespace pnk
 
     PigBoss::~PigBoss()
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "PigBoss destructor" << std::endl;
 #endif
     }

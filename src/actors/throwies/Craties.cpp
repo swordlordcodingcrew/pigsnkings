@@ -35,7 +35,7 @@ namespace pnk
 
     Craties::Craties(const Craties &crate) : Throwies(crate)
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "craties copy constructor" << std::endl;
 #endif
         _to_the_left = crate._to_the_left;
@@ -48,7 +48,7 @@ namespace pnk
 
     Craties::~Craties()
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Craties destructor" << std::endl;
 #endif
     }

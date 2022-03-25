@@ -40,7 +40,7 @@ namespace pnk
     {
         _anim_flying = nullptr;
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Throwies destructor" << std::endl;
 #endif
     }

@@ -122,7 +122,7 @@ namespace pnk
         int _mem{0};
 #endif
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         // test stuff
         uint32_t _cycles{0};
 #endif

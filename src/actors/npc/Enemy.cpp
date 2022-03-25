@@ -46,7 +46,7 @@ namespace pnk
     {
         _path.clear();
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "enemy destructor" << std::endl;
 #endif
     }

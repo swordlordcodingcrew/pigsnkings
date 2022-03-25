@@ -55,7 +55,7 @@ namespace pnk
         _animation = nullptr;
         _tweens.clear();
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Moodies destructor" << std::endl;
 #endif
     }

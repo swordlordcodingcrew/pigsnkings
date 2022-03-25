@@ -111,7 +111,7 @@ namespace pnk
         updateCheatKeyStream(blit::buttons.pressed);
         checkCheatActivation();
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         if (_last_time + 1000 < time)
         {
             _last_time = time;
@@ -543,7 +543,7 @@ namespace pnk
                 {
                     _pnk._removed_sprites.push_front(spr->_id);
                 }
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
                 DEBUG_PRINT("GSPlay: remove sprite from layer\n");
 #endif
             }

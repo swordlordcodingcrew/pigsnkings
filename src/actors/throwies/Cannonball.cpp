@@ -38,7 +38,7 @@ namespace pnk
 
     Cannonball::Cannonball(const Throwies &can) : Throwies(can)
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Cannonball copy constructor" << std::endl;
 #endif
         _to_the_left = can._to_the_left;
@@ -52,7 +52,7 @@ namespace pnk
 
     Cannonball::~Cannonball()
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_PRINT
         std::cout << "Cannonball destructor" << std::endl;
 #endif
     }

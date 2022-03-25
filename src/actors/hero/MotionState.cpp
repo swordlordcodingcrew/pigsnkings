@@ -10,7 +10,7 @@
 #include "src/actors/hero/Hero.h"
 #include "sfx/jump_22050_mono.h"
 
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_HERO_STATES
 #include <iostream>
 #endif
 
@@ -51,7 +51,7 @@ namespace pnk
     void WaitState::enter(Hero &hero)
     {
         hero.setVelX(0);
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_HERO_STATES
         std::cout << "enter WaitState" << std::endl;
 #endif
     }
@@ -110,7 +110,7 @@ namespace pnk
         {
             hero.setVelX(H_WALK_VEL);
         }
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_HERO_STATES
 
         std::cout << "enter WalkState" << std::endl;
 #endif
@@ -178,7 +178,7 @@ namespace pnk
         hero.setVelY(H_JUMP_VEL);
 
         dang::SndGear::playSfx(jump_22050_mono, jump_22050_mono_length, _pnk._prefs.volume_sfx);
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_HERO_STATES
         std::cout << "enter JumpState" << std::endl;
 #endif
     }
@@ -256,7 +256,7 @@ namespace pnk
 
     void OnAirState::enter(Hero &hero)
     {
-#ifdef PNK_DEBUG
+#ifdef PNK_DEBUG_HERO_STATES
         std::cout << "enter OnAirState" << std::endl;
 #endif
     }
