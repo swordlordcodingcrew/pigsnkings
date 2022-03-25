@@ -80,6 +80,7 @@
 #include <malloc.h>
 #include <cassert>
 #include <memory>
+#include <iostream>
 
 
 #ifdef TARGET_32BLIT_HW
@@ -407,9 +408,12 @@ namespace pnk
             // remove sprites that have been taken/vanquished before
             for (auto id : _pnk._removed_sprites)
             {
-                _csl->removeSpriteById(id);
+                dang::spSprite s = _csl->getSpriteById(id);
+                if (s != nullptr)
+                {
+                    _csl->_removeSprite(s);
+                }
             }
-
 
 #ifdef TARGET_32BLIT_HW
 
@@ -531,12 +535,19 @@ namespace pnk
             dang::SndGear::playSfx(bubble_blow_22050_mono, bubble_blow_22050_mono_length, _pnk._prefs.volume_sfx);
             dang::SndGear::playRumbleTrack(&dang::explosion, 0);
         }
+        else if (pe._type == ETG_SPR_CONSUMED_BY_HERO)
+        {
+            std::cout << "add sprite with id=" << pe._payload << " to removed list" << std::endl;
+            _pnk._removed_sprites.push_front(pe._payload);
+        }
         else if (pe._type == ETG_REMOVE_SPRITE)
         {
             std::shared_ptr<dang::Sprite> spr = pe._spr.lock();
             if (spr != nullptr)
             {
-                _csl->removeSprite(spr);
+                std::cout << "depracated: ETG_REMOVE_SPRITE with sprite id=" << spr->_id << ". Use markRemove() instead" << std::endl;
+//                _csl->removeSprite(spr);
+                spr->markRemove();
 
                 if ((spr->_type_num > ST_ENEMIES && spr->_type_num < ST_ENEMIES_END) ||
                     (spr->_type_num > ST_REWARDS && spr->_type_num < ST_REWARDS_END))
@@ -1017,10 +1028,10 @@ namespace pnk
     void GSPlay::endBossBattle()
     {
         // remove all remaining piggies
-        _csl->removeSpritesByTypeNum(ST_PIG_NORMAL);
-        _csl->removeSpritesByTypeNum(ST_PIG_CRATE);
-        _csl->removeSpritesByTypeNum(ST_PIG_BOMB);
-        _csl->removeSpritesByTypeNum(ST_PIG_CANNON);
+        _csl->markRemoveSpritesByTypeNum(ST_PIG_NORMAL);
+        _csl->markRemoveSpritesByTypeNum(ST_PIG_CRATE);
+        _csl->markRemoveSpritesByTypeNum(ST_PIG_BOMB);
+        _csl->markRemoveSpritesByTypeNum(ST_PIG_CANNON);
 
         /*
         // lets not do this, player should see how she killed the boss

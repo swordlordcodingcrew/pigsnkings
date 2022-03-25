@@ -155,6 +155,9 @@ namespace pnk
     void Reward::removeSelf()
     {
         markRemove();
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, _id));
+        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
         // remove reward
 //        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
 //        e->_spr = shared_from_this();

@@ -272,19 +272,27 @@ namespace pnk
 
     void Bubble::removeSelf()
     {
+        std::cout << "Bubble: removeSelf" << std::endl;
         // remove enemy if catched
-        if (!_catched_en.expired())
+        dang::spCollisionSprite spr = _catched_en.lock();
+        if (spr != nullptr)
         {
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+            spr->markRemove();
+
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, spr->_id));
+            pnk::_pnk._dispatcher.queueEvent(std::move(e));
+
+/*            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
             e->_spr = _catched_en;
             pnk::_pnk._dispatcher.queueEvent(std::move(e));
-        }
+*/        }
 
          // remove bubble
-         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+         markRemove();
+/*         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
          e->_spr = shared_from_this();
          pnk::_pnk._dispatcher.queueEvent(std::move(e));
-
+*/
     }
 
 

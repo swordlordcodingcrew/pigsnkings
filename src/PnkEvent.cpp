@@ -13,6 +13,13 @@ namespace pnk
         _type = type;
     }
 
+    PnkEvent::PnkEvent(uint16_t filter, int32_t type, uint16_t payload)
+    {
+        _filter = filter;
+        _type = type;
+        _payload = payload;
+    }
+
     PnkEvent::~PnkEvent()
     {
 //        std::cout << "PnkEvent destructor" << std::endl;
