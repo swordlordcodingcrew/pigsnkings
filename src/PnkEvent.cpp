@@ -4,6 +4,7 @@
 #include <iostream>
 #include "PnkEvent.h"
 #include "Event.hpp"
+#include "pnk_globals.h"
 
 namespace pnk
 {
@@ -24,6 +25,26 @@ namespace pnk
     {
 //        std::cout << "PnkEvent destructor" << std::endl;
         _spr.reset();
+    }
+
+    std::unique_ptr<PnkEvent> PnkEvent::createGE(int32_t type, uint16_t payload)
+    {
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, type, payload));
+        return std::move(e);
+    }
+
+    std::unique_ptr<PnkEvent> PnkEvent::createGE(int32_t type, std::weak_ptr<dang::Sprite> spr)
+    {
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, type));
+        e->_spr = spr;
+        return std::move(e);
+    }
+
+    std::unique_ptr<PnkEvent> PnkEvent::createGE(int32_t type, uint16_t payload, std::weak_ptr<dang::Sprite> spr)
+    {
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, type, payload));
+        e->_spr = spr;
+        return std::move(e);
     }
 
 }

@@ -18,6 +18,31 @@ namespace pnk
     class PnkEvent : public dang::Event
     {
     public:
+        /**
+         * Creates (and moves) a PnkEvent with filter EF_GAME
+         * @param type of event (ETG)
+         * @param payload paylod as uint16
+         * @return unique_ptr of PnkEvent
+         */
+        static std::unique_ptr<PnkEvent> createGE(int32_t type, uint16_t payload);
+
+        /**
+         * Creates (and moves) a PnkEvent with filter EF_GAME
+         * @param type of event (ETG)
+         * @param spr sprite
+         * @return unique_ptr of PnkEvent
+         */
+        static std::unique_ptr<PnkEvent> createGE(int32_t type, std::weak_ptr<dang::Sprite> spr);
+
+        /**
+         * Creates (and moves) a PnkEvent with filter EF_GAME
+         * @param type of event (ETG)
+         * @param payload paylod as uint16
+         * @param spr sprite
+         * @return unique_ptr of PnkEvent
+         */
+        static std::unique_ptr<PnkEvent> createGE(int32_t type, uint16_t payload, std::weak_ptr<dang::Sprite> spr);
+
         PnkEvent(uint16_t filter, int32_t type);
         PnkEvent(uint16_t filter, int32_t type, uint16_t payload);
         ~PnkEvent() override;
