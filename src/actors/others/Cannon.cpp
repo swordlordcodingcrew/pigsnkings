@@ -165,18 +165,21 @@ namespace pnk
 
     void Cannon::tellTheKingWeHitHim()
     {
-        //
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_spr = shared_from_this();
-        e->_payload = ST_PIG_CANNON;
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_CANNON, shared_from_this()));
+
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
+//        e->_spr = shared_from_this();
+//        e->_payload = ST_PIG_CANNON;
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void Cannon::removeSelf()
     {
-        // remove throwie
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-        e->_spr = shared_from_this();
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        markRemove();
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_REMOVE_SPRITE, _id));
+
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+//        e->_spr = shared_from_this();
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 }

@@ -215,18 +215,21 @@ namespace pnk
 
     void PigBoss::tellTheKingWeHitHim()
     {
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_spr = shared_from_this();
-        e->_payload = ST_PIG_BOSS;
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_BOSS, shared_from_this()));
+
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
+//        e->_spr = shared_from_this();
+//        e->_payload = ST_PIG_BOSS;
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void PigBoss::removeSelf()
     {
-        // remove throwie
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-        e->_spr = shared_from_this();
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        markRemove();
+
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
+//        e->_spr = shared_from_this();
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void PigBoss::startOutToWaypoint()
