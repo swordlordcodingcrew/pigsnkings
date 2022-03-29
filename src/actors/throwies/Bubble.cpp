@@ -130,7 +130,8 @@ namespace pnk
 
     void Bubble::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         if ((sprOther->_type_num > ST_ENEMIES && sprOther->_type_num < ST_ENEMIES_END)
             && (_state == bs_growing || _state == bs_wobbling))
@@ -143,7 +144,8 @@ namespace pnk
                 return; // cannoneers, cannons and royals dont get bubbled
             }
 
-            _catched_en = std::static_pointer_cast<Enemy>(mf.me.get() == this ? mf.other : mf.me);
+            _catched_en = std::static_pointer_cast<Enemy>(sprOther);
+//            _catched_en = std::static_pointer_cast<Enemy>(mf.me.get() == this ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {

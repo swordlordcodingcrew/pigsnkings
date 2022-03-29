@@ -23,7 +23,8 @@ namespace pnk
 
     void BossbattleTrigger::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         if (sprOther->_type_num == ST_KING)
         {

@@ -67,8 +67,9 @@ namespace pnk
 
     void Bombies::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.other);
-        sprOther = std::static_pointer_cast<CollisionSprite>(sprOther.get() == this ? mf.me : mf.other);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+//        std::static_pointer_cast<CollisionSprite>(mf.other);
+//        sprOther = std::static_pointer_cast<CollisionSprite>(sprOther.get() == this ? mf.me : mf.other);
         if (!_bIsOnFire && (sprOther->_type_num == ST_HOTRECT || sprOther->_type_num == ST_HOTRECT_PLATFORM))
         {
             // have the animation sequence triggered

@@ -49,7 +49,8 @@ namespace pnk
 
     void MoodiesThatHurt::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
         if (!_has_hurt && (sprOther->_type_num == ST_KING))
         {
             // only hurts once

@@ -105,7 +105,8 @@ namespace pnk
 
     void PigBoss::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         // warning, this is the other way round than in, say, the hero
         // we want the others normal, not our normal!

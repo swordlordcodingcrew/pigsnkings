@@ -52,7 +52,10 @@ namespace pnk
 
     void Hero::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spCollisionSprite sprOther = getOther(mf, this);
+
+//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.other);
+//        sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         // check direction
         const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
