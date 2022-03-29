@@ -781,6 +781,7 @@ namespace pnk
 
             // reset lives count before storing current game status to disc
             _pnk._gamestate.lives = HERO_MAX_LIVES;
+            _pnk._removed_sprites.clear();
         }
 
         dang::Vector2F sp;
