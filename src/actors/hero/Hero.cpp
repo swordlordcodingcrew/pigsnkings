@@ -160,7 +160,8 @@ namespace pnk
         {
             if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
             {
-                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
+                if (cs_other->getHotrectG().top() - 6 >= _cs_pos.y + _hotrect.h && _vel.y > 0)
+//                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
                 {
                     _cr = dang::CR_SLIDE;
                     return _cr;
@@ -183,7 +184,8 @@ namespace pnk
         {
             if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
             {
-                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
+                if (cs_other->getHotrectG().top() - 6 >= _cs_pos.y + _hotrect.h && _vel.y > 0)
+//                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
                 {
                     _cr = dang::CR_SLIDE;
                     return _cr;

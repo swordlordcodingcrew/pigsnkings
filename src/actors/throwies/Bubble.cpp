@@ -184,7 +184,7 @@ namespace pnk
         }
         else if (sprOther->_type_num == ST_KING)
         {
-            const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.y >= 0 || _state == bs_enemy_catched)   // hero is not on top or bubble has an enemy catched
             {

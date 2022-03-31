@@ -110,10 +110,13 @@ namespace pnk
 
         // warning, this is the other way round than in, say, the hero
         // we want the others normal, not our normal!
-        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
+        const dang::Vector2F& normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalOther : mf.normalMe;
+//        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalOther : mf.normalMe;
 
         if (sprOther->_type_num == ST_KING && _currentState == LOITERING)
         {
+            const dang::Vector2F& normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalOther : mf.normalMe;
+
             if (normal.y > 0)
             {
                 if (!_hit)
@@ -132,7 +135,8 @@ namespace pnk
         }
         else if (_cr == dang::CR_SLIDE)
         {
-            const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+//            const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 
             if (normal.x != 0)
             {
