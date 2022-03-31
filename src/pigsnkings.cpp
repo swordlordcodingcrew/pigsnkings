@@ -231,6 +231,7 @@ namespace pnk
         for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
         {
             gamestate ngs = {};
+            ngs.save_size = sizeof(gamestate);
             if(!blit::read_save(ngs, i))
             {
                 DEBUG_PRINT("pigsnkings: new gamesave written at %d\n", i);
@@ -244,6 +245,7 @@ namespace pnk
         for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
         {
             gamestate ngs = {};
+            ngs.save_size = sizeof(gamestate);
             blit::write_save(ngs, i);
         }
 
