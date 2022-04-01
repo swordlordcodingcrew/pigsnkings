@@ -24,14 +24,16 @@ namespace pnk
 
         void render(const dang::Gear &gear) override;
 
-    protected:
+        uint8_t getSelectedPrefs() const { return _selectedPref; }
+        void refreshTempGamestateFromSave(const uint8_t slot);
+
+    private:
         explicit SettingsLayer(Layer::E_TYPE type) : Layer(type){};
 
         void paintSlider(const dang::Gear& gear, uint8_t x, uint8_t y, float val);
         void paintGameslot(const dang::Gear& gear, uint8_t x, uint8_t y, uint8_t val);
         void paintStats(const dang::Gear& gear, uint8_t x, uint8_t y);
 
-        void refreshTempGamestateFromSave(const uint8_t slot);
 
         blit::Pen backgroundColour;
         blit::Pen foregroundColour;

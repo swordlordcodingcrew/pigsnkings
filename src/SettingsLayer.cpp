@@ -49,6 +49,8 @@ namespace pnk
         _is_king = std::make_shared<dang::Imagesheet>("gfx_king", &gfx_king, 28, 1);
 
         refreshTempGamestateFromSave(_pnk._prefs.currentGameSaveSlot);
+
+
     }
 
     SettingsLayer::~SettingsLayer()
@@ -152,6 +154,7 @@ namespace pnk
                 refreshTempGamestateFromSave(pref.curVal);
             }
         }
+
     }
 
     void SettingsLayer::render(const dang::Gear& gear)

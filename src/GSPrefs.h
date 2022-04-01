@@ -11,6 +11,7 @@
 
 namespace pnk
 {
+    class SettingsLayer;
 
     class GSPrefs : public GameState
     {
@@ -19,7 +20,7 @@ namespace pnk
         void enter(dang::Gear& gear, uint32_t time) override;
         void exit(dang::Gear& gear, uint32_t time) override;
 
-    protected:
+    private:
         /**
          * rsrc for the home state
          */
@@ -31,5 +32,10 @@ namespace pnk
         const std::string tmx_bg_layer_name{"prefs_bg"};
         const std::string tmx_deco_layer_name{"prefs_decoration"};
 
+        /**
+         * layers
+         */
+        std::shared_ptr<SettingsLayer>  _stl{nullptr};
+        dang::spMessageLayer            _txtl{nullptr};
     };
 }

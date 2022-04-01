@@ -195,5 +195,8 @@ static inline const blit::Button BTN_OK{blit::Button::X};
 static inline const blit::Button BTN_BACK{blit::Button::Y};
 static inline const blit::Button BTN_CANCEL{blit::Button::Y};
 static inline const blit::Button BTN_EXIT{blit::Button::MENU};
+/** game special buttons */
 static inline const blit::Button BTN_JUMP{blit::Button::A};
 static inline const blit::Button BTN_BUBBLE{blit::Button::B};
+/** Prefs special buttons */
+static inline const blit::Button BTN_DELETE{blit::Button::B};

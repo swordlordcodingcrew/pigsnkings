@@ -2,17 +2,24 @@
 // This file is part of the pnk game
 
 
+#include "SettingsLayer.h"
+
 #include "GSPrefs.h"
 #include "GSHome.h"
-#include "SettingsLayer.h"
-#include <cassert>
 
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/prefs_1.tmx.hpp"
 
 #include <Gear.hpp>
+#include <fonts/barcadebrawl.h>
+#include <MessageLayer.hpp>
+
 #include <32blit.hpp>
+
+#include <cassert>
+#include <rsrc/game_strings.hpp>
+
 
 namespace pnk
 {
@@ -24,6 +31,28 @@ namespace pnk
         {
             return GameState::_gs_home;
         }
+
+        if (blit::buttons.pressed & BTN_DELETE && _stl->getSelectedPrefs() == PigsnKings::GAMESAVESLOT)
+        {
+            _stl->setActive(false);
+            _txtl->setText(str_prefs_really_delete);
+            _txtl->setTtl(0, [&](blit::Button btn) {
+
+                if (btn == BTN_OK)
+                {
+                    _pnk.resetGameslot(_pnk._prefs.currentGameSaveSlot);
+                    _stl->refreshTempGamestateFromSave(_pnk._prefs.currentGameSaveSlot);
+                }
+                _stl->setActive(true);
+                _txtl->setActive(false);
+                _txtl->setVisibility(false);
+            });
+            _txtl->setActive(true);
+            _txtl->setVisibility(true);
+
+        }
+
+
 
         return GameState::_gs_prefs;
     }
@@ -42,10 +71,20 @@ namespace pnk
         dang::spTileLayer tl = txtr.getTileLayer(tmx_bg_layer_name, true);
         dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, true, true, false);
 
-        std::shared_ptr<SettingsLayer> stl = std::make_shared<SettingsLayer>();
-        assert(stl != nullptr);
-        stl->_z_order = 2;
-        gear.addLayer(stl);
+        // settings layer
+        _stl = std::make_shared<SettingsLayer>();
+        assert(_stl != nullptr);
+        _stl->_z_order = 2;
+        gear.addLayer(_stl);
+
+        // create text layser
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
+        assert(_stl != nullptr);
+        _txtl->_z_order = 10;
+        _txtl->_active = false;
+        _txtl->setButtons(BTN_OK, BTN_CANCEL);
+        gear.addLayer(_txtl);
+
     }
 
     void GSPrefs::exit(dang::Gear& gear, uint32_t time)

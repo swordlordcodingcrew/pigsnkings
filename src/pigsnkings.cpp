@@ -253,6 +253,18 @@ namespace pnk
         refreshGamestateFromSave();
     }
 
+    void PigsnKings::resetGameslot(uint8_t slot)
+    {
+        if (slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
+        {
+            return;
+        }
+
+        gamestate ngs = {};
+        ngs.save_size = sizeof(gamestate);
+        blit::write_save(ngs, slot);
+    }
+
     void PigsnKings::refreshPrefsFromSave()
     {
         blit::read_save(_prefs, PREFERENCES);

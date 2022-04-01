@@ -94,6 +94,7 @@ namespace pnk
         void saveCurrentGamestate();
         void initEmptyGameslots(); // save1-4
         void resetAllGameslots(); // save1-4
+        void resetGameslot(uint8_t slot);
         void refreshPrefsFromSave();
         void resetPrefsGameslot(); // save0
 
