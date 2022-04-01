@@ -60,7 +60,8 @@ namespace pnk
         _is_king.reset();
 
 /*
-        //it might be that _pnk is already deleted..
+        // it might be that _pnk is already deleted..
+        // TODO: check this
 
         // this is a hack. we set play as the default option in the stored settings
         // otherwise the default would always be prefs
