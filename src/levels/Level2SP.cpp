@@ -36,12 +36,12 @@ namespace pnk
         act room2;
         room2._extent = {30, 8, 11, 8};
         room2._passage_from[1] = {9, 1};
-        room2._passage_from[3] = {0, 14};
+        room2._passage_from[3] = {0, 6};
         _acts.push_back(room2);
 
         act room3;
         room3._extent = {19, 8, 12, 8};
-        room3._passage_from[2] = {10, 14};
+        room3._passage_from[2] = {10, 6};
         room3._passage_from[4] = {0, 1};
         _acts.push_back(room3);
 

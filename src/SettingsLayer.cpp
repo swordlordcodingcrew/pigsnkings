@@ -59,6 +59,9 @@ namespace pnk
         _is_hud.reset();
         _is_king.reset();
 
+/*
+        //it might be that _pnk is already deleted..
+
         // this is a hack. we set play as the default option in the stored settings
         // otherwise the default would always be prefs
         // which is annoying as hell. I know, I tried this :)
@@ -68,6 +71,7 @@ namespace pnk
 
         // reload the currently selected gamestate
         _pnk.refreshGamestateFromSave();
+*/
     }
 
     void SettingsLayer::update(uint32_t dt, const dang::Gear &gear)
