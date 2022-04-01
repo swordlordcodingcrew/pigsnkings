@@ -12,7 +12,7 @@
  <tileset firstgid="442" source="../tilesets/character_cannonsnpigs.tsx"/>
  <tileset firstgid="451" source="../tilesets/common_items_bomb.tsx"/>
  <tileset firstgid="462" source="../tilesets/character_pigking.tsx"/>
- <layer id="1" name="lvl_2_bg" width="60" height="16">
+ <layer id="1" name="lvl_2_bg" width="60" height="16" locked="1">
   <data encoding="csv">
 5,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,14,14,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
 15,49,50,50,50,50,50,50,51,13,15,49,50,50,50,50,50,50,77,86,86,86,86,78,50,50,51,25,26,6,15,85,86,81,86,86,86,86,86,86,86,78,50,50,50,50,50,50,51,13,15,49,50,50,50,50,50,50,51,13,
@@ -32,7 +32,7 @@
 17,2,2,2,2,18,17,2,2,2,2,2,2,18,14,14,14,14,14,14,17,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,18,17,2,2,2,2,2,2,2,2,18,17,2,2,2,2,2,2,2,2,18
 </data>
  </layer>
- <objectgroup id="2" name="lvl_2_mood">
+ <objectgroup id="2" name="lvl_2_mood" locked="1">
   <object id="50" gid="101" x="1632" y="352" width="32" height="32"/>
   <object id="51" gid="101" x="1856" y="352" width="32" height="32"/>
   <object id="52" gid="98" x="1632" y="448" width="32" height="32"/>
@@ -489,18 +489,6 @@
     <property name="bt" value="loiter"/>
    </properties>
   </object>
-  <object id="370" x="1024" y="476">
-   <properties>
-    <property name="walk_0" type="object" value="371"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="371" x="1152" y="476">
-   <properties>
-    <property name="walk_0" type="object" value="370"/>
-   </properties>
-   <point/>
-  </object>
   <object id="372" type="coin_gold" gid="133" x="1024" y="302" width="32" height="48"/>
   <object id="373" type="coin_gold" gid="133" x="1088" y="302" width="32" height="48"/>
   <object id="374" type="coin_gold" gid="133" x="1056" y="302" width="32" height="48"/>
@@ -516,53 +504,17 @@
   <object id="386" type="coin_silver" gid="129" x="864" y="400" width="32" height="48"/>
   <object id="389" type="coin_gold" gid="133" x="1152" y="331" width="32" height="48"/>
   <object id="390" type="coin_gold" gid="133" x="992" y="331" width="32" height="48"/>
-  <object id="391" x="928" y="476">
-   <properties>
-    <property name="walk_0" type="object" value="392"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="392" x="781" y="476">
-   <properties>
-    <property name="walk_0" type="object" value="391"/>
-   </properties>
-   <point/>
-  </object>
   <object id="393" name="Bertha" type="cannon" gid="2147484090" x="704" y="448" width="32" height="32"/>
   <object id="394" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="672" y="448" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="395" x="804" y="348">
-   <properties>
-    <property name="walk_0" type="object" value="396"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="396" x="848" y="348">
-   <properties>
-    <property name="walk_0" type="object" value="395"/>
-   </properties>
-   <point/>
-  </object>
   <object id="397" name="Bertha" type="cannon" gid="2147484090" x="864" y="288" width="32" height="32"/>
   <object id="398" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="896" y="288" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="200"/>
    </properties>
-  </object>
-  <object id="399" x="672" y="316">
-   <properties>
-    <property name="walk_0" type="object" value="400"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="400" x="768" y="316">
-   <properties>
-    <property name="walk_0" type="object" value="399"/>
-   </properties>
-   <point/>
   </object>
   <object id="401" name="Bertha" type="cannon" gid="2147484090" x="544" y="352" width="32" height="32"/>
   <object id="402" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="576" y="352" width="32" height="32">
@@ -590,6 +542,240 @@
   <object id="412" type="coin_gold" gid="133" x="416" y="302" width="32" height="48"/>
   <object id="413" type="coin_gold" gid="133" x="352" y="334" width="32" height="48"/>
   <object id="414" type="coin_gold" gid="133" x="448" y="270" width="32" height="48"/>
+  <object id="440" type="pig_normal" gid="326" x="145" y="128" width="32" height="32">
+   <properties>
+    <property name="bt" value="loiter"/>
+   </properties>
+  </object>
+  <object id="441" type="coin_silver" gid="129" x="32" y="16" width="32" height="48"/>
+  <object id="442" type="coin_silver" gid="129" x="32" y="48" width="32" height="48"/>
+  <object id="443" type="coin_silver" gid="129" x="32" y="80" width="32" height="48"/>
+  <object id="444" type="coin_silver" gid="129" x="32" y="112" width="32" height="48"/>
+  <object id="446" type="coin_silver" gid="129" x="32" y="144" width="32" height="48"/>
+  <object id="447" type="coin_silver" gid="129" x="256" y="144" width="32" height="48"/>
+  <object id="448" type="coin_silver" gid="129" x="256" y="112" width="32" height="48"/>
+  <object id="449" type="coin_silver" gid="129" x="256" y="80" width="32" height="48"/>
+  <object id="450" type="coin_silver" gid="129" x="256" y="48" width="32" height="48"/>
+  <object id="451" type="coin_silver" gid="129" x="256" y="16" width="32" height="48"/>
+  <object id="452" type="coin_silver" gid="129" x="96" y="144" width="32" height="48"/>
+  <object id="453" type="coin_silver" gid="129" x="192" y="144" width="32" height="48"/>
+  <object id="454" type="coin_gold" gid="133" x="96" y="78" width="32" height="48"/>
+  <object id="455" type="coin_gold" gid="133" x="192" y="78" width="32" height="48"/>
+  <object id="456" type="coin_gold" gid="133" x="192" y="14" width="32" height="48"/>
+  <object id="457" type="coin_gold" gid="133" x="96" y="14" width="32" height="48"/>
+  <object id="460" type="coin_gold" gid="133" x="1711" y="129" width="32" height="48"/>
+  <object id="462" type="coin_gold" gid="133" x="1679" y="96" width="32" height="48"/>
+  <object id="463" type="coin_gold" gid="133" x="1679" y="63" width="32" height="48"/>
+  <object id="464" type="coin_gold" gid="133" x="1679" y="32" width="32" height="48"/>
+  <object id="465" type="coin_gold" gid="133" x="1711" y="32" width="32" height="48"/>
+  <object id="466" type="coin_gold" gid="133" x="1743" y="64" width="32" height="48"/>
+  <object id="467" type="coin_gold" gid="133" x="1775" y="32" width="32" height="48"/>
+  <object id="468" type="coin_gold" gid="133" x="1807" y="32" width="32" height="48"/>
+  <object id="469" type="coin_gold" gid="133" x="1807" y="64" width="32" height="48"/>
+  <object id="470" type="coin_gold" gid="133" x="1807" y="96" width="32" height="48"/>
+  <object id="471" type="coin_gold" gid="133" x="1775" y="128" width="32" height="48"/>
+  <object id="472" type="coin_gold" gid="133" x="1743" y="160" width="32" height="48"/>
+ </objectgroup>
+ <objectgroup id="5" name="lvl_2_fg" locked="1"/>
+ <objectgroup id="4" name="lvl_2_hud" locked="1">
+  <object id="226" type="hud_hero" gid="324" x="15" y="18" width="32" height="32"/>
+  <object id="227" gid="254" x="46" y="37" width="16" height="16"/>
+  <object id="228" gid="255" x="62" y="37" width="16" height="16"/>
+  <object id="229" gid="256" x="78" y="37" width="16" height="16"/>
+  <object id="333" type="hud_boss" gid="494" x="274" y="19" width="32" height="32"/>
+  <object id="334" type="hud_boss_health" gid="254" x="225" y="37" width="16" height="16"/>
+  <object id="335" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
+  <object id="336" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="6" name="lvl_2_paths" visible="0">
+  <object id="270" x="1680" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="271"/>
+    <property name="walk_1" type="object" value="274"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="271" x="1712" y="472">
+   <properties>
+    <property name="jump_0" type="object" value="270"/>
+    <property name="walk_0" type="object" value="278"/>
+    <property name="walk_1" type="object" value="277"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="272" x="1808" y="472">
+   <properties>
+    <property name="jump_0" type="object" value="273"/>
+    <property name="walk_0" type="object" value="276"/>
+    <property name="walk_1" type="object" value="279"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="273" x="1840" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="272"/>
+    <property name="walk_1" type="object" value="275"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="274" x="1648" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="270"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="275" x="1872" y="440">
+   <properties>
+    <property name="walk_0" type="object" value="273"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="276" x="1776" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="272"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="277" x="1744" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="271"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="278" x="1648" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="271"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="279" x="1872" y="472">
+   <properties>
+    <property name="walk_0" type="object" value="272"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="280" x="1808" y="408">
+   <properties>
+    <property name="walk_0" type="object" value="281"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="281" x="1712" y="408">
+   <properties>
+    <property name="walk_0" type="object" value="280"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="282" x="1712" y="376">
+   <properties>
+    <property name="walk_0" type="object" value="283"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="283" x="1808" y="376">
+   <properties>
+    <property name="walk_0" type="object" value="282"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="284" x="1712" y="344">
+   <properties>
+    <property name="walk_0" type="object" value="285"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="285" x="1808" y="344">
+   <properties>
+    <property name="walk_0" type="object" value="284"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="363" x="1327" y="475">
+   <properties>
+    <property name="walk_0" type="object" value="364"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="364" x="1455" y="475">
+   <properties>
+    <property name="walk_0" type="object" value="363"/>
+    <property name="walk_1" type="object" value="365"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="365" x="1552" y="475">
+   <properties>
+    <property name="walk_0" type="object" value="364"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="366" x="1328" y="347">
+   <properties>
+    <property name="walk_0" type="object" value="368"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="367" x="1328" y="413">
+   <properties>
+    <property name="jump_0" type="object" value="368"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="368" x="1360" y="380">
+   <properties>
+    <property name="jump_0" type="object" value="366"/>
+    <property name="walk_0" type="object" value="367"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="391" x="928" y="476">
+   <properties>
+    <property name="walk_0" type="object" value="392"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="392" x="781" y="476">
+   <properties>
+    <property name="walk_0" type="object" value="391"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="395" x="804" y="348">
+   <properties>
+    <property name="walk_0" type="object" value="396"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="396" x="848" y="348">
+   <properties>
+    <property name="walk_0" type="object" value="395"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="399" x="672" y="316">
+   <properties>
+    <property name="walk_0" type="object" value="400"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="400" x="768" y="316">
+   <properties>
+    <property name="walk_0" type="object" value="399"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="370" x="1024" y="476">
+   <properties>
+    <property name="walk_0" type="object" value="371"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="371" x="1152" y="476">
+   <properties>
+    <property name="walk_0" type="object" value="370"/>
+   </properties>
+   <point/>
+  </object>
   <object id="415" x="170" y="316">
    <properties>
     <property name="walk_0" type="object" value="421"/>
@@ -760,192 +946,6 @@
    <properties>
     <property name="walk_0" type="object" value="433"/>
     <property name="walk_1" type="object" value="432"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="440" type="pig_normal" gid="326" x="145" y="128" width="32" height="32">
-   <properties>
-    <property name="bt" value="loiter"/>
-   </properties>
-  </object>
-  <object id="441" type="coin_silver" gid="129" x="32" y="16" width="32" height="48"/>
-  <object id="442" type="coin_silver" gid="129" x="32" y="48" width="32" height="48"/>
-  <object id="443" type="coin_silver" gid="129" x="32" y="80" width="32" height="48"/>
-  <object id="444" type="coin_silver" gid="129" x="32" y="112" width="32" height="48"/>
-  <object id="446" type="coin_silver" gid="129" x="32" y="144" width="32" height="48"/>
-  <object id="447" type="coin_silver" gid="129" x="256" y="144" width="32" height="48"/>
-  <object id="448" type="coin_silver" gid="129" x="256" y="112" width="32" height="48"/>
-  <object id="449" type="coin_silver" gid="129" x="256" y="80" width="32" height="48"/>
-  <object id="450" type="coin_silver" gid="129" x="256" y="48" width="32" height="48"/>
-  <object id="451" type="coin_silver" gid="129" x="256" y="16" width="32" height="48"/>
-  <object id="452" type="coin_silver" gid="129" x="96" y="144" width="32" height="48"/>
-  <object id="453" type="coin_silver" gid="129" x="192" y="144" width="32" height="48"/>
-  <object id="454" type="coin_gold" gid="133" x="96" y="78" width="32" height="48"/>
-  <object id="455" type="coin_gold" gid="133" x="192" y="78" width="32" height="48"/>
-  <object id="456" type="coin_gold" gid="133" x="192" y="14" width="32" height="48"/>
-  <object id="457" type="coin_gold" gid="133" x="96" y="14" width="32" height="48"/>
-  <object id="460" type="coin_gold" gid="133" x="1711" y="129" width="32" height="48"/>
-  <object id="462" type="coin_gold" gid="133" x="1679" y="96" width="32" height="48"/>
-  <object id="463" type="coin_gold" gid="133" x="1679" y="63" width="32" height="48"/>
-  <object id="464" type="coin_gold" gid="133" x="1679" y="32" width="32" height="48"/>
-  <object id="465" type="coin_gold" gid="133" x="1711" y="32" width="32" height="48"/>
-  <object id="466" type="coin_gold" gid="133" x="1743" y="64" width="32" height="48"/>
-  <object id="467" type="coin_gold" gid="133" x="1775" y="32" width="32" height="48"/>
-  <object id="468" type="coin_gold" gid="133" x="1807" y="32" width="32" height="48"/>
-  <object id="469" type="coin_gold" gid="133" x="1807" y="64" width="32" height="48"/>
-  <object id="470" type="coin_gold" gid="133" x="1807" y="96" width="32" height="48"/>
-  <object id="471" type="coin_gold" gid="133" x="1775" y="128" width="32" height="48"/>
-  <object id="472" type="coin_gold" gid="133" x="1743" y="160" width="32" height="48"/>
- </objectgroup>
- <objectgroup id="5" name="lvl_2_fg"/>
- <objectgroup id="4" name="lvl_2_hud">
-  <object id="226" type="hud_hero" gid="324" x="15" y="18" width="32" height="32"/>
-  <object id="227" gid="254" x="46" y="37" width="16" height="16"/>
-  <object id="228" gid="255" x="62" y="37" width="16" height="16"/>
-  <object id="229" gid="256" x="78" y="37" width="16" height="16"/>
-  <object id="333" type="hud_boss" gid="494" x="274" y="19" width="32" height="32"/>
-  <object id="334" type="hud_boss_health" gid="254" x="225" y="37" width="16" height="16"/>
-  <object id="335" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
-  <object id="336" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
- </objectgroup>
- <objectgroup id="6" name="lvl_2_paths">
-  <object id="270" x="1680" y="440">
-   <properties>
-    <property name="walk_0" type="object" value="271"/>
-    <property name="walk_1" type="object" value="274"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="271" x="1712" y="472">
-   <properties>
-    <property name="jump_0" type="object" value="270"/>
-    <property name="walk_0" type="object" value="278"/>
-    <property name="walk_1" type="object" value="277"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="272" x="1808" y="472">
-   <properties>
-    <property name="jump_0" type="object" value="273"/>
-    <property name="walk_0" type="object" value="276"/>
-    <property name="walk_1" type="object" value="279"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="273" x="1840" y="440">
-   <properties>
-    <property name="walk_0" type="object" value="272"/>
-    <property name="walk_1" type="object" value="275"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="274" x="1648" y="440">
-   <properties>
-    <property name="walk_0" type="object" value="270"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="275" x="1872" y="440">
-   <properties>
-    <property name="walk_0" type="object" value="273"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="276" x="1776" y="472">
-   <properties>
-    <property name="walk_0" type="object" value="272"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="277" x="1744" y="472">
-   <properties>
-    <property name="walk_0" type="object" value="271"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="278" x="1648" y="472">
-   <properties>
-    <property name="walk_0" type="object" value="271"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="279" x="1872" y="472">
-   <properties>
-    <property name="walk_0" type="object" value="272"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="280" x="1808" y="408">
-   <properties>
-    <property name="walk_0" type="object" value="281"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="281" x="1712" y="408">
-   <properties>
-    <property name="walk_0" type="object" value="280"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="282" x="1712" y="376">
-   <properties>
-    <property name="walk_0" type="object" value="283"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="283" x="1808" y="376">
-   <properties>
-    <property name="walk_0" type="object" value="282"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="284" x="1712" y="344">
-   <properties>
-    <property name="walk_0" type="object" value="285"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="285" x="1808" y="344">
-   <properties>
-    <property name="walk_0" type="object" value="284"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="363" x="1327" y="475">
-   <properties>
-    <property name="walk_0" type="object" value="364"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="364" x="1455" y="475">
-   <properties>
-    <property name="walk_0" type="object" value="363"/>
-    <property name="walk_1" type="object" value="365"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="365" x="1552" y="475">
-   <properties>
-    <property name="walk_0" type="object" value="364"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="366" x="1328" y="347">
-   <properties>
-    <property name="walk_0" type="object" value="368"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="367" x="1328" y="413">
-   <properties>
-    <property name="jump_0" type="object" value="368"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="368" x="1360" y="380">
-   <properties>
-    <property name="jump_0" type="object" value="366"/>
-    <property name="walk_0" type="object" value="367"/>
    </properties>
    <point/>
   </object>
