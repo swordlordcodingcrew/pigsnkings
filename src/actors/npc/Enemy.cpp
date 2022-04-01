@@ -289,7 +289,7 @@ namespace pnk
             case dang::e_tmx_waypoint_connection::wpc_invalid:
             case dang::e_tmx_waypoint_connection::wpc_walk:
             {
-                _vel.x = wp->_pos.x - _cs_pos.x < 0 ? -_walkSpeed : _walkSpeed;
+                _vel.x = wp->_pos.x - _co_pos.x < 0 ? -_walkSpeed : _walkSpeed;
 //                _vel.x = wp->_pos.x - _pos_g.x < 0 ? -_walkSpeed : _walkSpeed;
                 _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectG().center().x) + 32) * 100 / _walkSpeed;
                 _time_elapsed_to_wp = blit::now();
@@ -312,7 +312,7 @@ namespace pnk
 
                 if ((wp->_pos.x - getHotrectG().center().x) * (wp->_pos.x - getHotrectG().center().x) > 1600)  // long horizontal distance
                 {
-                    if (wp->_pos.x - _cs_pos.x < 0)
+                    if (wp->_pos.x - _co_pos.x < 0)
 //                    if (wp->_pos.x - _pos_g.x < 0)
                     {
                         v.x = -16;
@@ -334,7 +334,7 @@ namespace pnk
                     // short jump
                     _max_time_to_wp = 2000;
                     _time_elapsed_to_wp = blit::now();
-                    _vel.x = wp->_pos.x - _cs_pos.x < 0 ? -3 : 3;
+                    _vel.x = wp->_pos.x - _co_pos.x < 0 ? -3 : 3;
 //                    _vel.x = wp->_pos.x - _pos_g.x < 0 ? -3 : 3;
                     _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::Linear, 1, false );
                     addTween(_tw_short_jump);

@@ -105,7 +105,7 @@ namespace pnk
         /** hit a platform hotrect */
         else if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            if (other->getCSPosition().y + cs_other->getHotrect().top() - 6 >= this->_cs_pos.y + _hotrect.h && _vel.y > 0)
+            if (other->getCSPosition().y + cs_other->getHotrect().top() - 6 >= this->_co_pos.y + _hotrect.h && _vel.y > 0)
 //            if (other->getCSPosition().y + cs_other->getHotrect().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
             {
                 _cr = dang::CR_SLIDE;
