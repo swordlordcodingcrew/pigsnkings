@@ -23,8 +23,10 @@
 #include "actors/others/MoodiesThatHurt.h"
 #include <src/actors/others/LevelTrigger.h>
 #include "actors/others/Cannon.h"
+
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
+#include "levels/Level3SP.hpp"
 
 #include "tracks/kingsofdawn.h"
 
@@ -56,6 +58,7 @@
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
+#include "rsrc/level_3.tmx.hpp"
 #include "rsrc/game_strings.hpp"
 #include "fonts/barcadebrawl.h"
 
@@ -179,6 +182,8 @@ namespace pnk
         dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
+        // level hack
+//        _pnk._gamestate.active_level = 3;
         loadLevel(_pnk._gamestate.active_level);
 
         DEBUG_PRINT("GSPlay: callbacks\n");
@@ -222,6 +227,10 @@ namespace pnk
             case 2:
                 _screenplay = std::make_shared<Level2SP>(*this);
                 _tmx = &level_2_level;
+                break;
+            case 3:
+                _screenplay = std::make_shared<Level3SP>(*this);
+                _tmx = &level_3_level;
                 break;
         }
 
