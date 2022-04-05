@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DPNK_DEBUG_FPS)
 #add_definitions(-DPNK_DEBUG_WAYPOINTS)
 #add_definitions(-DPNK_DEBUG_PRINT)
+#add_definitions(-DPNK_DEBUG_HEROSTATES)
 
 
 
