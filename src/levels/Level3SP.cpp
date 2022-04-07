@@ -38,12 +38,13 @@ namespace pnk
         /** when coming from room x, start at given position */
         room0._passage_from[1] = {4, 0};
         room0._passage_from[2] = {4, 0};
-        room0._passage_from[3] = {4, 0};
+//        room0._passage_from[3] = {4, 0};
         room0._passage_from[4] = {0, 4};
         _acts.push_back(room0);
 
         act room1;
-        room1._extent = {10, 22, 10, 8};
+        room1._extent = {10, 22, 11, 8};
+        room1._passage_from[2] = {10, 6};
         room1._passage_from[3] = {0, 1};
         room1._passage_from[4] = {0, 6};
         _acts.push_back(room1);
@@ -51,19 +52,20 @@ namespace pnk
         act room2;
         room2._extent = {20, 22, 10, 8};
         room2._passage_from[0] = {5, 1};
-        room2._passage_from[3] = {10, 1};
+        room2._passage_from[4] = {9, 3};
         _acts.push_back(room2);
 
         act room3;
         room3._extent = {0, 14, 10, 8};
         room3._passage_from[1] = {9, 6};
-        room3._passage_from[4] = {0, 1};
+        room3._passage_from[4] = {9, 1};
         _acts.push_back(room3);
 
         act room4;
-        room4._extent = {10, 14, 10, 8};
+        room4._extent = {10,    14, 10, 8};
         room4._passage_from[0] = {9, 6};
         room4._passage_from[1] = {9, 1};
+        room4._passage_from[2] = {0, 6};
         _acts.push_back(room4);
 
 /*        act room5;
