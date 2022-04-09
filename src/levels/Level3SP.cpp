@@ -40,6 +40,8 @@ namespace pnk
         room0._passage_from[2] = {4, 0};
 //        room0._passage_from[3] = {4, 0};
         room0._passage_from[4] = {0, 4};
+        room0._passage_from[5] = {4, 0};
+        room0._passage_from[6] = {4, 0};
         _acts.push_back(room0);
 
         act room1;
@@ -66,17 +68,18 @@ namespace pnk
         room4._passage_from[0] = {9, 6};
         room4._passage_from[1] = {9, 1};
         room4._passage_from[2] = {0, 6};
+        room4._passage_from[5] = {0, 1};
         _acts.push_back(room4);
 
-/*        act room5;
-        room5._extent = {0, 0, 10, 8};
-        room5._passage_from[4] = {8, 2};
-        room5._passage_from[6] = {0, 6};
+        act room5;
+        room5._extent = {20, 14, 10, 8};
+        room5._passage_from[4] = {9, 6};
+        room5._passage_from[6] = {4, 1};
         _acts.push_back(room5);
 
         act room6;
-        room6._extent = {0, 8, 10, 8};
-        room6._passage_from[5] = {4, 1};
+        room6._extent = {0, 6, 19, 8};
+        room6._passage_from[5] = {0, 1};
         _acts.push_back(room6);
 
         act room7;
@@ -84,7 +87,7 @@ namespace pnk
         room7._passage_from[4] = {1, 6};
         room7._passage_from[6] = {1, 6};
         _acts.push_back(room7);
-*/
+
         DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
 
         // behaviour tree 1 for finding back to the path system
