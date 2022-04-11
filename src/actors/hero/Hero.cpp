@@ -58,7 +58,8 @@ namespace pnk
 //        sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         // check direction
-        const dang::Vector2F& normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
+        const dang::CollisionObject* co_this = static_cast<dang::CollisionObject*>(this);
+        const dang::Vector2F& normal = mf.me.get() == co_this ? mf.normalMe : mf.normalOther;
 
         if (_somatic_state == SomaticState::_normal)
         {

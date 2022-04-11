@@ -109,7 +109,7 @@ namespace pnk
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp);
         static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
         static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
-        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
+        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left, uint8_t num_bubble_loops);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
         static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);

@@ -499,7 +499,7 @@ namespace pnk
         return ret;
     }
 
-    spBubble SpriteFactory::Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left)
+    spBubble SpriteFactory::Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left, uint8_t num_bubble_loops)
     {
         spBubble ret = std::make_shared<pnk::Bubble>(so, is);
         ret->_type_num = ST_BUBBLE;
@@ -523,7 +523,8 @@ namespace pnk
 
         // bobbling with catched enemy
         ret->_anim_catched = std::make_shared<dang::TwAnim>(*(ret->_anim_bobble));
-        ret->_anim_catched->loops(12);
+
+        ret->_anim_catched->loops(num_bubble_loops);
 
         ret->init();
 

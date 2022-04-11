@@ -61,6 +61,11 @@ namespace pnk
          */
         std::unordered_map<std::string, dang::spNTree>  _bt;
 
+        /**
+         * # of bubble-loops a pig is bubbled. When advancing the levels, the value could be diminished
+         */
+        uint8_t _bubble_loops = 6;
+
         size_t findNearestGraph(const dang::Vector2F& pos);
 
 

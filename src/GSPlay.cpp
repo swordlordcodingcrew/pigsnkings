@@ -366,7 +366,7 @@ namespace pnk
 
                 if (so->type == SpriteFactory::T_BUBBLE_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false);
+                    dang::spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false, _screenplay->_bubble_loops);
                     assert(sprc != nullptr);
                     _hives["bubble"] = sprc;
                 }

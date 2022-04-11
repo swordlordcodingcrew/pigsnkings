@@ -173,6 +173,8 @@ static inline const uint8_t DAMAGE_TO_PIGBOSS{34};            // when hitting th
 static inline const uint8_t HERO_MAX_LIVES{3};            // max lives hero can gain
 static inline const uint8_t HERO_MAX_HEALTH{100};            // max health hero can gain
 
+
+
 // boss params
 static inline const uint8_t BOSS_MAX_HEALTH{100};            // max health boss can gain
 
