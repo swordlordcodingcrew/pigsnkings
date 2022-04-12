@@ -44,7 +44,6 @@ namespace pnk
 
         _to_the_left = bub._to_the_left;
         _state = bs_hatch;
-//        _state = bub._state;
         _anim_blow = std::make_shared<dang::TwAnim>(*(bub._anim_blow));
         _anim_bobble = std::make_shared<dang::TwAnim>(*(bub._anim_bobble));
         _anim_poof = std::make_shared<dang::TwAnim>(*(bub._anim_poof));
@@ -131,25 +130,21 @@ namespace pnk
     void Bubble::collide(const dang::manifold &mf)
     {
         dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+
+        if (sprOther->_type_num == ST_CANNON || sprOther->_type_num == ST_PIG_CANNON || sprOther->_type_num == ST_PIG_BOSS)
+        {
+            return; // cannoneers, cannons and royals dont get bubbled
+        }
 
         if ((sprOther->_type_num > ST_ENEMIES && sprOther->_type_num < ST_ENEMIES_END)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
 
-            // yeah, could be added to the check above, but if we add a few more exceptions, would it still be readable?
-            // or do some whitelist instead of ranges...
-            if (sprOther->_type_num == ST_CANNON || sprOther->_type_num == ST_PIG_CANNON || sprOther->_type_num == ST_PIG_BOSS)
-            {
-                return; // cannoneers, cannons and royals dont get bubbled
-            }
-
             _catched_en = std::static_pointer_cast<Enemy>(sprOther);
-//            _catched_en = std::static_pointer_cast<Enemy>(mf.me.get() == this ? mf.other : mf.me);
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
-                _pos = en->getPos() - _delta_catch;
+                setPos(en->getPos() - _delta_catch);
                 en->bubble();
             }
             _state = bs_enemy_catched;
@@ -184,7 +179,7 @@ namespace pnk
         }
         else if (sprOther->_type_num == ST_KING)
         {
-            const dang::Vector2F& normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = dynamic_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.y >= 0 || _state == bs_enemy_catched)   // hero is not on top or bubble has an enemy catched
             {
@@ -206,11 +201,6 @@ namespace pnk
 
                         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, en->_id));
                         pnk::_pnk._dispatcher.queueEvent(std::move(e));
-
-                        // remove enemy
-//                        std::unique_ptr<PnkEvent> er(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-//                        er->_spr = _catched_en;
-//                        pnk::_pnk._dispatcher.queueEvent(std::move(er));
 
                         // poof
                         std::unique_ptr<PnkEvent> ep(new PnkEvent(EF_GAME, ETG_NEW_POOF));
@@ -239,6 +229,13 @@ namespace pnk
         }
     }
 
+    void Bubble::postSolve()
+    {
+        if (_state != bs_enemy_catched)
+        {
+            _pos = global2Local(_goal);
+        }
+    }
 
     uint8_t  Bubble::getCollisionResponse(const dang::spCollisionObject& other)
     {

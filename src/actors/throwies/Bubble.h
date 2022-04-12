@@ -18,10 +18,11 @@ namespace pnk
         Bubble(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Bubble() override;
         void    init();
-        void update(uint32_t dt) override;
-        void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
+        void    update(uint32_t dt) override;
+        void    collide(const dang::manifold &mf) override;
+        uint8_t getCollisionResponse(const dang::spCollisionObject& other) override;
+        void postSolve() override;
 
         enum bubble_state
         {
