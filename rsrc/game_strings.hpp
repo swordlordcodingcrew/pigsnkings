@@ -49,4 +49,18 @@ pig boss is vanquished!\n\
 Lets clean up the next floor\n\
 You may proceed to the door"};
 
+/**
+ * Level 3 strings
+ */
+const static std::string_view str_lvl3_intro{"You find yourself in the attic\n\
+lofty and such - let's bubble!\n\
+\n\
+(press 'X' to start)"};
+
+const static std::string_view str_lvl3_end{"The attic boss\n\
+is no more!\n\
+But where is my hammer?!?\n\
+You may proceed to the door"};
+
+
 }
