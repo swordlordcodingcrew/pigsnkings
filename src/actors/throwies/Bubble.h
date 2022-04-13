@@ -39,6 +39,7 @@ namespace pnk
 
     protected:
         const dang::Vector2F _delta_catch{-1, -8};
+        bool _pos_changed_in_collide{false};
         void removeSelf();
 
     protected:

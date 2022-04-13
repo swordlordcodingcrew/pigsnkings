@@ -145,6 +145,7 @@ namespace pnk
             if (en)
             {
                 setPos(en->getPos() - _delta_catch);
+                _pos_changed_in_collide = true;
                 en->bubble();
             }
             _state = bs_enemy_catched;
@@ -231,8 +232,9 @@ namespace pnk
 
     void Bubble::postSolve()
     {
-        if (_state != bs_enemy_catched)
+        if (!_pos_changed_in_collide)
         {
+            _pos_changed_in_collide = false;
             _pos = global2Local(_goal);
         }
     }
