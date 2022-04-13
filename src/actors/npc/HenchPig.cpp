@@ -223,8 +223,10 @@ namespace pnk
 
     bool HenchPig::onEnterBerserk()
     {
-        std::cout << "enter berserk" << std::endl;
+        DEBUG_PRINT("enter berserk");
         _walkSpeed = _berserk_speed;
+        _loiter_anim_duration = _anim_m_loitering->duration();
+        _anim_m_loitering->duration(_loiter_anim_duration / 2);
 
         // activate the behaviour tree, if not already active
         resetPathVars();
@@ -234,8 +236,7 @@ namespace pnk
         }
 
 //        removeTweens(true);
-        // berserk for 10 sec
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(10000, dang::Ease::Linear, 1);
+        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(BERSERK_DURATION, dang::Ease::Linear, 1);
         nullTw->setFinishedCallback(std::bind(&HenchPig::endBerserk, this));
         addTween(nullTw);
 
@@ -246,8 +247,9 @@ namespace pnk
 
     void HenchPig::endBerserk()
     {
-        std::cout << "end berserk" << std::endl;
+        DEBUG_PRINT("end berserk");
         _walkSpeed = _loiter_speed;
+        _anim_m_loitering->duration(_loiter_anim_duration);
         _nTreeState.reset();
         _nTreeStateBerserk->clearState();
         resetPathVars();

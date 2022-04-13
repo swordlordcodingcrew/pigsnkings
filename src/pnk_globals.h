@@ -173,6 +173,9 @@ static inline const uint8_t DAMAGE_TO_PIGBOSS{34};            // when hitting th
 static inline const uint8_t HERO_MAX_LIVES{3};            // max lives hero can gain
 static inline const uint8_t HERO_MAX_HEALTH{100};            // max health hero can gain
 
+// enemy params
+static inline const uint16_t BERSERK_DURATION{10000};            // duration of berserk in ms
+
 
 
 // boss params

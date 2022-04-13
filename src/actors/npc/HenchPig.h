@@ -84,5 +84,6 @@ namespace pnk
 
         const uint8_t _loiter_speed{2};
         const uint8_t _berserk_speed{6};
+        uint32_t _loiter_anim_duration{800};
     };
 }
