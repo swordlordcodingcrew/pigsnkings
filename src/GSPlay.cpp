@@ -182,8 +182,9 @@ namespace pnk
         dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
-        // level hack
-//        _pnk._gamestate.active_level = 3;
+        // debug purpose
+        _pnk._gamestate.active_level = 3;
+
         loadLevel(_pnk._gamestate.active_level);
 
         DEBUG_PRINT("GSPlay: callbacks\n");
@@ -200,7 +201,8 @@ namespace pnk
     {
         DEBUG_PRINT("GSPlay: enter exit()\n");
 
-        saveGamestate();
+        //saveGamestate();
+
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
         _sub_ref = 0;
@@ -458,25 +460,8 @@ namespace pnk
         _txtl->setButtons(BTN_OK, BTN_CANCEL);
         gear.addLayer(_txtl);
 
-
         DEBUG_PRINT("GSPlay: change room\n");
 
-        // TODO DEBUG ONLY
-/*        if(level_nr == 1)
-        {
-            _pnk._gamestate.active_room = 3;
-            _active_act_index = _pnk._gamestate.active_room - 1;
-            changeRoom(_pnk._gamestate.active_room, true);
-        }
-        else
-        {
-        // choose room acc. to prefs
-            _active_act_index = _pnk._gamestate.active_room - 1;
-            changeRoom(_pnk._gamestate.active_room, true);
-        }
-
-        _pnk._gamestate.active_room = 5;
-*/
         _active_room_index = _pnk._gamestate.active_room - 1;
         changeRoom(_pnk._gamestate.active_room, true);
 
@@ -498,10 +483,11 @@ namespace pnk
                 case 2:
                     showInfoLayer(true, 10000, str_lvl2_intro);
                     break;
+                case 3:
+                    showInfoLayer(true, 10000, str_lvl3_intro);
+                    break;
             }
-
         }
-
     }
 
     void GSPlay::freeCurrentLevel()
@@ -637,7 +623,6 @@ namespace pnk
         }
         else if (pe._type == ETG_SAVEPOINT_TRIGGERED)
         {
-            // let the boss battles begin
             saveGamestate();
         }
     }
@@ -792,17 +777,36 @@ namespace pnk
             _pnk._gamestate.lives = HERO_MAX_LIVES;
             _pnk._removed_sprites.clear();
         }
+        else
+        {
+            // reset health
+            _pnk._gamestate.health = HERO_MAX_HEALTH;
 
-        dang::Vector2F sp;
+            dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
+
+            // TODO: this should happen after the hero-hit-sequence
+            _active_room_index = _pnk._gamestate.active_room;
+            changeRoom(_pnk._gamestate.active_room, true);
+            _active_room = &_screenplay->_acts[_active_room_index];
+            dang::Vector2F sp;
+
+            dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
+            sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
+            sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
+            _spr_hero->lifeLost(sp);
+            _warp = true;
+
+
+/*        dang::Vector2F sp;
         dang::Vector2U restart_pos = _active_room->_passage_from[_active_room_index - 1];
         sp.x = (_active_room->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
         sp.y = (_active_room->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
         _spr_hero->lifeLost(sp);
+*/
+        }
 
-        // reset health
-        _pnk._gamestate.health = HERO_MAX_HEALTH;
 
-        dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
+
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -1089,9 +1093,6 @@ namespace pnk
                 showInfoLayer(false, 10000, str_lvl2_end);
                 break;
         }
-
-        // TODO this is a hack and should be removed once we activate other levels besides level 1.
-//        _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
     }
 
     void GSPlay::handleBossHit(PnkEvent& pe)
