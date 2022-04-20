@@ -42,6 +42,7 @@ namespace pnk
         room0._passage_from[4] = {0, 4};
         room0._passage_from[5] = {4, 0};
         room0._passage_from[6] = {4, 0};
+        room0._passage_from[7] = {9, 4};
         _acts.push_back(room0);
 
         act room1;
@@ -55,12 +56,14 @@ namespace pnk
         room2._extent = {20, 16, 10, 8};
         room2._passage_from[0] = {5, 1};
         room2._passage_from[4] = {9, 3};
+        room2._passage_from[1] = {5, 1};    // used only for the starting pos when hero looses a life
         _acts.push_back(room2);
 
         act room3;
         room3._extent = {0, 8, 10, 8};
         room3._passage_from[1] = {9, 6};
         room3._passage_from[4] = {9, 1};
+        room3._passage_from[2] = {9, 6};    // used only for the starting pos when hero looses a life
         _acts.push_back(room3);
 
         act room4;
@@ -84,9 +87,9 @@ namespace pnk
         _acts.push_back(room6);
 
         act room7;
-        room7._extent = {10, 0, 10, 8};
-        room7._passage_from[4] = {1, 6};
-        room7._passage_from[6] = {1, 6};
+        room7._extent = {20, 0, 10, 8};
+        room7._passage_from[0] = {0, 6};
+        room7._passage_from[6] = {0, 6};    // used only for the starting pos when hero looses a life
         _acts.push_back(room7);
 
         DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
@@ -275,10 +278,10 @@ namespace pnk
                 .end()
                 .build();
 
-/*        _bt["wait_for_hero"] = dang::NTBuilder{}
+        _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
                     .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
@@ -288,7 +291,7 @@ namespace pnk
                 .end()
             .end()
         .build();
-*/
+
     }
 
 }
