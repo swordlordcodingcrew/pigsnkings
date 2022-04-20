@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="371">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="390">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -11,7 +11,7 @@
  <tileset firstgid="315" source="../tilesets/character_pigbomb.tsx"/>
  <tileset firstgid="348" source="../tilesets/character_cannonsnpigs.tsx"/>
  <tileset firstgid="357" source="../tilesets/levels_door.tsx"/>
- <layer id="1" name="lvl_3_bg" width="30" height="24">
+ <layer id="1" name="lvl_3_bg" width="30" height="24" locked="1">
   <data encoding="csv">
 27,14,14,14,14,14,14,14,14,14,14,14,14,14,31,26,26,26,26,26,15,14,14,14,14,14,14,14,14,13,
 86,86,78,50,50,50,50,50,50,50,50,50,50,51,16,62,62,53,89,86,15,49,50,50,50,50,50,50,51,13,
@@ -193,7 +193,7 @@
   <object id="332" gid="137" x="896" y="128" width="32" height="32"/>
   <object id="333" gid="137" x="896" y="80" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj" locked="1">
+ <objectgroup id="4" name="lvl_3_obj">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32"/>
   <object id="2" type="hotrect" x="-8" y="544" width="8" height="224"/>
   <object id="4" type="hotrect" x="0" y="736" width="384" height="32"/>
@@ -204,9 +204,9 @@
   <object id="43" type="hotrect" x="288" y="512" width="32" height="64"/>
   <object id="44" type="hotrect" x="288" y="608" width="32" height="32"/>
   <object id="45" type="hotrect" x="256" y="672" width="64" height="64"/>
-  <object id="47" name="6" type="warp_room_trigger" x="316" y="640" width="2" height="32"/>
+  <object id="47" name="7" type="warp_room_trigger" x="316" y="640" width="2" height="32"/>
   <object id="52" name="0" type="warp_room_trigger" x="384" y="766" width="112" height="2"/>
-  <object id="60" type="hotrect" x="704" y="656" width="224" height="10"/>
+  <object id="60" type="hotrect" x="704" y="659" width="224" height="10"/>
   <object id="72" type="hotrect" x="320" y="512" width="608" height="32"/>
   <object id="74" type="hotrect" x="960" y="408" width="8" height="248"/>
   <object id="75" name="4" type="warp_room_trigger" x="956" y="608" width="2" height="32"/>
@@ -294,8 +294,8 @@
   <object id="225" name="6" type="warp_room_trigger" x="314" y="288" width="2" height="32"/>
   <object id="226" type="hotrect" x="640" y="288" width="32" height="224"/>
   <object id="227" name="0" type="warp_room_trigger" x="672" y="508" width="256" height="2"/>
-  <object id="263" x="928" y="32" width="32" height="416"/>
-  <object id="264" x="640" y="32" width="32" height="160"/>
+  <object id="263" type="hotrect" x="928" y="32" width="32" height="416"/>
+  <object id="264" type="hotrect" x="640" y="32" width="32" height="160"/>
   <object id="265" x="832" y="256" width="96" height="32"/>
   <object id="266" x="768" y="256" width="64" height="8"/>
   <object id="267" name="4" type="warp_room_trigger" x="957" y="448" width="2" height="32"/>
@@ -329,52 +329,55 @@
   <object id="339" type="hotrect" x="896" y="128" width="32" height="12"/>
   <object id="340" type="hotrect" x="896" y="176" width="32" height="12"/>
   <object id="354" name="0" type="warp_room_trigger" x="642" y="192" width="2" height="32"/>
-  <object id="355" gid="210" x="896" y="192" width="32" height="32">
+  <object id="355" type="pig_normal" gid="210" x="896" y="192" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="363" gid="210" x="896" y="144" width="32" height="32">
+  <object id="363" type="pig_normal" gid="210" x="896" y="144" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="364" gid="210" x="896" y="96" width="32" height="32">
+  <object id="364" type="pig_normal" gid="210" x="896" y="96" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="_wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="365" gid="210" x="896" y="48" width="32" height="32">
+  <object id="365" type="pig_normal" gid="210" x="896" y="48" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="_wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="366" gid="2147483858" x="672" y="144" width="32" height="32">
+  <object id="366" type="pig_normal" gid="2147483858" x="672" y="144" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="_wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="367" gid="2147483858" x="672" y="96" width="32" height="32">
+  <object id="367" type="pig_normal" gid="2147483858" x="672" y="96" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="_wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="368" gid="2147483858" x="672" y="48" width="32" height="32">
+  <object id="368" type="pig_normal" gid="2147483858" x="672" y="48" width="32" height="32">
    <properties>
-    <property name="bt" value="loiter_towards_hero"/>
+    <property name="bt" value="_wait_for_hero"/>
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
   <object id="369" type="hotrect" x="448" y="32" width="32" height="64"/>
   <object id="370" name="2" type="warp_room_trigger" x="2" y="576" width="2" height="32"/>
+  <object id="387" type="potion_green" gid="199" x="800" y="680" width="32" height="48"/>
+  <object id="388" name="savepoint_trigger" type="savepoint_trigger" x="928" y="448" width="32" height="32"/>
+  <object id="389" name="savepoint_trigger" type="savepoint_trigger" x="256" y="448" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="2" name="lvl_3_fg" locked="1">
+ <objectgroup id="2" name="lvl_3_fg" visible="0" locked="1">
   <object id="18" gid="125" x="576" y="544" width="32" height="32"/>
   <object id="19" gid="133" x="576" y="576" width="32" height="32"/>
   <object id="20" gid="133" x="576" y="608" width="32" height="32"/>
@@ -395,7 +398,112 @@
   <object id="352" gid="130" x="784" y="104" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="lvl_3_hud" locked="1"/>
- <objectgroup color="#0000ff" id="6" name="_helper" locked="1" tintcolor="#000000">
+ <objectgroup id="8" name="lvl_3_paths" locked="1">
+  <object id="371" x="912" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="372"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="372" x="880" y="216">
+   <properties>
+    <property name="block_0" type="object" value="378"/>
+    <property name="block_1" type="object" value="379"/>
+    <property name="block_2" type="object" value="380"/>
+    <property name="walk_0" type="object" value="371"/>
+    <property name="walk_1" type="object" value="373"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="373" x="848" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="372"/>
+    <property name="walk_1" type="object" value="374"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="374" x="816" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="375"/>
+    <property name="walk_1" type="object" value="373"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="375" x="784" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="376"/>
+    <property name="walk_1" type="object" value="374"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="376" x="752" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="377"/>
+    <property name="walk_1" type="object" value="375"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="377" x="720" y="216">
+   <properties>
+    <property name="block_0" type="object" value="383"/>
+    <property name="block_1" type="object" value="382"/>
+    <property name="block_2" type="object" value="381"/>
+    <property name="walk_0" type="object" value="376"/>
+    <property name="walk_1" type="object" value="384"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="378" x="912" y="168">
+   <properties>
+    <property name="walk_0" type="object" value="372"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="379" x="912" y="120">
+   <properties>
+    <property name="walk_0" type="object" value="372"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="380" x="912" y="72">
+   <properties>
+    <property name="walk_0" type="object" value="372"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="381" x="688" y="72">
+   <properties>
+    <property name="walk_0" type="object" value="377"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="382" x="688" y="120">
+   <properties>
+    <property name="walk_0" type="object" value="377"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="383" x="688" y="168">
+   <properties>
+    <property name="walk_0" type="object" value="377"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="384" x="688" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="377"/>
+    <property name="walk_1" type="object" value="385"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="385" x="656" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="384"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="6" name="_helper" visible="0" locked="1" tintcolor="#000000">
   <object id="84" name="0" x="0" y="512" width="320" height="256"/>
   <object id="87" name="1" x="320" y="512" width="352" height="256"/>
   <object id="89" name="4" x="320" y="256" width="320" height="256"/>
