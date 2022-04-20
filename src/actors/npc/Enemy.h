@@ -60,6 +60,7 @@ namespace pnk
         dang::BTNode::Status setRandNeighbourWaypoint();
         dang::BTNode::Status setRandPath();
         dang::BTNode::Status setWPHNearHero();
+        dang::BTNode::Status setWPNearHero();
 
         /** this function is used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
