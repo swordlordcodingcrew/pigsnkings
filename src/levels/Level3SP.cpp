@@ -81,7 +81,7 @@ namespace pnk
         _acts.push_back(room5);
 
         act room6;
-        room6._extent = {0, 0, 19, 8};
+        room6._extent = {0, 0, 20, 8};
         room6._passage_from[3] = {0, 1};
         room6._passage_from[5] = {19, 1};
         _acts.push_back(room6);
