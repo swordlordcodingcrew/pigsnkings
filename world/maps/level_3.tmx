@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="454">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="462">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -11,6 +11,8 @@
  <tileset firstgid="315" source="../tilesets/character_pigbomb.tsx"/>
  <tileset firstgid="348" source="../tilesets/character_cannonsnpigs.tsx"/>
  <tileset firstgid="357" source="../tilesets/levels_door.tsx"/>
+ <tileset firstgid="361" source="../tilesets/character_pigking.tsx"/>
+ <tileset firstgid="394" source="../tilesets/common_hud_ui.tsx"/>
  <layer id="1" name="lvl_3_bg" width="30" height="24" locked="1">
   <data encoding="csv">
 27,14,14,14,14,14,14,14,14,14,14,14,14,14,31,26,26,26,26,26,15,14,14,14,14,14,14,14,14,13,
@@ -210,7 +212,7 @@
   <object id="450" gid="135" x="512" y="640" width="32" height="32"/>
   <object id="453" gid="135" x="512" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj">
+ <objectgroup id="4" name="lvl_3_obj" locked="1">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32"/>
   <object id="2" type="hotrect" x="-8" y="616" width="8" height="152"/>
   <object id="4" type="hotrect" x="0" y="736" width="384" height="32"/>
@@ -440,8 +442,17 @@
   <object id="445" gid="141" x="704" y="640" width="32" height="32"/>
   <object id="28" gid="136" x="576" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="7" name="lvl_3_hud" locked="1"/>
- <objectgroup id="8" name="lvl_3_paths">
+ <objectgroup id="7" name="lvl_3_hud">
+  <object id="454" type="hud_hero" gid="123" x="15" y="18" width="32" height="32"/>
+  <object id="455" gid="455" x="46" y="37" width="16" height="16"/>
+  <object id="456" gid="456" x="62" y="37" width="16" height="16"/>
+  <object id="457" gid="457" x="78" y="37" width="16" height="16"/>
+  <object id="458" type="hud_boss" gid="393" x="274" y="19" width="32" height="32"/>
+  <object id="459" type="hud_boss_health" gid="455" x="225" y="37" width="16" height="16"/>
+  <object id="460" type="hud_boss_health" gid="456" x="240" y="37" width="16" height="16"/>
+  <object id="461" type="hud_boss_health" gid="457" x="256" y="37" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="8" name="lvl_3_paths" locked="1">
   <object id="371" x="912" y="216">
    <properties>
     <property name="walk_0" type="object" value="372"/>

@@ -25,9 +25,11 @@ static const dang::tmx_tileset level_3_tilesets[] = {
     {"character_pigbomb", &character_pigbomb, 33,32,32,1056,32,33,1},
     {"character_cannonsnpigs", &character_cannonsnpigs, 9,32,32,288,32,9,1},
     {"levels_door", &levels_door, 4,46,56,184,56,4,1},
+    {"character_pigking", &character_pigking, 33,32,32,1056,32,33,1},
+    {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
 };
 
-static const size_t level_3_tilesets_len = 11;
+static const size_t level_3_tilesets_len = 13;
 
 // Animations ------------------------------------------------
 
@@ -84,9 +86,15 @@ static const dang::tmx_tileanimation level_3_tileanimations[] = {
     {"character_cannonsnpigs",1,"shooting",{{1, 100},{2, 100},{3, 100},{4, 100}}},
     {"character_cannonsnpigs",5,"muzzle_flash",{{5, 100},{6, 100},{7, 100}}},
     {"character_cannonsnpigs",8,"cannonball",{{8, 100}}},
+    {"character_pigking",0,"sleeping",{{0, 100},{1, 100},{2, 100},{3, 100},{4, 100},{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100}}},
+    {"character_pigking",12,"running",{{12, 100},{13, 100},{14, 100},{15, 100},{16, 100},{17, 100}}},
+    {"character_pigking",17,"landing",{{18, 100},{19, 100},{20, 100}}},
+    {"character_pigking",21,"jumping",{{21, 100},{22, 100},{23, 100},{24, 100},{25, 100}}},
+    {"character_pigking",26,"hit",{{26, 100},{27, 100}}},
+    {"character_pigking",28,"die",{{28, 100},{29, 100},{30, 100},{31, 100}}},
 };
 
-static const size_t level_3_tileanimations_len = 52;
+static const size_t level_3_tileanimations_len = 58;
 
 // Layers ------------------------------------------------
 
@@ -525,10 +533,18 @@ static const dang::tmx_layer level_3_lvl_3_fg = {
 // Objects for layer: lvl_3_hud
 static const dang::tmx_spriteobject level_3_lvl_3_hud_objects[] = {
 
+    {454,"454","hud_hero",15,18,32,32,true,"gfx_king",26,"",0,0b0000},
+    {455,"455","",46,37,16,16,true,"hud_ui",61,"",0,0b0000},
+    {456,"456","",62,37,16,16,true,"hud_ui",62,"",0,0b0000},
+    {457,"457","",78,37,16,16,true,"hud_ui",63,"",0,0b0000},
+    {458,"458","hud_boss",274,19,32,32,true,"character_pigking",32,"",0,0b0000},
+    {459,"459","hud_boss_health",225,37,16,16,true,"hud_ui",61,"",0,0b0000},
+    {460,"460","hud_boss_health",240,37,16,16,true,"hud_ui",62,"",0,0b0000},
+    {461,"461","hud_boss_health",256,37,16,16,true,"hud_ui",63,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_hud_objects_len = 0;
+static const size_t level_3_lvl_3_hud_objects_len = 8;
 
 static const dang::tmx_layer level_3_lvl_3_hud = {
     .name = "lvl_3_hud",
@@ -659,6 +675,7 @@ const static dang::tmx_layer level_3_layers[] = {
     level_3_lvl_3_mood,
     level_3_lvl_3_obj,
     level_3_lvl_3_fg,
+    level_3_lvl_3_hud,
 };
 
 const static size_t level_3_layers_len = 7;
