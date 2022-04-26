@@ -278,7 +278,6 @@ namespace pnk
 
     void Bubble::removeSelf()
     {
-        std::cout << "Bubble: removeSelf" << std::endl;
         // remove enemy if catched
         dang::spCollisionSprite spr = _catched_en.lock();
         if (spr != nullptr)

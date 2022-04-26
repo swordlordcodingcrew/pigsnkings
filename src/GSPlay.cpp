@@ -533,7 +533,7 @@ namespace pnk
         }
         else if (pe._type == ETG_SPR_CONSUMED_BY_HERO)
         {
-            std::cout << "add sprite with id=" << pe._payload << " to removed list" << std::endl;
+//            std::cout << "add sprite with id=" << pe._payload << " to removed list" << std::endl;
             _pnk._removed_sprites.push_front(pe._payload);
         }
         else if (pe._type == ETG_REMOVE_SPRITE)

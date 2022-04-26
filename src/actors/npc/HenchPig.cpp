@@ -328,7 +328,6 @@ namespace pnk
 
     void HenchPig::tellTheKingWeHitHim()
     {
-        std::cout << "HenchPig: tellTheKingWeHitHim" << std::endl;
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_PIG_NORMAL;
@@ -337,7 +336,6 @@ namespace pnk
 
     void HenchPig::poofing()
     {
-        std::cout << "HenchPig: poofing" << std::endl;
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_POOF));
         e->_pos = this->getPos();
         e->_pos.y += 5;
@@ -348,17 +346,10 @@ namespace pnk
 
     void HenchPig::removeSelf()
     {
-        // remove throwie
-        std::cout << "HenchPig: removeSelf" << std::endl;
-
         markRemove();
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, _id));
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
-
-/*        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-        e->_spr = shared_from_this();
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
-*/    }
+    }
 
     void HenchPig::startOutToWaypoint()
     {
