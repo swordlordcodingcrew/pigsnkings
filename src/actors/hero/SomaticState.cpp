@@ -1,16 +1,21 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <engine/input.hpp>
-#include <iostream>
 
 #include "SomaticState.h"
+#include "src/pigsnkings.hpp"
+#include "src/PnkEvent.h"
 #include "src/actors/hero/MotionState.h"
 #include "src/actors/hero/Hero.h"
-#include "src/pigsnkings.hpp"
+
+#include <engine/input.hpp>
+
+#include <iostream>
 
 namespace pnk
 {
+
+    extern PigsnKings _pnk;
 
     /************************************************************************
      * somatic state
@@ -171,9 +176,11 @@ namespace pnk
     std::shared_ptr<SomaticState> LifeLostState::update(Hero &hero, uint32_t dt)
     {
         _duration += dt;
-        if (_duration > 4000)
+        if (_duration > 3000)
         {
-            hero.setPos(_restart_pos);
+//            hero.setPos(_restart_pos);
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_LIFE_LOST_SEQ_ENDED));
+            _pnk._dispatcher.queueEvent(std::move(e));
             return SomaticState::_normal;
         }
 

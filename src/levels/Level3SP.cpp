@@ -33,12 +33,11 @@ namespace pnk
         // viewport = 320 x 240 px
         act room0;
         room0._extent = {0, 16, 10, 8};
-        /** the starting point of the level */
+        /** the starting point related to the save-game-trigger / start of level */
         room0._passage_from[-1] = {0, 6};
         /** when coming from room x, start at given position */
         room0._passage_from[1] = {4, 0};
         room0._passage_from[2] = {4, 0};
-//        room0._passage_from[3] = {4, 0};
         room0._passage_from[4] = {0, 4};
         room0._passage_from[5] = {4, 0};
         room0._passage_from[6] = {4, 0};
@@ -56,14 +55,14 @@ namespace pnk
         room2._extent = {20, 16, 10, 8};
         room2._passage_from[0] = {5, 1};
         room2._passage_from[4] = {9, 3};
-        room2._passage_from[1] = {5, 1};    // used only for the starting pos when hero looses a life
         _acts.push_back(room2);
 
         act room3;
         room3._extent = {0, 8, 10, 8};
+        /** the starting point related to the save-game-trigger */
+        room3._passage_from[-1] = {9, 6};
         room3._passage_from[1] = {9, 6};
         room3._passage_from[4] = {9, 1};
-        room3._passage_from[2] = {9, 6};    // used only for the starting pos when hero looses a life
         _acts.push_back(room3);
 
         act room4;
@@ -76,6 +75,8 @@ namespace pnk
 
         act room5;
         room5._extent = {20, 8, 10, 8};
+        /** the starting point related to the save-game-trigger */
+        room5._passage_from[-1] = {9, 6};
         room5._passage_from[4] = {9, 6};
         room5._passage_from[6] = {4, 1};
         _acts.push_back(room5);
@@ -89,7 +90,6 @@ namespace pnk
         act room7;
         room7._extent = {20, 0, 10, 8};
         room7._passage_from[0] = {0, 6};
-        room7._passage_from[6] = {0, 6};    // used only for the starting pos when hero looses a life
         _acts.push_back(room7);
 
         DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
@@ -239,13 +239,35 @@ namespace pnk
                 .sequence()
                 .leaf(Enemy::NTsetDestinationBombDepot)
                 .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(HenchPig::NTsetSleepLong)
-                .leaf(HenchPig::NTdoSleep)
                 .leaf(PigBomb::NTPickUpBomb)
                 .leaf(Enemy::NTsetDestinationPOI)
                 .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(HenchPig::NTsetSleepShort)
+                .end()
+                .tree(back_to_path_h)
+                .tree(back_to_path)
+                .end()
+                .end()
+                .sequence()
+                .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+//                    .leaf(PigBomb::NTDistanceOK)
+                .leaf(PigBomb::NTThrowBomb)
+                .leaf(HenchPig::NTsetSleepMedium)
                 .leaf(HenchPig::NTdoSleep)
+                .end()
+                .end()
+                .build();
+
+        _bt["wait_with_crates"] = dang::NTBuilder{}
+                .selector()
+                .sequence()
+                .inverter().leaf(PigCrate::NTWithCrate)
+                .selector()
+                .sequence()
+                .leaf(Enemy::NTsetDestinationCrateDepot)
+                .leaf(Enemy::NTcheckPathCompleted)
+                .leaf(PigBomb::NTPickUpBomb)
+                .leaf(Enemy::NTsetDestinationPOI)
+                .leaf(Enemy::NTcheckPathCompleted)
                 .end()
                 .tree(back_to_path_h)
                 .tree(back_to_path)

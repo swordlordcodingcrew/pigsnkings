@@ -127,7 +127,7 @@ namespace pnk
             // only happens when dying or when solved the game, reset some params
             if(_leaveGame)
             {
-                _pnk._gamestate.active_room = 0;
+                _pnk._gamestate.saved_room = 0;
                 _pnk._gamestate.score = 0;
                 _pnk._gamestate.lives = HERO_MAX_LIVES;
                 saveGamestate();
@@ -182,10 +182,10 @@ namespace pnk
         dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
-        // debug purpose
-        _pnk._gamestate.active_level = 3;
-
-        loadLevel(_pnk._gamestate.active_level);
+#ifdef PNK_LEVEL3
+        _pnk._gamestate.saved_level = 3;
+#endif
+        loadLevel(_pnk._gamestate.saved_level);
 
         DEBUG_PRINT("GSPlay: callbacks\n");
 
@@ -201,7 +201,7 @@ namespace pnk
     {
         DEBUG_PRINT("GSPlay: enter exit()\n");
 
-        //saveGamestate();
+        saveGamestate();
 
         // remove callback
         _pnk._dispatcher.removeSubscriber(_sub_ref);
@@ -462,8 +462,9 @@ namespace pnk
 
         DEBUG_PRINT("GSPlay: change room\n");
 
-        _active_room_index = _pnk._gamestate.active_room - 1;
-        changeRoom(_pnk._gamestate.active_room, true);
+        resetRoomFromSave();
+//        _active_room_index = _pnk._gamestate.saved_room - 1;
+//        changeRoom(_pnk._gamestate.saved_room, true);
 
         DEBUG_PRINT("GSPlay: viewport\n");
 
@@ -474,7 +475,7 @@ namespace pnk
         // show starting text (only at the beginning of the level)
         if (_active_room_index == 0)
         {
-            switch (_pnk._gamestate.active_level)
+            switch (_pnk._gamestate.saved_level)
             {
                 case 1:
                 default:
@@ -578,7 +579,15 @@ namespace pnk
         }
         else if (pe._type == ETG_KING_HIT)
         {
+            std::cout << "event ETG_KING_HIT" << std::endl;
             handleKingHealth(pe);
+        }
+        else if (pe._type == ETG_KING_LIFE_LOST_SEQ_ENDED)
+        {
+            // reset health
+            _pnk._gamestate.health = HERO_MAX_HEALTH;
+            // reset last savepos
+            resetRoomFromSave();
         }
         else if (pe._type == ETG_REWARD_HIT)
         {
@@ -616,13 +625,14 @@ namespace pnk
         }
         else if (pe._type == ETG_CHANGE_LEVEL)
         {
-            if (pe._payload != _pnk._gamestate.active_level)
+            if (pe._payload != _pnk._gamestate.saved_level)
             {
                 changeLevel(pe._payload);
             }
         }
         else if (pe._type == ETG_SAVEPOINT_TRIGGERED)
         {
+            _pnk._gamestate.saved_room = _active_room_index;
             saveGamestate();
         }
     }
@@ -658,7 +668,7 @@ namespace pnk
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
-            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -10), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
+            dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -4), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             bomb->addTween(twv1);
 
             _csl->addCollisionSprite(bomb);
@@ -762,12 +772,14 @@ namespace pnk
                 dang::SndGear::playRumbleTrack(&dang::double_knock, 0);
             }
             _pnk._gamestate.health = health;
+            std::cout << "health=" << (uint32_t) _pnk._gamestate.health << std::endl;
         }
     }
 
     void GSPlay::handleKingLoosesLife()
     {
         _pnk._gamestate.lives -= 1;
+        std::cout << "handleKingLoosesLife, lives=" << (uint32_t) _pnk._gamestate.lives << std::endl;
 
         if(_pnk._gamestate.lives <= 0)
         {
@@ -775,26 +787,18 @@ namespace pnk
 
             // reset lives count before storing current game status to disc
             _pnk._gamestate.lives = HERO_MAX_LIVES;
+            _pnk._gamestate.health = HERO_MAX_HEALTH;
             _pnk._removed_sprites.clear();
         }
         else
         {
-            // reset health
-            _pnk._gamestate.health = HERO_MAX_HEALTH;
+            // this is done in the event-handling function
+//            _pnk._gamestate.health = HERO_MAX_HEALTH;
+
+            // life lost sequence of hero
+            _spr_hero->lifeLost({0,0});
 
             dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
-
-            // TODO: this should happen after the hero-hit-sequence
-            _active_room_index = _pnk._gamestate.active_room;
-            changeRoom(_pnk._gamestate.active_room, true);
-            _active_room = &_screenplay->_acts[_active_room_index];
-            dang::Vector2F sp;
-
-            dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
-            sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
-            sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
-            _spr_hero->lifeLost(sp);
-            _warp = true;
 
 
 /*        dang::Vector2F sp;
@@ -805,8 +809,21 @@ namespace pnk
 */
         }
 
+    }
 
+    void GSPlay::resetRoomFromSave()
+    {
 
+        _active_room_index = _pnk._gamestate.saved_room;
+//        changeRoom(_pnk._gamestate.saved_room, true);
+        _active_room = &_screenplay->_acts[_active_room_index];
+
+        dang::Vector2F sp;
+        dang::Vector2U passage = _active_room->_passage_from[-1];
+        sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
+        sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
+        _spr_hero->setPos(sp);
+        _warp = true;
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -923,7 +940,7 @@ namespace pnk
         }
 
         _active_room_index = room_nr;
-        _pnk._gamestate.active_room = room_nr;
+//        _pnk._gamestate.saved_room = room_nr;
 
         dang::SndGear::playSfx(teleport_22050_mono, teleport_22050_mono_length, _pnk._prefs.volume_sfx);
     }
@@ -935,8 +952,8 @@ namespace pnk
             freeCurrentLevel();
 
             // reset current level and room to new ones
-            _pnk._gamestate.active_room = 0;
-            _pnk._gamestate.active_level = level_nr;
+            _pnk._gamestate.saved_room = 0;
+            _pnk._gamestate.saved_level = level_nr;
             _pnk._removed_sprites.clear();
 
             // TODO store gamestate values to disc so that the level gets loaded next time
@@ -978,7 +995,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Up to the next level.\r\n");
 
             userIsCheating();
-            changeLevel(_pnk._gamestate.active_level + 1);
+            changeLevel(_pnk._gamestate.saved_level + 1);
         }
         else if(_pnk.cheatKeyStream == "XXDLRUDD")
         {
@@ -988,7 +1005,7 @@ namespace pnk
             DEBUG_PRINT("Cheat activated: Down to the last level.\r\n");
 
             userIsCheating();
-            changeLevel(_pnk._gamestate.active_level - 1);
+            changeLevel(_pnk._gamestate.saved_level - 1);
         }
         else if(_pnk.cheatKeyStream == "XXULRDRL")
         {
@@ -1083,7 +1100,7 @@ namespace pnk
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
 
         // show end text
-        switch (_pnk._gamestate.active_level)
+        switch (_pnk._gamestate.saved_level)
         {
             case 1:
             default:
@@ -1105,7 +1122,7 @@ namespace pnk
             return;
         }
 
-        switch(_pnk._gamestate.active_level)
+        switch(_pnk._gamestate.saved_level)
         {
                 case 1:
                 default:

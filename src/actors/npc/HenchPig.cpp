@@ -93,7 +93,7 @@ namespace pnk
     {
         dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         /** enemy is bubbled */
-        if (_currentState == BUBBLED)
+        if (_currentState == BUBBLED || _currentState == REMOVE_SELF || _nextState == REMOVE_SELF)
         {
             _cr = dang::CR_NONE;
         }

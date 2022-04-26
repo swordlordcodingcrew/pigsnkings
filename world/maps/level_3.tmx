@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="462">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="466">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -212,7 +212,7 @@
   <object id="450" gid="135" x="512" y="640" width="32" height="32"/>
   <object id="453" gid="135" x="512" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj" locked="1">
+ <objectgroup id="4" name="lvl_3_obj">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32"/>
   <object id="2" type="hotrect" x="-8" y="616" width="8" height="152"/>
   <object id="4" type="hotrect" x="0" y="736" width="384" height="32"/>
@@ -386,7 +386,7 @@
    </properties>
   </object>
   <object id="369" type="hotrect" x="448" y="32" width="32" height="64"/>
-  <object id="387" type="potion_green" gid="199" x="800" y="680" width="32" height="48"/>
+  <object id="387" type="potion_green" gid="199" x="800" y="688" width="32" height="48"/>
   <object id="388" name="savepoint_trigger" type="savepoint_trigger" x="928" y="448" width="32" height="32"/>
   <object id="389" name="savepoint_trigger" type="savepoint_trigger" x="256" y="448" width="32" height="32"/>
   <object id="418" name="5" type="warp_room_trigger" x="636" y="32" width="2" height="32"/>
@@ -417,6 +417,8 @@
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
+  <object id="462" gid="169" x="840" y="688" width="32" height="48"/>
+  <object id="463" gid="169" x="768" y="688" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="2" name="lvl_3_fg" locked="1">
   <object id="18" gid="125" x="544" y="544" width="32" height="32"/>
@@ -442,7 +444,7 @@
   <object id="445" gid="141" x="704" y="640" width="32" height="32"/>
   <object id="28" gid="136" x="576" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="7" name="lvl_3_hud">
+ <objectgroup id="7" name="lvl_3_hud" locked="1">
   <object id="454" type="hud_hero" gid="123" x="15" y="18" width="32" height="32"/>
   <object id="455" gid="455" x="46" y="37" width="16" height="16"/>
   <object id="456" gid="456" x="62" y="37" width="16" height="16"/>

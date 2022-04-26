@@ -64,6 +64,7 @@ namespace pnk
         void addHealth(uint8_t health);
 
         void handleKingLoosesLife();
+        void resetRoomFromSave();
 
         void updateVpPos();
         void changeRoom(int32_t room_nr, bool warp);

@@ -244,7 +244,7 @@ namespace pnk
     void Hero::lifeLost(const dang::Vector2F& restart_pos)
     {
         _life_lost = true;
-        SomaticState::_life_lost->_restart_pos = restart_pos;
+//        SomaticState::_life_lost->_restart_pos = restart_pos;
 
     }
 

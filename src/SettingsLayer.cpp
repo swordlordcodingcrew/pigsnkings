@@ -246,14 +246,14 @@ namespace pnk
         uint8_t d_row3 = 100;
 
         std::string str1{"Level:" };
-        std::string str2{std::to_string(_temp_gamestate.active_level)};
+        std::string str2{std::to_string(_temp_gamestate.saved_level)};
         blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
         blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
 
         y += 16;
 
         str1 = "Room:";
-        str2 = std::to_string(_temp_gamestate.active_room);
+        str2 = std::to_string(_temp_gamestate.saved_room);
         blit::screen.text(str1, hud_font_small, blit::Point(x, y), true, blit::TextAlign::left);
         blit::screen.text(str2, hud_font_small, blit::Point(x + d_row1, y), true, blit::TextAlign::left);
 

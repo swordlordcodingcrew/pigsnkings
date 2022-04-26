@@ -81,8 +81,8 @@ namespace pnk
             int8_t  health{HERO_MAX_HEALTH}; // percent
             uint32_t score{0};
             uint32_t high_score{0};
-            uint16_t active_level{1};
-            uint16_t active_room{0};
+            uint16_t saved_level{1};
+            uint16_t saved_room{0};
             int8_t  boss_health{BOSS_MAX_HEALTH}; // percent
             bool    has_cheated{false}; // persistent
             bool    invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot

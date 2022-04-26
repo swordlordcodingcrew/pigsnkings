@@ -49,6 +49,7 @@ enum ET
     ETG_BOMB_EXPLODES = 51,
     ETG_CANNONBALL_EXPLODES = 52,
     ETG_KING_HIT = 60,
+    ETG_KING_LIFE_LOST_SEQ_ENDED = 65,
     ETG_BOSS_HIT = 70,
     ETG_BOSS_DIES = 71,
     ETG_CHANGE_ROOM = 101,
@@ -148,7 +149,7 @@ static inline const float E_WALK_VEL{2};           // enemy walk velocity
 static inline const float CRATE_VEL{20};           // crate throwing velocity
 static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
 
-static inline const float BOMB_VEL{24};           // bomb throwing velocity
+static inline const float BOMB_VEL{26};           // bomb throwing velocity
 static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
 
 static inline const uint8_t FIRST_GAME_SAVE_SLOT{1}; // number of first game save slot available
