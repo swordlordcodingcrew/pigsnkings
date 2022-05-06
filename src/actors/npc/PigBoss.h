@@ -20,7 +20,7 @@ namespace pnk
 
         void update(uint32_t dt) override;
         void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
+        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
         void bubble() override;
         void endBubble() override;
@@ -39,10 +39,10 @@ namespace pnk
 
         /** path and bt functions */
         void                        startOutToWaypoint() override;
-        static dang::BTNode::Status NTLurk(dang::spSprite s);
-        static dang::BTNode::Status NTRun(dang::spSprite s);
-        static dang::BTNode::Status NTHit(dang::spSprite s);
-        static dang::BTNode::Status NTRecover(dang::spSprite s);
+        static dang::BTNode::Status NTLurk(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTRun(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTHit(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTRecover(dang::Sprite& s, uint32_t dt);
 
 
     protected:

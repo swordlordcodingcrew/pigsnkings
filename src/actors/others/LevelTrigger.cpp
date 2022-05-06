@@ -15,6 +15,7 @@ namespace pnk
 
     LevelTrigger::LevelTrigger() : dang::CollisionSprite()
     {
+        _cr = dang::CR_NONE;
         _level = 1;
     }
 
@@ -22,10 +23,12 @@ namespace pnk
     {
         // name of the sprite object from the tiled level will be used as the level number to switch to
         _level = std::stoul(so->name);
+        _cr = dang::CR_NONE;
     }
 
     void LevelTrigger::activateTrigger()
     {
+        _cr = dang::CR_CROSS;
         _is_activated = true;
     }
 
@@ -39,17 +42,22 @@ namespace pnk
                 std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CHANGE_LEVEL));
                 e->_payload = _level;
                 _pnk._dispatcher.queueEvent(std::move(e));
+                _cr = dang::CR_NONE;
         }
     }
 
-    uint8_t  LevelTrigger::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  LevelTrigger::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
 
-        if (_is_activated && cs_other->_type_num == ST_KING)
+        if (cs_other->_type_num == ST_KING)
+//        if (_is_activated && cs_other->_type_num == ST_KING)
         {
-            return dang::CR_CROSS;
+            return _cr;
+//            return dang::CR_CROSS;
         }
+
         return dang::CR_NONE;
     }
 }

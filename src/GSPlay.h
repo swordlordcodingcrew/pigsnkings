@@ -87,9 +87,9 @@ namespace pnk
         void leaveTheGameCallback(blit::Button btn);
 
     public:
-        // bt hooks
-        dang::BTNode::Status NTheroInSightH(dang::spSprite s);
-        dang::BTNode::Status NTheroInSight(dang::spSprite s);
+        /** bt hooks */
+        dang::BTNode::Status NTheroInSightH(dang::Sprite& s, uint32_t dt);
+        dang::BTNode::Status NTheroInSight(dang::Sprite& s, uint32_t dt);
 
     };
 

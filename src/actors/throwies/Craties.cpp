@@ -99,9 +99,10 @@ namespace pnk
         }
     }
 
-    uint8_t  Craties::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  Craties::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         if (_cr != dang::CR_NONE && (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT))
         {
             return dang::CR_TOUCH;

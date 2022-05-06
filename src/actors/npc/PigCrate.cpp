@@ -176,38 +176,35 @@ namespace pnk
 
     }
 
-
-
-    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::spSprite s)
+    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
-        if (spr->_crated)
+        if (spr._crated)
         {
             return dang::BTNode::Status::FAILURE;
         }
-        else
-        {
-            spr->pickupCrate();
-            return dang::BTNode::Status::SUCCESS;
-        }
 
+        spr.pickupCrate();
+        return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status PigCrate::NTThrowCrate(dang::spSprite s)
+    dang::BTNode::Status PigCrate::NTThrowCrate(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
-        if (spr->_crated && spr->_currentState != THROWING)
+        if (spr._crated && spr._currentState != THROWING)
         {
-            spr->prepareChangeState(THROWING);
+            spr.prepareChangeState(THROWING);
             return dang::BTNode::Status::RUNNING;
         }
-        else if (spr->_currentState == THROWING && spr->_nextState == THROWING)
+        else if (spr._currentState == THROWING && spr._nextState == THROWING)
         {
             return dang::BTNode::Status::RUNNING;
         }
-        else if (spr->_currentState == THROWING && spr->_nextState != THROWING)
+        else if (spr._currentState == THROWING && spr._nextState != THROWING)
         {
             return dang::BTNode::Status::SUCCESS;
         }
@@ -215,29 +212,30 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTWithCrate(dang::spSprite s)
+    dang::BTNode::Status PigCrate::NTWithCrate(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
-        return spr->_crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
+        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        return spr._crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTDistanceOK(dang::spSprite s)
+    dang::BTNode::Status PigCrate::NTDistanceOK(dang::Sprite& s, uint32_t dt)
     {
+        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
 
-        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
-
-        if (spr->_nTreeState->_payload.count("aaLoSH"))
+        if (spr._nTreeState->_payload.count("aaLoSH"))
         {
-            float dist = spr->_nTreeState->_payload["aaLoSH"];
+            float dist = spr._nTreeState->_payload["aaLoSH"];
             dist = std::abs(dist);
             if (dist < 110)
             {
                 return dang::BTNode::Status::SUCCESS;
             }
         }
-        else if (spr->_nTreeState->_payload.count("LoS"))
+        else if (spr._nTreeState->_payload.count("LoS"))
         {
-            float dist = spr->_nTreeState->_payload["LoS"];
+            float dist = spr._nTreeState->_payload["LoS"];
             dist = std::abs(dist);
             if (dist < 110)
             {

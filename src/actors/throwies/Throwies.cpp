@@ -49,11 +49,6 @@ namespace pnk
     {
         _hotrect = {6, 9, 20, 20};
 
-        // movement sequence
-//        float velx = _to_the_left ? -CRATE_VEL : CRATE_VEL;
-//        dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
-//        addTween(twv1);
-
         if(_anim_flying != nullptr)
         {
             setAnimation(_anim_flying);
@@ -62,7 +57,7 @@ namespace pnk
 
     void Throwies::update(uint32_t dt)
     {
-        if(_remove_me)
+        if (_remove_me)
         {
             markRemove();
         }
@@ -71,7 +66,6 @@ namespace pnk
     void Throwies::collide(const dang::manifold &mf)
     {
         dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
         if (sprOther->_type_num == ST_HOTRECT)
         {
@@ -88,9 +82,10 @@ namespace pnk
         }
     }
 
-    uint8_t  Throwies::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  Throwies::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT)
         {
             return dang::CR_TOUCH;

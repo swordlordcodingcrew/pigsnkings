@@ -86,9 +86,10 @@ namespace pnk
         }
     }
 
-    uint8_t  Cannonball::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  Cannonball::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
         if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT)
         {
             return dang::CR_TOUCH;
@@ -99,7 +100,6 @@ namespace pnk
 
     void Cannonball::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_FLYING_CANNONBALL;
@@ -108,7 +108,6 @@ namespace pnk
 
     void Cannonball::triggerExplosion()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CANNONBALL_EXPLODES));
         e->_spr = shared_from_this();
         e->_pos = this->getPos();

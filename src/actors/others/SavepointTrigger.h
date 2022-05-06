@@ -12,10 +12,10 @@ namespace pnk
     {
     public:
         SavepointTrigger();
-        SavepointTrigger(const dang::tmx_spriteobject* so);
+        explicit SavepointTrigger(const dang::tmx_spriteobject* so) ;
 
         void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
+        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
     protected:
         bool _consumed{false};

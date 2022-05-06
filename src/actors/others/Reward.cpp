@@ -88,9 +88,10 @@ namespace pnk
     {
     }
 
-    uint8_t Reward::getCollisionResponse(const dang::spCollisionObject & other)
+    uint8_t Reward::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
         if (cs_other->_type_num == ST_KING && !_collected)
         {
             return dang::CR_CROSS;

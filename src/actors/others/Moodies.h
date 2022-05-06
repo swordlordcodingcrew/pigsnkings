@@ -16,17 +16,11 @@ namespace pnk
         Moodies(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Moodies() override;
         virtual void init();
-        void update(uint32_t dt) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
 
         dang::spTwAnim _anim_m_standard;
 
     protected:
-
-    protected:
         friend class SpriteFactory;
-
-        bool    _remove_me{false};
     };
 }
 

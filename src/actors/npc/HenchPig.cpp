@@ -54,6 +54,8 @@ namespace pnk
 
     void HenchPig::update(uint32_t dt)
     {
+        this->dang::CollisionSprite::update(dt);
+
         _on_ground = false;
 
         if(_currentState != _nextState)
@@ -89,38 +91,43 @@ namespace pnk
         }
     }
 
-    uint8_t  HenchPig::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  HenchPig::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+
         /** enemy is bubbled */
         if (_currentState == BUBBLED || _currentState == REMOVE_SELF || _nextState == REMOVE_SELF)
         {
-            _cr = dang::CR_NONE;
+            return dang::CR_NONE;
+//            _cr = dang::CR_NONE;
         }
         /** run into the king */
-        else if (cs_other->_type_num == ST_KING)
+        else if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_BUBBLE)
         {
-            _cr = dang::CR_CROSS;
+            return dang::CR_CROSS;
+//            _cr = dang::CR_CROSS;
         }
         /** hit a platform hotrect */
         else if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
             if (other->getCSPosition().y + cs_other->getHotrect().top() - 6 >= this->_co_pos.y + _hotrect.h && _vel.y > 0)
-//            if (other->getCSPosition().y + cs_other->getHotrect().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
             {
-                _cr = dang::CR_SLIDE;
+                return dang::CR_SLIDE;
+//                _cr = dang::CR_SLIDE;
             }
             else
             {
-                _cr = dang::CR_CROSS;
+                return dang::CR_CROSS;
+//                _cr = dang::CR_CROSS;
             }
         }
-        else
+        else if (cs_other->_type_num == ST_HOTRECT)
         {
-            _cr = dang::CR_SLIDE;
+            return dang::CR_SLIDE;
         }
 
-        return _cr;
+        return dang::CR_NONE;
+//            _cr = dang::CR_SLIDE;
 
     }
 
@@ -129,29 +136,30 @@ namespace pnk
         dang::spCollisionSprite sprOther = getOther(mf, this);
 //        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
 
+        const dang::CollisionObject* co_this = static_cast<dang::CollisionObject*>(this);
+        const dang::Vector2F& normal = mf.me.get() == co_this ? mf.normalMe : mf.normalOther;
+
         if (sprOther->_type_num == ST_KING)
         {
             tellTheKingWeHitHim();
 
             poofing();
         }
-        else if (_cr == dang::CR_SLIDE)
+        /** stand on something solid */
+        else if (normal.y > 0)
         {
-            const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
-
-            if (normal.x != 0)
-            {
-                _vel.x = 0;
-            }
-
-            if (normal.y > 0)
-            {
-                _on_ground = true;
-                _vel.y = 0;
-            }
+            _vel.y = 0;
+            _on_ground = true;
         }
-
-        /** collision with bubble is handled in the bubble sprite */
+        /** hit somethin above */
+        else if (normal.y < 0 && sprOther->_type_num == ST_HOTRECT)
+        {
+            _vel.y = 0;
+        }
+        else if (normal.x != 0)
+        {
+            _vel.x = 0;
+        }
     }
 
     void HenchPig::prepareChangeState(e_state wishedState)
@@ -159,21 +167,6 @@ namespace pnk
         _nextState = wishedState;
     }
 
-/*    dang::BTNode::Status HenchPig::sleep()
-    {
-        if (_currentState != SLEEPING)
-        {
-            prepareChangeState(SLEEPING);
-            return dang::BTNode::Status::RUNNING;
-        }
-        else if (_currentState == SLEEPING && _nextState != SLEEPING)
-        {
-            return dang::BTNode::Status::SUCCESS;
-        }
-
-        return dang::BTNode::Status::RUNNING;
-    }
-*/
     bool HenchPig::onEnterSleeping()
     {
         assert(_anim_m_sleeping != nullptr);
@@ -367,41 +360,53 @@ namespace pnk
         }
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepShort(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepShort(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-        assert(spr != nullptr);
+
+//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
+//        assert(spr != nullptr);
+        HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
-        spr->_nTreeState->_payload["sleep_duration"] = duration;
-        spr->prepareChangeState(SLEEPING);
+        spr._nTreeState->_payload["sleep_duration"] = duration;
+        spr.prepareChangeState(SLEEPING);
+//        spr->_nTreeState->_payload["sleep_duration"] = duration;
+//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-        assert(spr != nullptr);
+//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
+//        assert(spr != nullptr);
+        HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
-        spr->_nTreeState->_payload["sleep_duration"] = duration;
-        spr->prepareChangeState(SLEEPING);
+        spr._nTreeState->_payload["sleep_duration"] = duration;
+        spr.prepareChangeState(SLEEPING);
+//        spr->_nTreeState->_payload["sleep_duration"] = duration;
+//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepLong(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTsetSleepLong(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-        assert(spr != nullptr);
+//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
+//        assert(spr != nullptr);
+        HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
-        spr->_nTreeState->_payload["sleep_duration"] = duration;
-        spr->prepareChangeState(SLEEPING);
+        spr._nTreeState->_payload["sleep_duration"] = duration;
+        spr.prepareChangeState(SLEEPING);
+//        spr->_nTreeState->_payload["sleep_duration"] = duration;
+//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTdoSleep(dang::spSprite s)
+    dang::BTNode::Status HenchPig::NTdoSleep(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-        assert(spr != nullptr);
-        if (spr->_currentState == SLEEPING || spr->_nextState == SLEEPING)
+        HenchPig& spr = dynamic_cast<HenchPig&>(s);
+//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
+//        assert(spr != nullptr);
+//        if (spr->_currentState == SLEEPING || spr->_nextState == SLEEPING)
+        if (spr._currentState == SLEEPING || spr._nextState == SLEEPING)
         {
             return dang::BTNode::Status::RUNNING;
         }

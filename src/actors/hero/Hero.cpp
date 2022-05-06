@@ -54,16 +54,12 @@ namespace pnk
     {
         dang::spCollisionSprite sprOther = getOther(mf, this);
 
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.other);
-//        sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
-
-        // check direction
         const dang::CollisionObject* co_this = static_cast<dang::CollisionObject*>(this);
         const dang::Vector2F& normal = mf.me.get() == co_this ? mf.normalMe : mf.normalOther;
 
         if (_somatic_state == SomaticState::_normal)
         {
-            // collision with enemy
+            /** collision with enemy */
             if (sprOther->_type_num > ST_ENEMIES && sprOther->_type_num < ST_ENEMIES_END)
             {
                 if (!(sprOther->_type_num == ST_PIG_BOSS && normal.y > 0))
@@ -100,46 +96,43 @@ namespace pnk
                     // pigboss hit from above
                 }
             }
-
-            /** hero hits a platform-hotrect from below*/
-            if (_cr == dang::CR_CROSS)
+            /** stand on bubble */
+            else if (sprOther->_type_num == ST_BUBBLE && normal.y > 0)
             {
-                return;
-            }
-
-            /** the other has cross as collision response (i.e. rewards) */
-            uint8_t cr = sprOther->getCollisionResponse(std::dynamic_pointer_cast<CollisionObject>(shared_from_this()));
-            if (cr == dang::CR_CROSS/* || cr == dang::CR_NONE*/)
-            {
-                return;
-            }
-
-            /** hit with something solid */
-            if (normal.y > 0)
-            {
-//                if (mf.other->_type_num == ST_BUBBLE || mf.me->_type_num == ST_BUBBLE)
-                if (sprOther->_type_num == ST_BUBBLE)
-                {
-//                    spBubble bubble = std::static_pointer_cast<Bubble>(mf.me->_type_num == ST_BUBBLE ? mf.me : mf.other);
-                    spBubble bubble = std::static_pointer_cast<Bubble>(sprOther);
-                    if (bubble->_state != Bubble::bs_enemy_catched)
-                    {
-                        _on_ground = true;
-                        _vel.y = 0;
-                    }
-                }
-                else
+                spBubble bubble = std::static_pointer_cast<Bubble>(sprOther);
+                if (bubble->_state != Bubble::bs_enemy_catched)
                 {
                     _on_ground = true;
                     _vel.y = 0;
                 }
             }
-            else if (normal.y < 0 && sprOther->_type_num != ST_BUBBLE)
+            /** platform specific collision */
+            else if (sprOther->_type_num == ST_HOTRECT_PLATFORM)
             {
-                _top_hit = true;
-                _vel.y = 0;
+                if (sprOther->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h > 0 && _vel.y >= 0)
+                {
+                    _on_ground = true;
+                    _vel.y = 0;
+                }
             }
-
+            /** stand on something solid */
+            else if (sprOther->_type_num == ST_HOTRECT)
+            {
+                if (normal.y > 0)
+                {
+                    _on_ground = true;
+                    _vel.y = 0;
+                }
+                else if (normal.y < 0)
+                {
+                    _top_hit = true;
+                    _vel.y = 0;
+                }
+                else if (normal.x != 0)
+                {
+                    _vel.x = 0;
+                }
+            }
         }
         else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {
@@ -153,62 +146,52 @@ namespace pnk
 
     }
 
-    uint8_t  Hero::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  Hero::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
 
         if (_somatic_state == SomaticState::_normal)
         {
             if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
             {
                 if (cs_other->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h && _vel.y > 0)
-//                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
                 {
-                    _cr = dang::CR_SLIDE;
-                    return _cr;
+                    return dang::CR_SLIDE;
                 }
-
-                _cr = dang::CR_CROSS;
-                return _cr;
+                return dang::CR_CROSS;
             }
             else if (cs_other->_type_num > ST_TRIGGERS && cs_other->_type_num < ST_TRIGGERS_END
                   || cs_other->_type_num > ST_REWARDS && cs_other->_type_num < ST_REWARDS_END)
             {
-                _cr = dang::CR_CROSS;
-                return _cr;
+                return dang::CR_CROSS;
             }
+            return dang::CR_SLIDE;
 
-            _cr = dang::CR_SLIDE;
-            return _cr;
         }
         else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
         {
             if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
             {
                 if (cs_other->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h && _vel.y > 0)
-//                if (cs_other->getHotrectG().top() - 6 >= this->_last_pos_g.y + _hotrect.h && _vel.y > 0)
                 {
-                    _cr = dang::CR_SLIDE;
-                    return _cr;
+                    return dang::CR_SLIDE;
                 }
 
-                _cr = dang::CR_CROSS;
-                return _cr;
-
+                return dang::CR_CROSS;
             }
             else if (cs_other->_type_num == ST_HOTRECT)
             {
-                _cr = dang::CR_SLIDE;
-                return _cr;
+                return dang::CR_SLIDE;
+            }
+            else if (cs_other->_type_num == ST_ROOM_TRIGGER || cs_other->_type_num == ST_WARP_ROOM_TRIGGER)
+            {
+                return dang::CR_CROSS;
             }
 
-            _cr = dang::CR_NONE;
-            return _cr;
-
+            return dang::CR_NONE;
         }
 
-        _cr = dang::CR_NONE;
-        return _cr;
+        return dang::CR_NONE;
     }
 
     void Hero::update(uint32_t dt)

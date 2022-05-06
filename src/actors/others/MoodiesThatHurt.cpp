@@ -19,14 +19,14 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    MoodiesThatHurt::MoodiesThatHurt()
+    MoodiesThatHurt::MoodiesThatHurt() : Moodies()
     {
-
+        _cr = dang::CR_CROSS;
     }
 
-    MoodiesThatHurt::MoodiesThatHurt(const dang::tmx_spriteobject* so, spImagesheet is): Moodies(so, is)
+    MoodiesThatHurt::MoodiesThatHurt(const dang::tmx_spriteobject* so, spImagesheet is) : Moodies(so, is)
     {
-
+        _cr = dang::CR_CROSS;
     }
 
     MoodiesThatHurt::MoodiesThatHurt(const Moodies& mth): Moodies(mth)
@@ -55,6 +55,7 @@ namespace pnk
         {
             // only hurts once
             _has_hurt = true;
+            _cr = dang::CR_NONE;
 //            _hotrect = {0, 0, 0, 0};
             // King hurt
             tellTheKingWeHitHim();
@@ -62,13 +63,14 @@ namespace pnk
         }
     }
 
-    uint8_t  MoodiesThatHurt::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  MoodiesThatHurt::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
 
-        if (cs_other->_type_num == ST_KING && !_has_hurt)
+        if (cs_other->_type_num == ST_KING)
         {
-            return dang::CR_CROSS;
+            return _cr;
         }
 
         return dang::CR_NONE;
@@ -76,7 +78,6 @@ namespace pnk
 
     void MoodiesThatHurt::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
         e->_spr = shared_from_this();
         e->_payload = ST_EXPLOSION;

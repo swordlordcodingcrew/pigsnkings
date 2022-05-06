@@ -24,7 +24,7 @@ namespace pnk
         void update(uint32_t dt) override;
 
         void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
+        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
         // state stuff
         bool isOnGround() const { return _on_ground; }

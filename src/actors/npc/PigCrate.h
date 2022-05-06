@@ -16,16 +16,13 @@ namespace pnk
         void init() override;
 
         void update(uint32_t dt) override;
-//        void collide(const dang::manifold &mf) override;
-//        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
-
 
         /** path and bt functions */
-        static dang::BTNode::Status NTPickUpCrate(dang::spSprite s);
-        static dang::BTNode::Status NTThrowCrate(dang::spSprite s);
-        static dang::BTNode::Status NTWithCrate(dang::spSprite s);
+        static dang::BTNode::Status NTPickUpCrate(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTThrowCrate(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTWithCrate(dang::Sprite& s, uint32_t dt);
 //        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
-        static dang::BTNode::Status NTDistanceOK(dang::spSprite s);
+        static dang::BTNode::Status NTDistanceOK(dang::Sprite& s, uint32_t dt);
 
     protected:
 

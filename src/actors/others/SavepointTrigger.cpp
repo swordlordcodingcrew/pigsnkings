@@ -15,10 +15,12 @@ namespace pnk
 
     SavepointTrigger::SavepointTrigger() : dang::CollisionSprite()
     {
+        _cr = dang::CR_CROSS;
     }
 
     SavepointTrigger::SavepointTrigger(const dang::tmx_spriteobject* so) : dang::CollisionSprite(so, nullptr)
     {
+        _cr = dang::CR_CROSS;
     }
 
     void SavepointTrigger::collide(const dang::manifold &mf)
@@ -34,16 +36,18 @@ namespace pnk
             // make sure not to hit anymore
 //            _hotrect = {0,0,0,0};
             _consumed = true;
+            _cr = dang::CR_NONE;
         }
     }
 
-    uint8_t  SavepointTrigger::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  SavepointTrigger::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
 
-        if (cs_other->_type_num == ST_KING && !_consumed)
+        if (cs_other->_type_num == ST_KING)
         {
-            return dang::CR_CROSS;
+            return _cr;
         }
         return dang::CR_NONE;
     }

@@ -19,7 +19,7 @@ namespace pnk
         virtual void init();
         void update(uint32_t dt) override;
         void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
+        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
         bool    _to_the_left{true};
 

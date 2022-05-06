@@ -26,12 +26,12 @@ namespace pnk
 
     Moodies::Moodies()
     {
-
+        _cr = dang::CR_NONE;
     }
 
     Moodies::Moodies(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
     {
-
+        _cr = dang::CR_NONE;
     }
 
     Moodies::Moodies(const Moodies& moodie) : CollisionSprite(moodie)
@@ -68,19 +68,6 @@ namespace pnk
         {
             setAnimation(_anim_m_standard);
         }
-    }
-
-    void Moodies::update(uint32_t dt)
-    {
-        if(_remove_me)
-        {
-            markRemove();
-        }
-    }
-
-    uint8_t  Moodies::getCollisionResponse(const dang::spCollisionObject& other)
-    {
-        return dang::CR_NONE;
     }
 
 }

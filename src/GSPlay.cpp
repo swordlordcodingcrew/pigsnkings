@@ -783,6 +783,7 @@ namespace pnk
 
         if(_pnk._gamestate.lives <= 0)
         {
+//            --> etwas nicht sauber
             showGameOverInfo();
 
             // reset lives count before storing current game status to disc
@@ -940,7 +941,6 @@ namespace pnk
         }
 
         _active_room_index = room_nr;
-//        _pnk._gamestate.saved_room = room_nr;
 
         dang::SndGear::playSfx(teleport_22050_mono, teleport_22050_mono_length, _pnk._prefs.volume_sfx);
     }
@@ -1084,8 +1084,6 @@ namespace pnk
             }
         }
 
-        // activate level trigger
-        // TODO reactivate once we have a playable level 2
         dang::spSpriteLayer ol = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_COLLISIONSPRITELAYER));
         if(ol != nullptr)
         {
@@ -1188,16 +1186,17 @@ namespace pnk
         _leaveGame = true;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSightH(dang::spSprite s)
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::Sprite& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(s);
-            float ret = _csl->aaLoSH(cs, _spr_hero);
+            dang::CollisionSprite& cs = dynamic_cast<dang::CollisionSprite&>(s);
+
+            float ret = _csl->aaLoSH(cs, *_spr_hero.get());
 
             if (ret != 0)
             {
-                cs->getNTreeState()->_payload["aaLoSH"] = ret;
+                cs.getNTreeState()->_payload["aaLoSH"] = ret;
                 return dang::BTNode::Status::SUCCESS;
             }
 
@@ -1206,16 +1205,17 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSight(dang::spSprite s)
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::Sprite& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::spCollisionSprite cs = std::static_pointer_cast<dang::CollisionSprite>(s);
-            float ret = _csl->loS(cs, _spr_hero);
+            dang::CollisionSprite& cs = dynamic_cast<dang::CollisionSprite&>(s);
+
+            float ret = _csl->loS(cs, *_spr_hero.get());
 
             if (ret != 0)
             {
-                cs->getNTreeState()->_payload["LoS"] = ret;
+                cs.getNTreeState()->_payload["LoS"] = ret;
                 return dang::BTNode::Status::SUCCESS;
             }
         }

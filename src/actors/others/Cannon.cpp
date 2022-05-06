@@ -61,33 +61,18 @@ namespace pnk
         }
     }
 
-    uint8_t  Cannon::getCollisionResponse(const dang::spCollisionObject& other)
+    uint8_t  Cannon::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
 
-        /** run into the king */
-        if (cs_other->_type_num == ST_KING)
+        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT || cs_other->_type_num == ST_HOTRECT_PLATFORM)
         {
-            _cr = dang::CR_BOUNCE;
-        }
-        /** hit a platform hotrect */
-        else if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
-        {
-            if (cs_other->getHotrectG().top() - 6 >= this->_co_pos.y + _hotrect.h && _vel.y > 0)
-            {
-                _cr = dang::CR_SLIDE;
-            }
-            else
-            {
-                _cr = dang::CR_CROSS;
-            }
-        }
-        else
-        {
-            _cr = dang::CR_SLIDE;
+            return dang::CR_SLIDE;
         }
 
-        return _cr;
+        return dang::CR_NONE;
+
     }
 
     void Cannon::collide(const dang::manifold &mf)
@@ -99,7 +84,7 @@ namespace pnk
         {
             tellTheKingWeHitHim();
         }
-        else if (_cr == dang::CR_SLIDE)
+        else
         {
             const dang::Vector2F &normal = mf.me.get() == this ? mf.normalMe : mf.normalOther;
 

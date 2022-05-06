@@ -56,7 +56,7 @@ namespace pnk
         act room3;
         room3._extent = {20, 8, 10, 8};
         /** the starting point related to the save-game-trigger */
-        room1._passage_from[-1] = {0, 6};
+        room3._passage_from[-1] = {0, 6};
         room3._passage_from[2] = {0, 6};
         room3._passage_from[4] = {0, 1};
         _acts.push_back(room3);
@@ -70,14 +70,14 @@ namespace pnk
 
         act room5;
         room5._extent = {0, 0, 10, 8};
+        /** the starting point related to the save-game-trigger */
+        room5._passage_from[-1] = {8, 2};
         room5._passage_from[4] = {8, 2};
         room5._passage_from[6] = {0, 6};
         _acts.push_back(room5);
 
         act room6;
         room6._extent = {0, 8, 10, 8};
-        /** the starting point related to the save-game-trigger */
-        room1._passage_from[-1] = {4, 1};
         room6._passage_from[5] = {4, 1};
         _acts.push_back(room6);
 
@@ -144,7 +144,7 @@ namespace pnk
         _bt["loiter_with_one_crate"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
                     .leaf(PigCrate::NTThrowCrate)
                 .end()
                 .sequence()
@@ -187,7 +187,7 @@ namespace pnk
                     .leaf(PigCrate::NTWithCrate)
                     .selector()
                         .sequence()
-                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
                             .leaf(PigCrate::NTDistanceOK)
                             .leaf(PigCrate::NTThrowCrate)
                             .leaf(HenchPig::NTsetSleepMedium)
@@ -210,7 +210,7 @@ namespace pnk
                     .leaf(PigBomb::NTWithBomb)
                     .selector()
                         .sequence()
-                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                            .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
                             .leaf(PigBomb::NTDistanceOK)
                             .leaf(PigBomb::NTThrowBomb)
                             .leaf(HenchPig::NTsetSleepMedium)
@@ -247,7 +247,7 @@ namespace pnk
                     .end()
                 .end()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
 //                    .leaf(PigBomb::NTDistanceOK)
                     .leaf(PigBomb::NTThrowBomb)
                     .leaf(HenchPig::NTsetSleepMedium)
@@ -265,7 +265,7 @@ namespace pnk
                     .leaf(PigBoss::NTRecover)
                 .end()
                 .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
                     .leaf(PigBoss::NTRun)
                     .leaf(Enemy::NTcheckPathCompleted)
                     .leaf(PigBoss::NTLurk)

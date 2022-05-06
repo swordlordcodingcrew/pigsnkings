@@ -17,7 +17,7 @@ namespace pnk
         ~Cannonball() override;
         void init() override;
         void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::spCollisionObject& other) override;
+        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
     protected:
         void tellTheKingWeHitHim() override;

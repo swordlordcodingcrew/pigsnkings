@@ -176,36 +176,37 @@ namespace pnk
     }
 
 
-    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::spSprite s)
+    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
-        if (spr->_with_bomb)
+        if (spr._with_bomb)
         {
             return dang::BTNode::Status::FAILURE;
         }
         else
         {
-            spr->pickupBomb();
+            spr.pickupBomb();
             return dang::BTNode::Status::SUCCESS;
         }
-
     }
 
-    dang::BTNode::Status PigBomb::NTThrowBomb(dang::spSprite s)
+    dang::BTNode::Status PigBomb::NTThrowBomb(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
-        if (spr->_with_bomb && spr->_currentState != THROWING)
+        if (spr._with_bomb && spr._currentState != THROWING)
         {
-            spr->prepareChangeState(THROWING);
+            spr.prepareChangeState(THROWING);
             return dang::BTNode::Status::RUNNING;
         }
-        else if (spr->_currentState == THROWING && spr->_nextState == THROWING)
+        else if (spr._currentState == THROWING && spr._nextState == THROWING)
         {
             return dang::BTNode::Status::RUNNING;
         }
-        else if (spr->_currentState == THROWING && spr->_nextState != THROWING)
+        else if (spr._currentState == THROWING && spr._nextState != THROWING)
         {
             return dang::BTNode::Status::SUCCESS;
         }
@@ -213,28 +214,30 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTWithBomb(dang::spSprite s)
+    dang::BTNode::Status PigBomb::NTWithBomb(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
-        return spr->_with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
+        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        return spr._with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTDistanceOK(dang::spSprite s)
+    dang::BTNode::Status PigBomb::NTDistanceOK(dang::Sprite& s, uint32_t dt)
     {
-        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
 
-        if (spr->_nTreeState->_payload.count("aaLoSH"))
+        if (spr._nTreeState->_payload.count("aaLoSH"))
         {
-            float dist = spr->_nTreeState->_payload["aaLoSH"];
+            float dist = spr._nTreeState->_payload["aaLoSH"];
             dist = std::abs(dist);
             if (dist < 150)
             {
                 return dang::BTNode::Status::SUCCESS;
             }
         }
-        else if (spr->_nTreeState->_payload.count("LoS"))
+        else if (spr._nTreeState->_payload.count("LoS"))
         {
-            float dist = spr->_nTreeState->_payload["LoS"];
+            float dist = spr._nTreeState->_payload["LoS"];
             dist = std::abs(dist);
             if (dist < 150)
             {
@@ -244,7 +247,5 @@ namespace pnk
 
         return dang::BTNode::Status::FAILURE;
     }
-
-
 
 }
