@@ -783,7 +783,6 @@ namespace pnk
 
         if(_pnk._gamestate.lives <= 0)
         {
-//            --> etwas nicht sauber
             showGameOverInfo();
 
             // reset lives count before storing current game status to disc
@@ -791,24 +790,14 @@ namespace pnk
             _pnk._gamestate.health = HERO_MAX_HEALTH;
             _pnk._removed_sprites.clear();
         }
-        else
-        {
-            // this is done in the event-handling function
+
+        // this is done in the event-handling function
 //            _pnk._gamestate.health = HERO_MAX_HEALTH;
 
-            // life lost sequence of hero
-            _spr_hero->lifeLost({0,0});
+        // life lost sequence of hero
+        _spr_hero->lifeLost({0,0});
 
-            dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
-
-
-/*        dang::Vector2F sp;
-        dang::Vector2U restart_pos = _active_room->_passage_from[_active_room_index - 1];
-        sp.x = (_active_room->_extent.x + restart_pos.x) * _tmx->w->tileWidth;
-        sp.y = (_active_room->_extent.y + restart_pos.y) * _tmx->w->tileHeight;
-        _spr_hero->lifeLost(sp);
-*/
-        }
+        dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
 
     }
 
