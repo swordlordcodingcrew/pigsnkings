@@ -134,7 +134,7 @@ namespace pnk
                 }
             }
         }
-        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
+        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost || _somatic_state == SomaticState::_exit)
         {
             /** hit with hotrect */
             if (normal.y > 0 && sprOther->_type_num == ST_HOTRECT)
