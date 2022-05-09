@@ -115,13 +115,6 @@ namespace pnk
         updateCheatKeyStream(blit::buttons.pressed);
         checkCheatActivation();
 
-#ifdef PNK_DEBUG_PRINT
-        if (_last_time + 1000 < time)
-        {
-            _last_time = time;
-            DEBUG_PRINT("GSPlay: update check\n");
-        }
-#endif
         if (blit::buttons.pressed & BTN_EXIT || _leaveGame)
         {
             // only happens when dying or when solved the game, reset some params
@@ -177,8 +170,6 @@ namespace pnk
         blit::debugf("Mem: %i + %i (%i) = %i\r\n", static_used, heap_used, heap_total, total_ram);
 #endif
 #endif
-
-        _last_time = 0;
 
         dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
@@ -248,8 +239,6 @@ namespace pnk
         dang::TmxExtruder txtr(_tmx, &gear);
 
         DEBUG_PRINT("GSPlay: extruded (%d)\n", mallinfo().uordblks);
-
-        _last_time = blit::now();
 
         dang::RectF vp = {0, 0, 320, 240};
         gear.initLevel(_tmx, vp);
@@ -499,7 +488,6 @@ namespace pnk
         _tmx = nullptr;
         _active_room = nullptr;
         _active_room_index = -1;
-        _last_time = 0;
         _warp = false;
 
         dang::Gear& gear = _pnk.getGear();

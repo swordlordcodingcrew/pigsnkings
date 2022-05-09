@@ -45,7 +45,6 @@ namespace pnk
         // flow stuff
         ScreenPlay::act*        _active_room{nullptr};
         int8_t                  _active_room_index{-1}; // which room are we in?
-        uint32_t                _last_time{0};
         bool                    _warp{false};
         bool                    _leaveGame{false};
 
