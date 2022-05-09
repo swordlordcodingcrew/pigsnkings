@@ -27,6 +27,35 @@ namespace pnk
     std::shared_ptr<HitState> SomaticState::_hit = std::make_shared<HitState>();
     std::shared_ptr<LifeLostState> SomaticState::_life_lost = std::make_shared<LifeLostState>();
 
+    uint8_t SomaticState::getCollisionResponse(const Hero &hero, const dang::CollisionObject *other) const
+    {
+        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+
+        if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        {
+            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero._vel.y > 0)
+            {
+                return dang::CR_SLIDE;
+            }
+
+            return dang::CR_CROSS;
+        }
+        else if (cs_other->_type_num == ST_HOTRECT)
+        {
+            return dang::CR_SLIDE;
+        }
+        else if (cs_other->_type_num == ST_ROOM_TRIGGER || cs_other->_type_num == ST_WARP_ROOM_TRIGGER)
+        {
+            return dang::CR_CROSS;
+        }
+
+        return dang::CR_NONE;
+
+    }
+
+
+
+
     /**************************************************
      * class EnteringState
      */
@@ -56,9 +85,11 @@ namespace pnk
 
     void ExitState::enter(Hero &hero, uint32_t dt)
     {
+        hero._gravity = PigsnKings::_gravity;
         hero.removeAnimation();
-        hero.setAnimation(hero._anim_s_blink);
-        hero._gravity = {0,0};
+        hero._anim_s_life_lost->reset();
+        hero.setAnimation(hero._anim_s_life_lost);
+        hero.setVel({0,0});
     }
 
     std::shared_ptr<SomaticState> ExitState::update(Hero &hero, uint32_t dt)
@@ -134,6 +165,27 @@ namespace pnk
 
         return SomaticState::_normal;
     }
+
+    uint8_t  NormalState::getCollisionResponse(const Hero& hero, const dang::CollisionObject* other) const
+    {
+        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+
+        if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        {
+            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero._vel.y > 0)
+            {
+                return dang::CR_SLIDE;
+            }
+            return dang::CR_CROSS;
+        }
+        else if (cs_other->_type_num > ST_TRIGGERS && cs_other->_type_num < ST_TRIGGERS_END
+                 || cs_other->_type_num > ST_REWARDS && cs_other->_type_num < ST_REWARDS_END)
+        {
+            return dang::CR_CROSS;
+        }
+        return dang::CR_SLIDE;
+    }
+
 
     /**************************************************
      * class HitState

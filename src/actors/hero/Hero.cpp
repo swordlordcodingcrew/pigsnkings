@@ -148,55 +148,19 @@ namespace pnk
 
     uint8_t  Hero::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
-
-        if (_somatic_state == SomaticState::_normal)
-        {
-            if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
-            {
-                if (cs_other->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h && _vel.y > 0)
-                {
-                    return dang::CR_SLIDE;
-                }
-                return dang::CR_CROSS;
-            }
-            else if (cs_other->_type_num > ST_TRIGGERS && cs_other->_type_num < ST_TRIGGERS_END
-                  || cs_other->_type_num > ST_REWARDS && cs_other->_type_num < ST_REWARDS_END)
-            {
-                return dang::CR_CROSS;
-            }
-            return dang::CR_SLIDE;
-
-        }
-        else if (_somatic_state == SomaticState::_hit || _somatic_state == SomaticState::_life_lost)
-        {
-            if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
-            {
-                if (cs_other->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h && _vel.y > 0)
-                {
-                    return dang::CR_SLIDE;
-                }
-
-                return dang::CR_CROSS;
-            }
-            else if (cs_other->_type_num == ST_HOTRECT)
-            {
-                return dang::CR_SLIDE;
-            }
-            else if (cs_other->_type_num == ST_ROOM_TRIGGER || cs_other->_type_num == ST_WARP_ROOM_TRIGGER)
-            {
-                return dang::CR_CROSS;
-            }
-
-            return dang::CR_NONE;
-        }
-
-        return dang::CR_NONE;
+        return _somatic_state->getCollisionResponse(const_cast<Hero&>(*this), other);
     }
 
     void Hero::update(uint32_t dt)
     {
-        if (_life_lost)
+        if (_game_over)
+        {
+            _hit = false;
+            _game_over = false;
+            _somatic_state = SomaticState::_exit;
+            _somatic_state->enter(*this, dt);
+        }
+        else if (_life_lost)
         {
             _hit = false;
             _life_lost = false;
@@ -224,11 +188,9 @@ namespace pnk
 
     }
 
-    void Hero::lifeLost(const dang::Vector2F& restart_pos)
+    void Hero::lifeLost()
     {
         _life_lost = true;
-//        SomaticState::_life_lost->_restart_pos = restart_pos;
-
     }
 
     bool Hero::isInNormalState() const

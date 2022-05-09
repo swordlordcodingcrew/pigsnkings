@@ -31,9 +31,11 @@ namespace pnk
         bool topHit() const { return _top_hit; }
         bool isInNormalState() const;
 
-        void lifeLost(const dang::Vector2F& restart_pos);
+        void lifeLost();
+        void gameOver() { _game_over = true;};
 
     protected:
+        friend class SomaticState;
         friend class NormalState;
         friend class EnteringState;
         friend class ExitState;
@@ -51,6 +53,7 @@ namespace pnk
         bool    _top_hit{false};
         bool    _hit{false};
         bool    _life_lost{false};
+        bool    _game_over{false};
 
         // state stuff
         std::shared_ptr<SomaticState>   _somatic_state;

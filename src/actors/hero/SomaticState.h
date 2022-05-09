@@ -3,8 +3,9 @@
 
 #pragma once
 
+#include <DangFwdDecl.h>
+
 #include <memory>
-#include <Vector2T.hpp>
 
 namespace pnk
 {
@@ -26,6 +27,10 @@ namespace pnk
 
         virtual std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) = 0;
         virtual void enter(Hero& hero, uint32_t dt) = 0;
+
+        /** default implementation of collision responde for hero */
+        virtual uint8_t  getCollisionResponse(const Hero& hero, const dang::CollisionObject* other) const;
+
     };
 
     class EnteringState : public SomaticState
@@ -49,6 +54,8 @@ namespace pnk
     public:
         void enter(Hero& hero, uint32_t dt) override;
         std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) override;
+        uint8_t  getCollisionResponse(const Hero& hero, const dang::CollisionObject* other) const override;
+
     };
 
     class HitState : public SomaticState
@@ -65,7 +72,6 @@ namespace pnk
     public:
         void enter(Hero& hero, uint32_t dt) override;
         std::shared_ptr<SomaticState> update(Hero& hero, uint32_t dt) override;
-        dang::Vector2F  _restart_pos{0,0};
     protected:
         uint32_t _duration{0};
 
