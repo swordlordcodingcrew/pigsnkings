@@ -130,6 +130,7 @@ namespace pnk
                 _pnk._gamestate.saved_room = 0;
                 _pnk._gamestate.score = 0;
                 _pnk._gamestate.lives = HERO_MAX_LIVES;
+                _pnk._removed_sprites.clear();
                 saveGamestate();
             }
 
@@ -463,8 +464,6 @@ namespace pnk
         DEBUG_PRINT("GSPlay: change room\n");
 
         resetRoomFromSave();
-//        _active_room_index = _pnk._gamestate.saved_room - 1;
-//        changeRoom(_pnk._gamestate.saved_room, true);
 
         DEBUG_PRINT("GSPlay: viewport\n");
 
@@ -783,19 +782,21 @@ namespace pnk
 
         if(_pnk._gamestate.lives <= 0)
         {
+            _spr_hero->gameOver();
             showGameOverInfo();
 
             // reset lives count before storing current game status to disc
             _pnk._gamestate.lives = HERO_MAX_LIVES;
             _pnk._gamestate.health = HERO_MAX_HEALTH;
-            _pnk._removed_sprites.clear();
         }
-
-        // this is done in the event-handling function
+        else
+        {
+            // this is done in the event-handling function (after the life-lost-animation)
 //            _pnk._gamestate.health = HERO_MAX_HEALTH;
 
-        // life lost sequence of hero
-        _spr_hero->lifeLost({0,0});
+            // life lost sequence of hero
+            _spr_hero->lifeLost();
+        }
 
         dang::SndGear::playSfx(lifelost_22050_mono, lifelost_22050_mono_length, _pnk._prefs.volume_sfx);
 
@@ -803,9 +804,7 @@ namespace pnk
 
     void GSPlay::resetRoomFromSave()
     {
-
         _active_room_index = _pnk._gamestate.saved_room;
-//        changeRoom(_pnk._gamestate.saved_room, true);
         _active_room = &_screenplay->_acts[_active_room_index];
 
         dang::Vector2F sp;
