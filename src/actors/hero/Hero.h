@@ -51,6 +51,7 @@ namespace pnk
 
         bool    _on_ground{false};
         bool    _top_hit{false};
+
         bool    _hit{false};
         bool    _life_lost{false};
         bool    _game_over{false};

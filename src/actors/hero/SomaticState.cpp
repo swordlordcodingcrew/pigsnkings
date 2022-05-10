@@ -125,6 +125,24 @@ namespace pnk
 
     std::shared_ptr<SomaticState> NormalState::update(Hero &hero, uint32_t dt)
     {
+        if (hero._game_over)
+        {
+            hero._hit = false;
+            hero._life_lost = false;
+            hero._game_over = false;
+            return SomaticState::_exit;
+        }
+        else if (hero._life_lost)
+        {
+            hero._hit = false;
+            hero._life_lost = false;
+            return SomaticState::_life_lost;
+        }
+        else if (hero._hit && !_pnk._gamestate.invincible)
+        {
+            hero._hit = false;
+            return SomaticState::_hit;
+        }
 
         std::shared_ptr<ActionState> at = hero._action_state->update(hero, dt);
         if (at != hero._action_state)

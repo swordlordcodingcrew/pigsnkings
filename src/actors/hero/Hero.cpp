@@ -153,7 +153,7 @@ namespace pnk
 
     void Hero::update(uint32_t dt)
     {
-        if (_game_over)
+/*        if (_game_over)
         {
             _hit = false;
             _game_over = false;
@@ -173,7 +173,7 @@ namespace pnk
             _somatic_state = SomaticState::_hit;
             _somatic_state->enter(*this, dt);
         }
-
+*/
         std::shared_ptr<SomaticState> sst = _somatic_state->update(*this, dt);
 
         // state changed
