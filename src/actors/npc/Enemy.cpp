@@ -257,6 +257,7 @@ namespace pnk
 
     dang::BTNode::Status Enemy::checkWaypointReached(uint32_t dt)
     {
+        _time_elapsed_to_wp += dt;
         if (_scene_graph->waypointReached(getHotrectG(), _path[_path_index]))
         {
             _vel.x = 0;
@@ -276,7 +277,7 @@ namespace pnk
         }
         else
         {
-            if (blit::now() - _time_elapsed_to_wp > _max_time_to_wp)
+            if (_time_elapsed_to_wp > _max_time_to_wp)
             {
 #ifdef PNK_DEBUG_WAYPOINTS
                 DEBUG_PRINT("(spr id %u): checkWaypointReached: time is up\n", _id);
@@ -318,9 +319,8 @@ namespace pnk
             case dang::e_tmx_waypoint_connection::wpc_walk:
             {
                 _vel.x = wp->_pos.x - _co_pos.x < 0 ? -_walkSpeed : _walkSpeed;
-//                _vel.x = wp->_pos.x - _pos_g.x < 0 ? -_walkSpeed : _walkSpeed;
                 _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectG().center().x) + 32) * 100 / _walkSpeed;
-                _time_elapsed_to_wp = blit::now();
+                _time_elapsed_to_wp = 0;
                 break;
             }
             case dang::e_tmx_waypoint_connection::wpc_jump:
@@ -353,8 +353,7 @@ namespace pnk
                     }
                     _vel.x = v.x;
                     _max_time_to_wp = 3000;
-                    // TODO: work with dt
-                    _time_elapsed_to_wp = blit::now();
+                    _time_elapsed_to_wp = 0;
                     _tw_long_horiz_jump = std::make_shared<dang::TwVel>(v, v_end, 600, &dang::Ease::Linear, 1, false );
                     addTween(_tw_long_horiz_jump);
                 }
@@ -362,9 +361,8 @@ namespace pnk
                 {
                     // short jump
                     _max_time_to_wp = 2000;
-                    _time_elapsed_to_wp = blit::now();
+                    _time_elapsed_to_wp = 0;
                     _vel.x = wp->_pos.x - _co_pos.x < 0 ? -3 : 3;
-//                    _vel.x = wp->_pos.x - _pos_g.x < 0 ? -3 : 3;
                     _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 600, &dang::Ease::Linear, 1, false );
                     addTween(_tw_short_jump);
                 }
