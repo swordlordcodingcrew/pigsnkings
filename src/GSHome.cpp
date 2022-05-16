@@ -107,48 +107,67 @@ namespace pnk
 
     void GSHome::enter(dang::Gear& gear, uint32_t time)
     {
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: entering\n");
-
         // set up music
         DEBUG_PRINT("GSHome: load track (%d)\n", mallinfo().uordblks);
+#endif
         if (!dang::SndGear::modPlaying())
         {
             dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
         }
-        DEBUG_PRINT("GSHome: track loaded (%d)\n", mallinfo().uordblks);
 
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("GSHome: track loaded (%d)\n", mallinfo().uordblks);
+#endif
         // set up state
         _tmx = &main_1_level;
         dang::TmxExtruder txtr(_tmx, &gear);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: extruded\n");
-
+#endif
         dang::RectF vp = {0, 0, 320, 240};
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: init level\n");
+#endif
         gear.initLevel(_tmx, vp);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: set active world size\n");
+#endif
         gear.setActiveWorldSize(vp.w, vp.h);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: init image sheets\n");
+#endif
+
         txtr.getImagesheets();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: image sheets initialised\n");
+#endif
 
         // create background Tilelayer
         dang::spTileLayer tl = txtr.getTileLayer(tmx_bg_layer_name, true);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: tile layer\n");
+#endif
 
         dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, false, true, false);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: sprite layer\n");
+#endif
 
         // create spritelayer w/o collision detection/resolution
         dang::spSpriteLayer sl = txtr.getSpriteLayer(tmx_obj_layer_name, false, true, false);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: auto layers done\n");
+#endif
 
         for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
         {
@@ -177,7 +196,9 @@ namespace pnk
             sl->addSprite(spr);
         }
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: buttons\n");
+#endif
 
         // make sure to resize the buttons array to the correct size
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
@@ -291,15 +312,13 @@ namespace pnk
         // first screen of tmx
         gear.setViewportPos({0, 8});
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: entered\n");
-
+#endif
     }
 
     void GSHome::exit(dang::Gear &gear, uint32_t time)
     {
-
-        //        dang::SndGear::stopMod();
-
         // empty out gear
         gear.removeImagesheets();
         gear.removeLayers();

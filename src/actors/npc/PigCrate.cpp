@@ -32,8 +32,8 @@ namespace pnk
 
     PigCrate::~PigCrate()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "PigCrate destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("PigCrate destructor\n");
 #endif
     }
 

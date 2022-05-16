@@ -67,7 +67,9 @@ namespace pnk
             }
             _pnk.cheatKeyStream[7] = nc;
 
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("CheatStream %s\r\n", _pnk.cheatKeyStream.c_str());
+#endif
         }
     }
 }

@@ -110,7 +110,7 @@ namespace pnk
 
     std::shared_ptr<GameState> GSPlay::update(dang::Gear &gear, uint32_t time)
     {
-//        DEBUG_PRINT("GSPlay: play updatisng\n");
+//        DEBUG_PRINT("GSPlay: play updating\n");
 
         updateCheatKeyStream(blit::buttons.pressed);
         checkCheatActivation();
@@ -152,7 +152,9 @@ namespace pnk
 
     void GSPlay::enter(dang::Gear &gear, uint32_t time)
     {
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: entered (%d)\n", mallinfo().uordblks);
+#endif
 
         // make sure to not just leave again now we met
         _leaveGame = false;
@@ -179,20 +181,24 @@ namespace pnk
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: callbacks\n");
-
+#endif
         // add event callback
         std::function<void (dang::Event&)> func = std::bind(&GSPlay::gameEventReceived, this, std::placeholders::_1);
         _sub_ref = _pnk._dispatcher.registerSubscriber(func, EF_GAME);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: entered, let the games begin\n");
+#endif
 
     }
 
     void GSPlay::exit(dang::Gear &gear, uint32_t time)
     {
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: enter exit()\n");
-
+#endif
         saveGamestate();
 
         // remove callback
@@ -203,13 +209,16 @@ namespace pnk
 
         dang::SndGear::stopMod();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: exit exit()\n");
+#endif
     }
 
     void GSPlay::loadLevel(int8_t level_nr)
     {
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: load level %d (%d)\n", level_nr, mallinfo().uordblks);
-
+#endif
         // choose level acc. to pnk
         switch(level_nr)
         {
@@ -238,8 +247,9 @@ namespace pnk
 
         dang::TmxExtruder txtr(_tmx, &gear);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: extruded (%d)\n", mallinfo().uordblks);
-
+#endif
         dang::RectF vp = {0, 0, 320, 240};
         gear.initLevel(_tmx, vp);
         gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
@@ -256,17 +266,23 @@ namespace pnk
             txtr.createSceneGraphs(room._extent_pixels, room._scene_graphs);
         }
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);
+#endif
 
         // init imagesheets
         txtr.getImagesheets();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: tile layer (%d)\n", mallinfo().uordblks);
+#endif
 
         // create background Tilelayer
         txtr.getTileLayer(_screenplay->_l_bg_name, true);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: mood layer (%d)\n", mallinfo().uordblks);
+#endif
 
         // create mood Tilelayer
         if (!_screenplay->_l_mood_name.empty())
@@ -274,12 +290,16 @@ namespace pnk
             dang::spSpriteLayer sl = txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true, true);
         }
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: collision sprite layer (%d)\n", mallinfo().uordblks);
+#endif
 
         // create Spritelayer with collision detection
         _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, false, true);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: sprite objects (%d)\n", mallinfo().uordblks);
+#endif
 
 //#ifdef TARGET_32BLIT_HW
 
@@ -400,12 +420,15 @@ namespace pnk
                 }
                 else
                 {
+#ifdef PNK_DEBUG_COMMON
                     DEBUG_PRINT("GSPlay: sprite type unknown. Id=%i, type=%s\n", so->id, so->type.c_str());
+#endif
                 }
             }
 
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("GSPlay: sprite %d of %d (%d)\n", j + 1, _csl->_tmx_layer->spriteobejcts_len, mallinfo().uordblks);
-
+#endif
             // remove sprites that have been taken/vanquished before
             for (auto id : _pnk._removed_sprites)
             {
@@ -424,13 +447,15 @@ namespace pnk
 #endif
         }
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: fg layer\n");
-
+#endif
         // create foreground layer
         txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true, false);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: hud layer\n");
-
+#endif
         // create HUD layer
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty())
@@ -450,12 +475,14 @@ namespace pnk
         _txtl->setButtons(BTN_OK, BTN_CANCEL);
         gear.addLayer(_txtl);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: change room\n");
-
+#endif
         resetRoomFromSave();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: viewport\n");
-
+#endif
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
@@ -529,7 +556,6 @@ namespace pnk
             if (spr != nullptr)
             {
                 std::cout << "depracated: ETG_REMOVE_SPRITE with sprite id=" << spr->_id << ". Use markRemove() instead" << std::endl;
-//                _csl->removeSprite(spr);
                 spr->markRemove();
 
                 if ((spr->_type_num > ST_ENEMIES && spr->_type_num < ST_ENEMIES_END) ||
@@ -537,13 +563,15 @@ namespace pnk
                 {
                     _pnk._removed_sprites.push_front(spr->_id);
                 }
-#ifdef PNK_DEBUG_PRINT
+#ifdef PNK_DEBUG_COMMON
                 DEBUG_PRINT("GSPlay: remove sprite from layer\n");
 #endif
             }
             else
             {
+#ifdef PNK_DEBUG_COMMON
                 DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
+#endif
             }
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
@@ -566,7 +594,9 @@ namespace pnk
         }
         else if (pe._type == ETG_KING_HIT)
         {
-            std::cout << "event ETG_KING_HIT" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+            DEBUG_PRINT("GSPlay: event ETG_KING_HIT\n");
+#endif
             handleKingHealth(pe);
         }
         else if (pe._type == ETG_KING_LIFE_LOST_SEQ_ENDED)
@@ -680,7 +710,6 @@ namespace pnk
             mood->_z_order = 100;
             mood->_transform = blit::SpriteTransform::HORIZONTAL;
             mood->init();
-//            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::removeSelf, mood.get()));
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
 
             _csl->addCollisionSprite(mood);
@@ -759,14 +788,18 @@ namespace pnk
                 dang::SndGear::playRumbleTrack(&dang::double_knock, 0);
             }
             _pnk._gamestate.health = health;
-            std::cout << "health=" << (uint32_t) _pnk._gamestate.health << std::endl;
+#ifdef PNK_DEBUG_COMMON
+            DEBUG_PRINT("GSPlay: health=%i\n", (uint32_t) _pnk._gamestate.health);
+#endif
         }
     }
 
     void GSPlay::handleKingLoosesLife()
     {
         _pnk._gamestate.lives -= 1;
-        std::cout << "handleKingLoosesLife, lives=" << (uint32_t) _pnk._gamestate.lives << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("GSPlay: handleKingLoosesLife, lives=%i\n", (uint32_t) _pnk._gamestate.lives);
+#endif
 
         if(_pnk._gamestate.lives <= 0)
         {
@@ -924,7 +957,9 @@ namespace pnk
     void GSPlay::changeLevel(int8_t level_nr)
     {
         _pnk.getGear().fade(FADE_COL, FADE_STEP, [=](){
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Changing level to %d\n\r", level_nr);
+#endif
             freeCurrentLevel();
 
             // reset current level and room to new ones
@@ -932,7 +967,6 @@ namespace pnk
             _pnk._gamestate.saved_level = level_nr;
             _pnk._removed_sprites.clear();
 
-            // TODO store gamestate values to disc so that the level gets loaded next time
             saveGamestate();
 
             // TODO check level_nr for bounds
@@ -948,8 +982,9 @@ namespace pnk
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Cheat activated: Back to last room.\r\n");
-
+#endif
             userIsCheating();
             changeRoom(_active_room_index - 1, true);
         }
@@ -958,8 +993,9 @@ namespace pnk
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Cheat activated: Forward to next room.\r\n");
-
+#endif
             userIsCheating();
             changeRoom(_active_room_index + 1, true);
         }
@@ -968,8 +1004,9 @@ namespace pnk
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Cheat activated: Up to the next level.\r\n");
-
+#endif
             userIsCheating();
             changeLevel(_pnk._gamestate.saved_level + 1);
         }
@@ -978,8 +1015,9 @@ namespace pnk
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Cheat activated: Down to the last level.\r\n");
-
+#endif
             userIsCheating();
             changeLevel(_pnk._gamestate.saved_level - 1);
         }
@@ -988,8 +1026,9 @@ namespace pnk
             // handled this cheat, reset stream
             _pnk.cheatKeyStream[7] = '8';
             dang::SndGear::playSfx(cheat_22050_mono, cheat_22050_mono_length, _pnk._prefs.volume_sfx);
+#ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Cheat activated: Invincible.\r\n");
-
+#endif
             userIsCheating();
             _pnk._gamestate.invincible = true;
             saveGamestate();

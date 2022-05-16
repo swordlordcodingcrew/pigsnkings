@@ -47,8 +47,8 @@ namespace pnk
 
     HenchPig::~HenchPig()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "HenchPig destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("HenchPig destructor\n");
 #endif
     }
 

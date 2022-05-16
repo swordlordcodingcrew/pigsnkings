@@ -33,8 +33,8 @@ namespace pnk
 
     PigBomb::~PigBomb()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "PigBomb destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("PigBomb destructor\n");
 #endif
     }
 

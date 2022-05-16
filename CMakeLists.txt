@@ -11,12 +11,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DDANG_DEBUG_DRAW)
 
 # debug options for pnk
+#add_definitions(-DPNK_DEBUG_PRINT)
+#add_definitions(-DPNK_DEBUG_COMMON)
 #add_definitions(-DPNK_DEBUG_MEM)
 #add_definitions(-DPNK_DEBUG_FPS)
 #add_definitions(-DPNK_DEBUG_WAYPOINTS)
-#add_definitions(-DPNK_DEBUG_PRINT)
 #add_definitions(-DPNK_DEBUG_HEROSTATES)
 
+#add_definitions(-DPNK_LEVEL3)
 
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)

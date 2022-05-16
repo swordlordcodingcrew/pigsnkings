@@ -92,8 +92,9 @@ namespace pnk
         room7._passage_from[0] = {0, 6};
         _acts.push_back(room7);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
-
+#endif
         // behaviour tree 1 for finding back to the path system
         dang::spNTree back_to_path_h = dang::NTBuilder{}
                 .sequence()
@@ -102,8 +103,9 @@ namespace pnk
                 .end()
                 .build();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 1 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         // behaviour tree 2 for finding back to the path system
         dang::spNTree back_to_path = dang::NTBuilder{}
                 .sequence()
@@ -112,8 +114,9 @@ namespace pnk
                 .end()
                 .build();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 2 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         // generic loitering
         _bt["loiter"] = dang::NTBuilder{}
                 .sequence()
@@ -130,8 +133,9 @@ namespace pnk
                 .end()
                 .build();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 3 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         _bt["berserk"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
@@ -144,8 +148,9 @@ namespace pnk
                 .build();
 
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 4 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         _bt["loiter_with_one_crate"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
@@ -183,9 +188,9 @@ namespace pnk
             .end()
         .build();
 */
-
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 5 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         _bt["wait_crate"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
@@ -283,8 +288,9 @@ namespace pnk
                 .end()
                 .build();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
-
+#endif
         _bt["boss"] = dang::NTBuilder{}
                 .selector()
                 .sequence()

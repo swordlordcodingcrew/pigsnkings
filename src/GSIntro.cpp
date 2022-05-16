@@ -46,18 +46,22 @@ namespace pnk
 
     void GSIntro::enter(dang::Gear& gear, uint32_t time)
     {
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSIntro: entering\n");
-
+#endif
         gear.setWorld({0,0,320, 240});
         gear.setActiveWorldSize(320, 240);
         gear.setViewport({0,0,320, 240});
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSIntro: viewport set\n");
+#endif
 
-//        dang::SizeU size(104, 200);
         dang::spImagesheet is = std::make_shared<dang::Imagesheet>("sl_shield", &img_sl_shield);
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSIntro: imagesheet loaded");
+#endif
         std::shared_ptr<dang::SimpleImageLayer> sil = std::make_shared<dang::SimpleImageLayer>(is);
         assert(sil != nullptr);
         gear.addLayer(sil);
@@ -65,7 +69,9 @@ namespace pnk
         // will later be used to upgrade gamesave and pref format
         _pnk.initEmptyGameslots();
 
+#ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSIntro: layer set up\n");
+#endif
     }
 
     void GSIntro::exit(dang::Gear& gear, uint32_t time)
