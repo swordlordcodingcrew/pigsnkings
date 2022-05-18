@@ -362,50 +362,34 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepShort(dang::Sprite& s, uint32_t dt)
     {
-
-//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-//        assert(spr != nullptr);
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
-//        spr->_nTreeState->_payload["sleep_duration"] = duration;
-//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
     dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::Sprite& s, uint32_t dt)
     {
-//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-//        assert(spr != nullptr);
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
-//        spr->_nTreeState->_payload["sleep_duration"] = duration;
-//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
     dang::BTNode::Status HenchPig::NTsetSleepLong(dang::Sprite& s, uint32_t dt)
     {
-//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-//        assert(spr != nullptr);
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
-//        spr->_nTreeState->_payload["sleep_duration"] = duration;
-//        spr->prepareChangeState(SLEEPING);
         return dang::BTNode::Status::SUCCESS;
     }
 
     dang::BTNode::Status HenchPig::NTdoSleep(dang::Sprite& s, uint32_t dt)
     {
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
-//        std::shared_ptr<HenchPig> spr = std::static_pointer_cast<HenchPig>(s);
-//        assert(spr != nullptr);
-//        if (spr->_currentState == SLEEPING || spr->_nextState == SLEEPING)
         if (spr._currentState == SLEEPING || spr._nextState == SLEEPING)
         {
             return dang::BTNode::Status::RUNNING;
