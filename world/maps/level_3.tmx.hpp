@@ -314,7 +314,7 @@ static const dang::tmx_spriteobject level_3_lvl_3_mood_objects[] = {
     {410,"410","",795,608,32,32,true,"gfx_castle_decorations",27,"",0,0b0000},
     {411,"411","",827,608,32,32,true,"gfx_castle_decorations",28,"",0,0b0000},
     {412,"412","",872,688,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
-    {413,"413","",736,688,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
+    {413,"413","flicker",736,688,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
     {449,"449","",512,592,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {450,"450","",512,640,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {453,"453","",512,688,32,32,true,"gfx_castle_decorations",10,"",0,0b0000}
@@ -452,7 +452,7 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {367,"367","pig_normal",672,96,32,32,true,"gfx_pig",0,"wait_for_hero",200,0b0001},
     {368,"368","pig_normal",672,48,32,32,true,"gfx_pig",0,"wait_for_hero",200,0b0001},
     {369,"369","hotrect",448,32,32,64,true,"",0,"",0,0b0000},
-    {387,"387","potion_green",800,680,32,48,true,"gfx_items",42,"",0,0b0000},
+    {387,"387","potion_green",800,688,32,48,true,"gfx_items",42,"",0,0b0000},
     {388,"savepoint_trigger","savepoint_trigger",928,448,32,32,true,"",0,"",0,0b0000},
     {389,"savepoint_trigger","savepoint_trigger",256,448,32,32,true,"",0,"",0,0b0000},
     {418,"5","warp_room_trigger",636,32,2,32,true,"",0,"",0,0b0000},
@@ -462,11 +462,13 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {435,"435","hotrect",448,320,64,32,true,"",0,"",0,0b0000},
     {414,"414","pig_bomb",488,560,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000},
     {447,"447","pig_bomb",488,608,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000},
-    {448,"448","pig_bomb",480,656,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000}
+    {448,"448","pig_bomb",488,656,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000},
+    {462,"462","",840,688,32,48,true,"gfx_items",12,"",0,0b0000},
+    {463,"463","",768,688,32,48,true,"gfx_items",12,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_obj_objects_len = 121;
+static const size_t level_3_lvl_3_obj_objects_len = 123;
 
 static const dang::tmx_layer level_3_lvl_3_obj = {
     .name = "lvl_3_obj",
@@ -595,7 +597,7 @@ static const dang::tmx_waypoint level_3_waypoints[] = {
     {437, 560,584, 1},
     {438, 504,632, 4},
     {439, 560,632, 1},
-    {440, 496,680, 4},
+    {440, 504,680, 4},
     {441, 560,680, 1},
 };
 
