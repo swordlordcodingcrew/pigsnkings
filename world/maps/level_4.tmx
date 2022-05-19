@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="111">
+ <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
+ <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
+ <tileset firstgid="129" source="../tilesets/character_pigcrate.tsx"/>
+ <tileset firstgid="169" source="../tilesets/character_pigbomb.tsx"/>
+ <tileset firstgid="202" source="../tilesets/character_cannonsnpigs.tsx"/>
+ <tileset firstgid="211" source="../tilesets/character_pig.tsx"/>
+ <tileset firstgid="254" source="../tilesets/levels_door.tsx"/>
+ <tileset firstgid="258" source="../tilesets/common_items.tsx"/>
+ <layer id="1" name="lvl_4_bg" width="54" height="8" locked="1">
+  <data encoding="csv">
+5,26,26,26,26,26,26,26,26,6,14,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
+15,49,50,50,50,50,50,50,51,13,14,15,49,50,50,50,50,50,50,50,86,86,86,78,50,50,50,50,50,50,77,86,86,86,86,78,50,50,50,50,50,50,51,13,15,49,50,50,50,50,50,50,51,13,
+15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,1,2,3,61,62,62,62,62,62,62,63,1,2,2,3,61,62,62,62,62,62,62,63,13,15,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,13,14,14,15,61,62,1,3,62,62,62,63,25,27,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,13,14,14,15,61,62,25,27,62,62,62,68,86,86,55,62,37,39,62,62,62,63,13,
+27,61,62,62,62,62,62,62,63,25,26,27,61,62,62,40,62,62,62,63,13,14,15,61,62,62,62,62,62,62,63,13,14,14,15,61,62,62,62,37,39,62,63,1,3,61,62,62,62,62,62,62,63,13,
+86,90,74,74,74,74,74,74,89,86,86,86,90,74,74,74,74,74,74,75,13,14,15,73,74,74,74,74,74,74,75,13,14,14,15,73,74,74,74,74,74,74,75,13,15,73,74,74,74,74,74,74,75,13,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,18,14,17,2,2,2,2,2,2,2,2,18,14,14,17,2,2,2,2,2,2,2,2,18,17,2,2,2,2,2,2,2,2,18
+</data>
+ </layer>
+ <objectgroup id="2" name="lvl_4_mood" locked="1">
+  <object id="1" gid="106" x="32" y="72" width="32" height="32"/>
+  <object id="3" gid="108" x="64" y="72" width="32" height="32"/>
+  <object id="4" gid="108" x="256" y="72" width="32" height="32"/>
+  <object id="7" gid="106" x="224" y="72" width="32" height="32"/>
+  <object id="32" gid="101" x="608" y="192" width="32" height="32"/>
+  <object id="33" gid="101" x="608" y="160" width="32" height="32"/>
+  <object id="34" gid="101" x="608" y="128" width="32" height="32"/>
+  <object id="35" gid="101" x="608" y="96" width="32" height="32"/>
+  <object id="37" gid="98" x="512" y="128" width="32" height="32"/>
+  <object id="38" gid="100" x="544" y="128" width="32" height="32"/>
+  <object id="39" gid="98" x="384" y="64" width="32" height="32"/>
+  <object id="40" gid="100" x="416" y="64" width="32" height="32"/>
+  <object id="59" gid="108" x="1664" y="96" width="32" height="32"/>
+  <object id="60" gid="107" x="1632" y="96" width="32" height="32"/>
+  <object id="61" gid="106" x="1600" y="96" width="32" height="32"/>
+  <object id="63" gid="254" x="1640" y="40" width="46" height="56"/>
+  <object id="65" gid="101" x="848" y="136" width="32" height="32"/>
+  <object id="67" gid="101" x="800" y="160" width="32" height="32"/>
+  <object id="66" gid="101" x="736" y="192" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="3" name="lvl_4_obj">
+  <object id="50" type="pig_box" gid="134" x="512" y="96" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="51" type="pig_bomb" gid="2147483821" x="416" y="32" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="52" type="cannon" gid="2147483850" x="1280" y="128" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="53" type="pig_cannon" gid="2147483859" x="1248" y="128" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="54" type="pig_normal" gid="211" x="1376" y="128" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="55" type="pig_bomb" gid="173" x="1176" y="64" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="58" type="pig_normal" gid="211" x="1592" y="192" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="64" type="potion_red" gid="293" x="1664" y="184" width="32" height="48"/>
+  <object id="73" type="hotrect" x="0" y="224" width="1728" height="32"/>
+  <object id="75" type="hotrect" x="0" y="32" width="32" height="160"/>
+  <object id="76" type="hotrect" x="0" y="0" width="1728" height="32"/>
+  <object id="77" type="hotrect" x="1696" y="32" width="32" height="192"/>
+  <object id="78" type="hotrect" x="1504" y="128" width="64" height="32"/>
+  <object id="79" type="hotrect" x="1376" y="32" width="64" height="96"/>
+  <object id="80" type="hotrect" x="1376" y="160" width="64" height="64"/>
+  <object id="81" type="hotrect" x="1600" y="96" width="96" height="12"/>
+  <object id="82" type="hotrect" x="1248" y="160" width="64" height="32"/>
+  <object id="83" type="hotrect" x="1184" y="96" width="64" height="64"/>
+  <object id="84" type="hotrect" x="992" y="64" width="128" height="160"/>
+  <object id="85" type="hotrect" x="640" y="64" width="96" height="160"/>
+  <object id="86" type="hotrect" x="288" y="32" width="96" height="160"/>
+  <object id="21" type="pig_box" gid="134" x="224" y="40" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="22" type="pig_box" gid="2147483782" x="64" y="40" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="23" type="pig_box" gid="134" x="192" y="192" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="24" type="pig_box" gid="134" x="96" y="192" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="25" type="pig_box" gid="1073741958" x="272" y="224" width="32" height="32" rotation="180">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="68" type="potion_blue" gid="286" x="848" y="184" width="32" height="48"/>
+  <object id="70" type="gem_green" gid="274" x="848" y="48" width="32" height="48"/>
+  <object id="71" type="gem_blue" gid="270" x="960" y="184" width="32" height="48"/>
+  <object id="69" type="gem_red" gid="278" x="848" y="16" width="32" height="48"/>
+  <object id="72" type="coin_silver" gid="258" x="736" y="184" width="32" height="48"/>
+  <object id="62" type="pig_bomb" gid="173" x="1600" y="64" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="87" name="5" type="level_trigger" x="1656" y="40" width="16" height="56"/>
+  <object id="88" type="hotrect" x="32" y="72" width="64" height="12"/>
+  <object id="90" type="hotrect" x="224" y="72" width="64" height="12"/>
+  <object id="91" type="hotrect_platform" x="608" y="96" width="32" height="4"/>
+  <object id="92" type="hotrect_platform" x="608" y="128" width="32" height="4"/>
+  <object id="93" type="hotrect_platform" x="608" y="160" width="32" height="4"/>
+  <object id="94" type="hotrect_platform" x="608" y="192" width="32" height="4"/>
+  <object id="95" type="hotrect_platform" x="384" y="64" width="64" height="4"/>
+  <object id="96" type="hotrect_platform" x="512" y="128" width="64" height="4"/>
+  <object id="97" type="hotrect_platform" x="736" y="192" width="32" height="4"/>
+  <object id="98" type="hotrect_platform" x="800" y="160" width="32" height="4"/>
+  <object id="99" type="hotrect_platform" x="848" y="136" width="32" height="4"/>
+  <object id="100" type="hotrect" x="480" y="160" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="4" name="lvl_4_fg" locked="1">
+  <object id="9" gid="97" x="32" y="32" width="32" height="32"/>
+  <object id="10" gid="105" x="32" y="64" width="32" height="32"/>
+  <object id="11" gid="105" x="32" y="96" width="32" height="32"/>
+  <object id="12" gid="105" x="32" y="128" width="32" height="32"/>
+  <object id="13" gid="105" x="32" y="160" width="32" height="32"/>
+  <object id="14" gid="121" x="32" y="192" width="32" height="32"/>
+  <object id="15" gid="97" x="256" y="32" width="32" height="32"/>
+  <object id="16" gid="105" x="256" y="64" width="32" height="32"/>
+  <object id="17" gid="105" x="256" y="96" width="32" height="32"/>
+  <object id="18" gid="105" x="256" y="128" width="32" height="32"/>
+  <object id="20" gid="121" x="256" y="160" width="32" height="32"/>
+  <object id="41" gid="97" x="384" y="32" width="32" height="32"/>
+  <object id="42" gid="105" x="384" y="64" width="32" height="32"/>
+  <object id="43" gid="113" x="384" y="96" width="32" height="32"/>
+  <object id="44" gid="97" x="544" y="32" width="32" height="32"/>
+  <object id="45" gid="105" x="544" y="64" width="32" height="32"/>
+  <object id="46" gid="105" x="544" y="96" width="32" height="32"/>
+  <object id="47" gid="121" x="544" y="128" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="5" name="lvl_4_hud" locked="1"/>
+ <objectgroup id="6" name="lvl_4_paths" visible="0" locked="1"/>
+ <objectgroup color="#800000ff" id="7" name="_rooms" visible="0" locked="1">
+  <object id="102" name="0" x="0" y="0" width="352" height="256"/>
+  <object id="104" name="1" x="320" y="0" width="384" height="256"/>
+  <object id="105" name="2" x="672" y="0" width="416" height="256"/>
+  <object id="106" name="3" x="1056" y="0" width="672" height="256"/>
+  <object id="107" name="-1" x="16" y="216">
+   <point/>
+  </object>
+  <object id="108" name="-1" x="368" y="216">
+   <point/>
+  </object>
+  <object id="109" name="-1" x="720" y="56">
+   <point/>
+  </object>
+  <object id="110" name="-1" x="1104" y="56">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
