@@ -32,7 +32,7 @@
 17,2,2,2,2,18,17,2,2,2,2,2,2,18,14,14,14,14,14,14,17,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,18,17,2,2,2,2,2,2,2,2,18,17,2,2,2,2,2,2,2,2,18
 </data>
  </layer>
- <objectgroup id="2" name="lvl_2_mood">
+ <objectgroup id="2" name="lvl_2_mood" locked="1">
   <object id="50" gid="101" x="1632" y="352" width="32" height="32"/>
   <object id="51" gid="101" x="1856" y="352" width="32" height="32"/>
   <object id="52" gid="98" x="1632" y="448" width="32" height="32"/>
@@ -182,7 +182,7 @@
   <object id="343" gid="101" x="1056" y="124" width="32" height="32"/>
   <object id="344" gid="101" x="1056" y="64" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_2_obj">
+ <objectgroup id="3" name="lvl_2_obj" locked="1">
   <object id="1" type="bubble_proto" gid="182" x="512" y="448" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="500"/>
@@ -540,7 +540,7 @@
   <object id="339" type="hotrect_platform" x="1056" y="188" width="32" height="4"/>
   <object id="340" type="hotrect_platform" x="1056" y="124" width="32" height="4"/>
   <object id="341" type="hotrect_platform" x="1056" y="64" width="32" height="4"/>
-  <object id="345" name="8" type="room_trigger" x="992" y="192" width="2" height="32"/>
+  <object id="345" name="8" type="room_trigger" x="958" y="192" width="2" height="32"/>
   <object id="346" type="coin_gold" gid="133" x="1088" y="274" width="32" height="48">
    <properties>
     <property name="z_order" type="int" value="600"/>
@@ -1315,14 +1315,14 @@
    </properties>
    <point/>
   </object>
-  <object id="481" x="79" y="350">
+  <object id="481" x="80" y="344">
    <properties>
     <property name="jump_0" type="object" value="482"/>
     <property name="walk_0" type="object" value="479"/>
    </properties>
    <point/>
   </object>
-  <object id="482" x="46" y="318">
+  <object id="482" x="48" y="312">
    <properties>
     <property name="walk_0" type="object" value="481"/>
    </properties>
