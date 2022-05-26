@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="485">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="486">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -913,8 +913,8 @@
   </object>
   <object id="475" name="savepoint_trigger" type="savepoint_trigger" x="544" y="288" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="lvl_2_fg" locked="1"/>
- <objectgroup id="4" name="lvl_2_hud" locked="1">
+ <objectgroup id="5" name="lvl_2_fg" visible="0" locked="1"/>
+ <objectgroup id="4" name="lvl_2_hud" visible="0" locked="1">
   <object id="226" type="hud_hero" gid="324" x="15" y="18" width="32" height="32"/>
   <object id="227" gid="254" x="46" y="37" width="16" height="16"/>
   <object id="228" gid="255" x="62" y="37" width="16" height="16"/>
@@ -924,7 +924,7 @@
   <object id="335" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
   <object id="336" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_2_paths">
+ <objectgroup id="6" name="lvl_2_paths" locked="1">
   <object id="270" x="1680" y="440">
    <properties>
     <property name="walk_0" type="object" value="271"/>
@@ -1308,7 +1308,7 @@
    </properties>
    <point/>
   </object>
-  <object id="480" x="79" y="414">
+  <object id="480" x="80" y="408">
    <properties>
     <property name="jump_0" type="object" value="479"/>
     <property name="walk_0" type="object" value="483"/>
@@ -1328,7 +1328,7 @@
    </properties>
    <point/>
   </object>
-  <object id="483" x="48" y="444">
+  <object id="483" x="48" y="440">
    <properties>
     <property name="jump_0" type="object" value="480"/>
    </properties>
@@ -1341,7 +1341,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#800000ff" id="2" name="lvl_2_zones" locked="1">
+ <objectgroup color="#800000ff" id="2" name="lvl_2_zones">
   <object id="473" name="0" x="1568" y="256" width="352" height="256"/>
   <object id="474" name="1" x="1248" y="256" width="384" height="256"/>
   <object id="475" name="-1" x="1904" y="312">
@@ -1355,5 +1355,8 @@
   <object id="481" name="7" x="608" y="0" width="352" height="256"/>
   <object id="482" name="8" x="928" y="0" width="672" height="256"/>
   <object id="483" name="9" x="1600" y="0" width="320" height="256"/>
+  <object id="485" name="-1" x="592" y="312">
+   <point/>
+  </object>
  </objectgroup>
 </map>

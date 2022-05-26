@@ -589,7 +589,7 @@ static const dang::tmx_layer level_2_lvl_2_fg = {
     .name = "lvl_2_fg",
     .type = dang::tmx_layerType::ltObjects,
     .opacity = 1,
-    .visible = true,
+    .visible = false,
     .z_order = 3,
     .position = {0,0},
     .tl_width = 0,
@@ -621,7 +621,7 @@ static const dang::tmx_layer level_2_lvl_2_hud = {
     .name = "lvl_2_hud",
     .type = dang::tmx_layerType::ltObjects,
     .opacity = 1,
-    .visible = true,
+    .visible = false,
     .z_order = 4,
     .position = {0,0},
     .tl_width = 0,
@@ -693,10 +693,10 @@ static const dang::tmx_waypoint level_2_waypoints[] = {
     {477, 144,476, 0x0},
     {478, 103,476, 0x0},
     {479, 46,378, 0x0},
-    {480, 79,414, 0x0},
+    {480, 80,408, 0x0},
     {481, 80,344, 0x0},
     {482, 48,312, 0x0},
-    {483, 48,444, 0x0},
+    {483, 48,440, 0x0},
     {484, 241,347, 0x0},
 };
 
@@ -818,7 +818,7 @@ static const dang::tmx_zone level_2_zones[] = {
     {6,320,0,320,256},
     {7,608,0,352,256},
     {8,928,0,672,256},
-    {9,1600,0,320,256}
+    {9,1600,0,320,256},
 };
 
 static const size_t level_2_zones_len = 10;
@@ -826,9 +826,10 @@ static const size_t level_2_zones_len = 10;
 // zone passages
 static const dang::tmx_zone_passage level_2_zone_passages[] = {
     {0,-1,1888,288},
+    {4,-1,576,288}
 };
 
-static const size_t level_2_zone_passages_len = 1;
+static const size_t level_2_zone_passages_len = 2;
 
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,
