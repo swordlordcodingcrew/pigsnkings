@@ -41,7 +41,7 @@
 14,17,2,2,2,2,2,2,18,14,17,2,2,2,18,17,2,2,2,18,17,2,2,2,2,2,2,2,2,18
 </data>
  </layer>
- <objectgroup id="2" name="lvl_1_mood" locked="1">
+ <objectgroup id="2" name="lvl_1_mood">
   <object id="4" gid="97" x="61" y="622" width="32" height="32"/>
   <object id="86" gid="97" x="399" y="625" width="32" height="32"/>
   <object id="87" gid="97" x="528" y="624" width="32" height="32">
