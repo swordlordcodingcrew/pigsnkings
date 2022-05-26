@@ -52,39 +52,36 @@ namespace pnk
     }
 
 
-    void Enemy::initSceneGraph(const spScreenPlay &sp)
+    void Enemy::initSceneGraph(const spScreenPlay &sp, dang::TmxExtruder& extr)
     {
-        for (auto room : sp->_acts)
+        uint16_t zone_nr = extr.getZoneNr(_co_pos);
+        _scene_graph = sp->findNearestGraph(zone_nr, getHotrectG().center());
+
+        if (_scene_graph == nullptr)
         {
-            if (room._extent_pixels.contains(local2Global(_pos)) && !room._scene_graphs.empty())
-//            if (room._extent_pixels.contains(_pos_g) && !room._scene_graphs.empty())
-            {
-                size_t ind = sp->findNearestGraph(getHotrectG().center());
-                _scene_graph = room._scene_graphs[ind];
-
-                // first clear any remains of the last path
-                resetPathVars();
-
-                const dang::Waypoint* wp = _scene_graph->findNearestWaypoint(getHotrectG().center());
-                if (_scene_graph->waypointReached(getHotrectG(), wp))
-                {
-                    _current_wp = wp;
-#ifdef PNK_DEBUG_WAYPOINTS
-                    DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Set waypoint with id %u \n", _id, wp->_id);
-#endif
-                }
-                else
-                {
-                    _path.push_back(wp);
-#ifdef PNK_DEBUG_WAYPOINTS
-                    DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Nearest waypoint = %u \n", _id, wp->_id);
-#endif
-                    startOutToWaypoint();
-                }
-                break;
-            }
+            DEBUG_PRINT("no scenegraph found\n");
+            return;
         }
 
+        // first clear any remains of the last path
+        resetPathVars();
+
+        const dang::Waypoint* wp = _scene_graph->findNearestWaypoint(getHotrectG().center());
+        if (_scene_graph->waypointReached(getHotrectG(), wp))
+        {
+            _current_wp = wp;
+#ifdef PNK_DEBUG_WAYPOINTS
+            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Set waypoint with id %u \n", _id, wp->_id);
+#endif
+        }
+        else
+        {
+            _path.push_back(wp);
+#ifdef PNK_DEBUG_WAYPOINTS
+            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Nearest waypoint = %u \n", _id, wp->_id);
+#endif
+            startOutToWaypoint();
+        }
     }
 
 

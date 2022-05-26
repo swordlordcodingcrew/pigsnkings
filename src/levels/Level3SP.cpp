@@ -31,11 +31,11 @@ namespace pnk
         _l_fg_name = "lvl_3_fg";
 
         // viewport = 320 x 240 px
-        act room0;
+/*        act room0;
         room0._extent = {0, 16, 10, 8};
-        /** the starting point related to the save-game-trigger / start of level */
+        // the starting point related to the save-game-trigger / start of level
         room0._passage_from[-1] = {0, 6};
-        /** when coming from room x, start at given position */
+        // when coming from room x, start at given position
         room0._passage_from[1] = {4, 0};
         room0._passage_from[2] = {4, 0};
         room0._passage_from[4] = {0, 4};
@@ -59,7 +59,6 @@ namespace pnk
 
         act room3;
         room3._extent = {0, 8, 10, 8};
-        /** the starting point related to the save-game-trigger */
         room3._passage_from[-1] = {9, 6};
         room3._passage_from[1] = {9, 6};
         room3._passage_from[4] = {9, 1};
@@ -75,7 +74,6 @@ namespace pnk
 
         act room5;
         room5._extent = {20, 8, 10, 8};
-        /** the starting point related to the save-game-trigger */
         room5._passage_from[-1] = {9, 6};
         room5._passage_from[4] = {9, 6};
         room5._passage_from[6] = {4, 1};
@@ -91,17 +89,17 @@ namespace pnk
         room7._extent = {20, 0, 10, 8};
         room7._passage_from[0] = {0, 6};
         _acts.push_back(room7);
-
+*/
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
 #endif
         // behaviour tree 1 for finding back to the path system
         dang::spNTree back_to_path_h = dang::NTBuilder{}
-                .sequence()
+            .sequence()
                 .leaf(Enemy::NTfindNearestWaypointH)
                 .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .build();
+            .end()
+        .build();
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 1 (%d)\r\n", mallinfo().uordblks);

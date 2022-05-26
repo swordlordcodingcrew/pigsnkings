@@ -9,6 +9,10 @@
 
 #include <vector>
 
+namespace dang
+{
+    class TmxExtruder;
+}
 
 namespace pnk
 {
@@ -52,7 +56,7 @@ namespace pnk
         dang::BTNode::Status checkPathCompleted(uint32_t dt);
         dang::BTNode::Status checkWaypointReached(uint32_t dt);
         virtual void startOutToWaypoint();
-        void initSceneGraph(const spScreenPlay &sp);
+        void initSceneGraph(const spScreenPlay &sp, dang::TmxExtruder& extr);
 
         /** these functions are used to set a destination wapoint */
         dang::BTNode::Status setDestinationWaypointByType(uint32_t wp_type);

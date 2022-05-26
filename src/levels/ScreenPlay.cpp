@@ -3,36 +3,64 @@
 
 #include "ScreenPlay.h"
 
+//#include "../pnk_globals.h"
+//#include "../GSPlay.h"
+#include "../actors/npc/Enemy.h"
+#include "../actors/npc/HenchPig.h"
+#include "../actors/npc/PigCrate.h"
+#include "../actors/npc/PigBomb.h"
+#include "../actors/npc/PigBoss.h"
+
 #include <path/SceneGraph.hpp>
+#include <bt/NTBuilder.h>
 
 #include <cfloat>
 
 namespace pnk
 {
-    size_t ScreenPlay::findNearestGraph(const dang::Vector2F& pos)
+    dang::spSceneGraph ScreenPlay::findNearestGraph(const uint16_t zone_nr, const dang::Vector2F& pos)
     {
         float dist = FLT_MAX;
         size_t index{0};
 
-        for (auto room : _acts)
+        const std::vector<dang::spSceneGraph>& graphs = _scene_graphs[zone_nr];
+        if (!graphs.empty())
         {
-            if (room._extent_pixels.contains(pos) && !room._scene_graphs.empty())
+            for (size_t i = 0; i < graphs.size(); ++i)
             {
-                for (size_t i = 0; i < room._scene_graphs.size(); ++i)
+                float newdist = graphs[i]->findNearestWaypointDist(pos);
+                if (newdist < dist)
                 {
-                    float newdist = room._scene_graphs[i]->findNearestWaypointDist(pos);
-                    if (newdist < dist)
-                    {
-                        dist = newdist;
-                        index = i;
-                    }
+                    dist = newdist;
+                    index = i;
                 }
-                // room found, break the for loop
-                break;
             }
+            return graphs[index];
         }
 
-        return index;
+        return nullptr;
+    }
+
+    dang::spNTree ScreenPlay::getBackToPathH()
+    {
+        // behaviour tree 1 for finding back to the path system
+        return dang::NTBuilder{}
+            .sequence()
+                .leaf(Enemy::NTfindNearestWaypointH)
+                .leaf(Enemy::NTcheckPathCompleted)
+            .end()
+        .build();
+    }
+
+    dang::spNTree ScreenPlay::getBackToPath()
+    {
+        // behaviour tree 2 for finding back to the path system
+        return dang::NTBuilder{}
+            .sequence()
+                .leaf(Enemy::NTfindNearestWaypoint)
+                .leaf(Enemy::NTcheckPathCompleted)
+            .end()
+        .build();
     }
 
 }

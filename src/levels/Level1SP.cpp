@@ -30,18 +30,18 @@ namespace pnk
         _l_hud_name = "lvl_1_hud";
         _l_fg_name = "lvl_1_fg";
 
-        // viewport = 320 x 240 px
+/*        // viewport = 320 x 240 px
         act room0;
         room0._extent = {0, 16, 10, 8};
-        /** the starting point related to the save-game-trigger / start of level */
+        // the starting point related to the save-game-trigger / start of level
         room0._passage_from[-1] = {0, 5};
-        /** when coming from room 1, start at given position */
+        // when coming from room 1, start at given position
         room0._passage_from[1] = {8, 1};
         _acts.push_back(room0);
 
         act room1;
         room1._extent = {9, 16, 11, 8};
-        /** the starting point related to the save-game-trigger */
+        // the starting point related to the save-game-trigger
         room1._passage_from[-1] = {0, 1};
         room1._passage_from[0] = {0, 1};
         room1._passage_from[2] = {10, 2};
@@ -55,7 +55,7 @@ namespace pnk
 
         act room3;
         room3._extent = {20, 8, 10, 8};
-        /** the starting point related to the save-game-trigger */
+        // the starting point related to the save-game-trigger
         room3._passage_from[-1] = {0, 6};
         room3._passage_from[2] = {0, 6};
         room3._passage_from[4] = {0, 1};
@@ -70,7 +70,7 @@ namespace pnk
 
         act room5;
         room5._extent = {0, 0, 10, 8};
-        /** the starting point related to the save-game-trigger */
+        // the starting point related to the save-game-trigger
         room5._passage_from[-1] = {8, 2};
         room5._passage_from[4] = {8, 2};
         room5._passage_from[6] = {0, 6};
@@ -86,7 +86,7 @@ namespace pnk
         room7._passage_from[4] = {1, 6};
         room7._passage_from[6] = {1, 6};
         _acts.push_back(room7);
-
+*/
         DEBUG_PRINT("Level1SP: before bt (%d)\r\n", mallinfo().uordblks);
 
         // behaviour tree 1 for finding back to the path system

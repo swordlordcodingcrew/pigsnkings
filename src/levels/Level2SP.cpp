@@ -18,12 +18,12 @@ namespace pnk
         _l_hud_name = "lvl_2_hud";
         _l_fg_name = "lvl_2_fg";
 
-        // viewport = 320 x 240 px
+/*        // viewport = 320 x 240 px
         act room0;
         room0._extent = {49, 8, 11, 8}; // global coordinates
-        /** the starting point of the level */
+        // the starting point of the level
         room0._passage_from[-1] = {10, 1}; // local, no global coordinates
-        /** when coming from room 1, start at given position */
+        // when coming from room 1, start at given position
         room0._passage_from[1] = {0, 1}; // local, no global coordinates
         _acts.push_back(room0);
 
@@ -68,7 +68,7 @@ namespace pnk
         room7._passage_from[6] = {0, 1};
         room7._passage_from[8] = {10, 7};
         _acts.push_back(room7);
-
+*/
         /** behaviour trees */
         dang::spNTree tr = dang::NTBuilder{}
             .selector()

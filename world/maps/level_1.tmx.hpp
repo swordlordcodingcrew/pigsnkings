@@ -813,6 +813,37 @@ static const dang::tmx_waypoint_connection level_1_connections[] = {
 
 static const size_t level_1_connections_len = 160;
 
+// zones
+static const dang::tmx_zone level_1_zones[] = {
+    {0,0,512,320,256},
+    {1,288,512,352,256},
+    {2,608,512,352,256},
+    {3,640,256,320,256},
+    {4,288,0,672,256},
+    {7,320,256,320,256},
+    {5,0,0,320,256},
+    {6,0,256,320,256},
+};
+
+static const size_t level_1_zones_len = 8;
+
+// zone passages
+static const dang::tmx_zone_passage level_1_zone_passages[] = {
+    {0,-1,0,672},
+    {1,-1,352,544},
+    {2,3,928,544},
+    {3,2,640,448},
+    {3,-1,672,448},
+    {3,4,640,288},
+    {4,3,928,64},
+    {4,7,480,192},
+    {7,4,320,448},
+    {5,-1,256,64},
+    {6,5,128,288}
+};
+
+static const size_t level_1_zone_passages_len = 11;
+
 const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_bg,
     level_1_lvl_1_mood,
@@ -821,7 +852,7 @@ const static dang::tmx_layer level_1_layers[] = {
     level_1_lvl_1_hud,
 };
 
-const static size_t level_1_layers_len = 6;
+const static size_t level_1_layers_len = 7;
 
 // Level ---------------------------------------------------
 
@@ -838,7 +869,11 @@ static const dang::tmx_level level_1_level {
     .waypoint_connections = level_1_connections,
     .waypoint_connections_len = level_1_connections_len,
     .wavepoints = nullptr,
-    .wavepoints_len = 0
+    .wavepoints_len = 0,
+    .zones = level_1_zones,
+    .zones_len = level_1_zones_len,
+    .zone_passages = level_1_zone_passages,
+    .zone_passages_len = level_1_zone_passages_len
 };
 
 

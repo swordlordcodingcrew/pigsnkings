@@ -42,8 +42,9 @@ namespace pnk
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
 
-        // flow stuff
-        ScreenPlay::act*        _active_room{nullptr};
+        // zone stuff
+        dang::RectF             _active_room{0,0,0,0};
+//        ScreenPlay::act*        _active_room{nullptr};
         int8_t                  _active_room_index{-1}; // which room are we in?
         bool                    _warp{false};
         bool                    _leaveGame{false};

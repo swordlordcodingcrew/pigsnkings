@@ -59,6 +59,7 @@
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
 #include "rsrc/level_3.tmx.hpp"
+#include "rsrc/level_4.tmx.hpp"
 #include "rsrc/game_strings.hpp"
 #include "fonts/barcadebrawl.h"
 
@@ -177,7 +178,7 @@ namespace pnk
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
 #ifdef PNK_LEVEL3
-        _pnk._gamestate.saved_level = 3;
+        _pnk._gamestate.saved_level = 2;
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
@@ -255,7 +256,14 @@ namespace pnk
         gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
 
         // fill up screenplay
-        for (ScreenPlay::act& room : _screenplay->_acts)
+        for (size_t i = 0; i < _tmx->zones_len; ++i)
+        {
+            // add scenegraph
+            dang::RectF zone{_tmx->zones[i].x, _tmx->zones[i].y, _tmx->zones[i].w, _tmx->zones[i].h};
+            txtr.createSceneGraphs(zone, _screenplay->_scene_graphs[_tmx->zones[i].zone_nr]);
+
+        }
+/*        for (ScreenPlay::act& room : _screenplay->_acts)
         {
             room._extent_pixels.x = room._extent.x * _tmx->w->tileWidth;
             room._extent_pixels.y = room._extent.y * _tmx->w->tileHeight;
@@ -265,7 +273,7 @@ namespace pnk
             // add scenegraph
             txtr.createSceneGraphs(room._extent_pixels, room._scene_graphs);
         }
-
+*/
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);
 #endif
@@ -368,7 +376,7 @@ namespace pnk
 
                     // global pos is needed for the graphs and the global pos can only be determind when added to a layer due to the tree-structure
                     spEnemy en = std::static_pointer_cast<Enemy>(spr);
-                    en->initSceneGraph(_screenplay);
+                    en->initSceneGraph(_screenplay, txtr);
                 }
 
             }
@@ -513,7 +521,7 @@ namespace pnk
         _csl.reset();
         _hives.clear();
         _tmx = nullptr;
-        _active_room = nullptr;
+        _active_room = {0,0,0,0};
         _active_room_index = -1;
         _warp = false;
 
@@ -826,7 +834,15 @@ namespace pnk
     void GSPlay::resetRoomFromSave()
     {
         _active_room_index = _pnk._gamestate.saved_room;
-        _active_room = &_screenplay->_acts[_active_room_index];
+
+        dang::TmxExtruder ext(_tmx, &_pnk.getGear());
+        _active_room = ext.getZone(_active_room_index);
+        dang::Vector2F sp = ext.getPassage(_active_room_index, -1);
+        _spr_hero->setPos(sp);
+        _warp = true;
+
+
+/*        _active_room = &_screenplay->_acts[_active_room_index];
 
         dang::Vector2F sp;
         dang::Vector2U passage = _active_room->_passage_from[-1];
@@ -834,7 +850,7 @@ namespace pnk
         sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
         _spr_hero->setPos(sp);
         _warp = true;
-    }
+*/    }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
     {
@@ -907,26 +923,26 @@ namespace pnk
         // viewport follows hero within room
         dang::Vector2F pos = _spr_hero->getPos() + _spr_hero->getSize() / 2.0f;
 
-        if (pos.x < _active_room->_extent_pixels.left() + 160)
+        if (pos.x < _active_room.left() + 160)
         {
-            _vp_pos.x = _active_room->_extent_pixels.left() + 160;
+            _vp_pos.x = _active_room.left() + 160;
         }
-        else if (pos.x > _active_room->_extent_pixels.right() - 160)
+        else if (pos.x > _active_room.right() - 160)
         {
-            _vp_pos.x = _active_room->_extent_pixels.right() - 160;
+            _vp_pos.x = _active_room.right() - 160;
         }
         else
         {
             _vp_pos.x = pos.x;
         }
 
-        if (pos.y < _active_room->_extent_pixels.top() + 120)
+        if (pos.y < _active_room.top() + 120)
         {
-            _vp_pos.y = _active_room->_extent_pixels.top() + 120;
+            _vp_pos.y = _active_room.top() + 120;
         }
-        else if (pos.y > _active_room->_extent_pixels.bottom() - 120)
+        else if (pos.y > _active_room.bottom() - 120)
         {
-            _vp_pos.y = _active_room->_extent_pixels.bottom() - 120;
+            _vp_pos.y = _active_room.bottom() - 120;
         }
         else
         {
@@ -936,18 +952,25 @@ namespace pnk
 
     void GSPlay::changeRoom(int32_t room_nr, bool warp)
     {
-        _active_room = &_screenplay->_acts[room_nr];
+        dang::TmxExtruder ext(_tmx, &_pnk.getGear());
+        _active_room = ext.getZone(room_nr);
+
+//        _active_room = &_screenplay->_acts[room_nr];
 
         if (warp)
         {
-            dang::Vector2F sp;
+            dang::Vector2F sp = ext.getPassage(room_nr, _active_room_index);
+            _spr_hero->setPos(sp);
+            _warp = true;
+
+/*            dang::Vector2F sp;
 
             dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
             sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
             sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
             _spr_hero->setPos(sp);
             _warp = true;
-        }
+*/        }
 
         _active_room_index = room_nr;
 

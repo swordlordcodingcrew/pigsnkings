@@ -67,7 +67,7 @@
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
-  <object id="55" type="pig_bomb" gid="173" x="1176" y="64" width="32" height="32">
+  <object id="55" type="pig_bomb" gid="173" x="1184" y="64" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="200"/>
    </properties>
@@ -162,7 +162,7 @@
  </objectgroup>
  <objectgroup id="5" name="lvl_4_hud" locked="1"/>
  <objectgroup id="6" name="lvl_4_paths" visible="0" locked="1"/>
- <objectgroup color="#800000ff" id="7" name="_rooms" visible="0" locked="1">
+ <objectgroup color="#800000ff" id="7" name="lvl_4_zones" locked="1">
   <object id="102" name="0" x="0" y="0" width="352" height="256"/>
   <object id="104" name="1" x="320" y="0" width="384" height="256"/>
   <object id="105" name="2" x="672" y="0" width="416" height="256"/>

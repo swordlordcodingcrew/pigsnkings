@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="468">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="495">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -212,7 +212,7 @@
   <object id="450" gid="135" x="512" y="640" width="32" height="32"/>
   <object id="453" gid="135" x="512" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj">
+ <objectgroup id="4" name="lvl_3_obj" locked="1">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32"/>
   <object id="2" type="hotrect" x="-8" y="616" width="8" height="152"/>
   <object id="4" type="hotrect" x="0" y="736" width="384" height="32"/>
@@ -259,7 +259,7 @@
   <object id="178" type="hotrect" x="480" y="640" width="96" height="10"/>
   <object id="179" type="hotrect" x="480" y="688" width="96" height="10"/>
   <object id="181" type="hotrect" x="544" y="736" width="416" height="32"/>
-  <object id="182" name="1" type="warp_room_trigger" x="312" y="448" width="2" height="32"/>
+  <object id="182" name="1" type="warp_room_trigger" x="315" y="448" width="2" height="32"/>
   <object id="183" type="bubble_proto" gid="304" x="640" y="512" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="500"/>
@@ -420,6 +420,7 @@
   <object id="462" gid="169" x="840" y="688" width="32" height="48"/>
   <object id="463" gid="169" x="768" y="688" width="32" height="48"/>
   <object id="467" name="4" type="level_trigger" x="512" y="40" width="16" height="56"/>
+  <object id="492" name="savepoint_trigger" type="savepoint_trigger" x="128" y="528" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="2" name="lvl_3_fg" locked="1">
   <object id="18" gid="125" x="544" y="544" width="32" height="32"/>
@@ -686,19 +687,89 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#0000ff" id="6" name="_helper" visible="0" locked="1" tintcolor="#000000">
+ <objectgroup color="#0000ff" id="6" name="lvl_3_zones" tintcolor="#000000">
   <object id="84" name="0" x="0" y="512" width="320" height="256"/>
   <object id="87" name="1" x="320" y="512" width="352" height="256"/>
   <object id="89" name="4" x="320" y="256" width="320" height="256"/>
   <object id="102" name="3" x="0" y="256" width="320" height="256"/>
   <object id="104" name="2" x="640" y="512" width="320" height="256"/>
-  <object id="107" name="1,2" x="128" y="512" width="32" height="32"/>
   <object id="109" name="5" x="640" y="256" width="320" height="256"/>
-  <object id="111" name="1" x="608" y="288" width="32" height="32"/>
-  <object id="113" name="0" x="608" y="448" width="32" height="32"/>
-  <object id="221" name="2" x="320" y="448" width="32" height="32"/>
   <object id="269" name="6" x="0" y="0" width="640" height="256"/>
-  <object id="270" name="5" x="320" y="288" width="32" height="32"/>
   <object id="353" name="7" x="640" y="0" width="320" height="256"/>
+  <object id="468" name="-1" x="16" y="728">
+   <point/>
+  </object>
+  <object id="469" name="7" x="304" y="664">
+   <point/>
+  </object>
+  <object id="470" name="1" x="136" y="536">
+   <point/>
+  </object>
+  <object id="471" name="2" x="152" y="536">
+   <point/>
+  </object>
+  <object id="472" name="4" x="16" y="664">
+   <point/>
+  </object>
+  <object id="473" name="5" x="144" y="536">
+   <point/>
+  </object>
+  <object id="474" name="6" x="136" y="528">
+   <point/>
+  </object>
+  <object id="475" name="4" x="336" y="728">
+   <point/>
+  </object>
+  <object id="476" name="3" x="336" y="568">
+   <point/>
+  </object>
+  <object id="477" name="2" x="816" y="568">
+   <point/>
+  </object>
+  <object id="478" name="4" x="944" y="632">
+   <point/>
+  </object>
+  <object id="479" name="5" x="336" y="312">
+   <point/>
+  </object>
+  <object id="480" name="2" x="336" y="472">
+   <point/>
+  </object>
+  <object id="481" name="0" x="624" y="472">
+   <point/>
+  </object>
+  <object id="482" name="1" x="624" y="312">
+   <point/>
+  </object>
+  <object id="483" name="6" x="784" y="312">
+   <point/>
+  </object>
+  <object id="484" name="-1" x="944" y="472">
+   <point/>
+  </object>
+  <object id="485" name="4" x="936" y="472">
+   <point/>
+  </object>
+  <object id="486" name="0" x="656" y="216">
+   <point/>
+  </object>
+  <object id="487" name="5" x="624" y="56">
+   <point/>
+  </object>
+  <object id="488" name="5" x="16" y="56">
+   <point/>
+  </object>
+  <object id="490" name="6" x="304" y="312">
+   <point/>
+  </object>
+  <object id="491" name="-1" x="240" y="472">
+   <point/>
+  </object>
+  <object id="493" name="1" x="304" y="472">
+   <point/>
+  </object>
+  <object id="494" name="3" x="144" y="528">
+   <point/>
+  </object>
  </objectgroup>
 </map>

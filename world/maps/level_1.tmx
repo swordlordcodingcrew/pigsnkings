@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="642">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="663">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -170,7 +170,7 @@
   <object id="578" gid="124" x="736" y="96" width="32" height="32"/>
   <object id="579" gid="125" x="768" y="96" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_1_obj">
+ <objectgroup id="3" name="lvl_1_obj" locked="1">
   <object id="143" type="coin_silver" gid="129" x="384" y="560" width="32" height="48">
    <properties>
     <property name="z_order" type="int" value="600"/>
@@ -726,7 +726,7 @@
   <object id="523" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
   <object id="524" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_1_paths">
+ <objectgroup id="6" name="lvl_1_paths" locked="1">
   <object id="409" type="0" x="48" y="696">
    <properties>
     <property name="walk_0" type="object" value="410"/>
@@ -1250,6 +1250,49 @@
    <properties>
     <property name="walk_0" type="object" value="633"/>
    </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#800000ff" id="7" name="lvl_1_zones">
+  <object id="642" name="0" x="0" y="512" width="320" height="256"/>
+  <object id="643" name="-1" x="16" y="696">
+   <point/>
+  </object>
+  <object id="646" name="1" x="288" y="512" width="352" height="256"/>
+  <object id="647" name="-1" x="368" y="568">
+   <point/>
+  </object>
+  <object id="648" name="2" x="608" y="512" width="352" height="256"/>
+  <object id="649" name="3" x="944" y="568">
+   <point/>
+  </object>
+  <object id="650" name="3" x="640" y="256" width="320" height="256"/>
+  <object id="651" name="2" x="656" y="472">
+   <point/>
+  </object>
+  <object id="652" name="-1" x="688" y="472">
+   <point/>
+  </object>
+  <object id="653" name="4" x="656" y="312">
+   <point/>
+  </object>
+  <object id="654" name="4" x="288" y="0" width="672" height="256"/>
+  <object id="655" name="3" x="944" y="88">
+   <point/>
+  </object>
+  <object id="656" name="7" x="496" y="216">
+   <point/>
+  </object>
+  <object id="657" name="7" x="320" y="256" width="320" height="256"/>
+  <object id="658" name="4" x="336" y="472">
+   <point/>
+  </object>
+  <object id="659" name="5" x="0" y="0" width="320" height="256"/>
+  <object id="660" name="-1" x="272" y="88">
+   <point/>
+  </object>
+  <object id="661" name="6" x="0" y="256" width="320" height="256"/>
+  <object id="662" name="5" x="144" y="312">
    <point/>
   </object>
  </objectgroup>

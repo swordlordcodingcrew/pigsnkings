@@ -388,7 +388,7 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {178,"178","hotrect",480,640,96,10,true,"",0,"",0,0b0000},
     {179,"179","hotrect",480,688,96,10,true,"",0,"",0,0b0000},
     {181,"181","hotrect",544,736,416,32,true,"",0,"",0,0b0000},
-    {182,"1","warp_room_trigger",312,448,2,32,true,"",0,"",0,0b0000},
+    {182,"1","warp_room_trigger",315,448,2,32,true,"",0,"",0,0b0000},
     {183,"183","bubble_proto",640,512,32,32,true,"gfx_bubbles",0,"",500,0b0000},
     {184,"184","crate_proto",640,640,32,32,true,"pig_crate",34,"",200,0b0000},
     {185,"185","bomb_proto",640,576,32,32,true,"character_pigbomb",26,"",200,0b0000},
@@ -464,11 +464,13 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {447,"447","pig_bomb",488,608,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000},
     {448,"448","pig_bomb",488,656,32,32,true,"character_pigbomb",4,"wait_with_bombs",200,0b0000},
     {462,"462","",840,688,32,48,true,"gfx_items",12,"",0,0b0000},
-    {463,"463","",768,688,32,48,true,"gfx_items",12,"",0,0b0000}
+    {463,"463","",768,688,32,48,true,"gfx_items",12,"",0,0b0000},
+    {467,"4","level_trigger",512,40,16,56,true,"",0,"",0,0b0000},
+    {492,"savepoint_trigger","savepoint_trigger",128,528,32,32,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_obj_objects_len = 123;
+static const size_t level_3_lvl_3_obj_objects_len = 125;
 
 static const dang::tmx_layer level_3_lvl_3_obj = {
     .name = "lvl_3_obj",
@@ -672,6 +674,51 @@ static const dang::tmx_waypoint_connection level_3_connections[] = {
 
 static const size_t level_3_connections_len = 64;
 
+// zones
+static const dang::tmx_zone level_3_zones[] = {
+    {0,0,512,320,256},
+    {1,320,512,352,256},
+    {4,320,256,320,256},
+    {3,0,256,320,256},
+    {2,640,512,320,256},
+    {5,640,256,320,256},
+    {6,0,0,640,256},
+    {7,640,0,320,256},
+};
+
+static const size_t level_3_zones_len = 8;
+
+// zone passages
+static const dang::tmx_zone_passage level_3_zone_passages[] = {
+    {0,-1,0,704},
+    {0,7,288,640},
+    {0,1,128,512},
+    {0,2,128,512},
+    {0,4,0,640},
+    {0,5,128,512},
+    {0,6,128,512},
+    {1,4,320,704},
+    {1,3,320,544},
+    {2,2,800,544},
+    {2,4,928,608},
+    {4,5,320,288},
+    {4,2,320,448},
+    {4,0,608,448},
+    {4,1,608,288},
+    {5,6,768,288},
+    {5,-1,928,448},
+    {5,4,928,448},
+    {7,0,640,192},
+    {6,5,608,32},
+    {6,5,0,32},
+    {3,6,288,288},
+    {3,-1,224,448},
+    {3,1,288,448},
+    {0,3,128,512}
+};
+
+static const size_t level_3_zone_passages_len = 25;
+
 const static dang::tmx_layer level_3_layers[] = {
     level_3_lvl_3_bg,
     level_3_lvl_3_mood,
@@ -697,7 +744,11 @@ static const dang::tmx_level level_3_level {
     .waypoint_connections = level_3_connections,
     .waypoint_connections_len = level_3_connections_len,
     .wavepoints = nullptr,
-    .wavepoints_len = 0
+    .wavepoints_len = 0,
+    .zones = level_3_zones,
+    .zones_len = level_3_zones_len,
+    .zone_passages = level_3_zone_passages,
+    .zone_passages_len = level_3_zone_passages_len
 };
 
 

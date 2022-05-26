@@ -455,17 +455,17 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {256,"1","room_trigger",1584,288,2,32,true,"",0,"",0,0b0000},
     {257,"1","room_trigger",1296,288,2,32,true,"",0,"",0,0b0000},
     {258,"2","room_trigger",1264,288,2,32,true,"",0,"",0,0b0000},
-    {259,"2","room_trigger",984,448,2,32,true,"",0,"",0,0b0000},
-    {260,"3","room_trigger",960,448,2,32,true,"",0,"",0,0b0000},
-    {261,"3","room_trigger",632,288,2,32,true,"",0,"",0,0b0000},
-    {262,"4","room_trigger",616,288,2,32,true,"",0,"",0,0b0000},
-    {263,"4","room_trigger",325,448,2,32,true,"",0,"",0,0b0000},
-    {264,"5","room_trigger",309,448,2,32,true,"",0,"",0,0b0000},
-    {265,"5","room_trigger",309,192,2,32,true,"",0,"",0,0b0000},
-    {266,"6","room_trigger",328,192,2,32,true,"",0,"",0,0b0000},
-    {267,"6","room_trigger",629,32,2,32,true,"",0,"",0,0b0000},
-    {268,"7","room_trigger",661,32,2,32,true,"",0,"",0,0b0000},
-    {269,"7","room_trigger",949,192,2,32,true,"",0,"",0,0b0000},
+    {259,"2","room_trigger",989,448,2,32,true,"",0,"",0,0b0000},
+    {260,"3","room_trigger",961,448,2,32,true,"",0,"",0,0b0000},
+    {261,"3","room_trigger",636,288,2,32,true,"",0,"",0,0b0000},
+    {262,"4","room_trigger",610,288,2,32,true,"",0,"",0,0b0000},
+    {263,"4","room_trigger",349,448,2,32,true,"",0,"",0,0b0000},
+    {264,"5","room_trigger",321,448,2,32,true,"",0,"",0,0b0000},
+    {265,"5","room_trigger",321,192,2,32,true,"",0,"",0,0b0000},
+    {266,"6","room_trigger",349,192,2,32,true,"",0,"",0,0b0000},
+    {267,"6","room_trigger",610,32,2,32,true,"",0,"",0,0b0000},
+    {268,"7","room_trigger",638,32,2,32,true,"",0,"",0,0b0000},
+    {269,"7","room_trigger",930,192,2,32,true,"",0,"",0,0b0000},
     {286,"286","hotrect",1600,32,32,160,true,"",0,"",0,0b0000},
     {287,"287","hotrect",1568,32,32,192,true,"",0,"",0,0b0000},
     {288,"288","hotrect",1888,32,32,192,true,"",0,"",0,0b0000},
@@ -476,7 +476,7 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {339,"339","hotrect_platform",1056,188,32,4,true,"",0,"",0,0b0000},
     {340,"340","hotrect_platform",1056,124,32,4,true,"",0,"",0,0b0000},
     {341,"341","hotrect_platform",1056,64,32,4,true,"",0,"",0,0b0000},
-    {345,"8","room_trigger",992,192,2,32,true,"",0,"",0,0b0000},
+    {345,"8","room_trigger",957,192,2,32,true,"",0,"",0,0b0000},
     {346,"346","coin_gold",1088,274,32,48,true,"gfx_items",4,"",0,0b0000},
     {347,"347","coin_gold",1056,274,32,48,true,"gfx_items",4,"",0,0b0000},
     {348,"348","coin_gold",1120,274,32,48,true,"gfx_items",4,"",0,0b0000},
@@ -784,14 +784,38 @@ static const dang::tmx_waypoint_connection level_2_connections[] = {
 
 static const size_t level_2_connections_len = 86;
 
+// zones
+static const dang::tmx_zone level_2_zones[] = {
+    {0,1568,256,352,256},
+    {1,1248,256,384,256},
+    {2,960,256,352,256},
+    {3,608,256,384,256},
+    {4,320,256,320,256},
+    {5,0,0,352,512},
+    {6,320,0,320,256},
+    {7,608,0,352,256},
+    {8,928,0,672,256},
+    {9,1600,0,320,256}
+};
+
+static const size_t level_2_zones_len = 10;
+
+// zone passages
+static const dang::tmx_zone_passage level_2_zone_passages[] = {
+    {0,-1,1888,288},
+};
+
+static const size_t level_2_zone_passages_len = 1;
+
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,
     level_2_lvl_2_mood,
     level_2_lvl_2_obj,
+    level_2_lvl_2_fg,
     level_2_lvl_2_hud,
 };
 
-const static size_t level_2_layers_len = 6;
+const static size_t level_2_layers_len = 7;
 
 // Level ---------------------------------------------------
 
@@ -808,7 +832,11 @@ static const dang::tmx_level level_2_level {
     .waypoint_connections = level_2_connections,
     .waypoint_connections_len = level_2_connections_len,
     .wavepoints = nullptr,
-    .wavepoints_len = 0
+    .wavepoints_len = 0,
+    .zones = level_2_zones,
+    .zones_len = level_2_zones_len,
+    .zone_passages = level_2_zone_passages,
+    .zone_passages_len = level_2_zone_passages_len
 };
 
 
