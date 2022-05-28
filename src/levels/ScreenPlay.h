@@ -14,6 +14,8 @@
 
 namespace pnk
 {
+    class GSPlay;
+
     class ScreenPlay
     {
     public:
@@ -35,40 +37,25 @@ namespace pnk
         /** graphs per zones. key equals zone_nr*/
         std::unordered_map<uint16_t, std::vector<dang::spSceneGraph>>  _scene_graphs;
 
+        /** function to find closest graph to the point*/
+        dang::spSceneGraph findNearestGraph(const uint16_t zone_nr, const dang::Vector2F& pos);
+
         /** the behaviour trees in this level */
         std::unordered_map<std::string, dang::spNTree>  _bt;
 
         /** # of bubble-loops a pig is bubbled. When advancing the levels, the value could be diminished */
         uint8_t _bubble_loops = 6;
 
-//        size_t findNearestGraph(const uint16_t zone_nr, const dang::Vector2F& pos);
-        dang::spSceneGraph findNearestGraph(const uint16_t zone_nr, const dang::Vector2F& pos);
+    protected:
+        /** some common behaviour trees */
+        dang::spNTree buildBackToPathH();
+        dang::spNTree buildBackToPath();
+        dang::spNTree buildLoiter();
+        dang::spNTree buildBerserk();
+        dang::spNTree buildLoiterWithSingleCrateH(GSPlay& gsp);
+        dang::spNTree buildWaitWithCrate(GSPlay& gsp);
+        dang::spNTree buildWaitWithBomb(GSPlay& gsp);
 
-        /** some common trees */
-        dang::spNTree getBackToPathH();
-        dang::spNTree getBackToPath();
-
-/*
-        struct act
-        {
-            // size of room in tiles
-            dang::RectU         _extent{0, 0, 0, 0};
-
-            // size of room in pixels
-            dang::RectF         _extent_pixels{0, 0, 0, 0};
-
-            // scenegraphs in the room. There can be more than one
-            std::vector<dang::spSceneGraph>        _scene_graphs;
-
-            // passages to other rooms
-            // the hash key is the room number to go, the value is the position in the room
-            // unit: relative tile coord to the room. Meaning {0,0} is the top left corner of the room
-            std::unordered_map<int32_t,dang::Vector2U>  _passage_from;
-        };
-
-        // the rooms per level
-        std::vector<act> _acts;
-*/
 
     };
 }
