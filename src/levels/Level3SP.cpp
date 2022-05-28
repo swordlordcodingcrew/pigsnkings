@@ -2,13 +2,13 @@
 // This file is part of the pnk game
 
 #include "Level3SP.hpp"
-#include "../pnk_globals.h"
+//#include "../pnk_globals.h"
 #include "../GSPlay.h"
-#include "../actors/npc/Enemy.h"
-#include "../actors/npc/HenchPig.h"
+//#include "../actors/npc/Enemy.h"
+//#include "../actors/npc/HenchPig.h"
 #include "../actors/npc/PigCrate.h"
 #include "../actors/npc/PigBomb.h"
-#include "../actors/npc/PigBoss.h"
+//#include "../actors/npc/PigBoss.h"
 
 #include <bt/NTBuilder.h>
 
