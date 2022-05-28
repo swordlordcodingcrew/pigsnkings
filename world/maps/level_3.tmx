@@ -212,8 +212,12 @@
   <object id="450" gid="135" x="512" y="640" width="32" height="32"/>
   <object id="453" gid="135" x="512" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj" locked="1">
-  <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32"/>
+ <objectgroup id="4" name="lvl_3_obj">
+  <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32">
+   <properties>
+    <property name="z_order" type="int" value="500"/>
+   </properties>
+  </object>
   <object id="2" type="hotrect" x="-8" y="616" width="8" height="152"/>
   <object id="4" type="hotrect" x="0" y="736" width="384" height="32"/>
   <object id="38" type="hotrect" x="320" y="576" width="32" height="128"/>
@@ -687,7 +691,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#0000ff" id="6" name="lvl_3_zones" tintcolor="#000000">
+ <objectgroup color="#0000ff" id="6" name="lvl_3_zones" visible="0" locked="1" tintcolor="#000000">
   <object id="84" name="0" x="0" y="512" width="320" height="256"/>
   <object id="87" name="1" x="320" y="512" width="352" height="256"/>
   <object id="89" name="4" x="320" y="256" width="320" height="256"/>

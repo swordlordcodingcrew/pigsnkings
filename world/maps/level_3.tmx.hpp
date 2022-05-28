@@ -342,7 +342,7 @@ static const dang::tmx_layer level_3_lvl_3_mood = {
 // Objects for layer: lvl_3_obj
 static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
 
-    {1,"king","king",0,704,32,32,true,"gfx_king",0,"",0,0b0000},
+    {1,"king","king",0,704,32,32,true,"gfx_king",0,"",500,0b0000},
     {2,"2","hotrect",-8,616,8,152,true,"",0,"",0,0b0000},
     {4,"4","hotrect",0,736,384,32,true,"",0,"",0,0b0000},
     {38,"38","hotrect",320,576,32,128,true,"",0,"",0,0b0000},
