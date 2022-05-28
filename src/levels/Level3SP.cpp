@@ -30,209 +30,23 @@ namespace pnk
         _l_hud_name = "lvl_3_hud";
         _l_fg_name = "lvl_3_fg";
 
-        // viewport = 320 x 240 px
-/*        act room0;
-        room0._extent = {0, 16, 10, 8};
-        // the starting point related to the save-game-trigger / start of level
-        room0._passage_from[-1] = {0, 6};
-        // when coming from room x, start at given position
-        room0._passage_from[1] = {4, 0};
-        room0._passage_from[2] = {4, 0};
-        room0._passage_from[4] = {0, 4};
-        room0._passage_from[5] = {4, 0};
-        room0._passage_from[6] = {4, 0};
-        room0._passage_from[7] = {9, 4};
-        _acts.push_back(room0);
-
-        act room1;
-        room1._extent = {10, 16, 11, 8};
-        room1._passage_from[2] = {10, 6};
-        room1._passage_from[3] = {0, 1};
-        room1._passage_from[4] = {0, 6};
-        _acts.push_back(room1);
-
-        act room2;
-        room2._extent = {20, 16, 10, 8};
-        room2._passage_from[0] = {5, 1};
-        room2._passage_from[4] = {9, 3};
-        _acts.push_back(room2);
-
-        act room3;
-        room3._extent = {0, 8, 10, 8};
-        room3._passage_from[-1] = {9, 6};
-        room3._passage_from[1] = {9, 6};
-        room3._passage_from[4] = {9, 1};
-        _acts.push_back(room3);
-
-        act room4;
-        room4._extent = {10,8, 10, 8};
-        room4._passage_from[0] = {9, 6};
-        room4._passage_from[1] = {9, 1};
-        room4._passage_from[2] = {0, 6};
-        room4._passage_from[5] = {0, 1};
-        _acts.push_back(room4);
-
-        act room5;
-        room5._extent = {20, 8, 10, 8};
-        room5._passage_from[-1] = {9, 6};
-        room5._passage_from[4] = {9, 6};
-        room5._passage_from[6] = {4, 1};
-        _acts.push_back(room5);
-
-        act room6;
-        room6._extent = {0, 0, 20, 8};
-        room6._passage_from[3] = {0, 1};
-        room6._passage_from[5] = {19, 1};
-        _acts.push_back(room6);
-
-        act room7;
-        room7._extent = {20, 0, 10, 8};
-        room7._passage_from[0] = {0, 6};
-        _acts.push_back(room7);
-*/
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: before bt (%d)\r\n", mallinfo().uordblks);
-#endif
-        // behaviour tree 1 for finding back to the path system
-        dang::spNTree back_to_path_h = dang::NTBuilder{}
-            .sequence()
-                .leaf(Enemy::NTfindNearestWaypointH)
-                .leaf(Enemy::NTcheckPathCompleted)
-            .end()
-        .build();
-
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 1 (%d)\r\n", mallinfo().uordblks);
-#endif
-        // behaviour tree 2 for finding back to the path system
-        dang::spNTree back_to_path = dang::NTBuilder{}
-                .sequence()
-                .leaf(Enemy::NTfindNearestWaypoint)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .build();
-
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 2 (%d)\r\n", mallinfo().uordblks);
-#endif
         // generic loitering
-        _bt["loiter"] = dang::NTBuilder{}
-                .sequence()
-                .selector()
-                .sequence()
-                .leaf(Enemy::NTsetRandomPath)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .tree(back_to_path_h)
-                .tree(back_to_path)
-                .end()
-                .leaf(HenchPig::NTsetSleepMedium)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .build();
+        _bt["loiter"] = buildLoiter();
+        _bt["berserk"] = buildBerserk();
 
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 3 (%d)\r\n", mallinfo().uordblks);
-#endif
-        _bt["berserk"] = dang::NTBuilder{}
-                .selector()
-                .sequence()
-                .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .tree(back_to_path_h)
-                .tree(back_to_path)
-                .end()
-                .build();
-
-
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 4 (%d)\r\n", mallinfo().uordblks);
-#endif
-        _bt["loiter_with_one_crate"] = dang::NTBuilder{}
-                .selector()
-                .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
-                .leaf(PigCrate::NTThrowCrate)
-                .end()
-                .sequence()
-                .leaf(Enemy::NTsetRandNeighbourWaypoint)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .tree(back_to_path_h)
-                .tree(back_to_path)
-                .end()
-                .build();
-
-/*        _bt["loiter_with_crates"] = dang::NTBuilder{}
+        _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-                    .inverter().leaf(PigCrate::NTWithCrate)
-                    .leaf(Enemy::NTsetDestinationCrateDepot)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                    .leaf(HenchPig::NTNap)
-                    .leaf(PigCrate::NTPickUpCrate)
-                .end()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1))
-                    .leaf(PigCrate::NTThrowCrate)
-                .end()
-                .sequence()
-                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
+                    .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
-                .tree(back_to_path_h)
-                .tree(back_to_path)
+                .sequence()
+                    .leaf(HenchPig::NTsetSleepShort)
+                    .leaf(HenchPig::NTdoSleep)
+                .end()
             .end()
         .build();
-*/
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 5 (%d)\r\n", mallinfo().uordblks);
-#endif
-        _bt["wait_crate"] = dang::NTBuilder{}
-                .selector()
-                .sequence()
-                .leaf(PigCrate::NTWithCrate)
-                .selector()
-                .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
-                .leaf(PigCrate::NTDistanceOK)
-                .leaf(PigCrate::NTThrowCrate)
-                .leaf(HenchPig::NTsetSleepMedium)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .sequence()
-                .leaf(HenchPig::NTsetSleepShort)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .end()
-                .end()
-                .tree(_bt["loiter"])
-                .end()
-                .build();
-
-
-        _bt["wait_bomb"] = dang::NTBuilder{}
-                .selector()
-                .sequence()
-                .leaf(PigBomb::NTWithBomb)
-                .selector()
-                .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
-                .leaf(PigBomb::NTDistanceOK)
-                .leaf(PigBomb::NTThrowBomb)
-                .leaf(HenchPig::NTsetSleepMedium)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .sequence()
-                .leaf(HenchPig::NTsetSleepShort)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .end()
-                .end()
-                .tree(_bt["loiter"])
-                .end()
-                .build();
 
         _bt["wait_with_bombs"] = dang::NTBuilder{}
             .selector()
@@ -248,8 +62,8 @@ namespace pnk
                             .leaf(Enemy::NTsetDestinationPOI)
                             .leaf(Enemy::NTcheckPathCompleted)
                         .end()
-                        .tree(back_to_path_h)
-                        .tree(back_to_path)
+                        .tree(buildBackToPathH())
+                        .tree(buildBackToPath())
                     .end()
                 .end()
                 .selector()
@@ -265,7 +79,7 @@ namespace pnk
             .end()
         .build();
 
-        _bt["wait_with_crates"] = dang::NTBuilder{}
+/*        _bt["wait_with_crates"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
                 .inverter().leaf(PigCrate::NTWithCrate)
@@ -290,11 +104,11 @@ namespace pnk
                 .end()
                 .end()
                 .build();
-
+*/
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 #endif
-        _bt["boss"] = dang::NTBuilder{}
+/*        _bt["boss"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
                 .leaf(PigBoss::NTHit)
@@ -309,20 +123,7 @@ namespace pnk
                 .end()
                 .build();
 
-        _bt["wait_for_hero"] = dang::NTBuilder{}
-            .selector()
-                .sequence()
-                    .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
-                    .leaf(Enemy::NTsetWPNearHero)
-                    .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .sequence()
-                    .leaf(HenchPig::NTsetSleepShort)
-                    .leaf(HenchPig::NTdoSleep)
-                .end()
-            .end()
-        .build();
-
+*/
     }
 
 }
