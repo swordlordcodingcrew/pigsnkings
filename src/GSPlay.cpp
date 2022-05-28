@@ -27,6 +27,7 @@
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
 #include "levels/Level3SP.hpp"
+#include "levels/Level4SP.hpp"
 
 #include "tracks/kingsofdawn.h"
 
@@ -178,7 +179,7 @@ namespace pnk
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
 #ifdef PNK_LEVEL3
-        _pnk._gamestate.saved_level = 2;
+        _pnk._gamestate.saved_level = 4;
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
@@ -236,6 +237,10 @@ namespace pnk
                 _screenplay = std::make_shared<Level3SP>(*this);
                 _tmx = &level_3_level;
                 break;
+            case 4:
+                _screenplay = std::make_shared<Level4SP>(*this);
+                _tmx = &level_4_level;
+                break;
         }
 
         dang::Gear& gear = _pnk.getGear();
@@ -263,17 +268,7 @@ namespace pnk
             txtr.createSceneGraphs(zone, _screenplay->_scene_graphs[_tmx->zones[i].zone_nr]);
 
         }
-/*        for (ScreenPlay::act& room : _screenplay->_acts)
-        {
-            room._extent_pixels.x = room._extent.x * _tmx->w->tileWidth;
-            room._extent_pixels.y = room._extent.y * _tmx->w->tileHeight;
-            room._extent_pixels.w = room._extent.w * _tmx->w->tileWidth;
-            room._extent_pixels.h = room._extent.h * _tmx->w->tileHeight;
 
-            // add scenegraph
-            txtr.createSceneGraphs(room._extent_pixels, room._scene_graphs);
-        }
-*/
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: imagesheet (%d)\n", mallinfo().uordblks);
 #endif
@@ -509,6 +504,9 @@ namespace pnk
                     break;
                 case 3:
                     showInfoLayer(true, 10000, str_lvl3_intro);
+                    break;
+                case 4:
+                    showInfoLayer(true, 10000, str_lvl4_intro);
                     break;
             }
         }
