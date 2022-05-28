@@ -63,4 +63,17 @@ But where is my hammer?!?\n\
 You may proceed to the door"};
 
 
+/**
+ * Level 4 strings
+ */
+const static std::string_view str_lvl4_intro{"These rooms seem to be somehow\n\
+off the record - ah well, let's bubble!\n\
+\n\
+(press 'X' to start)"};
+
+const static std::string_view str_lvl4_end{"The boss\n\
+is no more!\n\
+But where is my hammer?!?\n\
+You may proceed to the door"};
+
 }
