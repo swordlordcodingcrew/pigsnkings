@@ -163,6 +163,12 @@ namespace pnk
 
     }
 
+    /**
+     * For PigBomb and children only
+     * builds a behaviour tree where a bombed pig waits until the hero is close enough, then the bomb is thrown
+     * afterwards the piggy is loitering
+     * @return built spNTree
+     */
     dang::spNTree ScreenPlay::buildWaitWithBomb(GSPlay &gsp)
     {
         return dang::NTBuilder{}
