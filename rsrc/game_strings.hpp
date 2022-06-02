@@ -14,7 +14,7 @@ You lost.\n\
 \n\
 Game Over!\n\
 \n\
-(press 'X' to quit)"};
+(press 'A' to quit)"};
 
 const static std::string_view str_prefs_really_delete{"Do you really want to\n delete this gameslot?\n\n  (X = OK)"};
 
@@ -27,7 +27,7 @@ in the search for The Lost Axe\n\
 But alas, what do you see??\n\
 Pigs all around!\n\
 \n\
-(press 'X' to start)"};
+(press 'A' to start)"};
 
 const static std::string_view str_lvl1_end{"The pig boss is\n\
 vanquished!\n\
@@ -42,7 +42,7 @@ in the 2nd floor\n\
 But AAARGH\n\
 Even more pigs around!\n\
 \n\
-(press 'X' to start)"};
+(press 'A' to start)"};
 
 const static std::string_view str_lvl2_end{"The 2nd floor\n\
 pig boss is vanquished!\n\
@@ -55,7 +55,7 @@ You may proceed to the door"};
 const static std::string_view str_lvl3_intro{"You find yourself in the attic\n\
 lofty and such - let's bubble!\n\
 \n\
-(press 'X' to start)"};
+(press 'A' to start)"};
 
 const static std::string_view str_lvl3_end{"The attic boss\n\
 is no more!\n\
@@ -69,7 +69,7 @@ You may proceed to the door"};
 const static std::string_view str_lvl4_intro{"These rooms seem to be somehow\n\
 off the record - ah well, let's bubble!\n\
 \n\
-(press 'X' to start)"};
+(press 'A' to start)"};
 
 const static std::string_view str_lvl4_end{"The boss\n\
 is no more!\n\
