@@ -104,11 +104,11 @@ namespace pnk
                 .end()
                 .end()
                 .build();
-*/
+
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Level3SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
 #endif
-/*        _bt["boss"] = dang::NTBuilder{}
+        _bt["boss"] = dang::NTBuilder{}
                 .selector()
                 .sequence()
                 .leaf(PigBoss::NTHit)
