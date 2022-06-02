@@ -2,9 +2,9 @@
 // This file is part of the pnk game
 
 #include "Level1SP.hpp"
-#include "../GSPlay.h"
-#include "../actors/npc/PigBomb.h"
-#include "../actors/npc/PigBoss.h"
+#include "GSPlay.h"
+#include "actors/npc/PigBomb.h"
+#include "actors/npc/PigBoss.h"
 
 #include <bt/NTBuilder.h>
 
@@ -65,9 +65,6 @@ namespace pnk
             .end()
         .build();
 
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level1SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
-#endif
         _bt["boss"] = dang::NTBuilder{}
             .selector()
                 .sequence()
