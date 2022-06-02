@@ -178,8 +178,8 @@ namespace pnk
         dang::SndGear::stopMod();
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
-#ifdef PNK_LEVEL3
-        _pnk._gamestate.saved_level = 4;
+#ifdef PNK_LF_LEVEL_DEBUG
+        _pnk._gamestate.saved_level = 2;
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
