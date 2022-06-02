@@ -127,10 +127,11 @@ enum SpriteType
  */
 enum e_waypoint_type
 {
-    WPT_NONE = 0x0,
-    WPT_BOMBDEPOT = 0x1,
-    WPT_CRATEDEPOT = 0x2,
-    WPT_POI = 0x4
+    WPT_NONE = 0x00,
+    WPT_BOMBDEPOT = 0x01,
+    WPT_CRATEDEPOT = 0x02,
+    WPT_POI = 0x04,
+    WPT_POI2 = 0x08
 };
 
 
@@ -197,7 +198,7 @@ static inline const uint8_t REWARD_POINT_PIG_REWARD{100};
 static inline const uint32_t BOSS_RECOVER_TIME{3000};           // in ms. Duration of recovery
 
 /** button settings */
-static inline const blit::Button BTN_OK{blit::Button::X};
+static inline const blit::Button BTN_OK{blit::Button::A};
 static inline const blit::Button BTN_BACK{blit::Button::Y};
 static inline const blit::Button BTN_CANCEL{blit::Button::Y};
 static inline const blit::Button BTN_EXIT{blit::Button::MENU};
@@ -205,4 +206,4 @@ static inline const blit::Button BTN_EXIT{blit::Button::MENU};
 static inline const blit::Button BTN_JUMP{blit::Button::A};
 static inline const blit::Button BTN_BUBBLE{blit::Button::B};
 /** Prefs special buttons */
-static inline const blit::Button BTN_DELETE{blit::Button::B};
+static inline const blit::Button BTN_DELETE{blit::Button::X};
