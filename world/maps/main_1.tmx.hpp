@@ -81,6 +81,39 @@ static const dang::tmx_layer main_1_main_bg = {
     .spriteobejcts_len = 0
 };
 
+// Objects for layer: main_mood
+static const dang::tmx_spriteobject main_1_main_mood_objects[] = {
+
+    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
+    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
+    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0,0b0000},
+    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
+    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
+    {40,"40","",272,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {41,"41","",16,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {42,"42","",272,160,32,32,true,"gfx_castle_decorations",24,"",0,0b0000},
+    {43,"43","",16,160,32,32,true,"gfx_castle_decorations",16,"",0,0b0000}
+
+};
+
+static const size_t main_1_main_mood_objects_len = 9;
+
+static const dang::tmx_layer main_1_main_mood = {
+    .name = "main_mood",
+    .type = dang::tmx_layerType::ltObjects,
+    .opacity = 1,
+    .visible = true,
+    .z_order = 1,
+    .position = {0,0},
+    .tl_width = 0,
+    .tl_height = 0,
+    .tl_tileset = "",
+    .tl_tiles = nullptr,
+    .tl_tiles_len = 0,
+    .spriteobjects = main_1_main_mood_objects,
+    .spriteobejcts_len = main_1_main_mood_objects_len
+};
+
 // Objects for layer: main_obj
 static const dang::tmx_spriteobject main_1_main_obj_objects[] = {
 
@@ -112,6 +145,7 @@ static const dang::tmx_layer main_1_main_obj = {
 
 const static dang::tmx_layer main_1_layers[] = {
     main_1_main_bg,
+    main_1_main_mood,
     main_1_main_obj,
 };
 

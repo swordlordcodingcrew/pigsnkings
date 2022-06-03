@@ -19,7 +19,7 @@
 2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
- <objectgroup id="2" name="main_decoration">
+ <objectgroup id="2" name="main_mood">
   <object id="15" gid="203" x="16" y="96" width="32" height="32"/>
   <object id="18" gid="203" x="272" y="96" width="32" height="32"/>
   <object id="35" gid="202" x="51" y="49" width="218" height="36"/>
