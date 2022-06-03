@@ -35,7 +35,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES 32blit_HW)
 endif()
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
-add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions" "-Wattributes")
+add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions" "-Wattributes" "-Wno-unused-parameter")
 
 # ---- 32blit stuff ----
 #set(32BLIT_PATH "libs/32blit-beta" CACHE PATH "Path to 32blit.cmake")
