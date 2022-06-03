@@ -30,7 +30,7 @@ namespace pnk
          * rsrc-names
          */
         const std::string tmx_bg_layer_name{"prefs_bg"};
-        const std::string tmx_deco_layer_name{"prefs_decoration"};
+        const std::string tmx_deco_layer_name{"prefs_mood"};
 
         /**
          * layers

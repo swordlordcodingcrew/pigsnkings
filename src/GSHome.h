@@ -36,7 +36,7 @@ namespace pnk
          * rsrc-names
          */
         const std::string tmx_bg_layer_name = "main_bg";
-        const std::string tmx_deco_layer_name = "main_decoration";
+        const std::string tmx_deco_layer_name = "main_mood";
         const std::string tmx_obj_layer_name = "main_obj";
 
         /**
