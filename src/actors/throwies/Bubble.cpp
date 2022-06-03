@@ -299,8 +299,7 @@ namespace pnk
          e->_spr = shared_from_this();
          pnk::_pnk._dispatcher.queueEvent(std::move(e));
 */
+        dang::SndGear::playRumbleTrack(&dang::poke, 0);
     }
-
-
 
 }

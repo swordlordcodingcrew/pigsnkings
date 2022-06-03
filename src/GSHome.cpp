@@ -168,7 +168,7 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: auto layers done\n");
 #endif
-
+        assert(dl != nullptr);
         for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
         {
             const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;

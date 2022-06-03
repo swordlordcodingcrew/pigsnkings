@@ -549,7 +549,6 @@ namespace pnk
             _csl->addCollisionSprite(bub);
 
             dang::SndGear::playSfx(bubble_blow_22050_mono, bubble_blow_22050_mono_length, _pnk._prefs.volume_sfx);
-            dang::SndGear::playRumbleTrack(&dang::explosion, 0);
         }
         else if (pe._type == ETG_SPR_CONSUMED_BY_HERO)
         {
