@@ -71,6 +71,7 @@ static const dang::tmx_layer main_1_main_bg = {
     .opacity = 1,
     .visible = true,
     .z_order = 0,
+    .position = {0,0},
     .tl_width = 10,
     .tl_height = 8,
     .tl_tileset = "gfx_levels_castle_tiles",
@@ -78,38 +79,6 @@ static const dang::tmx_layer main_1_main_bg = {
     .tl_tiles_len = main_1_main_bg_tiles_len,
     .spriteobjects = nullptr,
     .spriteobejcts_len = 0
-};
-
-// Objects for layer: main_decoration
-static const dang::tmx_spriteobject main_1_main_decoration_objects[] = {
-
-    {15,"15","",16,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
-    {18,"18","",272,96,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
-    {35,"35","",51,49,218,36,true,"main_pnk_logo",0,"",0,0b0000},
-    {34,"rightcandle","candle",192,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
-    {33,"leftcandle","candle",96,128,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
-    {40,"40","",272,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
-    {41,"41","",16,128,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
-    {42,"42","",272,160,32,32,true,"gfx_castle_decorations",24,"",0,0b0000},
-    {43,"43","",16,160,32,32,true,"gfx_castle_decorations",16,"",0,0b0000}
-
-};
-
-static const size_t main_1_main_decoration_objects_len = 9;
-
-static const dang::tmx_layer main_1_main_decoration = {
-    .name = "main_decoration",
-    .type = dang::tmx_layerType::ltObjects,
-    .opacity = 1,
-    .visible = true,
-    .z_order = 1,
-    .tl_width = 0,
-    .tl_height = 0,
-    .tl_tileset = "",
-    .tl_tiles = nullptr,
-    .tl_tiles_len = 0,
-    .spriteobjects = main_1_main_decoration_objects,
-    .spriteobejcts_len = main_1_main_decoration_objects_len
 };
 
 // Objects for layer: main_obj
@@ -131,6 +100,7 @@ static const dang::tmx_layer main_1_main_obj = {
     .opacity = 1,
     .visible = true,
     .z_order = 2,
+    .position = {0,0},
     .tl_width = 0,
     .tl_height = 0,
     .tl_tileset = "",
@@ -142,7 +112,6 @@ static const dang::tmx_layer main_1_main_obj = {
 
 const static dang::tmx_layer main_1_layers[] = {
     main_1_main_bg,
-    main_1_main_decoration,
     main_1_main_obj,
 };
 
@@ -161,7 +130,13 @@ static const dang::tmx_level main_1_level {
     .waypoints = nullptr,
     .waypoints_len = 0,
     .waypoint_connections = nullptr,
-    .waypoint_connections_len = 0
+    .waypoint_connections_len = 0,
+    .wavepoints = nullptr,
+    .wavepoints_len = 0,
+    .zones = nullptr,
+    .zones_len = 0,
+    .zone_passages = nullptr,
+    .zone_passages_len = 0
 };
 
 
