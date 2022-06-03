@@ -215,7 +215,7 @@
  <objectgroup id="4" name="lvl_3_obj">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="500"/>
+    <property name="z_order" type="int" value="50"/>
    </properties>
   </object>
   <object id="2" type="hotrect" x="-8" y="616" width="8" height="152"/>
@@ -266,37 +266,37 @@
   <object id="182" name="1" type="warp_room_trigger" x="315" y="448" width="2" height="32"/>
   <object id="183" type="bubble_proto" gid="304" x="640" y="512" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="500"/>
+    <property name="z_order" type="int" value="50"/>
    </properties>
   </object>
   <object id="184" type="crate_proto" gid="298" x="640" y="640" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="185" type="bomb_proto" gid="341" x="640" y="576" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="186" type="pigpoof_proto" gid="234" x="640" y="608" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="700"/>
+    <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
   <object id="187" type="cannonmuzzle_proto" gid="353" x="640" y="544" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="188" type="cannonball_proto" gid="356" x="448" y="352" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="189" type="boom_proto" gid="258" x="448" y="480" width="64" height="64">
    <properties>
-    <property name="z_order" type="int" value="700"/>
+    <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
   <object id="190" type="hotrect" x="608" y="544" width="96" height="160"/>
@@ -350,43 +350,43 @@
   <object id="355" type="pig_normal" gid="210" x="896" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="363" type="pig_normal" gid="210" x="896" y="144" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="364" type="pig_normal" gid="210" x="896" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="365" type="pig_normal" gid="210" x="896" y="48" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="366" type="pig_normal" gid="2147483858" x="672" y="144" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="367" type="pig_normal" gid="2147483858" x="672" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="368" type="pig_normal" gid="2147483858" x="672" y="48" width="32" height="32">
    <properties>
     <property name="bt" value="wait_for_hero"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="369" type="hotrect" x="448" y="32" width="32" height="64"/>
@@ -397,7 +397,7 @@
   <object id="419" type="pig_normal" gid="2147483858" x="32" y="592" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="432" type="hotrect" x="512" y="352" width="32" height="128"/>
@@ -406,19 +406,19 @@
   <object id="414" type="pig_bomb" gid="319" x="488" y="560" width="32" height="32">
    <properties>
     <property name="bt" value="wait_with_bombs"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="447" type="pig_bomb" gid="319" x="488" y="608" width="32" height="32">
    <properties>
     <property name="bt" value="wait_with_bombs"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="448" type="pig_bomb" gid="319" x="488" y="656" width="32" height="32">
    <properties>
     <property name="bt" value="wait_with_bombs"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="462" gid="169" x="840" y="688" width="32" height="48"/>

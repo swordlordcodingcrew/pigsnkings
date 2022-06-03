@@ -185,48 +185,48 @@
  <objectgroup id="3" name="lvl_2_obj" locked="1">
   <object id="1" type="bubble_proto" gid="182" x="512" y="448" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="500"/>
+    <property name="z_order" type="int" value="50"/>
    </properties>
   </object>
   <object id="2" type="crate_proto" gid="436" x="608" y="448" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="3" type="bomb_proto" gid="395" x="576" y="448" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="4" type="pigpoof_proto" gid="350" x="544" y="448" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="700"/>
+    <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
   <object id="5" type="cannonmuzzle_proto" gid="447" x="608" y="416" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="6" type="cannonball_proto" gid="450" x="576" y="416" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="7" type="boom_proto" gid="456" x="640" y="416" width="64" height="64">
    <properties>
-    <property name="z_order" type="int" value="700"/>
+    <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
   <object id="8" type="king" gid="298" x="1888" y="288" width="32" height="32"/>
   <object id="9" type="coin_silver" gid="129" x="832" y="369" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="10" type="coin_gold" gid="133" x="1024" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="11" type="hotrect" x="1888" y="320" width="32" height="160"/>
@@ -328,185 +328,185 @@
   <object id="222" type="hotrect_platform" x="96" y="192" width="128" height="4"/>
   <object id="223" name="dan" type="pig_box" gid="407" x="832" y="192" width="32" height="32">
    <properties>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="224" type="pig_bomb" gid="2147484021" x="1440" y="320" width="32" height="32">
    <properties>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="225" type="pig_normal" gid="326" x="1312" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="226" type="pig_bomb" gid="2147484021" x="1408" y="384" width="32" height="32">
    <properties>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="227" type="pig_normal" gid="326" x="1312" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="228" type="pig_normal" gid="326" x="1696" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="229" type="pig_normal" gid="326" x="1696" y="352" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="230" type="pig_normal" gid="326" x="1792" y="384" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="231" type="pig_normal" gid="326" x="1856" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="232" type="pig_normal" gid="326" x="1632" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="233" type="pig_normal" gid="326" x="1008" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="234" type="pig_normal" gid="326" x="768" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="235" type="pig_normal" gid="326" x="832" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="236" type="pig_normal" gid="326" x="658" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="237" type="pig_normal" gid="326" x="192" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="238" type="pig_normal" gid="326" x="256" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="239" type="pig_normal" gid="326" x="87" y="448" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="240" type="pig_normal" gid="326" x="32" y="416" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="241" type="pig_normal" gid="326" x="64" y="384" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="242" type="pig_normal" gid="326" x="32" y="352" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="243" type="pig_normal" gid="326" x="64" y="320" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="244" type="pig_normal" gid="326" x="32" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="245" type="pig_normal" gid="326" x="56" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="246" type="pig_normal" gid="326" x="85" y="32" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="247" type="pig_normal" gid="326" x="203" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="248" type="pig_normal" gid="326" x="352" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="249" type="pig_normal" gid="326" x="576" y="96" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="250" type="pig_normal" gid="326" x="576" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="251" type="pig_normal" gid="326" x="352" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="252" type="pig_normal" gid="326" x="672" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="253" type="pig_normal" gid="326" x="896" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" value="200"/>
+    <property name="z_order" value="20"/>
    </properties>
   </object>
   <object id="254" type="hotrect" x="1920" y="272" width="8" height="64"/>
@@ -533,7 +533,7 @@
   <object id="337" type="boss" gid="462" x="1440" y="192" width="32" height="32">
    <properties>
     <property name="bt" value="boss"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="338" name="bossbattle trigger" type="bossbattle_trigger" x="1312" y="64" width="128" height="16"/>
@@ -543,77 +543,77 @@
   <object id="345" name="8" type="room_trigger" x="958" y="192" width="2" height="32"/>
   <object id="346" type="coin_gold" gid="133" x="1088" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="347" type="coin_gold" gid="133" x="1056" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="348" type="coin_gold" gid="133" x="1120" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="349" type="coin_gold" gid="133" x="1440" y="384" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="350" type="coin_gold" gid="133" x="1472" y="384" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="351" type="potion_green" gid="171" x="1408" y="311" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="353" type="coin_silver" gid="129" x="1632" y="352" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="354" type="coin_silver" gid="129" x="1632" y="384" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="355" type="coin_silver" gid="129" x="1856" y="384" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="356" type="coin_silver" gid="129" x="1856" y="352" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="357" type="coin_silver" gid="129" x="1743" y="340" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="358" type="coin_silver" gid="129" x="1743" y="373" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="359" type="coin_silver" gid="129" x="1743" y="308" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="360" type="coin_silver" gid="129" x="1856" y="436" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="361" type="coin_silver" gid="129" x="1632" y="436" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="369" type="pig_normal" gid="326" x="1136" y="448" width="32" height="32">
@@ -623,147 +623,147 @@
   </object>
   <object id="372" type="coin_gold" gid="133" x="1024" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="373" type="coin_gold" gid="133" x="1088" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="374" type="coin_gold" gid="133" x="1056" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="375" type="coin_gold" gid="133" x="1120" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="377" type="coin_gold" gid="133" x="1088" y="331" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="378" type="coin_gold" gid="133" x="1056" y="331" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="380" type="coin_gold" gid="133" x="1152" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="381" type="coin_gold" gid="133" x="1152" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="382" type="coin_gold" gid="133" x="992" y="274" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="383" type="coin_gold" gid="133" x="992" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="384" type="coin_silver" gid="129" x="864" y="369" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="385" type="coin_silver" gid="129" x="832" y="400" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="386" type="coin_silver" gid="129" x="864" y="400" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="389" type="coin_gold" gid="133" x="1152" y="331" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="390" type="coin_gold" gid="133" x="992" y="331" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="393" name="Bertha" type="cannon" gid="2147484090" x="704" y="448" width="32" height="32"/>
   <object id="394" name="Mr Cannoneer" type="pig_cannon" gid="2147483974" x="672" y="448" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="397" name="Bertha" type="cannon" gid="442" x="864" y="288" width="32" height="32"/>
   <object id="398" name="Mr Cannoneer" type="pig_cannon" gid="326" x="896" y="288" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="401" name="Bertha" type="cannon" gid="442" x="544" y="352" width="32" height="32"/>
   <object id="402" name="Mr Cannoneer" type="pig_cannon" gid="326" x="576" y="352" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="403" name="Bertha" type="cannon" gid="442" x="480" y="384" width="32" height="32"/>
   <object id="404" name="Mr Cannoneer" type="pig_cannon" gid="326" x="512" y="384" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="405" name="Bertha" type="cannon" gid="442" x="416" y="416" width="32" height="32"/>
   <object id="406" name="Mr Cannoneer" type="pig_cannon" gid="326" x="448" y="416" width="32" height="32">
    <properties>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="407" type="coin_gold" gid="133" x="352" y="269" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="408" type="coin_gold" gid="133" x="384" y="269" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="409" type="coin_gold" gid="133" x="416" y="270" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="410" type="coin_gold" gid="133" x="352" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="411" type="coin_gold" gid="133" x="384" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="412" type="coin_gold" gid="133" x="416" y="302" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="413" type="coin_gold" gid="133" x="352" y="334" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="414" type="coin_gold" gid="133" x="448" y="270" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="440" type="pig_normal" gid="326" x="145" y="128" width="32" height="32">
@@ -773,142 +773,142 @@
   </object>
   <object id="441" type="coin_silver" gid="129" x="32" y="16" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="442" type="coin_silver" gid="129" x="32" y="48" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="443" type="coin_silver" gid="129" x="32" y="80" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="444" type="coin_silver" gid="129" x="32" y="112" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="446" type="coin_silver" gid="129" x="32" y="144" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="447" type="coin_silver" gid="129" x="256" y="144" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="448" type="coin_silver" gid="129" x="256" y="112" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="449" type="coin_silver" gid="129" x="256" y="80" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="450" type="coin_silver" gid="129" x="256" y="48" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="451" type="coin_silver" gid="129" x="256" y="16" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="452" type="coin_silver" gid="129" x="96" y="144" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="453" type="coin_silver" gid="129" x="192" y="144" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="454" type="coin_gold" gid="133" x="96" y="78" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="455" type="coin_gold" gid="133" x="192" y="78" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="456" type="coin_gold" gid="133" x="192" y="14" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="457" type="coin_gold" gid="133" x="96" y="14" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="460" type="coin_gold" gid="133" x="1711" y="129" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="462" type="coin_gold" gid="133" x="1679" y="96" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="463" type="coin_gold" gid="133" x="1679" y="63" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="464" type="coin_gold" gid="133" x="1679" y="32" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="465" type="coin_gold" gid="133" x="1711" y="32" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="466" type="coin_gold" gid="133" x="1743" y="64" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="467" type="coin_gold" gid="133" x="1775" y="32" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="468" type="coin_gold" gid="133" x="1807" y="32" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="469" type="coin_gold" gid="133" x="1807" y="64" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="470" type="coin_gold" gid="133" x="1807" y="96" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="471" type="coin_gold" gid="133" x="1775" y="128" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="472" type="coin_gold" gid="133" x="1743" y="160" width="32" height="48">
    <properties>
-    <property name="z_order" type="int" value="600"/>
+    <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
   <object id="475" name="savepoint_trigger" type="savepoint_trigger" x="544" y="288" width="32" height="32"/>
