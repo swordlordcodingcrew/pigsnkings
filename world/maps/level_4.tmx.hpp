@@ -151,11 +151,12 @@ static const dang::tmx_spriteobject level_4_lvl_4_mood_objects[] = {
     {63,"63","",1640,40,46,56,true,"levels_door",0,"",0,0b0000},
     {65,"65","",848,136,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {67,"67","",800,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
-    {66,"66","",736,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000}
+    {66,"66","",736,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
+    {135,"135","",928,104,32,32,true,"gfx_castle_decorations",12,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_mood_objects_len = 19;
+static const size_t level_4_lvl_4_mood_objects_len = 20;
 
 static const dang::tmx_layer level_4_lvl_4_mood = {
     .name = "lvl_4_mood",
@@ -234,11 +235,12 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {130,"2","room_trigger",701,32,2,32,true,"",0,"",0,0b0000},
     {131,"1","room_trigger",672,32,2,32,true,"",0,"",0,0b0000},
     {132,"3","room_trigger",1085,32,2,32,true,"",0,"",0,0b0000},
-    {133,"2","room_trigger",1056,32,2,32,true,"",0,"",0,0b0000}
+    {133,"2","room_trigger",1056,32,2,32,true,"",0,"",0,0b0000},
+    {136,"136","hotrect",928,104,32,12,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_obj_objects_len = 59;
+static const size_t level_4_lvl_4_obj_objects_len = 60;
 
 static const dang::tmx_layer level_4_lvl_4_obj = {
     .name = "lvl_4_obj",

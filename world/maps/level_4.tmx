@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="134">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="137">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/character_pigcrate.tsx"/>
@@ -45,6 +45,7 @@
   <object id="65" gid="101" x="848" y="136" width="32" height="32"/>
   <object id="67" gid="101" x="800" y="160" width="32" height="32"/>
   <object id="66" gid="101" x="736" y="192" width="32" height="32"/>
+  <object id="135" gid="109" x="928" y="104" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_4_obj">
   <object id="50" type="pig_box" gid="134" x="512" y="96" width="32" height="32">
@@ -190,6 +191,7 @@
   <object id="131" name="1" type="room_trigger" x="672" y="32" width="2" height="32"/>
   <object id="132" name="3" type="room_trigger" x="1085" y="32" width="2" height="32"/>
   <object id="133" name="2" type="room_trigger" x="1056" y="32" width="2" height="32"/>
+  <object id="136" type="hotrect" x="928" y="104" width="32" height="12"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_4_fg" locked="1">
   <object id="9" gid="97" x="32" y="32" width="32" height="32"/>
@@ -221,8 +223,8 @@
   <object id="126" type="hud_boss_health" gid="423" x="241" y="37" width="16" height="16"/>
   <object id="127" type="hud_boss_health" gid="424" x="257" y="37" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_4_paths" visible="0" locked="1"/>
- <objectgroup color="#800000ff" id="7" name="lvl_4_zones" locked="1">
+ <objectgroup id="6" name="lvl_4_paths" locked="1"/>
+ <objectgroup color="#800000ff" id="7" name="lvl_4_zones" visible="0" locked="1">
   <object id="102" name="0" x="0" y="0" width="352" height="256"/>
   <object id="104" name="1" x="320" y="0" width="384" height="256"/>
   <object id="105" name="2" x="672" y="0" width="416" height="256"/>
