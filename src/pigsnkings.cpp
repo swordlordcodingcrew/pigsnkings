@@ -283,6 +283,20 @@ namespace pnk
 
     void PigsnKings::update(uint32_t time)
     {
+#ifdef PNK_DEBUG_MEM
+        // show amount of memory used
+        _prev_mem = _mem;
+        _mem = mallinfo().uordblks / 1024;
+        if (_mem > 11000)
+        {
+            DEBUG_PRINT("ALARM - max mem of 11000k reached: %uk", _mem);
+        }
+        else if (_mem != _prev_mem)
+//        if (_mem != uint32_t(mallinfo().uordblks / 1024))
+        {
+            std::cout << "heap=" << std::to_string(_mem) << "k, delta=" << int32_t(_mem - _prev_mem) << "k" << std::endl;
+        }
+#endif
         // first globally handle events
         _dispatcher.publishEvents();
 
@@ -306,25 +320,6 @@ namespace pnk
         _gear.update(10);
 //        _gear.update(time - _last_update_time);
 
-        _last_update_time = time;
-    }
-
-    void PigsnKings::render(uint32_t time)
-    {
-        // no need to clear the screen
-        // have the engine render the game
-        _gear.render(time);
-
-
-#ifdef PNK_DEBUG_MEM
-        // show amount of memory used
-        blit::screen.text("mem: " + std::to_string(mallinfo().uordblks), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
-        if (_mem != mallinfo().uordblks / 1024)
-        {
-            std::cout << "heap=" << std::to_string(_mem) << "k, delta=" << (mallinfo().uordblks/1024 - _mem) << "k" << std::endl;
-            _mem = mallinfo().uordblks / 1024;
-        }
-#endif
 
 #ifdef PNK_DEBUG_FPS
         _last_render_ticks = _current_render_ticks;
@@ -339,6 +334,20 @@ namespace pnk
 
 #endif
 
+        _last_update_time = time;
+    }
+
+    void PigsnKings::render(uint32_t time)
+    {
+        // no need to clear the screen
+        // have the engine render the game
+        _gear.render(time);
+
+#ifdef PNK_DEBUG_MEM
+        blit::screen.pen = {0,0,0};
+        // show amount of memory used
+        blit::screen.text("mem: " + std::to_string(_mem), hud_font_small, { 5, 5 }, true, blit::TextAlign::top_left);
+#endif
     }
 
     void PigsnKings::removeImagesheets()

@@ -120,7 +120,7 @@ namespace pnk
         uint32_t _dt_update_time{0};
 
 #ifdef PNK_DEBUG_MEM
-        int _mem{0};
+        uint32_t _mem{0}, _prev_mem{0};
 #endif
 
 #ifdef PNK_DEBUG_PRINT
