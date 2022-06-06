@@ -289,12 +289,11 @@ namespace pnk
         _mem = mallinfo().uordblks / 1024;
         if (_mem > 11000)
         {
-            DEBUG_PRINT("ALARM - max mem of 11000k reached: %uk", _mem);
+            DEBUG_PRINT("ALARM - max mem of 11000k reached: %uk\n", _mem);
         }
         else if (_mem != _prev_mem)
-//        if (_mem != uint32_t(mallinfo().uordblks / 1024))
         {
-            std::cout << "heap=" << std::to_string(_mem) << "k, delta=" << int32_t(_mem - _prev_mem) << "k" << std::endl;
+            DEBUG_PRINT("heap=%uk, delta=%ik\n", _mem, int32_t(_mem - _prev_mem));
         }
 #endif
         // first globally handle events
