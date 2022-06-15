@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DPNK_DEBUG_WAYPOINTS)
 #add_definitions(-DPNK_DEBUG_HEROSTATES)
 
-#add_definitions(-DPNK_LEVEL3)
+#add_definitions(-DPNK_LF_LEVEL_DEBUG)
 
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
