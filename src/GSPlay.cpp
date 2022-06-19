@@ -312,9 +312,9 @@ namespace pnk
 //#endif
 
         // create sprites
-        for (size_t j = 0; j < _csl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < _csl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = _csl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = _csl->tmxLayer()->spriteobjects + j;
 
             spImagesheet is = gear.getImagesheet(so->tileset);
             std::unordered_map<std::string, spImagesheet> iss = gear.getImagesheets();
@@ -472,9 +472,10 @@ namespace pnk
             }
         }
 
-        // create text layser
-        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
-        _txtl->_z_order = 10;
+        // create text layer
+        dang::PointF p{0,0};
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl, p, 10, "", true, true);
+//        _txtl->setZOrder(10);
         _txtl->setButtons(BTN_OK, BTN_CANCEL);
         gear.addLayer(_txtl);
 
@@ -1197,7 +1198,7 @@ namespace pnk
         _txtl->setText(message);
         _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this, std::placeholders::_1));
         _txtl->setActive(true);
-        _txtl->setVisibility(true);
+        _txtl->setVisible(true);
     }
 
     void GSPlay::showGameOverInfo()
@@ -1206,14 +1207,14 @@ namespace pnk
         _txtl->setText(str_game_over);
         _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
         _txtl->setActive(true);
-        _txtl->setVisibility(true);
+        _txtl->setVisible(true);
     }
 
     void GSPlay::hideInfoLayer(blit::Button btn)
     {
         _csl->setActive(true);
         _txtl->setActive(false);
-        _txtl->setVisibility(false);
+        _txtl->setVisible(false);
     }
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)

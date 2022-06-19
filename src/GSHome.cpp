@@ -25,6 +25,9 @@
 // DANG includes
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
+#include <ImgSprLayer.hpp>
+#include <sprite/ImgSpr.hpp>
+
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
 #include <TileLayer.hpp>
@@ -71,7 +74,7 @@ namespace pnk
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
             _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            _btns.at(_pnk._prefs.selectedModule).btn->setImgIndex(_btns.at(_pnk._prefs.selectedModule).img_index);
             _pnk._prefs.selectedModule = ++_pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
 
             positionCandles();
@@ -79,7 +82,7 @@ namespace pnk
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
             _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            _btns.at(_pnk._prefs.selectedModule).btn->setImgIndex(_btns.at(_pnk._prefs.selectedModule).img_index);
             if(_pnk._prefs.selectedModule == 0) {
                 _pnk._prefs.selectedModule = _pnk.ENDOF_SELECTION - 1;
             }
@@ -156,27 +159,27 @@ namespace pnk
         DEBUG_PRINT("GSHome: tile layer\n");
 #endif
 
-        dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, false, true, false);
+        dang::spImgSprLayer dl = txtr.getSprLayer(tmx_deco_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: sprite layer\n");
 #endif
 
         // create spritelayer w/o collision detection/resolution
-        dang::spSpriteLayer sl = txtr.getSpriteLayer(tmx_obj_layer_name, false, true, false);
+        dang::spImgSprLayer sl = txtr.getSprLayer(tmx_obj_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: auto layers done\n");
 #endif
         assert(dl != nullptr);
-        for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < dl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = dl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spSprite spr = std::make_shared<dang::Sprite>(so, is);
-            spr->_visible = true;
-            spr->_imagesheet = is;
+            dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
+//            spr->_visible = true;
+//            spr->_imagesheet = is;
             if (so->type == "candle")
             {
                 // missing assert, but no way to find out i
@@ -204,18 +207,18 @@ namespace pnk
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
 
         // create sprites
-        for (size_t j = 0; j < sl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < sl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = sl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spSprite spr{nullptr};
+            dang::spImgSpr spr{nullptr};
             // buttons
             if(so->type == "button")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
+                spr = std::make_shared<dang::ImgSpr>(so, is);
+//                spr->_visible = true;
+//                spr->_imagesheet = is;
                 if (so->type == "button" && so->name == "play")
                 {
                     _btns.at(_pnk.PLAY).btn = spr;
@@ -237,10 +240,10 @@ namespace pnk
             }
             else if (so->name == "piggie")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
-                spr->_transform = blit::SpriteTransform::HORIZONTAL;
+                spr = std::make_shared<dang::ImgSpr>(so, is);
+//                spr->_visible = true;
+//                spr->_imagesheet = is;
+                spr->setTransform(blit::SpriteTransform::HORIZONTAL);
 
                 // run piggie run
                 dang::spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
@@ -268,9 +271,9 @@ namespace pnk
             }
             else if (so->name == "hero")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
+                spr = std::make_shared<dang::ImgSpr>(so, is);
+//                spr->_visible = true;
+//                spr->_imagesheet = is;
 
                 // run hero, run
                 dang::spTwAnim anim = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);

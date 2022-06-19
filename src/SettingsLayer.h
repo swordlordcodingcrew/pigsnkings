@@ -18,6 +18,8 @@ namespace pnk
     {
     public:
         SettingsLayer();
+        SettingsLayer(const dang::PointF &position, uint8_t z_order, const std::string& name, bool visible, bool active) : Layer(LT_SPRITELAYER,
+                                                                                                   position, z_order, name, visible, active) {}
         ~SettingsLayer() override;
 
         void update(uint32_t dt, const dang::Gear &gear) override;
