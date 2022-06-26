@@ -8,7 +8,7 @@
 #include <32blit.hpp>
 
 #include <DangFwdDecl.h>
-#include <Layer.hpp>
+#include <libs/DANG/src/layer/Layer.hpp>
 
 #include <list>
 

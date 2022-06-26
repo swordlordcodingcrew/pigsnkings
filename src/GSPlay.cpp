@@ -71,9 +71,9 @@
 #include <Imagesheet.hpp>
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
-#include <TileLayer.hpp>
+#include <libs/DANG/src/layer/TileLayer.hpp>
 #include <MessageLayer.hpp>
-#include <Layer.hpp>
+#include <libs/DANG/src/layer/Layer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <tween/TwVel.hpp>

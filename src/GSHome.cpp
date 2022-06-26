@@ -25,12 +25,12 @@
 // DANG includes
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
-#include <ImgSprLayer.hpp>
+#include <libs/DANG/src/layer/ImgSprLayer.hpp>
 #include <sprite/ImgSpr.hpp>
 
 #include <Sprite.hpp>
 #include <SpriteLayer.hpp>
-#include <TileLayer.hpp>
+#include <libs/DANG/src/layer/TileLayer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <tween/TwPos.hpp>

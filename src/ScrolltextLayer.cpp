@@ -6,7 +6,7 @@
 #include <rsrc/gfx/castle_tiles.png.h>
 #include "Gear.hpp"
 #include "ScrolltextLayer.h"
-#include "Layer.hpp"
+#include "libs/DANG/src/layer/Layer.hpp"
 #include "Imagesheet.hpp"
 
 namespace pnk
