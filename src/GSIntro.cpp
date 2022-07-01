@@ -1,22 +1,20 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include "pnk_globals.h"
 #include "GSIntro.h"
-#include "GSHome.h"
 
-#include "rsrc/gfx/sl_shield_32blit.png.h"
+#include "pnk_globals.h"
+#include "GSHome.h"
 #include "pigsnkings.hpp"
+#include "rsrc/gfx/sl_shield_32blit.png.h"
 
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
-#include <Sprite.hpp>
-#include <SimpleImageLayer.hpp>
-
-#include <cassert>
+#include <layer/SimpleImageLayer.hpp>
 #include <snd/SndGear.hpp>
 #include <sfx/cheat_22050_mono.h>
-#include <sfx/defeat_22050_mono.h>
+
+#include <cassert>
 
 namespace pnk
 {

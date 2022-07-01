@@ -4,12 +4,12 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/ColSpr.hpp>
 
 namespace pnk
 {
 
-    class RoomTrigger : public dang::CollisionSprite
+    class RoomTrigger : public dang::ColSpr
     {
     public:
         RoomTrigger();

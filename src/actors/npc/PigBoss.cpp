@@ -20,6 +20,8 @@ namespace pnk
 
     PigBoss::PigBoss() : pnk::Enemy()
     {
+        _hotrect = {10, 10, 12, 22};
+        _walkSpeed = _loiter_speed;     // king is on steroids
     }
 
     PigBoss::PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::Enemy(so, is)
@@ -48,7 +50,7 @@ namespace pnk
 
     void PigBoss::update(uint32_t dt)
     {
-        this->dang::CollisionSprite::update(dt);
+        this->dang::FullSpr::update(dt);
 
         _on_ground = false;
 
@@ -78,10 +80,10 @@ namespace pnk
 
     uint8_t  PigBoss::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
 
         /** run into the king */
-        if (cs_other->_type_num == ST_KING)
+        if (cs_other->typeNum() == ST_KING)
         {
             if (_currentState == DEAD || _currentState == HIDING || _hit)
             {
@@ -93,7 +95,7 @@ namespace pnk
             }
         }
         /** hit a platform hotrect */
-        else if (cs_other->_type_num == ST_HOTRECT)
+        else if (cs_other->typeNum() == ST_HOTRECT)
         {
             return dang::CR_SLIDE;
         }
@@ -104,11 +106,11 @@ namespace pnk
 
     void PigBoss::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_KING && _currentState == LOITERING)
+        if (sprOther->typeNum() == ST_KING && _currentState == LOITERING)
         {
-            const dang::Vector2F& o_normal = static_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalOther : mf.normalMe;
+            const dang::Vector2F& o_normal = static_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalOther : mf.normalMe;
 
             if (o_normal.y > 0)
             {
@@ -118,7 +120,7 @@ namespace pnk
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
                     _hit = true;
                     _walkSpeed = _hiding_speed;
-                    _vel.x = _vel.x > 0 ? _walkSpeed : -_walkSpeed;
+                    setVelX(getVel().x > 0 ? _walkSpeed : -_walkSpeed);
                 }
             }
             else
@@ -126,19 +128,19 @@ namespace pnk
                 tellTheKingWeHitHim();
             }
         }
-        else if (sprOther->_type_num == ST_HOTRECT)
+        else if (sprOther->typeNum() == ST_HOTRECT)
         {
-            const dang::Vector2F& normal = dynamic_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = dynamic_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.x != 0)
             {
-                _vel.x = 0;
+                setVelX(0);
             }
 
             if (normal.y > 0)
             {
                 _on_ground = true;
-                _vel.y = 0;
+                setVelY(0);
             }
         }
 
@@ -202,7 +204,7 @@ namespace pnk
         setAnimation(_anim_m_die);
         removeTweens(true);
         _nTreeState.reset();
-        _vel.x = 0;
+        setVelX(0);
 
         _currentState = DEAD;
 
@@ -211,7 +213,7 @@ namespace pnk
 
     void PigBoss::tellTheKingWeHitHim()
     {
-        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_BOSS, shared_from_this()));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_BOSS));
 
 //        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
 //        e->_spr = shared_from_this();
@@ -233,14 +235,7 @@ namespace pnk
         Enemy::startOutToWaypoint();
         removeAnimation();
         setAnimation(_anim_m_running);
-        if (_vel.x > 0)
-        {
-            _transform = blit::HORIZONTAL;
-        }
-        else
-        {
-            _transform = blit::NONE;
-        }
+        setTransform(getVel().x > 0 ? blit::HORIZONTAL : blit::NONE);
     }
 
     void PigBoss::bubble()
@@ -258,11 +253,10 @@ namespace pnk
         return false;
     }
 
-    dang::BTNode::Status PigBoss::NTLurk(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTLurk(dang::FullSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
-//        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
-//        assert(spr != nullptr);
+
         if (spr._currentState != SLEEPING && spr._nextState != SLEEPING)
         {
             spr.prepareChangeState(SLEEPING);
@@ -276,11 +270,10 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBoss::NTRun(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTRun(dang::FullSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
-//        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
-//        assert(spr != nullptr);
+
         if (spr._currentState != LOITERING && spr._nextState != LOITERING)
         {
             dang::BTNode::Status ret1 = spr.setRandNeighbourWaypoint();
@@ -300,11 +293,10 @@ namespace pnk
 
     }
 
-    dang::BTNode::Status PigBoss::NTHit(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTHit(dang::FullSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
-//        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
-//        assert(spr != nullptr);
+
         if (spr._hit)
         {
             return dang::BTNode::Status::SUCCESS;
@@ -312,11 +304,10 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBoss::NTRecover(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTRecover(dang::FullSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
-//        std::shared_ptr<PigBoss> spr = std::static_pointer_cast<PigBoss>(s);
-//        assert(spr != nullptr);
+
         if (spr._currentState != HIDING && spr._nextState != HIDING)
         {
             spr.prepareChangeState(HIDING);

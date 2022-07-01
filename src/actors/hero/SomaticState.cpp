@@ -29,22 +29,22 @@ namespace pnk
 
     uint8_t SomaticState::getCollisionResponse(const Hero &hero, const dang::CollisionObject *other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
 
-        if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        if (cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {
-            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero._vel.y > 0)
+            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero.getVel().y > 0)
             {
                 return dang::CR_SLIDE;
             }
 
             return dang::CR_CROSS;
         }
-        else if (cs_other->_type_num == ST_HOTRECT)
+        else if (cs_other->typeNum() == ST_HOTRECT)
         {
             return dang::CR_SLIDE;
         }
-        else if (cs_other->_type_num == ST_ROOM_TRIGGER || cs_other->_type_num == ST_WARP_ROOM_TRIGGER)
+        else if (cs_other->typeNum() == ST_ROOM_TRIGGER || cs_other->typeNum() == ST_WARP_ROOM_TRIGGER)
         {
             return dang::CR_CROSS;
         }
@@ -64,7 +64,7 @@ namespace pnk
     {
         hero.removeAnimation();
         hero.setAnimation(hero._anim_s_blink);
-        hero._gravity = {0,0};
+        hero.setGravity({0,0});
         _last_time = 0;
     }
 
@@ -85,7 +85,7 @@ namespace pnk
 
     void ExitState::enter(Hero &hero, uint32_t dt)
     {
-        hero._gravity = PigsnKings::_gravity;
+        hero.setGravity(PigsnKings::_gravity);
         hero.removeAnimation();
         hero._anim_s_life_lost->reset();
         hero.setAnimation(hero._anim_s_life_lost);
@@ -103,7 +103,7 @@ namespace pnk
 
     void NormalState::enter(Hero &hero, uint32_t dt)
     {
-        hero._gravity = PigsnKings::_gravity;
+        hero.setGravity(PigsnKings::_gravity);
 
         if (hero._action_state == ActionState::_bubble)
         {
@@ -186,18 +186,18 @@ namespace pnk
 
     uint8_t  NormalState::getCollisionResponse(const Hero& hero, const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
+        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
 
-        if (cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        if (cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {
-            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero._vel.y > 0)
+            if (cs_other->getHotrectG().top() - 6 >= hero._co_pos.y + hero._hotrect.h && hero.getVel().y > 0)
             {
                 return dang::CR_SLIDE;
             }
             return dang::CR_CROSS;
         }
-        else if (cs_other->_type_num > ST_TRIGGERS && cs_other->_type_num < ST_TRIGGERS_END
-                 || cs_other->_type_num > ST_REWARDS && cs_other->_type_num < ST_REWARDS_END)
+        else if (cs_other->typeNum() > ST_TRIGGERS && cs_other->typeNum() < ST_TRIGGERS_END
+                 || cs_other->typeNum() > ST_REWARDS && cs_other->typeNum() < ST_REWARDS_END)
         {
             return dang::CR_CROSS;
         }
@@ -235,7 +235,7 @@ namespace pnk
 
     void LifeLostState::enter(Hero &hero, uint32_t dt)
     {
-        hero._gravity = PigsnKings::_gravity;
+        hero.setGravity(PigsnKings::_gravity);
         hero.removeAnimation();
         hero._anim_s_life_lost->reset();
         hero.setAnimation(hero._anim_s_life_lost);

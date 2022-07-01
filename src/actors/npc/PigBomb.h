@@ -17,10 +17,10 @@ namespace pnk
         void init() override;
 
         // Behaviour Tree functions
-        static dang::BTNode::Status NTPickUpBomb(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTThrowBomb(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTWithBomb(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTDistanceOK(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTPickUpBomb(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTThrowBomb(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTWithBomb(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTDistanceOK(dang::FullSpr& s, uint32_t dt);
 
     protected:
         bool            onEnterThrowing() override;

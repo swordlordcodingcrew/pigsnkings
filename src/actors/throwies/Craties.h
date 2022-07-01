@@ -3,8 +3,9 @@
 
 #pragma once
 
-#include <DangFwdDecl.h>
 #include "Throwies.h"
+
+#include <DangFwdDecl.h>
 
 namespace pnk
 {

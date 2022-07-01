@@ -1,34 +1,28 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <iostream>
-#include <cassert>
+
+#include "Craties.h"
+#include "pigsnkings.hpp"
+#include "PnkEvent.h"
+#include "pnk_globals.h"
 
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
 #include <tween/TwSequence.hpp>
-#include <tween/TwVel.hpp>
 
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
-#include "Throwies.h"
-#include "Craties.h"
-#include "src/actors/npc/Enemy.h"
-#include "src/PnkEvent.h"
-#include "src/pnk_globals.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
+#include <cassert>
 
 namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Craties::Craties()
+    Craties::Craties() : Throwies()
     {
 
     }
 
-    Craties::Craties(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
+    Craties::Craties(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
         _cr = dang::CR_TOUCH;
     }
@@ -63,14 +57,13 @@ namespace pnk
 
     void Craties::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_HOTRECT || sprOther->_type_num == ST_HOTRECT_PLATFORM)
+        if (sprOther->typeNum() == ST_HOTRECT || sprOther->typeNum() == ST_HOTRECT_PLATFORM)
         {
             _cr = dang::CR_NONE;
-            _gravity = {0,0};
-            _vel = {0,0};
+            setGravity({0,0});
+            setVel(0,0);
             removeAnimation();
             _anim_destruction->setFinishedCallback([=]()
             {
@@ -80,14 +73,14 @@ namespace pnk
 
             triggerExplosion(); // does only do sound, no explosion fx
         }
-        else if (sprOther->_type_num == ST_KING)
+        else if (sprOther->typeNum() == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
 
             _cr = dang::CR_NONE;
-            _gravity = {0,0};
-            _vel = {0,0};
+            setGravity({0,0});
+            setVel(0,0);
             removeAnimation();
             _anim_destruction->setFinishedCallback([=]()
             {
@@ -101,9 +94,8 @@ namespace pnk
 
     uint8_t  Craties::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (_cr != dang::CR_NONE && (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT))
+        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        if (_cr != dang::CR_NONE && (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT))
         {
             return dang::CR_TOUCH;
         }
@@ -114,7 +106,6 @@ namespace pnk
     void Craties::tellTheKingWeHitHim()
     {
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_spr = shared_from_this();
         e->_payload = ST_FLYING_CRATE;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
@@ -122,7 +113,6 @@ namespace pnk
     void Craties::triggerExplosion()
     {
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CRATE_EXPLODES));
-        e->_spr = shared_from_this();
         e->_pos = this->getPos();
         e->_payload = ST_FLYING_CRATE;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));

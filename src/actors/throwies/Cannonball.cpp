@@ -31,7 +31,7 @@ namespace pnk
 
     }
 
-    Cannonball::Cannonball(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
+    Cannonball::Cannonball(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
 
     }
@@ -65,10 +65,9 @@ namespace pnk
 
     void Cannonball::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_HOTRECT)
+        if (sprOther->typeNum() == ST_HOTRECT)
         {
             // have the animation sequence triggered
             triggerExplosion();
@@ -76,7 +75,7 @@ namespace pnk
             // me destroys in the next cycle, we need the pointer in this cycle for the event
             _remove_me = true;
         }
-        else if (sprOther->_type_num == ST_KING)
+        else if (sprOther->typeNum() == ST_KING)
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -89,8 +88,8 @@ namespace pnk
     uint8_t  Cannonball::getCollisionResponse(const dang::CollisionObject* other) const
     {
 //        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT)
+        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT)
         {
             return dang::CR_TOUCH;
         }
@@ -101,7 +100,6 @@ namespace pnk
     void Cannonball::tellTheKingWeHitHim()
     {
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_spr = shared_from_this();
         e->_payload = ST_FLYING_CANNONBALL;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
@@ -109,7 +107,6 @@ namespace pnk
     void Cannonball::triggerExplosion()
     {
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CANNONBALL_EXPLODES));
-        e->_spr = shared_from_this();
         e->_pos = this->getPos();
         e->_payload = ST_FLYING_CANNONBALL;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));

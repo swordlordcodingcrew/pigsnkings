@@ -1,25 +1,54 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <iostream>
-#include <fonts/hud_font_big.h>
-#include <fonts/hud_font_small.h>
 #include "HUDLayer.hpp"
-#include "Sprite.hpp"
+#include "pnk_globals.h"
+#include "fonts/hud_font_big.h"
+#include "fonts/hud_font_small.h"
 #include "Gear.hpp"
-//#include "GameState.h"
 #include "pigsnkings.hpp"
+
+#include <sprite/ImgSpr.hpp>
+#include <TmxExtruder.hpp>
 
 namespace pnk
 {
     extern PigsnKings _pnk;
 
-    HUDLayer::HUDLayer() : BaseHUDLayer()
+    HUDLayer::HUDLayer() : ImgSprLayer()
     {
         foregroundColour = blit::Pen(63, 56, 81, 255);
         backgroundColour = blit::Pen(152, 152, 152, 200);
         healthColour = blit::Pen(78, 110, 197, 255);
     }
+
+    void HUDLayer::fillSprites(dang::Gear& gear)
+    {
+        for (size_t j = 0; j < tmxLayer()->spriteobejcts_len; j++)
+        {
+            const dang::tmx_spriteobject* so = tmxLayer()->spriteobjects + j;
+
+            auto spr = std::make_shared<dang::ImgSpr>(so, gear.getImagesheet(so->tileset));
+            if (so->type == "hud_hero")
+            {
+                spr->setTypeNum(ST_HUD_HERO);
+            }
+            else if (so->type == "hud_boss")
+            {
+                spr->setTypeNum(ST_HUD_BOSS);
+                spr->setVisible(false); // as long as no boss battle is running
+            }
+            else if (so->type == "hud_boss_health")
+            {
+                spr->setTypeNum(ST_HUD_BOSS_HEALTH);
+                spr->setVisible(false); // as long as no boss battle is running
+            }
+
+            addSprite(spr);
+        }
+
+    }
+
 
     void HUDLayer::changeCheatSprite()
     {
@@ -29,7 +58,10 @@ namespace pnk
             return;
         }
 
-        for (dang::spSprite& spr : _sprites)
+        dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_HERO);
+        spr->setImgIndex(27);
+
+/*        for (dang::spSprite& spr : _sprites)
         {
             if(spr->_type_name == "hud_hero")
             {
@@ -37,7 +69,7 @@ namespace pnk
                 spr->_img_index = 27;
             }
         }
-
+*/
         isCheating = true;
     }
 
@@ -49,14 +81,19 @@ namespace pnk
             return;
         }
 
-        for (dang::spSprite& spr : _sprites)
+        dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_BOSS);
+        spr->setVisible(true);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
+        spr->setVisible(true);
+
+/*        for (dang::spSprite& spr : _sprites)
         {
             if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
             {
                 spr->_visible = true;
             }
         }
-
+*/
         isBossVisible = true;
     }
 
@@ -68,7 +105,12 @@ namespace pnk
             return;
         }
 
-        for (dang::spSprite& spr : _sprites)
+        dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_BOSS);
+        spr->setVisible(false);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
+        spr->setVisible(false);
+
+/*        for (dang::spSprite& spr : _sprites)
         {
             if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
             {
@@ -76,17 +118,15 @@ namespace pnk
                 spr->_visible = false;
             }
         }
-
+*/
         isBossVisible = false;
     }
 
-    void HUDLayer::updateInternal(uint32_t dt, const dang::Gear &gear)
+//    void HUDLayer::renderInternal(const dang::Gear &gear)
+    void HUDLayer::render(const dang::Gear &gear)
     {
+        this->ImgSprLayer::render(gear);
 
-    }
-
-    void HUDLayer::renderInternal(const dang::Gear &gear)
-    {
         std::string score =  std::to_string(_pnk._gamestate.score);
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;
 

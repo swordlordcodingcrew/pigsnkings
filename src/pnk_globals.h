@@ -118,7 +118,17 @@ enum SpriteType
 
     // 80 - 89 Mood stuff
     ST_PIG_POOF = 81,
-    ST_CANNON_MUZZLE = 82
+    ST_CANNON_MUZZLE = 82,
+
+    // 90 - 99 HUD layer stuff
+    ST_HUD_HERO = 91,
+    ST_HUD_BOSS,
+    ST_HUD_BOSS_HEALTH,
+
+    // 100 - 109 mood layer
+    ST_MOOD_DOOR = 101,
+
+
 };
 
 

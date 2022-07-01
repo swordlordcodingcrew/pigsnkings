@@ -25,12 +25,10 @@
 // DANG includes
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
-#include <libs/DANG/src/layer/ImgSprLayer.hpp>
+#include <layer/ImgSprLayer.hpp>
 #include <sprite/ImgSpr.hpp>
-
-#include <Sprite.hpp>
-#include <SpriteLayer.hpp>
-#include <libs/DANG/src/layer/TileLayer.hpp>
+#include <Rand.hpp>
+#include <layer/TileLayer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <tween/TwPos.hpp>
@@ -38,11 +36,9 @@
 #include <tween/TwNull.hpp>
 #include <snd/SndGear.hpp>
 #include <tracks/paperbird.h>
-#include <Rand.hpp>
 
 #include <cassert>
 #include <iostream>
-#include <sstream>
 #include <malloc.h>
 
 namespace pnk
@@ -159,14 +155,14 @@ namespace pnk
         DEBUG_PRINT("GSHome: tile layer\n");
 #endif
 
-        dang::spImgSprLayer dl = txtr.getSprLayer(tmx_deco_layer_name, false, true, false);
+        dang::spImgSprLayer dl = txtr.getImgSprLayer(tmx_deco_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: sprite layer\n");
 #endif
 
         // create spritelayer w/o collision detection/resolution
-        dang::spImgSprLayer sl = txtr.getSprLayer(tmx_obj_layer_name, false, true, false);
+        dang::spImgSprLayer sl = txtr.getImgSprLayer(tmx_obj_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: auto layers done\n");
@@ -325,7 +321,7 @@ namespace pnk
         // empty out gear
         gear.removeImagesheets();
         gear.removeLayers();
-        gear.removeNTrees();
+//        gear.removeNTrees();
 
         _btns.clear();
         _sprLeftCandle.reset();

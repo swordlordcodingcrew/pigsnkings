@@ -4,7 +4,7 @@
 #pragma once
 
 //#include <list>
-#include <BaseHUDLayer.hpp>
+#include <libs/DANG/src/layer/BaseHUDLayer.hpp>
 #include <32blit.hpp>
 #include <DangFwdDecl.h>
 
@@ -13,11 +13,12 @@
 namespace pnk
 {
 
-    class HUDLayer : public dang::BaseHUDLayer
+    class HUDLayer : public dang::ImgSprLayer
     {
     public:
         HUDLayer();
         ~HUDLayer() override = default;
+        void fillSprites(dang::Gear& gear);
 
         void changeCheatSprite();
 
@@ -25,8 +26,9 @@ namespace pnk
         void deactivateBossHUD();
 
     protected:
-        void updateInternal(uint32_t dt, const dang::Gear& gear) override;
-        void renderInternal(const dang::Gear& gear) override;
+//        void updateInternal(uint32_t dt, const dang::Gear& gear);
+//        void renderInternal(const dang::Gear& gear);
+        void    render(const dang::Gear& gear) override;
 
         blit::Pen backgroundColour;
         blit::Pen foregroundColour;

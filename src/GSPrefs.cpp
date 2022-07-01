@@ -13,8 +13,8 @@
 
 #include <Gear.hpp>
 #include <fonts/barcadebrawl.h>
-#include <MessageLayer.hpp>
-#include <MessageLayer.hpp>
+#include <libs/DANG/src/layer/MessageLayer.hpp>
+#include <libs/DANG/src/layer/MessageLayer.hpp>
 
 #include <32blit.hpp>
 
@@ -71,7 +71,7 @@ namespace pnk
 
         dang::spTileLayer tl = txtr.getTileLayer(tmx_bg_layer_name, true);
 //        dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, true, true, false);
-        dang::spImgSprLayer dl = txtr.getSprLayer(tmx_deco_layer_name, true, true, false);
+        dang::spImgSprLayer dl = txtr.getImgSprLayer(tmx_deco_layer_name, true, true, false);
 
         // settings layer
         dang::PointF p{0, 0};
@@ -82,7 +82,7 @@ namespace pnk
 
         // create text layser
         _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl, p, 10, "", true, false);
-        assert(_stl != nullptr);
+        assert(_txtl != nullptr);
 //        _txtl->_z_order = 10;
 //        _txtl->_active = false;
         _txtl->setButtons(BTN_OK, BTN_CANCEL);

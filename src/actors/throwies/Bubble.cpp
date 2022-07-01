@@ -1,46 +1,43 @@
 // (c) 2019-20 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <iostream>
-#include <cassert>
+
+#include "TmxExtruder.hpp"
+#include "pigsnkings.hpp"
+#include "Bubble.h"
+#include "actors/npc/Enemy.h"
+#include "PnkEvent.h"
+#include "pnk_globals.h"
+#include "GSPlay.h"
+#include "sfx/bubble_pop_22050_mono.h"
+#include "sfx/coin_22050_mono.h"
+#include "SpriteFactory.hpp"
 
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
 #include <tween/TwSequence.hpp>
 #include <tween/TwVel.hpp>
-#include <libs/DANG/src/snd/SndGear.hpp>
+#include <snd/SndGear.hpp>
 
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
-#include "Bubble.h"
-#include "src/actors/npc/Enemy.h"
-#include "src/PnkEvent.h"
-#include "src/pnk_globals.h"
-#include "src/GSPlay.h"
-#include "sfx/bubble_pop_22050_mono.h"
-#include "sfx/coin_22050_mono.h"
-#include "src/SpriteFactory.hpp"
+#include <cassert>
 
 namespace pnk
 {
-    using spTwSeq = std::shared_ptr<dang::TwSequence>;
-    using spTwVel = std::shared_ptr<dang::TwVel>;
-
     extern PigsnKings _pnk;
 
-    Bubble::Bubble()
+    Bubble::Bubble() : dang::FullSpr()
     {
 
     }
 
-    Bubble::Bubble(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Bubble::Bubble(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
     {
 
     }
 
-    Bubble::Bubble(const Bubble &bub) : CollisionSprite(bub)
+    Bubble::Bubble(const Bubble &bub) : FullSpr(bub)
     {
-//        std::cout << "bubble copy constructor" << std::endl;
+//        std::printf("bubble copy constructor\n");
 
         _to_the_left = bub._to_the_left;
         _state = bs_hatch;
@@ -75,7 +72,7 @@ namespace pnk
         _hotrect = {10, 10, 12, 12};
 
         // animation sequence
-        spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+        dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
         // add finished_callback to grow anim
         _anim_blow->setFinishedCallback([=] ()
              {
@@ -93,7 +90,7 @@ namespace pnk
                  {
                      _state = bs_bursting;
                      dang::SndGear::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, _pnk._prefs.volume_sfx);
-                     _vel = {0,0};
+                     setVel(0,0);
                      removeTweens(true);
                  }
              });
@@ -107,9 +104,9 @@ namespace pnk
 
         // movement sequence
         float velx = _to_the_left ? -BUBBLE_VEL : BUBBLE_VEL;
-        spTwSeq tw_seq = std::make_shared<dang::TwSequence>();
-        spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, &dang::Ease::InQuad);
-        spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, BUBBLE_VEL_UP), 100, &dang::Ease::Linear);
+        dang::spTwSequence tw_seq = std::make_shared<dang::TwSequence>();
+        dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, 0), dang::Vector2F(0, 0), 400, &dang::Ease::InQuad);
+        dang::spTwVel twv2 = std::make_shared<dang::TwVel>(dang::Vector2F(0, 0), dang::Vector2F(0, BUBBLE_VEL_UP), 100, &dang::Ease::Linear);
         tw_seq->addTween(twv1);
         tw_seq->addTween(twv2);
         addTween(tw_seq);
@@ -122,21 +119,21 @@ namespace pnk
             std::shared_ptr<Enemy> en = _catched_en.lock();
             if (en)
             {
-                en->setPos(_pos + _delta_catch);
+                en->setPos(getPos() + _delta_catch);
             }
         }
     }
 
     void Bubble::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_CANNON || sprOther->_type_num == ST_PIG_CANNON || sprOther->_type_num == ST_PIG_BOSS)
+        if (sprOther->typeNum() == ST_CANNON || sprOther->typeNum() == ST_PIG_CANNON || sprOther->typeNum() == ST_PIG_BOSS)
         {
             return; // cannoneers, cannons and royals dont get bubbled
         }
 
-        if ((sprOther->_type_num > ST_ENEMIES && sprOther->_type_num < ST_ENEMIES_END)
+        if ((sprOther->typeNum() > ST_ENEMIES && sprOther->typeNum() < ST_ENEMIES_END)
             && (_state == bs_growing || _state == bs_wobbling))
         {   // an enemy is catched
 
@@ -152,11 +149,11 @@ namespace pnk
 
             // set vel
             removeTweens(true);
-            _vel = {0, -0.1};
+            setVel(0, -0.1);
 
             // alter animation
             removeAnimation(true);
-            spTwSeq tw_seq_anim = std::make_shared<dang::TwSequence>();
+            dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
             _anim_catched->reset();
             _anim_catched->setFinishedCallback([=] ()
                  {
@@ -178,9 +175,9 @@ namespace pnk
             setAnimation(tw_seq_anim);
 
         }
-        else if (sprOther->_type_num == ST_KING)
+        else if (sprOther->typeNum() == ST_KING)
         {
-            const dang::Vector2F& normal = dynamic_cast<dang::CollisionSprite*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = dynamic_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.y >= 0 || _state == bs_enemy_catched)   // hero is not on top or bubble has an enemy catched
             {
@@ -191,7 +188,7 @@ namespace pnk
                     // reward
                     std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
                     e->_payload = ST_PIG_REWARD;
-                    e->_spr = shared_from_this();
+//                    e->_spr = shared_from_this();
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
                     // remove enemy with a poof
@@ -200,7 +197,7 @@ namespace pnk
                     {
                         en->markRemove();
 
-                        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, en->_id));
+                        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, en->id()));
                         pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
                         // poof
@@ -215,7 +212,7 @@ namespace pnk
 
                 }
 
-                _vel = {0,0};
+                setVel(0,0);
                 removeTweens(true);
                 _state = bs_bursting;
                 dang::SndGear::playSfx(bubble_pop_22050_mono_wav, bubble_pop_22050_mono_wav_length, _pnk._prefs.volume_sfx);
@@ -235,15 +232,15 @@ namespace pnk
         if (!_pos_changed_in_collide)
         {
             _pos_changed_in_collide = false;
-            _pos = global2Local(_goal);
+            setPos(global2Local(_goal));
         }
     }
 
     uint8_t  Bubble::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
+        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
 //        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (cs_other->_type_num == ST_KING)
+        if (cs_other->typeNum() == ST_KING)
         {
             if (_state == bs_enemy_catched)
             {
@@ -264,12 +261,12 @@ namespace pnk
             return dang::CR_NONE;
         }
 
-        if (cs_other->_type_num > ST_ENEMIES && cs_other->_type_num < ST_ENEMIES_END)
+        if (cs_other->typeNum() > ST_ENEMIES && cs_other->typeNum() < ST_ENEMIES_END)
         {
             return _state == bs_enemy_catched ? dang::CR_NONE : dang::CR_CROSS;
         }
 
-        if (cs_other->_type_num == ST_HOTRECT)
+        if (cs_other->typeNum() == ST_HOTRECT)
         {
             return dang::CR_TOUCH;
         }
@@ -280,12 +277,12 @@ namespace pnk
     void Bubble::removeSelf()
     {
         // remove enemy if catched
-        dang::spCollisionSprite spr = _catched_en.lock();
+        dang::spFullSpr spr = _catched_en.lock();
         if (spr != nullptr)
         {
             spr->markRemove();
 
-            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, spr->_id));
+            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, spr->id()));
             pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
 /*            std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));

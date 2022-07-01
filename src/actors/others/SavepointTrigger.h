@@ -4,11 +4,11 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/ColSpr.hpp>
 
 namespace pnk
 {
-    class SavepointTrigger : public dang::CollisionSprite
+    class SavepointTrigger : public dang::ColSpr
     {
     public:
         SavepointTrigger();

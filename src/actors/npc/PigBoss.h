@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include <DangFwdDecl.h>
-
 #include "Enemy.h"
+
+#include <DangFwdDecl.h>
 
 namespace pnk
 {
@@ -39,10 +39,10 @@ namespace pnk
 
         /** path and bt functions */
         void                        startOutToWaypoint() override;
-        static dang::BTNode::Status NTLurk(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTRun(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTHit(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTRecover(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTLurk(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTRun(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTHit(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTRecover(dang::FullSpr& s, uint32_t dt);
 
 
     protected:

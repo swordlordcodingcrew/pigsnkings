@@ -3,15 +3,15 @@
 
 #pragma once
 
+#include "actors/npc/Enemy.h"
+
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
-//#include <src/actors/npc/Enemy.h>
-#include <src/actors/npc/HenchPig.h>
+#include <sprite/FullSpr.hpp>
 
 namespace pnk
 {
 
-    class Cannon : public dang::CollisionSprite
+    class Cannon : public dang::FullSpr
     {
     public:
         Cannon();
