@@ -32,8 +32,6 @@
 #include <bt/NTreeState.h>
 #include <sprite/ColSpr.hpp>
 #include <sprite/FullColSpr.hpp>
-//#include <sprite/SpriteObject.hpp>
-//#include <sprite/ImageObject.hpp>
 
 #include <32blit.hpp>
 
@@ -195,56 +193,43 @@ namespace pnk
 
         return ret;
     }
-
-    dang::spColSpr SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so)
+*/
+    dang::spColSpr SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so, bool warp)
     {
-        dang::spColSpr ret = std::make_shared<dang::ColSpr>(so);
-        ret->setTypeNum(ST_ROOM_TRIGGER);
+        dang::spColSpr ret = std::make_shared<pnk::RoomTrigger>(so, warp);
+        ret->setTypeNum(warp ? ST_WARP_ROOM_TRIGGER : ST_ROOM_TRIGGER);
         ret->setRigid(true);
 
         return ret;
     }
 
-    dang::spColSpr SpriteFactory::WarpRoomTrigger(const dang::tmx_spriteobject* so)
+    dang::spColSpr SpriteFactory::LevelTrigger(const dang::tmx_spriteobject* so)
     {
-        dang::spCollisionSprite ret = std::make_shared<pnk::RoomTrigger>(so, true);
-        ret->_visible = false;
-        ret->setTypeNum(ST_WARP_ROOM_TRIGGER);
-        ret->setRigid(true);
-
-        return ret;
-    }
-
-    dang::spCollisionSprite SpriteFactory::LevelTrigger(const dang::tmx_spriteobject* so)
-    {
-        dang::spCollisionSprite ret = std::make_shared<pnk::LevelTrigger>(so);
-        ret->_visible = false;
+        dang::spColSpr ret = std::make_shared<pnk::LevelTrigger>(so);
         ret->setTypeNum(ST_LEVEL_TRIGGER);
         ret->setRigid(true);
 
         return ret;
     }
 
-    dang::spCollisionSprite SpriteFactory::BossbattleTrigger(const dang::tmx_spriteobject* so)
+    dang::spColSpr SpriteFactory::BossbattleTrigger(const dang::tmx_spriteobject* so)
     {
-        dang::spCollisionSprite ret = std::make_shared<pnk::BossbattleTrigger>(so);
-        ret->_visible = false;
+        dang::spColSpr ret = std::make_shared<pnk::BossbattleTrigger>(so);
         ret->setTypeNum(ST_BOSS_BATTLE_TRIGGER);
         ret->setRigid(true);
 
         return ret;
     }
 
-    dang::spCollisionSprite SpriteFactory::SavepointTrigger(const dang::tmx_spriteobject* so)
+    dang::spColSpr SpriteFactory::SavepointTrigger(const dang::tmx_spriteobject* so)
     {
-        dang::spCollisionSprite ret = std::make_shared<pnk::SavepointTrigger>(so);
-        ret->_visible = false;
+        dang::spColSpr ret = std::make_shared<pnk::SavepointTrigger>(so);
         ret->setTypeNum(ST_SAVEPOINT_TRIGGER);
         ret->setRigid(true);
 
         return ret;
     }
-*/
+
     spHenchPig SpriteFactory::NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
     {
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);

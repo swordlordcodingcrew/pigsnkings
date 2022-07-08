@@ -3,11 +3,6 @@
 
 #pragma once
 
-//#include "actors/others/Reward.h"
-//#include "levels/ScreenPlay.h"
-
-//#include "actors/hero/Hero.h"
-
 #include <string>
 #include <memory>
 #include <unordered_map>
@@ -128,12 +123,13 @@ namespace pnk
         static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
 /*        static dang::spColSpr Hotrect(const dang::tmx_spriteobject* so);
         static dang::spColSpr HotrectPlatform(const dang::tmx_spriteobject* so);
-        static dang::spColSpr RoomTrigger(const dang::tmx_spriteobject* so);
-        static dang::spColSpr WarpRoomTrigger(const dang::tmx_spriteobject* so);
+*/
+        static dang::spColSpr RoomTrigger(const dang::tmx_spriteobject* so, bool warp);
+//        static dang::spColSpr WarpRoomTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr LevelTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr BossbattleTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr SavepointTrigger(const dang::tmx_spriteobject* so);
-*/
+
         static dang::spColSpr RigidObj(const dang::tmx_spriteobject* so);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static void setTypeNum(dang::spSprObj spo, const std::string& type);

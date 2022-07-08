@@ -353,15 +353,15 @@ namespace pnk
             dang::spColSpr spr = nullptr;
 
             if (   so->type == SpriteFactory::T_HOTRECT
-                || so->type == SpriteFactory::T_HOTRECT_PLATFORM
-                || so->type == SpriteFactory::T_ROOM_TRIGGER
-                || so->type == SpriteFactory::T_WARP_ROOM_TRIGGER
-                || so->type == SpriteFactory::T_LEVEL_TRIGGER
-                || so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER
-                || so->type == SpriteFactory::T_SAVEPOINT_TRIGGER)
+                || so->type == SpriteFactory::T_HOTRECT_PLATFORM)
             {
                 spr = SpriteFactory::RigidObj(so);
             }
+            else if (so->type == SpriteFactory::T_ROOM_TRIGGER) { spr = SpriteFactory::RoomTrigger(so, false); }
+            else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::RoomTrigger(so, true); }
+            else if (so->type == SpriteFactory::T_LEVEL_TRIGGER) { spr = SpriteFactory::LevelTrigger(so); }
+            else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER) { spr = SpriteFactory::BossbattleTrigger(so); }
+            else if (so->type == SpriteFactory::T_SAVEPOINT_TRIGGER) { spr = SpriteFactory::SavepointTrigger(so); }
             else if (  so->type == SpriteFactory::T_COIN_SILVER
                     || so->type == SpriteFactory::T_COIN_GOLD
                     || so->type == SpriteFactory::T_GEM_BLUE
