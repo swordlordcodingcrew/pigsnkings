@@ -137,7 +137,7 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: set active world size\n");
 #endif
-        gear.setActiveWorldSize(vp.w, vp.h);
+        gear.setActiveWorldSize(vp.w+1000, vp.h+1000);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: init image sheets\n");
@@ -246,14 +246,21 @@ namespace pnk
                 spr->setAnimation(anim);
 
                 // get a sequence and make sure that it is looping forever
-                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
-                tw_seq_anim->loops(-1);
+//                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
+//                tw_seq_anim->loops(-1);
 
                 // piggie starting off screen to the left
                 spr->setPosX(-32);
                 // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{320, spr->getPosY()};
+                dang::Vector2F  _move_to{360, spr->getPosY()};
 
+                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
+                twp->setFinishedCallback([&](){
+//                    playOink();
+                    spr->setPosX(-32);
+                });
+                spr->addTween(twp);
+/*
                 // total duration of 4000
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
@@ -264,7 +271,7 @@ namespace pnk
                 tw_seq_anim->addTween(nullTw);
 
                 spr->addTween(tw_seq_anim);
-            }
+*/            }
             else if (so->name == "hero")
             {
                 spr = std::make_shared<dang::FullImgSpr>(so, is);
@@ -274,11 +281,18 @@ namespace pnk
                 spr->setAnimation(anim);
 
                 // hero starting off screen to the left
-                spr->setPosX(-32);
+                spr->setPosX(-100);
                 // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{320, spr->getPosY()};
+                dang::Vector2F  _move_to{340, spr->getPosY()};
 
-                // get a sequence and make sure that it is looping forever
+                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
+                twp->setFinishedCallback([&](){
+                    playOink();
+                    spr->setPosX(-100);
+                });
+                spr->addTween(twp);
+
+/*                // get a sequence and make sure that it is looping forever
                 dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
                 tw_seq_anim->loops(-1);
 
@@ -296,6 +310,7 @@ namespace pnk
                 tw_seq_anim->addTween(pauseAfter);
 
                 spr->addTween(tw_seq_anim);
+*/
             }
 
             // and add it to the collection
