@@ -10,14 +10,17 @@
 
 #include <sprite/ImgSpr.hpp>
 #include <TmxExtruder.hpp>
+#include <SprIterator.hpp>
+#include <Imagesheet.hpp>
 
 namespace pnk
 {
     extern PigsnKings _pnk;
 
-    HUDLayer::HUDLayer() : ImgSprLayer()
+    HUDLayer::HUDLayer() : dang::BaseHUDLayer()
     {
-        foregroundColour = blit::Pen(63, 56, 81, 255);
+        foregroundColour = blit::Pen(43, 63, 61, 255);
+//        foregroundColour = blit::Pen(63, 56, 81, 255);
         backgroundColour = blit::Pen(152, 152, 152, 200);
         healthColour = blit::Pen(78, 110, 197, 255);
     }
@@ -61,15 +64,6 @@ namespace pnk
         dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_HERO);
         spr->setImgIndex(27);
 
-/*        for (dang::spSprite& spr : _sprites)
-        {
-            if(spr->_type_name == "hud_hero")
-            {
-                // a bit of a hack, needs to be changed when grafx changes
-                spr->_img_index = 27;
-            }
-        }
-*/
         isCheating = true;
     }
 
@@ -86,14 +80,6 @@ namespace pnk
         spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
         spr->setVisible(true);
 
-/*        for (dang::spSprite& spr : _sprites)
-        {
-            if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
-            {
-                spr->_visible = true;
-            }
-        }
-*/
         isBossVisible = true;
     }
 
@@ -110,22 +96,14 @@ namespace pnk
         spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
         spr->setVisible(false);
 
-/*        for (dang::spSprite& spr : _sprites)
-        {
-            if(spr->_type_name == "hud_boss" || spr->_type_name == "hud_boss_health")
-            {
-                // a bit of a hack, needs to be changed when grafx changes
-                spr->_visible = false;
-            }
-        }
-*/
         isBossVisible = false;
     }
 
-//    void HUDLayer::renderInternal(const dang::Gear &gear)
+
+    //    void HUDLayer::renderInternal(const dang::Gear &gear)
     void HUDLayer::render(const dang::Gear &gear)
     {
-        this->ImgSprLayer::render(gear);
+        this->dang::BaseHUDLayer::render(gear);
 
         std::string score =  std::to_string(_pnk._gamestate.score);
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;

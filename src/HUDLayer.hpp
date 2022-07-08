@@ -3,17 +3,14 @@
 
 #pragma once
 
-//#include <list>
-#include <libs/DANG/src/layer/BaseHUDLayer.hpp>
+#include <layer/BaseHUDLayer.hpp>
 #include <32blit.hpp>
 #include <DangFwdDecl.h>
-
-//#include "Layer.hpp"
 
 namespace pnk
 {
 
-    class HUDLayer : public dang::ImgSprLayer
+    class HUDLayer : public dang::BaseHUDLayer
     {
     public:
         HUDLayer();
