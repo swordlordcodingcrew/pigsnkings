@@ -15,11 +15,11 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Cannon::Cannon() : dang::FullSpr()
+    Cannon::Cannon() : dang::FullColSpr()
     {
     }
 
-    Cannon::Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
+    Cannon::Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
     }
 

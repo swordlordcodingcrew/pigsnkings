@@ -176,7 +176,7 @@ namespace pnk
 
     }
 
-    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::FullColSpr& s, uint32_t dt)
     {
         PigCrate& spr = dynamic_cast<PigCrate&>(s);
 
@@ -189,7 +189,7 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status PigCrate::NTThrowCrate(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTThrowCrate(dang::FullColSpr& s, uint32_t dt)
     {
         PigCrate& spr = dynamic_cast<PigCrate&>(s);
 
@@ -210,13 +210,13 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTWithCrate(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTWithCrate(dang::FullColSpr& s, uint32_t dt)
     {
         PigCrate& spr = dynamic_cast<PigCrate&>(s);
         return spr._crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTDistanceOK(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
         PigCrate& spr = dynamic_cast<PigCrate&>(s);
 

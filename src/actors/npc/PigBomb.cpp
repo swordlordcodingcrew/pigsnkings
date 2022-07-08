@@ -161,7 +161,7 @@ namespace pnk
     }
 
 
-    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::FullColSpr& s, uint32_t dt)
     {
         PigBomb& spr = dynamic_cast<PigBomb&>(s);
 
@@ -176,7 +176,7 @@ namespace pnk
         }
     }
 
-    dang::BTNode::Status PigBomb::NTThrowBomb(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTThrowBomb(dang::FullColSpr& s, uint32_t dt)
     {
         PigBomb& spr = dynamic_cast<PigBomb&>(s);
 
@@ -197,13 +197,13 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTWithBomb(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTWithBomb(dang::FullColSpr& s, uint32_t dt)
     {
         PigBomb& spr = dynamic_cast<PigBomb&>(s);
         return spr._with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTDistanceOK(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
         PigBomb& spr = dynamic_cast<PigBomb&>(s);
 

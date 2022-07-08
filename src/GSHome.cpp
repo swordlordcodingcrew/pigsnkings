@@ -27,6 +27,7 @@
 #include <Imagesheet.hpp>
 #include <layer/ImgSprLayer.hpp>
 #include <sprite/ImgSpr.hpp>
+#include <sprite/FullImgSpr.hpp>
 #include <Rand.hpp>
 #include <layer/TileLayer.hpp>
 #include <tween/Ease.hpp>
@@ -173,12 +174,10 @@ namespace pnk
             const dang::tmx_spriteobject* so = dl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
-//            spr->_visible = true;
-//            spr->_imagesheet = is;
+
             if (so->type == "candle")
             {
-                // missing assert, but no way to find out i
+                dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
                 auto flickering = txtr.getAnimation(is->getName(), "flicker");
                 assert(flickering != nullptr);
                 spr->setAnimation(flickering);
@@ -191,8 +190,13 @@ namespace pnk
                 {
                     _sprRightCandle = spr;
                 }
+                sl->addSprite((dang::spImgSpr)spr);
             }
-            sl->addSprite(spr);
+            else
+            {
+                dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
+                sl->addSprite(spr);
+            }
         }
 
 #ifdef PNK_DEBUG_COMMON
@@ -208,13 +212,11 @@ namespace pnk
             const dang::tmx_spriteobject* so = sl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spImgSpr spr{nullptr};
+            dang::spFullImgSpr spr{nullptr};
             // buttons
             if(so->type == "button")
             {
-                spr = std::make_shared<dang::ImgSpr>(so, is);
-//                spr->_visible = true;
-//                spr->_imagesheet = is;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
                 if (so->type == "button" && so->name == "play")
                 {
                     _btns.at(_pnk.PLAY).btn = spr;
@@ -236,9 +238,7 @@ namespace pnk
             }
             else if (so->name == "piggie")
             {
-                spr = std::make_shared<dang::ImgSpr>(so, is);
-//                spr->_visible = true;
-//                spr->_imagesheet = is;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
                 spr->setTransform(blit::SpriteTransform::HORIZONTAL);
 
                 // run piggie run
@@ -257,7 +257,7 @@ namespace pnk
                 // total duration of 4000
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-                twPos->init(spr.get());
+//                twPos->init(spr.get());
                 tw_seq_anim->addTween(twPos);
 
                 dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
@@ -267,9 +267,7 @@ namespace pnk
             }
             else if (so->name == "hero")
             {
-                spr = std::make_shared<dang::ImgSpr>(so, is);
-//                spr->_visible = true;
-//                spr->_imagesheet = is;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
 
                 // run hero, run
                 dang::spTwAnim anim = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);
@@ -290,7 +288,7 @@ namespace pnk
 
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-                twPos->init(spr.get());
+//                twPos->init(spr.get());
                 twPos->setFinishedCallback(std::bind(&GSHome::playOink, this));
                 tw_seq_anim->addTween(twPos);
 
@@ -302,7 +300,7 @@ namespace pnk
 
             // and add it to the collection
             if(spr != nullptr){
-                sl->addSprite(spr);
+                sl->addSprite((dang::spImgSpr)spr);
             }
         }
 

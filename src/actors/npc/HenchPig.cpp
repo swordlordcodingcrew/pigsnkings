@@ -55,7 +55,7 @@ namespace pnk
 
     void HenchPig::update(uint32_t dt)
     {
-        this->dang::FullSpr::update(dt);
+        this->dang::FullColSpr::update(dt);
 
         _on_ground = false;
 
@@ -346,7 +346,7 @@ namespace pnk
         setTransform(getVel().x > 0 ? blit::HORIZONTAL : blit::NONE);
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepShort(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status HenchPig::NTsetSleepShort(dang::FullColSpr& s, uint32_t dt)
     {
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
@@ -355,7 +355,7 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::FullColSpr& s, uint32_t dt)
     {
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
@@ -364,7 +364,7 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTsetSleepLong(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status HenchPig::NTsetSleepLong(dang::FullColSpr& s, uint32_t dt)
     {
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
@@ -373,7 +373,7 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status HenchPig::NTdoSleep(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status HenchPig::NTdoSleep(dang::FullColSpr& s, uint32_t dt)
     {
         HenchPig& spr = dynamic_cast<HenchPig&>(s);
         if (spr._currentState == SLEEPING || spr._nextState == SLEEPING)

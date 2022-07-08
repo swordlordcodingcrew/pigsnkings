@@ -50,7 +50,7 @@ namespace pnk
 
     void PigBoss::update(uint32_t dt)
     {
-        this->dang::FullSpr::update(dt);
+        this->dang::FullColSpr::update(dt);
 
         _on_ground = false;
 
@@ -253,7 +253,7 @@ namespace pnk
         return false;
     }
 
-    dang::BTNode::Status PigBoss::NTLurk(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTLurk(dang::FullColSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
 
@@ -270,7 +270,7 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBoss::NTRun(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTRun(dang::FullColSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
 
@@ -293,7 +293,7 @@ namespace pnk
 
     }
 
-    dang::BTNode::Status PigBoss::NTHit(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTHit(dang::FullColSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
 
@@ -304,7 +304,7 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBoss::NTRecover(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status PigBoss::NTRecover(dang::FullColSpr& s, uint32_t dt)
     {
         PigBoss& spr = dynamic_cast<PigBoss&>(s);
 

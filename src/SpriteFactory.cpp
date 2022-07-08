@@ -31,7 +31,7 @@
 #include <path/SceneGraph.hpp>
 #include <bt/NTreeState.h>
 #include <sprite/ColSpr.hpp>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 //#include <sprite/SpriteObject.hpp>
 //#include <sprite/ImageObject.hpp>
 

@@ -4,11 +4,11 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
-    class Reward : public dang::FullSpr
+    class Reward : public dang::FullColSpr
     {
     public:
         Reward();

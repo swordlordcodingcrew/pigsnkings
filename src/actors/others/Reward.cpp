@@ -15,11 +15,11 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Reward::Reward() : dang::FullSpr()
+    Reward::Reward() : dang::FullColSpr()
     {
     }
 
-    Reward::Reward(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
+    Reward::Reward(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
     }
 

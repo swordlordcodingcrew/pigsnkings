@@ -22,17 +22,17 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Throwies::Throwies() : FullSpr()
+    Throwies::Throwies() : FullColSpr()
     {
 
     }
 
-    Throwies::Throwies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
+    Throwies::Throwies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
 
     }
 
-    Throwies::Throwies(const Throwies &crate) : FullSpr(crate)
+    Throwies::Throwies(const Throwies &crate) : FullColSpr(crate)
     {
         // let the lower classes do the actual copying
     }

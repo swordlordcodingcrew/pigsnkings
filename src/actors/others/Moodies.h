@@ -4,11 +4,11 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
-    class Moodies : public dang::FullSpr
+    class Moodies : public dang::FullColSpr
     {
     public:
         Moodies();

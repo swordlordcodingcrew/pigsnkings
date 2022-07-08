@@ -19,7 +19,7 @@ namespace pnk
     extern PigsnKings _pnk;
 
     Hero::Hero(const dang::tmx_spriteobject* so, const dang::spImagesheet is)
-    : dang::FullSpr(so, is)
+    : dang::FullColSpr(so, is)
     {
         _hotrect = {8, 8, 16, 24};
     }

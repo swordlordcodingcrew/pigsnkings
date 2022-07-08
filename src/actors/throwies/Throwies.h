@@ -4,12 +4,12 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
 
-    class Throwies : public dang::FullSpr
+    class Throwies : public dang::FullColSpr
     {
     public:
         Throwies();

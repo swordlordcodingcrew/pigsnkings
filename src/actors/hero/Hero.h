@@ -4,7 +4,7 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 #include "ActionState.h"
 
 namespace pnk
@@ -12,7 +12,7 @@ namespace pnk
     class MotionState;
     class SomaticState;
 
-    class Hero : public dang::FullSpr
+    class Hero : public dang::FullColSpr
     {
     public:
         Hero() = default;

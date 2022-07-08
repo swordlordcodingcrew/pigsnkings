@@ -4,13 +4,13 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
     class Enemy;
 
-    class Bubble : public dang::FullSpr
+    class Bubble : public dang::FullColSpr
     {
     public:
         Bubble();

@@ -17,14 +17,14 @@ namespace dang
     // forward declarations of DANG framework
     class SpriteObject;
     class ColSpr;
-    class FullSpr;
+    class FullColSpr;
     class Imagesheet;
     class TmxExtruder;
 
     struct tmx_spriteobject;
 
     using spColSpr = std::shared_ptr<ColSpr>;
-    using spFullSpr = std::shared_ptr<FullSpr>;
+    using spFullSpr = std::shared_ptr<FullColSpr>;
     using spSprObj = std::shared_ptr<SpriteObject>;
     using spImagesheet = std::shared_ptr<Imagesheet>;
 

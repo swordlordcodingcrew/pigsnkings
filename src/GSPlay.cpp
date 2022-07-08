@@ -71,6 +71,7 @@
 #include <snd/SndGear.hpp>
 #include <sprite/ColSpr.hpp>
 #include <sprite/ImgSpr.hpp>
+#include <sprite/FullImgSpr.hpp>
 #include <layer/TileLayer.hpp>
 #include <layer/MessageLayer.hpp>
 #include <layer/ImgSprLayer.hpp>
@@ -298,22 +299,27 @@ namespace pnk
 
                 dang::spImagesheet is = gear.getImagesheet(so->tileset);
 
-                dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
-                if (so->type == "door")
-                {
-                    spr->setTypeNum(ST_MOOD_DOOR);
-                }
-
                 if (is != nullptr && !so->type.empty())
                 {
+                    dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
+                    if (so->type == "door")
+                    {
+                        spr->setTypeNum(ST_MOOD_DOOR);
+                    }
+
                     dang::spTwAnim animation = txtr.getAnimation(is->getName(), so->type);
                     if (animation != nullptr)
                     {
                         spr->setAnimation(animation);
                     }
+                    sl->addSprite((dang::spImgSpr)spr);
+                }
+                else
+                {
+                    dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
+                    sl->addSprite(spr);
                 }
 
-                sl->addSprite(spr);
             }
 
 
@@ -1140,7 +1146,8 @@ namespace pnk
             auto spr = mood->getImgSprByTypeNum(ST_MOOD_DOOR);
             if(spr != nullptr)
             {
-                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 900, dang::Ease::Linear, 1)));
+                dang::spFullImgSpr fis = std::static_pointer_cast<dang::FullImgSpr>(spr);
+                fis->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 900, dang::Ease::Linear, 1)));
             }
         }
 
@@ -1242,7 +1249,7 @@ namespace pnk
         _leaveGame = true;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSightH(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::FullColSpr& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {
@@ -1260,7 +1267,7 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSight(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::FullColSpr& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {

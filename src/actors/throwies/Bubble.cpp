@@ -25,17 +25,17 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Bubble::Bubble() : dang::FullSpr()
+    Bubble::Bubble() : dang::FullColSpr()
     {
 
     }
 
-    Bubble::Bubble(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
+    Bubble::Bubble(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
 
     }
 
-    Bubble::Bubble(const Bubble &bub) : FullSpr(bub)
+    Bubble::Bubble(const Bubble &bub) : FullColSpr(bub)
     {
 //        std::printf("bubble copy constructor\n");
 

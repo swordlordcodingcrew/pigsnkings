@@ -24,12 +24,12 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Enemy::Enemy() : dang::FullSpr()
+    Enemy::Enemy() : dang::FullColSpr()
     {
         setGravity(PigsnKings::_gravity);
     }
 
-    Enemy::Enemy(const dang::tmx_spriteobject* so, const dang::spImagesheet& is) : dang::FullSpr(so, is)
+    Enemy::Enemy(const dang::tmx_spriteobject* so, const dang::spImagesheet& is) : dang::FullColSpr(so, is)
     {
         setGravity(PigsnKings::_gravity);
     }
@@ -423,61 +423,61 @@ namespace pnk
 
     /** static BT hooks */
 
-    dang::BTNode::Status Enemy::NTcheckPathCompleted(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTcheckPathCompleted(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.checkPathCompleted(dt);
     }
 
-    dang::BTNode::Status Enemy::NTsetRandNeighbourWaypoint(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetRandNeighbourWaypoint(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setRandNeighbourWaypoint();
     }
 
-    dang::BTNode::Status Enemy::NTcheckWaypointReached(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTcheckWaypointReached(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.checkWaypointReached(dt);
     }
 
-    dang::BTNode::Status Enemy::NTsetDestinationBombDepot(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetDestinationBombDepot(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setDestinationWaypointByType(WPT_BOMBDEPOT);
     }
 
-    dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetDestinationCrateDepot(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setDestinationWaypointByType(WPT_CRATEDEPOT);
     }
 
-    dang::BTNode::Status Enemy::NTsetDestinationPOI(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetDestinationPOI(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setDestinationWaypointByType(WPT_POI);
     }
 
-    dang::BTNode::Status Enemy::NTfindNearestWaypoint(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTfindNearestWaypoint(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.findNearestWaypoint(false);
     }
 
-    dang::BTNode::Status Enemy::NTfindNearestWaypointH(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTfindNearestWaypointH(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.findNearestWaypoint(true);
     }
 
-    dang::BTNode::Status Enemy::NTsetRandomPath(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetRandomPath(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setRandPath();
     }
 
-    dang::BTNode::Status Enemy::NTsetWPNearHero(dang::FullSpr& s, uint32_t dt)
+    dang::BTNode::Status Enemy::NTsetWPNearHero(dang::FullColSpr& s, uint32_t dt)
     {
         Enemy& spr = dynamic_cast<Enemy&>(s);
         return spr.setWPNearHero();

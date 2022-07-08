@@ -6,12 +6,12 @@
 #include "actors/npc/Enemy.h"
 
 #include <DangFwdDecl.h>
-#include <sprite/FullSpr.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
 
-    class Cannon : public dang::FullSpr
+    class Cannon : public dang::FullColSpr
     {
     public:
         Cannon();

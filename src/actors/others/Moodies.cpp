@@ -20,17 +20,17 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Moodies::Moodies() : dang::FullSpr()
+    Moodies::Moodies() : dang::FullColSpr()
     {
         _cr = dang::CR_NONE;
     }
 
-    Moodies::Moodies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullSpr(so, is)
+    Moodies::Moodies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
         _cr = dang::CR_NONE;
     }
 
-    Moodies::Moodies(const Moodies& moodie) : FullSpr(moodie)
+    Moodies::Moodies(const Moodies& moodie) : FullColSpr(moodie)
     {
 
         if(moodie._anim_m_standard != nullptr)

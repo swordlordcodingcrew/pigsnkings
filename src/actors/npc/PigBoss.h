@@ -39,10 +39,10 @@ namespace pnk
 
         /** path and bt functions */
         void                        startOutToWaypoint() override;
-        static dang::BTNode::Status NTLurk(dang::FullSpr& s, uint32_t dt);
-        static dang::BTNode::Status NTRun(dang::FullSpr& s, uint32_t dt);
-        static dang::BTNode::Status NTHit(dang::FullSpr& s, uint32_t dt);
-        static dang::BTNode::Status NTRecover(dang::FullSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTLurk(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTRun(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTHit(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTRecover(dang::FullColSpr& s, uint32_t dt);
 
 
     protected:

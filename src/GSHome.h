@@ -44,7 +44,7 @@ namespace pnk
          */
          struct sel_struct
          {
-             dang::spImgSpr btn;
+             dang::spFullImgSpr btn;
              dang::spTwAnim anim;
              int img_index;
          };

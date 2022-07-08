@@ -86,8 +86,8 @@ namespace pnk
 
     public:
         /** bt hooks */
-        dang::BTNode::Status NTheroInSightH(dang::FullSpr& s, uint32_t dt);
-        dang::BTNode::Status NTheroInSight(dang::FullSpr& s, uint32_t dt);
+        dang::BTNode::Status NTheroInSightH(dang::FullColSpr& s, uint32_t dt);
+        dang::BTNode::Status NTheroInSight(dang::FullColSpr& s, uint32_t dt);
 
     };
 
