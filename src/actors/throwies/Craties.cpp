@@ -29,8 +29,8 @@ namespace pnk
 
     Craties::Craties(const Craties &crate) : Throwies(crate)
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "craties copy constructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Craties copy constructor\n");
 #endif
         _to_the_left = crate._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(crate._anim_flying));
@@ -42,8 +42,8 @@ namespace pnk
 
     Craties::~Craties()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Craties destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Craties destructor\n");
 #endif
     }
 

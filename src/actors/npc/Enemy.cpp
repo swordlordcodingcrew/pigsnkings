@@ -72,14 +72,14 @@ namespace pnk
         {
             _current_wp = wp;
 #ifdef PNK_DEBUG_WAYPOINTS
-            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Set waypoint with id %u \n", _id, wp->_id);
+            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Set waypoint with id %u \n", id(), wp->_id);
 #endif
         }
         else
         {
             _path.push_back(wp);
 #ifdef PNK_DEBUG_WAYPOINTS
-            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Nearest waypoint = %u \n", _id, wp->_id);
+            DEBUG_PRINT("(spr id %u): initSceneGraph: graph found. Nearest waypoint = %u \n", id(), wp->_id);
 #endif
             startOutToWaypoint();
         }
@@ -137,7 +137,7 @@ namespace pnk
         }
 
 #ifdef PNK_DEBUG_WAYPOINTS
-        DEBUG_PRINT("(spr id %u): setWPHNearHero: nearest waypoint = %u \n", _id, _path[0]->_id);
+        DEBUG_PRINT("(spr id %u): setWPHNearHero: nearest waypoint = %u \n", id(), _path[0]->_id);
 #endif
 
         startOutToWaypoint();
@@ -165,7 +165,7 @@ namespace pnk
         }
 
 #ifdef PNK_DEBUG_WAYPOINTS
-        DEBUG_PRINT("(spr id %u): setWPHNearHero: nearest waypoint = %u \n", _id, _path[0]->_id);
+        DEBUG_PRINT("(spr id %u): setWPHNearHero: nearest waypoint = %u \n", id(), _path[0]->_id);
 #endif
 
         startOutToWaypoint();
@@ -194,7 +194,7 @@ namespace pnk
         _path_index++;
 
 #ifdef PNK_DEBUG_WAYPOINTS
-        DEBUG_PRINT("(spr id %u): setRandPath: set random path towards wp  %u \n", _id, _path[_path.size()-1]->_id);
+        DEBUG_PRINT("(spr id %u): setRandPath: set random path towards wp  %u \n", id(), _path[_path.size()-1]->_id);
 #endif
 
         startOutToWaypoint();
@@ -264,7 +264,7 @@ namespace pnk
                 _max_time_to_wp = 0;
                 _time_elapsed_to_wp = 0;
 #ifdef PNK_DEBUG_WAYPOINTS
-                DEBUG_PRINT("(spr id %u): waypoint %u reached\n", _id, _path[_path_index]->_id);
+                DEBUG_PRINT("(spr id %u): waypoint %u reached\n", id(), _path[_path_index]->_id);
 #endif
                 return dang::BTNode::Status::SUCCESS;
             }
@@ -278,7 +278,7 @@ namespace pnk
             if (_time_elapsed_to_wp > _max_time_to_wp)
             {
 #ifdef PNK_DEBUG_WAYPOINTS
-                DEBUG_PRINT("(spr id %u): checkWaypointReached: time is up\n", _id);
+                DEBUG_PRINT("(spr id %u): checkWaypointReached: time is up\n", id());
 #endif
                 // waypoint was not reached in time
                 return dang::BTNode::Status::FAILURE;
@@ -303,7 +303,7 @@ namespace pnk
         const dang::Waypoint* wp = _path.at(_path_index);
 
 #ifdef PNK_DEBUG_WAYPOINTS
-        DEBUG_PRINT("(spr id %u): start out from wp %u to wp %u\n", _id, (_current_wp == nullptr ? 0 : _current_wp->_id), wp->_id);
+        DEBUG_PRINT("(spr id %u): start out from wp %u to wp %u\n", id(), (_current_wp == nullptr ? 0 : _current_wp->_id), wp->_id);
 #endif
 
         removeTween(_tw_short_jump, true);
@@ -405,7 +405,7 @@ namespace pnk
         }
 
 #ifdef PNK_DEBUG_WAYPOINTS
-        DEBUG_PRINT("(spr id %u): findNearestWaypoint: no waypoint found\n", _id);
+        DEBUG_PRINT("(spr id %u): findNearestWaypoint: no waypoint found\n", id());
 #endif
 
         return dang::BTNode::Status::FAILURE;

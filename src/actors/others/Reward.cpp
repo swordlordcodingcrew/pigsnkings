@@ -76,8 +76,8 @@ namespace pnk
 
     Reward::~Reward()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "reward destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Reward destructor\n");
 #endif
     }
 

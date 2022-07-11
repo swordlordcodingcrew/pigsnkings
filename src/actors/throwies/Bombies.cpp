@@ -34,8 +34,8 @@ namespace pnk
 
     Bombies::Bombies(const Bombies &bomb) : Throwies(bomb)
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Bombies copy constructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Bombies copy constructor\n");
 #endif
         _to_the_left = bomb._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(bomb._anim_flying));
@@ -48,8 +48,8 @@ namespace pnk
 
     Bombies::~Bombies()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Bombies destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Bombies destructor\n");
 #endif
     }
 

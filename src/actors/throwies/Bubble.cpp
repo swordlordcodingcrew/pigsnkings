@@ -62,8 +62,8 @@ namespace pnk
         {
             _catched_en.reset();
         }
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "bubble destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Bubble destructor\n");
 #endif
     }
 

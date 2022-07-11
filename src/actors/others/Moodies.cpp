@@ -49,8 +49,8 @@ namespace pnk
         removeAnimation();
         removeTweens(true);
 
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Moodies destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Moodies destructor\n");
 #endif
     }
 

@@ -32,8 +32,8 @@ namespace pnk
 
     MoodiesThatHurt::~MoodiesThatHurt()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "MoodiesThatHurt destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("MoodiesThatHurt destructor\n");
 #endif
     }
 
