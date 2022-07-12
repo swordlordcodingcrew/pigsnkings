@@ -482,6 +482,7 @@ namespace pnk
             }
             _csl->cleanSpritelist();
 
+
 #ifdef TARGET_32BLIT_HW
 
             // memory stats
@@ -529,6 +530,9 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
+        // set the zonebits correcty
+        _csl->resetZoneBit(gear.getViewport());
+
 
         // show starting text (only at the beginning of the level)
         if (_active_room_index == 0)
