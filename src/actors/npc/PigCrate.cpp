@@ -42,17 +42,6 @@ namespace pnk
         this->HenchPig::update(dt);
     }
 
-/*    uint8_t  PigCrate::getCollisionResponse(const dang::spCollisionObject& other)
-    {
-        return this->HenchPig::getCollisionResponse(other);
-    }
-
-    void PigCrate::collide(const dang::manifold &mf)
-    {
-        this->HenchPig::collide(mf);
-    }
-*/
-
     bool PigCrate::onEnterThrowing()
     {
         assert(_anim_m_throwing != nullptr);
@@ -178,7 +167,7 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTPickUpCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._crated)
         {
@@ -191,7 +180,7 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTThrowCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._crated && spr._currentState != THROWING)
         {
@@ -212,13 +201,13 @@ namespace pnk
 
     dang::BTNode::Status PigCrate::NTWithCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
         return spr._crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status PigCrate::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._nTreeState->_payload.count("aaLoSH"))
         {

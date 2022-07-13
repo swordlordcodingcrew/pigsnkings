@@ -27,7 +27,7 @@ namespace pnk
     protected:
 
         bool            onEnterThrowing() override;
-        virtual void    endThrowing() override;
+        void            endThrowing() override;
         virtual void    throwing();
         bool            _crated{true};
         void            pickupCrate();
