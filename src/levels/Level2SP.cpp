@@ -15,6 +15,7 @@ namespace pnk
 
         /** behaviour trees */
         _bt["loiter"] = buildLoiter();
+        _bt["berserk"] = buildBerserk();
 
 
 /*        dang::spNTree tr = dang::NTBuilder{}
