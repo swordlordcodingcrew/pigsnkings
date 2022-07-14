@@ -80,7 +80,7 @@ namespace pnk
 
     uint8_t  PigBoss::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
 
         /** run into the king */
         if (cs_other->typeNum() == ST_KING)
@@ -130,7 +130,7 @@ namespace pnk
         }
         else if (sprOther->typeNum() == ST_HOTRECT)
         {
-            const dang::Vector2F& normal = dynamic_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = static_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.x != 0)
             {
@@ -255,7 +255,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTLurk(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBoss& spr = dynamic_cast<PigBoss&>(s);
+        PigBoss& spr = static_cast<PigBoss&>(s);
 
         if (spr._currentState != SLEEPING && spr._nextState != SLEEPING)
         {
@@ -272,7 +272,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTRun(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBoss& spr = dynamic_cast<PigBoss&>(s);
+        PigBoss& spr = static_cast<PigBoss&>(s);
 
         if (spr._currentState != LOITERING && spr._nextState != LOITERING)
         {
@@ -295,7 +295,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTHit(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBoss& spr = dynamic_cast<PigBoss&>(s);
+        PigBoss& spr = static_cast<PigBoss&>(s);
 
         if (spr._hit)
         {
@@ -306,7 +306,7 @@ namespace pnk
 
     dang::BTNode::Status PigBoss::NTRecover(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBoss& spr = dynamic_cast<PigBoss&>(s);
+        PigBoss& spr = static_cast<PigBoss&>(s);
 
         if (spr._currentState != HIDING && spr._nextState != HIDING)
         {

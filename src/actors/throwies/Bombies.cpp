@@ -79,7 +79,7 @@ namespace pnk
 
     uint8_t  Bombies::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
 
         if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT || cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {

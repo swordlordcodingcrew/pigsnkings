@@ -29,7 +29,7 @@ namespace pnk
 
     uint8_t SomaticState::getCollisionResponse(const Hero &hero, const dang::CollisionObject *other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
 
         if (cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {
@@ -186,7 +186,7 @@ namespace pnk
 
     uint8_t  NormalState::getCollisionResponse(const Hero& hero, const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
 
         if (cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {

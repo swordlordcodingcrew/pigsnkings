@@ -94,7 +94,7 @@ namespace pnk
 
     uint8_t  HenchPig::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
 
         /** enemy is bubbled */
         if (_currentState == BUBBLED || _currentState == REMOVE_SELF || _nextState == REMOVE_SELF)
@@ -348,7 +348,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepShort(dang::FullColSpr& s, uint32_t dt)
     {
-        HenchPig& spr = dynamic_cast<HenchPig&>(s);
+        HenchPig& spr = static_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(500), uint32_t(1500));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
@@ -357,7 +357,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepMedium(dang::FullColSpr& s, uint32_t dt)
     {
-        HenchPig& spr = dynamic_cast<HenchPig&>(s);
+        HenchPig& spr = static_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(2000), uint32_t(4000));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
@@ -366,7 +366,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTsetSleepLong(dang::FullColSpr& s, uint32_t dt)
     {
-        HenchPig& spr = dynamic_cast<HenchPig&>(s);
+        HenchPig& spr = static_cast<HenchPig&>(s);
         uint32_t duration = dang::Rand::get(uint32_t(5000), uint32_t(10000));
         spr._nTreeState->_payload["sleep_duration"] = duration;
         spr.prepareChangeState(SLEEPING);
@@ -375,7 +375,7 @@ namespace pnk
 
     dang::BTNode::Status HenchPig::NTdoSleep(dang::FullColSpr& s, uint32_t dt)
     {
-        HenchPig& spr = dynamic_cast<HenchPig&>(s);
+        HenchPig& spr = static_cast<HenchPig&>(s);
         if (spr._currentState == SLEEPING || spr._nextState == SLEEPING)
         {
             return dang::BTNode::Status::RUNNING;

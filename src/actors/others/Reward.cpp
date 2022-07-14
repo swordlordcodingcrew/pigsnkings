@@ -87,7 +87,7 @@ namespace pnk
 
     uint8_t Reward::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const dang::ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
 
         if (cs_other->typeNum() == ST_KING && !_collected)
         {

@@ -1257,8 +1257,6 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-//            dang::FullSpr& cs = dynamic_cast<dang::CollisionSprite&>(s);
-
             float ret = _csl->aaLoSH(s, *_spr_hero.get());
 
             if (ret != 0)
@@ -1275,8 +1273,6 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-//            dang::CollisionSprite& cs = dynamic_cast<dang::CollisionSprite&>(s);
-
             float ret = _csl->loS(s, *_spr_hero.get());
 
             if (ret != 0)

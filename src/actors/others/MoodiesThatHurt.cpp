@@ -61,7 +61,7 @@ namespace pnk
 
     uint8_t  MoodiesThatHurt::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
 
         if (cs_other->typeNum() == ST_KING)
         {

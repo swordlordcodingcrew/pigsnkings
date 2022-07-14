@@ -94,7 +94,7 @@ namespace pnk
 
     uint8_t  Craties::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
         if (_cr != dang::CR_NONE && (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT))
         {
             return dang::CR_TOUCH;

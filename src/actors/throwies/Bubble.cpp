@@ -177,7 +177,7 @@ namespace pnk
         }
         else if (sprOther->typeNum() == ST_KING)
         {
-            const dang::Vector2F& normal = dynamic_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
+            const dang::Vector2F& normal = static_cast<dang::ColSpr*>(mf.me.get()) == this ? mf.normalMe : mf.normalOther;
 
             if (normal.y >= 0 || _state == bs_enemy_catched)   // hero is not on top or bubble has an enemy catched
             {
@@ -238,8 +238,7 @@ namespace pnk
 
     uint8_t  Bubble::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
         if (cs_other->typeNum() == ST_KING)
         {
             if (_state == bs_enemy_catched)

@@ -163,7 +163,7 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTPickUpBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._with_bomb)
         {
@@ -178,7 +178,7 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTThrowBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._with_bomb && spr._currentState != THROWING)
         {
@@ -199,13 +199,13 @@ namespace pnk
 
     dang::BTNode::Status PigBomb::NTWithBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
         return spr._with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
     dang::BTNode::Status PigBomb::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._nTreeState->_payload.count("aaLoSH"))
         {

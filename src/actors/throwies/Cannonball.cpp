@@ -87,8 +87,7 @@ namespace pnk
 
     uint8_t  Cannonball::getCollisionResponse(const dang::CollisionObject* other) const
     {
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        const dang::ColSpr* cs_other = dynamic_cast<const ColSpr*>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
         if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT)
         {
             return dang::CR_TOUCH;
