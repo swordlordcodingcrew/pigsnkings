@@ -17,6 +17,7 @@
 
 #include <cstring>
 #include <cassert>
+#include <malloc.h>
 
 namespace pnk
 {
