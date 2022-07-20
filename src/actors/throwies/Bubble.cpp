@@ -1,5 +1,5 @@
 // (c) 2019-20 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 
 #include "TmxExtruder.hpp"
@@ -46,7 +46,7 @@ namespace pnk
         _anim_poof = std::make_shared<dang::TwAnim>(*(bub._anim_poof));
         _anim_catched = std::make_shared<dang::TwAnim>(*(bub._anim_catched));
 
-        _catched_en.reset();
+//        _catched_en.reset();
         _anim_blow->reset();
         _anim_bobble->reset();
         _anim_poof->reset();
@@ -58,10 +58,10 @@ namespace pnk
 
     Bubble::~Bubble()
     {
-        if(!_catched_en.expired())
-        {
-            _catched_en.reset();
-        }
+//        if(!_catched_en.expired())
+//        {
+//            _catched_en.reset();
+//        }
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Bubble destructor\n");
 #endif
