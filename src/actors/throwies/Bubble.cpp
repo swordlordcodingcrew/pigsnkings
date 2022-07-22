@@ -58,10 +58,10 @@ namespace pnk
 
     Bubble::~Bubble()
     {
-//        if(!_catched_en.expired())
-//        {
-//            _catched_en.reset();
-//        }
+        if(!_catched_en.expired())
+        {
+            _catched_en.reset();
+        }
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("Bubble destructor\n");
 #endif
@@ -144,6 +144,7 @@ namespace pnk
                 setPos(en->getPos() - _delta_catch);
                 _pos_changed_in_collide = true;
                 en->bubble();
+
             }
             _state = bs_enemy_catched;
 
