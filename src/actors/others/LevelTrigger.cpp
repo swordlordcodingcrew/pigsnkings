@@ -2,10 +2,10 @@
 // This file is part of the pnk game
 
 #include "LevelTrigger.h"
-#include "src/SpriteFactory.hpp"
-#include "src/PnkEvent.h"
-#include "src/pnk_globals.h"
-#include "src/pigsnkings.hpp"
+//#include "SpriteFactory.hpp"
+#include "PnkEvent.h"
+#include "pnk_globals.h"
+#include "pigsnkings.hpp"
 
 #include <TmxExtruder.hpp>
 
@@ -13,13 +13,13 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    LevelTrigger::LevelTrigger() : dang::CollisionSprite()
+    LevelTrigger::LevelTrigger() : dang::ColSpr()
     {
         _cr = dang::CR_NONE;
         _level = 1;
     }
 
-    LevelTrigger::LevelTrigger(const dang::tmx_spriteobject* so) : dang::CollisionSprite(so, nullptr)
+    LevelTrigger::LevelTrigger(const dang::tmx_spriteobject* so) : dang::ColSpr(so)
     {
         // name of the sprite object from the tiled level will be used as the level number to switch to
         _level = std::stoul(so->name);
@@ -34,10 +34,9 @@ namespace pnk
 
     void LevelTrigger::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_KING)
+        if (sprOther->typeNum() == ST_KING)
         {
                 std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_CHANGE_LEVEL));
                 e->_payload = _level;
@@ -48,14 +47,11 @@ namespace pnk
 
     uint8_t  LevelTrigger::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
 
-        if (cs_other->_type_num == ST_KING)
-//        if (_is_activated && cs_other->_type_num == ST_KING)
+        if (cs_other->typeNum() == ST_KING)
         {
             return _cr;
-//            return dang::CR_CROSS;
         }
 
         return dang::CR_NONE;

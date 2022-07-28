@@ -1,16 +1,16 @@
 // (c) 2019-20 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// This file is part of the pnk game
 
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
     class Enemy;
 
-    class Bubble : public dang::CollisionSprite
+    class Bubble : public dang::FullColSpr
     {
     public:
         Bubble();
@@ -45,10 +45,10 @@ namespace pnk
     protected:
         friend class SpriteFactory;
         // animations depot
-        dang::spTwAnim _anim_blow; //spTwAnim twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{41, 42, 43, 44, 45}, 600, &dang::Ease::OutQuad, 0);
-        dang::spTwAnim _anim_bobble; //       twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{44, 46, 45, 44, 47}, 600, &dang::Ease::Linear, 3);
-        dang::spTwAnim _anim_poof; //        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{48, 49, 50}, 300, &dang::Ease::Linear, 1);
-        dang::spTwAnim _anim_catched; //        twa = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{45, 46, 44, 45, 47}, 600, &dang::Ease::Linear, 12);
+        dang::spTwAnim _anim_blow;
+        dang::spTwAnim _anim_bobble;
+        dang::spTwAnim _anim_poof;
+        dang::spTwAnim _anim_catched;
 
     };
 

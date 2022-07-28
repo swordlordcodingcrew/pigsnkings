@@ -4,8 +4,7 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
-//#include <Event.hpp>
+#include <sprite/FullColSpr.hpp>
 #include "ActionState.h"
 
 namespace pnk
@@ -13,18 +12,18 @@ namespace pnk
     class MotionState;
     class SomaticState;
 
-    class Hero : public dang::CollisionSprite
+    class Hero : public dang::FullColSpr
     {
     public:
-        Hero();
+        Hero() = default;
         Hero(const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        ~Hero() override;
+        ~Hero() override = default;
         void activateState();
 
         void update(uint32_t dt) override;
 
-        void collide(const dang::manifold &mf) override;
-        uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
+        void        collide(const dang::manifold &mf) override;
+        uint8_t     getCollisionResponse(const dang::CollisionObject* other) const override;
 
         // state stuff
         bool isOnGround() const { return _on_ground; }
@@ -47,8 +46,6 @@ namespace pnk
         friend class OnAirState;
         friend class SpriteFactory;
 
-//        void setLastUpdateTime(uint32_t time) { _last_update_time = time; }
-
         bool    _on_ground{false};
         bool    _top_hit{false};
 
@@ -60,7 +57,6 @@ namespace pnk
         std::shared_ptr<SomaticState>   _somatic_state;
         std::shared_ptr<MotionState>    _motion_state;
         std::shared_ptr<ActionState>    _action_state;
-
 
         // animations depot
         dang::spTwAnim _anim_m_wait;

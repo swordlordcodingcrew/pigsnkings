@@ -1,10 +1,10 @@
-// (c) 2019-20 by SwordLord - the coding crew
+// (c) 2019-22 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 #pragma once
 
 #include "GameState.h"
-#include "src/levels/ScreenPlay.h"
+#include "levels/ScreenPlay.h"
 
 #include <engine/input.hpp>
 
@@ -35,16 +35,15 @@ namespace pnk
         spScreenPlay                    _screenplay{nullptr};   //!< paths
         spHero                          _spr_hero{nullptr};     //!< the king
         spBoss                          _spr_boss{nullptr};     //!< the respective boss (or nullptr)
-        dang::spCollisionSpriteLayer    _csl{nullptr};          //!< the layer in which the collision detection takes place
+        dang::spColSprLayer             _csl{nullptr};          //!< the layer in which the collision detection takes place
         dang::spMessageLayer            _txtl{nullptr};
-        std::unordered_map<std::string, dang::spCollisionSprite> _hives{};
+        std::unordered_map<std::string, dang::spColSpr> _hives{};
 
         // viewport pos (top left)
         dang::Vector2F          _vp_pos{0, 0};
 
         // zone stuff
         dang::RectF             _active_room{0,0,0,0};
-//        ScreenPlay::act*        _active_room{nullptr};
         int8_t                  _active_room_index{-1}; // which room are we in?
         bool                    _warp{false};
         bool                    _leaveGame{false};
@@ -52,7 +51,6 @@ namespace pnk
         // reference to subscriber
         u_int32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
-
 
         void handleKingHealth(PnkEvent& pe);
         void handleNewThrowie(PnkEvent& pe);
@@ -88,8 +86,8 @@ namespace pnk
 
     public:
         /** bt hooks */
-        dang::BTNode::Status NTheroInSightH(dang::Sprite& s, uint32_t dt);
-        dang::BTNode::Status NTheroInSight(dang::Sprite& s, uint32_t dt);
+        dang::BTNode::Status NTheroInSightH(dang::FullColSpr& s, uint32_t dt);
+        dang::BTNode::Status NTheroInSight(dang::FullColSpr& s, uint32_t dt);
 
     };
 

@@ -421,8 +421,8 @@
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="462" gid="169" x="840" y="688" width="32" height="48"/>
-  <object id="463" gid="169" x="768" y="688" width="32" height="48"/>
+  <object id="462" type="gem_blue" gid="169" x="840" y="688" width="32" height="48"/>
+  <object id="463" type="gem_blue" gid="169" x="768" y="688" width="32" height="48"/>
   <object id="467" name="4" type="level_trigger" x="512" y="40" width="16" height="56"/>
   <object id="492" name="savepoint_trigger" type="savepoint_trigger" x="128" y="528" width="32" height="32"/>
   <object id="496" type="pig_box" gid="269" x="288" y="288" width="32" height="32">

@@ -25,9 +25,11 @@
 // DANG includes
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
-#include <Sprite.hpp>
-#include <SpriteLayer.hpp>
-#include <TileLayer.hpp>
+#include <layer/ImgSprLayer.hpp>
+#include <sprite/ImgSpr.hpp>
+#include <sprite/FullImgSpr.hpp>
+#include <Rand.hpp>
+#include <layer/TileLayer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <tween/TwPos.hpp>
@@ -35,11 +37,9 @@
 #include <tween/TwNull.hpp>
 #include <snd/SndGear.hpp>
 #include <tracks/paperbird.h>
-#include <Rand.hpp>
 
 #include <cassert>
 #include <iostream>
-#include <sstream>
 #include <malloc.h>
 
 namespace pnk
@@ -71,7 +71,7 @@ namespace pnk
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
             _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            _btns.at(_pnk._prefs.selectedModule).btn->setImgIndex(_btns.at(_pnk._prefs.selectedModule).img_index);
             _pnk._prefs.selectedModule = ++_pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
 
             positionCandles();
@@ -79,7 +79,7 @@ namespace pnk
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
             _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
-            _btns.at(_pnk._prefs.selectedModule).btn->_img_index = _btns.at(_pnk._prefs.selectedModule).img_index;
+            _btns.at(_pnk._prefs.selectedModule).btn->setImgIndex(_btns.at(_pnk._prefs.selectedModule).img_index);
             if(_pnk._prefs.selectedModule == 0) {
                 _pnk._prefs.selectedModule = _pnk.ENDOF_SELECTION - 1;
             }
@@ -137,7 +137,7 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: set active world size\n");
 #endif
-        gear.setActiveWorldSize(vp.w, vp.h);
+        gear.setActiveWorldSize(vp.w+1000, vp.h+1000);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: init image sheets\n");
@@ -156,30 +156,28 @@ namespace pnk
         DEBUG_PRINT("GSHome: tile layer\n");
 #endif
 
-        dang::spSpriteLayer dl = txtr.getSpriteLayer(tmx_deco_layer_name, false, true, false);
+        dang::spImgSprLayer dl = txtr.getImgSprLayer(tmx_deco_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: sprite layer\n");
 #endif
 
         // create spritelayer w/o collision detection/resolution
-        dang::spSpriteLayer sl = txtr.getSpriteLayer(tmx_obj_layer_name, false, true, false);
+        dang::spImgSprLayer sl = txtr.getImgSprLayer(tmx_obj_layer_name, false, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: auto layers done\n");
 #endif
         assert(dl != nullptr);
-        for (size_t j = 0; j < dl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < dl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = dl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = dl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spSprite spr = std::make_shared<dang::Sprite>(so, is);
-            spr->_visible = true;
-            spr->_imagesheet = is;
+
             if (so->type == "candle")
             {
-                // missing assert, but no way to find out i
+                dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
                 auto flickering = txtr.getAnimation(is->getName(), "flicker");
                 assert(flickering != nullptr);
                 spr->setAnimation(flickering);
@@ -192,8 +190,13 @@ namespace pnk
                 {
                     _sprRightCandle = spr;
                 }
+                sl->addSprite((dang::spImgSpr)spr);
             }
-            sl->addSprite(spr);
+            else
+            {
+                dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
+                sl->addSprite(spr);
+            }
         }
 
 #ifdef PNK_DEBUG_COMMON
@@ -204,18 +207,16 @@ namespace pnk
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
 
         // create sprites
-        for (size_t j = 0; j < sl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < sl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = sl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = sl->tmxLayer()->spriteobjects + j;
 
             dang::spImagesheet is = gear.getImagesheet(so->tileset);
-            dang::spSprite spr{nullptr};
+            dang::spFullImgSpr spr{nullptr};
             // buttons
             if(so->type == "button")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
                 if (so->type == "button" && so->name == "play")
                 {
                     _btns.at(_pnk.PLAY).btn = spr;
@@ -237,51 +238,61 @@ namespace pnk
             }
             else if (so->name == "piggie")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
-                spr->_transform = blit::SpriteTransform::HORIZONTAL;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
+                spr->setTransform(blit::SpriteTransform::HORIZONTAL);
 
                 // run piggie run
                 dang::spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
                 spr->setAnimation(anim);
 
                 // get a sequence and make sure that it is looping forever
-                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
-                tw_seq_anim->loops(-1);
+//                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
+//                tw_seq_anim->loops(-1);
 
                 // piggie starting off screen to the left
                 spr->setPosX(-32);
                 // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{320, spr->getPosY()};
+                dang::Vector2F  _move_to{360, spr->getPosY()};
 
+                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
+                twp->setFinishedCallback([&](){
+//                    playOink();
+                    spr->setPosX(-32);
+                });
+                spr->addTween(twp);
+/*
                 // total duration of 4000
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-                twPos->init(spr.get());
+//                twPos->init(spr.get());
                 tw_seq_anim->addTween(twPos);
 
                 dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
                 tw_seq_anim->addTween(nullTw);
 
                 spr->addTween(tw_seq_anim);
-            }
+*/            }
             else if (so->name == "hero")
             {
-                spr = std::make_shared<dang::Sprite>(so, is);
-                spr->_visible = true;
-                spr->_imagesheet = is;
+                spr = std::make_shared<dang::FullImgSpr>(so, is);
 
                 // run hero, run
                 dang::spTwAnim anim = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);
                 spr->setAnimation(anim);
 
                 // hero starting off screen to the left
-                spr->setPosX(-32);
+                spr->setPosX(-100);
                 // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{320, spr->getPosY()};
+                dang::Vector2F  _move_to{340, spr->getPosY()};
 
-                // get a sequence and make sure that it is looping forever
+                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
+                twp->setFinishedCallback([&](){
+                    playOink();
+                    spr->setPosX(-100);
+                });
+                spr->addTween(twp);
+
+/*                // get a sequence and make sure that it is looping forever
                 dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
                 tw_seq_anim->loops(-1);
 
@@ -291,7 +302,7 @@ namespace pnk
 
                 std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
                 // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-                twPos->init(spr.get());
+//                twPos->init(spr.get());
                 twPos->setFinishedCallback(std::bind(&GSHome::playOink, this));
                 tw_seq_anim->addTween(twPos);
 
@@ -299,11 +310,12 @@ namespace pnk
                 tw_seq_anim->addTween(pauseAfter);
 
                 spr->addTween(tw_seq_anim);
+*/
             }
 
             // and add it to the collection
             if(spr != nullptr){
-                sl->addSprite(spr);
+                sl->addSprite((dang::spImgSpr)spr);
             }
         }
 
@@ -322,7 +334,7 @@ namespace pnk
         // empty out gear
         gear.removeImagesheets();
         gear.removeLayers();
-        gear.removeNTrees();
+//        gear.removeNTrees();
 
         _btns.clear();
         _sprLeftCandle.reset();

@@ -13,20 +13,19 @@ namespace pnk
 {
     extern PigsnKings _pnk;
 
-    BossbattleTrigger::BossbattleTrigger() : dang::CollisionSprite()
+    BossbattleTrigger::BossbattleTrigger() : dang::ColSpr()
     {
     }
 
-    BossbattleTrigger::BossbattleTrigger(const dang::tmx_spriteobject* so) : dang::CollisionSprite(so, nullptr)
+    BossbattleTrigger::BossbattleTrigger(const dang::tmx_spriteobject* so) : dang::ColSpr(so)
     {
     }
 
     void BossbattleTrigger::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_KING)
+        if (sprOther->typeNum() == ST_KING)
         {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_START_BOSSBATTLE));
             _pnk._dispatcher.queueEvent(std::move(e));
@@ -38,9 +37,8 @@ namespace pnk
 
     uint8_t  BossbattleTrigger::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (cs_other->_type_num == ST_KING)
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
+        if (cs_other->typeNum() == ST_KING)
         {
             return dang::CR_CROSS;
         }

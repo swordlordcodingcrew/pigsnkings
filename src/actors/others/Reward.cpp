@@ -1,28 +1,25 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
+#include "Reward.h"
+
+#include "pigsnkings.hpp"
+#include "PnkEvent.h"
+
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
-#include <iostream>
+
 #include <sfx/coin_22050_mono.h>
-
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
-
-#include "Reward.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
-#include "src/PnkEvent.h"
 
 namespace pnk
 {
     extern PigsnKings _pnk;
 
-    Reward::Reward() : dang::CollisionSprite()
+    Reward::Reward() : dang::FullColSpr()
     {
     }
 
-    Reward::Reward(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Reward::Reward(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
     }
 
@@ -33,7 +30,7 @@ namespace pnk
         // the problem is, that if we set it in the sprite factory, we have an instance of an animation in every
         // single reward eating memory. if we set it if we need it, we only have a few...
         // lets discuss the problem
-        switch (this->_type_num)
+        switch (this->typeNum())
         {
             case ST_COIN_SILVER:
                 setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3}, 500, &dang::Ease::Linear, -1)));
@@ -79,8 +76,8 @@ namespace pnk
 
     Reward::~Reward()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "reward destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Reward destructor\n");
 #endif
     }
 
@@ -90,9 +87,9 @@ namespace pnk
 
     uint8_t Reward::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const dang::CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (cs_other->_type_num == ST_KING && !_collected)
+        const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
+
+        if (cs_other->typeNum() == ST_KING && !_collected)
         {
             return dang::CR_CROSS;
         }
@@ -102,10 +99,9 @@ namespace pnk
 
     void Reward::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_KING)
+        if (sprOther->typeNum() == ST_KING)
         {
             this->_collected = true;
 
@@ -116,7 +112,7 @@ namespace pnk
 
             dang::spTwAnim anim_poof;
 
-            switch (this->_type_num)
+            switch (this->typeNum())
             {
                 case ST_COIN_SILVER:
                 case ST_COIN_GOLD:
@@ -138,7 +134,7 @@ namespace pnk
                     break;
             }
 
-            createRewardEvent(this->_type_num);
+            createRewardEvent(this->typeNum());
 
             anim_poof->setFinishedCallback(std::bind(&Reward::removeSelf, this));
             setAnimation(anim_poof);
@@ -149,7 +145,6 @@ namespace pnk
     {
         // remove reward
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REWARD_HIT));
-        e->_spr = shared_from_this();
         e->_payload = static_cast<uint16_t>(rewardType);
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
@@ -157,7 +152,7 @@ namespace pnk
     void Reward::removeSelf()
     {
         markRemove();
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, _id));
+        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_SPR_CONSUMED_BY_HERO, id()));
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
 
         // remove reward

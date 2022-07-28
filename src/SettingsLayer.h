@@ -8,7 +8,7 @@
 #include <32blit.hpp>
 
 #include <DangFwdDecl.h>
-#include <Layer.hpp>
+#include <libs/DANG/src/layer/Layer.hpp>
 
 #include <list>
 
@@ -18,6 +18,7 @@ namespace pnk
     {
     public:
         SettingsLayer();
+        SettingsLayer(const dang::PointF &position, uint8_t z_order, const std::string& name, bool visible, bool active);
         ~SettingsLayer() override;
 
         void update(uint32_t dt, const dang::Gear &gear) override;

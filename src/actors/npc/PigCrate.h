@@ -18,16 +18,16 @@ namespace pnk
         void update(uint32_t dt) override;
 
         /** path and bt functions */
-        static dang::BTNode::Status NTPickUpCrate(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTThrowCrate(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTWithCrate(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTPickUpCrate(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTThrowCrate(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTWithCrate(dang::FullColSpr& s, uint32_t dt);
 //        static dang::BTNodeStatus BTHideInCrate(dang::spSprite s);
-        static dang::BTNode::Status NTDistanceOK(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTDistanceOK(dang::FullColSpr& s, uint32_t dt);
 
     protected:
 
         bool            onEnterThrowing() override;
-        virtual void    endThrowing() override;
+        void            endThrowing() override;
         virtual void    throwing();
         bool            _crated{true};
         void            pickupCrate();

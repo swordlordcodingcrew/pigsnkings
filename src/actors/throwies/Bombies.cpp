@@ -1,23 +1,19 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-#include <iostream>
-#include <cassert>
+
+#include "Bombies.h"
+
+#include "pigsnkings.hpp"
+#include "PnkEvent.h"
+#include "pnk_globals.h"
 
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
 #include <tween/TwSequence.hpp>
 #include <tween/TwVel.hpp>
 
-#include "TmxExtruder.hpp"
-#include "src/pigsnkings.hpp"
-#include "Throwies.h"
-#include "Bombies.h"
-#include "src/actors/npc/Enemy.h"
-#include "src/PnkEvent.h"
-#include "src/pnk_globals.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
+#include <cassert>
 
 namespace pnk
 {
@@ -31,15 +27,15 @@ namespace pnk
 
     }
 
-    Bombies::Bombies(const dang::tmx_spriteobject* so, spImagesheet is) : Throwies(so, is)
+    Bombies::Bombies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
 
     }
 
     Bombies::Bombies(const Bombies &bomb) : Throwies(bomb)
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Bombies copy constructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Bombies copy constructor\n");
 #endif
         _to_the_left = bomb._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(bomb._anim_flying));
@@ -52,8 +48,8 @@ namespace pnk
 
     Bombies::~Bombies()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Bombies destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Bombies destructor\n");
 #endif
     }
 
@@ -67,15 +63,14 @@ namespace pnk
 
     void Bombies::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        std::static_pointer_cast<CollisionSprite>(mf.other);
-//        sprOther = std::static_pointer_cast<CollisionSprite>(sprOther.get() == this ? mf.me : mf.other);
-        if (!_bIsOnFire && (sprOther->_type_num == ST_HOTRECT || sprOther->_type_num == ST_HOTRECT_PLATFORM))
+        dang::spColSpr sprOther = getOther(mf, this);
+
+        if (!_bIsOnFire && (sprOther->typeNum() == ST_HOTRECT || sprOther->typeNum() == ST_HOTRECT_PLATFORM))
         {
             // have the animation sequence triggered
             setBombOnFire();
         }
-        else if (_bIsOnFire && (sprOther->_type_num == ST_KING))
+        else if (_bIsOnFire && (sprOther->typeNum() == ST_KING))
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -84,9 +79,9 @@ namespace pnk
 
     uint8_t  Bombies::getCollisionResponse(const dang::CollisionObject* other) const
     {
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT || cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
+
+        if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT || cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {
             return dang::CR_BOUNCE;
         }
@@ -96,16 +91,14 @@ namespace pnk
 
     void Bombies::tellTheKingWeHitHim()
     {
-        //
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_spr = shared_from_this();
         e->_payload = ST_FLYING_BOMB;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void Bombies::setBombOnFire()
     {
-        // no reset of animation needed, will only be called once and reet is called after initialisation
+        // no reset of animation needed, will only be called once and reset is called after initialisation
         setAnimation(_anim_on_fire);
         _bIsOnFire = true;
     }
@@ -114,9 +107,8 @@ namespace pnk
     {
         setAnimation(_anim_flying);
         _anim_on_fire = nullptr;
-        //
+
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOMB_EXPLODES));
-        e->_spr = shared_from_this();
         e->_pos = this->getPos();
         e->_payload = ST_FLYING_BOMB;
         pnk::_pnk._dispatcher.queueEvent(std::move(e));

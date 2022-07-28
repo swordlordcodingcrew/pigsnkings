@@ -3,15 +3,15 @@
 
 
 #include "PigBomb.h"
-#include "src/pigsnkings.hpp"
-#include "src/pnk_globals.h"
-#include "src/PnkEvent.h"
+#include "pigsnkings.hpp"
+#include "pnk_globals.h"
+#include "PnkEvent.h"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
 #include <tween/TwSequence.hpp>
+#include <bt/NTreeState.h>
 
-#include <iostream>
 #include <cassert>
 
 namespace pnk
@@ -38,21 +38,6 @@ namespace pnk
 #endif
     }
 
-/*    void PigBomb::update(uint32_t dt)
-    {
-        this->HenchPig::update(dt);
-    }
-
-    dang::CollisionSpriteLayer::eCollisionResponse PigBomb::getCollisionResponse(const dang::spCollisionSprite& other)
-    {
-        return this->HenchPig::getCollisionResponse(other);
-    }
-
-    void PigBomb::collide(const dang::CollisionSpriteLayer::manifold &mf)
-    {
-        this->HenchPig::collide(mf);
-    }
-*/
     bool PigBomb::onEnterThrowing()
     {
         assert(_anim_m_throwing != nullptr);
@@ -60,13 +45,13 @@ namespace pnk
         setAnimation(_anim_m_throwing);
         if (_nTreeState->_payload.count("aaLoSH"))
         {
-            _transform = _nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+            setTransform(_nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
         }
         else if (_nTreeState->_payload.count("LoS"))
         {
-            _transform = _nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+            setTransform(_nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
         }
-        setVel({0,0});
+        setVel(0,0);
 
         // change the anims from bomb-carrying to empty-handed
         _currentState = THROWING;
@@ -108,7 +93,7 @@ namespace pnk
         }
         else
         {
-            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
         }
 
         e->_pos = this->getPos();
@@ -164,7 +149,7 @@ namespace pnk
             _anim_alt_sleeping = tmp_anim;
 
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_DROP_BOMB));
-            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
             e->_pos = this->getPos();
             e->_pos.y -= 10; // piggie holds the bomb on ground + 10 (yeah, small piggie)
             _pnk._dispatcher.queueEvent(std::move(e));
@@ -176,10 +161,9 @@ namespace pnk
     }
 
 
-    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTPickUpBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
-//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._with_bomb)
         {
@@ -192,10 +176,9 @@ namespace pnk
         }
     }
 
-    dang::BTNode::Status PigBomb::NTThrowBomb(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTThrowBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
-//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._with_bomb && spr._currentState != THROWING)
         {
@@ -214,17 +197,15 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTWithBomb(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTWithBomb(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
-//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
         return spr._with_bomb ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigBomb::NTDistanceOK(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigBomb::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
-        PigBomb& spr = dynamic_cast<PigBomb&>(s);
-//        std::shared_ptr<PigBomb> spr = std::static_pointer_cast<PigBomb>(s);
+        PigBomb& spr = static_cast<PigBomb&>(s);
 
         if (spr._nTreeState->_payload.count("aaLoSH"))
         {

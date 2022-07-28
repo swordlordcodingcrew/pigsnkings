@@ -9,6 +9,7 @@
 #include "GSPlay.h"
 #include "GSHome.h"
 #include "HUDLayer.hpp"
+
 #include "actors/hero/Hero.h"
 #include "actors/npc/Enemy.h"
 #include "actors/npc/HenchPig.h"
@@ -21,8 +22,9 @@
 #include "actors/throwies/Craties.h"
 #include "actors/others/Moodies.h"
 #include "actors/others/MoodiesThatHurt.h"
-#include <src/actors/others/LevelTrigger.h>
+#include "actors/others/LevelTrigger.h"
 #include "actors/others/Cannon.h"
+#include "actors/others/Reward.h"
 
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
@@ -64,23 +66,22 @@
 #include "rsrc/game_strings.hpp"
 #include "fonts/barcadebrawl.h"
 
-#include <snd/SndGear.hpp>
-#include <bt/NTree.h>
-#include <bt/NTBuilder.h>
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
-#include <Sprite.hpp>
-#include <SpriteLayer.hpp>
-#include <TileLayer.hpp>
-#include <MessageLayer.hpp>
-#include <Layer.hpp>
+#include <snd/SndGear.hpp>
+#include <sprite/ColSpr.hpp>
+#include <sprite/ImgSpr.hpp>
+#include <sprite/FullImgSpr.hpp>
+#include <layer/TileLayer.hpp>
+#include <layer/MessageLayer.hpp>
+#include <layer/ImgSprLayer.hpp>
+#include <layer/ColSprLayer.hpp>
 #include <tween/Ease.hpp>
 #include <tween/TwAnim.hpp>
 #include <tween/TwVel.hpp>
-#include <CollisionSprite.hpp>
-#include <CollisionSpriteLayer.hpp>
 #include <path/SceneGraph.hpp>
 #include <path/Waypoint.hpp>
+#include <bt/NTreeState.h>
 
 #include <malloc.h>
 #include <cassert>
@@ -246,11 +247,11 @@ namespace pnk
         dang::Gear& gear = _pnk.getGear();
 
         // add level specific behaviour trees
-        for (const auto& bthm : _screenplay->_bt)
+/*        for (const auto& bthm : _screenplay->_bt)
         {
             gear.addNTree(bthm.first, bthm.second);
         }
-
+*/
         dang::TmxExtruder txtr(_tmx, &gear);
 
 #ifdef PNK_DEBUG_COMMON
@@ -290,7 +291,38 @@ namespace pnk
         // create mood Tilelayer
         if (!_screenplay->_l_mood_name.empty())
         {
-            dang::spSpriteLayer sl = txtr.getSpriteLayer(_screenplay->_l_mood_name, true, true, true);
+            dang::spImgSprLayer sl = txtr.getImgSprLayer(_screenplay->_l_mood_name, false, true, true);
+
+            for (size_t j = 0; j < sl->tmxLayer()->spriteobejcts_len; j++)
+            {
+                const dang::tmx_spriteobject* so = sl->tmxLayer()->spriteobjects + j;
+
+                dang::spImagesheet is = gear.getImagesheet(so->tileset);
+
+                if (is != nullptr && !so->type.empty())
+                {
+                    dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
+                    if (so->type == "door")
+                    {
+                        spr->setTypeNum(ST_MOOD_DOOR);
+                    }
+
+                    dang::spTwAnim animation = txtr.getAnimation(is->getName(), so->type);
+                    if (animation != nullptr)
+                    {
+                        spr->setAnimation(animation);
+                    }
+                    sl->addSprite((dang::spImgSpr)spr);
+                }
+                else
+                {
+                    dang::spImgSpr spr = std::make_shared<dang::ImgSpr>(so, is);
+                    sl->addSprite(spr);
+                }
+
+            }
+
+
         }
 
 #ifdef PNK_DEBUG_COMMON
@@ -298,7 +330,7 @@ namespace pnk
 #endif
 
         // create Spritelayer with collision detection
-        _csl = txtr.getCollisionSpriteLayer(_screenplay->_l_obj_name, false, true);
+        _csl = txtr.getColSprLayer(_screenplay->_l_obj_name, true);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: sprite objects (%d)\n", mallinfo().uordblks);
@@ -312,35 +344,41 @@ namespace pnk
 //#endif
 
         // create sprites
-        for (size_t j = 0; j < _csl->_tmx_layer->spriteobejcts_len; j++)
+        for (size_t j = 0; j < _csl->tmxLayer()->spriteobejcts_len; j++)
         {
-            const dang::tmx_spriteobject* so = _csl->_tmx_layer->spriteobjects + j;
+            const dang::tmx_spriteobject* so = _csl->tmxLayer()->spriteobjects + j;
 
-            spImagesheet is = gear.getImagesheet(so->tileset);
-            std::unordered_map<std::string, spImagesheet> iss = gear.getImagesheets();
-            dang::spCollisionSprite spr = nullptr;
+            dang::spImagesheet is = gear.getImagesheet(so->tileset);
+            std::unordered_map<std::string, dang::spImagesheet> iss = gear.getImagesheets();
+            dang::spColSpr spr = nullptr;
 
-            if      (so->type == SpriteFactory::T_HOTRECT)           { spr = SpriteFactory::Hotrect(so); }
-            else if (so->type == SpriteFactory::T_HOTRECT_PLATFORM)  { spr = SpriteFactory::HotrectPlatform(so); }
-            else if (so->type == SpriteFactory::T_ROOM_TRIGGER)      { spr = SpriteFactory::RoomTrigger(so); }
-            else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::WarpRoomTrigger(so); }
-            else if (so->type == SpriteFactory::T_LEVEL_TRIGGER)     { spr = SpriteFactory::LevelTrigger(so); }
-            else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER){ spr = SpriteFactory::BossbattleTrigger(so); }
+            if (   so->type == SpriteFactory::T_HOTRECT
+                || so->type == SpriteFactory::T_HOTRECT_PLATFORM)
+            {
+                spr = SpriteFactory::RigidObj(so);
+            }
+            else if (so->type == SpriteFactory::T_ROOM_TRIGGER) { spr = SpriteFactory::RoomTrigger(so, false); }
+            else if (so->type == SpriteFactory::T_WARP_ROOM_TRIGGER) { spr = SpriteFactory::RoomTrigger(so, true); }
+            else if (so->type == SpriteFactory::T_LEVEL_TRIGGER) { spr = SpriteFactory::LevelTrigger(so); }
+            else if (so->type == SpriteFactory::T_BOSSBATTLE_TRIGGER) { spr = SpriteFactory::BossbattleTrigger(so); }
             else if (so->type == SpriteFactory::T_SAVEPOINT_TRIGGER) { spr = SpriteFactory::SavepointTrigger(so); }
-            else if (so->type == SpriteFactory::T_COIN_SILVER)       { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_COIN_GOLD)         { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_GEM_BLUE)          { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_GEM_GREEN)         { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_GEM_RED)           { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_POTION_BLUE)       { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_POTION_RED)        { spr = SpriteFactory::Reward(txtr, so, is); }
-            else if (so->type == SpriteFactory::T_POTION_GREEN)      { spr = SpriteFactory::Reward(txtr, so, is); }
+            else if (  so->type == SpriteFactory::T_COIN_SILVER
+                    || so->type == SpriteFactory::T_COIN_GOLD
+                    || so->type == SpriteFactory::T_GEM_BLUE
+                    || so->type == SpriteFactory::T_GEM_GREEN
+                    || so->type == SpriteFactory::T_GEM_RED
+                    || so->type == SpriteFactory::T_POTION_BLUE
+                    || so->type == SpriteFactory::T_POTION_RED
+                    || so->type == SpriteFactory::T_POTION_GREEN)
+            {
+                spr = SpriteFactory::Reward(txtr, so, is);
+            }
             else if (so->type == SpriteFactory::T_PIG_CANNON)
             {
                 // TODO refactor, ugly hack
                 // implicitly add the cannon and tell the cannoneer about
                 auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
-                _csl->addCollisionSprite(cannoneer->_myCannon);
+                _csl->addSprite((dang::spColSpr)cannoneer->_myCannon);
 
                 spr = cannoneer;
             }
@@ -352,7 +390,7 @@ namespace pnk
 
             if (spr != nullptr)
             {
-                _csl->addCollisionSprite(spr);
+                _csl->addSprite(spr);
             }
             else
             {
@@ -367,7 +405,7 @@ namespace pnk
 
                 if (spr != nullptr)
                 {
-                    _csl->addCollisionSprite(spr);
+                    _csl->addSprite(spr);
 
                     // global pos is needed for the graphs and the global pos can only be determind when added to a layer due to the tree-structure
                     spEnemy en = std::static_pointer_cast<Enemy>(spr);
@@ -381,43 +419,43 @@ namespace pnk
 
                 if (so->type == SpriteFactory::T_BUBBLE_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Bubble(txtr, so, is, false, _screenplay->_bubble_loops);
+                    dang::spColSpr sprc = SpriteFactory::Bubble(txtr, so, is, false, _screenplay->_bubble_loops);
                     assert(sprc != nullptr);
                     _hives["bubble"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CRATE_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Crate(txtr, so, is, false);
+                    dang::spColSpr sprc = SpriteFactory::Crate(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["crate"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_BOMB_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Bomb(txtr, so, is);
+                    dang::spColSpr sprc = SpriteFactory::Bomb(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["bomb"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_EXPLOSION_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Explosion(txtr, so, is);
+                    dang::spColSpr sprc = SpriteFactory::Explosion(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["explosion"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_PIG_POOF_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::PigPoof(txtr, so, is);
+                    dang::spColSpr sprc = SpriteFactory::PigPoof(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["poof"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CANNONBALL_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Cannonball(txtr, so, is, false);
+                    dang::spColSpr sprc = SpriteFactory::Cannonball(txtr, so, is, false);
                     assert(sprc != nullptr);
                     _hives["cannonball"] = sprc;
                 }
                 else if (so->type == SpriteFactory::T_CANNONMUZZLE_PROTO)
                 {
-                    dang::spCollisionSprite sprc = SpriteFactory::Cannonmuzzle(txtr, so, is);
+                    dang::spColSpr sprc = SpriteFactory::Cannonmuzzle(txtr, so, is);
                     assert(sprc != nullptr);
                     _hives["cannonmuzzle"] = sprc;
                 }
@@ -435,12 +473,15 @@ namespace pnk
             // remove sprites that have been taken/vanquished before
             for (auto id : _pnk._removed_sprites)
             {
-                dang::spSprite s = _csl->getSpriteById(id);
+                dang::spSprObj s = _csl->getSpriteById(id);
                 if (s != nullptr)
                 {
-                    _csl->_removeSprite(s);
+                    s->markRemove();
+//                    _csl->_removeSprite(s);
                 }
             }
+            _csl->cleanSpritelist();
+
 
 #ifdef TARGET_32BLIT_HW
 
@@ -454,7 +495,7 @@ namespace pnk
         DEBUG_PRINT("GSPlay: fg layer\n");
 #endif
         // create foreground layer
-        txtr.getSpriteLayer(_screenplay->_l_fg_name, true, true, false);
+        txtr.getImgSprLayer(_screenplay->_l_fg_name, true, true, false);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: hud layer\n");
@@ -463,18 +504,18 @@ namespace pnk
         spHUDLayer hudl = std::make_shared<HUDLayer>();
         if (!_screenplay->_l_hud_name.empty())
         {
-            txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, true, true);
+            txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, false, true);
+            hudl->fillSprites(_pnk.getGear());
 
-            // run through all sprites in HUD layer and check for the kings head (and make it change when user cheats)
             if(_pnk.isCheating())
             {
                 hudl->changeCheatSprite();
             }
         }
 
-        // create text layser
-        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl);
-        _txtl->_z_order = 10;
+        // create text layer
+        dang::PointF p{0,0};
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl, p, 10, "", true, true);
         _txtl->setButtons(BTN_OK, BTN_CANCEL);
         gear.addLayer(_txtl);
 
@@ -489,6 +530,9 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
+        // set the zonebits correcty
+        _csl->resetZoneBit(gear.getViewport());
+
 
         // show starting text (only at the beginning of the level)
         if (_active_room_index == 0)
@@ -530,9 +574,6 @@ namespace pnk
 
         // remove layers
         gear.removeLayers();
-
-        // remove behaviour trees
-        gear.removeNTrees();
     }
 
     void GSPlay::gameEventReceived(dang::Event &e)
@@ -546,7 +587,7 @@ namespace pnk
             bub->setPos(pe._pos);
             bub->_to_the_left = pe._to_the_left;
             bub->init();
-            _csl->addCollisionSprite(bub);
+            _csl->addSprite((dang::spColSpr)bub);
 
             dang::SndGear::playSfx(bubble_blow_22050_mono, bubble_blow_22050_mono_length, _pnk._prefs.volume_sfx);
         }
@@ -557,7 +598,9 @@ namespace pnk
         }
         else if (pe._type == ETG_REMOVE_SPRITE)
         {
-            std::shared_ptr<dang::Sprite> spr = pe._spr.lock();
+            std::printf("depracated: ETG_REMOVE_SPRITE. Use markRemove() instead\n");
+            throw;
+/*            std::shared_ptr<dang::Sprite> spr = pe._spr.lock();
             if (spr != nullptr)
             {
                 std::cout << "depracated: ETG_REMOVE_SPRITE with sprite id=" << spr->_id << ". Use markRemove() instead" << std::endl;
@@ -578,6 +621,7 @@ namespace pnk
                 DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
 #endif
             }
+            */
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
                 || pe._type == ETG_NEW_THROWN_BOMB
@@ -676,7 +720,7 @@ namespace pnk
             dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             crate->addTween(twv1);
 
-            _csl->addCollisionSprite(crate);
+            _csl->addSprite((dang::spColSpr)crate);
         }
         else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
@@ -693,7 +737,7 @@ namespace pnk
             dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -4), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             bomb->addTween(twv1);
 
-            _csl->addCollisionSprite(bomb);
+            _csl->addSprite((dang::spColSpr)bomb);
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {
@@ -705,19 +749,19 @@ namespace pnk
             ball->_to_the_left = pe._to_the_left;
             ball->setVelX(20);
             ball->init();
-            _csl->addCollisionSprite(ball);
+            _csl->addSprite((dang::spColSpr)ball);
 
             spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
             assert(protoMood != nullptr);
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPos(pe._pos);
             mood->setPosX(pe._pos.x + 10);
-            mood->_z_order = 100;
-            mood->_transform = blit::SpriteTransform::HORIZONTAL;
+            mood->setZOrder(100);
+            mood->setTransform(blit::SpriteTransform::HORIZONTAL);
             mood->init();
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
 
-            _csl->addCollisionSprite(mood);
+            _csl->addSprite((dang::spColSpr)mood);
 
             dang::SndGear::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length, _pnk._prefs.volume_sfx);
         }
@@ -734,7 +778,7 @@ namespace pnk
             boom->setPosY(pe._pos.y - 16);
             boom->init();
             boom->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, boom.get()));
-            _csl->addCollisionSprite(boom);
+            _csl->addSprite((dang::spColSpr)boom);
 
             dang::SndGear::playSfx(bomb_explode_22050_mono, bomb_explode_22050_mono_length, _pnk._prefs.volume_sfx);
             dang::SndGear::playRumbleTrack(&dang::explosion, 0);
@@ -755,7 +799,7 @@ namespace pnk
         poof->init();
         poof->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, poof.get()));
 
-        _csl->addCollisionSprite(poof);
+        _csl->addSprite((dang::spColSpr)poof);
     }
 
     void GSPlay::handleKingHealth(PnkEvent& pe)
@@ -1099,35 +1143,23 @@ namespace pnk
         _csl->markRemoveSpritesByTypeNum(ST_PIG_BOMB);
         _csl->markRemoveSpritesByTypeNum(ST_PIG_CANNON);
 
-        /*
-        // lets not do this, player should see how she killed the boss
-        spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
-        if(hudl != nullptr)
-        {
-            hudl->deactivateBossHUD();
-        }
-         */
-
         // show doors
-        dang::spSpriteLayer mood = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByName("lvl_1_mood"));
+        dang::spImgSprLayer mood = std::static_pointer_cast<dang::ImgSprLayer>(_pnk.getGear().getLayerByName("lvl_1_mood"));
         if(mood != nullptr)
         {
-            auto spr = mood->getSpriteByType("door");
+            auto spr = mood->getImgSprByTypeNum(ST_MOOD_DOOR);
             if(spr != nullptr)
             {
-                spr->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 900, dang::Ease::Linear, 1)));
+                dang::spFullImgSpr fis = std::static_pointer_cast<dang::FullImgSpr>(spr);
+                fis->setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{1, 2, 3}, 900, dang::Ease::Linear, 1)));
             }
         }
 
-        dang::spSpriteLayer ol = std::static_pointer_cast<dang::SpriteLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_COLLISIONSPRITELAYER));
-        if(ol != nullptr)
+        auto spr = _csl->getSpriteByTypeNum(ST_LEVEL_TRIGGER);
+        if(spr != nullptr)
         {
-            auto spr = ol->getSpriteByType(SpriteFactory::T_LEVEL_TRIGGER);
-            if(spr != nullptr)
-            {
-                auto lvlTrigger = std::static_pointer_cast<LevelTrigger>(spr);
-                lvlTrigger->activateTrigger();
-            }
+            auto lvlTrigger = std::static_pointer_cast<LevelTrigger>(spr);
+            lvlTrigger->activateTrigger();
         }
 
         dang::SndGear::playSfx(victory_22050_mono, victory_22050_mono_length, _pnk._prefs.volume_sfx);
@@ -1197,7 +1229,7 @@ namespace pnk
         _txtl->setText(message);
         _txtl->setTtl(ttl, std::bind(&GSPlay::hideInfoLayer, this, std::placeholders::_1));
         _txtl->setActive(true);
-        _txtl->setVisibility(true);
+        _txtl->setVisible(true);
     }
 
     void GSPlay::showGameOverInfo()
@@ -1206,14 +1238,14 @@ namespace pnk
         _txtl->setText(str_game_over);
         _txtl->setTtl(10000, std::bind(&GSPlay::leaveTheGameCallback, this, std::placeholders::_1));
         _txtl->setActive(true);
-        _txtl->setVisibility(true);
+        _txtl->setVisible(true);
     }
 
     void GSPlay::hideInfoLayer(blit::Button btn)
     {
         _csl->setActive(true);
         _txtl->setActive(false);
-        _txtl->setVisibility(false);
+        _txtl->setVisible(false);
     }
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)
@@ -1221,36 +1253,31 @@ namespace pnk
         _leaveGame = true;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSightH(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status GSPlay::NTheroInSightH(dang::FullColSpr& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::CollisionSprite& cs = dynamic_cast<dang::CollisionSprite&>(s);
-
-            float ret = _csl->aaLoSH(cs, *_spr_hero.get());
+            float ret = _csl->aaLoSH(s, *_spr_hero.get());
 
             if (ret != 0)
             {
-                cs.getNTreeState()->_payload["aaLoSH"] = ret;
+                s.getNTreeState()->_payload["aaLoSH"] = ret;
                 return dang::BTNode::Status::SUCCESS;
             }
-
         }
 
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status GSPlay::NTheroInSight(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status GSPlay::NTheroInSight(dang::FullColSpr& s, uint32_t dt)
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::CollisionSprite& cs = dynamic_cast<dang::CollisionSprite&>(s);
-
-            float ret = _csl->loS(cs, *_spr_hero.get());
+            float ret = _csl->loS(s, *_spr_hero.get());
 
             if (ret != 0)
             {
-                cs.getNTreeState()->_payload["LoS"] = ret;
+                s.getNTreeState()->_payload["LoS"] = ret;
                 return dang::BTNode::Status::SUCCESS;
             }
         }

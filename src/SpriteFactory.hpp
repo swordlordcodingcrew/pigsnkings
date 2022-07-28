@@ -5,24 +5,29 @@
 
 #include <string>
 #include <memory>
-#include <src/actors/hero/Hero.h>
-
-#include "src/actors/others/Reward.h"
-#include "src/levels/ScreenPlay.h"
+#include <unordered_map>
 
 namespace dang
 {
     // forward declarations of DANG framework
-    class CollisionSprite;
+    class SpriteObject;
+    class ColSpr;
+    class FullColSpr;
     class Imagesheet;
     class TmxExtruder;
-    class Sprite;
 
     struct tmx_spriteobject;
+
+    using spColSpr = std::shared_ptr<ColSpr>;
+    using spFullSpr = std::shared_ptr<FullColSpr>;
+    using spSprObj = std::shared_ptr<SpriteObject>;
+    using spImagesheet = std::shared_ptr<Imagesheet>;
+
 }
 
 namespace pnk
 {
+
     // forward declarations
     class Hero;
     class PigBoss;
@@ -38,94 +43,98 @@ namespace pnk
     class Cannonball;
     class Moodies;
     class MoodiesThatHurt;
-}
+    class ScreenPlay;
 
-// using assignments
-using spImagesheet = std::shared_ptr<dang::Imagesheet>;
-using spHero = std::shared_ptr<pnk::Hero>;
-using spBoss = std::shared_ptr<pnk::PigBoss>;
-using spEnemy = std::shared_ptr<pnk::Enemy>;
-using spHenchPig = std::shared_ptr<pnk::HenchPig>;
-using spReward = std::shared_ptr<pnk::Reward>;
-using spBubble = std::shared_ptr<pnk::Bubble>;
-using spThrowies = std::shared_ptr<pnk::Throwies>;
-using spCraties = std::shared_ptr<pnk::Craties>;
-using spBombies = std::shared_ptr<pnk::Bombies>;
-using spPigCannon = std::shared_ptr<pnk::PigCannon>;
-using spCannon = std::shared_ptr<pnk::Cannon>;
-using spCannonball = std::shared_ptr<pnk::Cannonball>;
-using spMoodies = std::shared_ptr<pnk::Moodies>;
-using spMoodiesThatHurt = std::shared_ptr<pnk::MoodiesThatHurt>;
-using spScreenPlay = std::shared_ptr<pnk::ScreenPlay>;
+    // using assignments
+    using spHero = std::shared_ptr<pnk::Hero>;
+    using spBoss = std::shared_ptr<pnk::PigBoss>;
+    using spEnemy = std::shared_ptr<pnk::Enemy>;
+    using spHenchPig = std::shared_ptr<pnk::HenchPig>;
+    using spReward = std::shared_ptr<pnk::Reward>;
+    using spBubble = std::shared_ptr<pnk::Bubble>;
+    using spThrowies = std::shared_ptr<pnk::Throwies>;
+    using spCraties = std::shared_ptr<pnk::Craties>;
+    using spBombies = std::shared_ptr<pnk::Bombies>;
+    using spPigCannon = std::shared_ptr<pnk::PigCannon>;
+    using spCannon = std::shared_ptr<pnk::Cannon>;
+    using spCannonball = std::shared_ptr<pnk::Cannonball>;
+    using spMoodies = std::shared_ptr<pnk::Moodies>;
+    using spMoodiesThatHurt = std::shared_ptr<pnk::MoodiesThatHurt>;
+    using spScreenPlay = std::shared_ptr<pnk::ScreenPlay>;
 
-namespace pnk
-{
+
     class SpriteFactory
     {
     public:
         /**
          * type names. These should correspond to the object-types in the tiled-files
          */
-        static inline const std::string T_KING{"king"};
-        static inline const std::string T_BOSS{"boss"};
-        static inline const std::string T_BUBBLE_PROTO{"bubble_proto"};
-        static inline const std::string T_CRATE_PROTO{"crate_proto"};
-        static inline const std::string T_BOMB_PROTO{"bomb_proto"};
-        static inline const std::string T_EXPLOSION_PROTO{"boom_proto"};
-        static inline const std::string T_PIG_POOF_PROTO{"pigpoof_proto"};
-        static inline const std::string T_CANNONMUZZLE_PROTO{"cannonmuzzle_proto"};
-        static inline const std::string T_CANNONBALL_PROTO{"cannonball_proto"};
-        static inline const std::string T_HOTRECT{"hotrect"};
-        static inline const std::string T_HOTRECT_PLATFORM{"hotrect_platform"};
-        static inline const std::string T_ROOM_TRIGGER{"room_trigger"};
-        static inline const std::string T_BOSSBATTLE_TRIGGER{"bossbattle_trigger"};
-        static inline const std::string T_SAVEPOINT_TRIGGER{"savepoint_trigger"};
-        static inline const std::string T_LEVEL_TRIGGER{"level_trigger"};
-        static inline const std::string T_WARP_ROOM_TRIGGER{"warp_room_trigger"};
-        static inline const std::string T_NORMAL_PIG_HIVE{"normal_pig_hive"};
-        static inline const std::string T_PIG_NORMAL{"pig_normal"};
-        static inline const std::string T_PIG_BETTER{"pig_better"};
-        static inline const std::string T_PIG_BOX{"pig_box"};
-        static inline const std::string T_PIG_BOMB{"pig_bomb"};
-        static inline const std::string T_PIG_CANNON{"pig_cannon"};
-        static inline const std::string T_CANNON{"cannon"};
-        static inline const std::string T_COIN_SILVER{"coin_silver"};
-        static inline const std::string T_COIN_GOLD{"coin_gold"};
-        static inline const std::string T_GEM_BLUE{"gem_blue"};
-        static inline const std::string T_GEM_GREEN{"gem_green"};
-        static inline const std::string T_GEM_RED{"gem_red"};
-        static inline const std::string T_POTION_BLUE{"potion_blue"};
-        static inline const std::string T_POTION_GREEN{"potion_green"};
-        static inline const std::string T_POTION_RED{"potion_red"};
+        static inline const std::string_view T_KING{"king"};
+        static inline const std::string_view T_BOSS{"boss"};
+        static inline const std::string_view T_BUBBLE_PROTO{"bubble_proto"};
+        static inline const std::string_view T_CRATE_PROTO{"crate_proto"};
+        static inline const std::string_view T_BOMB_PROTO{"bomb_proto"};
+        static inline const std::string_view T_EXPLOSION_PROTO{"boom_proto"};
+        static inline const std::string_view T_PIG_POOF_PROTO{"pigpoof_proto"};
+        static inline const std::string_view T_CANNONMUZZLE_PROTO{"cannonmuzzle_proto"};
+        static inline const std::string_view T_CANNONBALL_PROTO{"cannonball_proto"};
+        static inline const std::string_view T_HOTRECT{"hotrect"};
+        static inline const std::string_view T_HOTRECT_PLATFORM{"hotrect_platform"};
+        static inline const std::string_view T_ROOM_TRIGGER{"room_trigger"};
+        static inline const std::string_view T_BOSSBATTLE_TRIGGER{"bossbattle_trigger"};
+        static inline const std::string_view T_SAVEPOINT_TRIGGER{"savepoint_trigger"};
+        static inline const std::string_view T_LEVEL_TRIGGER{"level_trigger"};
+        static inline const std::string_view T_WARP_ROOM_TRIGGER{"warp_room_trigger"};
+        static inline const std::string_view T_NORMAL_PIG_HIVE{"normal_pig_hive"};
+        static inline const std::string_view T_PIG_NORMAL{"pig_normal"};
+        static inline const std::string_view T_PIG_BETTER{"pig_better"};
+        static inline const std::string_view T_PIG_BOX{"pig_box"};
+        static inline const std::string_view T_PIG_BOMB{"pig_bomb"};
+        static inline const std::string_view T_PIG_CANNON{"pig_cannon"};
+        static inline const std::string_view T_CANNON{"cannon"};
+        static inline const std::string_view T_COIN_SILVER{"coin_silver"};
+        static inline const std::string_view T_COIN_GOLD{"coin_gold"};
+        static inline const std::string_view T_GEM_BLUE{"gem_blue"};
+        static inline const std::string_view T_GEM_GREEN{"gem_green"};
+        static inline const std::string_view T_GEM_RED{"gem_red"};
+        static inline const std::string_view T_POTION_BLUE{"potion_blue"};
+        static inline const std::string_view T_POTION_GREEN{"potion_green"};
+        static inline const std::string_view T_POTION_RED{"potion_red"};
 
-        static void attachBehaviourTree(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const dang::spCollisionSprite& cs);
+        static void attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs);
 //        static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 //        static size_t findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos);
 
-        static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spBoss Boss(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp);
-        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
-        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp);
-        static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, spImagesheet> &iss, spScreenPlay& sp);
-        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
-        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, spScreenPlay& sp);
-        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left, uint8_t num_bubble_loops);
-        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
-        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static dang::spCollisionSprite Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is, bool to_the_left);
-        static dang::spCollisionSprite PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static dang::spCollisionSprite Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static dang::spCollisionSprite Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, spImagesheet is);
-        static dang::spCollisionSprite Hotrect(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite HotrectPlatform(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite RoomTrigger(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite WarpRoomTrigger(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite LevelTrigger(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite BossbattleTrigger(const dang::tmx_spriteobject* so);
-        static dang::spCollisionSprite SavepointTrigger(const dang::tmx_spriteobject* so);
+        static spHero King(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static spBoss Boss(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
+        static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+        static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
+        static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
+        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+        static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left, uint8_t num_bubble_loops);
+        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
+        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static dang::spFullSpr Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
+        static dang::spFullSpr PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static dang::spFullSpr Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+/*        static dang::spColSpr Hotrect(const dang::tmx_spriteobject* so);
+        static dang::spColSpr HotrectPlatform(const dang::tmx_spriteobject* so);
+*/
+        static dang::spColSpr RoomTrigger(const dang::tmx_spriteobject* so, bool warp);
+//        static dang::spColSpr WarpRoomTrigger(const dang::tmx_spriteobject* so);
+        static dang::spColSpr LevelTrigger(const dang::tmx_spriteobject* so);
+        static dang::spColSpr BossbattleTrigger(const dang::tmx_spriteobject* so);
+        static dang::spColSpr SavepointTrigger(const dang::tmx_spriteobject* so);
+
+        static dang::spColSpr RigidObj(const dang::tmx_spriteobject* so);
+        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static void setTypeNum(dang::spSprObj spo, const std::string& type);
+
+
     };
 
 }

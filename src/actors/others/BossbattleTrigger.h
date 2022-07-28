@@ -4,11 +4,11 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/ColSpr.hpp>
 
 namespace pnk
 {
-    class BossbattleTrigger : public dang::CollisionSprite
+    class BossbattleTrigger : public dang::ColSpr
     {
     public:
         BossbattleTrigger();

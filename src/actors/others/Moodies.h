@@ -4,11 +4,11 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/FullColSpr.hpp>
 
 namespace pnk
 {
-    class Moodies : public dang::CollisionSprite
+    class Moodies : public dang::FullColSpr
     {
     public:
         Moodies();

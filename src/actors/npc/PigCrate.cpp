@@ -2,15 +2,15 @@
 // This file is part of the pnk game
 
 #include "PigCrate.h"
-#include "src/pigsnkings.hpp"
-#include "src/pnk_globals.h"
-#include "src/PnkEvent.h"
+#include "pigsnkings.hpp"
+#include "pnk_globals.h"
+#include "PnkEvent.h"
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
 #include <tween/TwSequence.hpp>
+#include <bt/NTreeState.h>
 
-#include <iostream>
 #include <cassert>
 
 namespace pnk
@@ -42,17 +42,6 @@ namespace pnk
         this->HenchPig::update(dt);
     }
 
-/*    uint8_t  PigCrate::getCollisionResponse(const dang::spCollisionObject& other)
-    {
-        return this->HenchPig::getCollisionResponse(other);
-    }
-
-    void PigCrate::collide(const dang::manifold &mf)
-    {
-        this->HenchPig::collide(mf);
-    }
-*/
-
     bool PigCrate::onEnterThrowing()
     {
         assert(_anim_m_throwing != nullptr);
@@ -60,11 +49,11 @@ namespace pnk
         setAnimation(_anim_m_throwing);
         if (_nTreeState->_payload.count("aaLoSH"))
         {
-            _transform = _nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+            setTransform(_nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
         }
         else if (_nTreeState->_payload.count("LoS"))
         {
-            _transform = _nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE;
+            setTransform(_nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
         }
         setVel({0,0});
 
@@ -109,7 +98,7 @@ namespace pnk
         }
         else
         {
-            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
         }
 
         e->_pos = this->getPos();
@@ -165,7 +154,7 @@ namespace pnk
             _anim_alt_sleeping = tmp_anim;
 
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_DROP_CRATE));
-            e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+            e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
             e->_pos = this->getPos();
             e->_pos.y -= 10; // piggie holds the box on ground + 10 (yeah, small piggie)
             _pnk._dispatcher.queueEvent(std::move(e));
@@ -176,10 +165,9 @@ namespace pnk
 
     }
 
-    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTPickUpCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
-//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._crated)
         {
@@ -190,10 +178,9 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
-    dang::BTNode::Status PigCrate::NTThrowCrate(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTThrowCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
-//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._crated && spr._currentState != THROWING)
         {
@@ -212,17 +199,15 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTWithCrate(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTWithCrate(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
-//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
         return spr._crated ? dang::BTNode::Status::SUCCESS : dang::BTNode::Status::FAILURE;
     }
 
-    dang::BTNode::Status PigCrate::NTDistanceOK(dang::Sprite& s, uint32_t dt)
+    dang::BTNode::Status PigCrate::NTDistanceOK(dang::FullColSpr& s, uint32_t dt)
     {
-        PigCrate& spr = dynamic_cast<PigCrate&>(s);
-//        std::shared_ptr<PigCrate> spr = std::static_pointer_cast<PigCrate>(s);
+        PigCrate& spr = static_cast<PigCrate&>(s);
 
         if (spr._nTreeState->_payload.count("aaLoSH"))
         {

@@ -13,7 +13,7 @@
 
 #include "Gear.hpp"
 #include "SettingsLayer.h"
-#include "Layer.hpp"
+#include "libs/DANG/src/layer/Layer.hpp"
 #include "Imagesheet.hpp"
 
 
@@ -22,6 +22,12 @@ namespace pnk
     extern PigsnKings _pnk;
 
     SettingsLayer::SettingsLayer() : Layer(dang::Layer::LT_UNDEFINED)
+    {
+
+    }
+
+    SettingsLayer::SettingsLayer(const dang::PointF &position, uint8_t z_order, const std::string &name, bool visible, bool active)
+         : Layer(dang::Layer::LT_UNDEFINED, position, z_order, name, visible, active)
     {
         backgroundColour = blit::Pen(255, 255, 255, 255);
         foregroundColour = blit::Pen(0, 0, 0, 255);
@@ -296,4 +302,5 @@ namespace pnk
 //        blit::read_save(_temp_gamestate, slot);
         _pnk.loadGameState(slot, _temp_gamestate);
     }
+
 }

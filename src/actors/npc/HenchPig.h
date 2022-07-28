@@ -35,10 +35,10 @@ namespace pnk
         dang::spTwAnim _anim_alt_loitering{nullptr};
 
         /** path and bt functions */
-        static dang::BTNode::Status NTsetSleepShort(dang::Sprite& s, uint32_t dt);               // 0.5 - 1.5 sec of sleep state
-        static dang::BTNode::Status NTsetSleepMedium(dang::Sprite& s, uint32_t dt);              // 2 - 4 sec of sleep state
-        static dang::BTNode::Status NTsetSleepLong(dang::Sprite& s, uint32_t dt);                // 5 - 10 sec of sleep state
-        static dang::BTNode::Status NTdoSleep(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTsetSleepShort(dang::FullColSpr& s, uint32_t dt);               // 0.5 - 1.5 sec of sleep state
+        static dang::BTNode::Status NTsetSleepMedium(dang::FullColSpr& s, uint32_t dt);              // 2 - 4 sec of sleep state
+        static dang::BTNode::Status NTsetSleepLong(dang::FullColSpr& s, uint32_t dt);                // 5 - 10 sec of sleep state
+        static dang::BTNode::Status NTdoSleep(dang::FullColSpr& s, uint32_t dt);
 
         void                        startOutToWaypoint() override;
 

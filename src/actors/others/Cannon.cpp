@@ -1,30 +1,25 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the DANG game framework
 
-#include <iostream>
-
-#include <tween/TwAnim.hpp>
-#include <Imagesheet.hpp>
-#include <TmxExtruder.hpp>
+#include "Cannon.h"
 
 #include "src/pnk_globals.h"
 #include "src/PnkEvent.h"
-#include "src/GSPlay.h"
-#include "src/SpriteFactory.hpp"
 #include "src/pigsnkings.hpp"
 
-#include "Cannon.h"
+#include <tween/TwAnim.hpp>
+#include <Imagesheet.hpp>
+
 
 namespace pnk
 {
-
     extern PigsnKings _pnk;
 
-    Cannon::Cannon() : dang::CollisionSprite()
+    Cannon::Cannon() : dang::FullColSpr()
     {
     }
 
-    Cannon::Cannon(const dang::tmx_spriteobject* so, spImagesheet is) : dang::CollisionSprite(so, is)
+    Cannon::Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
     }
 
@@ -39,8 +34,8 @@ namespace pnk
 
     Cannon::~Cannon()
     {
-#ifdef PNK_DEBUG_PRINT
-        std::cout << "Cannon destructor" << std::endl;
+#ifdef PNK_DEBUG_COMMON
+        DEBUG_PRINT("Cannon destructor\n");
 #endif
     }
 
@@ -64,9 +59,8 @@ namespace pnk
     uint8_t  Cannon::getCollisionResponse(const dang::CollisionObject* other) const
     {
 
-        const dang::CollisionSprite* cs_other = dynamic_cast<const CollisionSprite*>(other);
-//        dang::spCollisionSprite cs_other = std::static_pointer_cast<CollisionSprite>(other);
-        if (cs_other->_type_num == ST_KING || cs_other->_type_num == ST_HOTRECT || cs_other->_type_num == ST_HOTRECT_PLATFORM)
+        const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
+        if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT || cs_other->typeNum() == ST_HOTRECT_PLATFORM)
         {
             return dang::CR_SLIDE;
         }
@@ -77,10 +71,9 @@ namespace pnk
 
     void Cannon::collide(const dang::manifold &mf)
     {
-        dang::spCollisionSprite sprOther = getOther(mf, this);
-//        dang::spCollisionSprite sprOther = std::static_pointer_cast<CollisionSprite>(mf.me.get() == this ? mf.other : mf.me);
+        dang::spColSpr sprOther = getOther(mf, this);
 
-        if (sprOther->_type_num == ST_KING)
+        if (sprOther->typeNum() == ST_KING)
         {
             tellTheKingWeHitHim();
         }
@@ -90,12 +83,12 @@ namespace pnk
 
             if (normal.x != 0)
             {
-                _vel.x = 0;
+                setVelX(0);
             }
 
             if (normal.y > 0)
             {
-                _vel.y = 0;
+                setVelY(0);
             }
         }
     }
@@ -120,7 +113,7 @@ namespace pnk
         }
         else
         {
-            std::cerr << "_anim_m_sleeping is not set in Cannon" << std::endl;
+            std::printf("_anim_m_sleeping is not set in Cannon\n");
         }
         _currentState = SLEEPING;
 
@@ -136,7 +129,7 @@ namespace pnk
 
         // Tell cannon to fire cannonball
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_FIRED_CANNON));
-        e->_to_the_left = this->_transform != blit::SpriteTransform::HORIZONTAL;
+        e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
         e->_pos = this->getPos();
         _pnk._dispatcher.queueEvent(std::move(e));
 
@@ -151,7 +144,7 @@ namespace pnk
 
     void Cannon::tellTheKingWeHitHim()
     {
-        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_CANNON, shared_from_this()));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_CANNON));
 
 //        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
 //        e->_spr = shared_from_this();
@@ -162,7 +155,7 @@ namespace pnk
     void Cannon::removeSelf()
     {
         markRemove();
-        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_REMOVE_SPRITE, _id));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_REMOVE_SPRITE, id()));
 
 //        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
 //        e->_spr = shared_from_this();

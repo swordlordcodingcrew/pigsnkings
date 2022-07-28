@@ -2,13 +2,9 @@
 // This file is part of the pnk game
 
 #include "Level3SP.hpp"
-//#include "../pnk_globals.h"
-#include "../GSPlay.h"
-//#include "../actors/npc/Enemy.h"
-//#include "../actors/npc/HenchPig.h"
-#include "../actors/npc/PigCrate.h"
-#include "../actors/npc/PigBomb.h"
-//#include "../actors/npc/PigBoss.h"
+#include "GSPlay.h"
+#include "actors/npc/PigCrate.h"
+#include "actors/npc/PigBomb.h"
 
 #include <bt/NTBuilder.h>
 
@@ -37,6 +33,8 @@ namespace pnk
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
+//                    .leaf(HenchPig::NTsetSleepMedium)
+//                    .leaf(HenchPig::NTdoSleep)
                     .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
                     .leaf(Enemy::NTsetWPNearHero)
                     .leaf(Enemy::NTcheckPathCompleted)

@@ -4,7 +4,7 @@
 #pragma once
 
 #include <DangFwdDecl.h>
-#include <CollisionSprite.hpp>
+#include <sprite/FullColSpr.hpp>
 #include <bt/BTNode.h>
 
 #include <vector>
@@ -20,7 +20,7 @@ namespace pnk
     using spScreenPlay = std::shared_ptr<ScreenPlay>;
 
     enum e_state
-            {
+    {
         SLEEPING = 0,
         HIDING,
         LOITERING,
@@ -31,9 +31,9 @@ namespace pnk
         BUBBLED,
         REMOVE_SELF,
         DEAD
-            };
+    };
 
-    class Enemy : public dang::CollisionSprite
+    class Enemy : public dang::FullColSpr
     {
     public:
         Enemy();
@@ -69,17 +69,17 @@ namespace pnk
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
 
         /** static hooks for the behaviour tree */
-        static dang::BTNode::Status NTcheckPathCompleted(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetRandNeighbourWaypoint(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetRandomPath(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetWPNearHero(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTcheckPathCompleted(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetRandNeighbourWaypoint(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetRandomPath(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetWPNearHero(dang::FullColSpr& s, uint32_t dt);
 
-        static dang::BTNode::Status NTcheckWaypointReached(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetDestinationBombDepot(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetDestinationCrateDepot(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTsetDestinationPOI(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTfindNearestWaypoint(dang::Sprite& s, uint32_t dt);
-        static dang::BTNode::Status NTfindNearestWaypointH(dang::Sprite& s, uint32_t dt);
+        static dang::BTNode::Status NTcheckWaypointReached(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetDestinationBombDepot(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetDestinationCrateDepot(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetDestinationPOI(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTfindNearestWaypoint(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTfindNearestWaypointH(dang::FullColSpr& s, uint32_t dt);
 
 
     protected:

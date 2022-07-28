@@ -1,28 +1,23 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the Pigs and Kings game
 
-#include <fonts/hud_font_small.h>
 #include "pigsnkings.hpp"
-#include "src/actors/throwies/Bubble.h"
+#include "actors/throwies/Bubble.h"
 #include "GameState.h"
 #include "GSIntro.h"
 #include "GSHome.h"
 #include "GSPlay.h"
 #include "rsrc/gfx/sl_shield_32blit.png.h"
-#include "src/actors/hero/Hero.h"
+#include "fonts/hud_font_small.h"
+#include "actors/hero/Hero.h"
 
 #include <Rand.hpp>
-#include <snd/SndGear.hpp>
 #include <Imagesheet.hpp>
 #include <tween/TwAnim.hpp>
-#include <TileLayer.hpp>
-#include <CollisionSprite.hpp>
-#include <CollisionSpriteLayer.hpp>
 
-#include <malloc.h>
-#include <iostream>
 #include <cstring>
 #include <cassert>
+#include <malloc.h>
 
 namespace pnk
 {
