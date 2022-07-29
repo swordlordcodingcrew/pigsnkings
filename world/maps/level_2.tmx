@@ -168,8 +168,6 @@
   <object id="343" gid="101" x="1056" y="97" width="32" height="32"/>
   <object id="487" gid="101" x="1151" y="161" width="32" height="32"/>
   <object id="488" gid="101" x="1151" y="97" width="32" height="32"/>
-  <object id="489" type="hotrect_platform" x="1151" y="163" width="32" height="4"/>
-  <object id="490" type="hotrect_platform" x="1151" y="97" width="32" height="4"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_2_obj">
   <object id="1" type="bubble_proto" gid="182" x="512" y="448" width="32" height="32">
@@ -849,6 +847,8 @@
   </object>
   <object id="475" name="savepoint_trigger" type="savepoint_trigger" x="544" y="288" width="32" height="32"/>
   <object id="486" type="hotrect" x="1248" y="32" width="32" height="192"/>
+  <object id="489" type="hotrect_platform" x="1151" y="163" width="32" height="4"/>
+  <object id="490" type="hotrect_platform" x="1151" y="97" width="32" height="4"/>
   <object id="491" type="hotrect_platform" x="1152" y="162" width="32" height="4"/>
   <object id="492" type="hotrect_platform" x="1152" y="96" width="32" height="4"/>
   <object id="494" type="hotrect_platform" x="1216" y="192" width="32" height="4"/>
