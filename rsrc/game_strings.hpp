@@ -16,7 +16,7 @@ Game Over!\n\
 \n\
 (press 'A' to quit)"};
 
-const static std::string_view str_prefs_really_delete{"Do you really want to\n delete this gameslot?\n\n  (X = OK)"};
+const static std::string_view str_prefs_really_delete{"Do you really want to\n delete this gameslot?\n\n  (A = OK)"};
 
 
 /**
