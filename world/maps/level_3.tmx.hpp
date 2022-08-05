@@ -295,10 +295,10 @@ static const dang::tmx_spriteobject level_3_lvl_3_mood_objects[] = {
     {331,"331","",896,176,32,32,true,"gfx_castle_decorations",12,"",0,0b0000},
     {332,"332","",896,128,32,32,true,"gfx_castle_decorations",12,"",0,0b0000},
     {333,"333","",896,80,32,32,true,"gfx_castle_decorations",12,"",0,0b0000},
-    {391,"391","",782,91,32,32,true,"gfx_castle_decorations",17,"",0,0b0000},
-    {392,"392","",814,91,32,32,true,"gfx_castle_decorations",18,"",0,0b0000},
-    {393,"393","",782,123,32,32,true,"gfx_castle_decorations",25,"",0,0b0000},
-    {397,"397","",814,123,32,32,true,"gfx_castle_decorations",26,"",0,0b0000},
+    {391,"391","",782,101,32,32,true,"gfx_castle_decorations",17,"",0,0b0000},
+    {392,"392","",814,101,32,32,true,"gfx_castle_decorations",18,"",0,0b0000},
+    {393,"393","",782,133,32,32,true,"gfx_castle_decorations",25,"",0,0b0000},
+    {397,"397","",814,133,32,32,true,"gfx_castle_decorations",26,"",0,0b0000},
     {398,"398","",576,736,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {399,"399","",608,736,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {400,"400","",640,736,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
@@ -317,11 +317,13 @@ static const dang::tmx_spriteobject level_3_lvl_3_mood_objects[] = {
     {413,"413","flicker",736,688,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
     {449,"449","",512,592,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {450,"450","",512,640,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
-    {453,"453","",512,688,32,32,true,"gfx_castle_decorations",10,"",0,0b0000}
+    {453,"453","",512,688,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
+    {508,"508","",768,184,32,32,true,"gfx_castle_decorations",1,"",0,0b0000},
+    {510,"510","",800,184,32,32,true,"gfx_castle_decorations",3,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_mood_objects_len = 169;
+static const size_t level_3_lvl_3_mood_objects_len = 171;
 
 static const dang::tmx_layer level_3_lvl_3_mood = {
     .name = "lvl_3_mood",
@@ -468,11 +470,22 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {467,"4","level_trigger",512,40,16,56,true,"",0,"",0,0b0000},
     {492,"savepoint_trigger","savepoint_trigger",128,528,32,32,true,"",0,"",0,0b0000},
     {496,"496","pig_box",288,288,32,32,true,"pig_crate",5,"loiter",200,0b0000},
-    {499,"499","",576,192,32,32,true,"character_pigking",0,"boss",200,0b0000}
+    {499,"499","",576,192,32,32,true,"character_pigking",0,"boss",200,0b0000},
+    {513,"513","hotrect_platform",768,184,64,4,true,"",0,"",0,0b0000},
+    {514,"514","hotrect_platform",785,136,32,4,true,"",0,"",0,0b0000},
+    {515,"515","",784,80,32,48,true,"gfx_items",0,"",0,0b0000},
+    {517,"517","",784,16,32,48,true,"gfx_items",0,"",0,0b0000},
+    {518,"518","",816,16,32,48,true,"gfx_items",0,"",0,0b0000},
+    {519,"519","",816,48,32,48,true,"gfx_items",0,"",0,0b0000},
+    {520,"520","",816,80,32,48,true,"gfx_items",0,"",0,0b0000},
+    {521,"521","",752,80,32,48,true,"gfx_items",0,"",0,0b0000},
+    {522,"522","",752,48,32,48,true,"gfx_items",0,"",0,0b0000},
+    {523,"523","",752,16,32,48,true,"gfx_items",0,"",0,0b0000},
+    {524,"524","",784,48,32,48,true,"gfx_items",4,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_obj_objects_len = 127;
+static const size_t level_3_lvl_3_obj_objects_len = 138;
 
 static const dang::tmx_layer level_3_lvl_3_obj = {
     .name = "lvl_3_obj",
@@ -613,9 +626,12 @@ static const dang::tmx_waypoint level_3_waypoints[] = {
     {505, 176,216, 0x0},
     {506, 80,216, 0x0},
     {507, 48,216, 8},
+    {525, 816,176, 0x0},
+    {526, 784,176, 0x0},
+    {527, 800,128, 0x0},
 };
 
-static const size_t level_3_waypoints_len = 43;
+static const size_t level_3_waypoints_len = 46;
 
 static const dang::tmx_waypoint_connection level_3_connections[] = {
     {371, 372, 0x1},
@@ -626,12 +642,16 @@ static const dang::tmx_waypoint_connection level_3_connections[] = {
     {372, 380, 0x8},
     {373, 372, 0x1},
     {373, 374, 0x1},
+    {373, 525, 0x2},
+    {373, 527, 0x8},
     {374, 375, 0x1},
     {374, 373, 0x1},
     {375, 376, 0x1},
     {375, 374, 0x1},
     {376, 377, 0x1},
     {376, 375, 0x1},
+    {376, 526, 0x2},
+    {376, 527, 0x8},
     {377, 376, 0x1},
     {377, 384, 0x1},
     {377, 383, 0x8},
@@ -698,9 +718,19 @@ static const dang::tmx_waypoint_connection level_3_connections[] = {
     {506, 507, 0x1},
     {506, 505, 0x2},
     {507, 506, 0x1},
+    {525, 526, 0x1},
+    {525, 373, 0x1},
+    {525, 527, 0x2},
+    {526, 525, 0x1},
+    {526, 376, 0x1},
+    {526, 527, 0x2},
+    {527, 376, 0x1},
+    {527, 373, 0x1},
+    {527, 526, 0x8},
+    {527, 525, 0x8},
 };
 
-static const size_t level_3_connections_len = 80;
+static const size_t level_3_connections_len = 94;
 
 // zones
 static const dang::tmx_zone level_3_zones[] = {

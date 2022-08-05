@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="508">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="528">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -188,10 +188,10 @@
   <object id="331" gid="137" x="896" y="176" width="32" height="32"/>
   <object id="332" gid="137" x="896" y="128" width="32" height="32"/>
   <object id="333" gid="137" x="896" y="80" width="32" height="32"/>
-  <object id="391" gid="142" x="782" y="91" width="32" height="32"/>
-  <object id="392" gid="143" x="814" y="91" width="32" height="32"/>
-  <object id="393" gid="150" x="782" y="123" width="32" height="32"/>
-  <object id="397" gid="151" x="814" y="123" width="32" height="32"/>
+  <object id="391" gid="142" x="782" y="101" width="32" height="32"/>
+  <object id="392" gid="143" x="814" y="101" width="32" height="32"/>
+  <object id="393" gid="150" x="782" y="133" width="32" height="32"/>
+  <object id="397" gid="151" x="814" y="133" width="32" height="32"/>
   <object id="398" gid="135" x="576" y="736" width="32" height="32"/>
   <object id="399" gid="135" x="608" y="736" width="32" height="32"/>
   <object id="400" gid="135" x="640" y="736" width="32" height="32"/>
@@ -211,6 +211,8 @@
   <object id="449" gid="135" x="512" y="592" width="32" height="32"/>
   <object id="450" gid="135" x="512" y="640" width="32" height="32"/>
   <object id="453" gid="135" x="512" y="688" width="32" height="32"/>
+  <object id="508" gid="126" x="768" y="184" width="32" height="32"/>
+  <object id="510" gid="128" x="800" y="184" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_3_obj">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32">
@@ -437,6 +439,17 @@
     <property name="z_order" type="int" value="200"/>
    </properties>
   </object>
+  <object id="513" type="hotrect_platform" x="768" y="184" width="64" height="4"/>
+  <object id="514" type="hotrect_platform" x="785" y="136" width="32" height="4"/>
+  <object id="515" gid="157" x="784" y="80" width="32" height="48"/>
+  <object id="517" gid="157" x="784" y="16" width="32" height="48"/>
+  <object id="518" gid="157" x="816" y="16" width="32" height="48"/>
+  <object id="519" gid="157" x="816" y="48" width="32" height="48"/>
+  <object id="520" gid="157" x="816" y="80" width="32" height="48"/>
+  <object id="521" gid="157" x="752" y="80" width="32" height="48"/>
+  <object id="522" gid="157" x="752" y="48" width="32" height="48"/>
+  <object id="523" gid="157" x="752" y="16" width="32" height="48"/>
+  <object id="524" gid="161" x="784" y="48" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="2" name="lvl_3_fg" locked="1">
   <object id="18" gid="125" x="544" y="544" width="32" height="32"/>
@@ -491,6 +504,8 @@
   </object>
   <object id="373" x="848" y="216">
    <properties>
+    <property name="block_0" type="object" value="527"/>
+    <property name="jump_0" type="object" value="525"/>
     <property name="walk_0" type="object" value="372"/>
     <property name="walk_1" type="object" value="374"/>
    </properties>
@@ -512,6 +527,8 @@
   </object>
   <object id="376" x="752" y="216">
    <properties>
+    <property name="block_0" type="object" value="527"/>
+    <property name="jump_0" type="object" value="526"/>
     <property name="walk_0" type="object" value="377"/>
     <property name="walk_1" type="object" value="375"/>
    </properties>
@@ -765,6 +782,31 @@
   <object id="507" name="POI2" type="8" x="48" y="216">
    <properties>
     <property name="walk_0" type="object" value="506"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="525" x="816" y="176">
+   <properties>
+    <property name="jump_0" type="object" value="527"/>
+    <property name="walk_0" type="object" value="526"/>
+    <property name="walk_1" type="object" value="373"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="526" x="784" y="176">
+   <properties>
+    <property name="jump_0" type="object" value="527"/>
+    <property name="walk_0" type="object" value="525"/>
+    <property name="walk_1" type="object" value="376"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="527" x="800" y="128">
+   <properties>
+    <property name="block_0" type="object" value="526"/>
+    <property name="block_1" type="object" value="525"/>
+    <property name="walk_0" type="object" value="376"/>
+    <property name="walk_1" type="object" value="373"/>
    </properties>
    <point/>
   </object>

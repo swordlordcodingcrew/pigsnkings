@@ -299,7 +299,9 @@ namespace pnk
 
                 dang::spImagesheet is = gear.getImagesheet(so->tileset);
 
-                if (is != nullptr && !so->type.empty())
+                assert(is != nullptr);
+
+                if (!so->type.empty())
                 {
                     dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
                     if (so->type == "door")
