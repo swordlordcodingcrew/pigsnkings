@@ -180,7 +180,7 @@ namespace pnk
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
 #ifdef PNK_LF_LEVEL_DEBUG
-        _pnk._gamestate.saved_level = 2;
+        _pnk._gamestate.saved_level = 3;
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
@@ -1287,6 +1287,19 @@ namespace pnk
         return dang::BTNode::Status::FAILURE;
     }
 
+    dang::BTNode::Status GSPlay::NTheroPos(dang::FullColSpr& s, uint32_t dt)
+    {
+        if (_spr_hero->isInNormalState())
+        {
+            dang::Vector2F pos = _spr_hero->local2Global(_spr_hero->getPos());
+            s.getNTreeState()->_payload["hero_x"] = pos.x;
+            s.getNTreeState()->_payload["hero_y"] = pos.y;
+            return dang::BTNode::Status::SUCCESS;
+        }
+
+        return dang::BTNode::Status::FAILURE;
+
+    }
 
 }
 
