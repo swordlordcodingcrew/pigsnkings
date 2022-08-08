@@ -29,14 +29,14 @@ namespace pnk
         // generic loitering
         _bt["loiter"] = buildLoiter();
         _bt["berserk"] = buildBerserk();
+        _bt["wait_bomb"] = buildWaitWithBombH(gsp);
 
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
                 .sequence()
-//                    .leaf(HenchPig::NTsetSleepMedium)
-//                    .leaf(HenchPig::NTdoSleep)
                     .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
-                    .leaf(Enemy::NTsetWPNearHero)
+                    .leaf(std::bind(&GSPlay::NTheroPos, &gsp, std::placeholders::_1, std::placeholders::_2))
+                    .leaf(Enemy::NTsetPathToHero)
                     .leaf(Enemy::NTcheckPathCompleted)
                 .end()
                 .sequence()
