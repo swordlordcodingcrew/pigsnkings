@@ -194,4 +194,35 @@ namespace pnk
         .build();
     }
 
+    /**
+     * For PigBomb and children only
+     * builds a behaviour tree where a bombed pig waits until the hero is horizontally close enough, then the bomb is thrown
+     * afterwards the piggy is loitering
+     * @return built spNTree
+     */
+    dang::spNTree ScreenPlay::buildWaitWithBombH(GSPlay &gsp)
+    {
+        return dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(PigBomb::NTWithBomb)
+                    .selector()
+                        .sequence()
+                            .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
+                            .leaf(PigBomb::NTDistanceOK)
+                            .leaf(PigBomb::NTThrowBomb)
+                            .leaf(HenchPig::NTsetSleepMedium)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                        .sequence()
+                            .leaf(HenchPig::NTsetSleepShort)
+                            .leaf(HenchPig::NTdoSleep)
+                        .end()
+                    .end()
+                .end()
+                .tree(_bt["loiter"])
+            .end()
+        .build();
+    }
+
 }
