@@ -64,6 +64,7 @@ namespace pnk
         dang::BTNode::Status setRandPath();
         dang::BTNode::Status setWPHNearHero();
         dang::BTNode::Status setWPNearHero();
+        dang::BTNode::Status setPathToHero();
 
         /** this function is used if the sprite missed the dest waypoint and has to get back somehow to the path system */
         dang::BTNode::Status findNearestWaypoint(bool only_horizontally);
@@ -73,6 +74,7 @@ namespace pnk
         static dang::BTNode::Status NTsetRandNeighbourWaypoint(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTsetRandomPath(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTsetWPNearHero(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTsetPathToHero(dang::FullColSpr& s, uint32_t dt);
 
         static dang::BTNode::Status NTcheckWaypointReached(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTsetDestinationBombDepot(dang::FullColSpr& s, uint32_t dt);

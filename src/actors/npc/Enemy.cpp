@@ -172,6 +172,38 @@ namespace pnk
         return dang::BTNode::Status::SUCCESS;
     }
 
+    dang::BTNode::Status Enemy::setPathToHero()
+    {
+        if (_current_wp == nullptr)
+        {
+            // no current waypoint set -> finding a path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+        // first clear any remains of the last path
+        resetPathVars();
+
+        dang::Vector2F pos;
+        pos.x = _nTreeState->_payload["hero_x"];
+        pos.y = _nTreeState->_payload["hero_y"];
+        _nTreeState->_payload.erase("hero_x");
+        _nTreeState->_payload.erase("hero_y");
+        const dang::Waypoint* goal = _scene_graph->findNearestWaypoint(pos);
+
+        if (!_scene_graph->getPath(const_cast<dang::Waypoint*>(_current_wp), goal, _path))
+        {
+            // could not find path to the goal (wp nearest to hero). This might happen, if the path is not possible
+            return dang::BTNode::Status::FAILURE;
+        }
+
+#ifdef PNK_DEBUG_WAYPOINTS
+        DEBUG_PRINT("(spr id %u): setPathToHero: nearest waypoint = %u \n", id(), _path[0]->_id);
+#endif
+
+        startOutToWaypoint();
+        return dang::BTNode::Status::SUCCESS;
+    }
+
     dang::BTNode::Status Enemy::setRandPath()
     {
         if (_current_wp == nullptr)
@@ -481,6 +513,12 @@ namespace pnk
     {
         Enemy& spr = static_cast<Enemy&>(s);
         return spr.setWPNearHero();
+    }
+
+    dang::BTNode::Status Enemy::NTsetPathToHero(dang::FullColSpr& s, uint32_t dt)
+    {
+        Enemy& spr = static_cast<Enemy&>(s);
+        return spr.setPathToHero();
     }
 
 }
