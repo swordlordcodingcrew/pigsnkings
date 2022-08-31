@@ -180,7 +180,7 @@ namespace pnk
         dang::SndGear::playMod(kingsofdawn_mod, kingsofdawn_mod_length, _pnk._prefs.volume_track);
 
 #ifdef PNK_LF_LEVEL_DEBUG
-        _pnk._gamestate.saved_level = 3;
+        _pnk._gamestate.saved_level = 1;
 #endif
         loadLevel(_pnk._gamestate.saved_level);
 
@@ -379,10 +379,12 @@ namespace pnk
             {
                 // TODO refactor, ugly hack
                 // implicitly add the cannon and tell the cannoneer about
-                auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
-                _csl->addSprite((dang::spColSpr)cannoneer->_myCannon);
+//                auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
+//                _csl->addSprite((dang::spColSpr)cannoneer->_myCannon);
+//                spr = cannoneer;
 
-                spr = cannoneer;
+                spr = SpriteFactory::PigCannon(txtr, so, is, _screenplay);
+
             }
             else if (so->type == SpriteFactory::T_KING)
             {

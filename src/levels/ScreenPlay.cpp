@@ -10,6 +10,7 @@
 #include "actors/npc/PigCrate.h"
 #include "actors/npc/PigBomb.h"
 #include "actors/npc/PigBoss.h"
+#include "actors/npc/PigCannon.h"
 
 #include <path/SceneGraph.hpp>
 #include <bt/NTBuilder.h>
@@ -221,6 +222,22 @@ namespace pnk
                     .end()
                 .end()
                 .tree(_bt["loiter"])
+            .end()
+        .build();
+    }
+
+    /**
+     * For PigCannon and children only
+     * builds a behaviour tree where the pig lights the cannon at random
+     * @return built spNTree
+     */
+    dang::spNTree ScreenPlay::buildBasicCannon(GSPlay &gsp)
+    {
+        return dang::NTBuilder{}
+            .sequence()
+                .leaf(HenchPig::NTsetSleepMedium)
+                .leaf(HenchPig::NTdoSleep)
+                .leaf(PigCannon::NTFireCannon)
             .end()
         .build();
     }

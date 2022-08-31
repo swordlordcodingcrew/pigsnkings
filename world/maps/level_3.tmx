@@ -434,7 +434,7 @@
   <object id="496" type="pig_box" gid="269" x="288" y="288" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
-    <property name="z_order" type="int" value="200"/>
+    <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="499" gid="361" x="576" y="192" width="32" height="32">

@@ -19,22 +19,20 @@ namespace pnk
         ~PigCannon() override;
         void init();
 
-        void update(uint32_t dt) override;
+//        void update(uint32_t dt) override;
 
-        bool onEnterSleeping() override;
+//        bool onEnterSleeping() override;
         bool onEnterThrowing() override;
 
-        void endSleeping();
+//        void endSleeping();
         virtual void matchLit();
         virtual void lightingCannon();
         virtual void cannonIsLit();
 
         dang::spTwAnim _anim_m_match_lit;
 
-        spCannon _myCannon{nullptr};
-
         // Behaviour Tree functions
-//        static dang::BTNodeStatus BTFireCannon(std::shared_ptr<Sprite> s);
+        static dang::BTNode::Status NTFireCannon(dang::FullColSpr& s, uint32_t dt);
 
     protected:
 

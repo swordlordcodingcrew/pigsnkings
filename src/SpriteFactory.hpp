@@ -110,28 +110,28 @@ namespace pnk
         static spHenchPig NormalPig(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
         static spHenchPig PigCrate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
-        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
-        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+
+        static spPigCannon PigCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+//        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+//        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
+//        static dang::spFullSpr Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+//        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left, uint8_t num_bubble_loops);
         static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
         static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static dang::spFullSpr Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
         static dang::spFullSpr PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        static dang::spFullSpr Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-/*        static dang::spColSpr Hotrect(const dang::tmx_spriteobject* so);
-        static dang::spColSpr HotrectPlatform(const dang::tmx_spriteobject* so);
-*/
+        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+
         static dang::spColSpr RoomTrigger(const dang::tmx_spriteobject* so, bool warp);
-//        static dang::spColSpr WarpRoomTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr LevelTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr BossbattleTrigger(const dang::tmx_spriteobject* so);
         static dang::spColSpr SavepointTrigger(const dang::tmx_spriteobject* so);
-
         static dang::spColSpr RigidObj(const dang::tmx_spriteobject* so);
-        static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+
         static void setTypeNum(dang::spSprObj spo, const std::string& type);
 
 

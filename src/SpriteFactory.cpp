@@ -345,7 +345,84 @@ namespace pnk
 
     }
 
-    spHenchPig SpriteFactory::PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
+    spPigCannon SpriteFactory::PigCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
+    {
+        spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
+        ret->setTypeNum(ST_PIG_CANNON);
+
+        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
+        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+
+        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
+
+        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
+        ret->_anim_m_picking_up->loops(1);
+        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
+
+        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
+        ret->_anim_m_match_lit->loops(5);
+        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
+
+        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
+        ret->_anim_m_throwing->loops(2);
+        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
+
+        // is done in imageobject
+//        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
+
+
+        attachBehaviourTree(sp, so, ret);
+
+        ret->init();
+
+        // now the cannon
+        std::shared_ptr<dang::Imagesheet> imgs = txtr.getImagesheet("character_cannonsnpigs");
+        dang::tmx_spriteobject cso {
+            so->id,
+            "",
+            "cannon",
+            ret->getTransform() == blit::HORIZONTAL ? 25 : -25,
+            0,
+            32,
+            32,
+            true,
+            "character_cannonsnpigs",
+            0,
+            "",
+            so->z_order,
+            so->transform
+        };
+
+
+        spCannon can = std::make_shared<pnk::Cannon>(&cso, imgs);
+
+/*        ret->setTypeNum(ST_CANNON);
+//        ret->_type_name = "cannon";
+        ret->setPosX(so->x + 25);
+        ret->setPosY(so->y);
+        ret->setSize(32, 32);
+        ret->setVisible(true);
+        ret->setImgIndex(0);
+        ret->setImagesheet(is);
+*/
+        can->_anim_m_sleeping = txtr.getAnimation(imgs->getName(), "idling");
+
+        can->_anim_m_shooting = txtr.getAnimation(imgs->getName(), "shooting");
+        can->_anim_m_shooting->loops(1);
+        can->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, can.get()));
+
+        can->init();
+
+//        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
+//        ret->_myCannon = CannonForCannoneer(txtr, so, imgs);
+
+        ret->addSpriteObject(can);
+
+        return ret;
+
+    }
+
+/*    spHenchPig SpriteFactory::PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
     {
         spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
         ret->setTypeNum(ST_PIG_CANNON);
@@ -380,6 +457,8 @@ namespace pnk
         return ret;
     }
 
+
+
     // HACK, REFACTOR
     spPigCannon SpriteFactory::PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
     {
@@ -387,23 +466,19 @@ namespace pnk
         ret->setTypeNum(ST_PIG_CANNON);
 
         ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
         ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
 
         ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
+
         ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
-        assert(ret->_anim_m_picking_up != nullptr);
         ret->_anim_m_picking_up->loops(1);
         ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
 
         ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
-        assert(ret->_anim_m_match_lit != nullptr);
         ret->_anim_m_match_lit->loops(5);
         ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
 
         ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
-        assert(ret->_anim_m_throwing != nullptr);
         ret->_anim_m_throwing->loops(2);
         ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
 
@@ -462,6 +537,7 @@ namespace pnk
 
         return ret;
     }
+*/
 
     dang::spFullSpr SpriteFactory::Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
     {

@@ -130,7 +130,7 @@ namespace pnk
         // Tell cannon to fire cannonball
         std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_NEW_FIRED_CANNON));
         e->_to_the_left = getTransform() != blit::SpriteTransform::HORIZONTAL;
-        e->_pos = this->getPos();
+        e->_pos = local2Global(this->getPos());
         _pnk._dispatcher.queueEvent(std::move(e));
 
         // handled by subclasses

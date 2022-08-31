@@ -3,22 +3,16 @@
 
 
 #include "PigCannon.h"
-#include "../others/Cannon.h"
-#include "src/pigsnkings.hpp"
+#include "actors/others/Cannon.h"
+#include "pigsnkings.hpp"
+#include "pnk_globals.h"
+#include "PnkEvent.h"
 
-//#include "TmxExtruder.hpp"
-
-#include "src/pnk_globals.h"
-//#include "Enemy.h"
-#include "src/PnkEvent.h"
-//#include "src/GSPlay.h"
-//#include "src/SpriteFactory.hpp"
-
+#include <bt/NTreeState.h>
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
 #include <Imagesheet.hpp>
-
-#include <iostream>
+#include <Rand.hpp>
 
 namespace pnk
 {
@@ -31,16 +25,23 @@ namespace pnk
 
     PigCannon::PigCannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : pnk::HenchPig(so, is)
     {
+        _hotrect = {10, 16, 12, 16};
+        _walkSpeed = 0; // cannoneers do not walk
+        setVel({0, 0});
     }
 
     void PigCannon::init()
     {
-        _hotrect = {10, 16, 12, 16};
-        _walkSpeed = 0; // cannoneers do not walk
-        setVel({0, 0});
-
-        // entering the state directly is OK on the first run
-        onEnterSleeping();
+        if (_nTreeState != nullptr)
+        {
+            _nTreeStateDefault = _nTreeState;
+            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
+            onEnterSleeping();
+        }
+        else
+        {
+            onEnterSleeping();
+        }
     }
 
     PigCannon::~PigCannon()
@@ -50,7 +51,7 @@ namespace pnk
 #endif
     }
 
-    void PigCannon::update(uint32_t dt)
+/*    void PigCannon::update(uint32_t dt)
     {
         if(_currentState != _nextState)
         {
@@ -72,7 +73,8 @@ namespace pnk
             }
         }
     }
-
+*/
+/*
     bool PigCannon::onEnterSleeping()
     {
         _anim_m_sleeping->reset();
@@ -90,7 +92,7 @@ namespace pnk
 
         return true;
     }
-
+*/
     bool PigCannon::onEnterThrowing()
     {
         _anim_m_picking_up->reset();
@@ -99,28 +101,21 @@ namespace pnk
 
         removeTweens(true);
 
-        /*
-        spTwNull twThrown = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
-        twThrown->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, this));
-        addTween(twThrown);
-
-        spTwNull twPrepare = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
-        twPrepare->setFinishedCallback(std::bind(&PigCannon::lightingCannon, this));
-        addTween(twPrepare);
-
-        spTwNull twLightingMatch = std::make_shared<dang::TwNull>(dang::TwNull(1000, dang::Ease::Linear, 0));
-        twLightingMatch->setFinishedCallback(std::bind(&PigCannon::matchLit, this));
-        addTween(twLightingMatch);
-         */
-
         return true;
     }
 
-    void PigCannon::endSleeping()
+/*    void PigCannon::endSleeping()
     {
         prepareChangeState(THROWING);
     }
+*/
 
+    /**
+     * 1. lighting match ("picking up")
+     * 2. matchLit
+     * 3. lightingCannon
+     * 4. cannonIsLit
+     */
     void PigCannon::matchLit()
     {
         // make sure to reset the animation
@@ -133,19 +128,37 @@ namespace pnk
         // make sure to reset the animation
         _anim_m_throwing->reset();
         setAnimation(_anim_m_throwing);
-        std::cout << "lighting cannon " << std::endl;
+//        printf("lighting cannon\n");
     }
 
     void PigCannon::cannonIsLit()
     {
-        _myCannon->fire();
+        spCannon cannon = std::static_pointer_cast<Cannon>(getChild());
+        cannon->fire();
 
         prepareChangeState(SLEEPING);
     }
 
-/*    dang::BTNodeStatus PigCannon::BTFireCannon(std::shared_ptr<Sprite> s)
+    dang::BTNode::Status PigCannon::NTFireCannon(dang::FullColSpr& s, uint32_t dt)
     {
-        std::cout << "firing cannon: " << s->getPos().x << std::endl;
-        return dang::BTNodeStatus::FAILURE;
+        PigCannon& spr = static_cast<PigCannon&>(s);
+
+        if (spr._currentState != THROWING)
+        {
+            spr.prepareChangeState(THROWING);
+//            printf("(%u) bt lighting cannon\n", spr.id());
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr._currentState == THROWING && spr._nextState == THROWING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr._currentState == THROWING && spr._nextState != THROWING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+
+        return dang::BTNode::Status::FAILURE;
+
     }
-*/}
+}

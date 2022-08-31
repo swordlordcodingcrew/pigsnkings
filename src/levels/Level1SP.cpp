@@ -34,6 +34,7 @@ namespace pnk
         _bt["loiter_with_one_crate"] = buildLoiterWithSingleCrateH(gsp);
         _bt["wait_crate"] = buildWaitWithCrate(gsp);
         _bt["wait_bomb"] = buildWaitWithBomb(gsp);
+        _bt["basic_cannon"] = buildBasicCannon(gsp);
 
         _bt["wait_with_bombs"] = dang::NTBuilder{}
             .selector()
