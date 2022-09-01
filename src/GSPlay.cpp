@@ -751,17 +751,18 @@ namespace pnk
             ball->setPosX(pe._pos.x);
             ball->setPosY(pe._pos.y + 6);
             ball->_to_the_left = pe._to_the_left;
-            ball->setVelX(20);
+            ball->setVelX(pe._to_the_left ? -20 : 20);
             ball->init();
             _csl->addSprite((dang::spColSpr)ball);
 
             spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
             assert(protoMood != nullptr);
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
-            mood->setPos(pe._pos);
-            mood->setPosX(pe._pos.x + 10);
+            mood->setPosY(pe._pos.y);
             mood->setZOrder(100);
-            mood->setTransform(blit::SpriteTransform::HORIZONTAL);
+
+            mood->setPosX(pe._to_the_left ? pe._pos.x - 10 : pe._pos.x + 10);
+            mood->setTransform(pe._to_the_left ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
             mood->init();
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
 
