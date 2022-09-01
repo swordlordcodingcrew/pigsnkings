@@ -309,7 +309,7 @@ namespace pnk
                         spr->setTypeNum(ST_MOOD_DOOR);
                     }
 
-                    dang::spTwAnim animation = txtr.getAnimation(is->getName(), so->type);
+                    dang::spTwAnim animation = txtr.getAnimation(is, so->type);
                     if (animation != nullptr)
                     {
                         spr->setAnimation(animation);

@@ -178,8 +178,7 @@ namespace pnk
             if (so->type == "candle")
             {
                 dang::spFullImgSpr spr = std::make_shared<dang::FullImgSpr>(so, is);
-                auto flickering = txtr.getAnimation(is->getName(), "flicker");
-                assert(flickering != nullptr);
+                auto flickering = txtr.getAnimation(is, "flicker");
                 spr->setAnimation(flickering);
 
                 if(so->name == "leftcandle")

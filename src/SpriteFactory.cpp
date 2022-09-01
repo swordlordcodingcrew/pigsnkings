@@ -47,36 +47,20 @@ namespace pnk
         ret->setTypeNum(ST_KING);
 
         // wait animation
-        ret->_anim_m_wait = txtr.getAnimation(is->getName(), "wait");
-        assert(ret->_anim_m_wait != nullptr);
-        ret->_anim_m_wait->delay(2000);
-
+        ret->_anim_m_wait = txtr.getAnimation(is, "wait", dang::Ease::Linear, -1, false, 2000);
         // walk animation
-        ret->_anim_m_walk = txtr.getAnimation(is->getName(), "walk");
-        assert(ret->_anim_m_walk != nullptr);
-
+        ret->_anim_m_walk = txtr.getAnimation(is, "walk");
         // jump animation
-        ret->_anim_m_jump = txtr.getAnimation(is->getName(), "jump");
-        assert(ret->_anim_m_jump != nullptr);
-
+        ret->_anim_m_jump = txtr.getAnimation(is, "jump");
         // on air (= not touching the ground) 'animation'
-        ret->_anim_m_on_air = txtr.getAnimation(is->getName(), "on_air");
-        assert(ret->_anim_m_on_air != nullptr);
-
+        ret->_anim_m_on_air = txtr.getAnimation(is, "on_air");
         // bubble animation
-        ret->_anim_bubble = txtr.getAnimation(is->getName(), "bubble");
-        assert(ret->_anim_bubble != nullptr);
-        ret->_anim_bubble->loops(1);
+        ret->_anim_bubble = txtr.getAnimation(is, "bubble", dang::Ease::Linear, 1);
         ret->_anim_bubble->easeFunction(&dang::Ease::OutQuad);
-
         // entering & hit game animation
-        ret->_anim_s_blink = txtr.getAnimation(is->getName(), "blink");
-        assert(ret->_anim_s_blink != nullptr);
-
+        ret->_anim_s_blink = txtr.getAnimation(is, "blink");
         // life lost animation
-        ret->_anim_s_life_lost = txtr.getAnimation(is->getName(), "life_lost");
-        assert(ret->_anim_s_life_lost != nullptr);
-        ret->_anim_s_life_lost->loops(1);
+        ret->_anim_s_life_lost = txtr.getAnimation(is, "life_lost", dang::Ease::Linear, 1);
 
         ret->activateState();
         return ret;
@@ -90,23 +74,12 @@ namespace pnk
         spBoss ret = std::make_shared<pnk::PigBoss>(so, is);
         ret->setTypeNum(ST_PIG_BOSS);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(300);
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, 300);
         ret->_anim_m_running = txtr.getAnimation(is, "running");
-        assert(ret->_anim_m_running != nullptr);
-        ret->_anim_m_landing = txtr.getAnimation(is, "landing");
-        assert(ret->_anim_m_landing != nullptr);
-        ret->_anim_m_landing->loops(1);
-        ret->_anim_m_jumping = txtr.getAnimation(is, "jumping");
-        assert(ret->_anim_m_jumping != nullptr);
-        ret->_anim_m_jumping->loops(1);
-        ret->_anim_m_hit = txtr.getAnimation(is, "hit");
-        assert(ret->_anim_m_hit != nullptr);
-        ret->_anim_m_hit->loops(2);
-        ret->_anim_m_die = txtr.getAnimation(is, "die");
-        assert(ret->_anim_m_die != nullptr);
-        ret->_anim_m_die->loops(1);
+        ret->_anim_m_landing = txtr.getAnimation(is, "landing", dang::Ease::Linear, 1);
+        ret->_anim_m_jumping = txtr.getAnimation(is, "jumping", dang::Ease::Linear, 1);
+        ret->_anim_m_hit = txtr.getAnimation(is, "hit", dang::Ease::Linear, 2);
+        ret->_anim_m_die = txtr.getAnimation(is, "die", dang::Ease::Linear, 1);
 
         ret->_anim_m_recovering = std::make_shared<dang::TwAnim>(*(ret->_anim_m_sleeping));
         ret->_anim_m_recovering->duration(300);
@@ -176,24 +149,6 @@ namespace pnk
         }
     }
 
-/*    dang::spColSpr SpriteFactory::Hotrect(const dang::tmx_spriteobject* so)
-    {
-        dang::spColSpr ret = std::make_shared<dang::ColSpr>(so);
-        ret->setTypeNum(ST_HOTRECT);
-        ret->setRigid(true);
-
-        return ret;
-    }
-
-    dang::spColSpr SpriteFactory::HotrectPlatform(const dang::tmx_spriteobject* so)
-    {
-        dang::spColSpr ret = std::make_shared<dang::ColSpr>(so);
-        ret->setTypeNum(ST_HOTRECT_PLATFORM);
-        ret->setRigid(true);
-
-        return ret;
-    }
-*/
     dang::spColSpr SpriteFactory::RoomTrigger(const dang::tmx_spriteobject* so, bool warp)
     {
         dang::spColSpr ret = std::make_shared<pnk::RoomTrigger>(so, warp);
@@ -235,14 +190,9 @@ namespace pnk
         spHenchPig ret = std::make_shared<pnk::HenchPig>(so, is);
         ret->setTypeNum(ST_PIG_NORMAL);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
-        ret->_anim_m_bubbling = txtr.getAnimation(is->getName(), "bubbling");
-        assert(ret->_anim_m_bubbling != nullptr);
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+        ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
+        ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
 
         attachBehaviourTree(sp, so, ret);
 
@@ -265,28 +215,16 @@ namespace pnk
         spHenchPig ret = std::make_shared<pnk::PigCrate>(so, is);
         ret->setTypeNum(ST_PIG_CRATE);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
-        assert(ret->_anim_m_bubbling != nullptr);
         ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up");
-        assert(ret->_anim_m_picking_up != nullptr);
-        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing");
-        assert(ret->_anim_m_throwing != nullptr);
-        ret->_anim_m_throwing->loops(0);
+        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing", dang::Ease::Linear, 0);
 
         // animations without crate
         is = iss.at("gfx_pig");
-        ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
-        assert(ret->_anim_alt_sleeping != nullptr);
-        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
+        ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
-        assert(ret->_anim_alt_loitering != nullptr);
 
         attachBehaviourTree(sp, so, ret);
 
@@ -308,28 +246,16 @@ namespace pnk
         spHenchPig ret = std::make_shared<pnk::PigBomb>(so, is);
         ret->setTypeNum(ST_PIG_BOMB);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
-        assert(ret->_anim_m_bubbling != nullptr);
         ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up");
-        assert(ret->_anim_m_picking_up != nullptr);
-        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing");
-        assert(ret->_anim_m_throwing != nullptr);
-        ret->_anim_m_throwing->loops(0);
+        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing", dang::Ease::Linear, 0);
 
         // animations without bomb
         is = iss.at("gfx_pig");
-        ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping");
-        assert(ret->_anim_alt_sleeping != nullptr);
-        ret->_anim_alt_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
+        ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
-        assert(ret->_anim_alt_loitering != nullptr);
 
         attachBehaviourTree(sp, so, ret);
 
@@ -350,26 +276,14 @@ namespace pnk
         spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
         ret->setTypeNum(ST_PIG_CANNON);
 
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-
-        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
-        ret->_anim_m_picking_up->loops(1);
+        ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
+        ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
+        ret->_anim_m_picking_up = txtr.getAnimation(is, "lighting_match", dang::Ease::Linear, 1);
         ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
-
-        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
-        ret->_anim_m_match_lit->loops(5);
+        ret->_anim_m_match_lit = txtr.getAnimation(is, "match_lit", dang::Ease::Linear, 5);
         ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
-
-        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
-        ret->_anim_m_throwing->loops(2);
+        ret->_anim_m_throwing = txtr.getAnimation(is, "lighting_cannon", dang::Ease::Linear, 2);
         ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
-
-        // is done in imageobject
-//        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-
 
         attachBehaviourTree(sp, so, ret);
 
@@ -396,25 +310,11 @@ namespace pnk
 
         spCannon can = std::make_shared<pnk::Cannon>(&cso, imgs);
 
-/*        ret->setTypeNum(ST_CANNON);
-//        ret->_type_name = "cannon";
-        ret->setPosX(so->x + 25);
-        ret->setPosY(so->y);
-        ret->setSize(32, 32);
-        ret->setVisible(true);
-        ret->setImgIndex(0);
-        ret->setImagesheet(is);
-*/
-        can->_anim_m_sleeping = txtr.getAnimation(imgs->getName(), "idling");
-
-        can->_anim_m_shooting = txtr.getAnimation(imgs->getName(), "shooting");
-        can->_anim_m_shooting->loops(1);
+        can->_anim_m_sleeping = txtr.getAnimation(imgs, "idling");
+        can->_anim_m_shooting = txtr.getAnimation(imgs, "shooting", dang::Ease::Linear, 1);
         can->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, can.get()));
 
         can->init();
-
-//        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-//        ret->_myCannon = CannonForCannoneer(txtr, so, imgs);
 
         ret->addSpriteObject(can);
 
@@ -422,122 +322,6 @@ namespace pnk
 
     }
 
-/*    spHenchPig SpriteFactory::PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
-    {
-        spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
-        ret->setTypeNum(ST_PIG_CANNON);
-
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-        assert(ret->_anim_m_loitering != nullptr);
-        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
-        assert(ret->_anim_m_picking_up != nullptr);
-        ret->_anim_m_picking_up->loops(1);
-        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
-
-        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
-        assert(ret->_anim_m_match_lit != nullptr);
-        ret->_anim_m_match_lit->loops(5);
-        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
-
-        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
-        assert(ret->_anim_m_throwing != nullptr);
-        ret->_anim_m_throwing->loops(2);
-        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
-
-        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-
-        ret->init();
-
-        attachBehaviourTree(sp, so, ret);
-
-        return ret;
-    }
-
-
-
-    // HACK, REFACTOR
-    spPigCannon SpriteFactory::PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp)
-    {
-        spPigCannon ret = std::make_shared<pnk::PigCannon>(so, is);
-        ret->setTypeNum(ST_PIG_CANNON);
-
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "sleeping");
-        ret->_anim_m_sleeping->delay(dang::Rand::get(uint32_t(1000), uint32_t(2000)));
-
-        ret->_anim_m_loitering = txtr.getAnimation(is->getName(), "loitering");
-
-        ret->_anim_m_picking_up = txtr.getAnimation(is->getName(), "lighting_match");
-        ret->_anim_m_picking_up->loops(1);
-        ret->_anim_m_picking_up->setFinishedCallback(std::bind(&PigCannon::matchLit, ret.get()));
-
-        ret->_anim_m_match_lit = txtr.getAnimation(is->getName(), "match_lit");
-        ret->_anim_m_match_lit->loops(5);
-        ret->_anim_m_match_lit->setFinishedCallback(std::bind(&PigCannon::lightingCannon, ret.get()));
-
-        ret->_anim_m_throwing = txtr.getAnimation(is->getName(), "lighting_cannon");
-        ret->_anim_m_throwing->loops(2);
-        ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
-
-        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-
-        ret->init();
-
-        attachBehaviourTree(sp, so, ret);
-
-        std::shared_ptr<dang::Imagesheet> imgs = txtr.getImagesheet("character_cannonsnpigs");
-        ret->_myCannon = CannonForCannoneer(txtr, so, imgs);
-
-        return ret;
-    }
-
-    spCannon SpriteFactory::CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
-    {
-        spCannon ret = std::make_shared<pnk::Cannon>(so, is);
-
-        ret->setTypeNum(ST_CANNON);
-//        ret->_type_name = "cannon";
-        ret->setPosX(so->x + 25);
-        ret->setPosY(so->y);
-        ret->setSize(32, 32);
-        ret->setVisible(true);
-        ret->setImgIndex(0);
-        ret->setImagesheet(is);
-
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
-        assert(ret->_anim_m_shooting != nullptr);
-        ret->_anim_m_shooting->loops(1);
-        ret->_anim_m_shooting->setFinishedCallback(std::bind(&Cannon::cannonHasFired, ret.get()));
-
-        ret->init();
-
-        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-
-        return ret;
-    }
-
-    dang::spFullSpr SpriteFactory::Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
-    {
-        spCannon ret = std::make_shared<pnk::Cannon>(so, is);
-        ret->setTypeNum(ST_CANNON);
-
-        ret->_anim_m_sleeping = txtr.getAnimation(is->getName(), "idling");
-        assert(ret->_anim_m_sleeping != nullptr);
-        ret->_anim_m_shooting = txtr.getAnimation(is->getName(), "shooting");
-        assert(ret->_anim_m_shooting != nullptr);
-
-        ret->init();
-
-        ret->setTransform(blit::SpriteTransform::HORIZONTAL);
-
-        return ret;
-    }
-*/
 
     dang::spFullSpr SpriteFactory::Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
     {
@@ -545,9 +329,7 @@ namespace pnk
         ret->setTypeNum(ST_CANNON_MUZZLE);
         ret->setRigid(true);
 
-        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "muzzle_flash");
-        assert(ret->_anim_m_standard != nullptr);
-        ret->_anim_m_standard->loops(1);
+        ret->_anim_m_standard = txtr.getAnimation(is, "muzzle_flash", dang::Ease::Linear, 1);
 
         ret->init();
 
@@ -559,9 +341,7 @@ namespace pnk
         spMoodies ret = std::make_shared<pnk::Moodies>(so, is);
         ret->setTypeNum(ST_PIG_POOF);
 
-        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "poof");
-        assert(ret->_anim_m_standard != nullptr);
-        ret->_anim_m_standard->loops(1);
+        ret->_anim_m_standard = txtr.getAnimation(is, "poof", dang::Ease::Linear, 1);
 
         ret->init();
 
@@ -576,24 +356,13 @@ namespace pnk
         ret->_to_the_left = to_the_left;
 
         // bubble grows
-        ret->_anim_blow = txtr.getAnimation(is->getName(), "bubble_blow");
-        assert(ret->_anim_blow != nullptr);
-        ret->_anim_blow->easeFunction(&dang::Ease::OutQuad);
-        ret->_anim_blow->loops(1);
-
+        ret->_anim_blow = txtr.getAnimation(is, "bubble_blow", dang::Ease::OutQuad, 1);
         // bubble bobbles
-        ret->_anim_bobble = txtr.getAnimation(is->getName(), "bubble_bobble");
-        assert(ret->_anim_bobble != nullptr);
-        ret->_anim_bobble->loops(3);
-
+        ret->_anim_bobble = txtr.getAnimation(is, "bubble_bobble", dang::Ease::Linear, 3);
         // bubble poofs
-        ret->_anim_poof = txtr.getAnimation(is->getName(), "bubble_poof");
-        assert(ret->_anim_poof != nullptr);
-        ret->_anim_poof->loops(1);
-
+        ret->_anim_poof = txtr.getAnimation(is, "bubble_poof", dang::Ease::Linear, 1);
         // bobbling with catched enemy
         ret->_anim_catched = std::make_shared<dang::TwAnim>(*(ret->_anim_bobble));
-
         ret->_anim_catched->loops(num_bubble_loops);
 
         ret->init();
@@ -609,11 +378,8 @@ namespace pnk
 
         // flying crates
         ret->_anim_flying = txtr.getAnimation(is, "crate");
-        assert(ret->_anim_flying != nullptr);
-
         // crate destruction
         ret->_anim_destruction = txtr.getAnimation(is, "hit", dang::Ease::Linear, 1);
-        assert(ret->_anim_destruction != nullptr);
 
         ret->init();
 
@@ -625,13 +391,8 @@ namespace pnk
         spBombies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->setTypeNum(ST_FLYING_BOMB);
 
-        ret->_anim_flying = txtr.getAnimation(is->getName(), "bomb_off");
-        assert(ret->_anim_flying != nullptr);
-        ret->_anim_flying->loops(-1);
-
-        ret->_anim_on_fire = txtr.getAnimation(is->getName(), "bomb_on");
-        assert(ret->_anim_on_fire != nullptr);
-        ret->_anim_on_fire->loops(3);
+        ret->_anim_flying = txtr.getAnimation(is, "bomb_off");
+        ret->_anim_on_fire = txtr.getAnimation(is, "bomb_on", dang::Ease::Linear, 3);
 
         ret->init();
 
@@ -643,9 +404,7 @@ namespace pnk
         spMoodiesThatHurt ret = std::make_shared<pnk::MoodiesThatHurt>(so, is);
         ret->setTypeNum(ST_EXPLOSION);
 
-        ret->_anim_m_standard = txtr.getAnimation(is->getName(), "boom");
-        assert(ret->_anim_m_standard != nullptr);
-        ret->_anim_m_standard->loops(1);
+        ret->_anim_m_standard = txtr.getAnimation(is, "boom", dang::Ease::Linear, 1);
 
         ret->init();
 
@@ -658,9 +417,7 @@ namespace pnk
         ret->setTypeNum(ST_FLYING_CANNONBALL);
         ret->_to_the_left = to_the_left;
 
-        ret->_anim_flying = txtr.getAnimation(is->getName(), "cannonball");
-        assert(ret->_anim_flying != nullptr);
-        ret->_anim_flying->loops(-1);
+        ret->_anim_flying = txtr.getAnimation(is, "cannonball");
 
         ret->init();
 
