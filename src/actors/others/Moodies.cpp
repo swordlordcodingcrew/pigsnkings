@@ -22,17 +22,18 @@ namespace pnk
 
     Moodies::Moodies() : dang::FullColSpr()
     {
+        _hotrect = {0, 0, 0, 0};
         _cr = dang::CR_NONE;
     }
 
     Moodies::Moodies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
+        _hotrect = {0, 0, 0, 0};
         _cr = dang::CR_NONE;
     }
 
     Moodies::Moodies(const Moodies& moodie) : FullColSpr(moodie)
     {
-
         if(moodie._anim_m_standard != nullptr)
         {
             _anim_m_standard = std::make_shared<dang::TwAnim>(*(moodie._anim_m_standard));
@@ -56,8 +57,6 @@ namespace pnk
 
     void Moodies::init()
     {
-        _hotrect = {0, 0, 0, 0};
-
         if(_anim_m_standard != nullptr)
         {
             setAnimation(_anim_m_standard);

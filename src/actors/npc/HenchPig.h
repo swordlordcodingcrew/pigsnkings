@@ -14,7 +14,8 @@ namespace pnk
         HenchPig();
         HenchPig(const dang::tmx_spriteobject* so, const dang::spImagesheet& is);
         ~HenchPig() override;
-        void init() override;
+
+        virtual void initBT(dang::spNTreeState nts, dang::spNTreeState nts_berserk);
 
         void update(uint32_t dt) override;
         void collide(const dang::manifold &mf) override;
@@ -42,7 +43,7 @@ namespace pnk
 
         void                        startOutToWaypoint() override;
 
-        void setNTreeBerserk(dang::spNTreeState berserk) { _nTreeStateBerserk = berserk; }
+        void setBTSBerserk(dang::spNTreeState berserk) { _nTreeStateBerserk = berserk; }
 
     protected:
 

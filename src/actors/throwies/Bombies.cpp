@@ -24,12 +24,12 @@ namespace pnk
 
     Bombies::Bombies()
     {
-
+        _hotrect = {11, 20, 10, 10};
     }
 
     Bombies::Bombies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
-
+        _hotrect = {11, 20, 10, 10};
     }
 
     Bombies::Bombies(const Bombies &bomb) : Throwies(bomb)
@@ -52,14 +52,6 @@ namespace pnk
         DEBUG_PRINT("Bombies destructor\n");
 #endif
     }
-
-    void Bombies::init()
-    {
-        this->Throwies::init();
-
-        _hotrect = {11, 20, 10, 10};
-    }
-
 
     void Bombies::collide(const dang::manifold &mf)
     {

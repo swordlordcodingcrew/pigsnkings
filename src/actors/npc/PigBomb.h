@@ -14,7 +14,6 @@ namespace pnk
         PigBomb();
         PigBomb(const dang::tmx_spriteobject* so, dang::spImagesheet& is);
         ~PigBomb() override;
-        void init() override;
 
         // Behaviour Tree functions
         static dang::BTNode::Status NTPickUpBomb(dang::FullColSpr& s, uint32_t dt);

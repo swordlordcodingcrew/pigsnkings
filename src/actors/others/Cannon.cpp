@@ -17,19 +17,17 @@ namespace pnk
 
     Cannon::Cannon() : dang::FullColSpr()
     {
+        _hotrect = {10, 16, 12, 16};
     }
 
     Cannon::Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
+        _hotrect = {10, 16, 12, 16};
     }
 
     void Cannon::init()
     {
-        _hotrect = {10, 16, 12, 16};
-
         onEnterSleeping();
-
-        setVel({0, 0});
     }
 
     Cannon::~Cannon()
@@ -100,7 +98,6 @@ namespace pnk
 
     void Cannon::prepareChangeState(e_state wishedState)
     {
-        // TODO We could have some logic here as well, or in the update routine?
         _nextState = wishedState;
     }
 

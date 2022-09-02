@@ -19,11 +19,13 @@ namespace pnk
     MoodiesThatHurt::MoodiesThatHurt() : Moodies()
     {
         _cr = dang::CR_CROSS;
+        _hotrect = {16, 16, 32, 32};
     }
 
     MoodiesThatHurt::MoodiesThatHurt(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Moodies(so, is)
     {
         _cr = dang::CR_CROSS;
+        _hotrect = {16, 16, 32, 32};
     }
 
     MoodiesThatHurt::MoodiesThatHurt(const Moodies& mth): Moodies(mth)
@@ -41,7 +43,6 @@ namespace pnk
     {
         this->Moodies::init();
 
-        _hotrect = {16, 16, 32, 32};
     }
 
     void MoodiesThatHurt::collide(const dang::manifold &mf)

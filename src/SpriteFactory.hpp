@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <Vector2T.hpp>
+
 #include <string>
 #include <memory>
 #include <unordered_map>
@@ -15,6 +17,7 @@ namespace dang
     class FullColSpr;
     class Imagesheet;
     class TmxExtruder;
+    class NTreeState;
 
     struct tmx_spriteobject;
 
@@ -22,7 +25,7 @@ namespace dang
     using spFullSpr = std::shared_ptr<FullColSpr>;
     using spSprObj = std::shared_ptr<SpriteObject>;
     using spImagesheet = std::shared_ptr<Imagesheet>;
-
+    using spNTreeState = std::shared_ptr<NTreeState>;
 }
 
 namespace pnk
@@ -101,7 +104,9 @@ namespace pnk
         static inline const std::string_view T_POTION_GREEN{"potion_green"};
         static inline const std::string_view T_POTION_RED{"potion_red"};
 
-        static void attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs);
+//        static void attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs);
+        static dang::spNTreeState getBT(const spScreenPlay& sp, const dang::tmx_spriteobject* so);
+
 //        static void initSceneGraph(const spScreenPlay& sp, const spEnemy& spr);
 //        static size_t findNearestGraph(const std::vector<dang::spSceneGraph>& sgs, const dang::Vector2F& pos);
 
@@ -118,13 +123,25 @@ namespace pnk
 //        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
 
+        /** throwies */
         static spBubble Bubble(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left, uint8_t num_bubble_loops);
-        static spThrowies Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
-        static spThrowies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        static dang::spFullSpr Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-        static spThrowies Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
+        static spCraties Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
+        static spBombies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+        static spCannonball Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
+
+        /** moddies */
         static dang::spFullSpr PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+
+        /** moddies that hurt */
+        static dang::spFullSpr Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
+
+        /** throwies form proto throwie */
+        static spCraties CrateFromProto(const spCraties& proto, const dang::Vector2F& pos, bool to_the_left);
+        static spBombies BombFromProto(const spBombies& proto, const dang::Vector2F& pos, bool to_the_left);
+        static spCannonball CannonballFromProto(const spCannonball& proto, const dang::Vector2F& pos, bool to_the_left);
+
+
 
         static dang::spColSpr RoomTrigger(const dang::tmx_spriteobject* so, bool warp);
         static dang::spColSpr LevelTrigger(const dang::tmx_spriteobject* so);

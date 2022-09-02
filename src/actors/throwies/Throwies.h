@@ -16,7 +16,7 @@ namespace pnk
         Throwies(const Throwies& bub);
         Throwies(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Throwies() override;
-        virtual void init();
+//        virtual void init();
         void update(uint32_t dt) override;
         void collide(const dang::manifold &mf) override;
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;

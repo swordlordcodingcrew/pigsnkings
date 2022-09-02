@@ -30,8 +30,9 @@ namespace pnk
         _walkSpeed = _loiter_speed;     // king is on steroids
     }
 
-    void PigBoss::init()
+    void PigBoss::initBT(dang::spNTreeState nts)
     {
+        setNTreeState(nts);
         onEnterSleeping();
     }
 

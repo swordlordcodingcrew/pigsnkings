@@ -36,12 +36,12 @@ namespace pnk
 
     void Enemy::init()
     {
-        _hotrect = {10, 16, 12, 16};
+/*        _hotrect = {10, 16, 12, 16};
 
         setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, &dang::Ease::Linear, -1)));
 
         setVel({0,0});
-    }
+*/    }
 
     Enemy::~Enemy()
     {

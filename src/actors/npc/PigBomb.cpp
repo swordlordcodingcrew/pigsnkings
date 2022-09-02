@@ -26,11 +26,6 @@ namespace pnk
     {
     }
 
-    void PigBomb::init()
-    {
-        this->HenchPig::init();
-    }
-
     PigBomb::~PigBomb()
     {
 #ifdef PNK_DEBUG_COMMON

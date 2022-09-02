@@ -15,7 +15,6 @@ namespace pnk
         Bombies(const Bombies& bub);
         Bombies(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Bombies() override;
-        void init() override;
         void collide(const dang::manifold &mf) override;
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 

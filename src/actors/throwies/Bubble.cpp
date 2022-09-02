@@ -27,12 +27,12 @@ namespace pnk
 
     Bubble::Bubble() : dang::FullColSpr()
     {
-
+        _hotrect = {10, 10, 12, 12};
     }
 
     Bubble::Bubble(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
-
+        _hotrect = {10, 10, 12, 12};
     }
 
     Bubble::Bubble(const Bubble &bub) : FullColSpr(bub)
@@ -69,8 +69,6 @@ namespace pnk
 
     void Bubble::init()
     {
-        _hotrect = {10, 10, 12, 12};
-
         // animation sequence
         dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
         // add finished_callback to grow anim

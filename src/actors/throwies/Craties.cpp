@@ -19,12 +19,14 @@ namespace pnk
 
     Craties::Craties() : Throwies()
     {
-
+        _cr = dang::CR_TOUCH;
+        _hotrect = {6, 9, 20, 20};
     }
 
     Craties::Craties(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
         _cr = dang::CR_TOUCH;
+        _hotrect = {6, 9, 20, 20};
     }
 
     Craties::Craties(const Craties &crate) : Throwies(crate)
@@ -47,13 +49,12 @@ namespace pnk
 #endif
     }
 
-    void Craties::init()
+/*    void Craties::init()
     {
         this->Throwies::init();
 
-        _hotrect = {6, 9, 20, 20};
     }
-
+*/
 
     void Craties::collide(const dang::manifold &mf)
     {

@@ -25,10 +25,6 @@ namespace pnk
     {
     }
 
-    void PigCrate::init()
-    {
-        this->HenchPig::init();
-    }
 
     PigCrate::~PigCrate()
     {

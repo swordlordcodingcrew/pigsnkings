@@ -12,10 +12,10 @@ namespace pnk
     {
     public:
         Cannonball();
-        Cannonball(const Throwies& can);
+        Cannonball(const Cannonball& can);
         Cannonball(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Cannonball() override;
-        void init() override;
+//        void init() override;
         void collide(const dang::manifold &mf) override;
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 

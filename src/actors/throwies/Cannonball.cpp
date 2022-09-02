@@ -28,22 +28,21 @@ namespace pnk
 
     Cannonball::Cannonball()
     {
-
+        _hotrect = {10, 10, 8, 8};
     }
 
     Cannonball::Cannonball(const dang::tmx_spriteobject* so, dang::spImagesheet is) : Throwies(so, is)
     {
-
+        _hotrect = {10, 10, 8, 8};
     }
 
-    Cannonball::Cannonball(const Throwies &can) : Throwies(can)
+    Cannonball::Cannonball(const Cannonball &can) : Throwies(can)
     {
 #ifdef PNK_DEBUG_PRINT
         std::cout << "Cannonball copy constructor" << std::endl;
 #endif
         _to_the_left = can._to_the_left;
         _anim_flying = std::make_shared<dang::TwAnim>(*(can._anim_flying));
-
         _anim_flying->reset();
 
         removeTweens(true);
@@ -55,11 +54,6 @@ namespace pnk
 #ifdef PNK_DEBUG_PRINT
         std::cout << "Cannonball destructor" << std::endl;
 #endif
-    }
-
-    void Cannonball::init()
-    {
-        _hotrect = {10, 10, 8, 8};
     }
 
 

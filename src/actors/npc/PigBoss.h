@@ -16,7 +16,7 @@ namespace pnk
         PigBoss();
         PigBoss(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~PigBoss() override;
-        void init() override;
+        void initBT(dang::spNTreeState nts);
 
         void update(uint32_t dt) override;
         void collide(const dang::manifold &mf) override;

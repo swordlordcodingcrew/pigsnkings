@@ -85,9 +85,7 @@ namespace pnk
         ret->_anim_m_recovering->duration(300);
         ret->_anim_m_recovering->delay(0);
 
-        attachBehaviourTree(sp, so, ret);
-
-        ret->init();
+        ret->initBT(getBT(sp, so));
 
         return ret;
     }
@@ -97,9 +95,7 @@ namespace pnk
         dang::spColSpr ret = std::make_shared<dang::ColSpr>(so);
         setTypeNum(ret, so->type);
         ret->setRigid(true);
-
         return ret;
-
     }
 
     spReward SpriteFactory::Reward(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
@@ -154,7 +150,6 @@ namespace pnk
         dang::spColSpr ret = std::make_shared<pnk::RoomTrigger>(so, warp);
         ret->setTypeNum(warp ? ST_WARP_ROOM_TRIGGER : ST_ROOM_TRIGGER);
         ret->setRigid(true);
-
         return ret;
     }
 
@@ -163,7 +158,6 @@ namespace pnk
         dang::spColSpr ret = std::make_shared<pnk::LevelTrigger>(so);
         ret->setTypeNum(ST_LEVEL_TRIGGER);
         ret->setRigid(true);
-
         return ret;
     }
 
@@ -172,7 +166,6 @@ namespace pnk
         dang::spColSpr ret = std::make_shared<pnk::BossbattleTrigger>(so);
         ret->setTypeNum(ST_BOSS_BATTLE_TRIGGER);
         ret->setRigid(true);
-
         return ret;
     }
 
@@ -181,7 +174,6 @@ namespace pnk
         dang::spColSpr ret = std::make_shared<pnk::SavepointTrigger>(so);
         ret->setTypeNum(ST_SAVEPOINT_TRIGGER);
         ret->setRigid(true);
-
         return ret;
     }
 
@@ -194,15 +186,7 @@ namespace pnk
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
 
-        attachBehaviourTree(sp, so, ret);
-
-        dang::spNTree t = sp->_bt["berserk"];
-        if (t != nullptr)
-        {
-            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
-        }
-
-        ret->init();
+        ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
 
         return ret;
     }
@@ -226,16 +210,17 @@ namespace pnk
         ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
 
-        attachBehaviourTree(sp, so, ret);
+        ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
+/*        attachBehaviourTree(sp, so, ret);
 
         dang::spNTree t = sp->_bt["berserk"];
         if (t != nullptr)
         {
-            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
+            ret->setBTSBerserk(std::make_shared<dang::NTreeState>(t));
         }
 
         ret->init();
-
+*/
         return ret;
     }
 
@@ -257,16 +242,17 @@ namespace pnk
         ret->_anim_alt_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
 
-        attachBehaviourTree(sp, so, ret);
+        ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
+/*        attachBehaviourTree(sp, so, ret);
 
         dang::spNTree t = sp->_bt["berserk"];
         if (t != nullptr)
         {
-            ret->setNTreeBerserk(std::make_shared<dang::NTreeState>(t));
+            ret->setBTSBerserk(std::make_shared<dang::NTreeState>(t));
         }
 
         ret->init();
-
+*/
         return ret;
 
     }
@@ -285,9 +271,10 @@ namespace pnk
         ret->_anim_m_throwing = txtr.getAnimation(is, "lighting_cannon", dang::Ease::Linear, 2);
         ret->_anim_m_throwing->setFinishedCallback(std::bind(&PigCannon::cannonIsLit, ret.get()));
 
-        attachBehaviourTree(sp, so, ret);
+        ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
+//        attachBehaviourTree(sp, so, ret);
 
-        ret->init();
+//        ret->init();
 
         // now the cannon
         std::shared_ptr<dang::Imagesheet> imgs = txtr.getImagesheet("character_cannonsnpigs");
@@ -330,8 +317,7 @@ namespace pnk
         ret->setRigid(true);
 
         ret->_anim_m_standard = txtr.getAnimation(is, "muzzle_flash", dang::Ease::Linear, 1);
-
-        ret->init();
+        ret->setAnimation(ret->_anim_m_standard);
 
         return ret;
     }
@@ -342,8 +328,7 @@ namespace pnk
         ret->setTypeNum(ST_PIG_POOF);
 
         ret->_anim_m_standard = txtr.getAnimation(is, "poof", dang::Ease::Linear, 1);
-
-        ret->init();
+        ret->setAnimation(ret->_anim_m_standard);
 
         return ret;
     }
@@ -370,9 +355,9 @@ namespace pnk
         return ret;
     }
 
-    spThrowies SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left)
+    spCraties SpriteFactory::Crate(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left)
     {
-        spThrowies ret = std::make_shared<pnk::Craties>(so, is);
+        spCraties ret = std::make_shared<pnk::Craties>(so, is);
         ret->setTypeNum(ST_FLYING_CRATE);
         ret->_to_the_left = to_the_left;
 
@@ -381,12 +366,12 @@ namespace pnk
         // crate destruction
         ret->_anim_destruction = txtr.getAnimation(is, "hit", dang::Ease::Linear, 1);
 
-        ret->init();
+        ret->setAnimation(ret->_anim_flying);
 
         return ret;
     }
 
-    spThrowies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
+    spBombies SpriteFactory::Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
     {
         spBombies ret = std::make_shared<pnk::Bombies>(so, is);
         ret->setTypeNum(ST_FLYING_BOMB);
@@ -394,10 +379,56 @@ namespace pnk
         ret->_anim_flying = txtr.getAnimation(is, "bomb_off");
         ret->_anim_on_fire = txtr.getAnimation(is, "bomb_on", dang::Ease::Linear, 3);
 
-        ret->init();
+        ret->setAnimation(ret->_anim_flying);
 
         return ret;
     }
+
+    spCannonball SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left)
+    {
+        spCannonball ret = std::make_shared<pnk::Cannonball>(so, is);
+        ret->setTypeNum(ST_FLYING_CANNONBALL);
+        ret->_to_the_left = to_the_left;
+        ret->_anim_flying = txtr.getAnimation(is, "cannonball");
+        ret->setAnimation(ret->_anim_flying);
+
+        return ret;
+    }
+
+
+    spCraties SpriteFactory::CrateFromProto(const spCraties& proto, const dang::Vector2F& pos, bool to_the_left)
+    {
+        assert(proto != nullptr);
+        spCraties ret = std::make_shared<Craties>(*proto);
+        ret->setAnimation(ret->_anim_flying);
+        ret->setPos(pos);
+        ret->_to_the_left = to_the_left;
+        return ret;
+    }
+
+    spBombies SpriteFactory::BombFromProto(const spBombies& proto, const dang::Vector2F& pos, bool to_the_left)
+    {
+        assert(proto != nullptr);
+        spBombies ret = std::make_shared<Bombies>(*proto);
+        ret->setAnimation(ret->_anim_flying);
+        ret->setPos(pos);
+        ret->_to_the_left = to_the_left;
+        return ret;
+    }
+
+    spCannonball SpriteFactory::CannonballFromProto(const spCannonball& proto, const dang::Vector2F& pos, bool to_the_left)
+    {
+        assert(proto != nullptr);
+        spCannonball ret = std::make_shared<pnk::Cannonball>(*proto);
+        ret->setAnimation(ret->_anim_flying);
+        ret->setPosX(pos.x);
+        ret->setPosY(pos.y + 6);
+        ret->_to_the_left = to_the_left;
+        return ret;
+    }
+
+
+
 
     dang::spFullSpr SpriteFactory::Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is)
     {
@@ -405,26 +436,15 @@ namespace pnk
         ret->setTypeNum(ST_EXPLOSION);
 
         ret->_anim_m_standard = txtr.getAnimation(is, "boom", dang::Ease::Linear, 1);
+        ret->setAnimation(ret->_anim_m_standard);
 
-        ret->init();
-
-        return ret;
-    }
-
-    spThrowies SpriteFactory::Cannonball(dang::TmxExtruder &txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left)
-    {
-        spThrowies ret = std::make_shared<pnk::Cannonball>(so, is);
-        ret->setTypeNum(ST_FLYING_CANNONBALL);
-        ret->_to_the_left = to_the_left;
-
-        ret->_anim_flying = txtr.getAnimation(is, "cannonball");
-
-        ret->init();
+//        ret->init();
 
         return ret;
     }
 
-    void SpriteFactory::attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs)
+
+    /*    void SpriteFactory::attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs)
     {
         if (so->bt.length() > 0)
         {
@@ -438,6 +458,24 @@ namespace pnk
                 std::printf("ERROR: could not find behaviour tree %s\n", so->bt.c_str());
             }
         }
+    }
+*/
+    dang::spNTreeState SpriteFactory::getBT(const spScreenPlay &sp, const dang::tmx_spriteobject *so)
+    {
+        if (so->bt.length() > 0)
+        {
+            std::shared_ptr<dang::NTree> ntr = sp->_bt[so->bt];
+            if (ntr != nullptr)
+            {
+                return std::make_shared<dang::NTreeState>(ntr);
+            }
+            else
+            {
+                std::printf("ERROR: could not find behaviour tree %s\n", so->bt.c_str());
+            }
+        }
+        return nullptr;
+
     }
 
 

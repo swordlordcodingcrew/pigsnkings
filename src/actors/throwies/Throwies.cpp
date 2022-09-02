@@ -24,12 +24,12 @@ namespace pnk
 
     Throwies::Throwies() : FullColSpr()
     {
-
+//        _hotrect = {6, 9, 20, 20};
     }
 
     Throwies::Throwies(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
-
+//        _hotrect = {6, 9, 20, 20};
     }
 
     Throwies::Throwies(const Throwies &crate) : FullColSpr(crate)
@@ -46,16 +46,15 @@ namespace pnk
 #endif
     }
 
-    void Throwies::init()
+/*    void Throwies::init()
     {
-        _hotrect = {6, 9, 20, 20};
 
         if(_anim_flying != nullptr)
         {
             setAnimation(_anim_flying);
         }
     }
-
+*/
     void Throwies::update(uint32_t dt)
     {
         if (_remove_me)

@@ -11,7 +11,6 @@
 #include <tween/TwNull.hpp>
 #include <Rand.hpp>
 
-#include <iostream>
 #include <cassert>
 
 
@@ -22,15 +21,32 @@ namespace pnk
 
     HenchPig::HenchPig() : pnk::Enemy()
     {
+        _hotrect = {10, 16, 12, 16};
     }
 
     HenchPig::HenchPig(const dang::tmx_spriteobject* so, const dang::spImagesheet& is) : pnk::Enemy(so, is)
     {
+        _hotrect = {10, 16, 12, 16};
     }
 
-    void HenchPig::init()
+    void HenchPig::initBT(dang::spNTreeState nts, dang::spNTreeState nts_berserk)
     {
-        _hotrect = {10, 16, 12, 16};
+        setBTSBerserk(nts_berserk);
+
+        if (nts != nullptr)
+        {
+            setNTreeState(nts);
+            _nTreeStateDefault = _nTreeState;
+            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
+        }
+
+        onEnterSleeping();
+
+//        setVel({0, 0});
+    }
+
+/*    void HenchPig::init()
+    {
 
         if (_nTreeState != nullptr)
         {
@@ -45,7 +61,7 @@ namespace pnk
 
         setVel({0, 0});
     }
-
+*/
     HenchPig::~HenchPig()
     {
 #ifdef PNK_DEBUG_COMMON

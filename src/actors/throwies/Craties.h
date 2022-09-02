@@ -17,7 +17,7 @@ namespace pnk
         Craties(const Craties& bub);
         Craties(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~Craties() override;
-        void init() override;
+//        void init() override;
         void collide(const dang::manifold &mf) override;
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 

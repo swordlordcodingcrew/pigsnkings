@@ -30,19 +30,6 @@ namespace pnk
         setVel({0, 0});
     }
 
-    void PigCannon::init()
-    {
-        if (_nTreeState != nullptr)
-        {
-            _nTreeStateDefault = _nTreeState;
-            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
-            onEnterSleeping();
-        }
-        else
-        {
-            onEnterSleeping();
-        }
-    }
 
     PigCannon::~PigCannon()
     {
@@ -51,48 +38,6 @@ namespace pnk
 #endif
     }
 
-/*    void PigCannon::update(uint32_t dt)
-    {
-        if(_currentState != _nextState)
-        {
-            // If you need some logic here, have it decided by a BehaviourTree
-            switch (_nextState)
-            {
-                case SLEEPING:
-                    onEnterSleeping();
-                    break;
-                case THROWING:
-                    onEnterThrowing();
-                    break;
-                case PICKING_UP:
-                    onEnterPickingUp();
-                    break;
-                case REMOVE_SELF:
-                    removeSelf();
-                    break;
-            }
-        }
-    }
-*/
-/*
-    bool PigCannon::onEnterSleeping()
-    {
-        _anim_m_sleeping->reset();
-        setAnimation(_anim_m_sleeping);
-
-        _currentState = SLEEPING;
-
-        // TODO have a behaviour tree exit sleeping
-        removeTweens(true);
-        dang::spTwNull nullTw = std::make_shared<dang::TwNull>(2000, dang::Ease::Linear, 1);
-        nullTw->setFinishedCallback(std::bind(&PigCannon::endSleeping, this));
-        addTween(nullTw);
-
-//        std::cout << "sleep entered " << std::endl;
-
-        return true;
-    }
-*/
     bool PigCannon::onEnterThrowing()
     {
         _anim_m_picking_up->reset();
@@ -103,12 +48,6 @@ namespace pnk
 
         return true;
     }
-
-/*    void PigCannon::endSleeping()
-    {
-        prepareChangeState(THROWING);
-    }
-*/
 
     /**
      * 1. lighting match ("picking up")

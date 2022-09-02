@@ -17,14 +17,9 @@ namespace pnk
         PigCannon();
         PigCannon(const dang::tmx_spriteobject* so, dang::spImagesheet is);
         ~PigCannon() override;
-        void init();
 
-//        void update(uint32_t dt) override;
-
-//        bool onEnterSleeping() override;
         bool onEnterThrowing() override;
 
-//        void endSleeping();
         virtual void matchLit();
         virtual void lightingCannon();
         virtual void cannonIsLit();

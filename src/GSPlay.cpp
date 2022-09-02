@@ -711,13 +711,14 @@ namespace pnk
     {
         if (pe._type == ETG_NEW_THROWN_CRATE || pe._type == ETG_NEW_DROP_CRATE)
         {
-            spCraties proto = std::static_pointer_cast<Craties>(_hives["crate"]);
+            spCraties crate = SpriteFactory::CrateFromProto(std::static_pointer_cast<Craties>(_hives["crate"]), pe._pos, pe._to_the_left);
+/*            spCraties proto = std::static_pointer_cast<Craties>(_hives["crate"]);
             assert(proto != nullptr);
             spCraties crate = std::make_shared<Craties>(*proto);
             crate->setPos(pe._pos);
             crate->_to_the_left = pe._to_the_left;
             crate->init();
-
+*/
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
@@ -728,13 +729,14 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
-            spBombies proto = std::static_pointer_cast<Bombies>(_hives["bomb"]);
+            spBombies bomb = SpriteFactory::BombFromProto(std::static_pointer_cast<Bombies>(_hives["bomb"]), pe._pos, pe._to_the_left);
+/*            spBombies proto = std::static_pointer_cast<Bombies>(_hives["bomb"]);
             assert(proto != nullptr);
             spBombies bomb = std::make_shared<Bombies>(*proto);
             bomb->setPos(pe._pos);
             bomb->_to_the_left = pe._to_the_left;
             bomb->init();
-
+*/
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
@@ -745,7 +747,8 @@ namespace pnk
         }
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {
-            spThrowies proto = std::static_pointer_cast<Throwies>(_hives["cannonball"]);
+            spCannonball ball = SpriteFactory::CannonballFromProto(std::static_pointer_cast<Cannonball>(_hives["cannonball"]), pe._pos, pe._to_the_left);
+/*            spCannonball proto = std::static_pointer_cast<Cannonball>(_hives["cannonball"]);
             assert(proto != nullptr);
             spCannonball ball = std::make_shared<Cannonball>(*proto);
             ball->setPosX(pe._pos.x);
@@ -753,6 +756,7 @@ namespace pnk
             ball->_to_the_left = pe._to_the_left;
             ball->setVelX(pe._to_the_left ? -20 : 20);
             ball->init();
+*/
             _csl->addSprite((dang::spColSpr)ball);
 
             spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
