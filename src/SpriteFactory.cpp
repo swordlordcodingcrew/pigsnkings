@@ -423,6 +423,7 @@ namespace pnk
         ret->setAnimation(ret->_anim_flying);
         ret->setPosX(pos.x);
         ret->setPosY(pos.y + 6);
+        ret->setVelX(to_the_left ? -20 : 20);
         ret->_to_the_left = to_the_left;
         return ret;
     }

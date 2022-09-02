@@ -246,12 +246,6 @@ namespace pnk
 
         dang::Gear& gear = _pnk.getGear();
 
-        // add level specific behaviour trees
-/*        for (const auto& bthm : _screenplay->_bt)
-        {
-            gear.addNTree(bthm.first, bthm.second);
-        }
-*/
         dang::TmxExtruder txtr(_tmx, &gear);
 
 #ifdef PNK_DEBUG_COMMON
@@ -480,8 +474,11 @@ namespace pnk
                 dang::spSprObj s = _csl->getSpriteById(id);
                 if (s != nullptr)
                 {
+                    assert((s->typeNum() >= ST_ENEMIES && s->typeNum() < ST_ENEMIES_END)
+                        || (s->typeNum() >= ST_REWARDS && s->typeNum() < ST_REWARDS_END));
+
                     s->markRemove();
-//                    _csl->_removeSprite(s);
+
                 }
             }
             _csl->cleanSpritelist();
@@ -754,7 +751,6 @@ namespace pnk
             ball->setPosX(pe._pos.x);
             ball->setPosY(pe._pos.y + 6);
             ball->_to_the_left = pe._to_the_left;
-            ball->setVelX(pe._to_the_left ? -20 : 20);
             ball->init();
 */
             _csl->addSprite((dang::spColSpr)ball);
@@ -1042,7 +1038,6 @@ namespace pnk
 
             saveGamestate();
 
-            // TODO check level_nr for bounds
             loadLevel(level_nr);
         });
     }
@@ -1227,7 +1222,6 @@ namespace pnk
 
     void GSPlay::saveGamestate()
     {
-        // TODO play sound?
         _pnk.saveCurrentGamestate();
     }
 
