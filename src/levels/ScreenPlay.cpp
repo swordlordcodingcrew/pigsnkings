@@ -231,7 +231,7 @@ namespace pnk
      * builds a behaviour tree where the pig lights the cannon at random
      * @return built spNTree
      */
-    dang::spNTree ScreenPlay::buildBasicCannon(GSPlay &gsp)
+    dang::spNTree ScreenPlay::buildBasicCannon()
     {
         return dang::NTBuilder{}
             .sequence()

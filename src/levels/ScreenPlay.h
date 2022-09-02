@@ -56,7 +56,7 @@ namespace pnk
         dang::spNTree buildWaitWithCrate(GSPlay& gsp);
         dang::spNTree buildWaitWithBomb(GSPlay& gsp);
         dang::spNTree buildWaitWithBombH(GSPlay& gsp);
-        dang::spNTree buildBasicCannon(GSPlay& gsp);
+        dang::spNTree buildBasicCannon();
 
 
     };
