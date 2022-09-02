@@ -472,15 +472,15 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {389,"389","coin_gold",1152,331,32,48,true,"gfx_items",4,"",60,0b0000},
     {390,"390","coin_gold",992,331,32,48,true,"gfx_items",4,"",60,0b0000},
     {393,"Bertha","cannon",704,448,32,32,true,"character_cannonsnpigs",0,"",0,0b0001},
-    {394,"Mr Cannoneer","pig_cannon",672,448,32,32,true,"gfx_pig",0,"",20,0b0001},
+    {394,"Mr Cannoneer","pig_cannon",672,448,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0001},
     {397,"Bertha","cannon",864,288,32,32,true,"character_cannonsnpigs",0,"",0,0b0000},
-    {398,"Mr Cannoneer","pig_cannon",896,288,32,32,true,"gfx_pig",0,"",20,0b0000},
+    {398,"Mr Cannoneer","pig_cannon",896,288,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0000},
     {401,"Bertha","cannon",544,352,32,32,true,"character_cannonsnpigs",0,"",0,0b0000},
-    {402,"Mr Cannoneer","pig_cannon",576,352,32,32,true,"gfx_pig",0,"",20,0b0000},
+    {402,"Mr Cannoneer","pig_cannon",576,352,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0000},
     {403,"Bertha","cannon",480,384,32,32,true,"character_cannonsnpigs",0,"",0,0b0000},
-    {404,"Mr Cannoneer","pig_cannon",512,384,32,32,true,"gfx_pig",0,"",20,0b0000},
+    {404,"Mr Cannoneer","pig_cannon",512,384,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0000},
     {405,"Bertha","cannon",416,416,32,32,true,"character_cannonsnpigs",0,"",0,0b0000},
-    {406,"Mr Cannoneer","pig_cannon",448,416,32,32,true,"gfx_pig",0,"",20,0b0000},
+    {406,"Mr Cannoneer","pig_cannon",448,416,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0000},
     {407,"407","coin_gold",352,269,32,48,true,"gfx_items",4,"",60,0b0000},
     {408,"408","coin_gold",384,269,32,48,true,"gfx_items",4,"",60,0b0000},
     {409,"409","coin_gold",416,270,32,48,true,"gfx_items",4,"",60,0b0000},
@@ -525,15 +525,14 @@ static const dang::tmx_spriteobject level_2_lvl_2_obj_objects[] = {
     {491,"491","hotrect_platform",1152,162,32,4,true,"",0,"",0,0b0000},
     {492,"492","hotrect_platform",1152,96,32,4,true,"",0,"",0,0b0000},
     {494,"494","hotrect_platform",1216,192,32,4,true,"",0,"",0,0b0000},
-    {509,"8","room_trigger",990,352,2,32,true,"",0,"",0,0b0000},
-    {510,"1","room_trigger",1291,192,2,32,true,"",0,"",0,0b0000},
-    {511,"8","room_trigger",1312,192,2,32,true,"",0,"",0,0b0000},
+    {509,"8","warp_room_trigger",963,352,2,32,true,"",0,"",0,0b0000},
+    {510,"1","warp_room_trigger",1282,192,2,32,true,"",0,"",0,0b0000},
     {512,"512","hotrect_platform",1023,388,33,4,true,"",0,"",0,0b0000},
     {513,"513","hotrect_platform",1124,387,33,4,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_2_lvl_2_obj_objects_len = 231;
+static const size_t level_2_lvl_2_obj_objects_len = 230;
 
 static const dang::tmx_layer level_2_lvl_2_obj = {
     .name = "lvl_2_obj",
@@ -554,11 +553,12 @@ static const dang::tmx_layer level_2_lvl_2_obj = {
 // Objects for layer: lvl_2_fg
 static const dang::tmx_spriteobject level_2_lvl_2_fg_objects[] = {
 
-    {493,"493","",1216,192,32,32,true,"gfx_levels_castle_tiles",0,"",0,0b0000}
+    {493,"493","",1216,192,32,32,true,"gfx_levels_castle_tiles",0,"",0,0b0000},
+    {516,"516","",960,352,32,32,true,"gfx_levels_castle_tiles",14,"",0,0b0000}
 
 };
 
-static const size_t level_2_lvl_2_fg_objects_len = 1;
+static const size_t level_2_lvl_2_fg_objects_len = 2;
 
 static const dang::tmx_layer level_2_lvl_2_fg = {
     .name = "lvl_2_fg",
@@ -811,10 +811,12 @@ static const size_t level_2_zones_len = 9;
 // zone passages
 static const dang::tmx_zone_passage level_2_zone_passages[] = {
     {0,-1,1568,288},
-    {3,-1,576,288}
+    {3,-1,576,288},
+    {8,1,1536,224},
+    {1,8,1088,320}
 };
 
-static const size_t level_2_zone_passages_len = 2;
+static const size_t level_2_zone_passages_len = 4;
 
 const static dang::tmx_layer level_2_layers[] = {
     level_2_lvl_2_bg,
