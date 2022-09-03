@@ -17,12 +17,12 @@ namespace pnk
 
     Cannon::Cannon() : dang::FullColSpr()
     {
-        _hotrect = {10, 16, 12, 16};
+        _hotrect = {6, 16, 20, 16};
     }
 
     Cannon::Cannon(const dang::tmx_spriteobject* so, dang::spImagesheet is) : dang::FullColSpr(so, is)
     {
-        _hotrect = {10, 16, 12, 16};
+        _hotrect = {6, 16, 20, 16};
     }
 
     void Cannon::init()
@@ -141,7 +141,7 @@ namespace pnk
 
     void Cannon::tellTheKingWeHitHim()
     {
-        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_CANNON));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_CANNON));
 
 //        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
 //        e->_spr = shared_from_this();

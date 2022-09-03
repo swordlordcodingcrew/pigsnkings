@@ -296,6 +296,7 @@ namespace pnk
 
 
         spCannon can = std::make_shared<pnk::Cannon>(&cso, imgs);
+        can->setTypeNum(ST_CANNON);
 
         can->_anim_m_sleeping = txtr.getAnimation(imgs, "idling");
         can->_anim_m_shooting = txtr.getAnimation(imgs, "shooting", dang::Ease::Linear, 1);
