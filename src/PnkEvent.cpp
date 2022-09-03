@@ -23,7 +23,7 @@ namespace pnk
 
     std::unique_ptr<PnkEvent> PnkEvent::createGE(int32_t type, uint16_t payload)
     {
-        std::unique_ptr<PnkEvent> e = std::make_unique<PnkEvent>(EF_GAME, type, payload);
+        std::unique_ptr<PnkEvent> e = std::unique_ptr<PnkEvent>(new PnkEvent(EF_GAME, type, payload));
         return std::move(e);
     }
 
