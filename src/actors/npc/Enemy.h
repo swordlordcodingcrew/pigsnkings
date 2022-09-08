@@ -40,8 +40,6 @@ namespace pnk
         Enemy(const dang::tmx_spriteobject* so, const dang::spImagesheet& is);
         ~Enemy() override;
 
-        virtual void    init();
-
         // pure virtual enemy class
         void collide(const dang::manifold &mf) override = 0;
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override = 0;

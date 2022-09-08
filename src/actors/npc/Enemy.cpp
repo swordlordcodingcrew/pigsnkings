@@ -6,19 +6,15 @@
 #include "pnk_globals.h"
 #include "PnkEvent.h"
 #include "GSPlay.h"
-#include "levels/ScreenPlay.h"
 
 #include <tween/TwAnim.hpp>
 #include <Imagesheet.hpp>
 #include <path/SceneGraph.hpp>
 #include <tween/TwVel.hpp>
-#include <tween/TwAccY.hpp>
 #include <tween/TwVelY.hpp>
 #include <path/Waypoint.hpp>
 #include <TmxExtruder.hpp>
 #include <bt/NTreeState.h>
-
-//#include <iostream>
 
 namespace pnk
 {
@@ -34,14 +30,6 @@ namespace pnk
         setGravity(PigsnKings::_gravity);
     }
 
-    void Enemy::init()
-    {
-/*        _hotrect = {10, 16, 12, 16};
-
-        setAnimation(std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{0, 1, 2, 3, 4, 5}, 600, &dang::Ease::Linear, -1)));
-
-        setVel({0,0});
-*/    }
 
     Enemy::~Enemy()
     {
@@ -356,10 +344,12 @@ namespace pnk
             {
                 dang::Vector2F v{0,0};
                 dang::Vector2F v_end{0,0};
-                if (getHotrectG().center().y - wp->_pos.y > 10)     // safety buffer of 10 units for the check if higher / lower
+                dang::Vector2F hrc = getHotrectG().center();
+                if (hrc.y - wp->_pos.y > 10)     // safety buffer of 10 units for the check if higher / lower
                 {
                     // the waypoint is higher than the hero
-                    v.y = -15 - (0.4f * _walkSpeed);
+//                    v.y = -15 - (0.4f * _walkSpeed);
+                    v.y = (wp->_pos.y - hrc.y)/2 - (0.4f * _walkSpeed);
                 }
                 else
                 {
@@ -367,7 +357,7 @@ namespace pnk
                     v.y = -5 + (0.4f * _walkSpeed);
                 }
 
-                if ((wp->_pos.x - getHotrectG().center().x) * (wp->_pos.x - getHotrectG().center().x) > 1600)  // long horizontal distance
+                if ((wp->_pos.x - hrc.x) * (wp->_pos.x - hrc.x) > 1600)  // long horizontal distance
                 {
                     if (wp->_pos.x - _co_pos.x < 0)
                     {
