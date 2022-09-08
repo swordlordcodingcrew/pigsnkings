@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="547">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="563">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -24,11 +24,11 @@
 15,85,90,62,62,62,62,62,62,62,62,62,62,62,62,62,53,89,87,13,86,90,74,74,74,74,74,74,75,13,
 17,2,3,61,62,62,62,62,62,62,62,62,62,62,62,62,63,1,2,18,3,14,14,14,14,14,14,14,14,13,
 15,14,14,14,14,14,14,14,14,14,14,14,14,25,6,14,15,14,14,14,15,14,14,14,14,14,14,14,14,13,
-15,49,50,50,50,50,50,50,77,86,86,50,77,87,13,5,27,49,77,86,15,49,50,50,62,62,50,50,51,13,
-15,61,62,62,62,62,62,62,63,1,3,61,63,1,18,15,85,55,63,1,15,61,62,62,62,62,62,62,63,13,
-15,61,62,62,62,62,62,62,63,13,15,61,63,13,14,17,3,61,63,13,15,61,62,62,62,62,62,62,63,13,
-15,61,62,62,62,62,62,62,63,13,15,61,63,13,14,14,15,61,63,13,15,61,62,62,62,62,62,62,63,13,
-15,61,62,62,62,62,62,62,63,25,27,61,63,13,14,14,15,61,63,25,15,61,62,62,62,62,62,62,63,25,
+15,49,50,50,50,50,50,50,77,86,86,50,77,87,31,26,27,49,77,86,15,49,50,50,62,62,50,50,51,13,
+15,61,62,62,62,62,62,62,63,1,3,61,63,1,44,85,86,55,63,1,15,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,13,15,61,63,25,41,30,3,61,63,13,15,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,13,15,61,68,86,87,13,15,61,63,13,15,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,25,27,61,63,1,2,18,15,61,63,25,15,61,62,62,62,62,62,62,63,25,
 15,61,62,62,53,74,74,74,89,86,86,90,75,13,14,14,15,73,89,86,15,61,62,62,62,62,62,62,68,86,
 15,61,62,62,63,14,14,14,14,14,2,2,2,18,14,14,17,2,2,2,15,61,62,62,62,62,62,62,63,1,
 15,61,62,62,62,62,62,62,63,13,14,14,14,14,14,14,14,14,14,13,14,15,14,14,14,14,14,14,14,13,
@@ -54,7 +54,7 @@
   <object id="15" gid="151" x="176" y="568" width="32" height="32"/>
   <object id="16" gid="143" x="176" y="536" width="32" height="32"/>
   <object id="17" gid="150" x="144" y="568" width="32" height="32"/>
-  <object id="26" gid="129" x="352" y="637" width="32" height="32"/>
+  <object id="26" gid="129" x="352" y="640" width="32" height="32"/>
   <object id="27" gid="129" x="352" y="592" width="32" height="32"/>
   <object id="29" gid="136" x="544" y="640" width="32" height="32"/>
   <object id="30" gid="136" x="544" y="592" width="32" height="32"/>
@@ -77,10 +77,10 @@
   <object id="68" gid="136" x="896" y="534" width="32" height="32"/>
   <object id="70" gid="136" x="736" y="534" width="32" height="32"/>
   <object id="71" gid="134" x="864" y="534" width="32" height="32"/>
-  <object id="115" gid="129" x="384" y="448" width="32" height="32"/>
-  <object id="116" gid="129" x="352" y="416" width="32" height="32"/>
-  <object id="117" gid="129" x="384" y="384" width="32" height="32"/>
-  <object id="118" gid="129" x="352" y="352" width="32" height="32"/>
+  <object id="115" gid="129" x="384" y="440" width="32" height="32"/>
+  <object id="116" gid="129" x="352" y="408" width="32" height="32"/>
+  <object id="117" gid="129" x="384" y="376" width="32" height="32"/>
+  <object id="118" gid="129" x="352" y="344" width="32" height="32"/>
   <object id="120" gid="129" x="544" y="448" width="32" height="32"/>
   <object id="121" gid="129" x="576" y="416" width="32" height="32"/>
   <object id="122" gid="129" x="544" y="384" width="32" height="32"/>
@@ -108,7 +108,6 @@
   <object id="166" gid="135" x="480" y="528" width="32" height="32"/>
   <object id="167" gid="135" x="512" y="528" width="32" height="32"/>
   <object id="168" gid="135" x="544" y="528" width="32" height="32"/>
-  <object id="171" gid="137" x="352" y="688" width="32" height="32"/>
   <object id="193" gid="135" x="256" y="480" width="32" height="32"/>
   <object id="194" gid="135" x="256" y="275" width="32" height="32"/>
   <object id="195" gid="135" x="224" y="275" width="32" height="32"/>
@@ -217,8 +216,9 @@
   <object id="531" gid="127" x="800" y="192" width="32" height="32"/>
   <object id="532" gid="126" x="768" y="160" width="32" height="32"/>
   <object id="533" gid="128" x="800" y="160" width="32" height="32"/>
+  <object id="550" gid="129" x="352" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_3_obj">
+ <objectgroup id="4" name="lvl_3_obj" locked="1">
   <object id="1" name="king" type="king" gid="97" x="0" y="704" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="50"/>
@@ -248,59 +248,59 @@
   <object id="126" type="hotrect_platform" x="224" y="688" width="32" height="4"/>
   <object id="127" type="hotrect_platform" x="32" y="624" width="32" height="4"/>
   <object id="128" type="hotrect_platform" x="256" y="624" width="32" height="4"/>
-  <object id="129" type="hotrect_platform" x="384" y="448" width="32" height="4"/>
-  <object id="130" type="hotrect_platform" x="352" y="416" width="32" height="4"/>
-  <object id="131" type="hotrect_platform" x="384" y="384" width="32" height="4"/>
-  <object id="132" type="hotrect_platform" x="352" y="352" width="32" height="4"/>
+  <object id="129" type="hotrect_platform" x="384" y="440" width="32" height="4"/>
+  <object id="130" type="hotrect_platform" x="352" y="408" width="32" height="4"/>
+  <object id="131" type="hotrect_platform" x="384" y="376" width="32" height="4"/>
+  <object id="132" type="hotrect_platform" x="352" y="344" width="32" height="4"/>
   <object id="134" type="hotrect_platform" x="544" y="448" width="32" height="4"/>
   <object id="135" type="hotrect_platform" x="576" y="416" width="32" height="4"/>
   <object id="136" type="hotrect_platform" x="544" y="384" width="32" height="4"/>
   <object id="137" type="hotrect_platform" x="576" y="352" width="32" height="4"/>
   <object id="139" type="hotrect" x="0" y="256" width="768" height="32"/>
-  <object id="140" type="hotrect" x="416" y="320" width="32" height="160"/>
+  <object id="140" type="hotrect" x="416" y="416" width="64" height="64"/>
   <object id="141" type="hotrect" x="320" y="320" width="32" height="128"/>
   <object id="142" type="hotrect" x="608" y="320" width="32" height="128"/>
   <object id="143" name="0" type="warp_room_trigger" x="32" y="509" width="128" height="2"/>
   <object id="144" name="3" type="warp_room_trigger" x="321" y="544" width="2" height="32"/>
-  <object id="172" type="hotrect" x="352" y="688" width="32" height="10"/>
-  <object id="175" type="hotrect_platform" x="352" y="637" width="32" height="4"/>
+  <object id="172" type="hotrect_platform" x="352" y="688" width="32" height="4"/>
+  <object id="175" type="hotrect_platform" x="352" y="640" width="32" height="4"/>
   <object id="176" type="hotrect_platform" x="352" y="592" width="32" height="4"/>
   <object id="177" type="hotrect" x="480" y="592" width="96" height="10"/>
   <object id="178" type="hotrect" x="480" y="640" width="96" height="10"/>
   <object id="179" type="hotrect" x="480" y="688" width="96" height="10"/>
   <object id="181" type="hotrect" x="544" y="736" width="416" height="32"/>
   <object id="182" name="1" type="warp_room_trigger" x="315" y="448" width="2" height="32"/>
-  <object id="183" type="bubble_proto" gid="304" x="640" y="512" width="32" height="32">
+  <object id="183" type="bubble_proto" gid="304" x="304" y="-48" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="50"/>
    </properties>
   </object>
-  <object id="184" type="crate_proto" gid="298" x="640" y="640" width="32" height="32">
+  <object id="184" type="crate_proto" gid="298" x="496" y="-48" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="185" type="bomb_proto" gid="341" x="640" y="576" width="32" height="32">
+  <object id="185" type="bomb_proto" gid="341" x="400" y="-40" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="186" type="pigpoof_proto" gid="234" x="640" y="608" width="32" height="32">
+  <object id="186" type="pigpoof_proto" gid="234" x="456" y="-32" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
-  <object id="187" type="cannonmuzzle_proto" gid="353" x="640" y="544" width="32" height="32">
+  <object id="187" type="cannonmuzzle_proto" gid="353" x="352" y="-48" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="188" type="cannonball_proto" gid="356" x="448" y="352" width="32" height="32">
+  <object id="188" type="cannonball_proto" gid="356" x="192" y="-48" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="189" type="boom_proto" gid="258" x="448" y="480" width="64" height="64">
+  <object id="189" type="boom_proto" gid="258" x="232" y="-8" width="64" height="64">
    <properties>
     <property name="z_order" type="int" value="70"/>
    </properties>
@@ -406,9 +406,9 @@
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="432" type="hotrect" x="512" y="352" width="32" height="128"/>
+  <object id="432" type="hotrect" x="480" y="352" width="64" height="128"/>
   <object id="433" type="hotrect" x="448" y="288" width="96" height="32"/>
-  <object id="435" type="hotrect" x="448" y="320" width="64" height="32"/>
+  <object id="435" type="hotrect" x="416" y="320" width="64" height="64"/>
   <object id="414" type="pig_bomb" gid="319" x="488" y="560" width="32" height="32">
    <properties>
     <property name="bt" value="wait_with_bombs"/>
@@ -486,6 +486,24 @@
    </properties>
   </object>
   <object id="546" type="hotrect_platform" x="800" y="611" width="32" height="4"/>
+  <object id="547" type="pig_normal" gid="210" x="224" y="656" width="32" height="32">
+   <properties>
+    <property name="bt" value="loiter"/>
+    <property name="z_order" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="548" name="Mr Cannoneer" type="pig_cannon" gid="210" x="448" y="384" width="32" height="32">
+   <properties>
+    <property name="bt" value="basic_cannon"/>
+    <property name="z_order" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="549" name="Mr Cannoneer" type="pig_cannon" gid="2147483858" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="bt" value="basic_cannon"/>
+    <property name="z_order" type="int" value="20"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="lvl_3_fg" locked="1">
   <object id="18" gid="125" x="544" y="544" width="32" height="32"/>
@@ -511,15 +529,19 @@
   <object id="445" gid="141" x="704" y="640" width="32" height="32"/>
   <object id="28" gid="136" x="576" y="688" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="7" name="lvl_3_hud" locked="1">
-  <object id="454" type="hud_hero" gid="123" x="15" y="18" width="32" height="32"/>
-  <object id="455" gid="455" x="46" y="37" width="16" height="16"/>
-  <object id="456" gid="456" x="62" y="37" width="16" height="16"/>
-  <object id="457" gid="457" x="78" y="37" width="16" height="16"/>
-  <object id="458" type="hud_boss" gid="393" x="274" y="19" width="32" height="32"/>
-  <object id="459" type="hud_boss_health" gid="455" x="225" y="37" width="16" height="16"/>
-  <object id="460" type="hud_boss_health" gid="456" x="240" y="37" width="16" height="16"/>
-  <object id="461" type="hud_boss_health" gid="457" x="256" y="37" width="16" height="16"/>
+ <objectgroup id="7" name="lvl_3_hud">
+  <object id="551" type="hud_hero" gid="123" x="0" y="0" width="32" height="32"/>
+  <object id="552" gid="455" x="31" y="16" width="16" height="16"/>
+  <object id="553" gid="456" x="47" y="16" width="16" height="16"/>
+  <object id="554" gid="457" x="63" y="16" width="16" height="16"/>
+  <object id="555" type="hud_boss" gid="393" x="288" y="0" width="32" height="32"/>
+  <object id="556" type="hud_boss_health_p1" gid="455" x="240" y="16" width="16" height="16"/>
+  <object id="557" type="hud_boss_health_p2" gid="456" x="256" y="16" width="16" height="16"/>
+  <object id="558" type="hud_boss_health_p3" gid="457" x="272" y="16" width="16" height="16"/>
+  <object id="559" type="hud_l1" gid="471" x="32" y="4" width="16" height="16"/>
+  <object id="560" type="hud_l2" gid="471" x="48" y="4" width="16" height="16"/>
+  <object id="561" type="hud_l3" gid="471" x="64" y="4" width="16" height="16"/>
+  <object id="562" type="hud_l4" gid="471" x="80" y="4" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="8" name="lvl_3_paths" locked="1">
   <object id="371" x="912" y="216">

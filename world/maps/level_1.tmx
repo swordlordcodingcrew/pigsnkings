@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="663">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="668">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/common_items.tsx"/>
@@ -170,7 +170,7 @@
   <object id="578" gid="124" x="736" y="96" width="32" height="32"/>
   <object id="579" gid="125" x="768" y="96" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_1_obj">
+ <objectgroup id="3" name="lvl_1_obj" locked="1">
   <object id="143" type="coin_silver" gid="129" x="384" y="560" width="32" height="48">
    <properties>
     <property name="z_order" type="int" value="60"/>
@@ -718,15 +718,19 @@
   <object id="533" gid="14" x="608" y="192" width="32" height="32"/>
   <object id="635" gid="15" x="0" y="352" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_1_hud" locked="1">
-  <object id="250" type="hud_hero" gid="324" x="15" y="18" width="32" height="32"/>
-  <object id="251" gid="254" x="46" y="37" width="16" height="16"/>
-  <object id="252" gid="255" x="62" y="37" width="16" height="16"/>
-  <object id="254" gid="256" x="78" y="37" width="16" height="16"/>
-  <object id="521" type="hud_boss" gid="494" x="274" y="19" width="32" height="32"/>
-  <object id="522" type="hud_boss_health" gid="254" x="225" y="37" width="16" height="16"/>
-  <object id="523" type="hud_boss_health" gid="255" x="241" y="37" width="16" height="16"/>
-  <object id="524" type="hud_boss_health" gid="256" x="257" y="37" width="16" height="16"/>
+ <objectgroup id="4" name="lvl_1_hud">
+  <object id="250" type="hud_hero" gid="324" x="0" y="0" width="32" height="32"/>
+  <object id="251" gid="254" x="31" y="16" width="16" height="16"/>
+  <object id="252" gid="255" x="47" y="16" width="16" height="16"/>
+  <object id="254" gid="256" x="63" y="16" width="16" height="16"/>
+  <object id="521" type="hud_boss" gid="494" x="288" y="0" width="32" height="32"/>
+  <object id="522" type="hud_boss_health_p1" gid="254" x="240" y="16" width="16" height="16"/>
+  <object id="523" type="hud_boss_health_p2" gid="255" x="256" y="16" width="16" height="16"/>
+  <object id="524" type="hud_boss_health_p3" gid="256" x="272" y="16" width="16" height="16"/>
+  <object id="663" type="hud_l1" gid="270" x="32" y="4" width="16" height="16"/>
+  <object id="664" type="hud_l2" gid="270" x="48" y="4" width="16" height="16"/>
+  <object id="665" type="hud_l3" gid="270" x="64" y="4" width="16" height="16"/>
+  <object id="667" type="hud_l4" gid="270" x="80" y="4" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="lvl_1_paths" locked="1">
   <object id="409" type="0" x="48" y="696">

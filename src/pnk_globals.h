@@ -123,10 +123,16 @@ enum SpriteType
     // 90 - 99 HUD layer stuff
     ST_HUD_HERO = 91,
     ST_HUD_BOSS,
-    ST_HUD_BOSS_HEALTH,
+    ST_HUD_BOSS_HEALTH_P1,
+    ST_HUD_BOSS_HEALTH_P2,
+    ST_HUD_BOSS_HEALTH_P3,
+    ST_HUD_L1,
+    ST_HUD_L2,
+    ST_HUD_L3,
+    ST_HUD_L4,
 
-    // 100 - 109 mood layer
-    ST_MOOD_DOOR = 101,
+    // 110 - 119 mood layer
+    ST_MOOD_DOOR = 111,
 
 
 };

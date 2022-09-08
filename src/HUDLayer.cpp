@@ -19,10 +19,10 @@ namespace pnk
 
     HUDLayer::HUDLayer() : dang::BaseHUDLayer()
     {
-        foregroundColour = blit::Pen(43, 63, 61, 255);
+//        foregroundColour = blit::Pen(43, 63, 61, 255);
 //        foregroundColour = blit::Pen(63, 56, 81, 255);
-        backgroundColour = blit::Pen(152, 152, 152, 200);
-        healthColour = blit::Pen(78, 110, 197, 255);
+//        backgroundColour = blit::Pen(152, 152, 152, 200);
+//        healthColour = blit::Pen(78, 110, 197, 255);
     }
 
     void HUDLayer::fillSprites(dang::Gear& gear)
@@ -41,10 +41,41 @@ namespace pnk
                 spr->setTypeNum(ST_HUD_BOSS);
                 spr->setVisible(false); // as long as no boss battle is running
             }
-            else if (so->type == "hud_boss_health")
+            else if (so->type == "hud_boss_health_p1")
             {
-                spr->setTypeNum(ST_HUD_BOSS_HEALTH);
+                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P1);
                 spr->setVisible(false); // as long as no boss battle is running
+            }
+            else if (so->type == "hud_boss_health_p2")
+            {
+                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P2);
+                spr->setVisible(false); // as long as no boss battle is running
+            }
+            else if (so->type == "hud_boss_health_p3")
+            {
+                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P3);
+                spr->setVisible(false); // as long as no boss battle is running
+            }
+            else if (so->type == "hud_l1")
+            {
+                spr->setTypeNum(ST_HUD_L1);
+                l1 = spr;
+            }
+            else if (so->type == "hud_l2")
+            {
+                spr->setTypeNum(ST_HUD_L2);
+                l2 = spr;
+            }
+            else if (so->type == "hud_l3")
+            {
+                spr->setTypeNum(ST_HUD_L3);
+                l3 = spr;
+            }
+            else if (so->type == "hud_l4")
+            {
+                spr->setTypeNum(ST_HUD_L4);
+                spr->setVisible(false); // bonus life
+                l4 = spr;
             }
 
             addSprite(spr);
@@ -77,7 +108,11 @@ namespace pnk
 
         dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_BOSS);
         spr->setVisible(true);
-        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P1);
+        spr->setVisible(true);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P2);
+        spr->setVisible(true);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P3);
         spr->setVisible(true);
 
         isBossVisible = true;
@@ -93,50 +128,61 @@ namespace pnk
 
         dang::spImgSpr spr = getImgSprByTypeNum(ST_HUD_BOSS);
         spr->setVisible(false);
-        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P1);
+        spr->setVisible(false);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P2);
+        spr->setVisible(false);
+        spr = getImgSprByTypeNum(ST_HUD_BOSS_HEALTH_P3);
         spr->setVisible(false);
 
         isBossVisible = false;
     }
 
 
-    //    void HUDLayer::renderInternal(const dang::Gear &gear)
     void HUDLayer::render(const dang::Gear &gear)
     {
+        l1->setVisible(_pnk._gamestate.lives > 0);
+        l2->setVisible(_pnk._gamestate.lives > 1);
+        l3->setVisible(_pnk._gamestate.lives > 2);
+        l4->setVisible(_pnk._gamestate.lives > 3);
+
         this->dang::BaseHUDLayer::render(gear);
 
         std::string score =  std::to_string(_pnk._gamestate.score);
         std::string prefixedScore = std::string(5 - score.length(), '0') + score;
 
-        std::string highScore =  std::to_string(_pnk._gamestate.high_score);
-        std::string formattedHighScore = "HS:" + std::string(8 - highScore.length(), '0') + highScore;
+//        std::string highScore =  std::to_string(_pnk._gamestate.high_score);
+//        std::string formattedHighScore = "HS:" + std::string(8 - highScore.length(), '0') + highScore;
 
-        std::string lives =  std::to_string(_pnk._gamestate.lives);
-        std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;
+//        std::string lives =  std::to_string(_pnk._gamestate.lives);
+//        std::string prefixedLives = std::string(2 - lives.length(), '0') + lives;
 
         blit::screen.pen = backgroundColour;
-        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::left);
-        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::center_h);
-        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34 + shadowOffset, 49 + shadowOffset), true, blit::TextAlign::center_h);
+        blit::screen.text(prefixedScore, hud_font_small, blit::Point(86 + shadowOffset, 4 + shadowOffset), true, blit::TextAlign::left);
+//        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::left);
+//        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160 + shadowOffset, 18 + shadowOffset), true, blit::TextAlign::center_h);
+//        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34 + shadowOffset, 49 + shadowOffset), true, blit::TextAlign::center_h);
+
+        blit::screen.pen = background2Colour;
+        blit::screen.text(prefixedScore, hud_font_small, blit::Point(86 - shadowOffset, 4 - shadowOffset), true, blit::TextAlign::left);
 
         blit::screen.pen = foregroundColour;
-        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49, 18), true, blit::TextAlign::left);
-        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160, 18), true, blit::TextAlign::center_h);
-        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34, 49), true, blit::TextAlign::center_h);
+        blit::screen.text(prefixedScore, hud_font_small, blit::Point(86, 4), true, blit::TextAlign::left);
+//        blit::screen.text(prefixedScore, hud_font_small, blit::Point(49, 18), true, blit::TextAlign::left);
+//        blit::screen.text(formattedHighScore, hud_font_small, blit::Point(160, 18), true, blit::TextAlign::center_h);
+//        blit::screen.text(prefixedLives, hud_font_small, blit::Point(34, 49), true, blit::TextAlign::center_h);
 
         // health bar
-        // TODO: make sure it does not grow bigger than full size
-        blit::screen.pen = healthColour;
+        blit::screen.pen = heroHealthColour;
         float width = _pnk._gamestate.health * 0.3;
-        blit::screen.rectangle(blit::Rect(55, 44, width, 2));
+        blit::screen.rectangle(blit::Rect(40, 23, width > 30 ? 30 : width, 2));
 
         if(isBossVisible)
         {
             // boss health bar
-            // TODO: make sure it does not grow bigger than full size
-            blit::screen.pen = healthColour;
+            blit::screen.pen = bossHealthColour;
             float width = _pnk._gamestate.boss_health * 0.3;
-            blit::screen.rectangle(blit::Rect(235, 44, width, 2));
+            blit::screen.rectangle(blit::Rect(249, 23, width > 30 ? 30 : width, 2));
         }
     }
 }
