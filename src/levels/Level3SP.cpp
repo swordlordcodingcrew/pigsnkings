@@ -30,6 +30,7 @@ namespace pnk
         _bt["loiter"] = buildLoiter();
         _bt["berserk"] = buildBerserk();
         _bt["wait_bomb"] = buildWaitWithBombH(gsp);
+        _bt["basic_cannon"] = buildBasicCannon();
 
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
