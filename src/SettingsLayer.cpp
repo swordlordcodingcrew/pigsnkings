@@ -299,8 +299,7 @@ namespace pnk
     void SettingsLayer::refreshTempGamestateFromSave(const uint8_t slot)
     {
         // loading the gamestate from the prefs
-//        blit::read_save(_temp_gamestate, slot);
-        _pnk.loadGameState(slot, _temp_gamestate);
+        _pnk.loadGameState(slot, _temp_gamestate, false);
     }
 
 }

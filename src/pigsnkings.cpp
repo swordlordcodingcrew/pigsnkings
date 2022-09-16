@@ -68,7 +68,7 @@ namespace pnk
             blit::write_save(_prefs, PREFERENCES);
         }
 
-        refreshGamestateFromSave();
+        loadCurrentGameState();
 
         _current_gs = GameState::_gs_intro;
         _current_gs->enter(_gear, 0);
@@ -79,49 +79,56 @@ namespace pnk
         _last_update_time = blit::now();
     }
 
-    void PigsnKings::refreshGamestateFromSave()
+    void PigsnKings::loadCurrentGameState()
+    {
+        loadGameState(_prefs.currentGameSaveSlot, _gamestate, true);
+        printf("load current gamestate. Lives=%i, healt=%i\n", _gamestate.lives, _gamestate.health);
+    }
+
+    void PigsnKings::loadGameState(uint8_t slot, gamestate& gs, bool load_removed_sprites)
     {
         // sanity check for current gamesave slot
-        if(_prefs.currentGameSaveSlot < FIRST_GAME_SAVE_SLOT || _prefs.currentGameSaveSlot > LAST_GAME_SAVE_SLOT)
+        if (slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
         {
-            _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
+            slot = FIRST_GAME_SAVE_SLOT;
         }
 
-        _removed_sprites.clear();
-
 #ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("pigsnkings: prefs loaded\n");
+        DEBUG_PRINT("pigsnkings: prefs loaded\n");_gamestate
 #endif
         struct {
             uint8_t version{0};
             uint32_t size{0};
         } header;
 
-        if (blit::read_save(header, _prefs.currentGameSaveSlot))
+        if (blit::read_save(header, slot))
         {
             if (header.version == 2)
             {
-
                 char*   save = new(std::nothrow) char[header.size];
                 if (save != nullptr)
                 {
-                    std::memset(save, 0xFF, header.size);
+                    std::memset(save, 0x00, header.size);
                     assert(header.size >= sizeof(gamestate));
 
-                    if (blit::read_save(save, header.size, _prefs.currentGameSaveSlot))
+                    if (blit::read_save(save, header.size, slot))
                     {
-                        std::memcpy(&_gamestate, save, sizeof(gamestate));
+                        std::memcpy(&gs, save, sizeof(gamestate));
 
-                        uint32_t num_ids = (header.size - sizeof(gamestate)) / 2;
-
-                        for (size_t cnt = 0; cnt < num_ids; ++cnt)
+                        if (load_removed_sprites)
                         {
-                            assert(sizeof(gamestate) + cnt*2 < header.size);
-                            uint16_t id{0};
-                            std::memcpy(&id, save + sizeof(gamestate) + cnt*2, sizeof(uint16_t));
-                            _removed_sprites.push_back(id);
-                        }
+                            _removed_sprites.clear();
 
+                            uint32_t num_ids = (header.size - sizeof(gamestate)) / 2;
+
+                            for (size_t cnt = 0; cnt < num_ids; ++cnt)
+                            {
+                                assert(sizeof(gamestate) + cnt*2 < header.size);
+                                uint16_t id{0};
+                                std::memcpy(&id, save + sizeof(gamestate) + cnt*2, sizeof(uint16_t));
+                                _removed_sprites.push_back(id);
+                            }
+                        }
                     }
 
                     delete [] save;
@@ -129,20 +136,54 @@ namespace pnk
             }
             else
             {
-                _gamestate.save_size = sizeof(gamestate);
-                blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+                resetGameslot(slot);
+                gs = gamestate{};
             }
         }
         else
         {
-            _gamestate.save_size = sizeof(gamestate);
-            blit::write_save(_gamestate, _prefs.currentGameSaveSlot);
+            resetGameslot(slot);
+            gs = gamestate{};
         }
-
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("pigsnkings: game states loaded\n");
 #endif
+
+/*
+        bool ret{true};
+
+        // sanity check for current gamesave slot
+        if (slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
+        {
+            slot = FIRST_GAME_SAVE_SLOT;
+        }
+
+        struct {
+            uint8_t version{0};
+            uint32_t size{0};
+        } header;
+
+        if (blit::read_save(header, slot))
+        {
+            if (header.version == 2)
+            {
+                blit::read_save(gs, slot);
+            }
+            else
+            {
+                ret = false;
+            }
+        }
+        else
+        {
+            ret = false;
+        }
+
+        return ret;
+        */
+
+
     }
 
     void PigsnKings::saveCurrentGamestate()
@@ -152,6 +193,8 @@ namespace pnk
         {
             _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
         }
+
+        printf("save gamestate. Lives=%i, healt=%i\n", _gamestate.lives, _gamestate.health);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("pigsnkings: saving gamestate\n");
@@ -187,39 +230,6 @@ namespace pnk
 #endif
     }
 
-    bool PigsnKings::loadGameState(uint8_t slot, gamestate& gs)
-    {
-        bool ret{true};
-
-        // sanity check for current gamesave slot
-        if(slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
-        {
-            slot = FIRST_GAME_SAVE_SLOT;
-        }
-
-        struct {
-            uint8_t version{0};
-            uint32_t size{0};
-        } header;
-
-        if (blit::read_save(header, slot))
-        {
-            if (header.version == 2)
-            {
-                blit::read_save(gs, slot);
-            }
-            else
-            {
-                ret = false;
-            }
-        }
-        else
-        {
-            ret = false;
-        }
-
-        return ret;
-    }
 
     void PigsnKings::initEmptyGameslots()
     {
@@ -241,13 +251,11 @@ namespace pnk
     {
         for (uint8_t i = FIRST_GAME_SAVE_SLOT; i <= LAST_GAME_SAVE_SLOT; i++)
         {
-            gamestate ngs = {};
-            ngs.save_size = sizeof(gamestate);
-            blit::write_save(ngs, i);
+            resetGameslot(i);
         }
 
         // reload current gamestate
-        refreshGamestateFromSave();
+        loadCurrentGameState();
     }
 
     void PigsnKings::resetGameslot(uint8_t slot)

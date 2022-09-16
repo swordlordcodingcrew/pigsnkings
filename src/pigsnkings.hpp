@@ -88,9 +88,9 @@ namespace pnk
             bool    invincible{false}; // this is global, since can be set without having loaded a gamestate from a slot
         };
 
-        bool loadGameState(uint8_t slot, gamestate& gs);
+        void loadGameState(uint8_t slot, gamestate& gs, bool load_removed_sprites);
+        void loadCurrentGameState();
         // game saves
-        void refreshGamestateFromSave();
         void saveCurrentGamestate();
         void initEmptyGameslots(); // save1-4
         void resetAllGameslots(); // save1-4

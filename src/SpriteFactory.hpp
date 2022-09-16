@@ -117,10 +117,6 @@ namespace pnk
         static spHenchPig PigBomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, const std::unordered_map<std::string, dang::spImagesheet> &iss, spScreenPlay& sp);
 
         static spPigCannon PigCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
-//        static spHenchPig PigCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
-//        static spPigCannon PigCannoneerWCannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, spScreenPlay& sp);
-//        static dang::spFullSpr Cannon(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
-//        static spCannon CannonForCannoneer(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static dang::spFullSpr Cannonmuzzle(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
 
         /** throwies */
@@ -129,11 +125,11 @@ namespace pnk
         static spBombies Bomb(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static spCannonball Cannonball(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is, bool to_the_left);
 
-        /** moddies */
+        /** moodies */
         static dang::spFullSpr PigPoof(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
         static spReward Reward(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
 
-        /** moddies that hurt */
+        /** moodies that hurt */
         static dang::spFullSpr Explosion(dang::TmxExtruder& txtr, const dang::tmx_spriteobject* so, dang::spImagesheet is);
 
         /** throwies form proto throwie */
