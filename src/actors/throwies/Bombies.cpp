@@ -62,7 +62,7 @@ namespace pnk
             // have the animation sequence triggered
             setBombOnFire();
         }
-        else if (_bIsOnFire && (sprOther->typeNum() == ST_KING))
+        else if (/*_bIsOnFire && */(sprOther->typeNum() == ST_KING))
         {
             // King hurt
             tellTheKingWeHitHim();
@@ -83,9 +83,10 @@ namespace pnk
 
     void Bombies::tellTheKingWeHitHim()
     {
-        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-        e->_payload = ST_FLYING_BOMB;
-        pnk::_pnk._dispatcher.queueEvent(std::move(e));
+        pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_FLYING_BOMB));
+//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
+//        e->_payload = ST_FLYING_BOMB;
+//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void Bombies::setBombOnFire()

@@ -120,16 +120,6 @@ namespace pnk
 
         if (blit::buttons.pressed & BTN_EXIT || _leaveGame)
         {
-            // only happens when dying or when solved the game, reset some params
-            if(_leaveGame)
-            {
-                _pnk._gamestate.saved_room = 0;
-                _pnk._gamestate.score = 0;
-                _pnk._gamestate.lives = HERO_MAX_LIVES;
-                _pnk._removed_sprites.clear();
-                saveGamestate();
-            }
-
             return GameState::_gs_home;
         }
 
@@ -202,6 +192,15 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: enter exit()\n");
 #endif
+        // only happens when dying or when solved the game, reset some params
+        if(_leaveGame)
+        {
+            _pnk._gamestate.saved_room = 0;
+            _pnk._gamestate.score = 0;
+            _pnk._gamestate.lives = HERO_MAX_LIVES;
+            _pnk._gamestate.health = HERO_MAX_HEALTH;
+            _pnk._removed_sprites.clear();
+        }
         saveGamestate();
 
         // remove callback
@@ -647,10 +646,18 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("GSPlay: event ETG_KING_HIT\n");
 #endif
+            printf("GSPlay: event ETG_KING_HIT\n");
             handleKingHealth(pe);
         }
         else if (pe._type == ETG_KING_LIFE_LOST_SEQ_ENDED)
         {
+            // deactivate boss-HUD when restoring from a savepoint
+            spHUDLayer hudl = std::static_pointer_cast<HUDLayer>(_pnk.getGear().getLayerByTypename(dang::Layer::LT_HUDLAYER));
+            if (hudl != nullptr)
+            {
+                hudl->deactivateBossHUD();
+            }
+
             // reset health
             _pnk._gamestate.health = HERO_MAX_HEALTH;
             // reset last savepos
@@ -709,13 +716,7 @@ namespace pnk
         if (pe._type == ETG_NEW_THROWN_CRATE || pe._type == ETG_NEW_DROP_CRATE)
         {
             spCraties crate = SpriteFactory::CrateFromProto(std::static_pointer_cast<Craties>(_hives["crate"]), pe._pos, pe._to_the_left);
-/*            spCraties proto = std::static_pointer_cast<Craties>(_hives["crate"]);
-            assert(proto != nullptr);
-            spCraties crate = std::make_shared<Craties>(*proto);
-            crate->setPos(pe._pos);
-            crate->_to_the_left = pe._to_the_left;
-            crate->init();
-*/
+
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
@@ -727,13 +728,7 @@ namespace pnk
         else if (pe._type == ETG_NEW_THROWN_BOMB || pe._type == ETG_NEW_DROP_BOMB)
         {
             spBombies bomb = SpriteFactory::BombFromProto(std::static_pointer_cast<Bombies>(_hives["bomb"]), pe._pos, pe._to_the_left);
-/*            spBombies proto = std::static_pointer_cast<Bombies>(_hives["bomb"]);
-            assert(proto != nullptr);
-            spBombies bomb = std::make_shared<Bombies>(*proto);
-            bomb->setPos(pe._pos);
-            bomb->_to_the_left = pe._to_the_left;
-            bomb->init();
-*/
+
             // movement sequence
             float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
             velx = pe._to_the_left ? -velx : velx;
@@ -745,14 +740,7 @@ namespace pnk
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {
             spCannonball ball = SpriteFactory::CannonballFromProto(std::static_pointer_cast<Cannonball>(_hives["cannonball"]), pe._pos, pe._to_the_left);
-/*            spCannonball proto = std::static_pointer_cast<Cannonball>(_hives["cannonball"]);
-            assert(proto != nullptr);
-            spCannonball ball = std::make_shared<Cannonball>(*proto);
-            ball->setPosX(pe._pos.x);
-            ball->setPosY(pe._pos.y + 6);
-            ball->_to_the_left = pe._to_the_left;
-            ball->init();
-*/
+
             _csl->addSprite((dang::spColSpr)ball);
 
             spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
@@ -809,7 +797,7 @@ namespace pnk
 
     void GSPlay::handleKingHealth(PnkEvent& pe)
     {
-        if(_pnk._gamestate.invincible)
+        if (_pnk._gamestate.invincible)
         {
             return;
         }
@@ -841,11 +829,11 @@ namespace pnk
                 dang::SndGear::playSfx(king_damage_22050, king_damage_22050_length, _pnk._prefs.volume_sfx);
                 dang::SndGear::playRumbleTrack(&dang::double_knock, 0);
             }
-            _pnk._gamestate.health = health;
 #ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("GSPlay: health=%i\n", (uint32_t) _pnk._gamestate.health);
 #endif
         }
+        _pnk._gamestate.health = health;
     }
 
     void GSPlay::handleKingLoosesLife()
@@ -854,6 +842,7 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: handleKingLoosesLife, lives=%i\n", (uint32_t) _pnk._gamestate.lives);
 #endif
+        printf("GSPlay: handleKingLoosesLife, lives=%i\n", (uint32_t) _pnk._gamestate.lives);
 
         if(_pnk._gamestate.lives <= 0)
         {
@@ -861,8 +850,8 @@ namespace pnk
             showGameOverInfo();
 
             // reset lives count before storing current game status to disc
-            _pnk._gamestate.lives = HERO_MAX_LIVES;
-            _pnk._gamestate.health = HERO_MAX_HEALTH;
+//            _pnk._gamestate.lives = HERO_MAX_LIVES;
+//            _pnk._gamestate.health = HERO_MAX_HEALTH;
         }
         else
         {
@@ -886,17 +875,7 @@ namespace pnk
         dang::Vector2F sp = ext.getPassage(_active_room_index, -1);
         _spr_hero->setPos(sp);
         _warp = true;
-
-
-/*        _active_room = &_screenplay->_acts[_active_room_index];
-
-        dang::Vector2F sp;
-        dang::Vector2U passage = _active_room->_passage_from[-1];
-        sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
-        sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
-        _spr_hero->setPos(sp);
-        _warp = true;
-*/    }
+    }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
     {
@@ -1008,15 +987,7 @@ namespace pnk
             dang::Vector2F sp = ext.getPassage(room_nr, _active_room_index);
             _spr_hero->setPos(sp);
             _warp = true;
-
-/*            dang::Vector2F sp;
-
-            dang::Vector2U passage = _active_room->_passage_from[_active_room_index];
-            sp.x = (_active_room->_extent.x + passage.x) * _tmx->w->tileWidth;
-            sp.y = (_active_room->_extent.y + passage.y) * _tmx->w->tileHeight;
-            _spr_hero->setPos(sp);
-            _warp = true;
-*/        }
+        }
 
         _active_room_index = room_nr;
 
@@ -1099,7 +1070,7 @@ namespace pnk
 #endif
             userIsCheating();
             _pnk._gamestate.invincible = true;
-            saveGamestate();
+//            saveGamestate();
         }
     }
 
@@ -1217,6 +1188,21 @@ namespace pnk
         {
             _pnk._gamestate.boss_health = health;
         }
+
+        // some fancy stuff
+        spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
+        assert(protoMood != nullptr);
+        spMoodies mood = std::make_shared<Moodies>(*protoMood);
+        mood->setPosX(pe._pos.x);
+        mood->setPosY(pe._pos.y - 10);
+        mood->setZOrder(100);
+        mood->setTransform(blit::XYSWAP);
+        mood->init();
+        mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
+
+        _csl->addSprite((dang::spColSpr)mood);
+
+
 
     }
 

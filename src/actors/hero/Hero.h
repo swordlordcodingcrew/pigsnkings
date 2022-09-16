@@ -29,9 +29,8 @@ namespace pnk
         bool isOnGround() const { return _on_ground; }
         bool topHit() const { return _top_hit; }
         bool isInNormalState() const;
-
-        void lifeLost();
-        void gameOver() { _game_over = true;};
+        void lifeLost() { _b_life_lost = true; }
+        void gameOver() { _game_over = true; }
 
     protected:
         friend class SomaticState;
@@ -50,7 +49,7 @@ namespace pnk
         bool    _top_hit{false};
 
         bool    _hit{false};
-        bool    _life_lost{false};
+        bool    _b_life_lost{false};
         bool    _game_over{false};
 
         // state stuff

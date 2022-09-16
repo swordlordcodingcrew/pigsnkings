@@ -59,6 +59,7 @@ namespace pnk
         _anim_m_sleeping = _anim_alt_sleeping;
         _anim_alt_sleeping = tmp_anim;
 
+
         dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
         dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
         twPrepare->setFinishedCallback(std::bind(&PigBomb::throwing, this));
@@ -92,7 +93,7 @@ namespace pnk
         }
 
         e->_pos = this->getPos();
-        e->_pos.y -= 10; // piggie holds the box on ground + 10 (yeah, small piggie)
+        e->_pos.y -= 10;
         _pnk._dispatcher.queueEvent(std::move(e));
     }
 

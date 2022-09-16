@@ -118,6 +118,7 @@ namespace pnk
                 if (!_hit)
                 {
                     std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_BOSS_HIT));
+                    e->_pos = getCSPosition();
                     pnk::_pnk._dispatcher.queueEvent(std::move(e));
                     _hit = true;
                     _walkSpeed = _hiding_speed;

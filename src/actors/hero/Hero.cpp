@@ -46,7 +46,7 @@ namespace pnk
         if (_somatic_state == SomaticState::_normal)
         {
             /** collision with enemy */
-            if (sprOther->typeNum() > ST_ENEMIES && sprOther->typeNum() < ST_ENEMIES_END)
+            if (sprOther->typeNum() > ST_ENEMIES && sprOther->typeNum() < ST_ENEMIES_END && !_hit)
             {
                 if (!(sprOther->typeNum() == ST_PIG_BOSS && normal.y > 0))
                 {
@@ -151,11 +151,6 @@ namespace pnk
         _on_ground = false;
         _top_hit = false;
 
-    }
-
-    void Hero::lifeLost()
-    {
-        _life_lost = true;
     }
 
     bool Hero::isInNormalState() const

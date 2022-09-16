@@ -46,7 +46,7 @@ namespace pnk
         }
         else if (cs_other->typeNum() == ST_ROOM_TRIGGER || cs_other->typeNum() == ST_WARP_ROOM_TRIGGER)
         {
-            return dang::CR_CROSS;
+            return dang::CR_NONE;
         }
 
         return dang::CR_NONE;
@@ -128,14 +128,14 @@ namespace pnk
         if (hero._game_over)
         {
             hero._hit = false;
-            hero._life_lost = false;
+            hero._b_life_lost = false;
             hero._game_over = false;
             return SomaticState::_exit;
         }
-        else if (hero._life_lost)
+        else if (hero._b_life_lost)
         {
             hero._hit = false;
-            hero._life_lost = false;
+            hero._b_life_lost = false;
             return SomaticState::_life_lost;
         }
         else if (hero._hit && !_pnk._gamestate.invincible)
