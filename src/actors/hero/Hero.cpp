@@ -56,25 +56,25 @@ namespace pnk
                     {
                         if (mf.normalMe.x == 0)
                         {
-                            ax = getTransform() == blit::SpriteTransform::NONE ? -9 : 9;
+                            ax = getTransform() == blit::SpriteTransform::NONE ? -HERO_HIT_VEL_X : HERO_HIT_VEL_X;
                         }
                         else
                         {
-                            ax = mf.normalMe.x > 0 ? -9 : 9;
+                            ax = mf.normalMe.x > 0 ? -HERO_HIT_VEL_X : HERO_HIT_VEL_X;
                         }
                     }
                     else
                     {
                         if (mf.normalOther.x == 0)
                         {
-                            ax = getTransform() == blit::SpriteTransform::NONE ? -9 : 9;
+                            ax = getTransform() == blit::SpriteTransform::NONE ? -HERO_HIT_VEL_X : HERO_HIT_VEL_X;
                         }
                         else
                         {
-                            ax = mf.normalOther.x > 0 ? -9 : 9;
+                            ax = mf.normalOther.x > 0 ? -HERO_HIT_VEL_X : HERO_HIT_VEL_X;
                         }
                     }
-                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,-6.0}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
+                    dang::spTweenable twa = std::make_shared<dang::TwVel>(dang::Vector2F{ax,HERO_HIT_VEL_Y}, PigsnKings::_gravity, 1000, dang::Ease::InQuad);
                     addTween(twa);
                 }
                 else

@@ -740,20 +740,19 @@ namespace pnk
         else if (pe._type == ETG_NEW_FIRED_CANNON)
         {
             spCannonball ball = SpriteFactory::CannonballFromProto(std::static_pointer_cast<Cannonball>(_hives["cannonball"]), pe._pos, pe._to_the_left);
-
             _csl->addSprite((dang::spColSpr)ball);
 
-            spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
+/*            spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
             assert(protoMood != nullptr);
             spMoodies mood = std::make_shared<Moodies>(*protoMood);
             mood->setPosY(pe._pos.y);
             mood->setZOrder(100);
-
             mood->setPosX(pe._to_the_left ? pe._pos.x - 10 : pe._pos.x + 10);
             mood->setTransform(pe._to_the_left ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
             mood->init();
             mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
-
+*/
+            spMoodies mood = SpriteFactory::CannonmuzzleFromProto(std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]), pe._pos, pe._to_the_left);
             _csl->addSprite((dang::spColSpr)mood);
 
             dang::SndGear::playSfx(cannon_fire_22050_mono, cannon_fire_22050_mono_length, _pnk._prefs.volume_sfx);
@@ -1190,19 +1189,12 @@ namespace pnk
         }
 
         // some fancy stuff
-        spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
-        assert(protoMood != nullptr);
-        spMoodies mood = std::make_shared<Moodies>(*protoMood);
+        spMoodies mood = SpriteFactory::CannonmuzzleFromProto(std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]), pe._pos, pe._to_the_left);
         mood->setPosX(pe._pos.x);
         mood->setPosY(pe._pos.y - 10);
-        mood->setZOrder(100);
         mood->setTransform(blit::XYSWAP);
-        mood->init();
-        mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
 
         _csl->addSprite((dang::spColSpr)mood);
-
-
 
     }
 

@@ -429,6 +429,20 @@ namespace pnk
         return ret;
     }
 
+    spMoodies SpriteFactory::CannonmuzzleFromProto(const spMoodies& proto, const dang::Vector2F& pos, bool to_the_left)
+    {
+        assert(proto != nullptr);
+        spMoodies ret = std::make_shared<Moodies>(*proto);
+
+        ret->setPosY(pos.y);
+        ret->setPosX(to_the_left ? pos.x - 10 : pos.x + 10);
+        ret->setTransform(to_the_left ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
+        ret->setZOrder(100);
+        ret->init();
+        ret->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, ret.get()));
+
+        return ret;
+    }
 
 
 

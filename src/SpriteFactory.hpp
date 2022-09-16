@@ -44,6 +44,7 @@ namespace pnk
     class PigCannon;
     class Cannon;
     class Cannonball;
+    class Cannonmuzzle;
     class Moodies;
     class MoodiesThatHurt;
     class ScreenPlay;
@@ -61,6 +62,7 @@ namespace pnk
     using spPigCannon = std::shared_ptr<pnk::PigCannon>;
     using spCannon = std::shared_ptr<pnk::Cannon>;
     using spCannonball = std::shared_ptr<pnk::Cannonball>;
+    using spCannonmuzzle = std::shared_ptr<pnk::Cannonmuzzle>;
     using spMoodies = std::shared_ptr<pnk::Moodies>;
     using spMoodiesThatHurt = std::shared_ptr<pnk::MoodiesThatHurt>;
     using spScreenPlay = std::shared_ptr<pnk::ScreenPlay>;
@@ -136,6 +138,7 @@ namespace pnk
         static spCraties CrateFromProto(const spCraties& proto, const dang::Vector2F& pos, bool to_the_left);
         static spBombies BombFromProto(const spBombies& proto, const dang::Vector2F& pos, bool to_the_left);
         static spCannonball CannonballFromProto(const spCannonball& proto, const dang::Vector2F& pos, bool to_the_left);
+        static spMoodies CannonmuzzleFromProto(const spMoodies& proto, const dang::Vector2F& pos, bool to_the_left);
 
 
 
