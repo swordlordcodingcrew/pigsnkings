@@ -82,7 +82,6 @@ namespace pnk
     void PigsnKings::loadCurrentGameState()
     {
         loadGameState(_prefs.currentGameSaveSlot, _gamestate, true);
-        printf("load current gamestate. Lives=%i, healt=%i\n", _gamestate.lives, _gamestate.health);
     }
 
     void PigsnKings::loadGameState(uint8_t slot, gamestate& gs, bool load_removed_sprites)
@@ -193,8 +192,6 @@ namespace pnk
         {
             _prefs.currentGameSaveSlot = FIRST_GAME_SAVE_SLOT;
         }
-
-        printf("save gamestate. Lives=%i, healt=%i\n", _gamestate.lives, _gamestate.health);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("pigsnkings: saving gamestate\n");
