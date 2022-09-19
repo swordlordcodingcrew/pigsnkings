@@ -646,7 +646,6 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("GSPlay: event ETG_KING_HIT\n");
 #endif
-            printf("GSPlay: event ETG_KING_HIT\n");
             handleKingHealth(pe);
         }
         else if (pe._type == ETG_KING_LIFE_LOST_SEQ_ENDED)
@@ -730,7 +729,18 @@ namespace pnk
             spBombies bomb = SpriteFactory::BombFromProto(std::static_pointer_cast<Bombies>(_hives["bomb"]), pe._pos, pe._to_the_left);
 
             // movement sequence
-            float velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
+            float velx;
+            switch (_pnk._gamestate.saved_level)
+            {
+                default:
+                case 1:
+                case 2:
+                    velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL : BOMB_DROP_VEL;
+                    break;
+                case 3:
+                    velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL2 : BOMB_DROP_VEL;
+                    break;
+            }
             velx = pe._to_the_left ? -velx : velx;
             dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -4), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             bomb->addTween(twv1);
@@ -742,16 +752,6 @@ namespace pnk
             spCannonball ball = SpriteFactory::CannonballFromProto(std::static_pointer_cast<Cannonball>(_hives["cannonball"]), pe._pos, pe._to_the_left);
             _csl->addSprite((dang::spColSpr)ball);
 
-/*            spMoodies protoMood = std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]);
-            assert(protoMood != nullptr);
-            spMoodies mood = std::make_shared<Moodies>(*protoMood);
-            mood->setPosY(pe._pos.y);
-            mood->setZOrder(100);
-            mood->setPosX(pe._to_the_left ? pe._pos.x - 10 : pe._pos.x + 10);
-            mood->setTransform(pe._to_the_left ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
-            mood->init();
-            mood->_anim_m_standard->setFinishedCallback(std::bind(&Moodies::markRemove, mood.get()));
-*/
             spMoodies mood = SpriteFactory::CannonmuzzleFromProto(std::static_pointer_cast<Moodies>(_hives["cannonmuzzle"]), pe._pos, pe._to_the_left);
             _csl->addSprite((dang::spColSpr)mood);
 
