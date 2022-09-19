@@ -33,11 +33,10 @@ namespace pnk
 #endif
     }
 
+
     bool PigBomb::onEnterThrowing()
     {
-        assert(_anim_m_throwing != nullptr);
-        removeAnimation();
-        setAnimation(_anim_m_throwing);
+        // set direction of piggie
         if (_nTreeState->_payload.count("aaLoSH"))
         {
             setTransform(_nTreeState->_payload["aaLoSH"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
@@ -47,6 +46,26 @@ namespace pnk
             setTransform(_nTreeState->_payload["LoS"] < 0 ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
         }
         setVel(0,0);
+
+        // set animations
+        assert(_anim_m_picking_up != nullptr);
+        assert(_anim_m_throwing != nullptr);
+        removeAnimation();
+        dang::spTwSequence twAnimSeq = std::make_shared<dang::TwSequence>();
+        _anim_m_picking_up->reset();
+        twAnimSeq->addTween(_anim_m_picking_up);
+        twAnimSeq->addTween(_anim_m_throwing);
+        setAnimation(twAnimSeq);
+
+        dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
+        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300+3*400, dang::Ease::Linear, 0);
+        twPrepare->setFinishedCallback(std::bind(&PigBomb::throwing, this));
+        tws->addTween(twPrepare);
+
+        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
+        twThrown->setFinishedCallback(std::bind(&PigBomb::endThrowing, this));
+        tws->addTween(twThrown);
+        addTween(tws);
 
         // change the anims from bomb-carrying to empty-handed
         _currentState = THROWING;
@@ -60,19 +79,8 @@ namespace pnk
         _anim_alt_sleeping = tmp_anim;
 
 
-        dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
-        dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
-        twPrepare->setFinishedCallback(std::bind(&PigBomb::throwing, this));
-        tws->addTween(twPrepare);
-
-        dang::spTwNull twThrown = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
-        twThrown->setFinishedCallback(std::bind(&PigBomb::endThrowing, this));
-        tws->addTween(twThrown);
-        addTween(tws);
-
         return true;
     }
-
 
     void PigBomb::throwing()
     {
@@ -224,5 +232,6 @@ namespace pnk
 
         return dang::BTNode::Status::FAILURE;
     }
+
 
 }

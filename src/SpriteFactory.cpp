@@ -234,7 +234,7 @@ namespace pnk
         ret->_anim_m_sleeping = txtr.getAnimation(is, "sleeping", dang::Ease::Linear, -1, false, dang::Rand::get(uint32_t(1000), uint32_t(2000)));
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
-        ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up");
+        ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up", dang::Ease::Linear, 3);
         ret->_anim_m_throwing = txtr.getAnimation(is, "throwing", dang::Ease::Linear, 0);
 
         // animations without bomb
@@ -243,16 +243,7 @@ namespace pnk
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
 
         ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
-/*        attachBehaviourTree(sp, so, ret);
 
-        dang::spNTree t = sp->_bt["berserk"];
-        if (t != nullptr)
-        {
-            ret->setBTSBerserk(std::make_shared<dang::NTreeState>(t));
-        }
-
-        ret->init();
-*/
         return ret;
 
     }
@@ -454,28 +445,10 @@ namespace pnk
         ret->_anim_m_standard = txtr.getAnimation(is, "boom", dang::Ease::Linear, 1);
         ret->setAnimation(ret->_anim_m_standard);
 
-//        ret->init();
-
         return ret;
     }
 
 
-    /*    void SpriteFactory::attachBehaviourTree(const spScreenPlay& sp, const dang::tmx_spriteobject* so, const dang::spFullSpr& cs)
-    {
-        if (so->bt.length() > 0)
-        {
-            std::shared_ptr<dang::NTree> ntr = sp->_bt[so->bt];
-            if (ntr != nullptr)
-            {
-                cs->setNTreeState(std::make_shared<dang::NTreeState>(ntr));
-            }
-            else
-            {
-                std::printf("ERROR: could not find behaviour tree %s\n", so->bt.c_str());
-            }
-        }
-    }
-*/
     dang::spNTreeState SpriteFactory::getBT(const spScreenPlay &sp, const dang::tmx_spriteobject *so)
     {
         if (so->bt.length() > 0)
