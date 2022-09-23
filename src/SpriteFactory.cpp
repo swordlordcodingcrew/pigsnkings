@@ -211,16 +211,7 @@ namespace pnk
         ret->_anim_alt_loitering = txtr.getAnimation(is, "loitering");
 
         ret->initBT(getBT(sp, so), std::make_shared<dang::NTreeState>(sp->_bt["berserk"]));
-/*        attachBehaviourTree(sp, so, ret);
 
-        dang::spNTree t = sp->_bt["berserk"];
-        if (t != nullptr)
-        {
-            ret->setBTSBerserk(std::make_shared<dang::NTreeState>(t));
-        }
-
-        ret->init();
-*/
         return ret;
     }
 
@@ -235,7 +226,7 @@ namespace pnk
         ret->_anim_m_loitering = txtr.getAnimation(is, "loitering");
         ret->_anim_m_bubbling = txtr.getAnimation(is, "bubbling");
         ret->_anim_m_picking_up = txtr.getAnimation(is, "picking_up", dang::Ease::Linear, 3);
-        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing", dang::Ease::Linear, 0);
+        ret->_anim_m_throwing = txtr.getAnimation(is, "throwing", dang::Ease::Linear, 1);
 
         // animations without bomb
         is = iss.at("gfx_pig");
