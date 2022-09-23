@@ -63,7 +63,7 @@ static const dang::tmx_tileanimation level_1_tileanimations[] = {
     {"gfx_pig",34,"lighting_match",{{34, 100},{35, 100},{36, 100}}},
     {"gfx_pig",37,"match_lit",{{37, 100},{38, 100},{39, 100}}},
     {"gfx_pig",40,"lighting_cannon",{{40, 100},{41, 100},{42, 100}}},
-    {"character_pigbomb",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100}}},
+    {"character_pigbomb",0,"picking_up",{{2, 100},{1, 100},{0, 100},{3, 100}}},
     {"character_pigbomb",4,"sleeping",{{13, 100},{4, 100},{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}},
     {"character_pigbomb",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}},
     {"character_pigbomb",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}},

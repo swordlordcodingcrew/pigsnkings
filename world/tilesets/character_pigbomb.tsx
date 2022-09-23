@@ -3,9 +3,9 @@
  <image source="../../gfx/characters/pig_bomb.png" trans="ff00ff" width="1056" height="32"/>
  <tile id="0" type="picking_up">
   <animation>
-   <frame tileid="0" duration="100"/>
-   <frame tileid="1" duration="100"/>
    <frame tileid="2" duration="100"/>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="0" duration="100"/>
    <frame tileid="3" duration="100"/>
   </animation>
  </tile>
