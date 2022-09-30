@@ -50,7 +50,7 @@ class ScrolltextLayer : public dang::Layer
         const std::vector<std::string_view> credits = {
                 "",
                 "*Pigs n Kings",
-                "(c) 2020-2021 by",
+                "(c) 2020-2022 by",
                 "SwordLord - the coding crew",
                 "",
                 "",
