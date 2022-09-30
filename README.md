@@ -4,7 +4,7 @@
 
 ![Build Pigs n Kings for the 32blit](https://github.com/swordlordcodingcrew/pigsnkings/workflows/Build%20Pigs%20n%20Kings%20for%20the%2032blit/badge.svg)
 
-**Pigs n Kings** (c) 2020-21 by [SwordLord - the coding crew](https://www.swordlord.com/)
+**Pigs n Kings** (c) 2020-22 by [SwordLord - the coding crew](https://www.swordlord.com/)
 
 A jump and run game for the 32blit handheld console. 
 
