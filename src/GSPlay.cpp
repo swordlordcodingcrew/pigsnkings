@@ -53,6 +53,8 @@
 #include "rsrc/gfx/bubble.png.h"
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
+#include "rsrc/gfx/lives.png.h"
+#include "rsrc/gfx/lives_hud.png.h"
 #include "rsrc/gfx/pig_king.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
 #include "rsrc/gfx/door.png.h"

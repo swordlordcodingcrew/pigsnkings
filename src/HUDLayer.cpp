@@ -3,7 +3,7 @@
 
 #include "HUDLayer.hpp"
 #include "pnk_globals.h"
-#include "fonts/hud_font_big.h"
+//#include "fonts/hud_font_big.h"
 #include "fonts/hud_font_small.h"
 #include "Gear.hpp"
 #include "pigsnkings.hpp"
@@ -71,12 +71,14 @@ namespace pnk
                 spr->setTypeNum(ST_HUD_L3);
                 l3 = spr;
             }
+            /*
             else if (so->type == "hud_l4")
             {
                 spr->setTypeNum(ST_HUD_L4);
                 spr->setVisible(false); // bonus life
                 l4 = spr;
             }
+             */
 
             addSprite(spr);
         }
@@ -144,7 +146,7 @@ namespace pnk
         l1->setVisible(_pnk._gamestate.lives > 0);
         l2->setVisible(_pnk._gamestate.lives > 1);
         l3->setVisible(_pnk._gamestate.lives > 2);
-        l4->setVisible(_pnk._gamestate.lives > 3);
+        //l4->setVisible(_pnk._gamestate.lives > 3);
 
         this->dang::BaseHUDLayer::render(gear);
 

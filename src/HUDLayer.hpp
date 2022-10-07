@@ -41,7 +41,7 @@ namespace pnk
 
         bool isCheating{false};
         bool isBossVisible{false};
-        dang::spImgSpr l1, l2, l3, l4;
+        dang::spImgSpr l1, l2, l3;
     };
 }
 

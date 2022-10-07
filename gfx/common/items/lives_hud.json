@@ -1,0 +1,27 @@
+{ "frames": {
+   "lives_hud.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 96, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 96, "h": 32 },
+    "sourceSize": { "w": 96, "h": 32 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "image": "lives_hud.png",
+  "format": "RGBA8888",
+  "size": { "w": 96, "h": 32 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Live Bar", "from": 0, "to": 0, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Cannon", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
