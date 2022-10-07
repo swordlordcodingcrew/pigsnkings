@@ -1256,7 +1256,7 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-            float ret = _csl->loS(s, *_spr_hero.get());
+            float ret = _csl->loSHR(s, *_spr_hero.get());
 
             if (ret != 0)
             {
@@ -1272,9 +1272,10 @@ namespace pnk
     {
         if (_spr_hero->isInNormalState())
         {
-            dang::Vector2F pos = _spr_hero->local2Global(_spr_hero->getPos());
-            s.getNTreeState()->_payload["hero_x"] = pos.x;
-            s.getNTreeState()->_payload["hero_y"] = pos.y;
+            dang::Vector2F pos = _spr_hero->getCSPosition();
+            dang::Vector2F hr = _spr_hero->getHotrect().center();
+            s.getNTreeState()->_payload["hero_x"] = pos.x + hr.x;
+            s.getNTreeState()->_payload["hero_y"] = pos.y + hr.y;
             return dang::BTNode::Status::SUCCESS;
         }
 
