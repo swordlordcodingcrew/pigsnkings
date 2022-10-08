@@ -41,6 +41,7 @@ namespace pnk
         void                        startOutToWaypoint() override;
         static dang::BTNode::Status NTLurk(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTRun(dang::FullColSpr& s, uint32_t dt);
+        static dang::BTNode::Status NTRunToPOI(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTHit(dang::FullColSpr& s, uint32_t dt);
         static dang::BTNode::Status NTRecover(dang::FullColSpr& s, uint32_t dt);
 

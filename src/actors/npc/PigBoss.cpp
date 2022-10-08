@@ -10,6 +10,7 @@
 #include <tween/TwNull.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
+#include <bt/NTreeState.h>
 
 #include <iostream>
 #include <cassert>
@@ -216,20 +217,11 @@ namespace pnk
     void PigBoss::tellTheKingWeHitHim()
     {
         pnk::_pnk._dispatcher.queueEvent(PnkEvent::createGE(ETG_KING_HIT, ST_PIG_BOSS));
-
-//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_HIT));
-//        e->_spr = shared_from_this();
-//        e->_payload = ST_PIG_BOSS;
-//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void PigBoss::removeSelf()
     {
         markRemove();
-
-//        std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_REMOVE_SPRITE));
-//        e->_spr = shared_from_this();
-//        pnk::_pnk._dispatcher.queueEvent(std::move(e));
     }
 
     void PigBoss::startOutToWaypoint()
@@ -295,6 +287,36 @@ namespace pnk
 
     }
 
+    dang::BTNode::Status PigBoss::NTRunToPOI(dang::FullColSpr& s, uint32_t dt)
+    {
+        PigBoss& spr = static_cast<PigBoss&>(s);
+
+        if (spr._currentState != LOITERING && spr._nextState != LOITERING)
+        {
+            if (spr._nTreeState->_payload.count("aaLoSH") == 0)
+            {
+                return dang::BTNode::Status::FAILURE;
+            }
+            float dist = spr._nTreeState->_payload["aaLoSH"];
+            spr._nTreeState->_payload.erase("aaLoSH");
+
+            dang::BTNode::Status ret1 = spr.setDestinationWaypointByType(dist < 0 ? WPT_POI : WPT_POI2);
+            if (ret1 == dang::BTNode::Status::FAILURE)
+            {
+                return dang::BTNode::Status::FAILURE;
+            }
+            spr.prepareChangeState(LOITERING);
+            return dang::BTNode::Status::RUNNING;
+        }
+        else if (spr._currentState == LOITERING && spr._nextState == LOITERING)
+        {
+            return dang::BTNode::Status::SUCCESS;
+        }
+
+        return dang::BTNode::Status::FAILURE;
+
+    }
+
     dang::BTNode::Status PigBoss::NTHit(dang::FullColSpr& s, uint32_t dt)
     {
         PigBoss& spr = static_cast<PigBoss&>(s);
@@ -322,7 +344,6 @@ namespace pnk
         else if (spr._currentState == HIDING && spr._nextState != HIDING)
         {
             return dang::BTNode::Status::SUCCESS;
-
         }
         return dang::BTNode::Status::FAILURE;
     }
