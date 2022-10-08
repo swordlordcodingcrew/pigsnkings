@@ -6,6 +6,7 @@
 #include <layer/BaseHUDLayer.hpp>
 #include <32blit.hpp>
 #include <DangFwdDecl.h>
+#include <libs/DANG/src/TmxExtruder.hpp>
 
 namespace pnk
 {
@@ -16,6 +17,7 @@ namespace pnk
         HUDLayer();
         ~HUDLayer() override = default;
         void fillSprites(dang::Gear& gear);
+        void setAnimations(dang::TmxExtruder &txtr);
 
         void changeCheatSprite();
 
@@ -23,14 +25,8 @@ namespace pnk
         void deactivateBossHUD();
 
     protected:
-//        void updateInternal(uint32_t dt, const dang::Gear& gear);
-//        void renderInternal(const dang::Gear& gear);
         void    render(const dang::Gear& gear) override;
 
-//        foregroundColour = blit::Pen(43, 63, 61, 255);
-//        foregroundColour = blit::Pen(63, 56, 81, 255);
-//        backgroundColour = blit::Pen(152, 152, 152, 200);
-//        healthColour = blit::Pen(78, 110, 197, 255);
         constexpr static blit::Pen backgroundColour{152, 152, 152, 200};
         constexpr static blit::Pen background2Colour{200, 200, 200, 200};
         constexpr static blit::Pen foregroundColour{40, 60, 28, 255};
@@ -41,7 +37,8 @@ namespace pnk
 
         bool isCheating{false};
         bool isBossVisible{false};
-        dang::spImgSpr l1, l2, l3;
+        dang::spFullImgSpr l1, l2, l3;
+
     };
 }
 

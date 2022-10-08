@@ -508,6 +508,7 @@ namespace pnk
         {
             txtr.fillHUDLayer(hudl, _screenplay->_l_hud_name, false, true);
             hudl->fillSprites(_pnk.getGear());
+            hudl->setAnimations(txtr);
 
             if(_pnk.isCheating())
             {

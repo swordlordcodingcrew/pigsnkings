@@ -27,9 +27,10 @@ static const dang::tmx_tileset level_3_tilesets[] = {
     {"levels_door", &levels_door, 4,46,56,184,56,4,1},
     {"character_pigking", &character_pigking, 33,32,32,1056,32,33,1},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
+    {"lives", &lives, 20,16,16,320,16,20,1},
 };
 
-static const size_t level_3_tilesets_len = 13;
+static const size_t level_3_tilesets_len = 14;
 
 // Animations ------------------------------------------------
 
@@ -92,9 +93,11 @@ static const dang::tmx_tileanimation level_3_tileanimations[] = {
     {"character_pigking",21,"jumping",{{21, 100},{22, 100},{23, 100},{24, 100},{25, 100}}},
     {"character_pigking",26,"hit",{{26, 100},{27, 100}}},
     {"character_pigking",28,"die",{{28, 100},{29, 100},{30, 100},{31, 100}}},
+    {"lives",0,"heart_in_hud",{{0, 200},{1, 200},{2, 200},{3, 200},{4, 200},{5, 200},{6, 200},{7, 200}}},
+    {"lives",8,"heart_in_hud_lost",{{8, 200},{9, 200}}},
 };
 
-static const size_t level_3_tileanimations_len = 58;
+static const size_t level_3_tileanimations_len = 60;
 
 // Layers ------------------------------------------------
 
@@ -595,14 +598,13 @@ static const dang::tmx_spriteobject level_3_lvl_3_hud_objects[] = {
     {556,"556","hud_boss_health_p1",240,16,16,16,true,"hud_ui",61,"",0,0b0000},
     {557,"557","hud_boss_health_p2",256,16,16,16,true,"hud_ui",62,"",0,0b0000},
     {558,"558","hud_boss_health_p3",272,16,16,16,true,"hud_ui",63,"",0,0b0000},
-    {559,"559","hud_l1",32,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {560,"560","hud_l2",48,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {561,"561","hud_l3",64,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {562,"562","hud_l4",80,4,16,16,true,"hud_ui",77,"",0,0b0000}
+    {609,"609","hud_l1",32,4,16,16,true,"lives",0,"",0,0b0000},
+    {610,"610","hud_l2",48,4,16,16,true,"lives",0,"",0,0b0000},
+    {611,"611","hud_l3",64,4,16,16,true,"lives",0,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_hud_objects_len = 12;
+static const size_t level_3_lvl_3_hud_objects_len = 11;
 
 static const dang::tmx_layer level_3_lvl_3_hud = {
     .name = "lvl_3_hud",

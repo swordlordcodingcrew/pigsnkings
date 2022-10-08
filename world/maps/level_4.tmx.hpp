@@ -27,9 +27,10 @@ static const dang::tmx_tileset level_4_tilesets[] = {
     {"common_items_bomb", &common_items_bomb, 11,64,64,704,64,11,1},
     {"hud_ui", &hud_ui, 105,16,16,240,112,15,7},
     {"character_pigking", &character_pigking, 33,32,32,1056,32,33,1},
+    {"lives", &lives, 20,16,16,320,16,20,1},
 };
 
-static const size_t level_4_tilesets_len = 13;
+static const size_t level_4_tilesets_len = 14;
 
 // Animations ------------------------------------------------
 
@@ -44,7 +45,7 @@ static const dang::tmx_tileanimation level_4_tileanimations[] = {
     {"pig_crate",33,"hit",{{33, 80},{34, 80},{35, 80},{36, 80},{37, 80}}},
     {"pig_crate",34,"crate",{{34, 100}}},
     {"pig_crate",38,"bubbling",{{38, 100},{39, 100}}},
-    {"character_pigbomb",0,"picking_up",{{0, 100},{1, 100},{2, 100},{3, 100}}},
+    {"character_pigbomb",0,"picking_up",{{2, 100},{1, 100},{0, 100},{3, 100}}},
     {"character_pigbomb",4,"sleeping",{{13, 100},{4, 100},{5, 100},{6, 100},{7, 100},{8, 100},{9, 100},{10, 100},{11, 100},{12, 100},{13, 100}}},
     {"character_pigbomb",14,"loitering",{{14, 100},{15, 100},{16, 100},{17, 100},{18, 100},{19, 100}}},
     {"character_pigbomb",20,"throwing",{{20, 100},{21, 100},{22, 100},{23, 100},{24, 100}}},
@@ -92,9 +93,11 @@ static const dang::tmx_tileanimation level_4_tileanimations[] = {
     {"character_pigking",21,"jumping",{{21, 100},{22, 100},{23, 100},{24, 100},{25, 100}}},
     {"character_pigking",26,"hit",{{26, 100},{27, 100}}},
     {"character_pigking",28,"die",{{28, 100},{29, 100},{30, 100},{31, 100}}},
+    {"lives",0,"heart_in_hud",{{0, 200},{1, 200},{2, 200},{3, 200},{4, 200},{5, 200},{6, 200},{7, 200}}},
+    {"lives",8,"heart_in_hud_lost",{{8, 200},{9, 200}}},
 };
 
-static const size_t level_4_tileanimations_len = 58;
+static const size_t level_4_tileanimations_len = 60;
 
 // Layers ------------------------------------------------
 
@@ -311,14 +314,13 @@ static const dang::tmx_spriteobject level_4_lvl_4_hud_objects[] = {
     {142,"142","hud_boss_health_p1",240,16,16,16,true,"hud_ui",61,"",0,0b0000},
     {143,"143","hud_boss_health_p2",256,16,16,16,true,"hud_ui",62,"",0,0b0000},
     {144,"144","hud_boss_health_p3",272,16,16,16,true,"hud_ui",63,"",0,0b0000},
-    {145,"145","hud_l1",32,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {146,"146","hud_l2",48,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {147,"147","hud_l3",64,4,16,16,true,"hud_ui",77,"",0,0b0000},
-    {148,"148","hud_l4",80,4,16,16,true,"hud_ui",77,"",0,0b0000}
+    {149,"149","hud_l1",32,4,16,16,true,"lives",0,"",0,0b0000},
+    {150,"150","hud_l2",48,4,16,16,true,"lives",0,"",0,0b0000},
+    {151,"151","hud_l3",64,4,16,16,true,"lives",0,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_hud_objects_len = 12;
+static const size_t level_4_lvl_4_hud_objects_len = 11;
 
 static const dang::tmx_layer level_4_lvl_4_hud = {
     .name = "lvl_4_hud",

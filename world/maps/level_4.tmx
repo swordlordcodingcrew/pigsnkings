@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="149">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="152">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/character_pigcrate.tsx"/>
@@ -13,6 +13,7 @@
  <tileset firstgid="350" source="../tilesets/common_items_bomb.tsx"/>
  <tileset firstgid="361" source="../tilesets/common_hud_ui.tsx"/>
  <tileset firstgid="466" source="../tilesets/character_pigking.tsx"/>
+ <tileset firstgid="499" source="../tilesets/common_lives.tsx"/>
  <layer id="1" name="lvl_4_bg" width="54" height="8" locked="1">
   <data encoding="csv">
 5,26,26,26,26,26,26,26,26,6,14,5,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,6,5,26,26,26,26,26,26,26,26,6,
@@ -213,7 +214,7 @@
   <object id="46" gid="105" x="544" y="96" width="32" height="32"/>
   <object id="47" gid="121" x="544" y="128" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="lvl_4_hud" locked="1">
+ <objectgroup id="5" name="lvl_4_hud">
   <object id="137" type="hud_hero" gid="337" x="0" y="0" width="32" height="32"/>
   <object id="138" gid="422" x="31" y="16" width="16" height="16"/>
   <object id="139" gid="423" x="47" y="16" width="16" height="16"/>
@@ -222,10 +223,9 @@
   <object id="142" type="hud_boss_health_p1" gid="422" x="240" y="16" width="16" height="16"/>
   <object id="143" type="hud_boss_health_p2" gid="423" x="256" y="16" width="16" height="16"/>
   <object id="144" type="hud_boss_health_p3" gid="424" x="272" y="16" width="16" height="16"/>
-  <object id="145" type="hud_l1" gid="438" x="32" y="4" width="16" height="16"/>
-  <object id="146" type="hud_l2" gid="438" x="48" y="4" width="16" height="16"/>
-  <object id="147" type="hud_l3" gid="438" x="64" y="4" width="16" height="16"/>
-  <object id="148" type="hud_l4" gid="438" x="80" y="4" width="16" height="16"/>
+  <object id="149" type="hud_l1" gid="499" x="32" y="4" width="16" height="16"/>
+  <object id="150" type="hud_l2" gid="499" x="48" y="4" width="16" height="16"/>
+  <object id="151" type="hud_l3" gid="499" x="64" y="4" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="lvl_4_paths" locked="1"/>
  <objectgroup color="#800000ff" id="7" name="lvl_4_zones" visible="0" locked="1">

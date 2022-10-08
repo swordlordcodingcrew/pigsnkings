@@ -3,15 +3,17 @@
 
 #include "HUDLayer.hpp"
 #include "pnk_globals.h"
-//#include "fonts/hud_font_big.h"
 #include "fonts/hud_font_small.h"
 #include "Gear.hpp"
 #include "pigsnkings.hpp"
 
 #include <sprite/ImgSpr.hpp>
+#include <sprite/FullImgSpr.hpp>
 #include <TmxExtruder.hpp>
 #include <SprIterator.hpp>
 #include <Imagesheet.hpp>
+#include <tween/TwAnim.hpp>
+#include <cassert>
 
 namespace pnk
 {
@@ -19,10 +21,6 @@ namespace pnk
 
     HUDLayer::HUDLayer() : dang::BaseHUDLayer()
     {
-//        foregroundColour = blit::Pen(43, 63, 61, 255);
-//        foregroundColour = blit::Pen(63, 56, 81, 255);
-//        backgroundColour = blit::Pen(152, 152, 152, 200);
-//        healthColour = blit::Pen(78, 110, 197, 255);
     }
 
     void HUDLayer::fillSprites(dang::Gear& gear)
@@ -31,45 +29,26 @@ namespace pnk
         {
             const dang::tmx_spriteobject* so = tmxLayer()->spriteobjects + j;
 
-            auto spr = std::make_shared<dang::ImgSpr>(so, gear.getImagesheet(so->tileset));
-            if (so->type == "hud_hero")
+            if (so->type == "hud_l1")
             {
-                spr->setTypeNum(ST_HUD_HERO);
-            }
-            else if (so->type == "hud_boss")
-            {
-                spr->setTypeNum(ST_HUD_BOSS);
-                spr->setVisible(false); // as long as no boss battle is running
-            }
-            else if (so->type == "hud_boss_health_p1")
-            {
-                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P1);
-                spr->setVisible(false); // as long as no boss battle is running
-            }
-            else if (so->type == "hud_boss_health_p2")
-            {
-                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P2);
-                spr->setVisible(false); // as long as no boss battle is running
-            }
-            else if (so->type == "hud_boss_health_p3")
-            {
-                spr->setTypeNum(ST_HUD_BOSS_HEALTH_P3);
-                spr->setVisible(false); // as long as no boss battle is running
-            }
-            else if (so->type == "hud_l1")
-            {
+                auto spr = std::make_shared<dang::FullImgSpr>(so, gear.getImagesheet(so->tileset));
                 spr->setTypeNum(ST_HUD_L1);
                 l1 = spr;
+                addSprite(std::static_pointer_cast<dang::ImgSpr>(spr));
             }
             else if (so->type == "hud_l2")
             {
+                auto spr = std::make_shared<dang::FullImgSpr>(so, gear.getImagesheet(so->tileset));
                 spr->setTypeNum(ST_HUD_L2);
                 l2 = spr;
+                addSprite(std::static_pointer_cast<dang::ImgSpr>(spr));
             }
             else if (so->type == "hud_l3")
             {
+                auto spr = std::make_shared<dang::FullImgSpr>(so, gear.getImagesheet(so->tileset));
                 spr->setTypeNum(ST_HUD_L3);
                 l3 = spr;
+                addSprite(std::static_pointer_cast<dang::ImgSpr>(spr));
             }
             /*
             else if (so->type == "hud_l4")
@@ -79,8 +58,37 @@ namespace pnk
                 l4 = spr;
             }
              */
+            else
+            {
+                auto spr = std::make_shared<dang::ImgSpr>(so, gear.getImagesheet(so->tileset));
+                if (so->type == "hud_hero")
+                {
+                    spr->setTypeNum(ST_HUD_HERO);
+                }
+                else if (so->type == "hud_boss")
+                {
+                    spr->setTypeNum(ST_HUD_BOSS);
+                    spr->setVisible(false); // as long as no boss battle is running
+                }
+                else if (so->type == "hud_boss_health_p1")
+                {
+                    spr->setTypeNum(ST_HUD_BOSS_HEALTH_P1);
+                    spr->setVisible(false); // as long as no boss battle is running
+                }
+                else if (so->type == "hud_boss_health_p2")
+                {
+                    spr->setTypeNum(ST_HUD_BOSS_HEALTH_P2);
+                    spr->setVisible(false); // as long as no boss battle is running
+                }
+                else if (so->type == "hud_boss_health_p3")
+                {
+                    spr->setTypeNum(ST_HUD_BOSS_HEALTH_P3);
+                    spr->setVisible(false); // as long as no boss battle is running
+                }
 
-            addSprite(spr);
+                addSprite(spr);
+
+            }
         }
 
     }
@@ -186,5 +194,17 @@ namespace pnk
             float width = _pnk._gamestate.boss_health * 0.3;
             blit::screen.rectangle(blit::Rect(249, 23, width > 30 ? 30 : width, 2));
         }
+    }
+
+    void HUDLayer::setAnimations(dang::TmxExtruder &txtr)
+    {
+        dang::spTwAnim heartAnim1 = txtr.getAnimation(l1->getImagesheet(), "heart_in_hud");
+        assert(heartAnim1 != nullptr);
+        heartAnim1->delay(2000);
+        l1->setAnimation(heartAnim1);
+        dang::spTwAnim heartAnim2 = std::make_shared<dang::TwAnim>(*heartAnim1);
+        l2->setAnimation(heartAnim2);
+        dang::spTwAnim heartAnim3 = std::make_shared<dang::TwAnim>(*heartAnim1);
+        l3->setAnimation(heartAnim3);
     }
 }
