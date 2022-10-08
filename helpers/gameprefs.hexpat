@@ -7,6 +7,9 @@
 struct Prefs
         {
             u8      version [[color("0000FF")]];                // of the prefs for upgrading
+            u8      placeholder1;
+            u8      placeholder2;
+            u8      placeholder3;
             float   volume_track [[color("000FFF")]];
             float   volume_sfx [[color("00F0FF")]];
             u8      selectedModule [[color("FF0000")]];         // which module is set in the GSHome (where is the candle)
@@ -14,3 +17,4 @@ struct Prefs
         };
 
 Prefs prefs @ 0x00;
+
