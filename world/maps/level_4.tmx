@@ -214,7 +214,7 @@
   <object id="46" gid="105" x="544" y="96" width="32" height="32"/>
   <object id="47" gid="121" x="544" y="128" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="lvl_4_hud">
+ <objectgroup id="5" name="lvl_4_hud" locked="1">
   <object id="137" type="hud_hero" gid="337" x="0" y="0" width="32" height="32"/>
   <object id="138" gid="422" x="31" y="16" width="16" height="16"/>
   <object id="139" gid="423" x="47" y="16" width="16" height="16"/>
