@@ -64,7 +64,7 @@ namespace pnk
         dang::RectF vp = {0, 0, 320, 240};
 
         gear.initLevel(_tmx, vp);
-        gear.setActiveWorldSize(vp.w, vp.h);
+//        gear.setActiveWorldSize(vp.w, vp.h);
 
         txtr.getImagesheets();
 

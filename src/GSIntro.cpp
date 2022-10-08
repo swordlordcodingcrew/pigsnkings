@@ -48,7 +48,7 @@ namespace pnk
         DEBUG_PRINT("GSIntro: entering\n");
 #endif
         gear.setWorld({0,0,320, 240});
-        gear.setActiveWorldSize(320, 240);
+//        gear.setActiveWorldSize(320, 240);
         gear.setViewport({0,0,320, 240});
 
 #ifdef PNK_DEBUG_COMMON

@@ -254,7 +254,7 @@ namespace pnk
 #endif
         dang::RectF vp = {0, 0, 320, 240};
         gear.initLevel(_tmx, vp);
-        gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
+//        gear.setActiveWorldSize(vp.w + 16, vp.h + 16);
 
         // fill up screenplay
         for (size_t i = 0; i < _tmx->zones_len; ++i)
@@ -532,7 +532,7 @@ namespace pnk
         // set viewport to active room
         updateVpPos();
         gear.setViewportPos(_vp_pos - dang::Vector2F(160, 120));
-        // set the zonebits correcty
+        // set the zonebits of each sprite correcty
         _csl->resetZoneBit(gear.getViewport());
 
 
@@ -876,6 +876,9 @@ namespace pnk
         dang::Vector2F sp = ext.getPassage(_active_room_index, -1);
         _spr_hero->setPos(sp);
         _warp = true;
+
+        _pnk.getGear().setActiveWorld(_active_room.x - 16, _active_room.y - 16, _active_room.w + 32, _active_room.h + 32);
+
     }
 
     void GSPlay::handleRewardCollected(PnkEvent& pe)
@@ -980,6 +983,7 @@ namespace pnk
     {
         dang::TmxExtruder ext(_tmx, &_pnk.getGear());
         _active_room = ext.getZone(room_nr);
+        _pnk.getGear().setActiveWorld(_active_room.x - 16, _active_room.y - 16, _active_room.w + 32, _active_room.h + 32);
 
 //        _active_room = &_screenplay->_acts[room_nr];
 

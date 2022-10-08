@@ -41,7 +41,7 @@ namespace pnk
         dang::SndGear::playMod(u4iasmok_mod, u4iasmok_mod_length, _pnk._prefs.volume_track);
 
         gear.setWorld({0,0,320, 240});
-        gear.setActiveWorldSize(320, 240);
+//        gear.setActiveWorldSize(320, 240);
         gear.setViewport({0,0,320, 240});
 
         std::shared_ptr<ScrolltextLayer> stl = std::make_shared<ScrolltextLayer>();

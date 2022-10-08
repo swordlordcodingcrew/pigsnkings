@@ -137,7 +137,8 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: set active world size\n");
 #endif
-        gear.setActiveWorldSize(vp.w+1000, vp.h+1000);
+//        gear.setActiveWorldSize(vp.w+1000, vp.h+1000);
+        gear.setActiveWorld(-500, -500, vp.w+1000, vp.h+1000);
 
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSHome: init image sheets\n");
