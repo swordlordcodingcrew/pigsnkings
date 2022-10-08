@@ -43,10 +43,9 @@ namespace pnk
     {
         removeImagesheets();
 
-        // TODO save gamestates
-        // the question is if this makes sense here or
-        // if we place savepoints througout the level
-        // we decided to do savepoints using triggers
+
+        // TODO check if the prefs are really saved. It may be that the 32blit engine is not active anymore
+        _pnk.savePrefs();
     }
 
     void PigsnKings::init()
@@ -148,41 +147,6 @@ namespace pnk
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("pigsnkings: game states loaded\n");
 #endif
-
-/*
-        bool ret{true};
-
-        // sanity check for current gamesave slot
-        if (slot < FIRST_GAME_SAVE_SLOT || slot > LAST_GAME_SAVE_SLOT)
-        {
-            slot = FIRST_GAME_SAVE_SLOT;
-        }
-
-        struct {
-            uint8_t version{0};
-            uint32_t size{0};
-        } header;
-
-        if (blit::read_save(header, slot))
-        {
-            if (header.version == 2)
-            {
-                blit::read_save(gs, slot);
-            }
-            else
-            {
-                ret = false;
-            }
-        }
-        else
-        {
-            ret = false;
-        }
-
-        return ret;
-        */
-
-
     }
 
     void PigsnKings::saveCurrentGamestate()
@@ -362,6 +326,11 @@ namespace pnk
     bool PigsnKings::isCheating()
     {
         return _gamestate.invincible || _gamestate.has_cheated;
+    }
+
+    void PigsnKings::savePrefs()
+    {
+        blit::write_save(_prefs, PREFERENCES);
     }
 }
 

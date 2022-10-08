@@ -88,6 +88,7 @@ namespace pnk
     void GSPrefs::exit(dang::Gear& gear, uint32_t time)
     {
         // load the selected gamestate
+        _pnk.savePrefs();
         _pnk.loadCurrentGameState();
         gear.removeImagesheets();
         gear.removeLayers();

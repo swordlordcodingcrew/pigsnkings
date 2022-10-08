@@ -95,9 +95,11 @@ namespace pnk
         void initEmptyGameslots(); // save1-4
         void resetAllGameslots(); // save1-4
         void resetGameslot(uint8_t slot);
+
+        // prefs
         void refreshPrefsFromSave();
         void resetPrefsGameslot(); // save0
-
+        void savePrefs();
 
         gamestate       _gamestate; // state of current game
         prefs           _prefs; // world preferences

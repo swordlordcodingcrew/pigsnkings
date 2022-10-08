@@ -341,6 +341,8 @@ namespace pnk
         _sprRightCandle.reset();
         _tmx = nullptr;
 
+        _pnk.savePrefs();
+
     }
 
     void GSHome::playOink()
