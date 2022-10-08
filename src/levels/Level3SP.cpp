@@ -5,6 +5,8 @@
 #include "GSPlay.h"
 #include "actors/npc/PigCrate.h"
 #include "actors/npc/PigBomb.h"
+#include "actors/npc/PigCannon.h"
+#include "actors/npc/PigBoss.h"
 
 #include <bt/NTBuilder.h>
 
@@ -31,6 +33,14 @@ namespace pnk
         _bt["berserk"] = buildBerserk();
         _bt["wait_bomb"] = buildWaitWithBombH(gsp);
         _bt["basic_cannon"] = buildBasicCannon();
+
+        _bt["lazy_cannon"] = dang::NTBuilder{}
+            .sequence()
+                .leaf(HenchPig::NTsetSleepLong)
+                .leaf(HenchPig::NTdoSleep)
+                .leaf(PigCannon::NTFireCannon)
+            .end()
+        .build();
 
         _bt["wait_for_hero"] = dang::NTBuilder{}
             .selector()
@@ -78,51 +88,22 @@ namespace pnk
             .end()
         .build();
 
-/*        _bt["wait_with_crates"] = dang::NTBuilder{}
-                .selector()
-                .sequence()
-                .inverter().leaf(PigCrate::NTWithCrate)
-                .selector()
-                .sequence()
-                .leaf(Enemy::NTsetDestinationCrateDepot)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(PigBomb::NTPickUpBomb)
-                .leaf(Enemy::NTsetDestinationPOI)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .end()
-                .tree(back_to_path_h)
-                .tree(back_to_path)
-                .end()
-                .end()
-                .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSight, &gsp, std::placeholders::_1, std::placeholders::_2))
-//                    .leaf(PigBomb::NTDistanceOK)
-                .leaf(PigBomb::NTThrowBomb)
-                .leaf(HenchPig::NTsetSleepMedium)
-                .leaf(HenchPig::NTdoSleep)
-                .end()
-                .end()
-                .build();
-
-#ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("Level3SP: after bt 6 (%d)\r\n", mallinfo().uordblks);
-#endif
         _bt["boss"] = dang::NTBuilder{}
-                .selector()
+            .selector()
                 .sequence()
-                .leaf(PigBoss::NTHit)
-                .leaf(PigBoss::NTRecover)
+                    .leaf(PigBoss::NTHit)
+                    .leaf(PigBoss::NTRecover)
                 .end()
                 .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
-                .leaf(PigBoss::NTRun)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(PigBoss::NTLurk)
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
+                    .leaf(PigBoss::NTRunToPOI)
+//                    .leaf(PigBoss::NTRun)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(PigBoss::NTLurk)
                 .end()
-                .end()
-                .build();
+            .end()
+        .build();
 
-*/
     }
 
 }
