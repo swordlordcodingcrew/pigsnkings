@@ -60,7 +60,7 @@ lofty and such - let's bubble!\n\
 const static std::string_view str_lvl3_end{"The attic boss\n\
 is no more!\n\
 But where is my hammer?!?\n\
-You may proceed to the door"};
+And where is the exit?"};
 
 
 /**

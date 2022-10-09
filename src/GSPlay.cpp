@@ -1125,7 +1125,7 @@ namespace pnk
         _csl->markRemoveSpritesByTypeNum(ST_PIG_CANNON);
 
         // show doors
-        dang::spImgSprLayer mood = std::static_pointer_cast<dang::ImgSprLayer>(_pnk.getGear().getLayerByName("lvl_1_mood"));
+        dang::spImgSprLayer mood = std::static_pointer_cast<dang::ImgSprLayer>(_pnk.getGear().getLayerByName(_screenplay->_l_mood_name));
         if(mood != nullptr)
         {
             auto spr = mood->getImgSprByTypeNum(ST_MOOD_DOOR);
@@ -1154,6 +1154,9 @@ namespace pnk
                 break;
             case 2:
                 showInfoLayer(false, 10000, str_lvl2_end);
+                break;
+            case 3:
+                showInfoLayer(false, 10000, str_lvl3_end);
                 break;
         }
     }
