@@ -8,11 +8,13 @@
 
 #include <tween/TwAnim.hpp>
 #include <tween/TwNull.hpp>
+#include <tween/TwVel.hpp>
+#include <tween/TwVelY.hpp>
 #include <Imagesheet.hpp>
 #include <TmxExtruder.hpp>
 #include <bt/NTreeState.h>
+#include <path/SceneGraph.hpp>
 
-#include <iostream>
 #include <cassert>
 
 namespace pnk
@@ -202,7 +204,7 @@ namespace pnk
 
     bool PigBoss::onEnterDead()
     {
-        std::cout << "enter dead" << std::endl;
+        printf("enter dead\n");
 
         setAnimation(_anim_m_die);
         removeTweens(true);
@@ -224,14 +226,6 @@ namespace pnk
         markRemove();
     }
 
-    void PigBoss::startOutToWaypoint()
-    {
-        Enemy::startOutToWaypoint();
-        removeAnimation();
-        setAnimation(_anim_m_running);
-        setTransform(getVel().x > 0 ? blit::HORIZONTAL : blit::NONE);
-    }
-
     void PigBoss::bubble()
     {
         // do nothing, only non royal enemies bubble
@@ -245,6 +239,93 @@ namespace pnk
     bool PigBoss::isBubbled()
     {
         return false;
+    }
+
+/*    void PigBoss::startOutToWaypoint()
+    {
+        Enemy::startOutToWaypoint();
+        removeAnimation();
+        setAnimation(_anim_m_running);
+        setTransform(getVel().x > 0 ? blit::HORIZONTAL : blit::NONE);
+    }
+*/
+    void PigBoss::startOutToWaypoint()
+    {
+        const dang::Waypoint* wp = _path.at(_path_index);
+
+#ifdef PNK_DEBUG_WAYPOINTS
+        DEBUG_PRINT("(spr id %u): start out from wp %u to wp %u\n", id(), (_current_wp == nullptr ? 0 : _current_wp->_id), wp->_id);
+#endif
+
+        removeTween(_tw_short_jump, true);
+        removeTween(_tw_long_horiz_jump, true);
+
+        uint32_t conn_type = _scene_graph->getConnectionType(_current_wp, wp);
+        switch (conn_type)
+        {
+            case dang::e_tmx_waypoint_connection::wpc_invalid:
+            case dang::e_tmx_waypoint_connection::wpc_walk:
+            {
+                setVelX(wp->_pos.x - _co_pos.x < 0 ? -_walkSpeed : _walkSpeed);
+                _max_time_to_wp = (std::fabs(wp->_pos.x - getHotrectG().center().x) + 32) * 100 / _walkSpeed;
+                _time_elapsed_to_wp = 0;
+                break;
+            }
+            case dang::e_tmx_waypoint_connection::wpc_jump:
+            {
+                dang::Vector2F v{0,0};
+                dang::Vector2F v_end{0,0};
+                dang::Vector2F hrc = getHotrectG().center();
+                if (hrc.y - wp->_pos.y > 10)     // safety buffer of 10 units for the check if higher / lower
+                {
+                    // the waypoint is higher than the hero
+                    v.y = (wp->_pos.y - hrc.y)/2 - (0.4f * _walkSpeed);
+                }
+                else
+                {
+                    // equal or lower
+                    v.y = -5.5 + (0.25f * _walkSpeed);
+                }
+
+                if ((wp->_pos.x - hrc.x) * (wp->_pos.x - hrc.x) > 1600)  // long horizontal distance
+                {
+                    if (wp->_pos.x - _co_pos.x < 0)
+                    {
+                        v.x = -(_walkSpeed + 7);
+                        v_end.x = -_walkSpeed;
+                    }
+                    else
+                    {
+                        v.x = (_walkSpeed + 7);
+                        v_end.x = _walkSpeed;
+                    }
+                    setVelX(v.x);
+                    _max_time_to_wp = 2000;
+                    _time_elapsed_to_wp = 0;
+                    _tw_long_horiz_jump = std::make_shared<dang::TwVel>(v, v_end, 650-_walkSpeed*20, &dang::Ease::Linear, 1, false );
+                    addTween(_tw_long_horiz_jump);
+                }
+                else
+                {
+                    // short jump
+                    _max_time_to_wp = 1000;
+
+                    _time_elapsed_to_wp = 0;
+                    setVelX(wp->_pos.x - _co_pos.x < 0 ? -_walkSpeed : _walkSpeed);
+                    _tw_short_jump = std::make_shared<dang::TwVelY>(v.y, 0.0f, 400/_walkSpeed, &dang::Ease::Linear, 1, false );
+                    addTween(_tw_short_jump);
+                }
+                break;
+            }
+            case dang::e_tmx_waypoint_connection::wpc_warp:
+                break;
+            default:
+                break;
+        }
+        removeAnimation();
+        setAnimation(_anim_m_running);
+        setTransform(getVel().x > 0 ? blit::HORIZONTAL : blit::NONE);
+
     }
 
     dang::BTNode::Status PigBoss::NTLurk(dang::FullColSpr& s, uint32_t dt)

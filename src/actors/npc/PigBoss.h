@@ -47,7 +47,6 @@ namespace pnk
 
 
     protected:
-
         virtual void tellTheKingWeHitHim();
 
         // the state the pig is in

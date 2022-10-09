@@ -261,7 +261,7 @@ static const dang::tmx_spriteobject level_3_lvl_3_mood_objects[] = {
     {260,"260","",896,274,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
     {261,"261","",864,274,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {262,"262","",832,274,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
-    {280,"280","",496,40,46,56,true,"levels_door",0,"",0,0b0000},
+    {280,"door","door",496,40,46,56,true,"levels_door",0,"",0,0b0000},
     {281,"281","",32,18,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
     {282,"282","",64,18,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {283,"283","",96,18,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
@@ -510,12 +510,11 @@ static const dang::tmx_spriteobject level_3_lvl_3_obj_objects[] = {
     {598,"598","coin_gold",736,440,32,48,true,"gfx_items",4,"",60,0b0000},
     {599,"599","coin_gold",832,440,32,48,true,"gfx_items",4,"",60,0b0000},
     {604,"604","hotrect",224,224,32,12,true,"",0,"",0,0b0000},
-    {605,"605","hotrect",416,224,32,12,true,"",0,"",0,0b0000},
-    {608,"608","hotrect",128,240,416,8,true,"",0,"",0,0b0000}
+    {605,"605","hotrect",416,224,32,12,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_3_lvl_3_obj_objects_len = 164;
+static const size_t level_3_lvl_3_obj_objects_len = 163;
 
 static const dang::tmx_layer level_3_lvl_3_obj = {
     .name = "lvl_3_obj",
