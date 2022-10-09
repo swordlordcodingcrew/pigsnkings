@@ -372,12 +372,6 @@ namespace pnk
             }
             else if (so->type == SpriteFactory::T_PIG_CANNON)
             {
-                // TODO refactor, ugly hack
-                // implicitly add the cannon and tell the cannoneer about
-//                auto cannoneer = SpriteFactory::PigCannoneerWCannon(txtr, so, is, _screenplay);
-//                _csl->addSprite((dang::spColSpr)cannoneer->_myCannon);
-//                spr = cannoneer;
-
                 spr = SpriteFactory::PigCannon(txtr, so, is, _screenplay);
 
             }
@@ -1123,6 +1117,16 @@ namespace pnk
         _csl->markRemoveSpritesByTypeNum(ST_PIG_CRATE);
         _csl->markRemoveSpritesByTypeNum(ST_PIG_BOMB);
         _csl->markRemoveSpritesByTypeNum(ST_PIG_CANNON);
+
+        // remove also rewards
+        _csl->markRemoveSpritesByTypeNum(ST_COIN_SILVER);
+        _csl->markRemoveSpritesByTypeNum(ST_COIN_GOLD);
+        _csl->markRemoveSpritesByTypeNum(ST_GEM_BLUE);
+        _csl->markRemoveSpritesByTypeNum(ST_GEM_GREEN);
+        _csl->markRemoveSpritesByTypeNum(ST_GEM_RED);
+        _csl->markRemoveSpritesByTypeNum(ST_POTION_BLUE);
+        _csl->markRemoveSpritesByTypeNum(ST_POTION_RED);
+        _csl->markRemoveSpritesByTypeNum(ST_POTION_GREEN);
 
         // show doors
         dang::spImgSprLayer mood = std::static_pointer_cast<dang::ImgSprLayer>(_pnk.getGear().getLayerByName(_screenplay->_l_mood_name));
