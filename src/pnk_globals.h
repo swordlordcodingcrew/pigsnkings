@@ -208,9 +208,11 @@ static inline const uint8_t REWARD_POINT_COIN_GOLD{50};
 static inline const uint8_t REWARD_POINT_GEM_BLUE{30};
 static inline const uint8_t REWARD_POINT_GEM_GREEN{60};
 static inline const uint8_t REWARD_POINT_GEM_RED{100};
-static inline const uint8_t REWARD_POINT_POTION_BLUE{1};
-static inline const uint8_t REWARD_POINT_POTION_RED{5};
-static inline const uint8_t REWARD_POINT_POTION_GREEN{20};
+// health points of potions
+static inline const uint8_t REWARD_POINT_POTION_BLUE{10};
+static inline const uint8_t REWARD_POINT_POTION_RED{50};
+static inline const uint8_t REWARD_POINT_POTION_GREEN{100};
+
 static inline const uint8_t REWARD_POINT_PIG_REWARD{100};
 
 /** boss battle params */
