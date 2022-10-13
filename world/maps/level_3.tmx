@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="623">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="631">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/character_king.tsx"/>
  <tileset firstgid="125" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
@@ -28,15 +28,15 @@
 15,49,50,50,50,50,50,50,77,86,86,50,77,87,31,26,27,49,77,86,15,49,50,50,62,62,50,50,51,13,
 15,61,62,62,62,62,62,62,63,1,3,61,63,1,44,85,86,55,63,1,15,61,62,62,62,62,62,62,63,13,
 15,61,62,62,62,62,62,62,63,13,15,61,63,25,41,30,3,61,63,13,15,61,62,62,62,62,62,62,63,13,
-15,61,62,62,62,62,62,62,63,13,15,61,68,86,87,13,15,61,63,13,15,61,62,62,62,62,62,62,63,13,
-15,61,62,62,62,62,62,62,63,25,27,61,63,1,2,18,15,61,63,25,27,61,62,62,62,62,62,62,63,13,
-15,61,62,62,53,74,74,74,89,86,86,90,75,13,14,14,15,73,89,86,86,55,62,62,62,62,62,62,63,13,
-15,61,62,62,63,14,14,14,14,14,2,2,2,18,14,14,17,2,2,2,3,61,62,62,62,62,62,62,63,13,
+15,61,62,62,62,62,62,62,63,13,15,61,68,86,87,13,15,61,63,13,15,61,62,62,62,62,62,62,63,25,
+15,61,62,62,62,62,62,62,63,25,27,61,63,1,2,18,15,61,63,25,15,61,62,62,62,62,62,62,65,50,
+15,61,62,62,53,74,74,74,89,86,86,90,75,13,14,14,15,73,89,86,15,61,62,62,62,62,62,62,53,74,
+15,61,62,62,63,14,14,14,14,14,2,2,2,18,14,14,17,2,2,2,15,61,62,62,62,62,62,62,63,1,
 15,61,62,62,62,62,62,62,63,13,14,14,14,14,14,14,14,14,14,13,14,15,14,14,14,14,14,14,14,13,
 15,61,62,62,62,62,62,62,63,25,86,78,50,50,50,50,50,50,51,13,14,15,49,50,50,50,50,50,51,13,
-15,61,62,62,62,62,62,62,68,86,3,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,63,25,
-27,61,62,62,62,62,62,62,63,37,15,61,62,62,62,62,62,62,63,13,14,15,61,62,62,62,62,62,68,86,
-86,90,54,62,62,62,62,53,89,86,15,61,62,62,62,62,62,62,63,13,14,15,73,74,74,74,74,74,75,1,
+15,61,62,62,62,62,62,62,68,86,3,61,62,62,62,62,62,62,63,13,26,27,61,62,62,62,62,62,63,13,
+27,61,62,62,62,62,62,62,63,37,15,61,62,62,62,62,62,62,63,13,86,86,55,62,62,62,62,62,63,13,
+86,90,54,62,62,62,62,53,89,86,15,61,62,62,62,62,62,62,63,13,2,3,73,74,74,74,74,74,75,13,
 38,39,61,62,62,62,62,63,1,2,27,61,62,62,62,62,62,62,63,25,26,27,49,50,50,50,50,50,51,13,
 86,86,90,74,74,74,74,75,13,14,86,90,54,62,62,62,53,74,89,86,86,86,90,74,74,74,74,74,75,13,
 2,2,2,2,2,2,2,2,18,14,14,14,61,62,62,62,63,14,14,14,14,14,14,14,14,14,14,14,14,13
@@ -234,13 +234,13 @@
   <object id="52" name="0" type="warp_room_trigger" x="384" y="766" width="160" height="2"/>
   <object id="60" type="hotrect" x="704" y="659" width="224" height="10"/>
   <object id="72" type="hotrect" x="320" y="512" width="608" height="32"/>
-  <object id="74" type="hotrect" x="960" y="592" width="8" height="64"/>
-  <object id="75" name="4" type="warp_room_trigger" x="956" y="608" width="2" height="32"/>
+  <object id="74" type="hotrect" x="640" y="544" width="64" height="64"/>
+  <object id="75" name="4" type="warp_room_trigger" x="644" y="608" width="2" height="32"/>
   <object id="77" type="hotrect" x="160" y="480" width="512" height="32"/>
-  <object id="79" name="2" type="warp_room_trigger" x="316" y="576" width="2" height="32"/>
-  <object id="80" name="4" type="warp_room_trigger" x="3" y="640" width="2" height="32"/>
+  <object id="79" name="4" type="warp_room_trigger" x="316" y="576" width="2" height="32"/>
+  <object id="80" name="2" type="warp_room_trigger" x="3" y="640" width="2" height="32"/>
   <object id="81" name="4" type="warp_room_trigger" x="321" y="704" width="2" height="32"/>
-  <object id="82" name="0" type="warp_room_trigger" x="637" y="448" width="2" height="32"/>
+  <object id="82" name="2" type="warp_room_trigger" x="637" y="448" width="2" height="32"/>
   <object id="83" name="1" type="warp_room_trigger" x="637" y="288" width="2" height="32"/>
   <object id="125" type="hotrect_platform" x="64" y="689" width="32" height="4"/>
   <object id="126" type="hotrect_platform" x="224" y="688" width="32" height="4"/>
@@ -259,7 +259,7 @@
   <object id="141" type="hotrect" x="320" y="320" width="32" height="128"/>
   <object id="142" type="hotrect" x="608" y="320" width="32" height="128"/>
   <object id="143" name="0" type="warp_room_trigger" x="32" y="509" width="128" height="2"/>
-  <object id="144" name="3" type="warp_room_trigger" x="321" y="544" width="2" height="32"/>
+  <object id="144" name="5" type="warp_room_trigger" x="321" y="544" width="2" height="32"/>
   <object id="172" type="hotrect_platform" x="352" y="688" width="32" height="4"/>
   <object id="175" type="hotrect_platform" x="352" y="640" width="32" height="4"/>
   <object id="176" type="hotrect_platform" x="352" y="592" width="32" height="4"/>
@@ -267,7 +267,7 @@
   <object id="178" type="hotrect" x="480" y="640" width="96" height="10"/>
   <object id="179" type="hotrect" x="480" y="688" width="96" height="10"/>
   <object id="181" type="hotrect" x="544" y="736" width="416" height="32"/>
-  <object id="182" name="1" type="warp_room_trigger" x="315" y="448" width="2" height="32"/>
+  <object id="182" name="5" type="warp_room_trigger" x="315" y="448" width="2" height="32"/>
   <object id="183" type="bubble_proto" gid="304" x="304" y="-48" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="50"/>
@@ -303,24 +303,24 @@
     <property name="z_order" type="int" value="70"/>
    </properties>
   </object>
-  <object id="190" type="hotrect" x="608" y="544" width="96" height="160"/>
-  <object id="191" type="hotrect" x="928" y="640" width="32" height="96"/>
-  <object id="192" type="hotrect" x="928" y="32" width="32" height="576"/>
+  <object id="190" type="hotrect" x="608" y="544" width="32" height="160"/>
+  <object id="191" type="hotrect" x="640" y="640" width="64" height="64"/>
+  <object id="192" type="hotrect" x="928" y="480" width="32" height="256"/>
   <object id="213" type="hotrect" x="32" y="408" width="32" height="12"/>
   <object id="215" type="hotrect" x="288" y="328" width="32" height="120"/>
   <object id="216" type="hotrect" x="160" y="320" width="160" height="12"/>
   <object id="218" name="6" type="warp_room_trigger" x="322" y="288" width="2" height="32"/>
-  <object id="219" name="2" type="warp_room_trigger" x="322" y="448" width="2" height="32"/>
+  <object id="219" name="0" type="warp_room_trigger" x="322" y="448" width="2" height="32"/>
   <object id="223" name="2" type="room_trigger" x="668" y="704" width="2" height="32"/>
   <object id="224" name="1" type="room_trigger" x="642" y="704" width="2" height="32"/>
-  <object id="225" name="5" type="warp_room_trigger" x="314" y="288" width="2" height="32"/>
-  <object id="226" type="hotrect" x="640" y="288" width="32" height="160"/>
+  <object id="225" name="6" type="warp_room_trigger" x="314" y="288" width="2" height="32"/>
+  <object id="226" type="hotrect" x="640" y="288" width="32" height="192"/>
   <object id="227" name="0" type="warp_room_trigger" x="672" y="508" width="256" height="2"/>
   <object id="264" type="hotrect" x="640" y="32" width="32" height="160"/>
   <object id="265" type="hotrect" x="832" y="256" width="96" height="32"/>
   <object id="266" x="768" y="256" width="64" height="8"/>
-  <object id="267" name="3" type="warp_room_trigger" x="642" y="448" width="2" height="32"/>
-  <object id="268" name="6" type="warp_room_trigger" x="768" y="267" width="64" height="2"/>
+  <object id="267" name="1" type="warp_room_trigger" x="956" y="416" width="2" height="64"/>
+  <object id="268" name="3" type="warp_room_trigger" x="768" y="267" width="64" height="2"/>
   <object id="271" type="hotrect" x="768" y="320" width="64" height="12"/>
   <object id="272" type="hotrect" x="736" y="360" width="128" height="12"/>
   <object id="273" type="hotrect" x="768" y="400" width="64" height="12"/>
@@ -342,7 +342,7 @@
   <object id="308" type="hotrect" x="576" y="64" width="64" height="128"/>
   <object id="309" type="hotrect" x="608" y="192" width="32" height="32"/>
   <object id="310" type="hotrect" x="544" y="224" width="384" height="32"/>
-  <object id="311" name="5" type="warp_room_trigger" x="1" y="32" width="2" height="32"/>
+  <object id="311" name="3" type="warp_room_trigger" x="1" y="32" width="2" height="32"/>
   <object id="335" type="hotrect" x="672" y="80" width="32" height="12"/>
   <object id="336" type="hotrect" x="672" y="128" width="32" height="12"/>
   <object id="337" type="hotrect" x="672" y="176" width="32" height="12"/>
@@ -398,7 +398,7 @@
     <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
-  <object id="388" name="savepoint_trigger" type="savepoint_trigger" x="640" y="448" width="32" height="32"/>
+  <object id="388" name="savepoint_trigger" type="savepoint_trigger" x="320" y="704" width="32" height="32"/>
   <object id="389" name="savepoint_trigger" type="savepoint_trigger" x="256" y="448" width="32" height="32"/>
   <object id="418" name="4" type="warp_room_trigger" x="636" y="32" width="2" height="32"/>
   <object id="419" type="pig_normal" gid="2147483858" x="32" y="592" width="32" height="32">
@@ -428,7 +428,6 @@
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="463" type="gem_blue" gid="169" x="704" y="584" width="32" height="48"/>
   <object id="467" name="4" type="level_trigger" x="512" y="40" width="16" height="56"/>
   <object id="492" name="savepoint_trigger" type="savepoint_trigger" x="128" y="528" width="32" height="32"/>
   <object id="499" type="boss" gid="361" x="576" y="192" width="32" height="32">
@@ -485,13 +484,13 @@
    </properties>
   </object>
   <object id="529" type="hotrect_platform" x="784" y="128" width="32" height="4"/>
-  <object id="542" type="pig_bomb" gid="319" x="704" y="624" width="32" height="32">
+  <object id="542" type="pig_bomb" gid="319" x="896" y="624" width="32" height="32">
    <properties>
     <property name="bt" value="wait_bomb"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="546" type="hotrect_platform" x="800" y="611" width="32" height="4"/>
+  <object id="546" type="hotrect_platform" x="798" y="611" width="32" height="4"/>
   <object id="547" type="pig_normal" gid="210" x="224" y="656" width="32" height="32">
    <properties>
     <property name="bt" value="loiter"/>
@@ -593,7 +592,7 @@
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="613" type="potion_red" gid="192" x="800" y="616" width="32" height="48">
+  <object id="613" type="potion_red" gid="192" x="704" y="616" width="32" height="48">
    <properties>
     <property name="z_order" type="int" value="60"/>
    </properties>
@@ -628,6 +627,33 @@
     <property name="z_order" type="int" value="60"/>
    </properties>
   </object>
+  <object id="624" type="hotrect" x="928" y="32" width="32" height="384"/>
+  <object id="625" type="hotrect" x="960" y="392" width="8" height="112"/>
+  <object id="626" type="coin_gold" gid="161" x="736" y="616" width="32" height="48">
+   <properties>
+    <property name="z_order" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="627" type="coin_gold" gid="161" x="768" y="616" width="32" height="48">
+   <properties>
+    <property name="z_order" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="628" type="coin_gold" gid="161" x="800" y="616" width="32" height="48">
+   <properties>
+    <property name="z_order" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="629" type="coin_gold" gid="161" x="832" y="616" width="32" height="48">
+   <properties>
+    <property name="z_order" type="int" value="60"/>
+   </properties>
+  </object>
+  <object id="630" type="coin_gold" gid="161" x="864" y="616" width="32" height="48">
+   <properties>
+    <property name="z_order" type="int" value="60"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="lvl_3_fg" locked="1">
   <object id="18" gid="125" x="544" y="544" width="32" height="32"/>
@@ -647,10 +673,10 @@
   <object id="349" gid="133" x="896" y="128" width="32" height="32"/>
   <object id="350" gid="133" x="896" y="160" width="32" height="32"/>
   <object id="351" gid="149" x="896" y="192" width="32" height="32"/>
-  <object id="442" gid="125" x="704" y="544" width="32" height="32"/>
-  <object id="443" gid="133" x="704" y="576" width="32" height="32"/>
-  <object id="444" gid="133" x="704" y="608" width="32" height="32"/>
-  <object id="445" gid="141" x="704" y="640" width="32" height="32"/>
+  <object id="442" gid="125" x="896" y="544" width="32" height="32"/>
+  <object id="443" gid="133" x="896" y="576" width="32" height="32"/>
+  <object id="444" gid="133" x="896" y="608" width="32" height="32"/>
+  <object id="445" gid="141" x="896" y="640" width="32" height="32"/>
   <object id="28" gid="136" x="576" y="688" width="32" height="32"/>
   <object id="316" gid="134" x="672" y="18" width="32" height="32"/>
   <object id="317" gid="136" x="896" y="18" width="32" height="32"/>
@@ -1139,7 +1165,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#0000ff" id="6" name="lvl_3_zones" tintcolor="#000000">
+ <objectgroup color="#0000ff" id="6" name="lvl_3_zones" visible="0" locked="1" tintcolor="#000000">
   <object id="84" name="0" x="0" y="512" width="320" height="256"/>
   <object id="87" name="1" x="320" y="512" width="352" height="256"/>
   <object id="89" name="4" x="320" y="256" width="320" height="256"/>
@@ -1160,7 +1186,7 @@
   <object id="471" name="2" x="152" y="536">
    <point/>
   </object>
-  <object id="472" name="4" x="16" y="664">
+  <object id="472" name="4" x="304" y="600">
    <point/>
   </object>
   <object id="473" name="5" x="144" y="536">
@@ -1172,34 +1198,34 @@
   <object id="475" name="4" x="336" y="728">
    <point/>
   </object>
-  <object id="476" name="3" x="336" y="568">
+  <object id="476" name="5" x="336" y="568">
    <point/>
   </object>
   <object id="477" name="0" x="816" y="568">
    <point/>
   </object>
-  <object id="478" name="4" x="944" y="632">
+  <object id="478" name="4" x="656" y="632">
    <point/>
   </object>
   <object id="479" name="6" x="336" y="312">
    <point/>
   </object>
-  <object id="480" name="2" x="336" y="472">
+  <object id="480" name="0" x="336" y="472">
    <point/>
   </object>
-  <object id="481" name="0" x="624" y="472">
+  <object id="481" name="2" x="624" y="472">
    <point/>
   </object>
   <object id="482" name="1" x="624" y="312">
    <point/>
   </object>
-  <object id="483" name="6" x="784" y="312">
+  <object id="483" name="3" x="784" y="312">
    <point/>
   </object>
-  <object id="484" name="-1" x="656" y="480">
+  <object id="484" name="-1" x="344" y="728">
    <point/>
   </object>
-  <object id="485" name="3" x="662" y="480">
+  <object id="485" name="1" x="944" y="472">
    <point/>
   </object>
   <object id="486" name="0" x="656" y="216">
@@ -1208,16 +1234,16 @@
   <object id="487" name="4" x="624" y="56">
    <point/>
   </object>
-  <object id="488" name="5" x="16" y="56">
+  <object id="488" name="3" x="16" y="56">
    <point/>
   </object>
-  <object id="490" name="5" x="304" y="312">
+  <object id="490" name="6" x="304" y="312">
    <point/>
   </object>
   <object id="491" name="-1" x="240" y="472">
    <point/>
   </object>
-  <object id="493" name="1" x="304" y="472">
+  <object id="493" name="5" x="304" y="472">
    <point/>
   </object>
   <object id="494" name="3" x="144" y="528">
