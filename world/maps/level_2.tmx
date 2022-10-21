@@ -136,8 +136,8 @@
   <object id="300" gid="105" x="1504" y="352" width="32" height="32"/>
   <object id="301" gid="105" x="1504" y="384" width="32" height="32"/>
   <object id="302" gid="121" x="1504" y="416" width="32" height="32"/>
-  <object id="303" gid="102" x="1408" y="430" width="32" height="32"/>
-  <object id="304" gid="102" x="1440" y="430" width="32" height="32"/>
+  <object id="303" type="flicker" gid="102" x="1408" y="430" width="32" height="32"/>
+  <object id="304" type="flicker" gid="102" x="1440" y="430" width="32" height="32"/>
   <object id="305" gid="116" x="1120" y="352" width="32" height="32"/>
   <object id="306" gid="114" x="1019" y="352" width="32" height="32"/>
   <object id="307" gid="115" x="1051" y="352" width="32" height="32"/>
@@ -146,8 +146,8 @@
   <object id="310" gid="125" x="1152" y="384" width="32" height="32"/>
   <object id="311" gid="117" x="1152" y="352" width="32" height="32"/>
   <object id="312" gid="124" x="1120" y="384" width="32" height="32"/>
-  <object id="313" gid="102" x="1056" y="416" width="32" height="32"/>
-  <object id="314" gid="102" x="1088" y="416" width="32" height="32"/>
+  <object id="313" type="flicker" gid="102" x="1056" y="416" width="32" height="32"/>
+  <object id="314" type="flicker" gid="102" x="1088" y="416" width="32" height="32"/>
   <object id="315" gid="116" x="384" y="320" width="32" height="32"/>
   <object id="316" gid="117" x="416" y="320" width="32" height="32"/>
   <object id="317" gid="124" x="384" y="352" width="32" height="32"/>
@@ -156,12 +156,12 @@
   <object id="320" gid="115" x="480" y="320" width="32" height="32"/>
   <object id="321" gid="122" x="448" y="352" width="32" height="32"/>
   <object id="322" gid="123" x="480" y="352" width="32" height="32"/>
-  <object id="323" gid="102" x="64" y="160" width="32" height="32"/>
-  <object id="324" gid="102" x="64" y="96" width="32" height="32"/>
-  <object id="325" gid="102" x="224" y="96" width="32" height="32"/>
-  <object id="326" gid="102" x="224" y="160" width="32" height="32"/>
-  <object id="327" gid="102" x="384" y="64" width="32" height="32"/>
-  <object id="328" gid="102" x="544" y="64" width="32" height="32"/>
+  <object id="323" type="flicker" gid="102" x="64" y="160" width="32" height="32"/>
+  <object id="324" type="flicker" gid="102" x="64" y="96" width="32" height="32"/>
+  <object id="325" type="flicker" gid="102" x="224" y="96" width="32" height="32"/>
+  <object id="326" type="flicker" gid="102" x="224" y="160" width="32" height="32"/>
+  <object id="327" type="flicker" gid="102" x="384" y="64" width="32" height="32"/>
+  <object id="328" type="flicker" gid="102" x="544" y="64" width="32" height="32"/>
   <object id="342" gid="101" x="1056" y="161" width="32" height="32"/>
   <object id="343" gid="101" x="1056" y="97" width="32" height="32"/>
   <object id="487" gid="101" x="1151" y="161" width="32" height="32"/>
