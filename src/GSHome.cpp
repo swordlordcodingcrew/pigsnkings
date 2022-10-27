@@ -7,6 +7,7 @@
 #include "GSPlay.h"
 #include "GSPrefs.h"
 #include "GSAbout.h"
+#include "GSEndScene.hpp"
 
 #include "32blit.hpp"
 
@@ -39,7 +40,6 @@
 #include <tracks/paperbird.h>
 
 #include <cassert>
-#include <iostream>
 #include <malloc.h>
 
 namespace pnk
@@ -63,7 +63,8 @@ namespace pnk
             }
             else if (_pnk._prefs.selectedModule == _pnk.ABOUT)
             {
-                return _gs_about;
+//                return _gs_about;
+                return _gs_end_scene;
             }
         }
 

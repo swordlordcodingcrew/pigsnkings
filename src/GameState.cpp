@@ -7,9 +7,9 @@
 #include "GSPlay.h"
 #include "GSAbout.h"
 #include "GSPrefs.h"
+#include "GSEndScene.hpp"
 #include "pigsnkings.hpp"
 
-#include <32blit.hpp>
 
 
 namespace pnk
@@ -21,6 +21,7 @@ namespace pnk
     std::shared_ptr<GSPlay> GameState::_gs_play = std::make_shared<GSPlay>();
     std::shared_ptr<GSAbout> GameState::_gs_about = std::make_shared<GSAbout>();
     std::shared_ptr<GSPrefs> GameState::_gs_prefs = std::make_shared<GSPrefs>();
+    std::shared_ptr<GSEndScene> GameState::_gs_end_scene = std::make_shared<GSEndScene>();
 
     void GameState::updateCheatKeyStream(uint32_t pressed)
     {
