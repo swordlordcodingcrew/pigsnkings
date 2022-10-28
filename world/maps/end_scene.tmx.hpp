@@ -87,13 +87,12 @@ static const dang::tmx_spriteobject end_scene_end_scene_mood_objects[] = {
     {5,"5","flicker",352,160,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
     {6,"6","flicker",128,192,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
     {7,"7","flicker",160,160,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
-    {8,"8","blink",256,152,32,40,true,"hammer",0,"",0,0b0000},
     {9,"9","flicker",288,112,32,32,true,"gfx_castle_decorations",5,"",0,0b0000},
     {10,"10","flicker",224,112,32,32,true,"gfx_castle_decorations",5,"",0,0b0000}
 
 };
 
-static const size_t end_scene_end_scene_mood_objects_len = 9;
+static const size_t end_scene_end_scene_mood_objects_len = 8;
 
 static const dang::tmx_layer end_scene_end_scene_mood = {
     .name = "end_scene_mood",
@@ -114,11 +113,13 @@ static const dang::tmx_layer end_scene_end_scene_mood = {
 // Objects for layer: end_scene_obj
 static const dang::tmx_spriteobject end_scene_end_scene_obj_objects[] = {
 
-    {3,"hero","",0,320,32,32,true,"gfx_king",0,"",0,0b0000}
+    {3,"hero","",0,320,32,32,true,"gfx_king",0,"",0,0b0000},
+    {8,"hammer","",256,152,32,40,true,"hammer",0,"",0,0b0000},
+    {11,"hero_w_hammer","",256,144,40,48,true,"king_w_hammer",0,"",0,0b0000}
 
 };
 
-static const size_t end_scene_end_scene_obj_objects_len = 1;
+static const size_t end_scene_end_scene_obj_objects_len = 3;
 
 static const dang::tmx_layer end_scene_end_scene_obj = {
     .name = "end_scene_obj",

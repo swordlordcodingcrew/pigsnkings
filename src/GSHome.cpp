@@ -56,6 +56,7 @@ namespace pnk
             if (_pnk._prefs.selectedModule == _pnk.PLAY)
             {
                 return _gs_play;
+//                return _gs_end_scene;
             }
             else if (_pnk._prefs.selectedModule == _pnk.PREFS)
             {
@@ -63,8 +64,8 @@ namespace pnk
             }
             else if (_pnk._prefs.selectedModule == _pnk.ABOUT)
             {
-//                return _gs_about;
-                return _gs_end_scene;
+                return _gs_about;
+//                return _gs_end_scene;
             }
         }
 

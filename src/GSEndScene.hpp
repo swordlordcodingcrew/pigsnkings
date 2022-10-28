@@ -32,6 +32,9 @@ namespace pnk
 
 
         dang::spFullImgSpr _sprHero{nullptr};
+        dang::spFullImgSpr _sprHammer{nullptr};
+        dang::spFullImgSpr _sprHero_w_hammer{nullptr};
+
         dang::spTwAnim _twaWalk{nullptr};
         dang::spTwAnim _twaWait{nullptr};
         dang::spTwAnim _twaJump{nullptr};
@@ -39,7 +42,9 @@ namespace pnk
         enum uint8 {
             WALK = 1,
             JUMP,
-            WAIT
+            WAIT,
+            W_HAMMER,
+            FINISH
         };
 
         struct slice {
@@ -57,21 +62,22 @@ namespace pnk
             {WALK, 500, {460, 320}, true},
             {JUMP, 500, {418, 288}, true},
 
-            {WAIT, 500, {464, 288}, true},
+            {WAIT, 500, {0, 0}, true},
             {JUMP, 500, {386, 256}, true},
 
-            {WAIT, 1500, {386, 256}, true},
+            {WAIT, 1500, {0, 0}, true},
             {JUMP, 500, {354, 224}, true},
 
-            {WAIT, 300, {354, 224}, true},
+            {WAIT, 300, {0, 0}, true},
             {JUMP, 500, {322, 192}, true},
 
-            {WAIT, 300, {322, 192}, true},
+            {WAIT, 300, {0, 0}, true},
             {JUMP, 500, {290, 160}, true},
 
-            {WAIT, 2000, {322, 192}, true},
+            {WAIT, 2000, {0, 0}, true},
             {WALK, 200, {258, 160}, true},
-            {WAIT, 5000, {258, 160}, true},
+            {W_HAMMER, 6000, {258, 192}, true},
+            {FINISH, 0, {0, 0}, true},
         };
 
         uint8_t  _slice_pos{0}, _prev_slice_pos{0};

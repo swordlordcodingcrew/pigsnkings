@@ -36,9 +36,14 @@ namespace pnk
 
     std::shared_ptr<GameState> GSEndScene::update(dang::Gear &gear, uint32_t time)
     {
-        if (blit::buttons.pressed & BTN_OK)
+        if (blit::buttons.pressed & (BTN_BACK | BTN_EXIT))
+//        if (blit::buttons.pressed & BTN_OK)
         {
             return _gs_home;
+        }
+        else if (_slices[_slice_pos].type == FINISH)
+        {
+            return _gs_about;
         }
 
         gear.follow(_sprHero->getPos());
@@ -99,7 +104,22 @@ namespace pnk
                 _twaJump = txtr.getAnimation(is, "jump");
                 _twaJump->duration(500);
                 _twaWalk = txtr.getAnimation(is, "walk");
-                            }
+            }
+            else if (so->name == "hammer")
+            {
+                _sprHammer = std::make_shared<dang::FullImgSpr>(so, is);
+                spr = _sprHammer;
+                dang::spTwAnim blink = txtr.getAnimation(is, "blink",dang::Ease::Linear, -1, false, 1000);
+                _sprHammer->setAnimation(blink);
+            }
+            else if (so->name == "hero_w_hammer")
+            {
+                _sprHero_w_hammer = std::make_shared<dang::FullImgSpr>(so, is);
+                spr = _sprHero_w_hammer;
+                dang::spTwAnim vici = txtr.getAnimation(is, "vaevictis");
+                _sprHero_w_hammer->setAnimation(vici);
+                _sprHero_w_hammer->setVisible(false);
+            }
 
             // and add it to the collection
             if(spr != nullptr){
@@ -114,7 +134,10 @@ namespace pnk
 
     void GSEndScene::exit(dang::Gear &gear, uint32_t time)
     {
-
+        _slice_pos = 0;
+        _prev_slice_pos = 0;
+        gear.removeImagesheets();
+        gear.removeLayers();
     }
 
     void GSEndScene::nextSlice()
@@ -164,6 +187,19 @@ namespace pnk
                     _sprHero->addTween(tws);
 
                     _sprHero->setTransform(s.to_the_left ? blit::SpriteTransform::HORIZONTAL : blit::SpriteTransform::NONE);
+                    break;
+                }
+                case W_HAMMER:
+                {
+                    _sprHero->removeTweens(false);
+
+                    _sprHero->setVisible(false);
+                    _sprHammer->setVisible(false);
+                    _sprHero_w_hammer->setVisible(true);
+
+                    dang::spTwNull tw0 = std::make_shared<dang::TwNull>(s.time);
+                    tw0->setFinishedCallback([&](){_slice_pos++;});
+                    _sprHero_w_hammer->addTween(tw0);
                     break;
                 }
             }
