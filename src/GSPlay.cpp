@@ -8,6 +8,7 @@
 #include "SpriteFactory.hpp"
 #include "GSPlay.h"
 #include "GSHome.h"
+#include "GSEndScene.hpp"
 #include "HUDLayer.hpp"
 
 #include "actors/hero/Hero.h"
@@ -120,6 +121,10 @@ namespace pnk
         updateCheatKeyStream(blit::buttons.pressed);
         checkCheatActivation();
 
+        if (_endScene)
+        {
+            return GameState::_gs_end_scene;
+        }
         if (blit::buttons.pressed & BTN_EXIT || _leaveGame)
         {
             return GameState::_gs_home;
@@ -547,8 +552,16 @@ namespace pnk
                     showInfoLayer(true, 10000, str_lvl3_intro);
                     break;
                 case 4:
+                {
                     showInfoLayer(true, 10000, str_lvl4_intro);
+                    auto spr = _csl->getSpriteByTypeNum(ST_LEVEL_TRIGGER);
+                    if(spr != nullptr)
+                    {
+                        auto lvlTrigger = std::static_pointer_cast<LevelTrigger>(spr);
+                        lvlTrigger->activateTrigger();
+                    }
                     break;
+                }
             }
         }
     }
@@ -563,6 +576,7 @@ namespace pnk
         _active_room = {0,0,0,0};
         _active_room_index = -1;
         _warp = false;
+        _endScene = false;
 
         dang::Gear& gear = _pnk.getGear();
 
@@ -736,6 +750,9 @@ namespace pnk
                     break;
                 case 3:
                     velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL2 : BOMB_DROP_VEL;
+                    break;
+                case 4:
+                    velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL3 : BOMB_DROP_VEL;
                     break;
             }
             velx = pe._to_the_left ? -velx : velx;
@@ -996,6 +1013,20 @@ namespace pnk
 
     void GSPlay::changeLevel(int8_t level_nr)
     {
+        if (level_nr == 5)
+        {
+            _endScene = true;
+            return;
+        }
+        else if (level_nr < 1)
+        {
+            level_nr = 1;
+        }
+        else if (level_nr > 4)
+        {
+            level_nr = 4;
+        }
+
         _pnk.getGear().fade(FADE_COL, FADE_STEP, [=](){
 #ifdef PNK_DEBUG_COMMON
             DEBUG_PRINT("Changing level to %d\n\r", level_nr);
@@ -1177,13 +1208,16 @@ namespace pnk
 
         switch(_pnk._gamestate.saved_level)
         {
-                case 1:
-                default:
-                    health -= DAMAGE_TO_PIGBOSS;
-                    break;
-                case 2:
-                    health -= DAMAGE_TO_PIGBOSS;
-                    break;
+            case 1:
+            default:
+                health -= DAMAGE_TO_PIGBOSS;
+                break;
+            case 2:
+                health -= DAMAGE_TO_PIGBOSS1;
+                break;
+            case 3:
+                health -= DAMAGE_TO_PIGBOSS2;
+                break;
         }
 
         if(health <= 0)

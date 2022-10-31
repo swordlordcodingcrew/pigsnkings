@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="152">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="162">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/character_pigcrate.tsx"/>
@@ -42,13 +42,18 @@
   <object id="59" gid="108" x="1664" y="96" width="32" height="32"/>
   <object id="60" gid="107" x="1632" y="96" width="32" height="32"/>
   <object id="61" gid="106" x="1600" y="96" width="32" height="32"/>
-  <object id="63" gid="254" x="1640" y="40" width="46" height="56"/>
   <object id="65" gid="101" x="848" y="136" width="32" height="32"/>
   <object id="67" gid="101" x="800" y="160" width="32" height="32"/>
   <object id="66" gid="101" x="736" y="192" width="32" height="32"/>
   <object id="135" gid="109" x="928" y="104" width="32" height="32"/>
+  <object id="152" gid="257" x="1640" y="40" width="46" height="56"/>
+  <object id="153" gid="101" x="1568" y="160" width="32" height="32"/>
+  <object id="154" gid="101" x="1600" y="192" width="32" height="32"/>
+  <object id="155" gid="101" x="1344" y="192" width="32" height="32"/>
+  <object id="156" gid="106" x="1248" y="120" width="32" height="32"/>
+  <object id="157" gid="108" x="1280" y="120" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_4_obj" locked="1">
+ <objectgroup id="3" name="lvl_4_obj">
   <object id="50" type="pig_box" gid="134" x="512" y="96" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
@@ -193,6 +198,10 @@
   <object id="132" name="3" type="room_trigger" x="1085" y="32" width="2" height="32"/>
   <object id="133" name="2" type="room_trigger" x="1056" y="32" width="2" height="32"/>
   <object id="136" type="hotrect" x="928" y="104" width="32" height="12"/>
+  <object id="158" type="hotrect_platform" x="1344" y="192" width="32" height="4"/>
+  <object id="159" type="hotrect_platform" x="1568" y="160" width="32" height="4"/>
+  <object id="160" type="hotrect_platform" x="1600" y="192" width="32" height="4"/>
+  <object id="161" type="hotrect" x="1248" y="120" width="64" height="8"/>
  </objectgroup>
  <objectgroup id="4" name="lvl_4_fg" locked="1">
   <object id="9" gid="97" x="32" y="32" width="32" height="32"/>

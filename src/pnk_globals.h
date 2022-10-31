@@ -168,6 +168,7 @@ static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
 
 static inline const float BOMB_VEL{22};           // bomb throwing velocity
 static inline const float BOMB_VEL2{26};           // bomb throwing velocity
+static inline const float BOMB_VEL3{16};           // bomb throwing velocity
 static inline const float BOMB_DROP_VEL{5};       // bomb dropping velocity
 
 static inline const uint8_t FIRST_GAME_SAVE_SLOT{1}; // number of first game save slot available
@@ -187,6 +188,8 @@ static inline const uint8_t DAMAGE_CANNON{40};             // when touching a ca
 static inline const uint8_t DAMAGE_EXPLOSION{50};          // when hit with an explosion
 static inline const uint8_t DAMAGE_FROM_PIGBOSS{41};            // when touching the pig boss
 static inline const uint8_t DAMAGE_TO_PIGBOSS{34};            // when hitting the pig boss
+static inline const uint8_t DAMAGE_TO_PIGBOSS1{28};            // when hitting the pig boss
+static inline const uint8_t DAMAGE_TO_PIGBOSS2{20};            // when hitting the pig boss
 
 // hero params
 static inline const uint8_t HERO_MAX_LIVES{3};            // max lives hero can gain

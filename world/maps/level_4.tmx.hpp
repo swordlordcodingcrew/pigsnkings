@@ -151,15 +151,20 @@ static const dang::tmx_spriteobject level_4_lvl_4_mood_objects[] = {
     {59,"59","",1664,96,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
     {60,"60","",1632,96,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {61,"61","",1600,96,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
-    {63,"63","",1640,40,46,56,true,"levels_door",0,"",0,0b0000},
     {65,"65","",848,136,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {67,"67","",800,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {66,"66","",736,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
-    {135,"135","",928,104,32,32,true,"gfx_castle_decorations",12,"",0,0b0000}
+    {135,"135","",928,104,32,32,true,"gfx_castle_decorations",12,"",0,0b0000},
+    {152,"152","",1640,40,46,56,true,"levels_door",3,"",0,0b0000},
+    {153,"153","",1568,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
+    {154,"154","",1600,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
+    {155,"155","",1344,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
+    {156,"156","",1248,120,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
+    {157,"157","",1280,120,32,32,true,"gfx_castle_decorations",11,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_mood_objects_len = 20;
+static const size_t level_4_lvl_4_mood_objects_len = 25;
 
 static const dang::tmx_layer level_4_lvl_4_mood = {
     .name = "lvl_4_mood",
@@ -239,11 +244,15 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {131,"1","room_trigger",672,32,2,32,true,"",0,"",0,0b0000},
     {132,"3","room_trigger",1085,32,2,32,true,"",0,"",0,0b0000},
     {133,"2","room_trigger",1056,32,2,32,true,"",0,"",0,0b0000},
-    {136,"136","hotrect",928,104,32,12,true,"",0,"",0,0b0000}
+    {136,"136","hotrect",928,104,32,12,true,"",0,"",0,0b0000},
+    {158,"158","hotrect_platform",1344,192,32,4,true,"",0,"",0,0b0000},
+    {159,"159","hotrect_platform",1568,160,32,4,true,"",0,"",0,0b0000},
+    {160,"160","hotrect_platform",1600,192,32,4,true,"",0,"",0,0b0000},
+    {161,"161","hotrect",1248,120,64,8,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_obj_objects_len = 60;
+static const size_t level_4_lvl_4_obj_objects_len = 64;
 
 static const dang::tmx_layer level_4_lvl_4_obj = {
     .name = "lvl_4_obj",

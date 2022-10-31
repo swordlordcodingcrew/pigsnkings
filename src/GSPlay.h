@@ -47,6 +47,7 @@ namespace pnk
         int8_t                  _active_room_index{-1}; // which room are we in?
         bool                    _warp{false};
         bool                    _leaveGame{false};
+        bool                    _endScene{false};
 
         // reference to subscriber
         u_int32_t _sub_ref{0};
