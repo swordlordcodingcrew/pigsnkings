@@ -15,11 +15,14 @@
 #include "rsrc/gfx/hammer.png.h"
 #include "rsrc/gfx/king_w_hammer.png.h"
 #include "rsrc/end_scene.tmx.hpp"
+#include "fonts/barcadebrawl.h"
+#include "rsrc/game_strings.hpp"
 
 // DANG includes
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
 #include <layer/ImgSprLayer.hpp>
+#include <layer/MessageLayer.hpp>
 #include <TmxExtruder.hpp>
 #include <sprite/FullImgSpr.hpp>
 #include <tween/TwAnim.hpp>
@@ -127,9 +130,26 @@ namespace pnk
             }
         }
 
+        // create text layer
+        dang::PointF p{0,0};
+        _txtl = std::make_shared<dang::MessageLayer>(barcadebrawl, p, 10, "", false, false);
+        _txtl->setButtons(BTN_OK, BTN_CANCEL);
+        gear.addLayer(_txtl);
+
         gear.setViewportPos(_sprHero->getPos());
 
         nextSlice();
+
+        _txtl->setText(str_lvl5_intro);
+        _txtl->setTtl(6000, [&](blit::Button btn)
+        {
+            _txtl->setActive(false);
+            _txtl->setVisible(false);
+        });
+        _txtl->setActive(true);
+        _txtl->setVisible(true);
+
+
     }
 
     void GSEndScene::exit(dang::Gear &gear, uint32_t time)

@@ -30,6 +30,7 @@ namespace pnk
         const std::string tmx_deco_layer_name = "end_scene_mood";
         const std::string tmx_obj_layer_name = "end_scene_obj";
 
+        dang::spMessageLayer            _txtl{nullptr};
 
         dang::spFullImgSpr _sprHero{nullptr};
         dang::spFullImgSpr _sprHammer{nullptr};
@@ -55,7 +56,7 @@ namespace pnk
         };
         std::vector<slice>  _slices
         {
-            {WAIT, 2000, {0,0}, false},
+            {WAIT, 5000, {0,0}, false},
             {WALK, 6000, {482, 320}, false},
             {WAIT, 1000, {0, 0}, false},
             {WAIT, 1000, {0, 0}, true},
@@ -65,7 +66,7 @@ namespace pnk
             {WAIT, 500, {0, 0}, true},
             {JUMP, 500, {386, 256}, true},
 
-            {WAIT, 1500, {0, 0}, true},
+            {WAIT, 1000, {0, 0}, true},
             {JUMP, 500, {354, 224}, true},
 
             {WAIT, 300, {0, 0}, true},
@@ -75,7 +76,7 @@ namespace pnk
             {JUMP, 500, {290, 160}, true},
 
             {WAIT, 2000, {0, 0}, true},
-            {WALK, 200, {258, 160}, true},
+            {WALK, 600, {258, 160}, true},
             {W_HAMMER, 6000, {258, 192}, true},
             {FINISH, 0, {0, 0}, true},
         };
