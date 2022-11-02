@@ -164,6 +164,7 @@ static inline const float BUBBLE_VEL_UP{-1.5};     // bubble vertical velocity
 static inline const float E_WALK_VEL{2};           // enemy walk velocity
 
 static inline const float CRATE_VEL{20};           // crate throwing velocity
+static inline const float CRATE_VEL2{10};           // crate throwing velocity
 static inline const float CRATE_DROP_VEL{5};       // crate dropping velocity
 
 static inline const float BOMB_VEL{22};           // bomb throwing velocity

@@ -728,8 +728,23 @@ namespace pnk
             spCraties crate = SpriteFactory::CrateFromProto(std::static_pointer_cast<Craties>(_hives["crate"]), pe._pos, pe._to_the_left);
 
             // movement sequence
-            float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
+            // movement sequence
+            float velx;
+            switch (_pnk._gamestate.saved_level)
+            {
+                default:
+                case 1:
+                case 2:
+                case 3:
+                    velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
+                    break;
+                case 4:
+                    velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL2 : CRATE_DROP_VEL;
+                    break;
+            }
             velx = pe._to_the_left ? -velx : velx;
+//            float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
+//            velx = pe._to_the_left ? -velx : velx;
             dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -6), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             crate->addTween(twv1);
 

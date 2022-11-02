@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="162">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="54" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="175">
  <tileset firstgid="1" source="../tilesets/levels_castle_tiles.tsx"/>
  <tileset firstgid="97" source="../tilesets/levels_castle_decorations_tiles.tsx"/>
  <tileset firstgid="129" source="../tilesets/character_pigcrate.tsx"/>
@@ -27,10 +27,10 @@
 </data>
  </layer>
  <objectgroup id="2" name="lvl_4_mood" locked="1">
-  <object id="1" gid="106" x="32" y="72" width="32" height="32"/>
-  <object id="3" gid="108" x="64" y="72" width="32" height="32"/>
-  <object id="4" gid="108" x="256" y="72" width="32" height="32"/>
-  <object id="7" gid="106" x="224" y="72" width="32" height="32"/>
+  <object id="1" gid="106" x="32" y="88" width="32" height="32"/>
+  <object id="3" gid="108" x="64" y="88" width="32" height="32"/>
+  <object id="4" gid="108" x="256" y="88" width="32" height="32"/>
+  <object id="7" gid="106" x="224" y="88" width="32" height="32"/>
   <object id="32" gid="101" x="608" y="192" width="32" height="32"/>
   <object id="33" gid="101" x="608" y="160" width="32" height="32"/>
   <object id="34" gid="101" x="608" y="128" width="32" height="32"/>
@@ -53,7 +53,7 @@
   <object id="156" gid="106" x="1248" y="120" width="32" height="32"/>
   <object id="157" gid="108" x="1280" y="120" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="lvl_4_obj">
+ <objectgroup id="3" name="lvl_4_obj" locked="1">
   <object id="50" type="pig_box" gid="134" x="512" y="96" width="32" height="32">
    <properties>
     <property name="z_order" type="int" value="20"/>
@@ -71,6 +71,7 @@
   </object>
   <object id="53" type="pig_cannon" gid="2147483859" x="1248" y="128" width="32" height="32">
    <properties>
+    <property name="bt" value="basic_cannon"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
@@ -103,23 +104,27 @@
   <object id="84" type="hotrect" x="992" y="64" width="128" height="160"/>
   <object id="85" type="hotrect" x="640" y="64" width="96" height="160"/>
   <object id="86" type="hotrect" x="288" y="32" width="96" height="160"/>
-  <object id="21" type="pig_box" gid="134" x="224" y="40" width="32" height="32">
+  <object id="21" type="pig_box" gid="134" x="212" y="56" width="32" height="32">
    <properties>
+    <property name="bt" value="wait_with_crates"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
-  <object id="22" type="pig_box" gid="2147483782" x="64" y="40" width="32" height="32">
+  <object id="22" type="pig_box" gid="2147483782" x="77" y="56" width="32" height="32">
    <properties>
+    <property name="bt" value="wait_with_crates"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="23" type="pig_box" gid="134" x="192" y="192" width="32" height="32">
    <properties>
+    <property name="bt" value="loiter_with_one_crate_dist"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
   <object id="24" type="pig_box" gid="134" x="96" y="192" width="32" height="32">
    <properties>
+    <property name="bt" value="loiter_with_one_crate_dist"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
@@ -134,8 +139,8 @@
    </properties>
   </object>
   <object id="87" name="5" type="level_trigger" x="1656" y="40" width="16" height="56"/>
-  <object id="88" type="hotrect" x="32" y="72" width="64" height="12"/>
-  <object id="90" type="hotrect" x="224" y="72" width="64" height="12"/>
+  <object id="88" type="hotrect" x="32" y="88" width="64" height="12"/>
+  <object id="90" type="hotrect" x="224" y="88" width="64" height="12"/>
   <object id="91" type="hotrect_platform" x="608" y="96" width="32" height="4"/>
   <object id="92" type="hotrect_platform" x="608" y="128" width="32" height="4"/>
   <object id="93" type="hotrect_platform" x="608" y="160" width="32" height="4"/>
@@ -151,8 +156,9 @@
     <property name="z_order" type="int" value="50"/>
    </properties>
   </object>
-  <object id="112" type="pig_box" gid="2147483782" x="240" y="192" width="32" height="32">
+  <object id="112" type="pig_box" gid="2147483782" x="256" y="192" width="32" height="32">
    <properties>
+    <property name="bt" value="loiter_with_one_crate_dist"/>
     <property name="z_order" type="int" value="20"/>
    </properties>
   </object>
@@ -236,7 +242,93 @@
   <object id="150" type="hud_l2" gid="499" x="48" y="4" width="16" height="16"/>
   <object id="151" type="hud_l3" gid="499" x="64" y="4" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_4_paths" locked="1"/>
+ <objectgroup id="6" name="lvl_4_paths" locked="1">
+  <object id="162" x="80" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="164"/>
+    <property name="walk_1" type="object" value="163"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="163" x="48" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="162"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="164" x="112" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="165"/>
+    <property name="walk_1" type="object" value="162"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="165" x="144" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="166"/>
+    <property name="walk_1" type="object" value="164"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="166" x="176" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="167"/>
+    <property name="walk_1" type="object" value="165"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="167" x="208" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="168"/>
+    <property name="walk_1" type="object" value="166"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="168" x="240" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="169"/>
+    <property name="walk_1" type="object" value="167"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="169" x="272" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="170"/>
+    <property name="walk_1" type="object" value="168"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="170" x="304" y="216">
+   <properties>
+    <property name="walk_0" type="object" value="169"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="171" name="crate depot" type="2" x="48" y="80">
+   <properties>
+    <property name="walk_0" type="object" value="172"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="172" name="POI" type="4" x="93" y="80">
+   <properties>
+    <property name="walk_0" type="object" value="171"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="173" name="POI" type="4" x="228" y="80">
+   <properties>
+    <property name="walk_0" type="object" value="174"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="174" name="crate depot" type="2" x="272" y="80">
+   <properties>
+    <property name="walk_0" type="object" value="173"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup color="#800000ff" id="7" name="lvl_4_zones" visible="0" locked="1">
   <object id="102" name="0" x="0" y="0" width="352" height="256"/>
   <object id="104" name="1" x="320" y="0" width="384" height="256"/>

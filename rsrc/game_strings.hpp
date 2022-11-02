@@ -66,8 +66,9 @@ And where is the exit?"};
 /**
  * Level 4 strings
  */
-const static std::string_view str_lvl4_intro{"These rooms seem to be somehow\n\
-off the record - ah well, let's bubble!\n\
+const static std::string_view str_lvl4_intro{"These rooms seem to be\n\
+somehow off the record\n\
+ah well, let's bubble!\n\
 \n\
 (press 'A' to start)"};
 
@@ -75,5 +76,9 @@ const static std::string_view str_lvl4_end{"The boss\n\
 is no more!\n\
 But where is my hammer?!?\n\
 You may proceed to the door"};
+
+const static std::string_view str_lvl5_intro{"What do I see!\n\
+My beloved toy!\n\
+* LALALAAAA *\n"};
 
 }

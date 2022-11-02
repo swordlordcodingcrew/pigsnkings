@@ -136,10 +136,10 @@ static const dang::tmx_layer level_4_lvl_4_bg = {
 // Objects for layer: lvl_4_mood
 static const dang::tmx_spriteobject level_4_lvl_4_mood_objects[] = {
 
-    {1,"1","",32,72,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
-    {3,"3","",64,72,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
-    {4,"4","",256,72,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
-    {7,"7","",224,72,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
+    {1,"1","",32,88,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
+    {3,"3","",64,88,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
+    {4,"4","",256,88,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
+    {7,"7","",224,88,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
     {32,"32","",608,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {33,"33","",608,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {34,"34","",608,128,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
@@ -188,7 +188,7 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {50,"50","pig_box",512,96,32,32,true,"pig_crate",5,"",20,0b0000},
     {51,"51","pig_bomb",416,32,32,32,true,"character_pigbomb",4,"",20,0b0001},
     {52,"52","cannon",1280,128,32,32,true,"character_cannonsnpigs",0,"",20,0b0001},
-    {53,"53","pig_cannon",1248,128,32,32,true,"gfx_pig",0,"",20,0b0001},
+    {53,"53","pig_cannon",1248,128,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0001},
     {54,"54","pig_normal",1376,128,32,32,true,"gfx_pig",0,"",20,0b0000},
     {55,"55","pig_bomb",1184,64,32,32,true,"character_pigbomb",4,"",20,0b0000},
     {58,"58","pig_normal",1592,192,32,32,true,"gfx_pig",0,"",20,0b0000},
@@ -206,10 +206,10 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {84,"84","hotrect",992,64,128,160,true,"",0,"",0,0b0000},
     {85,"85","hotrect",640,64,96,160,true,"",0,"",0,0b0000},
     {86,"86","hotrect",288,32,96,160,true,"",0,"",0,0b0000},
-    {21,"21","pig_box",224,40,32,32,true,"pig_crate",5,"",20,0b0000},
-    {22,"22","pig_box",64,40,32,32,true,"pig_crate",5,"",20,0b0001},
-    {23,"23","pig_box",192,192,32,32,true,"pig_crate",5,"",20,0b0000},
-    {24,"24","pig_box",96,192,32,32,true,"pig_crate",5,"",20,0b0000},
+    {21,"21","pig_box",212,56,32,32,true,"pig_crate",5,"wait_with_crates",20,0b0000},
+    {22,"22","pig_box",77,56,32,32,true,"pig_crate",5,"wait_with_crates",20,0b0001},
+    {23,"23","pig_box",192,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0000},
+    {24,"24","pig_box",96,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0000},
     {68,"68","potion_blue",848,184,32,48,true,"gfx_items",28,"",0,0b0000},
     {70,"70","gem_green",848,48,32,48,true,"gfx_items",16,"",0,0b0000},
     {71,"71","gem_blue",960,184,32,48,true,"gfx_items",12,"",0,0b0000},
@@ -217,8 +217,8 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {72,"72","coin_silver",736,184,32,48,true,"gfx_items",0,"",0,0b0000},
     {62,"62","pig_bomb",1600,64,32,32,true,"character_pigbomb",4,"",20,0b0000},
     {87,"5","level_trigger",1656,40,16,56,true,"",0,"",0,0b0000},
-    {88,"88","hotrect",32,72,64,12,true,"",0,"",0,0b0000},
-    {90,"90","hotrect",224,72,64,12,true,"",0,"",0,0b0000},
+    {88,"88","hotrect",32,88,64,12,true,"",0,"",0,0b0000},
+    {90,"90","hotrect",224,88,64,12,true,"",0,"",0,0b0000},
     {91,"91","hotrect_platform",608,96,32,4,true,"",0,"",0,0b0000},
     {92,"92","hotrect_platform",608,128,32,4,true,"",0,"",0,0b0000},
     {93,"93","hotrect_platform",608,160,32,4,true,"",0,"",0,0b0000},
@@ -230,7 +230,7 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {99,"99","hotrect_platform",848,136,32,4,true,"",0,"",0,0b0000},
     {100,"100","hotrect",480,160,32,32,true,"",0,"",0,0b0000},
     {111,"111","king",0,192,32,32,true,"gfx_king",0,"",50,0b0000},
-    {112,"112","pig_box",240,192,32,32,true,"pig_crate",5,"",20,0b0001},
+    {112,"112","pig_box",256,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0001},
     {113,"113","bubble_proto",240,-40,32,32,true,"gfx_bubbles",0,"",50,0b0000},
     {114,"114","crate_proto",472,-40,32,32,true,"pig_crate",34,"",20,0b0000},
     {115,"115","bomb_proto",392,-48,32,32,true,"character_pigbomb",26,"",20,0b0000},
@@ -349,14 +349,47 @@ static const dang::tmx_layer level_4_lvl_4_hud = {
 
 // path layer
 static const dang::tmx_waypoint level_4_waypoints[] = {
+    {162, 80,216, 0x0},
+    {163, 48,216, 0x0},
+    {164, 112,216, 0x0},
+    {165, 144,216, 0x0},
+    {166, 176,216, 0x0},
+    {167, 208,216, 0x0},
+    {168, 240,216, 0x0},
+    {169, 272,216, 0x0},
+    {170, 304,216, 0x0},
+    {171, 48,80, 2},
+    {172, 93,80, 4},
+    {173, 228,80, 4},
+    {174, 272,80, 2},
 };
 
-static const size_t level_4_waypoints_len = 0;
+static const size_t level_4_waypoints_len = 13;
 
 static const dang::tmx_waypoint_connection level_4_connections[] = {
+    {162, 164, 0x1},
+    {162, 163, 0x1},
+    {163, 162, 0x1},
+    {164, 165, 0x1},
+    {164, 162, 0x1},
+    {165, 166, 0x1},
+    {165, 164, 0x1},
+    {166, 167, 0x1},
+    {166, 165, 0x1},
+    {167, 168, 0x1},
+    {167, 166, 0x1},
+    {168, 169, 0x1},
+    {168, 167, 0x1},
+    {169, 170, 0x1},
+    {169, 168, 0x1},
+    {170, 169, 0x1},
+    {171, 172, 0x1},
+    {172, 171, 0x1},
+    {173, 174, 0x1},
+    {174, 173, 0x1},
 };
 
-static const size_t level_4_connections_len = 0;
+static const size_t level_4_connections_len = 20;
 
 // zones
 static const dang::tmx_zone level_4_zones[] = {
