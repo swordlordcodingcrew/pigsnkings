@@ -728,7 +728,6 @@ namespace pnk
             spCraties crate = SpriteFactory::CrateFromProto(std::static_pointer_cast<Craties>(_hives["crate"]), pe._pos, pe._to_the_left);
 
             // movement sequence
-            // movement sequence
             float velx;
             switch (_pnk._gamestate.saved_level)
             {
