@@ -20,6 +20,8 @@ namespace pnk
         // generic loitering
         _bt["loiter"] = buildLoiter();
         _bt["berserk"] = buildBerserk();
+        _bt["basic_cannon"] = buildBasicCannon();
+        _bt["wait_bomb"] = buildWaitWithBomb(gsp);
 
         _bt["wait_with_crates"] = dang::NTBuilder{}
             .selector()
