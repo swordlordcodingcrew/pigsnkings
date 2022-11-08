@@ -203,9 +203,13 @@ namespace pnk
         if(_leaveGame)
         {
             _pnk._gamestate.saved_room = 0;
+            _pnk._gamestate.saved_level = 0;
             _pnk._gamestate.score = 0;
             _pnk._gamestate.lives = HERO_MAX_LIVES;
             _pnk._gamestate.health = HERO_MAX_HEALTH;
+            _pnk._gamestate.boss_health = BOSS_MAX_HEALTH;
+            _pnk._gamestate.has_cheated = false;
+            _pnk._gamestate.invincible = false;
             _pnk._removed_sprites.clear();
         }
         saveGamestate();
@@ -1293,6 +1297,7 @@ namespace pnk
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)
     {
+
         _leaveGame = true;
     }
 
