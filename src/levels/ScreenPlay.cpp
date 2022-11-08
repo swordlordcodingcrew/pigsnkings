@@ -133,6 +133,31 @@ namespace pnk
     }
 
     /**
+     * For PigBomb and children only
+     * builds a behaviour tree where a bombed pig loiters and, upon seeing (horizontally) the hero, throws the bomb.
+     * Before and after the piggy is loitering
+     * @return built spNTree
+     */
+    dang::spNTree ScreenPlay::buildLoiterWithSingleBombH(GSPlay &gsp)
+    {
+        return dang::NTBuilder{}
+            .selector()
+                .sequence()
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
+                    .leaf(PigBomb::NTThrowBomb)
+                .end()
+                .sequence()
+                    .leaf(Enemy::NTsetRandNeighbourWaypoint)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                .end()
+                .tree(buildBackToPathH())
+                .tree(buildBackToPath())
+            .end()
+        .build();
+    }
+
+
+    /**
      * For PigCrate and children only
      * builds a behaviour tree where a crated pig waits until the hero is close enough, then the crate is thrown
      * afterwards the piggy is loitering
