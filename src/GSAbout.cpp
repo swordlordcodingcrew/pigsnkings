@@ -37,8 +37,12 @@ namespace pnk
     {
         blit::debugf("entering\r\n");
 
-        dang::SndGear::stopMod();
-        dang::SndGear::playMod(u4iasmok_mod, u4iasmok_mod_length, _pnk._prefs.volume_track);
+        if (!dang::SndGear::modPlaying())
+        {
+//            dang::SndGear::stopMod();
+            dang::SndGear::playMod(u4iasmok_mod, u4iasmok_mod_length, _pnk._prefs.volume_track);
+//            dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
+        }
 
         gear.setWorld({0,0,320, 240});
 //        gear.setActiveWorldSize(320, 240);

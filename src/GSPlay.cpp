@@ -200,7 +200,7 @@ namespace pnk
         DEBUG_PRINT("GSPlay: enter exit()\n");
 #endif
         // only happens when dying or when solved the game, reset some params
-        if(_leaveGame)
+        if(_leaveGame || _endScene)
         {
             _pnk._gamestate.saved_room = 0;
             _pnk._gamestate.saved_level = 0;

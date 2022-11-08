@@ -274,7 +274,7 @@
   <object id="150" type="hud_l2" gid="499" x="48" y="4" width="16" height="16"/>
   <object id="151" type="hud_l3" gid="499" x="64" y="4" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_4_paths">
+ <objectgroup id="6" name="lvl_4_paths" locked="1">
   <object id="162" x="80" y="216">
    <properties>
     <property name="walk_0" type="object" value="164"/>

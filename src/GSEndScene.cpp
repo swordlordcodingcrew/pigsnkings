@@ -17,6 +17,7 @@
 #include "rsrc/end_scene.tmx.hpp"
 #include "fonts/barcadebrawl.h"
 #include "rsrc/game_strings.hpp"
+#include "tracks/dance2.h"
 
 // DANG includes
 #include <Gear.hpp>
@@ -31,6 +32,7 @@
 #include <tween/TwPosX.hpp>
 #include <tween/TwPosY.hpp>
 #include <tween/TwSequence.hpp>
+#include <snd/SndGear.hpp>
 
 namespace pnk
 {
@@ -63,11 +65,9 @@ namespace pnk
 
     void GSEndScene::enter(dang::Gear &gear, uint32_t time)
     {
-/*        if (!dang::SndGear::modPlaying())
-        {
-            dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
-        }
-*/
+        dang::SndGear::stopMod();
+        dang::SndGear::playMod(dance2_mod, dance2_mod_length, _pnk._prefs.volume_track);
+
         // set up state
         _tmx = &end_scene_level;
         dang::TmxExtruder txtr(_tmx, &gear);
