@@ -196,8 +196,8 @@ namespace pnk
             }
             return dang::CR_CROSS;
         }
-        else if (cs_other->typeNum() > ST_TRIGGERS && cs_other->typeNum() < ST_TRIGGERS_END
-                 || cs_other->typeNum() > ST_REWARDS && cs_other->typeNum() < ST_REWARDS_END)
+        else if ((cs_other->typeNum() > ST_TRIGGERS && cs_other->typeNum() < ST_TRIGGERS_END)
+                 || (cs_other->typeNum() > ST_REWARDS && cs_other->typeNum() < ST_REWARDS_END))
         {
             return dang::CR_CROSS;
         }

@@ -74,7 +74,8 @@ namespace pnk
         {
             _btns.at(_pnk._prefs.selectedModule).btn->removeAnimation(true);
             _btns.at(_pnk._prefs.selectedModule).btn->setImgIndex(_btns.at(_pnk._prefs.selectedModule).img_index);
-            _pnk._prefs.selectedModule = ++_pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
+            ++_pnk._prefs.selectedModule;
+            _pnk._prefs.selectedModule = _pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
 
             positionCandles();
         }
@@ -86,7 +87,8 @@ namespace pnk
                 _pnk._prefs.selectedModule = _pnk.ENDOF_SELECTION - 1;
             }
             else {
-                _pnk._prefs.selectedModule = --_pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
+                --_pnk._prefs.selectedModule;
+                _pnk._prefs.selectedModule = _pnk._prefs.selectedModule % _pnk.ENDOF_SELECTION;
             }
 
             positionCandles();

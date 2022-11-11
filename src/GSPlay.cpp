@@ -55,7 +55,6 @@
 #include "rsrc/gfx/items.png.h"
 #include "rsrc/gfx/king.png.h"
 #include "rsrc/gfx/lives.png.h"
-#include "rsrc/gfx/lives_hud.png.h"
 #include "rsrc/gfx/pig_king.png.h"
 #include "rsrc/gfx/castle_decoration_tiles.png.h"
 #include "rsrc/gfx/door.png.h"
@@ -880,9 +879,9 @@ namespace pnk
     {
         _pnk._gamestate.lives -= 1;
 #ifdef PNK_DEBUG_COMMON
-        DEBUG_PRINT("GSPlay: handleKingLoosesLife, lives=%i\n", (uint32_t) _pnk._gamestate.lives);
+        DEBUG_PRINT("GSPlay: handleKingLoosesLife, lives=%i\n", _pnk._gamestate.lives);
 #endif
-        printf("GSPlay: handleKingLoosesLife, lives=%i\n", (uint32_t) _pnk._gamestate.lives);
+        printf("GSPlay: handleKingLoosesLife, lives=%i\n", _pnk._gamestate.lives);
 
         if(_pnk._gamestate.lives <= 0)
         {
