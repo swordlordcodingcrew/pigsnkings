@@ -284,7 +284,7 @@ namespace pnk
                 else
                 {
                     // equal or lower
-                    v.y = -5.5 + (0.25f * _walkSpeed);
+                    v.y = -5.5 + (static_cast<double>(0.25f * _walkSpeed));
                 }
 
                 if ((wp->_pos.x - hrc.x) * (wp->_pos.x - hrc.x) > 1600)  // long horizontal distance
