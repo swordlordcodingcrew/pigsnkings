@@ -35,17 +35,17 @@
 #include "tracks/kingsofdawn.h"
 
 #include "sfx/cannon_fire_22050_mono.h"
+#include "sfx/bomb_explode_22050_mono.h"
 #include "sfx/boss_battle_22050_mono.h"
 #include "sfx/bubble_blow_22050_mono.h"
+#include "sfx/cheat_22050_mono.h"
 #include "sfx/coin_22050_mono.h"
+#include "sfx/crate_explode_22050_mono.h"
 #include "sfx/king_damage_22050.h"
 #include "sfx/health_22050_mono.h"
 #include "sfx/lifelost_22050_mono.h"
 #include "sfx/teleport_22050_mono.h"
 #include "sfx/victory_22050_mono.h"
-#include "sfx/bomb_explode_22050_mono.h"
-#include "sfx/crate_explode_22050_mono.h"
-#include "sfx/cheat_22050_mono.h"
 
 #include "rsrc/gfx/bomb.png.h"
 #include "rsrc/gfx/pig_bomb.png.h"
@@ -474,11 +474,14 @@ namespace pnk
                 dang::spSprObj s = _csl->getSpriteById(id);
                 if (s != nullptr)
                 {
-                    assert((s->typeNum() >= ST_ENEMIES && s->typeNum() < ST_ENEMIES_END)
-                        || (s->typeNum() >= ST_REWARDS && s->typeNum() < ST_REWARDS_END));
-
-                    s->markRemove();
-
+                    // if the types are wrong, then the save file is not OK
+                    // and the player messed around with the savefile
+                    // no need to crash, just jump over it.
+                    if((s->typeNum() >= ST_ENEMIES && s->typeNum() < ST_ENEMIES_END)
+                        || (s->typeNum() >= ST_REWARDS && s->typeNum() < ST_REWARDS_END))
+                    {
+                        s->markRemove();
+                    }
                 }
             }
             _csl->cleanSpritelist();

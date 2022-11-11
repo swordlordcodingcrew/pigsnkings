@@ -32,6 +32,11 @@
 #include <tween/TwPosY.hpp>
 #include <tween/TwSequence.hpp>
 
+#include <snd/SndGear.hpp>
+
+#include "tracks/kingdom_of_dwarfs.h"
+#include "sfx/win_22050_mono.h"
+
 namespace pnk
 {
     extern PigsnKings _pnk;
@@ -63,11 +68,9 @@ namespace pnk
 
     void GSEndScene::enter(dang::Gear &gear, uint32_t time)
     {
-/*        if (!dang::SndGear::modPlaying())
-        {
-            dang::SndGear::playMod(paperbird_mod, paperbird_mod_length, _pnk._prefs.volume_track);
-        }
-*/
+        dang::SndGear::stopMod();
+        dang::SndGear::playMod(kingdom_of_dwarfs_mod, kingdom_of_dwarfs_mod_length, _pnk._prefs.volume_track);
+
         // set up state
         _tmx = &end_scene_level;
         dang::TmxExtruder txtr(_tmx, &gear);
