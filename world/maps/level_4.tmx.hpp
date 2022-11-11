@@ -144,27 +144,29 @@ static const dang::tmx_spriteobject level_4_lvl_4_mood_objects[] = {
     {33,"33","",608,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {34,"34","",608,128,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {35,"35","",608,96,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
-    {37,"37","",512,128,32,32,true,"gfx_castle_decorations",1,"",0,0b0000},
-    {38,"38","",544,128,32,32,true,"gfx_castle_decorations",3,"",0,0b0000},
+    {37,"37","",480,128,32,32,true,"gfx_castle_decorations",1,"",0,0b0000},
+    {38,"38","",512,128,32,32,true,"gfx_castle_decorations",3,"",0,0b0000},
     {39,"39","",384,64,32,32,true,"gfx_castle_decorations",1,"",0,0b0000},
     {40,"40","",416,64,32,32,true,"gfx_castle_decorations",3,"",0,0b0000},
     {59,"59","",1664,96,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
     {60,"60","",1632,96,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
     {61,"61","",1600,96,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
-    {65,"65","",848,136,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
+    {65,"65","",832,136,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {67,"67","",800,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {66,"66","",736,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
-    {135,"135","",928,104,32,32,true,"gfx_castle_decorations",12,"",0,0b0000},
     {152,"152","",1640,40,46,56,true,"levels_door",3,"",0,0b0000},
     {153,"153","",1568,160,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {154,"154","",1600,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {155,"155","",1344,192,32,32,true,"gfx_castle_decorations",4,"",0,0b0000},
     {156,"156","",1248,120,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
-    {157,"157","",1280,120,32,32,true,"gfx_castle_decorations",11,"",0,0b0000}
+    {157,"157","",1280,120,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
+    {191,"191","",544,128,32,32,true,"gfx_castle_decorations",3,"",0,0b0000},
+    {207,"207","",928,104,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
+    {208,"208","",896,104,32,32,true,"gfx_castle_decorations",9,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_mood_objects_len = 25;
+static const size_t level_4_lvl_4_mood_objects_len = 27;
 
 static const dang::tmx_layer level_4_lvl_4_mood = {
     .name = "lvl_4_mood",
@@ -185,13 +187,13 @@ static const dang::tmx_layer level_4_lvl_4_mood = {
 // Objects for layer: lvl_4_obj
 static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
 
-    {50,"50","pig_box",512,96,32,32,true,"pig_crate",5,"",20,0b0000},
-    {51,"51","pig_bomb",416,32,32,32,true,"character_pigbomb",4,"",20,0b0001},
+    {50,"50","pig_box",544,96,32,32,true,"pig_crate",5,"wait_with_crates",20,0b0000},
+    {51,"51","pig_bomb",480,128,32,32,true,"character_pigbomb",4,"wait_bomb",20,0b0001},
     {52,"52","cannon",1280,128,32,32,true,"character_cannonsnpigs",0,"",20,0b0001},
     {53,"53","pig_cannon",1248,128,32,32,true,"gfx_pig",0,"basic_cannon",20,0b0001},
-    {54,"54","pig_normal",1376,128,32,32,true,"gfx_pig",0,"",20,0b0000},
-    {55,"55","pig_bomb",1184,64,32,32,true,"character_pigbomb",4,"",20,0b0000},
-    {58,"58","pig_normal",1592,192,32,32,true,"gfx_pig",0,"",20,0b0000},
+    {54,"54","pig_normal",1376,128,32,32,true,"gfx_pig",0,"loiter",20,0b0000},
+    {55,"55","pig_bomb",1184,64,32,32,true,"character_pigbomb",4,"loiter_one_bomb_h",20,0b0000},
+    {58,"58","pig_normal",1600,192,32,32,true,"gfx_pig",0,"loiter",20,0b0000},
     {64,"64","potion_red",1664,184,32,48,true,"gfx_items",35,"",0,0b0000},
     {73,"73","hotrect",0,224,1728,32,true,"",0,"",0,0b0000},
     {75,"75","hotrect",0,32,32,160,true,"",0,"",0,0b0000},
@@ -211,11 +213,11 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {23,"23","pig_box",192,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0000},
     {24,"24","pig_box",96,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0000},
     {68,"68","potion_blue",848,184,32,48,true,"gfx_items",28,"",0,0b0000},
-    {70,"70","gem_green",848,48,32,48,true,"gfx_items",16,"",0,0b0000},
+    {70,"70","gem_green",896,184,32,48,true,"gfx_items",16,"",0,0b0000},
     {71,"71","gem_blue",960,184,32,48,true,"gfx_items",12,"",0,0b0000},
-    {69,"69","gem_red",848,16,32,48,true,"gfx_items",20,"",0,0b0000},
+    {69,"69","gem_red",824,184,32,48,true,"gfx_items",20,"",0,0b0000},
     {72,"72","coin_silver",736,184,32,48,true,"gfx_items",0,"",0,0b0000},
-    {62,"62","pig_bomb",1600,64,32,32,true,"character_pigbomb",4,"",20,0b0000},
+    {62,"62","pig_bomb",1600,64,32,32,true,"character_pigbomb",4,"loiter_one_bomb_h",20,0b0000},
     {87,"5","level_trigger",1656,40,16,56,true,"",0,"",0,0b0000},
     {88,"88","hotrect",32,88,64,12,true,"",0,"",0,0b0000},
     {90,"90","hotrect",224,88,64,12,true,"",0,"",0,0b0000},
@@ -224,10 +226,10 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {93,"93","hotrect_platform",608,160,32,4,true,"",0,"",0,0b0000},
     {94,"94","hotrect_platform",608,192,32,4,true,"",0,"",0,0b0000},
     {95,"95","hotrect_platform",384,64,64,4,true,"",0,"",0,0b0000},
-    {96,"96","hotrect_platform",512,128,64,4,true,"",0,"",0,0b0000},
+    {96,"96","hotrect_platform",480,128,96,4,true,"",0,"",0,0b0000},
     {97,"97","hotrect_platform",736,192,32,4,true,"",0,"",0,0b0000},
     {98,"98","hotrect_platform",800,160,32,4,true,"",0,"",0,0b0000},
-    {99,"99","hotrect_platform",848,136,32,4,true,"",0,"",0,0b0000},
+    {99,"99","hotrect_platform",832,136,32,4,true,"",0,"",0,0b0000},
     {100,"100","hotrect",480,160,32,32,true,"",0,"",0,0b0000},
     {111,"111","king",0,192,32,32,true,"gfx_king",0,"",50,0b0000},
     {112,"112","pig_box",256,192,32,32,true,"pig_crate",5,"loiter_with_one_crate_dist",20,0b0001},
@@ -244,15 +246,24 @@ static const dang::tmx_spriteobject level_4_lvl_4_obj_objects[] = {
     {131,"1","room_trigger",672,32,2,32,true,"",0,"",0,0b0000},
     {132,"3","room_trigger",1085,32,2,32,true,"",0,"",0,0b0000},
     {133,"2","room_trigger",1056,32,2,32,true,"",0,"",0,0b0000},
-    {136,"136","hotrect",928,104,32,12,true,"",0,"",0,0b0000},
+    {136,"136","hotrect",896,104,64,12,true,"",0,"",0,0b0000},
     {158,"158","hotrect_platform",1344,192,32,4,true,"",0,"",0,0b0000},
     {159,"159","hotrect_platform",1568,160,32,4,true,"",0,"",0,0b0000},
     {160,"160","hotrect_platform",1600,192,32,4,true,"",0,"",0,0b0000},
-    {161,"161","hotrect",1248,120,64,8,true,"",0,"",0,0b0000}
+    {161,"161","hotrect",1248,120,64,8,true,"",0,"",0,0b0000},
+    {175,"175","hotrect",-8,168,8,88,true,"",0,"",0,0b0000},
+    {180,"180","coin_gold",608,120,32,48,true,"gfx_items",4,"",0,0b0000},
+    {181,"181","gem_blue",416,21,32,48,true,"gfx_items",12,"",0,0b0000},
+    {182,"182","potion_red",608,48,32,48,true,"gfx_items",35,"",0,0b0000},
+    {183,"183","potion_green",1248,80,32,48,true,"gfx_items",42,"",0,0b0000},
+    {193,"193","pig_normal",800,192,32,32,true,"gfx_pig",0,"loiter",20,0b0000},
+    {196,"196","pig_bomb",864,192,32,32,true,"character_pigbomb",4,"loiter",20,0b0000},
+    {197,"197","pig_box",928,192,32,32,true,"pig_crate",5,"loiter",20,0b0000},
+    {218,"savepoint_trigger","savepoint_trigger",704,32,32,32,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_4_lvl_4_obj_objects_len = 64;
+static const size_t level_4_lvl_4_obj_objects_len = 73;
 
 static const dang::tmx_layer level_4_lvl_4_obj = {
     .name = "lvl_4_obj",
@@ -287,10 +298,10 @@ static const dang::tmx_spriteobject level_4_lvl_4_fg_objects[] = {
     {41,"41","",384,32,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
     {42,"42","",384,64,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
     {43,"43","",384,96,32,32,true,"gfx_castle_decorations",16,"",0,0b0000},
-    {44,"44","",544,32,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
-    {45,"45","",544,64,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
-    {46,"46","",544,96,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
-    {47,"47","",544,128,32,32,true,"gfx_castle_decorations",24,"",0,0b0000}
+    {44,"44","",512,32,32,32,true,"gfx_castle_decorations",0,"",0,0b0000},
+    {45,"45","",512,64,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {46,"46","",512,96,32,32,true,"gfx_castle_decorations",8,"",0,0b0000},
+    {47,"47","",512,128,32,32,true,"gfx_castle_decorations",24,"",0,0b0000}
 
 };
 
@@ -362,9 +373,42 @@ static const dang::tmx_waypoint level_4_waypoints[] = {
     {172, 93,80, 4},
     {173, 228,80, 4},
     {174, 272,80, 2},
+    {186, 528,120, 2},
+    {187, 560,120, 4},
+    {198, 752,184, 0x0},
+    {199, 816,152, 0x0},
+    {200, 848,128, 0x0},
+    {201, 944,96, 0x0},
+    {202, 976,216, 0x0},
+    {203, 944,216, 0x0},
+    {204, 880,216, 0x0},
+    {205, 816,216, 0x0},
+    {206, 784,216, 0x0},
+    {188, 496,152, 0x0},
+    {189, 400,216, 0x0},
+    {190, 624,216, 0x0},
+    {209, 912,96, 0x0},
+    {210, 1200,88, 0x0},
+    {211, 1232,88, 0x0},
+    {212, 1360,184, 0x0},
+    {213, 1328,216, 0x0},
+    {214, 1136,216, 0x0},
+    {215, 1392,152, 0x0},
+    {216, 1424,152, 0x0},
+    {217, 1360,216, 0x0},
+    {219, 1264,112, 0x0},
+    {220, 1296,112, 0x0},
+    {221, 1616,216, 0x0},
+    {222, 1680,216, 0x0},
+    {223, 1456,216, 0x0},
+    {224, 1616,184, 0x0},
+    {225, 1552,120, 0x0},
+    {226, 1520,120, 0x0},
+    {227, 1616,88, 0x0},
+    {228, 1584,152, 0x0},
 };
 
-static const size_t level_4_waypoints_len = 13;
+static const size_t level_4_waypoints_len = 46;
 
 static const dang::tmx_waypoint_connection level_4_connections[] = {
     {162, 164, 0x1},
@@ -387,9 +431,79 @@ static const dang::tmx_waypoint_connection level_4_connections[] = {
     {172, 171, 0x1},
     {173, 174, 0x1},
     {174, 173, 0x1},
+    {186, 187, 0x1},
+    {187, 186, 0x1},
+    {198, 206, 0x1},
+    {198, 199, 0x2},
+    {199, 204, 0x1},
+    {199, 200, 0x2},
+    {199, 198, 0x8},
+    {200, 199, 0x1},
+    {200, 203, 0x1},
+    {200, 209, 0x2},
+    {201, 202, 0x1},
+    {201, 209, 0x1},
+    {202, 203, 0x1},
+    {202, 201, 0x8},
+    {203, 202, 0x1},
+    {203, 204, 0x1},
+    {203, 200, 0x8},
+    {204, 203, 0x1},
+    {204, 205, 0x1},
+    {204, 209, 0x8},
+    {204, 199, 0x8},
+    {205, 204, 0x1},
+    {205, 206, 0x1},
+    {206, 205, 0x1},
+    {206, 198, 0x2},
+    {188, 189, 0x1},
+    {188, 190, 0x1},
+    {189, 190, 0x1},
+    {189, 188, 0x8},
+    {190, 189, 0x1},
+    {190, 188, 0x8},
+    {209, 201, 0x1},
+    {209, 204, 0x1},
+    {209, 200, 0x8},
+    {210, 211, 0x1},
+    {211, 210, 0x1},
+    {211, 219, 0x1},
+    {212, 213, 0x1},
+    {212, 215, 0x2},
+    {212, 217, 0x8},
+    {213, 214, 0x1},
+    {213, 217, 0x1},
+    {213, 212, 0x2},
+    {214, 213, 0x1},
+    {215, 212, 0x1},
+    {215, 216, 0x1},
+    {216, 215, 0x1},
+    {217, 213, 0x1},
+    {217, 212, 0x2},
+    {219, 220, 0x1},
+    {219, 211, 0x2},
+    {220, 219, 0x1},
+    {221, 223, 0x1},
+    {221, 222, 0x1},
+    {221, 224, 0x2},
+    {222, 221, 0x1},
+    {222, 224, 0x2},
+    {223, 221, 0x1},
+    {223, 224, 0x8},
+    {224, 223, 0x1},
+    {224, 222, 0x1},
+    {224, 221, 0x8},
+    {225, 226, 0x1},
+    {225, 228, 0x1},
+    {225, 227, 0x2},
+    {226, 225, 0x1},
+    {227, 228, 0x1},
+    {227, 225, 0x8},
+    {228, 225, 0x2},
+    {228, 227, 0x8},
 };
 
-static const size_t level_4_connections_len = 20;
+static const size_t level_4_connections_len = 90;
 
 // zones
 static const dang::tmx_zone level_4_zones[] = {
@@ -404,12 +518,10 @@ static const size_t level_4_zones_len = 4;
 // zone passages
 static const dang::tmx_zone_passage level_4_zone_passages[] = {
     {0,-1,0,192},
-    {1,-1,352,192},
-    {2,-1,704,32},
-    {3,-1,1088,32}
+    {2,-1,704,32}
 };
 
-static const size_t level_4_zone_passages_len = 4;
+static const size_t level_4_zone_passages_len = 2;
 
 const static dang::tmx_layer level_4_layers[] = {
     level_4_lvl_4_bg,

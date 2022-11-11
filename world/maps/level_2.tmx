@@ -861,7 +861,7 @@
   <object id="516" gid="15" x="960" y="352" width="32" height="32"/>
   <object id="520" gid="15" x="960" y="320" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="lvl_2_hud">
+ <objectgroup id="4" name="lvl_2_hud" locked="1">
   <object id="521" type="hud_hero" gid="324" x="0" y="0" width="32" height="32"/>
   <object id="522" gid="254" x="32" y="16" width="16" height="16"/>
   <object id="523" gid="255" x="48" y="16" width="16" height="16"/>
@@ -1339,9 +1339,6 @@
    <point/>
   </object>
   <object id="514" name="1" x="1552" y="224">
-   <point/>
-  </object>
-  <object id="515" name="8" x="1168" y="408">
    <point/>
   </object>
  </objectgroup>
