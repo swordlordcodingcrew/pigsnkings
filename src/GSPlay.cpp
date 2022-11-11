@@ -203,7 +203,7 @@ namespace pnk
         if(_leaveGame || _endScene)
         {
             _pnk._gamestate.saved_room = 0;
-            _pnk._gamestate.saved_level = 0;
+            _pnk._gamestate.saved_level = 1;
             _pnk._gamestate.score = 0;
             _pnk._gamestate.lives = HERO_MAX_LIVES;
             _pnk._gamestate.health = HERO_MAX_HEALTH;
@@ -572,15 +572,21 @@ namespace pnk
 
     void GSPlay::freeCurrentLevel()
     {
-        _spr_hero.reset();
-        _screenplay.reset();
-        _csl.reset();
-        _hives.clear();
         _tmx = nullptr;
+        _screenplay.reset();
+        _spr_hero.reset();
+        _spr_boss.reset();
+        _csl.reset();
+        _txtl.reset();
+        _hives.clear();
+        _vp_pos = {0,0};
+
         _active_room = {0,0,0,0};
         _active_room_index = -1;
         _warp = false;
+        _leaveGame = false;
         _endScene = false;
+
 
         dang::Gear& gear = _pnk.getGear();
 
