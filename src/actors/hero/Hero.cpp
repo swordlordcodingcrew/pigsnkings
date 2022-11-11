@@ -95,7 +95,7 @@ namespace pnk
             /** platform specific collision */
             else if (sprOther->typeNum() == ST_HOTRECT_PLATFORM)
             {
-                if (sprOther->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h > 0 && getVel().y >= 0)
+                if (sprOther->getHotrectG().top() - 6 >= _co_pos.y + _hotrect.h && getVel().y >= 0)
                 {
                     _on_ground = true;
                     setVelY(0);

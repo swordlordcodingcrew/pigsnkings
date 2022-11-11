@@ -87,7 +87,8 @@ namespace pnk
         // up and down
         if (blit::buttons.pressed & blit::Button::DPAD_DOWN)
         {
-            _selectedPref = ++_selectedPref % _pnk.ENDOF_PREFS;
+            ++_selectedPref;
+            _selectedPref = _selectedPref % _pnk.ENDOF_PREFS;
         }
         else if (blit::buttons.pressed & blit::Button::DPAD_UP)
         {
@@ -95,7 +96,8 @@ namespace pnk
                 _selectedPref = _pnk.ENDOF_PREFS - 1;
             }
             else {
-                _selectedPref = --_selectedPref % _pnk.ENDOF_PREFS;
+                --_selectedPref;
+                _selectedPref = _selectedPref % _pnk.ENDOF_PREFS;
             }
         }
 

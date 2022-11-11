@@ -7,7 +7,6 @@
 #include "GSIntro.h"
 #include "GSHome.h"
 #include "GSPlay.h"
-#include "rsrc/gfx/sl_shield_32blit.png.h"
 #include "fonts/hud_font_small.h"
 #include "actors/hero/Hero.h"
 
