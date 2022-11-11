@@ -69,6 +69,7 @@ set(SOURCES
         ${SRC_ACTORS_OTHERS}
         ${SRC_ACTORS_HERO}
         ${RSRC}
+        tracks/dance2.h
         tracks/kingsofdawn.h
         tracks/paperbird.h
         tracks/u4iasmok.h
@@ -88,6 +89,7 @@ set(SOURCES
         sfx/lifelost_22050_mono.h
         sfx/pig_squeal_22050_mono.h
         sfx/victory_22050_mono.h
+        sfx/win_22050_mono.h
         )
 # in case there is a file which should not be added:
 # list (REMOVE_ITEM SOURCES /path/to/folder/filetoberemoved.cpp /path/to/folder/anotherfiletoberemoved.txt)

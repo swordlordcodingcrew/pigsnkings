@@ -23,6 +23,7 @@
 #include <Imagesheet.hpp>
 #include <layer/ImgSprLayer.hpp>
 #include <layer/MessageLayer.hpp>
+#include "FireworksLayer.h"
 #include <TmxExtruder.hpp>
 #include <sprite/FullImgSpr.hpp>
 #include <tween/TwAnim.hpp>
@@ -36,6 +37,8 @@
 
 #include "tracks/dance2.h"
 #include "sfx/win_22050_mono.h"
+
+#include <cassert>
 
 namespace pnk
 {
@@ -152,7 +155,9 @@ namespace pnk
         _txtl->setActive(true);
         _txtl->setVisible(true);
 
-
+        std::shared_ptr<FireworksLayer> fwl = std::make_shared<FireworksLayer>();
+        assert(fwl != nullptr);
+        gear.addLayer(fwl);
     }
 
     void GSEndScene::exit(dang::Gear &gear, uint32_t time)

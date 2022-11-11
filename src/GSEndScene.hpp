@@ -48,6 +48,7 @@ namespace pnk
             FINISH
         };
 
+        // Animation
         struct slice {
             uint8           type;
             uint16_t        time;

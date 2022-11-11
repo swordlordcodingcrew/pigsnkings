@@ -1,0 +1,56 @@
+// (c) 2019-22 by SwordLord - the coding crew
+// This file is part of the DANG game framework
+#pragma once
+
+#include <list>
+
+#include "libs/DANG/src/layer/Layer.hpp"
+#include "32blit.hpp"
+
+namespace pnk
+{
+class FireworksLayer : public dang::Layer
+    {
+    public:
+        FireworksLayer();
+        ~FireworksLayer() override;
+
+        void    update(uint32_t dt, const dang::Gear& gear) override;
+        void    render(const dang::Gear& gear) override;
+
+    protected:
+        explicit FireworksLayer(Layer::E_TYPE type) : Layer(type) {};
+
+        void initFirework(uint8_t i);
+
+        // hack remove me
+        static const uint8_t height = 200;
+        static const uint8_t width = 250;
+
+        static const uint8_t _numof_fireworks = 4;
+        static const uint8_t _numof_particles = 50;
+        constexpr static const float _rising_height = 0.015; // how high the firework will rise
+        static const uint8_t _numof_trails = 3; // number of trails the particles leave behind
+
+        struct particle {
+            dang::Vector2F  pos;			//position
+            dang::Vector2F  vel;			//velocity
+            dang::Vector2I  trail[_numof_trails];	//array of previous positions
+            uint8_t alpha;					//currrent alpha value
+            uint8_t alpha_rate;				//rate at which the alpha drops per frame
+        };
+
+        struct firework {
+            particle property;				//contains fireworks position,vel and accel property's
+            particle particles[_numof_particles];	//particles firework will explode into
+            uint8_t r;								//firework colour
+            uint8_t g;
+            uint8_t b;
+        };
+
+        firework fireworks[_numof_fireworks];	//the array of fireworks !
+        dang::Vector2F gravity;				//gravity effecting the particles
+
+    };
+}
+
