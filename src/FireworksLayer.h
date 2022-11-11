@@ -36,8 +36,8 @@ class FireworksLayer : public dang::Layer
             dang::Vector2F  pos;			//position
             dang::Vector2F  vel;			//velocity
             dang::Vector2I  trail[_numof_trails];	//array of previous positions
-            uint8_t alpha;					//currrent alpha value
-            uint8_t alpha_rate;				//rate at which the alpha drops per frame
+            float alpha;					//currrent alpha value
+            float alpha_rate;				//rate at which the alpha drops per frame
         };
 
         struct firework {

@@ -137,12 +137,11 @@ namespace pnk
             dest.h = 4;
 
             float alpha = fireworks[i].property.alpha;
-            blit::Pen pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)alpha);
 
             //draw fireworks if they have not yet exploded
             if (alpha)
             {
-                blit::screen.pen = pen;
+                blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)alpha);
                 blit::screen.rectangle(dest);
             }
 
@@ -166,7 +165,8 @@ namespace pnk
                     dest.h = 3 - size;
                 }
 
-                blit::screen.pen = pen;
+                // TODO calculate alpha
+                blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)alpha);
                 blit::screen.rectangle(dest);
             }
 
@@ -182,7 +182,8 @@ namespace pnk
                 if (!alpha)
                 {
 
-                    blit::screen.pen = pen;
+                    // TODO calculate alpha
+                    blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)fireworks[i].particles[j].alpha);
                     blit::screen.rectangle(dest);
 
                     //draw particle trails
@@ -203,7 +204,8 @@ namespace pnk
                             dest.h = 3 - size;
                         }
 
-                        blit::screen.pen = pen;
+                        // TODO calculate alpha
+                        blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)fireworks[i].particles[j].alpha);
                         blit::screen.rectangle(dest);
                     }
                 }
@@ -246,7 +248,7 @@ namespace pnk
             fireworks[i].particles[j].alpha = 255;
             fireworks[i].particles[j].alpha_rate = flip > .8 ? 4 : 6;
 
-            fireworks[i].particles[j].vel.multiply(vel); //change to a random velocity so it wont explode in a perfect circle
+            fireworks[i].particles[j].vel.multiply(vel); //change to a random velocity, so it will not explode in a perfect circle
 
             //record of previous positions for each particle
             for (uint8_t k = 0; k < _numof_trails; k++)
@@ -256,7 +258,7 @@ namespace pnk
             }
         }
 
-        //always give the first paticle the shortest alpha rate to determine when all other particles have faded out.
+        //always give the first particle the shortest alpha rate to determine when all other particles have faded out.
         fireworks[i].particles[0].alpha_rate = 4;
     }
 
