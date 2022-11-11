@@ -34,7 +34,7 @@
 
 #include <snd/SndGear.hpp>
 
-#include "tracks/kingdom_of_dwarfs.h"
+#include "tracks/dance2.h"
 #include "sfx/win_22050_mono.h"
 
 namespace pnk
@@ -44,8 +44,8 @@ namespace pnk
 
     std::shared_ptr<GameState> GSEndScene::update(dang::Gear &gear, uint32_t time)
     {
-        if (blit::buttons.pressed & (BTN_BACK | BTN_EXIT))
 //        if (blit::buttons.pressed & BTN_OK)
+        if (blit::buttons.pressed & (BTN_BACK | BTN_EXIT))
         {
             return _gs_home;
         }
@@ -69,7 +69,7 @@ namespace pnk
     void GSEndScene::enter(dang::Gear &gear, uint32_t time)
     {
         dang::SndGear::stopMod();
-        dang::SndGear::playMod(kingdom_of_dwarfs_mod, kingdom_of_dwarfs_mod_length, _pnk._prefs.volume_track);
+        dang::SndGear::playMod(dance2_mod, dance2_mod_length, _pnk._prefs.volume_track);
 
         // set up state
         _tmx = &end_scene_level;
@@ -223,6 +223,10 @@ namespace pnk
                     dang::spTwNull tw0 = std::make_shared<dang::TwNull>(s.time);
                     tw0->setFinishedCallback([&](){_slice_pos++;});
                     _sprHero_w_hammer->addTween(tw0);
+
+                    // woohooo!
+                    dang::SndGear::playSfx(win_22050_mono, win_22050_mono_length, _pnk._prefs.volume_sfx);
+                    dang::SndGear::playRumbleTrack(&dang::explosion, 0);
                     break;
                 }
             }

@@ -53,6 +53,7 @@ namespace pnk
         dang::spNTree buildLoiter();
         dang::spNTree buildBerserk();
         dang::spNTree buildLoiterWithSingleCrateH(GSPlay& gsp);
+        dang::spNTree buildLoiterWithSingleBombH(GSPlay& gsp);
         dang::spNTree buildWaitWithCrate(GSPlay& gsp);
         dang::spNTree buildWaitWithBomb(GSPlay& gsp);
         dang::spNTree buildWaitWithBombH(GSPlay& gsp);

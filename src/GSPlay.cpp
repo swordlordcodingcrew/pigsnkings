@@ -200,12 +200,16 @@ namespace pnk
         DEBUG_PRINT("GSPlay: enter exit()\n");
 #endif
         // only happens when dying or when solved the game, reset some params
-        if(_leaveGame)
+        if(_leaveGame || _endScene)
         {
             _pnk._gamestate.saved_room = 0;
+            _pnk._gamestate.saved_level = 1;
             _pnk._gamestate.score = 0;
             _pnk._gamestate.lives = HERO_MAX_LIVES;
             _pnk._gamestate.health = HERO_MAX_HEALTH;
+            _pnk._gamestate.boss_health = BOSS_MAX_HEALTH;
+            _pnk._gamestate.has_cheated = false;
+            _pnk._gamestate.invincible = false;
             _pnk._removed_sprites.clear();
         }
         saveGamestate();
@@ -571,15 +575,21 @@ namespace pnk
 
     void GSPlay::freeCurrentLevel()
     {
-        _spr_hero.reset();
-        _screenplay.reset();
-        _csl.reset();
-        _hives.clear();
         _tmx = nullptr;
+        _screenplay.reset();
+        _spr_hero.reset();
+        _spr_boss.reset();
+        _csl.reset();
+        _txtl.reset();
+        _hives.clear();
+        _vp_pos = {0,0};
+
         _active_room = {0,0,0,0};
         _active_room_index = -1;
         _warp = false;
+        _leaveGame = false;
         _endScene = false;
+
 
         dang::Gear& gear = _pnk.getGear();
 
@@ -730,7 +740,6 @@ namespace pnk
         {
             spCraties crate = SpriteFactory::CrateFromProto(std::static_pointer_cast<Craties>(_hives["crate"]), pe._pos, pe._to_the_left);
 
-            // movement sequence
             // movement sequence
             float velx;
             switch (_pnk._gamestate.saved_level)
@@ -1297,6 +1306,7 @@ namespace pnk
 
     void GSPlay::leaveTheGameCallback(blit::Button btn)
     {
+
         _leaveGame = true;
     }
 
