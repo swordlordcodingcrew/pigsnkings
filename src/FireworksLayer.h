@@ -24,13 +24,14 @@ class FireworksLayer : public dang::Layer
         void initFirework(uint8_t i);
 
         // hack remove me
-        static const uint16_t _height = 100;
-        static const uint16_t _width = 320;
+        static const uint16_t _height = 100; // was the real height, but with gravity this needs to be tested. works best with 100 for now
+        static const uint16_t _width = 320; // real width of screen
 
         static const uint8_t _numof_fireworks = 4;
         static const uint8_t _numof_particles = 50;
         constexpr static const float _rising_height = 0.015; // how high the firework will rise
         static const uint8_t _numof_trails = 3; // number of trails the particles leave behind
+        const dang::Vector2F gravity{0,0.2};				//gravity effecting the particles
 
         struct particle {
             dang::Vector2F  pos;			//position
@@ -49,8 +50,6 @@ class FireworksLayer : public dang::Layer
         };
 
         firework fireworks[_numof_fireworks];	//the array of fireworks !
-        dang::Vector2F gravity;				//gravity effecting the particles
-
     };
 }
 

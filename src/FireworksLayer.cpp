@@ -1,5 +1,5 @@
-// (c) 2019-21 by SwordLord - the coding crew
-// This file is part of the DANG game framework
+// (c) 2019-22 by SwordLord - the coding crew
+// This file is part of the pnk game
 
 #include <iostream>
 #include "Gear.hpp"
@@ -11,12 +11,7 @@ namespace pnk
     FireworksLayer::FireworksLayer() : Layer(E_TYPE::LT_UNDEFINED, {0,0}, 200, "FW", true, true)
     {
         // setup fireworks
-
-        //define the world gravity
-        gravity.x = 0;
-        gravity.y = 0.2;
-
-        //populate fireworks property's
+        // populate fireworks properties
         for (uint8_t i = 0; i < _numof_fireworks; i++)
         {
             initFirework(i);
@@ -136,12 +131,6 @@ namespace pnk
             dest.w = 4;
             dest.h = 4;
 
-            /*
-            std::cout << "fw y: " << fireworks[i].property.pos.y << std::endl;
-            std::cout << "vp y: " << gear.getViewport().y << std::endl;
-            std::cout << "dt y: " << dest.y << std::endl;
-            */
-
             float alpha = fireworks[i].property.alpha;
 
             //draw fireworks if they have not yet exploded
@@ -232,8 +221,6 @@ namespace pnk
         fireworks[i].r = rand() % 155 + 100;
         fireworks[i].g = rand() % 155 + 100;
         fireworks[i].b = rand() % 155 + 100;
-
-        //std::cout << "fw y: " << fireworks[i].property.pos.y << std::endl;
 
         //record of previous positions for each firework
         for (uint8_t k = 0; k < _numof_trails; k++) {
