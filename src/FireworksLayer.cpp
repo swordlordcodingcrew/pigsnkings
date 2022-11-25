@@ -131,14 +131,16 @@ namespace pnk
             blit::Rect dest;
 
             //draw firework
-            dest.x = fireworks[i].property.pos.x + gear.getViewport().x;
-            dest.y = fireworks[i].property.pos.y - gear.getViewport().y;
+            dest.x = fireworks[i].property.pos.x;
+            dest.y = fireworks[i].property.pos.y;
             dest.w = 4;
             dest.h = 4;
 
+            /*
             std::cout << "fw y: " << fireworks[i].property.pos.y << std::endl;
             std::cout << "vp y: " << gear.getViewport().y << std::endl;
             std::cout << "dt y: " << dest.y << std::endl;
+            */
 
             float alpha = fireworks[i].property.alpha;
 
@@ -153,8 +155,8 @@ namespace pnk
             for (uint8_t k = 0; k < _numof_trails; k++)
             {
 
-                dest.x = fireworks[i].property.trail[k].x + gear.getViewport().x;
-                dest.y = fireworks[i].property.trail[k].y - gear.getViewport().y;
+                dest.x = fireworks[i].property.trail[k].x;
+                dest.y = fireworks[i].property.trail[k].y;
                 dest.w = 3;
                 dest.h = 3;
 
@@ -177,8 +179,8 @@ namespace pnk
             //draw particles
             for (uint8_t j = 0; j < _numof_particles; j++)
             {
-                dest.x = fireworks[i].particles[j].pos.x + gear.getViewport().x;
-                dest.y = fireworks[i].particles[j].pos.y - gear.getViewport().y;
+                dest.x = fireworks[i].particles[j].pos.x;
+                dest.y = fireworks[i].particles[j].pos.y;
                 dest.w = 4;
                 dest.h = 4;
 
@@ -193,8 +195,8 @@ namespace pnk
                     //draw particle trails
                     for (uint8_t k = 0; k < _numof_trails; k++)
                     {
-                        dest.x = fireworks[i].particles[j].trail[k].x + gear.getViewport().x;
-                        dest.y = fireworks[i].particles[j].trail[k].y - gear.getViewport().y;
+                        dest.x = fireworks[i].particles[j].trail[k].x;
+                        dest.y = fireworks[i].particles[j].trail[k].y;
                         dest.w = 3;
                         dest.h = 3;
 
@@ -219,17 +221,19 @@ namespace pnk
 
     void FireworksLayer::initFirework(uint8_t i)
     {
-        float vel_scale = _rising_height * height;
+        float vel_scale = _rising_height * _height;
 
         //set up firework properties
-        fireworks[i].property.pos.x = rand() % width;
-        fireworks[i].property.pos.y = height;
+        fireworks[i].property.pos.x = rand() % _width;
+        fireworks[i].property.pos.y = _height;
         fireworks[i].property.vel.x = sinf(rand());
         fireworks[i].property.vel.y = (float) (rand() % 5 + vel_scale)  * -1;
         fireworks[i].property.alpha = 255;
         fireworks[i].r = rand() % 155 + 100;
         fireworks[i].g = rand() % 155 + 100;
         fireworks[i].b = rand() % 155 + 100;
+
+        //std::cout << "fw y: " << fireworks[i].property.pos.y << std::endl;
 
         //record of previous positions for each firework
         for (uint8_t k = 0; k < _numof_trails; k++) {
