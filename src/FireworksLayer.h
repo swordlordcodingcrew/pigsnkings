@@ -24,8 +24,8 @@ class FireworksLayer : public dang::Layer
         void initFirework(uint8_t i);
 
         // hack remove me
-        static const uint8_t height = 200;
-        static const uint8_t width = 250;
+        static const uint8_t height = 240;
+        static const uint8_t width = 320;
 
         static const uint8_t _numof_fireworks = 4;
         static const uint8_t _numof_particles = 50;

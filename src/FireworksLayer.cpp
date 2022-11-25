@@ -131,10 +131,14 @@ namespace pnk
             blit::Rect dest;
 
             //draw firework
-            dest.x = fireworks[i].property.pos.x;
-            dest.y = fireworks[i].property.pos.y;
+            dest.x = fireworks[i].property.pos.x + gear.getViewport().x;
+            dest.y = fireworks[i].property.pos.y - gear.getViewport().y;
             dest.w = 4;
             dest.h = 4;
+
+            std::cout << "fw y: " << fireworks[i].property.pos.y << std::endl;
+            std::cout << "vp y: " << gear.getViewport().y << std::endl;
+            std::cout << "dt y: " << dest.y << std::endl;
 
             float alpha = fireworks[i].property.alpha;
 
@@ -149,8 +153,8 @@ namespace pnk
             for (uint8_t k = 0; k < _numof_trails; k++)
             {
 
-                dest.x = fireworks[i].property.trail[k].x;
-                dest.y = fireworks[i].property.trail[k].y;
+                dest.x = fireworks[i].property.trail[k].x + gear.getViewport().x;
+                dest.y = fireworks[i].property.trail[k].y - gear.getViewport().y;
                 dest.w = 3;
                 dest.h = 3;
 
@@ -173,8 +177,8 @@ namespace pnk
             //draw particles
             for (uint8_t j = 0; j < _numof_particles; j++)
             {
-                dest.x = fireworks[i].particles[j].pos.x;
-                dest.y = fireworks[i].particles[j].pos.y;
+                dest.x = fireworks[i].particles[j].pos.x + gear.getViewport().x;
+                dest.y = fireworks[i].particles[j].pos.y - gear.getViewport().y;
                 dest.w = 4;
                 dest.h = 4;
 
@@ -189,8 +193,8 @@ namespace pnk
                     //draw particle trails
                     for (uint8_t k = 0; k < _numof_trails; k++)
                     {
-                        dest.x = fireworks[i].particles[j].trail[k].x;
-                        dest.y = fireworks[i].particles[j].trail[k].y;
+                        dest.x = fireworks[i].particles[j].trail[k].x + gear.getViewport().x;
+                        dest.y = fireworks[i].particles[j].trail[k].y - gear.getViewport().y;
                         dest.w = 3;
                         dest.h = 3;
 
@@ -220,7 +224,7 @@ namespace pnk
         //set up firework properties
         fireworks[i].property.pos.x = rand() % width;
         fireworks[i].property.pos.y = height;
-        fireworks[i].property.vel.x = sin(rand());
+        fireworks[i].property.vel.x = sinf(rand());
         fireworks[i].property.vel.y = (float) (rand() % 5 + vel_scale)  * -1;
         fireworks[i].property.alpha = 255;
         fireworks[i].r = rand() % 155 + 100;
@@ -243,8 +247,8 @@ namespace pnk
             //set up firework's particle
             fireworks[i].particles[j].pos.x = fireworks[i].property.pos.x;
             fireworks[i].particles[j].pos.y = fireworks[i].property.pos.y;
-            fireworks[i].particles[j].vel.x = sin(angle);	//will explode is a circular fashion
-            fireworks[i].particles[j].vel.y = cos(angle);	//will explode is a circular fashion
+            fireworks[i].particles[j].vel.x = sinf(angle);	//will explode is a circular fashion
+            fireworks[i].particles[j].vel.y = cosf(angle);	//will explode is a circular fashion
             fireworks[i].particles[j].alpha = 255;
             fireworks[i].particles[j].alpha_rate = flip > .8 ? 4 : 6;
 

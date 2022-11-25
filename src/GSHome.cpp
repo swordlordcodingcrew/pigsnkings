@@ -1,4 +1,4 @@
-// (c) 2019-21 by SwordLord - the coding crew
+// (c) 2019-22 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 #include "GSHome.h"
@@ -49,7 +49,7 @@ namespace pnk
     std::shared_ptr<GameState> GSHome::update(dang::Gear &gear, uint32_t time)
     {
         updateCheatKeyStream(blit::buttons.pressed);
-        checkCheatActivation();
+        // checkCheatActivation(); // not used, there are no cheats in home
 
         if (blit::buttons.pressed & BTN_OK)
         {
@@ -210,6 +210,9 @@ namespace pnk
         // make sure to resize the buttons array to the correct size
         _btns.resize(_pnk.ENDOF_SELECTION, {nullptr, nullptr, 0});
 
+        // make sure to have that animation of king chasing piggie set up
+        initTweens();
+
         // create sprites
         for (size_t j = 0; j < sl->tmxLayer()->spriteobejcts_len; j++)
         {
@@ -244,77 +247,25 @@ namespace pnk
             {
                 spr = std::make_shared<dang::FullImgSpr>(so, is);
                 spr->setTransform(blit::SpriteTransform::HORIZONTAL);
+                spr->setAnimation(_animPig);
 
-                // run piggie run
-                dang::spTwAnim anim = std::make_shared<dang::TwAnim>(dang::TwAnim(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1));
-                spr->setAnimation(anim);
+                // piggie starting off-screen to the left
+                spr->setPosX(_startPosPigR.x);
+                spr->addTween(_twpPigR);
 
-                // get a sequence and make sure that it is looping forever
-//                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
-//                tw_seq_anim->loops(-1);
+                _pig = spr;
 
-                // piggie starting off screen to the left
-                spr->setPosX(-32);
-                // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{360, spr->getPosY()};
-
-                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
-                twp->setFinishedCallback([&](){
-//                    playOink();
-                    spr->setPosX(-32);
-                });
-                spr->addTween(twp);
-/*
-                // total duration of 4000
-                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, 0, false);
-                // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-//                twPos->init(spr.get());
-                tw_seq_anim->addTween(twPos);
-
-                dang::spTwNull nullTw = std::make_shared<dang::TwNull>(1000, dang::Ease::Linear, 0);
-                tw_seq_anim->addTween(nullTw);
-
-                spr->addTween(tw_seq_anim);
-*/            }
+            }
             else if (so->name == "hero")
             {
                 spr = std::make_shared<dang::FullImgSpr>(so, is);
+                spr->setAnimation(_animKing);
 
-                // run hero, run
-                dang::spTwAnim anim = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);
-                spr->setAnimation(anim);
+                // hero starting off-screen to the left
+                spr->setPosX(_startPosKingR.x);
+                spr->addTween(_twpKingR);
 
-                // hero starting off screen to the left
-                spr->setPosX(-100);
-                // and moving off screen to the right (on Y set in Tiled)
-                dang::Vector2F  _move_to{340, spr->getPosY()};
-
-                dang::spTwPos twp = std::make_shared<dang::TwPos>(_move_to, 3000, dang::Ease::Linear, -1, false, 1000);
-                twp->setFinishedCallback([&](){
-                    playOink();
-                    spr->setPosX(-100);
-                });
-                spr->addTween(twp);
-
-/*                // get a sequence and make sure that it is looping forever
-                dang::spTwSequence tw_seq_anim = std::make_shared<dang::TwSequence>();
-                tw_seq_anim->loops(-1);
-
-                // total duration of 4000
-                dang::spTwNull pauseBefore = std::make_shared<dang::TwNull>(600, dang::Ease::Linear, 0);
-                tw_seq_anim->addTween(pauseBefore);
-
-                std::shared_ptr<dang::TwPos> twPos = std::make_shared<dang::TwPos>(_move_to, 2600, dang::Ease::Linear, 0, false);
-                // make sure to tell the twPos who is its sprite (to initialise the starting pos) or it will take 0,0 as base...
-//                twPos->init(spr.get());
-                twPos->setFinishedCallback(std::bind(&GSHome::playOink, this));
-                tw_seq_anim->addTween(twPos);
-
-                dang::spTwNull pauseAfter = std::make_shared<dang::TwNull>(800, dang::Ease::Linear, 0);
-                tw_seq_anim->addTween(pauseAfter);
-
-                spr->addTween(tw_seq_anim);
-*/
+                _king = spr;
             }
 
             // and add it to the collection
@@ -343,6 +294,18 @@ namespace pnk
         _btns.clear();
         _sprLeftCandle.reset();
         _sprRightCandle.reset();
+
+        _king.reset();
+        _pig.reset();
+
+        _animKing.reset();
+        _animPig.reset();
+
+        _twpKingL.reset();
+        _twpKingR.reset();
+        _twpPigL.reset();
+        _twpPigR.reset();
+
         _tmx = nullptr;
 
         _pnk.savePrefs();
@@ -357,9 +320,55 @@ namespace pnk
             dang::SndGear::playSfx(pig_squeal_22050, pig_squeal_22050_length, _pnk._prefs.volume_sfx);
         }
     }
-
-    void GSHome::checkCheatActivation()
+    
+    void GSHome::initTweens()
     {
-        // no cheats in the home
+        // animations are always the same, no matter if running left or right.
+        _animPig = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{11, 12, 13, 14, 15, 16}, 600, dang::Ease::Linear, -1);
+        _animKing = std::make_shared<dang::TwAnim>(std::vector<uint16_t>{6, 7, 8, 9, 10, 11}, 600, dang::Ease::Linear, -1);
+
+        // paths for left to right, right to left, for both king and piggie
+        _twpPigR = std::make_shared<dang::TwPos>(_endPosPigR, 3000, dang::Ease::Linear, 0, false, 1000);
+        _twpKingR = std::make_shared<dang::TwPos>(_endPosKingR, 3000, dang::Ease::Linear, 0, false, 1000);
+
+        _twpPigL = std::make_shared<dang::TwPos>(_endPosPigL, 3000, dang::Ease::Linear, 0, false, 1000);
+        _twpKingL = std::make_shared<dang::TwPos>(_endPosKingL, 3000, dang::Ease::Linear, 0, false, 1000);
+
+        // replacing old animation, repositioning sprite and re-adding new tween (after resetting it)
+        // first for the king
+        _twpKingR->setFinishedCallback([&](){
+            playOink();
+            _king->setPosX(_startPosKingL.x);
+            _king->setTransform(blit::SpriteTransform::HORIZONTAL);
+            _twpKingL->reset();
+            _king->removeTweens(true);
+            _king->addTween(_twpKingL);
+        });
+        _twpKingL->setFinishedCallback([&](){
+            playOink();
+            _king->setPosX(_startPosKingR.x);
+            _king->setTransform(blit::SpriteTransform::NONE);
+            _twpKingR->reset();
+            _king->removeTweens(true);
+            _king->addTween(_twpKingR);
+        });
+
+        // and for the pig the same
+        _twpPigR->setFinishedCallback([&](){
+            _pig->setPosX(_startPosPigL.x);
+            _pig->setTransform(blit::SpriteTransform::NONE);
+            _twpPigL->reset();
+            _pig->removeTweens(true);
+            _pig->addTween(_twpPigL);
+
+        });
+        _twpPigL->setFinishedCallback([&](){
+            _pig->setPosX(_startPosPigR.x);
+            _pig->setTransform(blit::SpriteTransform::HORIZONTAL);
+            _twpPigR->reset();
+            _pig->removeTweens(true);
+            _pig->addTween(_twpPigR);
+        });
     }
+
 }

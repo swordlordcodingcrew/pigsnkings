@@ -1,4 +1,4 @@
-// (c) 2019-21 by SwordLord - the coding crew
+// (c) 2019-22 by SwordLord - the coding crew
 // This file is part of the pnk game
 
 #pragma once
@@ -25,7 +25,7 @@ namespace pnk
 
         void positionCandles();
         void playOink();
-        void checkCheatActivation();
+        void initTweens();
 
         /**
          * rsrc for the home state
@@ -52,5 +52,27 @@ namespace pnk
 
         dang::spImgSpr _sprLeftCandle{nullptr};
         dang::spImgSpr _sprRightCandle{nullptr};
+
+        dang::spFullImgSpr _king{nullptr};
+        dang::spFullImgSpr _pig{nullptr};
+
+        // animations for npc
+        dang::spTwAnim _animKing{nullptr};
+        dang::spTwAnim _animPig{nullptr};
+
+        dang::spTwPos _twpKingL{nullptr};
+        dang::spTwPos _twpKingR{nullptr};
+        dang::spTwPos _twpPigL{nullptr};
+        dang::spTwPos _twpPigR{nullptr};
+
+        const dang::Vector2F _endPosPigR{360, 192};
+        const dang::Vector2F _endPosKingR{340, 192};
+        const dang::Vector2F _endPosPigL{-50, 192};
+        const dang::Vector2F _endPosKingL{-32, 192};
+
+        const dang::Vector2F _startPosPigR{-32, 192};
+        const dang::Vector2F _startPosKingR{-100, 192};
+        const dang::Vector2F _startPosPigL{340, 192};
+        const dang::Vector2F _startPosKingL{400, 192};
     };
 }
