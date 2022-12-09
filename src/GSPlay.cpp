@@ -1,7 +1,6 @@
 // (c) 2019-21 by SwordLord - the coding crew
 // This file is part of the pnk game
 
-
 #include "pnk_globals.h"
 #include "pigsnkings.hpp"
 #include "PnkEvent.h"
@@ -19,18 +18,16 @@
 #include "actors/throwies/Bombies.h"
 #include "actors/throwies/Bubble.h"
 #include "actors/throwies/Cannonball.h"
-#include "actors/throwies/Throwies.h"
 #include "actors/throwies/Craties.h"
 #include "actors/others/Moodies.h"
 #include "actors/others/MoodiesThatHurt.h"
 #include "actors/others/LevelTrigger.h"
-#include "actors/others/Cannon.h"
 #include "actors/others/Reward.h"
 
 #include "levels/Level1SP.hpp"
 #include "levels/Level2SP.hpp"
 #include "levels/Level3SP.hpp"
-#include "levels/Level4SP.hpp"
+//#include "levels/Level4SP.hpp"
 
 #include "tracks/kingsofdawn.h"
 
@@ -64,14 +61,13 @@
 #include "rsrc/level_1.tmx.hpp"
 #include "rsrc/level_2.tmx.hpp"
 #include "rsrc/level_3.tmx.hpp"
-#include "rsrc/level_4.tmx.hpp"
+//#include "rsrc/level_4.tmx.hpp"
 #include "rsrc/game_strings.hpp"
 #include "fonts/barcadebrawl.h"
 
 #include <Gear.hpp>
 #include <Imagesheet.hpp>
 #include <snd/SndGear.hpp>
-#include <sprite/ColSpr.hpp>
 #include <sprite/ImgSpr.hpp>
 #include <sprite/FullImgSpr.hpp>
 #include <layer/TileLayer.hpp>
@@ -247,11 +243,11 @@ namespace pnk
                 _screenplay = std::make_shared<Level3SP>(*this);
                 _tmx = &level_3_level;
                 break;
-            case 4:
+/*            case 4:
                 _screenplay = std::make_shared<Level4SP>(*this);
                 _tmx = &level_4_level;
                 break;
-        }
+*/        }
 
         dang::Gear& gear = _pnk.getGear();
 
@@ -557,7 +553,7 @@ namespace pnk
                 case 3:
                     showInfoLayer(true, 10000, str_lvl3_intro);
                     break;
-                case 4:
+/*                case 4:
                 {
                     showInfoLayer(true, 10000, str_lvl4_intro);
                     auto spr = _csl->getSpriteByTypeNum(ST_LEVEL_TRIGGER);
@@ -568,7 +564,7 @@ namespace pnk
                     }
                     break;
                 }
-            }
+*/            }
         }
     }
 
@@ -749,10 +745,10 @@ namespace pnk
                 case 3:
                     velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
                     break;
-                case 4:
+/*                case 4:
                     velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL2 : CRATE_DROP_VEL;
                     break;
-            }
+*/            }
             velx = pe._to_the_left ? -velx : velx;
 //            float velx = pe._type == ETG_NEW_THROWN_CRATE ? CRATE_VEL : CRATE_DROP_VEL;
 //            velx = pe._to_the_left ? -velx : velx;
@@ -777,10 +773,10 @@ namespace pnk
                 case 3:
                     velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL2 : BOMB_DROP_VEL;
                     break;
-                case 4:
+/*                case 4:
                     velx = pe._type == ETG_NEW_THROWN_BOMB ? BOMB_VEL3 : BOMB_DROP_VEL;
                     break;
-            }
+*/            }
             velx = pe._to_the_left ? -velx : velx;
             dang::spTwVel twv1 = std::make_shared<dang::TwVel>(dang::Vector2F(velx, -4), _pnk._gravity, 600, &dang::Ease::InQuad, 1, false, 100);
             bomb->addTween(twv1);
@@ -1039,7 +1035,7 @@ namespace pnk
 
     void GSPlay::changeLevel(int8_t level_nr)
     {
-        if (level_nr == 5)
+        if (level_nr == 4)
         {
             _endScene = true;
             return;
@@ -1048,9 +1044,9 @@ namespace pnk
         {
             level_nr = 1;
         }
-        else if (level_nr > 4)
+        else if (level_nr > 3)
         {
-            level_nr = 4;
+            level_nr = 3;
         }
 
         _pnk.getGear().fade(FADE_COL, FADE_STEP, [=](){
