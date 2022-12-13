@@ -32,7 +32,7 @@ namespace pnk
             _pnk._dispatcher.queueEvent(std::move(e));
 
             // make sure not to hit anymore
-            _consumed = true;
+//            _consumed = true;
             _cr = dang::CR_NONE;
         }
     }

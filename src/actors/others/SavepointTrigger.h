@@ -18,7 +18,7 @@ namespace pnk
         uint8_t  getCollisionResponse(const dang::CollisionObject* other) const override;
 
     protected:
-        bool _consumed{false};
+//        bool _consumed{false};
     };
 
 }
