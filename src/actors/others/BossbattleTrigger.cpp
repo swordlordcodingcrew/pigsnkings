@@ -15,10 +15,12 @@ namespace pnk
 
     BossbattleTrigger::BossbattleTrigger() : dang::ColSpr()
     {
+        _cr = dang::CR_CROSS;
     }
 
     BossbattleTrigger::BossbattleTrigger(const dang::tmx_spriteobject* so) : dang::ColSpr(so)
     {
+        _cr = dang::CR_CROSS;
     }
 
     void BossbattleTrigger::collide(const dang::manifold &mf)
@@ -31,7 +33,8 @@ namespace pnk
             _pnk._dispatcher.queueEvent(std::move(e));
 
             // make sure not to hit anymore
-            _hotrect = {0,0,0,0};
+            _cr = dang::CR_NONE;
+//            _hotrect = {0,0,0,0};
         }
     }
 
@@ -40,7 +43,7 @@ namespace pnk
         const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
         if (cs_other->typeNum() == ST_KING)
         {
-            return dang::CR_CROSS;
+            return _cr;
         }
         return dang::CR_NONE;
     }

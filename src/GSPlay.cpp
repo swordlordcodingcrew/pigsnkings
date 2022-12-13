@@ -85,6 +85,7 @@
 #include <cassert>
 #include <memory>
 #include <iostream>
+#include <src/actors/others/BossbattleTrigger.h>
 
 
 #ifdef TARGET_32BLIT_HW
@@ -619,28 +620,6 @@ namespace pnk
         {
             std::printf("depracated: ETG_REMOVE_SPRITE. Use markRemove() instead\n");
             throw;
-/*            std::shared_ptr<dang::Sprite> spr = pe._spr.lock();
-            if (spr != nullptr)
-            {
-                std::cout << "depracated: ETG_REMOVE_SPRITE with sprite id=" << spr->_id << ". Use markRemove() instead" << std::endl;
-                spr->markRemove();
-
-                if ((spr->_type_num > ST_ENEMIES && spr->_type_num < ST_ENEMIES_END) ||
-                    (spr->_type_num > ST_REWARDS && spr->_type_num < ST_REWARDS_END))
-                {
-                    _pnk._removed_sprites.push_front(spr->_id);
-                }
-#ifdef PNK_DEBUG_COMMON
-                DEBUG_PRINT("GSPlay: remove sprite from layer\n");
-#endif
-            }
-            else
-            {
-#ifdef PNK_DEBUG_COMMON
-                DEBUG_PRINT("GSPlay: CAUTION: attempted to remove sprite with shared_ptr = nullptr\n");
-#endif
-            }
-            */
         }
         else if (pe._type == ETG_NEW_THROWN_CRATE
                 || pe._type == ETG_NEW_THROWN_BOMB
@@ -674,6 +653,13 @@ namespace pnk
             if (hudl != nullptr)
             {
                 hudl->deactivateBossHUD();
+            }
+
+            // reactive bossbattletrigger
+            std::shared_ptr<BossbattleTrigger> bbt = std::static_pointer_cast<BossbattleTrigger>(_csl->getSpriteByTypeNum(ST_BOSS_BATTLE_TRIGGER));
+            if (bbt != nullptr)
+            {
+                bbt->restoreTrigger();
             }
 
             // reset health
@@ -890,8 +876,7 @@ namespace pnk
         }
         else
         {
-            // this is done in the event-handling function (after the life-lost-animation)
-//            _pnk._gamestate.health = HERO_MAX_HEALTH;
+            // restoring level is done in the event-handling function (after the life-lost-animation)
 
             // life lost sequence of hero
             _spr_hero->lifeLost();
