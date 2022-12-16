@@ -24,32 +24,32 @@ class FireworksLayer : public dang::Layer
         void initFirework(uint8_t i);
 
         // hack remove me
-        static const uint16_t _height = 100; // was the real height, but with gravity this needs to be tested. works best with 100 for now
-        static const uint16_t _width = 320; // real width of screen
+        static const uint16_t _height = 100;    // was the real height, but with gravity this needs to be tested. works best with 100 for now
+        static const uint16_t _width = 320;     // real width of screen
 
-        static const uint8_t _numof_fireworks = 4;
-        static const uint8_t _numof_particles = 50;
-        constexpr static const float _rising_height = 0.015; // how high the firework will rise
-        static const uint8_t _numof_trails = 3; // number of trails the particles leave behind
-        const dang::Vector2F gravity{0,0.2};				//gravity effecting the particles
+        static const uint8_t _numof_rockets = 4;                // number of rockets in the air at any given moment
+        static const uint8_t _numof_particles = 50;             // how many particles to spread
+        constexpr static const float _rising_height = 0.015;    // how high the firework will rise
+        static const uint8_t _numof_tail_elements = 3;          // number of elements which together build a tail
+        const dang::Vector2F gravity{0,0.2};			//gravity effecting the particles
 
         struct particle {
-            dang::Vector2F  pos;			//position
-            dang::Vector2F  vel;			//velocity
-            dang::Vector2I  trail[_numof_trails];	//array of previous positions
-            float alpha;					//currrent alpha value
-            float alpha_rate;				//rate at which the alpha drops per frame
+            dang::Vector2F  pos;			            // position
+            dang::Vector2F  vel;			            // velocity
+            dang::Vector2I  tail[_numof_tail_elements];	// array of previous positions
+            float alpha;					            // currrent alpha value of this particle
+            float alpha_rate;				            // rate at which the alpha drops per frame (fade out time)
         };
 
         struct firework {
-            particle property;				//contains fireworks position,vel and accel property's
-            particle particles[_numof_particles];	//particles firework will explode into
-            uint8_t r;								//firework colour
+            particle property;				        // contains rocket position, vel and accel properties
+            particle particles[_numof_particles];	// particles rocket will explode into
+            uint8_t r;								// rocket colour
             uint8_t g;
             uint8_t b;
         };
 
-        firework fireworks[_numof_fireworks];	//the array of fireworks !
+        firework fireworks[_numof_rockets];	// the array of rockets for one firework
     };
 }
 
