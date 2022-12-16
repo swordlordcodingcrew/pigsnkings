@@ -349,12 +349,12 @@ namespace pnk
                 {
                     // the waypoint is higher than the hero
 //                    v.y = -15 - (0.4f * _walkSpeed);
-                    v.y = (wp->_pos.y - hrc.y)/2 - (0.4f * _walkSpeed);
+                    v.y = (wp->_pos.y - hrc.y)/2 - (0.3f * _walkSpeed);
                 }
                 else
                 {
                     // equal or lower
-                    v.y = -5 + (0.4f * _walkSpeed);
+                    v.y = -5 + (0.3f * _walkSpeed);
                 }
 
                 if ((wp->_pos.x - hrc.x) * (wp->_pos.x - hrc.x) > 1600)  // long horizontal distance

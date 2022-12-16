@@ -244,7 +244,7 @@ namespace pnk
         _anim_m_loitering->duration(_loiter_anim_duration / 2);
 
         // activate the behaviour tree, if not already active
-        resetPathVars();
+//        resetPathVars();
         if (_nTreeState != _nTreeStateBerserk)
         {
             _nTreeState = _nTreeStateBerserk;
@@ -267,7 +267,7 @@ namespace pnk
         _anim_m_loitering->duration(_loiter_anim_duration);
         _nTreeState.reset();
         _nTreeStateBerserk->clearState();
-        resetPathVars();
+//        resetPathVars();
         prepareChangeState(LOITERING);
     }
 
