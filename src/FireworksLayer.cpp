@@ -10,10 +10,10 @@ namespace pnk
 {
     FireworksLayer::FireworksLayer() : Layer(E_TYPE::LT_UNDEFINED, {0,0}, 200, "FW", true, true)
     {
-        // setup fireworks
-        // populate fireworks properties
-        for (uint8_t i = 0; i < _numof_fireworks; i++)
+        // setup firework data structure
+        for (uint8_t i = 0; i < _numof_rockets; i++)
         {
+            // populate fireworks properties
             initFirework(i);
         }
     }
@@ -24,49 +24,49 @@ namespace pnk
 
     void FireworksLayer::update(uint32_t dt, const dang::Gear &gear)
     {
-        for (uint8_t i = 0; i < _numof_fireworks; i++)
+        for (uint8_t fw = 0; fw < _numof_rockets; fw++)
         {
-            //fireworks has reached its peak
-            if (fireworks[i].property.vel.y >= 0)
+            // rocket has reached its peak
+            if (fireworks[fw].property.vel.y >= 0)
             {
-                fireworks[i].property.alpha = 0;
+                fireworks[fw].property.alpha = 0;
 
-                //calculate particle physics
+                // calculate particle physics
                 for (uint8_t j = 0; j < _numof_particles; j++)
                 {
-                    if (fireworks[i].particles[j].alpha >= fireworks[i].particles[j].alpha_rate)
+                    if (fireworks[fw].particles[j].alpha >= fireworks[fw].particles[j].alpha_rate)
                     {
-                        fireworks[i].particles[j].alpha -= fireworks[i].particles[j].alpha_rate;
-                        //particles have faded away
+                        fireworks[fw].particles[j].alpha -= fireworks[fw].particles[j].alpha_rate;
                     }
                     else
                     {
-                        fireworks[i].particles[j].alpha = 0;
+                        // particles have faded away
+                        fireworks[fw].particles[j].alpha = 0;
                     }
 
-                    //save particle previous position
-                    float prev_pos_x = fireworks[i].particles[j].pos.x;
-                    float prev_pos_y = fireworks[i].particles[j].pos.y;
+                    float prev_pos_x = fireworks[fw].particles[j].pos.x;
+                    float prev_pos_y = fireworks[fw].particles[j].pos.y;
 
-                    //change position based on velocity
-                    fireworks[i].particles[j].pos.add(fireworks[i].particles[j].vel);
+                    // change position based on velocity
+                    fireworks[fw].particles[j].pos.add(fireworks[fw].particles[j].vel);
 
-                    //change velocity based on acceleration
-                    fireworks[i].particles[j].vel.add(gravity);
+                    // change velocity based on acceleration
+                    fireworks[fw].particles[j].vel.add(gravity);
 
-                    //slow down particle after ever frame
-                    fireworks[i].particles[j].vel.multiply(0.97);
+                    // slow down particle after ever frame
+                    fireworks[fw].particles[j].vel.multiply(0.97);
 
-                    //keep track the fireworks particles previous positions
-                    for (uint8_t k = 0; k < _numof_trails; k++)
+                    // keep track of the rocket particles previous positions
+                    for (uint8_t k = 0; k < _numof_tail_elements; k++)
                     {
-                        //store current cell position in a temp variable
-                        float temp_x = fireworks[i].particles[j].trail[k].x;
-                        float temp_y = fireworks[i].particles[j].trail[k].y;
+                        // store current cell position in a temp variable
+                        // to be pushed to the tail
+                        float temp_x = fireworks[fw].particles[j].tail[k].x;
+                        float temp_y = fireworks[fw].particles[j].tail[k].y;
 
                         //update current cell with the last known prev position
-                        fireworks[i].particles[j].trail[k].x = prev_pos_x;
-                        fireworks[i].particles[j].trail[k].y = prev_pos_y;
+                        fireworks[fw].particles[j].tail[k].x = prev_pos_x;
+                        fireworks[fw].particles[j].tail[k].y = prev_pos_y;
 
                         //update the prev position for the next iteration of the loop
                         prev_pos_x = temp_x;
@@ -74,43 +74,43 @@ namespace pnk
                     }
                 }
 
-                //particle 0 always has the shortest alpha_rate. so is alpha is 0, the all particles have a 0 alpha. so reset the firework.
-                if (fireworks[i].particles[0].alpha == 0)
+                // particle 0 always has the shortest alpha_rate. so id alpha of particle 0 is 0, then all particles have an alpha == 0
+                // which means: reset the rocket.
+                if (fireworks[fw].particles[0].alpha == 0)
                 {
-                    initFirework(i);
+                    initFirework(fw);
                 }
             }
             else
             {
-                //save fireworks previous position
-                float prev_pos_x = fireworks[i].property.pos.x;
-                float prev_pos_y = fireworks[i].property.pos.y;
+                // save the rockets previous position
+                float prev_pos_x = fireworks[fw].property.pos.x;
+                float prev_pos_y = fireworks[fw].property.pos.y;
 
-                //change position based on velocity
-                fireworks[i].property.pos.add(fireworks[i].property.vel);
+                // change position based on velocity
+                fireworks[fw].property.pos.add(fireworks[fw].property.vel);
 
-                //change velocity based on acceleration
-                fireworks[i].property.vel.add(gravity);
+                // change velocity based on acceleration
+                fireworks[fw].property.vel.add(gravity);
 
-                //make all particle follow the fire work
+                // make all particles follow the rocket
                 for (uint8_t j = 0; j < _numof_particles; j++)
                 {
-                    fireworks[i].particles[j].pos.x = fireworks[i].property.pos.x;
-                    fireworks[i].particles[j].pos.y = fireworks[i].property.pos.y;
+                    fireworks[fw].particles[j].pos.x = fireworks[fw].property.pos.x;
+                    fireworks[fw].particles[j].pos.y = fireworks[fw].property.pos.y;
                 }
 
-                //keep track of fireworks previous positions
-                for (uint8_t k = 0; k < _numof_trails; k++)
+                // keep track of rockets previous positions
+                for (uint8_t k = 0; k < _numof_tail_elements; k++)
                 {
-                    //store current cell position in a temp variable
-                    float temp_x = fireworks[i].property.trail[k].x;
-                    float temp_y = fireworks[i].property.trail[k].y;
+                    float temp_x = fireworks[fw].property.tail[k].x;
+                    float temp_y = fireworks[fw].property.tail[k].y;
 
-                    //update current cell with the last known prev position
-                    fireworks[i].property.trail[k].x = prev_pos_x;
-                    fireworks[i].property.trail[k].y = prev_pos_y;
+                    // update current cell with the last known prev position
+                    fireworks[fw].property.tail[k].x = prev_pos_x;
+                    fireworks[fw].property.tail[k].y = prev_pos_y;
 
-                    //update the prev position for the next iteration of the loop
+                    // update the prev position for the next iteration of the loop
                     prev_pos_x = temp_x;
                     prev_pos_y = temp_y;
                 }
@@ -120,37 +120,37 @@ namespace pnk
 
     void FireworksLayer::render(const dang::Gear& gear)
     {
-        //draw the fireworks
-        for (uint8_t i = 0; i < _numof_fireworks; i++)
+        // draw the firework / rockets
+        for (uint8_t fw = 0; fw < _numof_rockets; fw++)
         {
             blit::Rect dest;
 
-            //draw firework
-            dest.x = fireworks[i].property.pos.x;
-            dest.y = fireworks[i].property.pos.y;
+            // draw rocket
+            dest.x = fireworks[fw].property.pos.x;
+            dest.y = fireworks[fw].property.pos.y;
             dest.w = 4;
             dest.h = 4;
 
-            float alpha = fireworks[i].property.alpha;
+            float alpha = fireworks[fw].property.alpha;
 
-            //draw fireworks if they have not yet exploded
+            // draw rocket if it has not yet exploded
             if (alpha)
             {
-                blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)alpha);
+                blit::screen.pen = blit::Pen(fireworks[fw].r, fireworks[fw].g, fireworks[fw].b, (int)alpha);
                 blit::screen.rectangle(dest);
             }
 
-            //draw firework trails
-            for (uint8_t k = 0; k < _numof_trails; k++)
+            // draw rockets trail
+            for (uint8_t k = 0; k < _numof_tail_elements; k++)
             {
 
-                dest.x = fireworks[i].property.trail[k].x;
-                dest.y = fireworks[i].property.trail[k].y;
+                dest.x = fireworks[fw].property.tail[k].x;
+                dest.y = fireworks[fw].property.tail[k].y;
                 dest.w = 3;
                 dest.h = 3;
 
-                //change size of each trail
-                float size = (float) k / _numof_trails;
+                // change size of each tail
+                float size = (float) k / _numof_tail_elements;
                 size *= 3;
 
                 if (size >= 1)
@@ -161,36 +161,36 @@ namespace pnk
                 }
 
                 // TODO calculate alpha
-                blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)alpha);
+                blit::screen.pen = blit::Pen(fireworks[fw].r, fireworks[fw].g, fireworks[fw].b, (int)alpha);
                 blit::screen.rectangle(dest);
             }
 
-            //draw particles
+            // draw particles
             for (uint8_t j = 0; j < _numof_particles; j++)
             {
-                dest.x = fireworks[i].particles[j].pos.x;
-                dest.y = fireworks[i].particles[j].pos.y;
+                dest.x = fireworks[fw].particles[j].pos.x;
+                dest.y = fireworks[fw].particles[j].pos.y;
                 dest.w = 4;
                 dest.h = 4;
 
-                //draw particles if the firework has exploded and has no alpha
+                // draw particles if the firework has exploded (==has no alpha)
                 if (!alpha)
                 {
 
                     // TODO calculate alpha
-                    blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)fireworks[i].particles[j].alpha);
+                    blit::screen.pen = blit::Pen(fireworks[fw].r, fireworks[fw].g, fireworks[fw].b, (int)fireworks[fw].particles[j].alpha);
                     blit::screen.rectangle(dest);
 
-                    //draw particle trails
-                    for (uint8_t k = 0; k < _numof_trails; k++)
+                    // draw particle tails
+                    for (uint8_t k = 0; k < _numof_tail_elements; k++)
                     {
-                        dest.x = fireworks[i].particles[j].trail[k].x;
-                        dest.y = fireworks[i].particles[j].trail[k].y;
+                        dest.x = fireworks[fw].particles[j].tail[k].x;
+                        dest.y = fireworks[fw].particles[j].tail[k].y;
                         dest.w = 3;
                         dest.h = 3;
 
-                        //change size of each trail
-                        float size = (float) k / _numof_trails;
+                        // change size of each tail
+                        float size = (float) k / _numof_tail_elements;
                         size *= 3;
 
                         if (size >= 1)
@@ -200,7 +200,7 @@ namespace pnk
                         }
 
                         // TODO calculate alpha
-                        blit::screen.pen = blit::Pen(fireworks[i].r, fireworks[i].g, fireworks[i].b, (int)fireworks[i].particles[j].alpha);
+                        blit::screen.pen = blit::Pen(fireworks[fw].r, fireworks[fw].g, fireworks[fw].b, (int)fireworks[fw].particles[j].alpha);
                         blit::screen.rectangle(dest);
                     }
                 }
@@ -212,7 +212,7 @@ namespace pnk
     {
         float vel_scale = _rising_height * _height;
 
-        //set up firework properties
+        // initialise / set up firework properties
         fireworks[i].property.pos.x = rand() % _width;
         fireworks[i].property.pos.y = _height;
         fireworks[i].property.vel.x = sinf(rand());
@@ -222,11 +222,11 @@ namespace pnk
         fireworks[i].g = rand() % 155 + 100;
         fireworks[i].b = rand() % 155 + 100;
 
-        //record of previous positions for each firework
-        for (uint8_t k = 0; k < _numof_trails; k++) {
+        // move tail according new position of rocket
+        for (uint8_t k = 0; k < _numof_tail_elements; k++) {
 
-            fireworks[i].property.trail[k].x = fireworks[i].property.pos.x;
-            fireworks[i].property.trail[k].y = fireworks[i].property.pos.y;
+            fireworks[i].property.tail[k].x = fireworks[i].property.pos.x;
+            fireworks[i].property.tail[k].y = fireworks[i].property.pos.y;
         }
 
         for (uint8_t j = 0; j < _numof_particles; j++) {
@@ -235,27 +235,26 @@ namespace pnk
             float vel = (float) rand() / RAND_MAX * 5; //random velocity for explosion
             float flip = (float) rand() / RAND_MAX;
 
-            //set up firework's particle
+            // set up rockets particles
             fireworks[i].particles[j].pos.x = fireworks[i].property.pos.x;
             fireworks[i].particles[j].pos.y = fireworks[i].property.pos.y;
             fireworks[i].particles[j].vel.x = sinf(angle);	//will explode is a circular fashion
             fireworks[i].particles[j].vel.y = cosf(angle);	//will explode is a circular fashion
             fireworks[i].particles[j].alpha = 255;
-            fireworks[i].particles[j].alpha_rate = flip > .8 ? 4 : 6;
+            fireworks[i].particles[j].alpha_rate = static_cast<double>(flip) > .8 ? 4 : 6;
 
-            fireworks[i].particles[j].vel.multiply(vel); //change to a random velocity, so it will not explode in a perfect circle
+            fireworks[i].particles[j].vel.multiply(vel);    //change to a random velocity, so it will not explode in a perfect circle
 
-            //record of previous positions for each particle
-            for (uint8_t k = 0; k < _numof_trails; k++)
+            // adjust tail based on current position
+            for (uint8_t k = 0; k < _numof_tail_elements; k++)
             {
-                fireworks[i].particles[j].trail[k].x = fireworks[i].property.pos.x;
-                fireworks[i].particles[j].trail[k].y = fireworks[i].property.pos.y;
+                fireworks[i].particles[j].tail[k].x = fireworks[i].property.pos.x;
+                fireworks[i].particles[j].tail[k].y = fireworks[i].property.pos.y;
             }
         }
 
-        //always give the first particle the shortest alpha rate to determine when all other particles have faded out.
+        // always give the particle 0 the smallest alpha rate to determine when all other particles have faded out.
         fireworks[i].particles[0].alpha_rate = 4;
     }
-
 }
 // EOF
