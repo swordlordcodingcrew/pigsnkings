@@ -37,10 +37,13 @@ namespace pnk
         {
             setNTreeState(nts);
             _nTreeStateDefault = _nTreeState;
-            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
+//            _nTreeState->_payload["sleep_duration"] = dang::Rand::get(uint32_t(500), uint32_t(1500));
         }
 
-        onEnterSleeping();
+        // set some animation
+        assert(_anim_m_sleeping != nullptr);
+        setAnimation(_anim_m_sleeping);
+//        onEnterSleeping();
 
 //        setVel({0, 0});
     }
@@ -81,27 +84,35 @@ namespace pnk
             switch (_nextState)
             {
                 case SLEEPING:
+//                    std::printf("change state to sleeping\n");
                     onEnterSleeping();
                     break;
                 case HIDING:
+//                    std::printf("change state to hiding\n");
                     onEnterHiding();
                     break;
                 case LOITERING:
+//                    std::printf("change state to loitering\n");
                     onEnterLoitering();
                     break;
                 case BERSERK:
+//                    std::printf("change state to berserk\n");
                     onEnterBerserk();
                     break;
                 case THROWING:
+//                    std::printf("change state to throwing\n");
                     onEnterThrowing();
                     break;
                 case PICKING_UP:
+//                    std::printf("change state to picking up\n");
                     onEnterPickingUp();
                     break;
                 case BUBBLED:
+//                    std::printf("change state to bubbled\n");
                     onEnterBubbled();
                     break;
                 case REMOVE_SELF:
+//                    std::printf("change state to remove self\n");
                     removeSelf();
                     break;
             }
@@ -399,5 +410,6 @@ namespace pnk
 
         return dang::BTNode::Status::SUCCESS;
     }
+
 
 }

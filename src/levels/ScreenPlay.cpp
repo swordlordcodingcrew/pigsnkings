@@ -215,7 +215,7 @@ namespace pnk
                         .end()
                     .end()
                 .end()
-                .tree(_bt["loiter"])
+                .tree(buildLoiter())
             .end()
         .build();
     }
@@ -246,7 +246,7 @@ namespace pnk
                         .end()
                     .end()
                 .end()
-                .tree(_bt["loiter"])
+                .tree(buildLoiter())
             .end()
         .build();
     }

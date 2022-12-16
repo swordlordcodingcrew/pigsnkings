@@ -21,7 +21,8 @@ namespace pnk
 
     enum e_state
     {
-        SLEEPING = 0,
+        UNDEFINED = 0,
+        SLEEPING,
         HIDING,
         LOITERING,
         BERSERK,

@@ -33,11 +33,11 @@ namespace pnk
 #endif
     }
 
-    void PigCrate::update(uint32_t dt)
+/*    void PigCrate::update(uint32_t dt)
     {
         this->HenchPig::update(dt);
     }
-
+*/
     bool PigCrate::onEnterThrowing()
     {
         assert(_anim_m_throwing != nullptr);
@@ -55,7 +55,7 @@ namespace pnk
 
         // change the anims from crate-carrying to empty-handed
         _currentState = THROWING;
-        _crated = false;
+/*        _crated = false;
         dang::spTwAnim tmp_anim = _anim_m_loitering;
         _anim_m_loitering = _anim_alt_loitering;
         _anim_alt_loitering = tmp_anim;
@@ -63,7 +63,7 @@ namespace pnk
         tmp_anim = _anim_m_sleeping;
         _anim_m_sleeping = _anim_alt_sleeping;
         _anim_alt_sleeping = tmp_anim;
-
+*/
 
         dang::spTwSequence tws = std::make_shared<dang::TwSequence>();
         dang::spTwNull twPrepare = std::make_shared<dang::TwNull>(300, dang::Ease::Linear, 0);
@@ -104,6 +104,15 @@ namespace pnk
 
     void PigCrate::endThrowing()
     {
+        _crated = false;
+        dang::spTwAnim tmp_anim = _anim_m_loitering;
+        _anim_m_loitering = _anim_alt_loitering;
+        _anim_alt_loitering = tmp_anim;
+
+        tmp_anim = _anim_m_sleeping;
+        _anim_m_sleeping = _anim_alt_sleeping;
+        _anim_alt_sleeping = tmp_anim;
+
         if (_nTreeStateDefault == nullptr)
         {
             prepareChangeState(SLEEPING);

@@ -54,8 +54,8 @@ namespace pnk
         virtual void tellTheKingWeHitHim();
 
         // the state the pig is in
-        uint8_t _currentState{SLEEPING};
-        uint8_t _nextState{SLEEPING};
+        uint8_t _currentState{UNDEFINED};
+        uint8_t _nextState{UNDEFINED};
 
         // trying to change state, returns true if successful
         virtual void prepareChangeState(e_state wishedState);

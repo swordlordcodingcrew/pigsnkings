@@ -14,7 +14,7 @@ namespace pnk
         PigCrate(const dang::tmx_spriteobject* so, dang::spImagesheet& is);
         ~PigCrate() override;
 
-        void update(uint32_t dt) override;
+//        void update(uint32_t dt) override;
 
         /** path and bt functions */
         static dang::BTNode::Status NTPickUpCrate(dang::FullColSpr& s, uint32_t dt);

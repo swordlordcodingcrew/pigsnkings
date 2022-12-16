@@ -53,6 +53,8 @@ namespace pnk
         removeAnimation();
         dang::spTwSequence twAnimSeq = std::make_shared<dang::TwSequence>();
         _anim_m_picking_up->reset();
+        _anim_m_throwing->reset();
+//        _anim_m_picking_up->setFinishedCallback([](){printf("picking up finished\n");});
         twAnimSeq->addTween(_anim_m_picking_up);
         twAnimSeq->addTween(_anim_m_throwing);
         setAnimation(twAnimSeq);
@@ -69,7 +71,7 @@ namespace pnk
 
         // change the anims from bomb-carrying to empty-handed
         _currentState = THROWING;
-        _with_bomb = false;
+/*        _with_bomb = false;
         dang::spTwAnim tmp_anim = _anim_m_loitering;
         _anim_m_loitering = _anim_alt_loitering;
         _anim_alt_loitering = tmp_anim;
@@ -77,7 +79,7 @@ namespace pnk
         tmp_anim = _anim_m_sleeping;
         _anim_m_sleeping = _anim_alt_sleeping;
         _anim_alt_sleeping = tmp_anim;
-
+*/
 
         return true;
     }
@@ -107,6 +109,16 @@ namespace pnk
 
     void PigBomb::endThrowing()
     {
+        // change the anims from bomb-carrying to empty-handed
+        _with_bomb = false;
+        dang::spTwAnim tmp_anim = _anim_m_loitering;
+        _anim_m_loitering = _anim_alt_loitering;
+        _anim_alt_loitering = tmp_anim;
+
+        tmp_anim = _anim_m_sleeping;
+        _anim_m_sleeping = _anim_alt_sleeping;
+        _anim_alt_sleeping = tmp_anim;
+
         if (_nTreeStateDefault == nullptr)
         {
             prepareChangeState(SLEEPING);
@@ -189,7 +201,11 @@ namespace pnk
             spr.prepareChangeState(THROWING);
             return dang::BTNode::Status::RUNNING;
         }
-        else if (spr._currentState == THROWING && spr._nextState == THROWING)
+/*        else if (spr._nextState == THROWING)
+        {
+            return dang::BTNode::Status::RUNNING;
+        }
+*/        else if (spr._currentState == THROWING && spr._nextState == THROWING)
         {
             return dang::BTNode::Status::RUNNING;
         }
