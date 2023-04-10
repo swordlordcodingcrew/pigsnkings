@@ -24,19 +24,19 @@ namespace pnk
 
 
         _bt["boss"] = dang::NTBuilder{}
-                .selector()
+            .selector()
                 .sequence()
-                .leaf(PigBoss::NTHit)
-                .leaf(PigBoss::NTRecover)
+                    .leaf(PigBoss::NTHit)
+                    .leaf(PigBoss::NTRecover)
                 .end()
                 .sequence()
-                .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
-                .leaf(PigBoss::NTRun)
-                .leaf(Enemy::NTcheckPathCompleted)
-                .leaf(PigBoss::NTLurk)
+                    .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
+                    .leaf(PigBoss::NTRunToPOI)
+                    .leaf(Enemy::NTcheckPathCompleted)
+                    .leaf(PigBoss::NTLurk)
                 .end()
-                .end()
-                .build();
+            .end()
+        .build();
 
     }
 }
