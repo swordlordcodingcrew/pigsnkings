@@ -59,7 +59,8 @@
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
-#include "rsrc/level_2.tmx.hpp"
+//#include "rsrc/level_2.tmx.hpp"
+#include "rsrc/level_2_alt.tmx.hpp"
 #include "rsrc/level_3.tmx.hpp"
 //#include "rsrc/level_4.tmx.hpp"
 #include "rsrc/game_strings.hpp"
@@ -238,7 +239,7 @@ namespace pnk
                 break;
             case 2:
                 _screenplay = std::make_shared<Level2SP>(*this);
-                _tmx = &level_2_level;
+                _tmx = &level_2_alt_level;
                 break;
             case 3:
                 _screenplay = std::make_shared<Level3SP>(*this);
@@ -599,6 +600,7 @@ namespace pnk
     void GSPlay::gameEventReceived(dang::Event &e)
     {
         PnkEvent& pe = static_cast<PnkEvent&>(e);
+
         if (pe._type == ETG_NEW_BUBBLE)
         {
             spBubble bub_proto = std::static_pointer_cast<Bubble>(_hives["bubble"]);
@@ -823,6 +825,8 @@ namespace pnk
             return;
         }
 
+        printf("GSPlay: handleKingHealth. Hero hit health before=%i\n", (uint32_t) _pnk._gamestate.health);
+
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
 
@@ -838,6 +842,8 @@ namespace pnk
             case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
             case ST_PIG_BOSS:           health -= DAMAGE_FROM_PIGBOSS;           break;
         }
+
+        printf("GSPlay: handleKingHealth new health would be =%i\n", (uint32_t) health);
 
         if (health <= 0)
         {
@@ -855,10 +861,13 @@ namespace pnk
 #endif
         }
         _pnk._gamestate.health = health;
+
+        printf("GSPlay: handleKingHealth new health is =%i\n", (uint32_t) _pnk._gamestate.health);
     }
 
     void GSPlay::handleKingLoosesLife()
     {
+        printf("GSPlay: handleKingLoosesLife, lives before=%i\n", _pnk._gamestate.lives);
         _pnk._gamestate.lives -= 1;
 #ifdef PNK_DEBUG_COMMON
         DEBUG_PRINT("GSPlay: handleKingLoosesLife, lives=%i\n", _pnk._gamestate.lives);
@@ -1130,11 +1139,11 @@ namespace pnk
     {
         // activate boss
         _pnk._gamestate.boss_health = BOSS_MAX_HEALTH;
-        if(_spr_boss != nullptr)
+/*        if(_spr_boss != nullptr)
         {
 
         }
-
+*/
         // change tune?
 
         // activate boss health display in the hud
