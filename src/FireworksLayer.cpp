@@ -241,7 +241,7 @@ namespace pnk
             fireworks[i].particles[j].vel.x = sinf(angle);	//will explode is a circular fashion
             fireworks[i].particles[j].vel.y = cosf(angle);	//will explode is a circular fashion
             fireworks[i].particles[j].alpha = 255;
-            fireworks[i].particles[j].alpha_rate = static_cast<double>(flip) > .8 ? 4 : 6;
+            fireworks[i].particles[j].alpha_rate = static_cast<double>(flip) > double(.8) ? 4 : 6;
 
             fireworks[i].particles[j].vel.multiply(vel);    //change to a random velocity, so it will not explode in a perfect circle
 

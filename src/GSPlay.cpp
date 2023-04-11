@@ -825,7 +825,7 @@ namespace pnk
             return;
         }
 
-        printf("GSPlay: handleKingHealth. Hero hit health before=%i\n", (uint32_t) _pnk._gamestate.health);
+        printf("GSPlay: handleKingHealth. Hero hit health before=%u\n", (uint16_t) _pnk._gamestate.health);
 
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
@@ -843,7 +843,7 @@ namespace pnk
             case ST_PIG_BOSS:           health -= DAMAGE_FROM_PIGBOSS;           break;
         }
 
-        printf("GSPlay: handleKingHealth new health would be =%i\n", (uint32_t) health);
+        printf("GSPlay: handleKingHealth new health would be =%u\n", (uint16_t) health);
 
         if (health <= 0)
         {
@@ -862,7 +862,7 @@ namespace pnk
         }
         _pnk._gamestate.health = health;
 
-        printf("GSPlay: handleKingHealth new health is =%i\n", (uint32_t) _pnk._gamestate.health);
+        printf("GSPlay: handleKingHealth new health is =%u\n", (uint16_t) _pnk._gamestate.health);
     }
 
     void GSPlay::handleKingLoosesLife()
