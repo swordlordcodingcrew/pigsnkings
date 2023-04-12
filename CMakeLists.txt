@@ -21,18 +21,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #add_definitions(-DPNK_LF_LEVEL_DEBUG)
 
 
-if (CMAKE_BUILD_TYPE MATCHES Debug)
-    add_definitions(-DDEBUG=1)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
-elseif (CMAKE_BUILD_TYPE MATCHES Release)
-    add_definitions(-DRELEASE=1)
+#if (CMAKE_BUILD_TYPE MATCHES Debug)
+#    add_definitions(-DDEBUG=1)
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
+#elseif (CMAKE_BUILD_TYPE MATCHES Release)
+#    add_definitions(-DRELEASE=1)
     # remove assert statements
-    add_definitions(-DNDEBUG)
-elseif (CMAKE_BUILD_TYPE MATCHES 32blit_HW)
-    add_definitions(-DTARGET_32BLIT_HW=1)
+#    add_definitions(-DNDEBUG)
+#elseif (CMAKE_BUILD_TYPE MATCHES 32blit_HW)
+#    add_definitions(-DTARGET_32BLIT_HW=1)
     # remove assert statements
-    add_definitions(-DNDEBUG)
-endif()
+#    add_definitions(-DNDEBUG)
+#endif()
 
 #add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion")
 add_compile_options("-Wextra" "-Wdouble-promotion" "-fexceptions" "-Wattributes" "-Wno-unused-parameter")
