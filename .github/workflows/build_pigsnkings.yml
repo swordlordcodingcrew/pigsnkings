@@ -4,7 +4,10 @@
 # (c) 2021 by SwordLord - the coding crew
 
 name: "Build Pigs n Kings for the 32blit"
-on: [push]
+on:
+  label:
+    types:
+      - created
 
 env:
   BUILD_TYPE: Release
