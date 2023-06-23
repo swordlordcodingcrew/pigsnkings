@@ -279,12 +279,11 @@ static const dang::tmx_spriteobject level_2_alt_lvl_2_mood_objects[] = {
     {565,"door","door",1024,40,46,56,true,"levels_door",0,"",0,0b0000},
     {566,"566","",992,96,32,32,true,"gfx_castle_decorations",9,"",0,0b0000},
     {567,"567","",1024,96,32,32,true,"gfx_castle_decorations",10,"",0,0b0000},
-    {568,"568","",1056,96,32,32,true,"gfx_castle_decorations",11,"",0,0b0000},
-    {574,"574","",1128,208,32,32,true,"gfx_castle_decorations",12,"",0,0b0000}
+    {568,"568","",1056,96,32,32,true,"gfx_castle_decorations",11,"",0,0b0000}
 
 };
 
-static const size_t level_2_alt_lvl_2_mood_objects_len = 137;
+static const size_t level_2_alt_lvl_2_mood_objects_len = 136;
 
 static const dang::tmx_layer level_2_alt_lvl_2_mood = {
     .name = "lvl_2_mood",
@@ -543,12 +542,11 @@ static const dang::tmx_spriteobject level_2_alt_lvl_2_obj_objects[] = {
     {571,"571","gem_blue",992,48,32,48,true,"gfx_items",12,"",0,0b0000},
     {575,"575","hotrect",1056,160,32,34,true,"",0,"",0,0b0000},
     {576,"576","hotrect",1024,192,32,32,true,"",0,"",0,0b0000},
-    {577,"577","hotrect",1128,208,32,16,true,"",0,"",0,0b0000},
     {581,"3","level_trigger",1040,40,16,56,true,"",0,"",0,0b0000}
 
 };
 
-static const size_t level_2_alt_lvl_2_obj_objects_len = 240;
+static const size_t level_2_alt_lvl_2_obj_objects_len = 239;
 
 static const dang::tmx_layer level_2_alt_lvl_2_obj = {
     .name = "lvl_2_obj",
@@ -705,12 +703,9 @@ static const dang::tmx_waypoint level_2_alt_waypoints[] = {
     {547, 912,220, 0x0},
     {562, 368,128, 0x0},
     {563, 592,128, 0x0},
-    {578, 1144,200, 0x0},
-    {579, 1192,216, 0x0},
-    {580, 1096,216, 0x0},
 };
 
-static const size_t level_2_alt_waypoints_len = 77;
+static const size_t level_2_alt_waypoints_len = 74;
 
 static const dang::tmx_waypoint_connection level_2_alt_connections[] = {
     {270, 271, 0x1},
@@ -812,8 +807,8 @@ static const dang::tmx_waypoint_connection level_2_alt_connections[] = {
     {482, 481, 0x1},
     {483, 480, 0x2},
     {484, 419, 0x1},
-    {497, 579, 0x1},
-    {498, 580, 0x1},
+    {497, 498, 0x1},
+    {498, 497, 0x1},
     {499, 562, 0x1},
     {499, 500, 0x2},
     {500, 499, 0x1},
@@ -836,15 +831,9 @@ static const dang::tmx_waypoint_connection level_2_alt_connections[] = {
     {547, 546, 0x1},
     {562, 499, 0x1},
     {563, 501, 0x1},
-    {578, 580, 0x1},
-    {578, 579, 0x1},
-    {579, 497, 0x1},
-    {579, 578, 0x2},
-    {580, 498, 0x1},
-    {580, 578, 0x2},
 };
 
-static const size_t level_2_alt_connections_len = 129;
+static const size_t level_2_alt_connections_len = 123;
 
 // zones
 static const dang::tmx_zone level_2_alt_zones[] = {

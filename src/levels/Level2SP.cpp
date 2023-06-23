@@ -31,7 +31,7 @@ namespace pnk
                 .end()
                 .sequence()
                     .leaf(std::bind(&GSPlay::NTheroInSightH, &gsp, std::placeholders::_1, std::placeholders::_2))
-                    .leaf(PigBoss::NTRunToPOI)
+                    .leaf(PigBoss::NTRun)
                     .leaf(Enemy::NTcheckPathCompleted)
                     .leaf(PigBoss::NTLurk)
                 .end()

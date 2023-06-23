@@ -171,7 +171,6 @@
   <object id="566" gid="106" x="992" y="96" width="32" height="32"/>
   <object id="567" gid="107" x="1024" y="96" width="32" height="32"/>
   <object id="568" gid="108" x="1056" y="96" width="32" height="32"/>
-  <object id="574" gid="109" x="1128" y="208" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="lvl_2_obj" locked="1">
   <object id="1" type="bubble_proto" gid="182" x="512" y="448" width="32" height="32">
@@ -900,7 +899,6 @@
   <object id="571" type="gem_blue" gid="141" x="992" y="48" width="32" height="48"/>
   <object id="575" type="hotrect" x="1056" y="160" width="32" height="34"/>
   <object id="576" type="hotrect" x="1024" y="192" width="32" height="32"/>
-  <object id="577" type="hotrect" x="1128" y="208" width="32" height="16"/>
   <object id="581" name="3" type="level_trigger" x="1040" y="40" width="16" height="56"/>
  </objectgroup>
  <objectgroup id="5" name="lvl_2_fg" locked="1">
@@ -922,7 +920,7 @@
   <object id="536" type="hud_l2" gid="495" x="48" y="4" width="16" height="16"/>
   <object id="537" type="hud_l3" gid="495" x="64" y="4" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="lvl_2_paths" locked="1">
+ <objectgroup id="6" name="lvl_2_paths">
   <object id="270" x="1360" y="440">
    <properties>
     <property name="walk_0" type="object" value="271"/>
@@ -1309,13 +1307,13 @@
   </object>
   <object id="497" name="POI" type="4" x="1232" y="216">
    <properties>
-    <property name="walk_0" type="object" value="579"/>
+    <property name="walk_0" type="object" value="498"/>
    </properties>
    <point/>
   </object>
   <object id="498" name="POI2" type="8" x="1072" y="216">
    <properties>
-    <property name="walk_0" type="object" value="580"/>
+    <property name="walk_0" type="object" value="497"/>
    </properties>
    <point/>
   </object>
@@ -1413,27 +1411,6 @@
   <object id="563" x="592" y="128">
    <properties>
     <property name="walk_0" type="object" value="501"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="578" x="1144" y="200">
-   <properties>
-    <property name="walk_0" type="object" value="580"/>
-    <property name="walk_1" type="object" value="579"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="579" x="1192" y="216">
-   <properties>
-    <property name="jump_0" type="object" value="578"/>
-    <property name="walk_0" type="object" value="497"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="580" x="1096" y="216">
-   <properties>
-    <property name="jump_0" type="object" value="578"/>
-    <property name="walk_0" type="object" value="498"/>
    </properties>
    <point/>
   </object>
