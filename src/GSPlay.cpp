@@ -59,10 +59,8 @@
 #include "rsrc/gfx/castle_tiles.png.h"
 #include "rsrc/gfx/hud_ui.png.h"
 #include "rsrc/level_1.tmx.hpp"
-//#include "rsrc/level_2.tmx.hpp"
-#include "rsrc/level_2_alt.tmx.hpp"
+#include "rsrc/level_2.tmx.hpp"
 #include "rsrc/level_3.tmx.hpp"
-//#include "rsrc/level_4.tmx.hpp"
 #include "rsrc/game_strings.hpp"
 #include "fonts/barcadebrawl.h"
 
@@ -239,7 +237,7 @@ namespace pnk
                 break;
             case 2:
                 _screenplay = std::make_shared<Level2SP>(*this);
-                _tmx = &level_2_alt_level;
+                _tmx = &level_2_level;
                 break;
             case 3:
                 _screenplay = std::make_shared<Level3SP>(*this);
@@ -825,7 +823,7 @@ namespace pnk
             return;
         }
 
-        printf("GSPlay: handleKingHealth. Hero hit health before=%u\n", (uint16_t) _pnk._gamestate.health);
+        printf("GSPlay: handleKingHealth Hero hit health before=%i\n", (int16_t) _pnk._gamestate.health);
 
         // get current health (and yes, we want signed to go below 0!)
         int8_t health = _pnk._gamestate.health;
@@ -840,10 +838,10 @@ namespace pnk
             case ST_FLYING_CANNONBALL:  health -= DAMAGE_FLYING_CANNONBALL; break;
             case ST_CANNON:             health -= DAMAGE_CANNON;            break;
             case ST_EXPLOSION:          health -= DAMAGE_EXPLOSION;         break;
-            case ST_PIG_BOSS:           health -= DAMAGE_FROM_PIGBOSS;           break;
+            case ST_PIG_BOSS:           health -= DAMAGE_FROM_PIGBOSS;      break;
         }
 
-        printf("GSPlay: handleKingHealth new health would be =%u\n", (uint16_t) health);
+        printf("GSPlay: handleKingHealth new health would be =%i\n", (int16_t) health);
 
         if (health <= 0)
         {
@@ -862,7 +860,7 @@ namespace pnk
         }
         _pnk._gamestate.health = health;
 
-        printf("GSPlay: handleKingHealth new health is =%u\n", (uint16_t) _pnk._gamestate.health);
+        printf("GSPlay: handleKingHealth new health is =%i\n", (int16_t) _pnk._gamestate.health);
     }
 
     void GSPlay::handleKingLoosesLife()

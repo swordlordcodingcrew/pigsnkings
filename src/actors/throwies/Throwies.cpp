@@ -84,6 +84,11 @@ namespace pnk
 
     uint8_t  Throwies::getCollisionResponse(const dang::CollisionObject* other) const
     {
+        if (_remove_me)
+        {
+            return dang::CR_NONE;
+        }
+
         const dang::ColSpr* cs_other = static_cast<const dang::ColSpr*>(other);
         if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT)
         {

@@ -1259,7 +1259,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#800000ff" id="7" name="lvl_1_zones" locked="1">
+ <objectgroup color="#800000ff" id="7" name="lvl_1_zones" visible="0" locked="1">
   <object id="642" name="0" x="0" y="512" width="320" height="256"/>
   <object id="643" name="-1" x="16" y="696">
    <point/>

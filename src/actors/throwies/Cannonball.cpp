@@ -74,6 +74,9 @@ namespace pnk
             // King hurt
             tellTheKingWeHitHim();
 
+            // have the animation sequence triggered
+            triggerExplosion();
+
             // me destroys in the next cycle, we need the pointer in this cycle for the event
             _remove_me = true;
         }
@@ -81,6 +84,11 @@ namespace pnk
 
     uint8_t  Cannonball::getCollisionResponse(const dang::CollisionObject* other) const
     {
+        if (_remove_me)
+        {
+            return dang::CR_NONE;
+        }
+
         const dang::ColSpr* cs_other = static_cast<const ColSpr*>(other);
         if (cs_other->typeNum() == ST_KING || cs_other->typeNum() == ST_HOTRECT)
         {
