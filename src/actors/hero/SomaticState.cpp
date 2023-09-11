@@ -246,12 +246,14 @@ namespace pnk
     std::shared_ptr<SomaticState> LifeLostState::update(Hero &hero, uint32_t dt)
     {
         _duration += dt;
-        if (_duration > 3000)
+        if (_duration > 3100)
         {
-//            hero.setPos(_restart_pos);
+            return SomaticState::_normal;
+        }
+        else if (_duration > 3000)
+        {
             std::unique_ptr<PnkEvent> e(new PnkEvent(EF_GAME, ETG_KING_LIFE_LOST_SEQ_ENDED));
             _pnk._dispatcher.queueEvent(std::move(e));
-            return SomaticState::_normal;
         }
 
         return SomaticState::_life_lost;
