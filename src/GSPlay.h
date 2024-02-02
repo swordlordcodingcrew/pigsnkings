@@ -50,7 +50,7 @@ namespace pnk
         bool                    _endScene{false};
 
         // reference to subscriber
-        u_int32_t _sub_ref{0};
+        uint32_t _sub_ref{0};
         void gameEventReceived(dang::Event &e);
 
         void handleKingHealth(PnkEvent& pe);
