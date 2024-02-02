@@ -48,7 +48,7 @@ git submodule foreach git pull origin master
 ```
 
 ## How to build the game
-
+### 32blit-hw
 ```
 mkdir build.stm32
 cd build.stm32
@@ -59,6 +59,28 @@ make
 Upload the resulting pigsnkings.blit file to your 32blit.
 
 Make sure to clean the build.stm32 folder before making if you change the build toolchain.
+
+### Emscripten
+First git clone and prepare emsdk.
+(Further reading: [Emscripten docs](https://emscripten.org/docs/getting_started/downloads.html))
+```
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+git pull
+./emsdk install latest
+./emsdk activate latest
+source ./emsdk_env.sh
+```
+Then cd to pigsnkings and build as follows.
+(Further reading: [32blit readme](https://github.com/32blit/32blit-sdk/blob/master/docs/Emscripten.md))
+```
+mkdir build.em
+cd build.em
+emcmake cmake .. -D32BLIT_DIR="/absolute/path/to/32blit-sdk"
+make
+python3 -m http.server
+```
+Connect to the given address of the server and enjoy.
 
 ## Licence
 SwordLord Pigs n Kings sources and tools are released under the AGPLv3 Licence.
